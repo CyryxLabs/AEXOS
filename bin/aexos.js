@@ -509,19 +509,27 @@ Usage: npx github:CyryxLabs/AEXOS uninstall [options]
 Remove AEXOS from the current project.
 
 Options:
-  --force      Skip confirmation prompt
-  --keep-data  Keep .aexos/ directory (settings and history)
-  --dry-run    Show what would be removed without removing
-  -h, --help   Show this help message
+  --force        Skip confirmation prompt
+  --keep-data    Keep .aexos/ directory (settings and history)
+  --dry-run      Show what would be removed without removing
+  --legacy       Also remove earlier frameworks (AIOX, CYRYX)
+  --legacy-only  Remove ONLY the earlier frameworks, keep AEXOS
+  -h, --help     Show this help message
 
 What gets removed:
-  - .aexos-core/     Framework core files
+  - .aexos-core/    Framework core files
   - docs/stories/   Story files (if created by AEXOS)
   - squads/         Squad definitions
   - .gitignore      AEXOS-added entries only
 
+With --legacy or --legacy-only, also:
+  - .aiox-core/ .cyryx-core/          Earlier framework cores
+  - .claude/commands/AIOX  (+CYRYX)   Stale slash commands
+  - .claude/skills/AIOX    (+CYRYX)   Stale skills
+  - the same under .gemini/ .codex/ .cursor/ and other IDE surfaces
+
 What is preserved (with --keep-data):
-  - .aexos/          Project settings and agent history
+  - .aexos/         Project settings and agent history
 
 Exit Codes:
   0  Uninstall successful
@@ -539,6 +547,9 @@ Examples:
 
   # Uninstall but keep project data
   npx github:CyryxLabs/AEXOS uninstall --keep-data
+
+  # Migrating: drop AIOX/CYRYX but leave AEXOS in place
+  npx github:CyryxLabs/AEXOS uninstall --legacy-only --force
 `);
 }
 
