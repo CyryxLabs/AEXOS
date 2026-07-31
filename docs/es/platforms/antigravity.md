@@ -81,7 +81,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="ruta/a/credenciales.json"
 
 ```bash
 cd tu-proyecto
-npx @anthropic/aexos init
+npx github:CyryxLabs/AEXOS init
 # Selecciona "AntiGravity" cuando se te solicite
 ```
 
@@ -487,7 +487,7 @@ R: Los agentes son personas con experiencia; los flujos de trabajo orquestan acc
 1. Tus agentes en `.aexos-core/` son portables
 2. Inicializa AntiGravity:
    ```bash
-   npx @anthropic/aexos init --ide antigravity
+   npx github:CyryxLabs/AEXOS init --ide antigravity
    ```
 3. Los archivos de flujo de trabajo se generan automáticamente
 

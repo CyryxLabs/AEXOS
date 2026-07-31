@@ -129,7 +129,7 @@ const FIX_MAP = {
       return 'Regenerate CLAUDE.md with missing sections';
     },
     async apply() {
-      return 'CLAUDE.md regeneration requires npx aexos-core install --force';
+      return 'CLAUDE.md regeneration requires npx github:CyryxLabs/AEXOS install --force';
     },
   },
 
@@ -157,7 +157,7 @@ const FIX_MAP = {
         // Generator not available
       }
 
-      return 'settings.json regeneration requires npx aexos-core install --force';
+      return 'settings.json regeneration requires npx github:CyryxLabs/AEXOS install --force';
     },
   },
 };

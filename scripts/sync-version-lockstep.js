@@ -8,7 +8,7 @@
  * root manifest (in the release working tree), so every release was blocked
  * at prepublishOnly with version drift. This script is the missing `prepare`
  * step: it syncs the internal manifest AND the legacy compat wrapper
- * (`compat/aexos-core/`) — version + its `@aexos-squads/core` dependency pin —
+ * (`compat/aexos-core/`) — version + its `@cyryxlabs/aexos` dependency pin —
  * to the target version.
  *
  * Wired into .releaserc.json via @semantic-release/exec:
@@ -67,8 +67,8 @@ function main() {
     compat.version = version;
     compatChanged = true;
   }
-  if (compat.dependencies && compat.dependencies['@aexos-squads/core'] !== version) {
-    compat.dependencies['@aexos-squads/core'] = version;
+  if (compat.dependencies && compat.dependencies['@cyryxlabs/aexos'] !== version) {
+    compat.dependencies['@cyryxlabs/aexos'] = version;
     compatChanged = true;
   }
   if (compatChanged) {

@@ -97,7 +97,7 @@ uname -m
 #### 2. Run Installer
 
 ```bash
-npx @cyryxlabs/cyryx@latest init
+npx github:CyryxLabs/AEXOS init
 ```
 
 **Follow the wizard prompts:**
@@ -114,7 +114,7 @@ which cyryx
 # Expected: /usr/local/bin/cyryx or similar
 
 # Verify version
-cyryx --version
+aexos --version
 
 # Run health check
 cyryx health
@@ -167,7 +167,7 @@ sysctl -n machdep.cpu.brand_string
 #### 2. Run Installer
 
 ```bash
-npx @cyryxlabs/cyryx@latest init
+npx github:CyryxLabs/AEXOS init
 ```
 
 #### 3. Verify Native ARM Execution
@@ -225,7 +225,7 @@ echo $SHELL
 cat ~/.zshrc | grep -i cyryx
 
 # Open new terminal window
-# Run: cyryx --version
+# Run: aexos --version
 # Should work without errors
 ```
 
@@ -240,7 +240,7 @@ cat ~/.bashrc | grep -i cyryx
 # Or check ~/.bash_profile
 
 # Run AEXOS command
-cyryx --version
+aexos --version
 
 # Exit bash
 exit
@@ -251,7 +251,7 @@ exit
 ```bash
 # Close terminal completely
 # Open new terminal
-# Run: cyryx --version
+# Run: aexos --version
 # Should work immediately without sourcing profiles
 ```
 
@@ -451,7 +451,7 @@ pnpm --version
 
 ```bash
 # Time the full installation
-time npx @cyryxlabs/cyryx@latest init
+time npx github:CyryxLabs/AEXOS init
 # Target: < 5 minutes (300 seconds)
 ```
 
@@ -472,9 +472,9 @@ time cyryx health
 
 ```bash
 # Multiple runs for average
-time cyryx --version
-time cyryx --version
-time cyryx --version
+time aexos --version
+time aexos --version
+time aexos --version
 # Should be instant (< 1 second)
 ```
 
@@ -572,11 +572,11 @@ cyryx health
 
 ```bash
 # Interrupt installation (Ctrl+C mid-install)
-npx @cyryxlabs/cyryx@latest init
+npx github:CyryxLabs/AEXOS init
 # Press Ctrl+C after a few seconds
 
 # Re-run installation
-npx @cyryxlabs/cyryx@latest init
+npx github:CyryxLabs/AEXOS init
 # Should detect partial state and resume/cleanup
 ```
 
@@ -621,7 +621,7 @@ node --version  # Should be 18+
 npm ping
 
 # Try with verbose logging
-npx @cyryxlabs/cyryx@latest init --verbose
+npx github:CyryxLabs/AEXOS init --verbose
 ```
 
 #### Command Not Found

@@ -12,14 +12,14 @@ AEXOS (Cyryx) can be installed via NPX for quick setup without global installati
 
 ### Correct Usage
 
-Always run `npx aexos-core install` **from your project directory**:
+Always run `npx github:CyryxLabs/AEXOS install` **from your project directory**:
 
 ```bash
 # Navigate to your project first
 cd /path/to/your/project
 
 # Then run the installer
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ### ⚠️ Common Mistake
@@ -29,11 +29,11 @@ npx aexos-core install
 ```bash
 # ❌ INCORRECT - Will fail with NPX temporary directory error
 cd ~
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 
 # ✅ CORRECT - Navigate to project first
 cd ~/my-project
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ## Why This Matters
@@ -56,7 +56,7 @@ AEXOS from detecting your IDE correctly.
 
 Solution:
   cd /path/to/your/project
-  npx aexos-core install
+  npx github:CyryxLabs/AEXOS install
 
 See: https://aexos-core.dev/docs/npx-install
 ```
@@ -76,7 +76,7 @@ Your project directory should contain:
 ### Step 2: Run Installer
 
 ```bash
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ### Step 3: Follow Interactive Prompts
@@ -109,7 +109,7 @@ Temporary NPX paths:
 - `%TEMP%\npx-[random]\`
 - `%APPDATA%\npm-cache\_npx\`
 
-**Important (issue [#773](https://github.com/CyryxLabs/AEXOS/issues/773)):** on Windows with a **cold npm cache** or slow network, `npx aexos-core install` may fail with `ECOMPROMISED` / `Lock compromised` because npx’s internal lock times out while downloading a large dependency tree. This is **not** a corrupt lockfile in your project.
+**Important (issue [#773](https://github.com/CyryxLabs/AEXOS/issues/773)):** on Windows with a **cold npm cache** or slow network, `npx github:CyryxLabs/AEXOS install` may fail with `ECOMPROMISED` / `Lock compromised` because npx’s internal lock times out while downloading a large dependency tree. This is **not** a corrupt lockfile in your project.
 
 **Recommended on Windows:**
 
@@ -138,7 +138,7 @@ See also: [Installation troubleshooting](./guides/installation-troubleshooting.m
 
 **Solutions:**
 1. Global install then local install: `npm install -g @aexos-squads/core` → `aexos-core install`
-2. Warm cache and retry: `npm cache verify` then `npx aexos-core@latest install`
+2. Warm cache and retry: `npm cache verify` then `npx github:CyryxLabs/AEXOS install`
 3. Clone repo + `npm install` + run `node bin/aexos.js install` from a project directory
 
 ### Error: "NPX Temporary Directory Detected"
@@ -152,7 +152,7 @@ See also: [Installation troubleshooting](./guides/installation-troubleshooting.m
    ```
 2. Re-run the installer:
    ```bash
-   npx aexos-core install
+   npx github:CyryxLabs/AEXOS install
    ```
 
 ### Wrong Installation Directory

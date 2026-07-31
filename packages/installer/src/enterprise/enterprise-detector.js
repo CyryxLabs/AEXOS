@@ -3,6 +3,9 @@
 const path = require('path');
 const fs = require('fs-extra');
 const yaml = require('js-yaml');
+// One shared list of every name the core package has shipped under, so a rename
+// cannot leave this detector recognising only the old one.
+const { CORE_PACKAGE_NAMES } = require('../utils/package-paths');
 
 const IDE_SURFACES = [
   { id: 'claude', path: '.claude' },
@@ -63,7 +66,19 @@ function resolvePackageJson(targetDir, packageName) {
   }
 
   try {
-    return require.resolve(`${packageName}/package.json`, { paths: [targetDir] });
+    const resolved = require.resolve(`${packageName}/package.json`, { paths: [targetDir] });
+
+    // `paths` does not stop Node's self-reference: a process running inside the
+    // package resolves the package's own name from anywhere, so an empty target
+    // directory came back reporting the framework as installed in it. The
+    // question here is whether the package lives under targetDir, so answer
+    // that question instead of trusting the resolver's reach.
+    const inside = path.relative(toAbsolute(targetDir), resolved);
+    if (inside.startsWith('..') || path.isAbsolute(inside)) {
+      return null;
+    }
+
+    return resolved;
   } catch {
     return null;
   }
@@ -98,7 +113,9 @@ function detectCoreInstallation(targetDir = process.cwd()) {
   const manifestPath = path.join(coreDir, '.installed-manifest.yaml');
   const versionJsonPath = path.join(coreDir, 'version.json');
   const rootPackagePath = path.join(root, 'package.json');
-  const corePackagePath = resolvePackageJson(root, '@aexos-squads/core');
+  const corePackagePath = [...CORE_PACKAGE_NAMES]
+    .map((name) => resolvePackageJson(root, name))
+    .find(Boolean) || null;
   const binPath = path.join(root, 'node_modules', '.bin', process.platform === 'win32' ? 'aexos-core.cmd' : 'aexos-core');
 
   const manifest = readYamlIfExists(manifestPath);
@@ -115,7 +132,7 @@ function detectCoreInstallation(targetDir = process.cwd()) {
   if (versionJson) {
     pushMarker(markers, root, 'version-json', versionJsonPath);
   }
-  if (rootPackageJson && rootPackageJson.name === '@aexos-squads/core') {
+  if (rootPackageJson && CORE_PACKAGE_NAMES.has(rootPackageJson.name)) {
     pushMarker(markers, root, 'root-package', rootPackagePath);
   }
   if (packageJson && !packageJson.__readError) {
@@ -156,7 +173,7 @@ function detectCoreInstallation(targetDir = process.cwd()) {
     source,
     version,
     manifestPath: manifest ? toRelativePath(root, manifestPath) : null,
-    rootPackagePath: rootPackageJson && rootPackageJson.name === '@aexos-squads/core'
+    rootPackagePath: rootPackageJson && CORE_PACKAGE_NAMES.has(rootPackageJson.name)
       ? toRelativePath(root, rootPackagePath)
       : null,
     packagePath: packageJson && !packageJson.__readError ? toRelativePath(root, corePackagePath) : null,

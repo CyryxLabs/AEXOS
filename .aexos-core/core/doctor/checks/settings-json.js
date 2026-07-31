@@ -69,7 +69,7 @@ async function run(context) {
       check: name,
       status: 'FAIL',
       message: 'settings.json not found',
-      fixCommand: 'npx aexos-core install --force',
+      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
     };
   }
 
@@ -81,7 +81,7 @@ async function run(context) {
       check: name,
       status: 'FAIL',
       message: 'settings.json is invalid JSON',
-      fixCommand: 'npx aexos-core install --force',
+      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
     };
   }
 

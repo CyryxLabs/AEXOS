@@ -83,7 +83,7 @@ Habilite o modo de agente no VS Code:
 
 ```bash
 cd seu-projeto
-npx @anthropic/aexos init
+npx github:CyryxLabs/AEXOS init
 # Selecione "GitHub Copilot" quando solicitado
 ```
 
@@ -452,7 +452,7 @@ R: Modos de chat são contextos persistentes, enquanto @mentions são referênci
 
 1. Instale AEXOS para Copilot:
    ```bash
-   npx @anthropic/aexos init --ide github-copilot
+   npx github:CyryxLabs/AEXOS init --ide github-copilot
    ```
 
 2. Agentes transformam para modos de chat
@@ -462,7 +462,7 @@ R: Modos de chat são contextos persistentes, enquanto @mentions são referênci
 1. Agentes armazenados em `.aexos-core/` são portáveis
 2. Inicialize para Claude Code:
    ```bash
-   npx @anthropic/aexos init --ide claude-code
+   npx github:CyryxLabs/AEXOS init --ide claude-code
    ```
 
 ---

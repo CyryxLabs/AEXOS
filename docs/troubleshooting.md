@@ -27,16 +27,16 @@ Always start with the built-in diagnostics:
 
 ```bash
 # Basic diagnostic
-npx aexos-core doctor
+npx github:CyryxLabs/AEXOS doctor
 
 # Auto-fix common issues
-npx aexos-core doctor --fix
+npx github:CyryxLabs/AEXOS doctor --fix
 
 # Verbose output
-npx aexos-core doctor --verbose
+npx github:CyryxLabs/AEXOS doctor --verbose
 
 # Check specific component
-npx aexos-core doctor --component memory-layer
+npx github:CyryxLabs/AEXOS doctor --component memory-layer
 ```
 
 ### Common Quick Fixes
@@ -52,7 +52,7 @@ npx aexos-core doctor --component memory-layer
 *config --reset
 
 # Update to latest version
-npx aexos-core update
+npx github:CyryxLabs/AEXOS update
 ```
 
 ## Installation Issues
@@ -104,7 +104,7 @@ source ~/.bashrc
 ```bash
 # Install in user directory
 cd ~
-npx aexos-core init my-project
+npx github:CyryxLabs/AEXOS init my-project
 ```
 
 ### Issue: Node.js version error
@@ -154,7 +154,7 @@ npm cache clean --force
 npm config set fetch-timeout 60000
 
 # Skip dependency installation
-npx aexos-core init my-project --skip-install
+npx github:CyryxLabs/AEXOS init my-project --skip-install
 
 # Then install manually
 cd my-project
@@ -204,11 +204,11 @@ Error: Failed to initialize meta-agent
 ls -la .aexos/config.json
 
 # Validate configuration
-npx aexos-core doctor --component config
+npx github:CyryxLabs/AEXOS doctor --component config
 
 # Reset if corrupted
 rm .aexos/config.json
-npx aexos-core doctor --fix
+npx github:CyryxLabs/AEXOS doctor --fix
 ```
 
 2. **Check dependencies:**
@@ -264,7 +264,7 @@ create-agent my-agent   # ✗ Wrong
 
 # Or restart meta-agent
 exit
-npx aexos-core
+npx github:CyryxLabs/AEXOS
 ```
 
 ### Issue: Agent creation fails
@@ -376,7 +376,7 @@ cat .aexos/memory-config.json
 export NODE_OPTIONS="--max-old-space-size=1024"
 
 # Run with limited memory
-npx aexos-core
+npx github:CyryxLabs/AEXOS
 ```
 
 ### Issue: LlamaIndex errors
@@ -662,7 +662,7 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" `
 
 # Or use shorter paths
 cd C:\
-npx aexos-core init myapp
+npx github:CyryxLabs/AEXOS init myapp
 ```
 
 #### Issue: Scripts disabled
@@ -730,7 +730,7 @@ sudo pacman -S openssl
 ```bash
 # Full debug output
 export DEBUG=cyryx:*
-npx aexos-core
+npx github:CyryxLabs/AEXOS
 
 # Specific components
 export DEBUG=cyryx:memory,cyryx:agent
@@ -753,10 +753,10 @@ grep -i error .aexos/logs/*.log
 
 ```bash
 # Generate full diagnostic
-npx aexos-core doctor --report diagnostic.json
+npx github:CyryxLabs/AEXOS doctor --report diagnostic.json
 
 # Include system info
-npx aexos-core info --detailed >> diagnostic.json
+npx github:CyryxLabs/AEXOS info --detailed >> diagnostic.json
 
 # Create support bundle
 tar -czf aexos-support.tar.gz .aexos/logs diagnostic.json
@@ -798,14 +798,14 @@ tar -czf aexos-support.tar.gz .aexos/logs diagnostic.json
 
 1. **Run diagnostics:**
    ```bash
-   npx aexos-core doctor --verbose > diagnostic.log
+   npx github:CyryxLabs/AEXOS doctor --verbose > diagnostic.log
    ```
 
 2. **Collect information:**
    - Node.js version: `node --version`
    - NPM version: `npm --version`
    - OS and version: `uname -a` or `ver`
-   - AEXOS version: `npx aexos-core version`
+   - AEXOS version: `npx github:CyryxLabs/AEXOS version`
 
 3. **Check existing issues:**
    - [GitHub Issues](https://github.com/aexos-core/aexos-core/issues)
@@ -833,7 +833,7 @@ Create detailed bug reports:
 - AEXOS: 1.0.0
 
 ## Steps to Reproduce
-1. Run `npx aexos-core init test`
+1. Run `npx github:CyryxLabs/AEXOS init test`
 2. Select "enterprise" template
 3. Error occurs during installation
 
@@ -864,7 +864,7 @@ npm cache clean --force
 
 # Fresh install
 npm install
-npx aexos-core doctor --fix
+npx github:CyryxLabs/AEXOS doctor --fix
 
 # Restore data if needed
 cp .aexos.backup/memory.db .aexos/
@@ -873,7 +873,7 @@ cp .aexos.backup/memory.db .aexos/
 ---
 
 **Remember**: Most issues can be resolved with:
-1. `npx aexos-core doctor --fix`
+1. `npx github:CyryxLabs/AEXOS doctor --fix`
 2. Clearing caches
 3. Updating to latest version
 4. Checking permissions

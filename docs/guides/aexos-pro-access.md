@@ -15,7 +15,7 @@ Se o instalador responder que não encontrou acesso para o email, o problema é 
 No projeto onde você quer usar o Pro:
 
 ```bash
-npx -y -p @aexos-squads/core@latest aexos pro setup
+npx github:CyryxLabs/AEXOS pro setup
 ```
 
 O setup guiado oferece dois caminhos:
@@ -28,14 +28,14 @@ Em automação/CI, use variáveis de ambiente:
 ```bash
 export AEXOS_PRO_EMAIL="seu-email@exemplo.com"
 export AEXOS_PRO_PASSWORD="sua-senha"
-npx -y -p @aexos-squads/core@latest aexos pro setup
+npx github:CyryxLabs/AEXOS pro setup
 ```
 
 Ou, para chave legada:
 
 ```bash
 export AEXOS_PRO_KEY="PRO-XXXX-XXXX-XXXX-XXXX"
-npx -y -p @aexos-squads/core@latest aexos pro setup
+npx github:CyryxLabs/AEXOS pro setup
 ```
 
 ## Verificar o acesso
@@ -43,9 +43,9 @@ npx -y -p @aexos-squads/core@latest aexos pro setup
 Depois de instalar:
 
 ```bash
-npx -y -p @aexos-squads/core@latest aexos pro status
-npx -y -p @aexos-squads/core@latest aexos pro features
-npx -y -p @aexos-squads/core@latest aexos pro validate
+npx github:CyryxLabs/AEXOS pro status
+npx github:CyryxLabs/AEXOS pro features
+npx github:CyryxLabs/AEXOS pro validate
 ```
 
 Esses comandos verificam a licença, listam recursos Pro disponíveis e forçam uma revalidação online quando necessário.
@@ -57,7 +57,7 @@ As squads Pro são entregues pelo pacote Pro privado e sincronizadas pelo instal
 Se as squads não aparecerem depois de uma instalação bem-sucedida, rode:
 
 ```bash
-npx -y -p @aexos-squads/core@latest aexos pro update
+npx github:CyryxLabs/AEXOS pro update
 npm run sync:ide
 ```
 
@@ -79,9 +79,9 @@ Se o email comprado não for reconhecido, ou se a conta existir mas a ativação
 ## Erros comuns
 
 - `No AEXOS Pro access found for this email.`: o email ainda não tem entitlement Pro ou foi digitado diferente do cadastro.
-- `AEXOS Pro is not installed.`: rode `npx -y -p @aexos-squads/core@latest aexos pro setup` antes de status/validate.
+- `AEXOS Pro is not installed.`: rode `npx github:CyryxLabs/AEXOS pro setup` antes de status/validate.
 - `Invalid key format`: a chave legada precisa seguir o formato `PRO-XXXX-XXXX-XXXX-XXXX`.
 - Falha em CI sem prompt interativo: defina `AEXOS_PRO_EMAIL` + `AEXOS_PRO_PASSWORD` ou `AEXOS_PRO_KEY`.
-- `Pro activation failed: Installed Pro artifact did not create node_modules/@aexos-squads/pro.`: bug em versões `5.2.5` e anteriores — corrigido a partir de `@aexos-squads/core@5.2.6`. Atualize com `npx -y -p @aexos-squads/core@latest aexos install`. Se persistir, veja [installation-troubleshooting.md → Issue 10](installation-troubleshooting.md#issue-10-pro-activation-failed-installed-pro-artifact-did-not-create-node_modulesaexos-squadspro) para o kit de recuperação completo.
+- `Pro activation failed: Installed Pro artifact did not create node_modules/@aexos-squads/pro.`: bug em versões `5.2.5` e anteriores — corrigido a partir de `@aexos-squads/core@5.2.6`. Atualize com `npx github:CyryxLabs/AEXOS install`. Se persistir, veja [installation-troubleshooting.md → Issue 10](installation-troubleshooting.md#issue-10-pro-activation-failed-installed-pro-artifact-did-not-create-node_modulesaexos-squadspro) para o kit de recuperação completo.
 
 Nunca compartilhe senha, token ou license key completa em issues públicas. Para suporte, envie apenas o email e o sintoma.

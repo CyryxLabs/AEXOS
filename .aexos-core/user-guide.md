@@ -34,7 +34,7 @@ O AEXOS-FullStack oferece instalação simplificada através de um instalador in
 cd /path/to/your/project
 
 # Execute o instalador (versão RC atual)
-npx aexos-core@latest install
+npx github:CyryxLabs/AEXOS install
 
 # OU usando NPM direto (produção - quando disponível)
 npx @cyryx/fullstack install
@@ -88,7 +88,7 @@ cd aexos-core
 npm install
 
 # Execute o instalador no modo desenvolvimento
-npx aexos-core@latest install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ### Estrutura Pós-Instalação
@@ -131,10 +131,10 @@ Se você já tem AEXOS instalado e quer fazer upgrade:
 
 ```bash
 # Upgrade automático (RC.9+)
-npx aexos-core@latest install --force-upgrade
+npx github:CyryxLabs/AEXOS install --force-upgrade
 
 # OU interativo (todos os RCs)
-npx aexos-core@latest install
+npx github:CyryxLabs/AEXOS install
 # → Menu aparece:
 #   1. Keep current version (v1.0.0-rc.8)
 #   2. Upgrade AEXOS core (v1.0.0-rc.8 → v1.0.0-rc.10)
@@ -150,14 +150,14 @@ npm view aexos-core@latest version
 # Output: 1.0.0-rc.10
 
 # Ver opções de instalação e comandos disponíveis
-npx aexos-core@latest --help
+npx github:CyryxLabs/AEXOS --help
 
 # Ver squads instalados
 # Use o wizard de instalação para selecionar/visualizar squads disponíveis
-npx aexos-core@latest install
+npx github:CyryxLabs/AEXOS install
 
 # Ajuda do instalador
-npx aexos-core@latest install --help
+npx github:CyryxLabs/AEXOS install --help
 ```
 
 ### 🚀 Futuro: Modo de Instalação Explícito (Story 3.14)
@@ -201,7 +201,7 @@ npx aexos init
 npm cache clean --force
 
 # Usar versão específica
-npx aexos-core@1.0.0-rc.10 install --force-upgrade
+npx github:CyryxLabs/AEXOS-rc.10 install --force-upgrade
 ```
 
 **Problema**: Agents/tasks não instalados
@@ -210,7 +210,7 @@ npx aexos-core@1.0.0-rc.10 install --force-upgrade
 
 **Solução**: Usar RC.8 ou superior
 ```bash
-npx aexos-core@latest install
+npx github:CyryxLabs/AEXOS install
 ```
 
 **Problema**: Versão GitHub (4.31.1) detectada como mais nova que RC
@@ -219,7 +219,7 @@ npx aexos-core@latest install
 
 **Solução**: Escolher "Upgrade" ou usar `--force-upgrade`
 ```bash
-npx aexos-core@latest install --force-upgrade
+npx github:CyryxLabs/AEXOS install --force-upgrade
 # Migra de v4.31.1 para v1.0.0-rc.10 (novo scheme)
 ```
 
@@ -1289,7 +1289,7 @@ O AEXOS (Cyryx) suporta squads para domínios específicos:
 **Configurar squads na instalação**:
 ```bash
 # Durante a instalação, o wizard pergunta quais squads instalar
-npx aexos-core@latest install
+npx github:CyryxLabs/AEXOS install
 
 # O wizard mostra:
 # 📦 Select Squads to Install:
@@ -1302,7 +1302,7 @@ npx aexos-core@latest install
 **Adicionar squads depois**:
 ```bash
 # Re-execute o instalador
-npx aexos-core@latest install
+npx github:CyryxLabs/AEXOS install
 
 # Escolha "Configure IDE settings" ou "Upgrade"
 # Wizard permitirá adicionar squads não instalados

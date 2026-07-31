@@ -1,34 +1,33 @@
-# AEXOS - Agentic eXecution & Orchestration System
+# AEXOS — Extended Reference
 
 <p align="center">
-  <img src=".github/assets/aexos_banner.png" alt="AEXOS — Agentic eXecution & Orchestration System by Cyryx Labs" width="100%" />
+  <img src=".github/assets/aexos-banner.svg" alt="AEXOS — Agentic eXecution &amp; Orchestration System, by Cyryx Labs" width="100%" />
 </p>
 
-> 🌍 **[English](README.en.md)** | [Português](README.md)
+> **This is the long-form reference.** The canonical README — the one GitHub shows on the
+> repository home page — is **[README.md](README.md)**. Start there. This file goes deeper on the
+> CLI surface, the installer wizard and the autonomous engine.
 
-[![NPM Version](https://img.shields.io/npm/v/@aexos-squads/core.svg)](https://www.npmjs.com/package/@aexos-squads/core)
-[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
-[![CI](https://github.com/CyryxLabs/AEXOS/actions/workflows/ci.yml/badge.svg)](https://github.com/CyryxLabs/AEXOS/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/CyryxLabs/AEXOS/branch/main/graph/badge.svg)](https://codecov.io/gh/CyryxLabs/AEXOS)
-[![Documentation](https://img.shields.io/badge/docs-available-orange.svg)](https://cyryxsquad.ai)
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Code of Conduct](https://img.shields.io/badge/code%20of%20conduct-Contributor%20Covenant-blue.svg)](CODE_OF_CONDUCT.md)
+[![Version](https://img.shields.io/badge/version-5.3.0-19C7C0?style=flat-square&labelColor=11161A)](package.json)
+[![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-8C949E?style=flat-square&labelColor=11161A)](https://nodejs.org/)
+[![Licence](https://img.shields.io/badge/licence-Proprietary-8C949E?style=flat-square&labelColor=11161A)](LICENSE)
+[![Contributing](https://img.shields.io/badge/contributions-guide-0F6B68?style=flat-square&labelColor=11161A)](CONTRIBUTING.md)
+[![Code of Conduct](https://img.shields.io/badge/code%20of%20conduct-Contributor%20Covenant-8C949E?style=flat-square&labelColor=11161A)](CODE_OF_CONDUCT.md)
 
-> **Giving people back the power to create** — Open source AI orchestration framework that gives control back to those who dare to build. Specialized agents, workflows, and CLI First experience for any domain.
+> **Giving people back the power to create** — an AI orchestration framework that gives control back to those who dare to build. Specialized agents, workflows, and a CLI First experience for any domain.
 
 ## Start Here (10 Min)
 
-If this is your first time with CYRYX, follow this linear path:
+If this is your first time with AEXOS, follow this linear path:
 
 1. Install in a new or existing project:
 ```bash
 # new project
-npx aexos-core init my-project
+npx github:CyryxLabs/AEXOS init my-project
 
 # existing project
 cd your-project
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 2. Choose your IDE/CLI and the activation path:
 - Claude Code: `/agent-name`
@@ -41,9 +40,9 @@ npx aexos-core install
 First-value definition (binary): agent activation + valid greeting + initial command with useful output in <= 10 minutes.
 
 
-## IDE Hook Compatibility (CYRYX 4.2 Reality)
+## IDE Hook Compatibility
 
-Many advanced CYRYX features depend on lifecycle events (hooks). The table below shows the actual parity between IDEs/platforms:
+Many advanced AEXOS features depend on lifecycle events (hooks). The table below shows the actual parity between IDEs/platforms:
 
 | IDE/CLI | Hook Parity vs Claude | Practical Impact |
 | --- | --- | --- |
@@ -60,7 +59,7 @@ Detailed impacts and mitigation: `docs/ide-integration.md`.
 
 ### Architectural Premise: CLI First
 
-CYRYX follows a clear priority hierarchy:
+AEXOS follows a clear priority hierarchy:
 
 ```text
 CLI First → Observability Second → UI Third
@@ -81,7 +80,7 @@ CLI First → Observability Second → UI Third
 
 ---
 
-**The Two Key Innovations of CYRYX:**
+**The Two Key Innovations of AEXOS:**
 
 **1. Agentic Planning:** Dedicated agents (analyst, pm, architect) collaborate with you to create detailed, consistent PRD and Architecture documents. Through advanced prompt engineering and human-in-the-loop refinement, these planning agents produce comprehensive specifications that go far beyond generic AI task generation.
 
@@ -109,32 +108,32 @@ This two-phase approach eliminates both **planning inconsistency** and **context
 
 ## Quick Navigation
 
-### Understanding the CYRYX Workflow
+### Understanding the AEXOS Workflow
 
-**Before diving in, review these critical workflow diagrams that explain how CYRYX works:**
+**Before diving in, review these critical workflow diagrams that explain how AEXOS works:**
 
 1. **[Planning Workflow (Web Interface)](docs/guides/user-guide.md#the-planning-workflow-web-ui)** - How to create PRD and Architecture documents
 2. **[Core Development Cycle (IDE)](docs/guides/user-guide.md#the-core-development-cycle-ide)** - How the sm, dev, and qa agents collaborate through story files
 
-> ⚠️ **These diagrams explain 90% of the confusion about the CYRYX Agentic Agile workflow** - Understanding PRD+Architecture creation and the sm/dev/qa workflow and how agents pass notes through story files is essential - and it also explains why this is NOT taskmaster or just a simple task runner!
+> ⚠️ **These diagrams explain 90% of the confusion about the AEXOS Agentic Agile workflow** - Understanding PRD+Architecture creation and the sm/dev/qa workflow and how agents pass notes through story files is essential - and it also explains why this is NOT taskmaster or just a simple task runner!
 
 ### What would you like to do?
 
 - **[Install and Build software with a Full Stack AI Agile Team](#quick-start)** → Quick Start Instructions
-- **[Learn how to use CYRYX](docs/guides/user-guide.md)** → Complete user guide and walkthrough
+- **[Learn how to use AEXOS](docs/guides/user-guide.md)** → Complete user guide and walkthrough
 - **[See available AI agents](#available-agents)** → Specialized roles for your team
 - **[Explore non-technical uses](#-beyond-software-development---squads)** → Creative writing, business, wellness, education
 - **[Create my own AI agents](#creating-your-own-squad)** → Build agents for your domain
 - **[Browse ready-made Squads](docs/guides/squads-overview.md)** → See how to create and use AI agent teams
-- **[Understand the architecture](docs/architecture/ARCHITECTURE-INDEX.md)** → Deep technical dive
+- **[Understand the architecture](docs/architecture/orchestration-hierarchy.md)** → Deep technical dive
 - **[Report issues](https://github.com/CyryxLabs/AEXOS/issues)** → Bug reports and feature requests
 
-## Important: Keep Your CYRYX Installation Updated
+## Important: Keep Your AEXOS Installation Updated
 
-**Stay up to date effortlessly!** To update your existing CYRYX installation:
+**Stay up to date effortlessly!** To update your existing AEXOS installation:
 
 ```bash
-npx aexos-core@latest install
+npx github:CyryxLabs/AEXOS install
 ```
 
 This will:
@@ -150,23 +149,23 @@ This makes it easy to benefit from the latest improvements, bug fixes, and new a
 
 ### 🚀 Installation via NPX (Recommended)
 
-**Install CYRYX with a single command:**
+**Install AEXOS with a single command:**
 
 ```bash
 # Create a new project with modern interactive wizard
-npx aexos-core init my-project
+npx github:CyryxLabs/AEXOS init my-project
 
 # Or install in an existing project
 cd your-project
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 
 # Or use a specific version
-npx aexos-core@latest init my-project
+npx github:CyryxLabs/AEXOS init my-project
 ```
 
 ### ✨ Modern Installation Wizard
 
-CYRYX now includes a cutting-edge interactive installation experience, inspired by modern tools like Vite and Next.js:
+AEXOS now includes a cutting-edge interactive installation experience, inspired by modern tools like Vite and Next.js:
 
 **Interactive Installer Features:**
 
@@ -184,7 +183,7 @@ CYRYX now includes a cutting-edge interactive installation experience, inspired 
 - ✅ Download of the latest version from NPM
 - ✅ Modern interactive installation wizard
 - ✅ Automatic IDE configuration (Codex CLI, Cursor, or Claude Code)
-- ✅ Configuration of all CYRYX agents and workflows
+- ✅ Configuration of all AEXOS agents and workflows
 - ✅ Creation of necessary configuration files
 - ✅ Meta-agent system initialization
 - ✅ System health checks
@@ -196,16 +195,16 @@ CYRYX now includes a cutting-edge interactive installation experience, inspired 
 
 ### Updating an Existing Installation
 
-If you already have CYRYX installed:
+If you already have AEXOS installed:
 
 ```bash
-npx aexos-core@latest install
+npx github:CyryxLabs/AEXOS install
 # The installer will detect your existing installation and update it
 ```
 
-### Configure Your IDE for CYRYX Development
+### Configure Your IDE for AEXOS Development
 
-CYRYX includes pre-configured IDE rules to enhance your development experience:
+AEXOS includes pre-configured IDE rules to enhance your development experience:
 
 #### For Cursor:
 
@@ -222,7 +221,7 @@ CYRYX includes pre-configured IDE rules to enhance your development experience:
 
 #### For Codex CLI:
 
-- ✅ First-class integration in CYRYX 4.2 (shared activation and greeting pipeline)
+- ✅ First-class integration in AEXOS (shared activation and greeting pipeline)
 - ✅ Already configured! The `AGENTS.md` file at the root is loaded automatically
 - Optional: sync auxiliary agents with `npm run sync:ide:codex`
 - Recommended in this repository: generate and version local skills with `npm run sync:skills:codex`
@@ -245,43 +244,43 @@ These rules provide:
 - 📋 Story-driven development workflow
 - ✅ Automatic checkbox tracking
 - 🧪 Testing and validation patterns
-- 📝 CYRYX-specific code patterns
+- 📝 AEXOS-specific code patterns
 
 ### Fastest Start with Web Interface (2 minutes)
 
-1. **Install CYRYX**: Run `npx aexos-core init my-project`
+1. **Install AEXOS**: Run `npx github:CyryxLabs/AEXOS init my-project`
 2. **Configure your IDE**: Follow the setup instructions for Codex CLI, Cursor, or Claude Code
 3. **Start Planning**: Activate an agent like `@analyst` to begin creating your briefing
-4. **Use CYRYX commands**: Type `*help` to see available commands
+4. **Use AEXOS commands**: Type `*help` to see available commands
 5. **Follow the flow**: See the [User Guide](docs/guides/user-guide.md) for more details
 
 ### CLI Command Reference
 
-CYRYX offers a modern, cross-platform CLI with intuitive commands:
+AEXOS offers a modern, cross-platform CLI with intuitive commands:
 
 ```bash
 # Project Management (with interactive wizard)
-npx aexos-core init <project-name> [options]
+npx github:CyryxLabs/AEXOS init <project-name> [options]
   --force              Force creation in non-empty directory
   --skip-install       Skip npm dependency installation
   --template <name>    Use specific template (default, minimal, enterprise)
 
 # Installation and Configuration (with modern prompts)
-npx aexos-core install [options]
+npx github:CyryxLabs/AEXOS install [options]
   --force              Overwrite existing configuration
   --quiet              Minimal output during installation
   --dry-run            Simulate installation without modifying files
 
 # System Commands
-npx aexos-core --version   Display installed version
-npx aexos-core --help      Display detailed help
-npx aexos-core info        Display system information
-npx aexos-core doctor      Run system diagnostics
-npx aexos-core doctor --fix Automatically fix detected issues
+npx github:CyryxLabs/AEXOS --version   Display installed version
+npx github:CyryxLabs/AEXOS --help      Display detailed help
+npx github:CyryxLabs/AEXOS info        Display system information
+npx github:CyryxLabs/AEXOS doctor      Run system diagnostics
+npx github:CyryxLabs/AEXOS doctor --fix Automatically fix detected issues
 
 # Maintenance
-npx aexos-core update      Update to latest version
-npx aexos-core uninstall   Remove CYRYX
+npx github:CyryxLabs/AEXOS update      Update to latest version
+npx github:CyryxLabs/AEXOS uninstall   Remove AEXOS
 ```
 
 **CLI Features:**
@@ -297,9 +296,9 @@ npx aexos-core uninstall   Remove CYRYX
 #### Full Interactive Installation
 
 ```bash
-$ npx aexos-core install
+$ npx github:CyryxLabs/AEXOS install
 
-🚀 CYRYX Installation
+🚀 AEXOS Installation
 
 ◆ What is your project name?
 │  my-awesome-project
@@ -343,15 +342,15 @@ Next steps:
 
 ```bash
 # Automated installation without prompts
-$ npx aexos-core install --quiet --force
-✔ CYRYX installed successfully
+$ npx github:CyryxLabs/AEXOS install --quiet --force
+✔ AEXOS installed successfully
 ```
 
 #### Installation Simulation (Dry-Run)
 
 ```bash
 # Test installation without modifying files
-$ npx aexos-core install --dry-run
+$ npx github:CyryxLabs/AEXOS install --dry-run
 
 [DRY RUN] Would create: ./my-project/
 [DRY RUN] Would copy: .aexos-core/ (45 files)
@@ -363,15 +362,15 @@ $ npx aexos-core install --dry-run
 #### System Diagnostics
 
 ```bash
-$ npx aexos-core doctor
+$ npx github:CyryxLabs/AEXOS doctor
 
-🏥 CYRYX System Diagnostics
+🏥 AEXOS System Diagnostics
 
 ✔ Node.js version: v20.10.0 (meets requirement: >=18.0.0)
 ✔ npm version: 10.2.3
 ✔ Git installed: version 2.43.0
 ✔ GitHub CLI: gh 2.40.1
-✔ CYRYX: v4.2.11
+✔ AEXOS: v5.3.0
 
 Configuration:
 ✔ .aexos-core/ directory exists
@@ -392,19 +391,19 @@ Dependencies:
 #### Get Help
 
 ```bash
-$ npx aexos-core --help
+$ npx github:CyryxLabs/AEXOS --help
 
 Usage: aexos-core [options] [command]
 
-CYRYX: AI-Orchestrated System for Full Stack Development
+AEXOS: AI-Orchestrated System for Full Stack Development
 
 Options:
   -V, --version                output the version number
   -h, --help                   display help for command
 
 Commands:
-  init <project-name>          Create new CYRYX project with interactive wizard
-  install [options]            Install CYRYX in current directory
+  init <project-name>          Create new AEXOS project with interactive wizard
+  install [options]            Install AEXOS in current directory
   info                         Display system information
   doctor [options]             Run system diagnostics and health checks
   help [command]               display help for command
@@ -433,22 +432,22 @@ npm run install:cyryx
 For team members joining the project:
 
 ```bash
-# Install CYRYX in the project
-npx aexos-core@latest install
+# Install AEXOS in the project
+npx github:CyryxLabs/AEXOS install
 
 # This will:
 # 1. Detect existing installation (if any)
-# 2. Install/update CYRYX framework
+# 2. Install/update AEXOS framework
 # 3. Configure agents and workflows
 ```
 
 ## 🌟 Beyond Software Development - Squads
 
-The CYRYX natural language framework works in ANY domain. Squads provide specialized AI agents for creative writing, business strategy, health and wellness, education, and more. Additionally, Squads can expand the CYRYX core with domain-specific functionality that isn't generic for all use cases. [See the Squads Guide](docs/guides/squads-guide.md) and learn to create your own!
+The AEXOS natural language framework works in ANY domain. Squads provide specialized AI agents for creative writing, business strategy, health and wellness, education, and more. Additionally, Squads can expand the AEXOS core with domain-specific functionality that isn't generic for all use cases. [See the Squads Guide](docs/guides/squads-guide.md) and learn to create your own!
 
 ## Available Agents
 
-CYRYX comes with 12 specialized agents:
+AEXOS comes with 12 specialized agents:
 
 ### Meta Agents
 
@@ -476,24 +475,22 @@ CYRYX comes with 12 specialized agents:
 ### Essential Guides
 
 - 📖 **[User Guide](docs/guides/user-guide.md)** - Complete walkthrough from conception to project completion
-- 🏗️ **[Core Architecture](docs/architecture/ARCHITECTURE-INDEX.md)** - Deep technical dive and system design
-- 🚀 **[Squads Guide](docs/guides/squads-guide.md)** - Extend CYRYX to any domain beyond software development
+- 🏗️ **[Core Architecture](docs/architecture/orchestration-hierarchy.md)** - Deep technical dive and system design
+- 🚀 **[Squads Guide](docs/guides/squads-guide.md)** - Extend AEXOS to any domain beyond software development
 
 ### Additional Documentation
 
 - 🤖 **[Squads Guide](docs/guides/squads-guide.md)** - Create and publish AI agent teams
 - 📋 **[Getting Started](docs/getting-started.md)** - Step-by-step tutorial for beginners
 - 🔧 **[Troubleshooting](docs/troubleshooting.md)** - Solutions for common issues
-- 🎯 **[Guiding Principles](docs/GUIDING-PRINCIPLES.md)** - CYRYX philosophy and best practices
-- 🏛️ **[Architecture Overview](docs/architecture/ARCHITECTURE-INDEX.md)** - Detailed view of system architecture
-- ⚙️ **[Performance Tuning Guide](docs/performance-tuning-guide.md)** - Optimize your CYRYX workflow
+- 🎯 **[Guiding Principles](docs/GUIDING-PRINCIPLES.md)** - AEXOS philosophy and best practices
+- 🏛️ **[Architecture Overview](docs/architecture/orchestration-hierarchy.md)** - Detailed view of system architecture
 - 🔒 **[Security Best Practices](docs/security-best-practices.md)** - Security and data protection
-- 🔄 **[Migration Guide](docs/migration-guide.md)** - Migration from previous versions
 - 📦 **[Versioning and Releases](docs/versioning-and-releases.md)** - Versioning policy
 
-## 🤖 CYRYX Autonomous Development Engine (ADE)
+## 🤖 AEXOS Autonomous Development Engine (ADE)
 
-CYRYX introduces the **Autonomous Development Engine (ADE)** - a complete system for autonomous development that transforms requirements into working code.
+AEXOS introduces the **Autonomous Development Engine (ADE)** - a complete system for autonomous development that transforms requirements into working code.
 
 ### 🎯 What is ADE?
 
@@ -541,14 +538,7 @@ User Request → Spec Pipeline → Execution Engine → QA Review → Working Co
 ### 📖 ADE Documentation
 
 - **[Complete ADE Guide](docs/guides/ade-guide.md)** - Step-by-step tutorial
-- **[Agent Changes](docs/architecture/ADE-AGENT-CHANGES.md)** - Commands and capabilities per agent
-- **[Epic 1 - Worktree Manager](docs/architecture/ADE-EPIC1-HANDOFF.md)**
-- **[Epic 2 - Migration V2→V3](docs/architecture/ADE-EPIC2-HANDOFF.md)**
-- **[Epic 3 - Spec Pipeline](docs/architecture/ADE-EPIC3-HANDOFF.md)**
-- **[Epic 4 - Execution Engine](docs/architecture/ADE-EPIC4-HANDOFF.md)**
-- **[Epic 5 - Recovery System](docs/architecture/ADE-EPIC5-HANDOFF.md)**
-- **[Epic 6 - QA Evolution](docs/architecture/ADE-EPIC6-HANDOFF.md)**
-- **[Epic 7 - Memory Layer](docs/architecture/ADE-EPIC7-HANDOFF.md)**
+- **[Orchestration Hierarchy](docs/architecture/orchestration-hierarchy.md)** - How the layers delegate
 
 ### 🆕 New Commands per Agent
 
@@ -579,7 +569,7 @@ User Request → Spec Pipeline → Execution Engine → QA Review → Working Co
 
 ## Creating Your Own Squad
 
-Squads allow you to extend CYRYX to any domain. Basic structure:
+Squads allow you to extend AEXOS to any domain. Basic structure:
 
 ```text
 squads/your-squad/
@@ -603,11 +593,11 @@ Squads are modular AI agent teams. See the [Squads Overview](docs/guides/squads-
 
 - **[hybrid-ops](https://github.com/CyryxLabs/aexos-hybrid-ops-pedro-valerio)** - Human-agent hybrid operations (separate repository)
 
-## CYRYX Pro
+## AEXOS Pro
 
-**CYRYX Pro** is the premium module of CYRYX, offering advanced features for teams and larger-scale projects.
+**AEXOS Pro** is the premium module of AEXOS, offering advanced features for teams and larger-scale projects.
 
-> **Restricted availability:** CYRYX Pro is available exclusively to members of the **CYRYX Cohort Advanced**. [Learn more about the program](https://cyryxsquad.ai).
+> **Restricted availability:** AEXOS Pro is available exclusively to members of the **AEXOS Cohort Advanced**. [Pro access guide](docs/guides/aexos-pro-access.md).
 
 ### Installation
 
@@ -624,7 +614,7 @@ npx aexos-pro install
 - **Layered Configuration** - L1-L4 configuration system with inheritance
 - **Licensing** - License management via `aexos pro activate --key <KEY>`
 
-For more information, run `npx aexos-core pro --help` after installation.
+For more information, run `npx github:CyryxLabs/AEXOS pro --help` after installation.
 
 ## Support
 
@@ -636,7 +626,7 @@ For more information, run `npx aexos-core pro --help` after installation.
 
 ## Git Workflow and Validation
 
-CYRYX implements a multi-layer validation system to ensure code quality and consistency:
+AEXOS implements a multi-layer validation system to ensure code quality and consistency:
 
 ### 🛡️ Defense in Depth - 3 Validation Layers
 
@@ -674,7 +664,7 @@ npm run typecheck      # TypeScript
 npm test              # Tests
 npm run test:coverage # Tests with coverage
 
-# CYRYX Validator
+# AEXOS Validator
 node .aexos-core/utils/aexos-validator.js pre-commit   # Pre-commit validation
 node .aexos-core/utils/aexos-validator.js pre-push     # Pre-push validation
 node .aexos-core/utils/aexos-validator.js stories      # Validate all stories

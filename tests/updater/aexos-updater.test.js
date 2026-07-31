@@ -83,7 +83,7 @@ describe('AEXOSUpdater', () => {
       await fs.writeJson(
         path.join(tempDir, 'node_modules', '@aexos-squads', 'core', 'package.json'),
         {
-          name: '@aexos-squads/core',
+          name: '@cyryxlabs/aexos',
           version: '5.1.0',
         },
       );

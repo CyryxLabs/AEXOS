@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 440" width="1280" height="440" role="img" aria-label="AEXOS — Agentic eXecution and Orchestration System, by Cyryx Labs">
+  <title>AEXOS — Agentic eXecution &amp; Orchestration System</title>
+
+  <defs>
+    <linearGradient id="ground" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#0B1013" />
+      <stop offset="1" stop-color="#000304" />
+    </linearGradient>
+    <radialGradient id="wash" cx="0.5" cy="0.4" r="0.62">
+      <stop offset="0" stop-color="#19C7C0" stop-opacity="0.1" />
+      <stop offset="0.55" stop-color="#19C7C0" stop-opacity="0.035" />
+      <stop offset="1" stop-color="#19C7C0" stop-opacity="0" />
+    </radialGradient>
+    <!-- Stands in for box-shadow 0 0 12px rgba(25,199,192,.72): a blur is not
+         available without a filter element, so the halo is a gradient instead. -->
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#19C7C0" stop-opacity="0.34" />
+      <stop offset="0.45" stop-color="#19C7C0" stop-opacity="0.14" />
+      <stop offset="1" stop-color="#19C7C0" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F7F9FA" />
+      <stop offset="0.28" stop-color="#E2E5E7" />
+      <stop offset="0.52" stop-color="#A7ABAE" />
+      <stop offset="0.72" stop-color="#CED1D4" />
+      <stop offset="1" stop-color="#F0F2F4" />
+    </linearGradient>
+    <linearGradient id="hairline" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#19C7C0" stop-opacity="0" />
+      <stop offset="0.5" stop-color="#19C7C0" stop-opacity="0.75" />
+      <stop offset="1" stop-color="#19C7C0" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="440" fill="url(#ground)" />
+  <rect width="1280" height="440" fill="url(#wash)" />
+
+  <!-- Instrument frame: the same enclosure the TUI draws its hero panel with. -->
+  <rect x="36.5" y="36.5" width="1207" height="367" fill="none" stroke="#1B2227" stroke-width="1" />
+  <g fill="none" stroke="#19C7C0" stroke-width="2.5" stroke-linecap="square">
+    <path d="M36,84 L36,36 L84,36" />
+    <path d="M1196,36 L1244,36 L1244,84" />
+    <path d="M36,356 L36,404 L84,404" />
+    <path d="M1244,356 L1244,404 L1196,404" />
+  </g>
+
+  <!-- Ruler edge: machined, not decorative — it gives the frame a scale. -->
+  <g stroke-width="1">
+      <path d="M60,385 L60,396" stroke="#28323A" />
+      <path d="M76,391 L76,396" stroke="#1B2227" />
+      <path d="M92,391 L92,396" stroke="#1B2227" />
+      <path d="M108,391 L108,396" stroke="#1B2227" />
+      <path d="M124,391 L124,396" stroke="#1B2227" />
+      <path d="M140,385 L140,396" stroke="#28323A" />
+      <path d="M156,391 L156,396" stroke="#1B2227" />
+      <path d="M172,391 L172,396" stroke="#1B2227" />
+      <path d="M188,391 L188,396" stroke="#1B2227" />
+      <path d="M204,391 L204,396" stroke="#1B2227" />
+      <path d="M220,385 L220,396" stroke="#28323A" />
+      <path d="M236,391 L236,396" stroke="#1B2227" />
+      <path d="M252,391 L252,396" stroke="#1B2227" />
+      <path d="M268,391 L268,396" stroke="#1B2227" />
+      <path d="M284,391 L284,396" stroke="#1B2227" />
+      <path d="M300,385 L300,396" stroke="#28323A" />
+      <path d="M316,391 L316,396" stroke="#1B2227" />
+      <path d="M332,391 L332,396" stroke="#1B2227" />
+      <path d="M348,391 L348,396" stroke="#1B2227" />
+      <path d="M364,391 L364,396" stroke="#1B2227" />
+      <path d="M380,385 L380,396" stroke="#28323A" />
+      <path d="M396,391 L396,396" stroke="#1B2227" />
+      <path d="M412,391 L412,396" stroke="#1B2227" />
+      <path d="M428,391 L428,396" stroke="#1B2227" />
+      <path d="M444,391 L444,396" stroke="#1B2227" />
+      <path d="M460,385 L460,396" stroke="#28323A" />
+      <path d="M476,391 L476,396" stroke="#1B2227" />
+      <path d="M492,391 L492,396" stroke="#1B2227" />
+      <path d="M508,391 L508,396" stroke="#1B2227" />
+      <path d="M524,391 L524,396" stroke="#1B2227" />
+      <path d="M540,385 L540,396" stroke="#28323A" />
+      <path d="M556,391 L556,396" stroke="#1B2227" />
+      <path d="M572,391 L572,396" stroke="#1B2227" />
+      <path d="M588,391 L588,396" stroke="#1B2227" />
+      <path d="M604,391 L604,396" stroke="#1B2227" />
+      <path d="M620,385 L620,396" stroke="#28323A" />
+      <path d="M636,391 L636,396" stroke="#1B2227" />
+      <path d="M652,391 L652,396" stroke="#1B2227" />
+      <path d="M668,391 L668,396" stroke="#1B2227" />
+      <path d="M684,391 L684,396" stroke="#1B2227" />
+      <path d="M700,385 L700,396" stroke="#28323A" />
+      <path d="M716,391 L716,396" stroke="#1B2227" />
+      <path d="M732,391 L732,396" stroke="#1B2227" />
+      <path d="M748,391 L748,396" stroke="#1B2227" />
+      <path d="M764,391 L764,396" stroke="#1B2227" />
+      <path d="M780,385 L780,396" stroke="#28323A" />
+      <path d="M796,391 L796,396" stroke="#1B2227" />
+      <path d="M812,391 L812,396" stroke="#1B2227" />
+      <path d="M828,391 L828,396" stroke="#1B2227" />
+      <path d="M844,391 L844,396" stroke="#1B2227" />
+      <path d="M860,385 L860,396" stroke="#28323A" />
+      <path d="M876,391 L876,396" stroke="#1B2227" />
+      <path d="M892,391 L892,396" stroke="#1B2227" />
+      <path d="M908,391 L908,396" stroke="#1B2227" />
+      <path d="M924,391 L924,396" stroke="#1B2227" />
+      <path d="M940,385 L940,396" stroke="#28323A" />
+      <path d="M956,391 L956,396" stroke="#1B2227" />
+      <path d="M972,391 L972,396" stroke="#1B2227" />
+      <path d="M988,391 L988,396" stroke="#1B2227" />
+      <path d="M1004,391 L1004,396" stroke="#1B2227" />
+      <path d="M1020,385 L1020,396" stroke="#28323A" />
+      <path d="M1036,391 L1036,396" stroke="#1B2227" />
+      <path d="M1052,391 L1052,396" stroke="#1B2227" />
+      <path d="M1068,391 L1068,396" stroke="#1B2227" />
+      <path d="M1084,391 L1084,396" stroke="#1B2227" />
+      <path d="M1100,385 L1100,396" stroke="#28323A" />
+      <path d="M1116,391 L1116,396" stroke="#1B2227" />
+      <path d="M1132,391 L1132,396" stroke="#1B2227" />
+      <path d="M1148,391 L1148,396" stroke="#1B2227" />
+      <path d="M1164,391 L1164,396" stroke="#1B2227" />
+      <path d="M1180,385 L1180,396" stroke="#28323A" />
+      <path d="M1196,391 L1196,396" stroke="#1B2227" />
+      <path d="M1212,391 L1212,396" stroke="#1B2227" />
+  </g>
+
+  <!-- Teal glow behind the metal, then the mark itself. -->
+  <ellipse cx="640" cy="196" rx="470" ry="160" fill="url(#halo)" />
+  <g transform="translate(292,94) scale(1.2)">
+    <g fill="#080C0F" fill-rule="evenodd" transform="translate(0,8)">
+        <path transform="translate(0,0)" d="M34,20 L70,20 L104,140 L74,140 L69.47,124 L34.53,124 L30,140 L0,140 Z M52,62.35 L63.8,104 L40.2,104 Z" />
+        <path transform="translate(128,0)" d="M14,20 L84,20 L84,44 L26,44 L26,68 L72,68 L72,92 L26,92 L26,116 L84,116 L84,126 L70,140 L0,140 L0,34 Z" />
+        <path transform="translate(236,0)" d="M0,20 L30,20 L50,54.29 L70,20 L100,20 L65,80 L100,140 L70,140 L50,105.71 L30,140 L0,140 L35,80 Z" />
+        <path transform="translate(360,0)" d="M24,20 L80,20 L104,44 L104,116 L80,140 L24,140 L0,116 L0,44 Z M35,44 L69,44 L78,53 L78,107 L69,116 L35,116 L26,107 L26,53 Z" />
+        <path transform="translate(488,0)" d="M14,20 L92,20 L92,44 L26,44 L26,68 L92,68 L92,126 L78,140 L0,140 L0,116 L66,116 L66,92 L0,92 L0,34 Z" />
+    </g>
+    <g fill="#19C7C0" fill-opacity="0.85" fill-rule="evenodd" transform="translate(0,3)">
+        <path transform="translate(0,0)" d="M34,20 L70,20 L104,140 L74,140 L69.47,124 L34.53,124 L30,140 L0,140 Z M52,62.35 L63.8,104 L40.2,104 Z" />
+        <path transform="translate(128,0)" d="M14,20 L84,20 L84,44 L26,44 L26,68 L72,68 L72,92 L26,92 L26,116 L84,116 L84,126 L70,140 L0,140 L0,34 Z" />
+        <path transform="translate(236,0)" d="M0,20 L30,20 L50,54.29 L70,20 L100,20 L65,80 L100,140 L70,140 L50,105.71 L30,140 L0,140 L35,80 Z" />
+        <path transform="translate(360,0)" d="M24,20 L80,20 L104,44 L104,116 L80,140 L24,140 L0,116 L0,44 Z M35,44 L69,44 L78,53 L78,107 L69,116 L35,116 L26,107 L26,53 Z" />
+        <path transform="translate(488,0)" d="M14,20 L92,20 L92,44 L26,44 L26,68 L92,68 L92,126 L78,140 L0,140 L0,116 L66,116 L66,92 L0,92 L0,34 Z" />
+    </g>
+    <g fill="url(#metal)" fill-rule="evenodd" transform="translate(0,0)">
+        <path transform="translate(0,0)" d="M34,20 L70,20 L104,140 L74,140 L69.47,124 L34.53,124 L30,140 L0,140 Z M52,62.35 L63.8,104 L40.2,104 Z" />
+        <path transform="translate(128,0)" d="M14,20 L84,20 L84,44 L26,44 L26,68 L72,68 L72,92 L26,92 L26,116 L84,116 L84,126 L70,140 L0,140 L0,34 Z" />
+        <path transform="translate(236,0)" d="M0,20 L30,20 L50,54.29 L70,20 L100,20 L65,80 L100,140 L70,140 L50,105.71 L30,140 L0,140 L35,80 Z" />
+        <path transform="translate(360,0)" d="M24,20 L80,20 L104,44 L104,116 L80,140 L24,140 L0,116 L0,44 Z M35,44 L69,44 L78,53 L78,107 L69,116 L35,116 L26,107 L26,53 Z" />
+        <path transform="translate(488,0)" d="M14,20 L92,20 L92,44 L26,44 L26,68 L92,68 L92,126 L78,140 L0,140 L0,116 L66,116 L66,92 L0,92 L0,34 Z" />
+    </g>
+  </g>
+
+  <rect x="292" y="296" width="696" height="1.5" fill="url(#hairline)" />
+
+  <!--
+    Letter-spacing is applied after the last glyph too, so a centred run sits
+    half a spacing right of true centre and an end-anchored run sits a full
+    spacing left. dx corrects both. Tracking follows the brand's mono-label
+    discipline: wide and positive, ~2.5px absolute at label sizes.
+  -->
+  <text x="640" y="334" dx="-2.6" text-anchor="middle" fill="#8C949E" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="19" letter-spacing="5.2">AGENTIC eXECUTION &amp; ORCHESTRATION SYSTEM</text>
+
+  <rect x="64" y="368.5" width="10" height="10" fill="#19C7C0" />
+  <text x="86" y="378" fill="#19C7C0" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="14" font-weight="500" letter-spacing="2.8">CYRYX LABS</text>
+  <text x="1216" y="378" dx="2.5" text-anchor="end" fill="#8C949E" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'DejaVu Sans Mono', 'Liberation Mono', Consolas, monospace" font-size="12.5" letter-spacing="2.5">CLI FIRST · OBSERVABILITY SECOND · UI THIRD</text>
+</svg>

@@ -25,7 +25,7 @@
 
 ### 问题 1：为什么使用 npx 而不是 npm install -g？
 
-**答案:** 我们推荐使用 `npx @aexos-squads/core install` 而不是全局安装，原因如下：
+**答案:** 我们推荐使用 `npx github:CyryxLabs/AEXOS install` 而不是全局安装，原因如下：
 
 1. **始终最新版本**: npx 自动获取最新版本
 2. **无全局污染**: 不会添加到全局 npm 包
@@ -71,7 +71,7 @@ npm --version   # 应为 9+
 
 ```bash
 cd /path/to/existing-project
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 安装程序将：
@@ -143,13 +143,13 @@ your-project/
 
 ```bash
 # 通过 npx 更新（推荐）
-npx @aexos-squads/core update
+npx github:CyryxLabs/AEXOS update
 
 # 或重新安装最新版本
-npx @aexos-squads/core install --force-upgrade
+npx github:CyryxLabs/AEXOS install --force-upgrade
 
 # 检查当前版本
-npx @aexos-squads/core status
+npx github:CyryxLabs/AEXOS doctor
 ```
 
 **更新的内容：**
@@ -172,15 +172,15 @@ npx @aexos-squads/core status
 
 | 更新类型        | 频率       | 命令                           |
 | --------------- | ---------- | ------------------------------ |
-| **安全补丁**    | 立即       | `npx @aexos-squads/core update` |
-| **次要更新**    | 每月       | `npx @aexos-squads/core update` |
+| **安全补丁**    | 立即       | `npx github:CyryxLabs/AEXOS update` |
+| **次要更新**    | 每月       | `npx github:CyryxLabs/AEXOS update` |
 | **主要版本**    | 每季度     | 先查看变更日志                 |
 
 **检查更新：**
 
 ```bash
 npm show @aexos-squads/core version
-npx @aexos-squads/core status
+npx github:CyryxLabs/AEXOS doctor
 ```
 
 ---
@@ -192,7 +192,7 @@ npx @aexos-squads/core status
 **选项 1：重新安装特定版本**
 
 ```bash
-npx @aexos-squads/core@1.1.0 install --force-upgrade
+npx github:CyryxLabs/AEXOS@1.1.0 install --force-upgrade
 ```
 
 **选项 2：使用 Git 恢复**
@@ -222,7 +222,7 @@ mv .aexos-core.backup .aexos-core
 
 ```bash
 # 联网时安装一次
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 
 # 打包以供离线使用
 tar -czvf aexos-offline.tar.gz .aexos-core/ .claude/ .cursor/
@@ -254,7 +254,7 @@ tar -xzvf aexos-offline.tar.gz
 
    ```bash
    # 安装并打包
-   npx @aexos-squads/core install
+   npx github:CyryxLabs/AEXOS install
    cd your-project
    tar -czvf aexos-transfer.tar.gz .aexos-core/ .claude/ .cursor/ docs/
    ```
@@ -304,7 +304,7 @@ tar -xzvf aexos-offline.tar.gz
 **命令行：**
 
 ```bash
-npx @aexos-squads/core install --ide cursor,claude-code
+npx github:CyryxLabs/AEXOS install --ide cursor,claude-code
 ```
 
 每个 IDE 获得其自己的配置目录：
@@ -326,7 +326,7 @@ git clone your-repo
 cd your-repo
 
 # 可选择配置他们喜欢的 IDE
-npx @aexos-squads/core install --ide cursor
+npx github:CyryxLabs/AEXOS install --ide cursor
 ```
 
 如果 `.aexos-core/` 未提交：
@@ -334,7 +334,7 @@ npx @aexos-squads/core install --ide cursor
 ```bash
 git clone your-repo
 cd your-repo
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 **最佳实践:** 将 `.aexos-core/` 提交到您的仓库以共享一致的代理配置。
@@ -390,7 +390,7 @@ npx @aexos-squads/core install
 3. **添加到 IDE 配置：**
 
    ```bash
-   npx @aexos-squads/core install --ide claude-code
+   npx github:CyryxLabs/AEXOS install --ide claude-code
    ```
 
 4. **激活:** `/my-agent` 或 `@my-agent`
@@ -440,13 +440,13 @@ npx @aexos-squads/core install
 **安装 Squad：**
 
 ```bash
-npx @aexos-squads/core install --Squads hybrid-ops
+npx github:CyryxLabs/AEXOS install --Squads hybrid-ops
 ```
 
 **列出可用的 Squad：**
 
 ```bash
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -504,7 +504,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "18"
-      - run: npx @aexos-squads/core install --full --ide claude-code
+      - run: npx github:CyryxLabs/AEXOS install --full --ide claude-code
       - run: npm test
 ```
 
@@ -514,7 +514,7 @@ jobs:
 test:
   image: node:18
   script:
-    - npx @aexos-squads/core install --full
+    - npx github:CyryxLabs/AEXOS install --full
     - npm test
 ```
 

@@ -86,7 +86,7 @@ async function generateReport(validationResults) {
     lines.push(chalk.bold.red('❌ Next Steps:'));
     lines.push(chalk.red('  1. Review errors above'));
     lines.push(chalk.red('  2. Fix critical issues'));
-    lines.push(chalk.red('  3. Re-run installation: npx -y -p @aexos-squads/core@latest aexos install'));
+    lines.push(chalk.red('  3. Re-run installation: npx github:CyryxLabs/AEXOS install'));
   }
   // Success cases show completion message in showCompletion()
 

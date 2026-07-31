@@ -42,13 +42,13 @@ La forma mas rapida de comenzar es usando npx:
 
 ```bash
 # Crear un nuevo proyecto
-npx aexos-core init my-first-project
+npx github:CyryxLabs/AEXOS init my-first-project
 
 # Navegar a tu proyecto
 cd my-first-project
 
 # Iniciar el meta-agente
-npx aexos-core
+npx github:CyryxLabs/AEXOS
 ```
 
 ### Opciones de Instalacion
@@ -57,17 +57,17 @@ AEXOS (Cyryx) ofrece opciones de instalacion flexibles:
 
 ```bash
 # 1. Crear nuevo proyecto con plantilla personalizada
-npx aexos-core init my-project --template enterprise
+npx github:CyryxLabs/AEXOS init my-project --template enterprise
 
 # 2. Instalar en proyecto existente
 cd existing-project
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 
 # 3. Forzar instalacion en directorio no vacio
-npx aexos-core init my-project --force
+npx github:CyryxLabs/AEXOS init my-project --force
 
 # 4. Omitir instalacion de dependencias (instalar manualmente despues)
-npx aexos-core init my-project --skip-install
+npx github:CyryxLabs/AEXOS init my-project --skip-install
 ```
 
 ## Tu Primer Proyecto
@@ -166,7 +166,7 @@ graph TD
 
 ```bash
 # Iniciar en directorio actual
-npx aexos-core
+npx github:CyryxLabs/AEXOS
 
 # O usar el atajo
 npx cyryx
@@ -536,10 +536,10 @@ Unete a nuestra comunidad para soporte y actualizaciones:
 node --version  # Deberia ser >= 18.0.0
 
 # Verificar instalacion
-npx aexos-core doctor
+npx github:CyryxLabs/AEXOS doctor
 
 # Corregir problemas comunes
-npx aexos-core doctor --fix
+npx github:CyryxLabs/AEXOS doctor --fix
 ```
 
 **Errores de API Key**

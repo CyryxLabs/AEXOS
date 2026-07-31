@@ -50,7 +50,7 @@
 - [ ] Application starts normally
 
 ### 9. AEXOS Integration
-- [ ] `npx aexos-core doctor` reports healthy
+- [ ] `npx github:CyryxLabs/AEXOS doctor` reports healthy
 - [ ] Agent activation works (@dev, @architect, etc.)
 - [ ] Existing docs not duplicated
 
@@ -97,13 +97,13 @@ rm -rf .aexos-core/
 **Pre-Migration:**
 ```bash
 # Run compatibility check
-npx aexos-core doctor --pre-migration
+npx github:CyryxLabs/AEXOS doctor --pre-migration
 ```
 
 **Post-Migration:**
 ```bash
 # Validate migration
-npx aexos-core doctor
+npx github:CyryxLabs/AEXOS doctor
 npm test  # if tests exist
 npm run build  # if build exists
 ```

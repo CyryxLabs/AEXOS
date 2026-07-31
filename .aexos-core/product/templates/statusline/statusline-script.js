@@ -5,7 +5,7 @@
  *
  * Displays: Session | Model | Context Bar | Time | Agent | Squad | Project:Branch | Git | Messages | Alert
  *
- * Installed automatically by `npx aexos-core install` when no existing statusline is detected.
+ * Installed automatically by `npx github:CyryxLabs/AEXOS install` when no existing statusline is detected.
  * Source: .aexos-core/product/templates/statusline/
  */
 

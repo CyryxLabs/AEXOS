@@ -76,7 +76,7 @@ async function run(context) {
       check: name,
       status: 'FAIL',
       message: 'Skills directory not found (.claude/skills/)',
-      fixCommand: 'npx aexos-core install --force',
+      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
     };
   }
 
@@ -92,7 +92,7 @@ async function run(context) {
       check: name,
       status: 'FAIL',
       message: error.message,
-      fixCommand: 'npx aexos-core install --force',
+      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
     };
   }
 
@@ -101,7 +101,7 @@ async function run(context) {
       check: name,
       status: 'FAIL',
       message: 'No skills found (expected >=7)',
-      fixCommand: 'npx aexos-core install --force',
+      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
     };
   }
 
@@ -110,7 +110,7 @@ async function run(context) {
       check: name,
       status: 'WARN',
       message: `${count} skills found, but AEXOS agent skills are incomplete (${agentSkillCount}/${sourceAgentCount})`,
-      fixCommand: 'npx aexos-core install --force',
+      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
     };
   }
 
@@ -127,7 +127,7 @@ async function run(context) {
     check: name,
     status: 'WARN',
     message: `Only ${count}/7 skills found (${agentSkillCount}/${sourceAgentCount} AEXOS agent skills)`,
-    fixCommand: 'npx aexos-core install --force',
+    fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
   };
 }
 

@@ -119,7 +119,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deprecated
 
-- Manual installation process (use `npx aexos-core install` instead)
+- Manual installation process (use `npx github:CyryxLabs/AEXOS install` instead)
 - `.legacy-core/` directory name (automatically migrated)
 
 ### Security
@@ -165,7 +165,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Quick upgrade:**
 
 ```bash
-npx aexos-core install --force-upgrade
+npx github:CyryxLabs/AEXOS install --force-upgrade
 ```
 
 **Key changes:**

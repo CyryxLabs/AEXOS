@@ -106,7 +106,7 @@ npm install -g aexos-core@latest
 cyryx upgrade
 
 # 4. Verificar instalacion
-cyryx --version
+aexos --version
 ```
 
 ### Opcion 2: Instalacion Limpia
@@ -146,7 +146,7 @@ npm list aexos-core/core
 
 ```bash
 # Verificar version
-cyryx --version
+aexos --version
 
 # Verificar componentes principales
 cyryx verify --components
@@ -204,7 +204,7 @@ tar -xzf backups/aexos-backup-YYYYMMDD-HHMMSS.tar.gz
 npm install -g aexos-core@<previous-version>
 
 # Verificar rollback
-cyryx --version
+aexos --version
 ```
 
 ### Rollback Selectivo

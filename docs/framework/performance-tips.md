@@ -50,7 +50,7 @@ git fsmonitor--daemon stop
 Run `aexos doctor` to check fsmonitor status:
 
 ```bash
-npx aexos-core doctor
+npx github:CyryxLabs/AEXOS doctor
 ```
 
 The doctor will report:

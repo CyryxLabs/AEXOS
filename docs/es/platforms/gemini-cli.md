@@ -86,7 +86,7 @@ export GOOGLE_AI_API_KEY="tu-clave-api"
 
 ```bash
 cd tu-proyecto
-npx @anthropic/aexos init
+npx github:CyryxLabs/AEXOS init
 # Selecciona "Gemini CLI" cuando se te pida
 ```
 
@@ -458,7 +458,7 @@ R: Usa alias de shell o incluye contexto de agentes en los prompts.
 
 1. Instalar AEXOS para Gemini CLI:
    ```bash
-   npx @anthropic/aexos init --ide gemini-cli
+   npx github:CyryxLabs/AEXOS init --ide gemini-cli
    ```
 2. Los agentes se transforman a formato basado en prompts
 

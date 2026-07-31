@@ -22,7 +22,15 @@ const semver = require('semver');
 const { execSync } = require('child_process');
 
 const PRO_PACKAGE = '@aexos-squads/pro';
-const CORE_PACKAGES = ['@aexos-squads/core', '@cyryx/aexos-core', 'aexos-core'];
+// Current name first, then every name the core package has shipped under. The
+// order matters: a project that declares more than one resolves to the name it
+// should be upgrading toward, not the one it is leaving.
+const CORE_PACKAGES = [
+  '@cyryxlabs/aexos',
+  '@aexos-squads/core',
+  '@cyryx/aexos-core',
+  'aexos-core',
+];
 const DEPENDENCY_FIELDS = [
   'dependencies',
   'devDependencies',

@@ -392,7 +392,7 @@ templates/squad/                       # 创建扩展的 Squad 模板
 
 ```bash
 # 计划中的 CLI (未来):
-npx create-aexos-squad my-squad-name
+@squad-creator *create-squad
 
 # 当前方法:
 cp -r templates/squad/ squads/my-squad-name/

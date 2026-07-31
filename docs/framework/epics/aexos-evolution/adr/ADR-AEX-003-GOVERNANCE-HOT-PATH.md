@@ -27,7 +27,7 @@ validation, `INTENT_PATTERNS` injection scanning), plus `path-guard`,
 `core/permissions/__tests__/`.
 
 The problem is reachability. `dispatch-governance` is invoked from exactly two
-places: `.cyryx-core/scripts/pm.sh:362-377` and `cyryx sdc preflight`. Neither is
+places: `.cyryx-core/scripts/pm.sh:362-377` and `aexos sdc preflight`. Neither is
 on the path where work actually happens.
 
 What actually happens is: the developer runs Claude Code, a `UserPromptSubmit`
@@ -69,7 +69,7 @@ an intent hash makes it mechanical.
 
 **3. Preserve `preflight` exit-code semantics as the CLI surface.**
 
-`cyryx sdc preflight` already returns 0 for proceed and 5 for governance
+`aexos sdc preflight` already returns 0 for proceed and 5 for governance
 rejection. That contract is good and stays — it becomes a thin CLI wrapper over
 the same evaluation the runtime performs, rather than a parallel implementation.
 

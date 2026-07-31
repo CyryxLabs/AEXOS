@@ -52,7 +52,7 @@ e este projeto adere ao [Versionamento Semantico](https://semver.org/lang/pt-BR/
 
 ### Descontinuado
 
-- Processo de instalacao manual (use `npx aexos-core install` em vez disso)
+- Processo de instalacao manual (use `npx github:CyryxLabs/AEXOS install` em vez disso)
 - Nome do diretorio `.legacy-core/` (migrado automaticamente)
 
 ### Seguranca
@@ -99,7 +99,7 @@ e este projeto adere ao [Versionamento Semantico](https://semver.org/lang/pt-BR/
 **Atualizacao rapida:**
 
 ```bash
-npx aexos-core install --force-upgrade
+npx github:CyryxLabs/AEXOS install --force-upgrade
 ```
 
 **Principais alteracoes:**

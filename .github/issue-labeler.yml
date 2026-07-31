@@ -17,7 +17,7 @@
 
 # Area labels
 "area: installer":
-  - '(npx aexos-core|aexos-core install|installer|wizard|onboarding|packages.installer)'
+  - '(npx github:CyryxLabs/AEXOS|aexos-core install|installer|wizard|onboarding|packages.installer)'
 "area: core":
   - '(\.aexos-core.core|orchestration|config.*loader|core framework)'
 "area: synapse":

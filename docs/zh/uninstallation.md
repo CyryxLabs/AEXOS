@@ -43,7 +43,7 @@
 
 ```bash
 # 创建完整备份
-npx @aexos-squads/core backup --complete
+npx github:CyryxLabs/AEXOS backup --complete
 
 # 或手动备份重要目录
 tar -czf aexos-backup-$(date +%Y%m%d).tar.gz \
@@ -63,13 +63,13 @@ tar -czf aexos-backup-$(date +%Y%m%d).tar.gz \
 
 ```bash
 # 基本卸载（保留用户数据）
-npx @aexos-squads/core uninstall
+npx github:CyryxLabs/AEXOS uninstall
 
 # 完全卸载（删除所有内容）
-npx @aexos-squads/core uninstall --complete
+npx github:CyryxLabs/AEXOS uninstall --complete
 
 # 卸载并保留数据
-npx @aexos-squads/core uninstall --keep-data
+npx github:CyryxLabs/AEXOS uninstall --keep-data
 ```
 
 ### 交互式卸载
@@ -77,7 +77,7 @@ npx @aexos-squads/core uninstall --keep-data
 对于引导式卸载：
 
 ```bash
-npx @aexos-squads/core uninstall --interactive
+npx github:CyryxLabs/AEXOS uninstall --interactive
 ```
 
 这会提示您：
@@ -121,7 +121,7 @@ npx @aexos-squads/core uninstall --interactive
 
 ```bash
 # 完全移除
-npx @aexos-squads/core uninstall --complete --no-backup
+npx github:CyryxLabs/AEXOS uninstall --complete --no-backup
 ```
 
 ### 步骤 4：删除全局安装
@@ -169,13 +169,13 @@ rm -rf /tmp/aexos-*
 
 ```bash
 # 仅删除代理
-npx @aexos-squads/core uninstall agents
+npx github:CyryxLabs/AEXOS uninstall agents
 
 # 仅删除工作流
-npx @aexos-squads/core uninstall workflows
+npx github:CyryxLabs/AEXOS uninstall workflows
 
 # 删除内存层
-npx @aexos-squads/core uninstall memory-layer
+npx github:CyryxLabs/AEXOS uninstall memory-layer
 
 # 删除特定代理
 *uninstall agent-name
@@ -299,10 +299,10 @@ echo "卸载完成！"
 
 ```bash
 # Linux/macOS
-sudo npx @aexos-squads/core uninstall --complete
+sudo npx github:CyryxLabs/AEXOS uninstall --complete
 
 # Windows（以管理员身份运行）
-npx @aexos-squads/core uninstall --complete
+npx github:CyryxLabs/AEXOS uninstall --complete
 ```
 
 #### 2. 进程仍在运行

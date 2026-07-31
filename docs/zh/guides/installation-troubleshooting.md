@@ -7,7 +7,7 @@
 ## 快速开始
 
 ```bash
-npx aexos-core@latest
+npx github:CyryxLabs/AEXOS
 ```
 
 此命令下载并运行最新版本的 AEXOS-Core 安装程序。
@@ -34,16 +34,16 @@ npx aexos-core@latest
 
 ```bash
 # 在当前目录安装
-npx aexos-core@latest
+npx github:CyryxLabs/AEXOS
 
 # 安装特定版本
-npx aexos-core@2.2.0
+npx github:CyryxLabs/AEXOS
 
 # 显示版本
-npx aexos-core@latest --version
+npx github:CyryxLabs/AEXOS --version
 
 # 显示帮助
-npx aexos-core@latest --help
+npx github:CyryxLabs/AEXOS --help
 ```
 
 ### 方法 2: 从 GitHub
@@ -219,7 +219,7 @@ npm cache clean --force
 rm -rf node_modules
 
 # 重试
-npx aexos-core@latest
+npx github:CyryxLabs/AEXOS
 ```
 
 ---
@@ -250,7 +250,7 @@ npx clear-npx-cache
 npx --ignore-existing aexos-core@latest
 
 # 或使用特定版本
-npx aexos-core@2.2.0
+npx github:CyryxLabs/AEXOS
 ```
 
 ---
@@ -273,7 +273,7 @@ npx --version
 npm view aexos-core version
 
 # 5. 测试安装
-npx aexos-core@latest --version
+npx github:CyryxLabs/AEXOS --version
 ```
 
 **预期输出:**
@@ -292,8 +292,8 @@ v22.x.x (或 v18+/v20+)
 如果您仍然遇到问题:
 
 1. **GitHub Issues**: https://github.com/CyryxLabs/AEXOS/issues
-2. **运行诊断**: `npx aexos-core@latest doctor`
-3. **检查系统信息**: `npx aexos-core@latest info`
+2. **运行诊断**: `npx github:CyryxLabs/AEXOS doctor`
+3. **检查系统信息**: `npx github:CyryxLabs/AEXOS info`
 
 报告问题时，请包含:
 - 操作系统和版本
@@ -308,13 +308,13 @@ v22.x.x (或 v18+/v20+)
 
 | 命令                             | 描述                    |
 | -------------------------------- | ----------------------- |
-| `npx aexos-core@latest`           | 安装/运行向导            |
-| `npx aexos-core@latest --version` | 显示版本                 |
-| `npx aexos-core@latest --help`    | 显示帮助                 |
-| `npx aexos-core@latest install`   | 在当前目录安装           |
-| `npx aexos-core@latest init <名称>` | 创建新项目             |
-| `npx aexos-core@latest doctor`    | 运行诊断                 |
-| `npx aexos-core@latest info`      | 显示系统信息             |
+| `npx github:CyryxLabs/AEXOS`           | 安装/运行向导            |
+| `npx github:CyryxLabs/AEXOS --version` | 显示版本                 |
+| `npx github:CyryxLabs/AEXOS --help`    | 显示帮助                 |
+| `npx github:CyryxLabs/AEXOS install`   | 在当前目录安装           |
+| `npx github:CyryxLabs/AEXOS init <名称>` | 创建新项目             |
+| `npx github:CyryxLabs/AEXOS doctor`    | 运行诊断                 |
+| `npx github:CyryxLabs/AEXOS info`      | 显示系统信息             |
 
 ---
 

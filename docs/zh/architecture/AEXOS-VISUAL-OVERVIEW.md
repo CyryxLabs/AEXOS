@@ -388,7 +388,7 @@ flowchart TB
 
 ```mermaid
 flowchart LR
-    INSTALL(["npx aexos-core install"]) --> WIZARD["安装向导"]
+    INSTALL(["npx github:CyryxLabs/AEXOS install"]) --> WIZARD["安装向导"]
 
     WIZARD --> CHOOSE_SQUADS["选择小队<br/>(初始小队)"]
     WIZARD --> CHOOSE_IDE["选择 IDE<br/>(Claude Code, Cursor...)"]

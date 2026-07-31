@@ -47,16 +47,16 @@ instructions: |
   Use the Bash tool to run:
 
   ```bash
-  npx aexos-core doctor --json
+  npx github:CyryxLabs/AEXOS doctor --json
   ```
 
   If `--fix` was requested, run instead:
 
   ```bash
-  npx aexos-core doctor --json --fix
+  npx github:CyryxLabs/AEXOS doctor --json --fix
   ```
 
-  NOTE: Always use `npx aexos-core` (not `node bin/aexos.js`) — this works in both
+  NOTE: Always use `npx github:CyryxLabs/AEXOS` (not `node bin/aexos.js`) — this works in both
   framework-dev mode (resolves local bin) and project-dev/brownfield mode
   (resolves from node_modules/.bin/).
 
@@ -186,19 +186,19 @@ governance_map:
     article: "II"
     article_name: "Agent Authority"
     governance_note: "Agent capabilities — skills extend agent functionality"
-    remediation: "npx aexos-core install --force"
+    remediation: "npx github:CyryxLabs/AEXOS install --force"
 
   commands-count:
     article: "II"
     article_name: "Agent Authority"
     governance_note: "Agent action vocabulary — commands define what agents can do"
-    remediation: "npx aexos-core install --force"
+    remediation: "npx github:CyryxLabs/AEXOS install --force"
 
   hooks-claude-count:
     article: "V"
     article_name: "Quality First"
     governance_note: "Quality gates — hooks enforce governance at runtime"
-    remediation: "npx aexos-core install --force"
+    remediation: "npx github:CyryxLabs/AEXOS install --force"
 
   port-denylist:
     article: "V"

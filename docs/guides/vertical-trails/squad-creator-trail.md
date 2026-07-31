@@ -34,7 +34,7 @@ Você precisa criar um squad para automação de marketing com:
 
 ```bash
 # Projeto AEXOS inicializado
-npx aexos-core doctor  # deve retornar healthy
+npx github:CyryxLabs/AEXOS doctor  # deve retornar healthy
 
 # Diretório squads existe
 ls squads/  # ou será criado automaticamente

@@ -126,7 +126,7 @@ AEXOS (Cyryx) 的所有重要变更都将记录在此文件中。
 
 ### 废弃
 
-- 手动安装流程（改用 `npx @aexos-squads/core install`）
+- 手动安装流程（改用 `npx github:CyryxLabs/AEXOS install`）
 - `.legacy-core/` 目录名称（自动迁移）
 
 ### 安全
@@ -172,7 +172,7 @@ AEXOS (Cyryx) 的所有重要变更都将记录在此文件中。
 **快速升级：**
 
 ```bash
-npx @aexos-squads/core install --force-upgrade
+npx github:CyryxLabs/AEXOS install --force-upgrade
 ```
 
 **主要变更：**

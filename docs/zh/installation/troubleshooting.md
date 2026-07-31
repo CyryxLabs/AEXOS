@@ -28,7 +28,7 @@
 首先运行此诊断命令来确定常见问题：
 
 ```bash
-npx @aexos-squads/core status
+npx github:CyryxLabs/AEXOS doctor
 ```
 
 如果状态命令失败，请根据您的错误消息浏览以下部分。
@@ -37,7 +37,7 @@ npx @aexos-squads/core status
 
 ## 安装问题
 
-### 问题 1："npx @aexos-squads/core is not recognized"
+### 问题 1："npx github:CyryxLabs/AEXOS is not recognized"
 
 **症状:**
 
@@ -88,7 +88,7 @@ not in your home directory or temporary locations.
 cd /path/to/your/project
 
 # 然后运行安装程序
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -113,7 +113,7 @@ mkdir -p /path/to/your/project
 cd /path/to/your/project
 
 # 运行安装程序
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -169,7 +169,7 @@ npm config get registry
 npm config set registry https://registry.npmjs.org/
 
 # 重试安装
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -194,7 +194,7 @@ export PATH=~/.npm-global/bin:$PATH
 # 将 export 行添加到 ~/.bashrc 或 ~/.zshrc
 
 # 选项 2：使用 npx 而不是全局安装（推荐）
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 
 # 选项 3：使用 nvm 管理 Node.js
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
@@ -258,7 +258,7 @@ npm config set strict-ssl false
 
 # 验证并重试
 npm config get strict-ssl
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -288,7 +288,7 @@ npm ERR! network This is a problem related to network connectivity.
 
 # 使用更长的超时重试
 npm config set fetch-timeout 60000
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -318,7 +318,7 @@ lsof +D /path/to/project
 kill -9 <PID>
 
 # 尝试再次安装
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -345,7 +345,7 @@ mount | grep /path/to/project
 
 # 改为安装到可写目录
 cd ~/projects/my-project
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -367,7 +367,7 @@ Error: ENOTEMPTY: directory not empty, rmdir '.aexos-core'
 mv .aexos-core .aexos-core.backup
 
 # 使用强制标志运行安装程序
-npx @aexos-squads/core install --force-upgrade
+npx github:CyryxLabs/AEXOS install --force-upgrade
 
 # 如果需要，从备份恢复自定义文件
 cp .aexos-core.backup/custom-files/* .aexos-core/
@@ -398,7 +398,7 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # 或改用 CMD
 cmd
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 #### 问题 14："Path too long"
@@ -418,7 +418,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v LongPathsEnabled /
 
 # 或使用更短的项目路径
 cd C:\dev\proj
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 #### 问题 15："npm not found in Git Bash"
@@ -459,7 +459,7 @@ xcode-select --install
 
 # 按照安装对话框进行操作
 # 然后重试
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 #### 问题 17："Apple Silicon (M1/M2) compatibility"
@@ -481,7 +481,7 @@ softwareupdate --install-rosetta
 # 使用 Node.js 的 x86 版本（如果需要）
 arch -x86_64 /bin/bash
 nvm install 18
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -508,7 +508,7 @@ sudo dnf install vips-devel
 
 # 清除 npm 缓存并重新安装
 npm cache clean --force
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 #### 问题 19："GLIBC version too old"
@@ -557,7 +557,7 @@ nvm use 16
 3. 检查 IDE 设置允许自定义命令
 4. 为特定 IDE 重新运行安装：
    ```bash
-   npx @aexos-squads/core install --ide claude-code
+   npx github:CyryxLabs/AEXOS install --ide claude-code
    ```
 
 ---
@@ -592,7 +592,7 @@ Error: Agent 'dev' not found in .aexos-core/agents/
 ls .aexos-core/agents/
 
 # 如果缺失，重新安装核心
-npx @aexos-squads/core install --full
+npx github:CyryxLabs/AEXOS install --full
 
 # 检查 core-config.yaml 有效
 cat .aexos-core/core-config.yaml
@@ -621,7 +621,7 @@ npx yaml-lint .aexos-core/agents/dev.md
 
 # 重新安装以获取干净的代理文件
 mv .aexos-core/agents/dev.md .aexos-core/agents/dev.md.backup
-npx @aexos-squads/core install --full
+npx github:CyryxLabs/AEXOS install --full
 ```
 
 ---
@@ -632,16 +632,16 @@ npx @aexos-squads/core install --full
 
 ```bash
 # 检查 AEXOS 安装状态
-npx @aexos-squads/core status
+npx github:CyryxLabs/AEXOS doctor
 
 # 列出可用的 Squad
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 
 # 更新现有安装
-npx @aexos-squads/core update
+npx github:CyryxLabs/AEXOS update
 
 # 显示详细日志
-npx @aexos-squads/core install --verbose
+npx github:CyryxLabs/AEXOS install --verbose
 ```
 
 ### 系统信息
@@ -681,7 +681,7 @@ ls -la .aexos-core/
 
 ### 请求帮助前
 
-1. 运行 `npx @aexos-squads/core status` 并记录输出
+1. 运行 `npx github:CyryxLabs/AEXOS doctor` 并记录输出
 2. 查看此故障排除指南
 3. 搜索现有 [GitHub 问题](https://github.com/CyryxLabs/AEXOS/issues)
 

@@ -91,7 +91,7 @@ Abra Configurações do Cursor (`Cmd/Ctrl + ,`):
 cd seu-projeto
 
 # Inicialize o AEXOS
-npx @anthropic/aexos init
+npx github:CyryxLabs/AEXOS init
 
 # Selecione "Cursor" quando solicitado para IDE
 ```
@@ -535,7 +535,7 @@ tail -f ~/Library/Application\ Support/Cursor/logs/main.log
 cp -r .cursor/ .cursor-backup/
 
 # Reinicializar AEXOS
-npx @anthropic/aexos init --ide cursor --force
+npx github:CyryxLabs/AEXOS init --ide cursor --force
 ```
 
 ---
@@ -576,7 +576,7 @@ R: Execute `npm run sync:ide` após atualizações do AEXOS.
 1. O Cursor importa configurações do VS Code automaticamente
 2. Instale o AEXOS:
    ```bash
-   npx @anthropic/aexos init --ide cursor
+   npx github:CyryxLabs/AEXOS init --ide cursor
    ```
 3. Suas extensões VS Code devem funcionar no Cursor
 
@@ -591,7 +591,7 @@ R: Execute `npm run sync:ide` após atualizações do AEXOS.
 2. Inicialize AEXOS para Claude Code:
 
    ```bash
-   npx @anthropic/aexos init --ide claude-code
+   npx github:CyryxLabs/AEXOS init --ide claude-code
    ```
 
 3. Agentes sincronizam automaticamente para o novo formato

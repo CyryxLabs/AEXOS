@@ -213,7 +213,7 @@ If your release fixes installer behavior, run an E2E:
 # Worst-case install topology: target inside an ancestor with package.json
 mkdir -p /tmp/aexos-e2e/scenario && echo '{"name":"parent","workspaces":["scenario"]}' > /tmp/aexos-e2e/package.json
 cd /tmp/aexos-e2e/scenario
-npx --yes -p @aexos-squads/core@X.Y.Z cyryx --version   # must print X.Y.Z
+npx --yes -p @aexos-squads/core@X.Y.Z aexos --version   # must print X.Y.Z
 ```
 
 ## Known-and-tracked CI quirks

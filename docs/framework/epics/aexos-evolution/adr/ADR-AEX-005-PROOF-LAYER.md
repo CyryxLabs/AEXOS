@@ -65,7 +65,7 @@ written a file it did not write produces a record that contradicts it.
 
 **2. Story closure requires an `EvidenceBundle`.**
 
-`cyryx sdc close {story}` no longer accepts checkbox state as sufficient. It
+`aexos sdc close {story}` no longer accepts checkbox state as sufficient. It
 requires a bundle — the set of `EvidenceRecord`s for the story — that satisfies:
 
 - every acceptance criterion maps to at least one passing `verify` outcome

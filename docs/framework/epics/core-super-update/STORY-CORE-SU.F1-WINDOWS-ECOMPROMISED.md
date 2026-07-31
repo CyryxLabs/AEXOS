@@ -15,7 +15,7 @@
 
 ## Problem
 
-On Windows, `npx aexos-core install` fails with `ECOMPROMISED` / `Lock compromised` when npx’s lock times out on a large cold-cache download.
+On Windows, `npx github:CyryxLabs/AEXOS install` fails with `ECOMPROMISED` / `Lock compromised` when npx’s lock times out on a large cold-cache download.
 
 ## Acceptance Criteria
 

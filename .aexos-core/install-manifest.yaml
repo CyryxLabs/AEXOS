@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.3.0
-generated_at: "2026-07-31T04:05:30.763Z"
+generated_at: "2026-07-31T17:44:10.775Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1167
 files:
@@ -129,9 +129,9 @@ files:
     type: cli
     size: 9036
   - path: cli/commands/validate/index.js
-    hash: sha256:b03f9906e6cc08426924b7a58a73eaf9bea30629785eb792f07183ddd62a1247
+    hash: sha256:69aa636441d49db22aebd7dcec73be24244b38b644f4e023c9270787aca757d1
     type: cli
-    size: 15244
+    size: 15256
   - path: cli/commands/wave/index.js
     hash: sha256:85a82126532b2cda2764b1d1fb2dbb64b4ac31cbf2b3aaf3e4d3007cbd7c2e02
     type: cli
@@ -313,17 +313,17 @@ files:
     type: core
     size: 4104
   - path: core/doctor/checks/commands-count.js
-    hash: sha256:277eba6bc4f7f790715aa622db252c1312a0944ebf2b08bbaf24a8af5972586d
+    hash: sha256:1687bf48861c5cd7eb21308d1186f24044defb6c0026c9df410e9aac3c6ef101
     type: core
-    size: 1724
+    size: 1760
   - path: core/doctor/checks/core-config.js
-    hash: sha256:66097ede16b17aec68ca1f686076f02892816fb80bbcf42d533b0664d9a1d258
+    hash: sha256:0e95da14f1fdfb7199e9d572a868cf43bc15db220a603767ea439880d1ca5a77
     type: core
-    size: 1212
+    size: 1236
   - path: core/doctor/checks/entity-registry.js
-    hash: sha256:6eb7f486a91a48bcda13b7fee96f359f83096ed1cef390f64a0dd0cd1dba6895
+    hash: sha256:f49af84dcb92608eee3aa58da45e931592a04aae80f12e757c06e0de66ef7095
     type: core
-    size: 1338
+    size: 1362
   - path: core/doctor/checks/framework-3way-diff.js
     hash: sha256:7cfaa923b2a889a11e30499f0ed7a70950c0b5d860eb1c10f37f7e93307705bd
     type: core
@@ -333,17 +333,17 @@ files:
     type: core
     size: 1030
   - path: core/doctor/checks/graph-dashboard.js
-    hash: sha256:5ed099f3dde6cd0a6ec441e549e111d01dc66c7be4e0d3ce0e8b2cfd81e573ba
+    hash: sha256:ca28ee3098486d7b851abd914528f15cefbf0c79b5e9fdf8daa8aa3261ae8bd6
     type: core
-    size: 1111
+    size: 1135
   - path: core/doctor/checks/hooks-claude-count.js
-    hash: sha256:fc97c23798968b949b96d3c52558f7cd0584d534aca23357aae0f76546718415
+    hash: sha256:f5d7d0875cddb0a2a0f5c6cfee99d757632ca4c3028ea2d487291f7f1c6822c6
     type: core
-    size: 3354
+    size: 3414
   - path: core/doctor/checks/ide-sync.js
-    hash: sha256:a35d9f6ef717e705706484a1fa2c2b15f0c882e53fef0969d790f4fea04113b7
+    hash: sha256:67de432394cedb23197a8feb196af797b3694177db2c03bdfc669d7c908e27ad
     type: core
-    size: 4213
+    size: 4273
   - path: core/doctor/checks/index.js
     hash: sha256:a6aae289d8a25309ae3e5d5eecb55e49cab8b6079c893ebea8de4cc4de3ad015
     type: core
@@ -365,21 +365,21 @@ files:
     type: core
     size: 1371
   - path: core/doctor/checks/settings-json.js
-    hash: sha256:43051bde0ca5b262168f616871fac0a715093b9564804cfd828e1782ccd7e805
+    hash: sha256:605bb3f2821f86436ab9f6ea595e75f9ab6973012e04c984c325e2b6edcceca2
     type: core
-    size: 3292
+    size: 3316
   - path: core/doctor/checks/skills-count.js
-    hash: sha256:ced5db54bc6fe9dced8aa22a515e5c74eb138d984068402bd50df502024b35a5
+    hash: sha256:2f45e396b788131d1b8a11affa18085fe24a4faf97b30dbd8d1e52505a769a10
     type: core
-    size: 3739
+    size: 3799
   - path: core/doctor/checks/windows-npx-install.js
     hash: sha256:26379b2e779a5a7f4e1c913dddfde5a89fc8483207f83eac449b96f9fe9c5658
     type: core
     size: 1271
   - path: core/doctor/fix-handler.js
-    hash: sha256:a206502357c2516cb8b067bac29e777ba635164015da70993018386f67293b3e
+    hash: sha256:36791513c9c16a0436183bfc44fb945571a67db3686e954c37a2fd728c1ebd0f
     type: core
-    size: 4540
+    size: 4564
   - path: core/doctor/formatters/json.js
     hash: sha256:f7de6197d92c3135dbe21330fad86b58109c45e490c0834cdfe7ca5f0ab624b0
     type: core
@@ -705,9 +705,9 @@ files:
     type: core
     size: 3599
   - path: core/health-check/checks/services/gemini-cli.js
-    hash: sha256:71bc39c43c7617ecd3b013f7ff982547fe8ea7d5f56b0d17a4fe1fc285472815
+    hash: sha256:ee9a14535d7dfb22822504e1652cb3ba21f7985aa42dd424abafb585b089402d
     type: core
-    size: 7192
+    size: 7216
   - path: core/health-check/checks/services/github-cli.js
     hash: sha256:0c4752ded3427a57314404e12a02f2391006a90eceac789c895e8397dadc357c
     type: core
@@ -1073,9 +1073,9 @@ files:
     type: core
     size: 9225
   - path: core/pro/pro-updater.js
-    hash: sha256:0c553645cb9ddfee1e60ad68e62029d131ee0670a572e10190d04cd9b6ba3ccf
+    hash: sha256:fc258597d04fb4f68b1e5a0187323e17fff30b1d9ae14d61e9fcad613dd9fec2
     type: core
-    size: 18020
+    size: 18268
   - path: core/quality-gates/base-layer.js
     hash: sha256:9a9a3921da08176b0bd44f338a59abc1f5107f3b1ee56571e840bf4e8ed233f4
     type: core
@@ -1273,9 +1273,9 @@ files:
     type: core
     size: 2378
   - path: core/synapse/diagnostics/report-formatter.js
-    hash: sha256:feff3e5c4142fbd18cf4b5fdad8028285abe80d195f8041594becb53e7e50580
+    hash: sha256:3dbf17883abfec88c2e095f12a48c73183588c9b2b94c92ca34e977a58b1170b
     type: core
-    size: 16422
+    size: 16434
   - path: core/synapse/diagnostics/synapse-diagnostics.js
     hash: sha256:de9dffce0e380637027cbd64b062d3eeffc37e42a84a337e5758fbef39fe3a00
     type: core
@@ -1385,9 +1385,9 @@ files:
     type: core
     size: 10935
   - path: data/aexos-kb.md
-    hash: sha256:1d799047c7e22522bfa80027c163f0b8051787ac2722dd874e94c9c5679fa739
+    hash: sha256:016c67f556ba8e29167e233e46c9ce76f6dd2ef0ba50d06a044f95eb52cce2c0
     type: data
-    size: 34442
+    size: 34466
   - path: data/agent-config-requirements.yaml
     hash: sha256:e6a08e38773a8832684adcc33d3e6eef42fc44d9e41bb5c3435a631801e42292
     type: data
@@ -1397,7 +1397,7 @@ files:
     type: data
     size: 9595
   - path: data/entity-registry.yaml
-    hash: sha256:d2875b47749ae22fa5c60f3dae2df8a0ebe05fd7fad1a75ad1bbf930367c93e7
+    hash: sha256:83be23e6a4e5f9aafe08b7ec91d73e8355bb77cfdbb3433d6cee7c7646a3de61
     type: data
     size: 597601
   - path: data/learned-patterns.yaml
@@ -1501,9 +1501,9 @@ files:
     type: development
     size: 5012
   - path: development/agents/aexos-master.md
-    hash: sha256:bebd672cc2ad5074866b7927acf12d8b6836ed3e9e06956cf90a1272ee7181e3
+    hash: sha256:852959fa73aee29d3e5e8ff512eae7cab5f6a95541ba20d82ee7382a7f316842
     type: agent
-    size: 22944
+    size: 25040
   - path: development/agents/analyst.md
     hash: sha256:239b693b41bb0e275419232c405fd2349785a66adc6c2fe7f2dab6266034ef99
     type: agent
@@ -1593,9 +1593,9 @@ files:
     type: checklist
     size: 16149
   - path: development/checklists/brownfield-compatibility-checklist.md
-    hash: sha256:fcb0e7935458fc3575fd0c77943257ffdd62d4777c8aef3e3c78a0955d5f3bbe
+    hash: sha256:1b1bf92f4edcc3fb364d4a47474d5f579c115d45bac5adc8982a9b383f5622ce
     type: checklist
-    size: 3356
+    size: 3392
   - path: development/checklists/issue-triage-checklist.md
     hash: sha256:c6dbaae38c0e3030dbffebcbcf95e5e766e0294a7a678531531cbd7ad6e54e2b
     type: checklist
@@ -2361,9 +2361,9 @@ files:
     type: task
     size: 3598
   - path: development/tasks/health-check.yaml
-    hash: sha256:e075a3e499988d8d9f90cc39514df77d4f49dc10ca7dc375d0e0d1b70e07cd2d
+    hash: sha256:5f59396f2a5355dead08daf42c4e5ee56cdcc35a68635b108b46bd7f1c5fedd9
     type: task
-    size: 8736
+    size: 8808
   - path: development/tasks/ids-governor.md
     hash: sha256:cef8e05328072502e5ebe87c0f3e171746d278643ec96a962b8dc81dd5f6e361
     type: task
@@ -2613,9 +2613,9 @@ files:
     type: task
     size: 5257
   - path: development/tasks/run-design-system-pipeline.md
-    hash: sha256:e1c48fefd9f4098982b9bd2b9efdf899797a19b4fbd52e334249db9a289e7fb4
+    hash: sha256:d91b8bba940eeb432112288d742c1bdfb7f61234ec87a80926550f2f1593d163
     type: task
-    size: 16137
+    size: 16173
   - path: development/tasks/run-workflow-engine.md
     hash: sha256:be84a05c93f9e863caf2da7dee94d4df1cdab32b3512ad7d01b676f4a3993799
     type: task
@@ -4265,9 +4265,9 @@ files:
     type: template
     size: 6766
   - path: product/templates/statusline/statusline-script.js
-    hash: sha256:45d16657567c6394809a6617da6b26e024a3b6b4f97d9f73331b06f4d2f869fb
+    hash: sha256:65b739d81bbb2c985fd9c9377232cb8c59d964129e655fa88977dfe396bfb870
     type: template
-    size: 6193
+    size: 6205
   - path: product/templates/statusline/track-agent.sh
     hash: sha256:1f23c8e1e258e1c16f89a24dd1040f31193336ac4bb6daf501e44e5b1a7eb2e1
     type: template
@@ -4389,9 +4389,9 @@ files:
     type: script
     size: 5048
   - path: scripts/diagnostics/diagnose-installation.js
-    hash: sha256:d3d80bf89fdb37c4206cba36897d6828fdd65745534f767c3652f597414a8155
+    hash: sha256:a55ee76ff1016f67d2856be6fbdc9aa1f589044b2688b10299c7f8c0eaf5b0bb
     type: script
-    size: 11147
+    size: 11162
   - path: scripts/diagnostics/diagnose-npx-issue.ps1
     hash: sha256:d96c9d248759e13f30bb5b34be28e4a2dd183ee9eb4a0a84a249bcf41b80b9c3
     type: script
@@ -4597,9 +4597,9 @@ files:
     type: script
     size: 1709
   - path: user-guide.md
-    hash: sha256:b230115ccd189e70eb8b9e735d8b4318cf54882f8601686b7b6374bb987bdc96
+    hash: sha256:276c4790f531a1f600201b84ae705bd8ad3534c5242591e4d9dd0931c9d21866
     type: documentation
-    size: 38313
+    size: 38374
   - path: workflow-intelligence/__tests__/confidence-scorer.test.js
     hash: sha256:237216842d3eb710ae33f3aba6c7b2a6a353cccc1dea6d4b927d8d063d9cb635
     type: workflow-intelligence

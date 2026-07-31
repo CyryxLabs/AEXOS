@@ -46,7 +46,7 @@ async function run(context) {
       check: name,
       status: 'FAIL',
       message: 'Commands directory not found (.claude/commands/)',
-      fixCommand: 'npx aexos-core install --force',
+      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
     };
   }
 
@@ -66,7 +66,7 @@ async function run(context) {
       check: name,
       status: 'WARN',
       message: `${count}/20 command files found (agents only, no extras)`,
-      fixCommand: 'npx aexos-core install --force',
+      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
     };
   }
 
@@ -74,7 +74,7 @@ async function run(context) {
     check: name,
     status: 'FAIL',
     message: `Only ${count} command files found (expected >=12)`,
-    fixCommand: 'npx aexos-core install --force',
+    fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
   };
 }
 

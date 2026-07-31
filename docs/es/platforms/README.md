@@ -231,7 +231,7 @@ graph TD
 1. **Instale AEXOS** en su proyecto:
 
    ```bash
-   npx @anthropic/aexos init
+   npx github:CyryxLabs/AEXOS init
    ```
 
 2. **Seleccione su(s) IDE(s)** durante la configuración

@@ -151,10 +151,10 @@
 ### 3. 命令和路径
 ```markdown
 # 正确
-运行 `npx aexos-core init` 初始化项目
+运行 `npx github:CyryxLabs/AEXOS init` 初始化项目
 
 # 错误
-运行 `npx aexos-core 初始化` 初始化项目
+运行 `npx github:CyryxLabs/AEXOS 初始化` 初始化项目
 ```
 
 ### 4. 变量和参数

@@ -44,7 +44,7 @@ git commit -m "feat: adiciona modo de colaboração em equipe"
 git push
 
 # É isso! O release acontece automaticamente
-# Usuários agora podem executar: npx aexos-core (e obter a nova versão)
+# Usuários agora podem executar: npx github:CyryxLabs/AEXOS (e obter a nova versão)
 ```
 
 ### Commits que NÃO Disparam Releases

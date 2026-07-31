@@ -13,7 +13,7 @@
  * is not available. All new development should use the new wizard.
  *
  * Migration path:
- * - Use `npx aexos-core` which routes through bin/aexos.js to the new wizard
+ * - Use `npx github:CyryxLabs/AEXOS` which routes through bin/aexos.js to the new wizard
  * - Do NOT call this file directly
  *
  * Supported IDEs (4 total):
@@ -112,7 +112,7 @@ try {
 
 let ensureProjectNodeModulesLink;
 try {
-  ({ ensureProjectNodeModulesLink } = require('@aexos-squads/core/installer/aexos-core-installer'));
+  ({ ensureProjectNodeModulesLink } = require('@cyryxlabs/aexos/installer/aexos-core-installer'));
 } catch (_err) {
   // Module may not be available in older installations
   ensureProjectNodeModulesLink = null;

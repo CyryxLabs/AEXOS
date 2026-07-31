@@ -415,7 +415,7 @@ templates/squad/                       # Squad template for creating extensions
 
 ```bash
 # Future CLI (planned):
-npx create-aexos-squad my-squad-name
+@squad-creator *create-squad
 
 # Current method:
 cp -r templates/squad/ squads/my-squad-name/

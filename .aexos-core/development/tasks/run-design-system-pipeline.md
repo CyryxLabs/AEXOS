@@ -614,7 +614,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run Design System Pipeline
-        run: npx aexos-core task run-design-system-pipeline --mode=yolo
+        run: npx github:CyryxLabs/AEXOS task run-design-system-pipeline --mode=yolo
 ```
 
 ### NPM Script
@@ -622,8 +622,8 @@ jobs:
 ```json
 {
   "scripts": {
-    "ds:pipeline": "npx aexos-core task run-design-system-pipeline",
-    "ds:pipeline:ci": "npx aexos-core task run-design-system-pipeline --mode=yolo"
+    "ds:pipeline": "npx github:CyryxLabs/AEXOS task run-design-system-pipeline",
+    "ds:pipeline:ci": "npx github:CyryxLabs/AEXOS task run-design-system-pipeline --mode=yolo"
   }
 }
 ```

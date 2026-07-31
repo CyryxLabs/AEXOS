@@ -33,16 +33,16 @@ Sempre comece com o diagnóstico integrado:
 
 ```bash
 # Diagnóstico básico
-npx aexos-core doctor
+npx github:CyryxLabs/AEXOS doctor
 
 # Corrigir automaticamente problemas comuns
-npx aexos-core doctor --fix
+npx github:CyryxLabs/AEXOS doctor --fix
 
 # Saída detalhada
-npx aexos-core doctor --verbose
+npx github:CyryxLabs/AEXOS doctor --verbose
 
 # Verificar componente específico
-npx aexos-core doctor --component memory-layer
+npx github:CyryxLabs/AEXOS doctor --component memory-layer
 ```
 
 ### Correções Rápidas Comuns
@@ -58,7 +58,7 @@ npx aexos-core doctor --component memory-layer
 *config --reset
 
 # Atualizar para última versão
-npx aexos-core update
+npx github:CyryxLabs/AEXOS update
 ```
 
 ## Problemas de Instalação
@@ -110,7 +110,7 @@ source ~/.bashrc
 ```bash
 # Instalar no diretório do usuário
 cd ~
-npx aexos-core init my-project
+npx github:CyryxLabs/AEXOS init my-project
 ```
 
 ### Problema: Erro de versão do Node.js
@@ -160,7 +160,7 @@ npm cache clean --force
 npm config set fetch-timeout 60000
 
 # Pular instalação de dependências
-npx aexos-core init my-project --skip-install
+npx github:CyryxLabs/AEXOS init my-project --skip-install
 
 # Então instalar manualmente
 cd my-project
@@ -210,11 +210,11 @@ Error: Failed to initialize meta-agent
 ls -la .aexos/config.json
 
 # Validar configuração
-npx aexos-core doctor --component config
+npx github:CyryxLabs/AEXOS doctor --component config
 
 # Resetar se corrompido
 rm .aexos/config.json
-npx aexos-core doctor --fix
+npx github:CyryxLabs/AEXOS doctor --fix
 ```
 
 2. **Verificar dependências:**
@@ -270,7 +270,7 @@ create-agent my-agent   # ✗ Errado
 
 # Ou reiniciar meta-agent
 exit
-npx aexos-core
+npx github:CyryxLabs/AEXOS
 ```
 
 ### Problema: Criação de agente falha
@@ -382,7 +382,7 @@ cat .aexos/memory-config.json
 export NODE_OPTIONS="--max-old-space-size=1024"
 
 # Executar com memória limitada
-npx aexos-core
+npx github:CyryxLabs/AEXOS
 ```
 
 ### Problema: Erros do LlamaIndex
@@ -668,7 +668,7 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" `
 
 # Ou usar caminhos mais curtos
 cd C:\
-npx aexos-core init myapp
+npx github:CyryxLabs/AEXOS init myapp
 ```
 
 #### Problema: Scripts desabilitados
@@ -736,7 +736,7 @@ sudo pacman -S openssl
 ```bash
 # Saída de debug completa
 export DEBUG=cyryx:*
-npx aexos-core
+npx github:CyryxLabs/AEXOS
 
 # Componentes específicos
 export DEBUG=cyryx:memory,cyryx:agent
@@ -759,10 +759,10 @@ grep -i error .aexos/logs/*.log
 
 ```bash
 # Gerar diagnóstico completo
-npx aexos-core doctor --report diagnostic.json
+npx github:CyryxLabs/AEXOS doctor --report diagnostic.json
 
 # Incluir informações do sistema
-npx aexos-core info --detailed >> diagnostic.json
+npx github:CyryxLabs/AEXOS info --detailed >> diagnostic.json
 
 # Criar pacote de suporte
 tar -czf aexos-support.tar.gz .aexos/logs diagnostic.json
@@ -804,14 +804,14 @@ tar -czf aexos-support.tar.gz .aexos/logs diagnostic.json
 
 1. **Execute diagnósticos:**
    ```bash
-   npx aexos-core doctor --verbose > diagnostic.log
+   npx github:CyryxLabs/AEXOS doctor --verbose > diagnostic.log
    ```
 
 2. **Colete informações:**
    - Versão do Node.js: `node --version`
    - Versão do NPM: `npm --version`
    - SO e versão: `uname -a` ou `ver`
-   - Versão do AEXOS: `npx aexos-core version`
+   - Versão do AEXOS: `npx github:CyryxLabs/AEXOS version`
 
 3. **Verifique issues existentes:**
    - [GitHub Issues](https://github.com/aexos-core/aexos-core/issues)
@@ -839,7 +839,7 @@ Crie relatórios de bug detalhados:
 - AEXOS: 1.0.0
 
 ## Passos para Reproduzir
-1. Executar `npx aexos-core init test`
+1. Executar `npx github:CyryxLabs/AEXOS init test`
 2. Selecionar template "enterprise"
 3. Erro ocorre durante instalação
 
@@ -870,7 +870,7 @@ npm cache clean --force
 
 # Instalação limpa
 npm install
-npx aexos-core doctor --fix
+npx github:CyryxLabs/AEXOS doctor --fix
 
 # Restaurar dados se necessário
 cp .aexos.backup/memory.db .aexos/
@@ -879,7 +879,7 @@ cp .aexos.backup/memory.db .aexos/
 ---
 
 **Lembre-se**: A maioria dos problemas pode ser resolvida com:
-1. `npx aexos-core doctor --fix`
+1. `npx github:CyryxLabs/AEXOS doctor --fix`
 2. Limpando caches
 3. Atualizando para a última versão
 4. Verificando permissões

@@ -79,7 +79,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="caminho/para/credentials.json"
 
 ```bash
 cd seu-projeto
-npx @anthropic/aexos init
+npx github:CyryxLabs/AEXOS init
 # Selecione "AntiGravity" quando solicitado
 ```
 
@@ -485,7 +485,7 @@ R: Agentes são personas com expertise; workflows orquestram ações de agentes 
 1. Seus agentes em `.aexos-core/` são portáveis
 2. Inicialize AntiGravity:
    ```bash
-   npx @anthropic/aexos init --ide antigravity
+   npx github:CyryxLabs/AEXOS init --ide antigravity
    ```
 3. Arquivos de workflow são gerados automaticamente
 

@@ -103,7 +103,7 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 #### Acceptance Criteria
 
-1. Comando `npx aexos-core graph` existe e é executável
+1. Comando `npx github:CyryxLabs/AEXOS graph` existe e é executável
 2. Flag `--deps` renderiza dependency tree como texto indentado com box-drawing characters (`├─`, `└─`, `│`)
 3. Dados vêm de `analyzeDependencies()` do code-intel module
 4. Fallback para entity-registry.yaml quando Code Graph MCP está offline

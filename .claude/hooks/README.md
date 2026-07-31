@@ -192,7 +192,7 @@ Hooks são registrados em `.claude/settings.json` (framework, commitado) ou `.cl
 }
 ```
 
-O installer (`ide-config-generator.js`) usa `HOOK_EVENT_MAP` para registrar automaticamente cada hook no evento correto durante `npx aexos-core install`.
+O installer (`ide-config-generator.js`) usa `HOOK_EVENT_MAP` para registrar automaticamente cada hook no evento correto durante `npx github:CyryxLabs/AEXOS install`.
 
 ## Manutenção
 

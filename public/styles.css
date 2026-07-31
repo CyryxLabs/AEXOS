@@ -1,554 +1,831 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+/* ══════════════════════════════════════════════════════════════════════════
+   AEXOS — public site
+   Cyryx Labs Design System v1.0
+
+   The page is built as a stack of instrument panels. Every framed block carries
+   its caption set into the top border, which is how the CLI draws its own
+   panels (╭─ AGENTS ─────╮). The site and the product share one vocabulary
+   rather than merely sharing a palette.
+
+   JetBrains Mono carries every label. That is deliberate twice over: the
+   product is a command layer, so a mono voice is the honest one for it — and it
+   is the mono Cyryx actually sets its own site in.
+
+   Typographic discipline, measured off the live Cyryx site:
+     · Display (Space Grotesk 600) takes NEGATIVE tracking, a consistent
+       -0.035em (-0.56px at 16px, -2.1px at 60px).
+     · Mono labels take WIDE POSITIVE tracking, ~2.4-2.5px absolute — which is
+       0.2em at 12px and widens to 0.28em as the size drops to 9px.
+     · Body is Inter 400. Weight 700 is close to absent in the brand, so display
+       sits at 600.
+
+   Fonts load from a <link rel="preconnect"> in the document head rather than an
+   @import here, which would block the stylesheet on a second round trip.
+   ══════════════════════════════════════════════════════════════════════════ */
 
 :root {
-  /* Cyryx Labs Design System v1.0 Palette */
-  --bg-onyx: #050607;
-  --bg-obsidian: #0A0D0F;
-  --bg-graphite: #11161A;
-  --bg-gunmetal: #1B2227;
-  --text-steel: #8C949E;
-  --text-silver: #C7C9CC;
-  --text-white: #FFFFFF;
-  --accent-core-teal: #0F6B68;
-  --accent-teal-glow: #19C7C0;
-  --accent-lime: #19C7C0;
-  
-  /* Fonts */
-  --font-headline: 'Space Grotesk', -apple-system, sans-serif;
-  --font-body: 'Inter', -apple-system, sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  /* Brandboard — do not drift. Mirrored in packages/installer/src/utils/aexos-banner.js */
+  --onyx: #050607;
+  --obsidian: #0a0d0f;
+  --graphite: #11161a;
+  --gunmetal: #1b2227;
+  --steel: #8c949e;
+  --silver: #c7c9cc;
+  --teal-glow: #19c7c0;
+  --success: #10b981;
 
-  /* Shadows & Glows */
-  --glow-teal: 0 0 30px rgba(25, 199, 192, 0.25);
-  --glow-lime: 0 0 25px rgba(209, 255, 0, 0.2);
-  --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.6);
-  --border-glass: 1px solid rgba(140, 148, 158, 0.15);
-  --border-teal-active: 1px solid rgba(25, 199, 192, 0.4);
+  /* Also observed on the live Cyryx site. --paper is the near-white the brand
+     uses for emphasis text; pure #fff appears nowhere, and reads harsher than
+     the rest of the system. --void is the deeper ground under the footer. */
+  --paper: #e6eeef;
+  --void: #000304;
+
+  /* Gunmetal is 1.26:1 against onyx — right for a decorative panel rule, but
+     WCAG 1.4.11 wants 3:1 for the boundary that identifies an interactive
+     control. Buttons get their own edge; panels and table rules keep the quiet
+     one. */
+  --edge: #5f6b74; /* 3.71:1 on onyx, 3.33:1 on graphite */
+
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --display: 'Space Grotesk', var(--mono);
+  --body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Tracking scale, from the brand's own measurements. */
+  --track-display: -0.035em;
+  --track-label: 0.2em; /* 2.4px at 12px */
+  --track-micro: 0.24em; /* ~2.5px at the 9-11px label sizes */
+
+  --shell: 1120px;
+  --rule: 1px solid var(--gunmetal);
+  --radius: 3px; /* nearly square: these panels are drawn, not rounded */
+
+  --step--1: clamp(0.78rem, 0.75rem + 0.15vw, 0.86rem);
+  --step-0: clamp(0.98rem, 0.94rem + 0.2vw, 1.06rem);
+  --step-1: clamp(1.18rem, 1.08rem + 0.5vw, 1.4rem);
+  --step-2: clamp(1.5rem, 1.28rem + 1.1vw, 2.1rem);
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--bg-onyx);
-  color: var(--text-silver);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
+  /* The top bar is sticky and 62px tall, so an unpadded anchor drops its own
+     heading underneath it. */
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
 body {
+  margin: 0;
+  background: var(--onyx);
+  color: var(--silver);
+  font-family: var(--body);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  background: radial-gradient(circle at 50% 0%, rgba(15, 107, 104, 0.15) 0%, transparent 60%),
-              radial-gradient(circle at 90% 40%, rgba(25, 199, 192, 0.05) 0%, transparent 50%),
-              var(--bg-onyx);
 }
 
-/* Typography */
-h1, h2, h3, h4, .brand-font {
-  font-family: var(--font-headline);
-  color: var(--text-white);
-  letter-spacing: -0.02em;
+/* The ground is not flat black: one teal wash anchors the accent without
+   resorting to a gradient hero. It is absolutely positioned rather than fixed
+   so it belongs to the top of the document — a viewport-fixed glow follows the
+   reader down the page and starts reading as a screen defect. */
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 900px;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 42% at 50% -8%, rgba(25, 199, 192, 0.13), transparent 68%),
+    radial-gradient(38% 30% at 88% 8%, rgba(25, 199, 192, 0.07), transparent 70%);
+  z-index: 0;
 }
 
-p {
-  color: var(--text-steel);
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Visually hidden, still announced. */
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 a {
-  color: var(--accent-teal-glow);
+  color: var(--teal-glow);
   text-decoration: none;
-  transition: all 0.2s ease;
 }
-
 a:hover {
-  color: var(--text-white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-/* Layout Utilities */
-.container {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 2rem;
+:focus-visible {
+  outline: 2px solid var(--teal-glow);
+  outline-offset: 3px;
 }
 
-.section-padding {
-  padding: 6rem 0;
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 99;
+  background: var(--graphite);
+  padding: 0.6rem 1rem;
+  border: var(--rule);
 }
 
-.text-center {
-  text-align: center;
+.shell {
+  width: min(100% - 2.5rem, var(--shell));
+  margin-inline: auto;
 }
 
-.text-teal {
-  color: var(--accent-teal-glow);
-}
+/* ─── TOP BAR ───────────────────────────────────────────────────────────── */
 
-.text-lime {
-  color: var(--accent-lime);
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 1rem;
-  border-radius: 9999px;
-  background: rgba(15, 107, 104, 0.2);
-  border: 1px solid rgba(25, 199, 192, 0.3);
-  color: var(--accent-teal-glow);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-/* Header & Nav */
-.header {
-  position: fixed;
+.topbar {
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  background: rgba(5, 6, 7, 0.85);
+  z-index: 20;
+  background: rgba(5, 6, 7, 0.82);
   backdrop-filter: blur(12px);
-  border-bottom: var(--border-glass);
+  border-bottom: var(--rule);
 }
 
-.header-container {
+.topbar-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 80px;
+  gap: 1.5rem;
+  height: 62px;
 }
 
-.logo-lockup {
+.brand {
   display: flex;
-  align-items: center;
-  gap: 0.8rem;
+  align-items: baseline;
+  gap: 0.6rem;
+  color: inherit;
+}
+.brand:hover {
+  text-decoration: none;
 }
 
-.monolith-icon {
-  width: 28px;
-  height: 34px;
-  background: linear-gradient(135deg, #C7C9CC 0%, #19C7C0 100%);
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  display: inline-block;
-  box-shadow: var(--glow-teal);
+.brand-glyph {
+  width: 11px;
+  height: 11px;
+  align-self: center;
+  background: var(--teal-glow);
+  box-shadow: 0 0 14px rgba(25, 199, 192, 0.55);
 }
 
-.logo-text {
-  font-family: var(--font-headline);
-  font-weight: 700;
-  font-size: 1.25rem;
-  letter-spacing: 0.15em;
-  color: var(--text-white);
+.brand-name {
+  font-family: var(--mono);
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  color: var(--paper);
 }
 
-.logo-subtext {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--accent-teal-glow);
-  margin-left: 0.4rem;
+.brand-by {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--steel);
+  white-space: nowrap;
 }
 
-.nav-links {
+/* Below this the byline wraps under the product name, which reads as two
+   brands rather than one. Drop it — the footer still attributes the page. */
+@media (max-width: 460px) {
+  .brand-by {
+    display: none;
+  }
+}
+
+.nav {
   display: flex;
-  align-items: center;
-  gap: 2rem;
-  list-style: none;
+  gap: 1.5rem;
+  margin-inline: auto;
 }
 
-.nav-links a {
-  color: var(--text-steel);
-  font-size: 0.95rem;
-  font-weight: 500;
+.nav a {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: var(--steel);
+}
+.nav a:hover {
+  color: var(--teal-glow);
+  text-decoration: none;
 }
 
-.nav-links a:hover {
-  color: var(--accent-teal-glow);
-}
-
-.cta-group {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
+/* ─── BUTTONS ───────────────────────────────────────────────────────────── */
 
 .btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  font-family: var(--font-headline);
-  font-weight: 600;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 0.5rem;
+  padding: 0.62rem 1.1rem;
+  border-radius: var(--radius);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--edge);
+  transition: border-color 0.18s, color 0.18s, background 0.18s;
+  white-space: nowrap;
+}
+.btn:hover {
+  text-decoration: none;
 }
 
 .btn-primary {
-  background: var(--accent-teal-glow);
-  color: var(--bg-onyx);
-  border: none;
-  box-shadow: 0 0 20px rgba(25, 199, 192, 0.4);
+  background: var(--teal-glow);
+  color: var(--onyx);
+  border-color: var(--teal-glow);
+  font-weight: 600;
 }
-
 .btn-primary:hover {
-  background: #25ECE4;
-  transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(25, 199, 192, 0.6);
-  color: var(--bg-onyx);
+  background: #2fdcd5;
+  border-color: #2fdcd5;
 }
 
-.btn-secondary {
-  background: var(--bg-graphite);
-  color: var(--text-silver);
-  border: 1px solid var(--bg-gunmetal);
-}
-
-.btn-secondary:hover {
-  background: var(--bg-gunmetal);
-  color: var(--text-white);
-  border-color: var(--accent-core-teal);
-}
-
+.btn-secondary,
 .btn-ghost {
+  color: var(--silver);
   background: transparent;
-  color: var(--text-silver);
-  border: 1px solid rgba(140, 148, 158, 0.3);
 }
-
+.btn-secondary:hover,
 .btn-ghost:hover {
-  border-color: var(--accent-teal-glow);
-  color: var(--accent-teal-glow);
+  border-color: var(--teal-glow);
+  color: var(--teal-glow);
 }
 
-/* Hero Section */
+/* ─── HERO ──────────────────────────────────────────────────────────────── */
+
 .hero {
-  padding-top: 160px;
-  padding-bottom: 100px;
-  position: relative;
+  padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
 }
 
-.hero-content {
-  max-width: 900px;
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  color: var(--steel);
+  margin: 0 0 2rem;
+}
+
+.wordmark-title {
+  margin: 0;
+  font-size: 0; /* the h1 carries the mark, not type */
+  line-height: 0;
+}
+
+.wordmark {
+  display: block;
+  width: min(100%, 760px);
+  height: auto;
   margin: 0 auto;
 }
 
-.hero-title {
-  font-size: 3.5rem;
-  line-height: 1.1;
-  margin: 1.5rem 0;
-  background: linear-gradient(180deg, #FFFFFF 0%, #C7C9CC 70%, #8C949E 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.expansion {
+  font-family: var(--mono);
+  font-size: clamp(0.66rem, 0.5rem + 0.6vw, 0.88rem);
+  letter-spacing: clamp(0.12em, 0.35vw, 0.34em);
+  text-transform: uppercase;
+  color: var(--silver);
+  margin: 1.4rem 0 0;
+}
+.expansion .x {
+  color: var(--teal-glow);
 }
 
-.hero-subtitle {
-  font-size: 1.25rem;
-  color: var(--text-steel);
-  max-width: 780px;
-  margin: 0 auto 2.5rem auto;
+.thesis {
+  max-width: 62ch;
+  margin: 1.8rem auto 0;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--silver);
+  text-wrap: balance;
 }
 
 .hero-actions {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.2rem;
-  margin-bottom: 3rem;
-}
-
-/* Interactive Terminal Box */
-.terminal-card {
-  background: var(--bg-obsidian);
-  border: var(--border-teal-active);
-  border-radius: 12px;
-  padding: 1.5rem;
-  max-width: 680px;
-  margin: 0 auto 4rem auto;
-  box-shadow: var(--shadow-card), var(--glow-teal);
-  position: relative;
-  overflow: hidden;
-}
-
-.terminal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 0.8rem;
-  border-bottom: 1px solid var(--bg-gunmetal);
-  margin-bottom: 1rem;
-}
-
-.terminal-dots {
-  display: flex;
-  gap: 6px;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--bg-gunmetal);
-}
-
-.dot-red { background: #EF4444; }
-.dot-yellow { background: #F59E0B; }
-.dot-green { background: #10B981; }
-
-.terminal-title {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--text-steel);
-}
-
-.terminal-body {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  color: var(--accent-teal-glow);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.command-text {
-  color: var(--accent-lime);
-}
-
-.copy-btn {
-  background: rgba(25, 199, 192, 0.1);
-  border: 1px solid rgba(25, 199, 192, 0.3);
-  color: var(--accent-teal-glow);
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.copy-btn:hover {
-  background: var(--accent-teal-glow);
-  color: var(--bg-onyx);
-}
-
-/* Image Containers */
-.image-frame {
-  background: var(--bg-graphite);
-  border: var(--border-glass);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-  transition: border-color 0.3s ease;
-}
-
-.image-frame:hover {
-  border-color: var(--accent-core-teal);
-}
-
-.image-frame img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Category Tension (Before vs After) */
-.comparison-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin-top: 3rem;
-}
-
-.comparison-card {
-  background: var(--bg-graphite);
-  border: var(--border-glass);
-  border-radius: 12px;
-  padding: 2.5rem;
-}
-
-.comparison-card.before {
-  border-left: 4px solid var(--text-steel);
-}
-
-.comparison-card.after {
-  border-left: 4px solid var(--accent-teal-glow);
-  box-shadow: var(--glow-teal);
-}
-
-.comparison-list {
-  list-style: none;
-  margin-top: 1.5rem;
-}
-
-.comparison-list li {
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: flex-start;
   gap: 0.8rem;
-  color: var(--text-silver);
-  font-size: 0.95rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2.2rem 0 3rem;
 }
 
-.icon-x { color: #EF4444; font-weight: bold; }
-.icon-check { color: var(--accent-teal-glow); font-weight: bold; }
+/* ─── PANEL: the shared frame ───────────────────────────────────────────── */
 
-/* Grid Cards System */
-.cards-grid {
+.panel {
+  position: relative;
+  border: var(--rule);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--graphite), var(--obsidian));
+  text-align: left;
+  margin-top: 2rem;
+}
+
+/* The caption sits inside the top border, the way the TUI sets a panel title
+   into its own rule. */
+.panel::before {
+  content: attr(data-panel);
+  position: absolute;
+  top: 0;
+  left: 1.1rem;
+  transform: translateY(-50%);
+  padding: 0 0.6rem;
+  background: var(--onyx);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  color: var(--teal-glow);
+}
+
+/* Wide content scrolls in here, never on .panel itself. Setting overflow-x on
+   the panel computes overflow-y to auto (a non-visible value on one axis forces
+   the other), which clipped the caption inlaid in the top border — the one
+   detail that ties this page to the TUI. */
+.scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.term {
+  padding: 1.4rem 1.3rem 1.3rem;
+}
+
+.term pre {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: var(--step--1);
+  line-height: 1.85;
+}
+
+.term code {
+  font-family: inherit;
+}
+
+.term .ln {
+  display: block;
+  white-space: pre;
+}
+.term .pr {
+  color: var(--teal-glow);
+}
+.term .cmd {
+  color: var(--paper);
+}
+.term .dim {
+  color: var(--steel);
+}
+.term .ok {
+  color: var(--success);
+}
+.term .tl {
+  color: var(--teal-glow);
+}
+
+.copy {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.32rem 0.7rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--silver);
+  background: var(--gunmetal);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s;
+}
+.copy:hover {
+  color: var(--teal-glow);
+  border-color: var(--teal-glow);
+}
+.copy[data-done] {
+  color: var(--success);
+  border-color: var(--success);
+}
+
+/* ─── METRICS ───────────────────────────────────────────────────────────── */
+
+.metrics {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 1.5rem;
-  margin-top: 3rem;
+  /* auto-fit rather than a fixed 5 plus nth-child span repairs: the row rewraps
+     itself at any width and stays correct if a figure is added or removed. */
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: 1px;
+  list-style: none;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  background: var(--gunmetal);
+  border: var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.metrics li {
+  background: var(--obsidian);
+  padding: 1.15rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.metrics b {
+  font-family: var(--mono);
+  font-size: clamp(1.2rem, 0.9rem + 1.1vw, 1.75rem);
+  font-weight: 600;
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
+}
+
+.metrics span {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+/* ─── BANDS ─────────────────────────────────────────────────────────────── */
+
+.band {
+  padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+  border-top: var(--rule);
+}
+
+.band.alt {
+  background: linear-gradient(180deg, rgba(17, 22, 26, 0.55), transparent);
+}
+
+.cap {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: var(--step-2);
+  line-height: 1.2;
+  color: var(--paper);
+  margin: 0;
+  letter-spacing: var(--track-display);
+  text-wrap: balance;
+}
+
+.cap::before {
+  content: '';
+  display: block;
+  width: 34px;
+  height: 2px;
+  margin-bottom: 1.1rem;
+  background: linear-gradient(90deg, var(--teal-glow), transparent);
+}
+
+.lede {
+  max-width: 68ch;
+  margin: 1rem 0 0;
+  color: var(--steel);
+  font-size: var(--step-0);
+}
+
+.note {
+  max-width: 72ch;
+  margin: 1.6rem 0 0;
+  font-family: var(--mono);
+  font-size: var(--step--1);
+  line-height: 1.8;
+  color: var(--steel);
+  padding-left: 1rem;
+  border-left: 2px solid var(--gunmetal);
+}
+
+/* ─── LADDER (the three-tier premise) ───────────────────────────────────── */
+
+.ladder {
+  list-style: none;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+  background: var(--gunmetal);
+  border: var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.ladder li {
+  background: var(--obsidian);
+  padding: 1.6rem 1.5rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.4rem 1.3rem;
+  align-items: baseline;
+}
+
+/* The rank carries real information: this is a strict priority order, not a
+   decorated list. Article I of the constitution is literally a ranking.
+   Filled by default — going transparent only where the stroke will actually
+   paint, so the number can never vanish. */
+.ladder .rank {
+  grid-row: 1 / span 2;
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--teal-glow);
+}
+
+@supports (-webkit-text-stroke: 1px currentColor) {
+  .ladder .rank {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--teal-glow);
+  }
+}
+
+.ladder h3 {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: var(--step-0);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--paper);
+}
+
+.ladder p {
+  margin: 0;
+  color: var(--steel);
+  font-size: var(--step--1);
+  line-height: 1.75;
+}
+
+/* ─── MODEL (the six concepts) ──────────────────────────────────────────── */
+
+.model {
+  margin: 2.5rem 0 0;
+  display: grid;
+  gap: 1px;
+  background: var(--gunmetal);
+  border: var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.model > div {
+  background: var(--obsidian);
+  padding: 1.15rem 1.5rem;
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 0.3rem 1.3rem;
+  align-items: baseline;
+}
+
+.model dt {
+  font-family: var(--mono);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--teal-glow);
+}
+
+.model dd {
+  margin: 0;
+  color: var(--steel);
+  font-size: var(--step--1);
+  line-height: 1.75;
+}
+
+@media (max-width: 620px) {
+  .model > div {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── ROSTER TABLE ──────────────────────────────────────────────────────── */
+
+.roster {
+  padding: 1.5rem 0.4rem 0.5rem;
+}
+
+.roster table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step--1);
+  min-width: 640px;
+}
+
+.roster th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  color: var(--steel);
+  padding: 0 1rem 0.8rem;
+  border-bottom: var(--rule);
+}
+
+.roster td {
+  padding: 0.72rem 1rem;
+  border-bottom: 1px solid rgba(27, 34, 39, 0.55);
+  color: var(--steel);
+}
+
+.roster tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.roster tbody tr:hover td {
+  background: rgba(25, 199, 192, 0.04);
+  color: var(--silver);
+}
+
+.roster .handle {
+  font-family: var(--mono);
+  color: var(--teal-glow);
+  white-space: nowrap;
+}
+
+.roster td:nth-child(2) {
+  color: var(--paper);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.roster .num {
+  text-align: right;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  width: 1%;
+  white-space: nowrap;
+}
+
+/* ─── CARDS ─────────────────────────────────────────────────────────────── */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  gap: 1px;
+  margin-top: 2.5rem;
+  background: var(--gunmetal);
+  border: var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
 }
 
 .card {
-  background: var(--bg-graphite);
-  border: var(--border-glass);
-  border-radius: 12px;
-  padding: 2rem;
-  transition: all 0.3s ease;
-  position: relative;
+  background: var(--obsidian);
+  padding: 1.7rem 1.5rem;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent-teal-glow);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(25, 199, 192, 0.15);
-}
-
-.card-tag {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--accent-teal-glow);
-  text-transform: uppercase;
-  margin-bottom: 0.8rem;
-  display: block;
-}
-
-.card-title {
-  font-size: 1.35rem;
-  margin-bottom: 0.8rem;
-}
-
-.card-desc {
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-/* Command Units / Agents Catalog */
-.agent-pill {
-  display: inline-block;
-  background: var(--bg-gunmetal);
-  color: var(--accent-lime);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  padding: 0.2rem 0.6rem;
-  border-radius: 4px;
-  margin-top: 1rem;
-}
-
-/* Tabbed Command Center */
-.tabs-header {
-  display: flex;
-  gap: 0.5rem;
-  border-bottom: 1px solid var(--bg-gunmetal);
-  margin-bottom: 1.5rem;
-}
-
-.tab-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-steel);
-  padding: 0.8rem 1.5rem;
-  font-family: var(--font-headline);
+.card h3 {
+  margin: 0 0 0.7rem;
+  font-family: var(--mono);
+  font-size: var(--step-0);
   font-weight: 600;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s ease;
+  color: var(--paper);
+  letter-spacing: 0.01em;
 }
 
-.tab-btn.active {
-  color: var(--accent-teal-glow);
-  border-bottom-color: var(--accent-teal-glow);
+.card p {
+  margin: 0;
+  font-size: var(--step--1);
+  line-height: 1.78;
+  color: var(--steel);
 }
 
-.code-box {
-  background: var(--bg-obsidian);
-  border: 1px solid var(--bg-gunmetal);
-  border-radius: 8px;
-  padding: 1.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  color: var(--text-silver);
-  overflow-x: auto;
+/* ─── CHECKS ────────────────────────────────────────────────────────────── */
+
+.checks {
+  padding: 1.7rem 1.5rem 1.5rem;
 }
 
-/* Footer */
-.footer {
-  background: var(--bg-obsidian);
-  border-top: var(--border-glass);
-  padding: 4rem 0 2rem 0;
-  margin-top: 6rem;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 3rem;
-  margin-bottom: 3rem;
-}
-
-.footer-brand p {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-}
-
-.footer-col h4 {
-  font-size: 1rem;
-  margin-bottom: 1.2rem;
-  color: var(--text-white);
-}
-
-.footer-col ul {
+.checks ul {
+  margin: 0;
+  padding: 0;
   list-style: none;
+  display: grid;
+  gap: 0.75rem;
 }
 
-.footer-col li {
-  margin-bottom: 0.6rem;
+.checks li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  font-family: var(--mono);
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--steel);
 }
 
-.footer-col a {
-  color: var(--text-steel);
-  font-size: 0.9rem;
+.checks .ok {
+  color: var(--success);
 }
 
-.footer-col a:hover {
-  color: var(--accent-teal-glow);
+/* ─── INSTALL STEPS ─────────────────────────────────────────────────────── */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
 }
 
-.footer-bottom {
-  border-top: 1px solid var(--bg-gunmetal);
-  padding-top: 2rem;
+.step-cap {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  color: var(--steel);
+  margin: 0;
+}
+
+.panel.small {
+  margin-top: 1.1rem;
+  padding: 1.15rem 1.1rem;
+}
+
+.panel.small pre {
+  line-height: 1.5;
+}
+
+/* ─── FOOTER ────────────────────────────────────────────────────────────── */
+
+.foot {
+  border-top: var(--rule);
+  padding: 2.2rem 0;
+  background: var(--void);
+}
+
+.foot-inner {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  font-size: 0.85rem;
-  color: var(--text-steel);
+  gap: 0.6rem 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--steel);
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .hero-title { font-size: 2.5rem; }
-  .comparison-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .nav-links { display: none; }
+.foot-brand {
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  color: var(--paper);
 }
+
+.foot-meta {
+  margin-inline-end: auto;
+}
+
+/* ─── NARROW ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .nav {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .ladder li {
+    grid-template-columns: 1fr;
+  }
+  .ladder .rank {
+    grid-row: auto;
+  }
+  .model dt {
+    min-width: 0;
+  }
+}
+
+/* The brandboard is a dark system. A light rendering would be a different
+   identity, so this page commits to one look rather than inverting badly. */

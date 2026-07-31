@@ -67,22 +67,22 @@ AEXOS - Agentic eXecution & Orchestration System v${packageJson.version}
 Cyryx Labs | Universal AI Agent Framework for Any Domain
 
 USAGE:
-  npx aexos-core@latest              # Run installation wizard
-  npx aexos-core@latest install      # Install in current project
-  npx aexos-core@latest init <name>  # Create new project
-  npx aexos-core@latest update       # Update to latest version
-  npx aexos-core@latest validate     # Validate installation integrity
-  npx aexos-core@latest info         # Show system info
-  npx aexos-core@latest doctor       # Run diagnostics
+  npx github:CyryxLabs/AEXOS              # Run installation wizard
+  npx github:CyryxLabs/AEXOS install      # Install in current project
+  npx github:CyryxLabs/AEXOS init <name>  # Create new project
+  npx github:CyryxLabs/AEXOS update       # Update to latest version
+  npx github:CyryxLabs/AEXOS validate     # Validate installation integrity
+  npx github:CyryxLabs/AEXOS info         # Show system info
+  npx github:CyryxLabs/AEXOS doctor       # Run diagnostics
   aexos sdc plan <story.md>          # Lean full-sdc plan/progress
   aexos sdc next <story-id>          # Next SDC phase + skill
   aexos wave plan --stories a,b      # Lean wave-execute DAG plan
   aexos-delegate codex -t <slug>     # Delegate implementation to external executor
-  npx aexos-core@latest enterprise upgrade --target . --dry-run --enterprise-source <path>
+  npx github:CyryxLabs/AEXOS enterprise upgrade --target . --dry-run --enterprise-source <path>
                                        # Plan Pro to Enterprise upgrade
-  npx aexos-core@latest --version    # Show version
-  npx aexos-core@latest --version -d # Show detailed version info
-  npx aexos-core@latest --help       # Show this help
+  npx github:CyryxLabs/AEXOS --version    # Show version
+  npx github:CyryxLabs/AEXOS --version -d # Show detailed version info
+  npx github:CyryxLabs/AEXOS --help       # Show this help
 
 UPDATE:
   aexos update                    # Update to latest version
@@ -121,13 +121,13 @@ ENTERPRISE:
 
 EXAMPLES:
   # Install in current directory
-  npx aexos-core@latest
+  npx github:CyryxLabs/AEXOS
 
   # Install with minimal mode (only expansion-creator)
-  npx aexos-core-minimal@latest
+  npx github:CyryxLabs/AEXOS-minimal@latest
 
   # Create new project
-  npx aexos-core@latest init my-project
+  npx github:CyryxLabs/AEXOS init my-project
 
   # Search for workers
   aexos workers search "json csv"
@@ -184,7 +184,7 @@ async function showVersion() {
         console.log('\n⚠️  Version mismatch!');
         console.log(`  Local:  ${versionInfo.version}`);
         console.log(`  Latest: ${packageJson.version}`);
-        console.log('  Run \'npx aexos-core update\' to update.');
+        console.log('  Run \'npx github:CyryxLabs/AEXOS update\' to update.');
       } else {
         console.log('\n✅ Up to date');
       }
@@ -193,7 +193,7 @@ async function showVersion() {
     }
   } else {
     console.log('\n📭 No local installation found');
-    console.log('  Run \'npx aexos-core install\' to install AEXOS in this project.');
+    console.log('  Run \'npx github:CyryxLabs/AEXOS install\' to install AEXOS in this project.');
   }
 }
 
@@ -504,7 +504,7 @@ function cleanGitignore(gitignorePath) {
 // Helper: Show uninstall help
 function showUninstallHelp() {
   console.log(`
-Usage: npx aexos-core uninstall [options]
+Usage: npx github:CyryxLabs/AEXOS uninstall [options]
 
 Remove AEXOS from the current project.
 
@@ -529,23 +529,23 @@ Exit Codes:
 
 Examples:
   # Interactive uninstall (with confirmation)
-  npx aexos-core uninstall
+  npx github:CyryxLabs/AEXOS uninstall
 
   # Force uninstall without prompts
-  npx aexos-core uninstall --force
+  npx github:CyryxLabs/AEXOS uninstall --force
 
   # See what would be removed
-  npx aexos-core uninstall --dry-run
+  npx github:CyryxLabs/AEXOS uninstall --dry-run
 
   # Uninstall but keep project data
-  npx aexos-core uninstall --keep-data
+  npx github:CyryxLabs/AEXOS uninstall --keep-data
 `);
 }
 
 // Helper: Show doctor help
 function showDoctorHelp() {
   console.log(`
-Usage: npx aexos-core doctor [options]
+Usage: npx github:CyryxLabs/AEXOS doctor [options]
 
 Run health checks on your AEXOS installation.
 
@@ -569,13 +569,13 @@ Exit Codes:
 
 Examples:
   # Run health check
-  npx aexos-core doctor
+  npx github:CyryxLabs/AEXOS doctor
 
   # Auto-fix detected issues
-  npx aexos-core doctor --fix
+  npx github:CyryxLabs/AEXOS doctor --fix
 
   # Preview what would be fixed
-  npx aexos-core doctor --fix --dry-run
+  npx github:CyryxLabs/AEXOS doctor --fix --dry-run
 `);
 }
 
@@ -719,14 +719,14 @@ async function runUninstall(options = {}) {
     if (keepData) {
       console.log('   Your project data in .aexos/ has been preserved.');
     }
-    console.log('\n   To reinstall: npx aexos-core install');
+    console.log('\n   To reinstall: npx github:CyryxLabs/AEXOS install');
   }
 }
 
 // Helper: Show install help
 function showInstallHelp() {
   console.log(`
-Usage: npx aexos-core install [options]
+Usage: npx github:CyryxLabs/AEXOS install [options]
 
 Install AEXOS in the current directory.
 
@@ -754,22 +754,22 @@ Exit Codes:
 
 Examples:
   # Interactive installation
-  npx aexos-core install
+  npx github:CyryxLabs/AEXOS install
 
   # Force reinstall without prompts
-  npx aexos-core install --force
+  npx github:CyryxLabs/AEXOS install --force
 
   # Brownfield: merge configs automatically
-  npx aexos-core install --merge
+  npx github:CyryxLabs/AEXOS install --merge
 
   # Silent install for CI/CD
-  npx aexos-core install --quiet --force
+  npx github:CyryxLabs/AEXOS install --quiet --force
 
   # Explicit CI install with Claude Code files materialized
-  npx aexos-core install --ci --yes --ide claude-code
+  npx github:CyryxLabs/AEXOS install --ci --yes --ide claude-code
 
   # Preview what would be installed
-  npx aexos-core install --dry-run
+  npx github:CyryxLabs/AEXOS install --dry-run
 `);
 }
 
@@ -777,7 +777,7 @@ Examples:
 // Helper: Show init help
 function showInitHelp() {
   console.log(`
-Usage: npx aexos-core init <project-name> [options]
+Usage: npx github:CyryxLabs/AEXOS init <project-name> [options]
 
 Create a new AEXOS project with the specified name.
 
@@ -794,10 +794,10 @@ Available Templates:
   enterprise  Everything + dashboards + team integrations
 
 Examples:
-  npx aexos-core init my-project
-  npx aexos-core init my-project --template minimal
-  npx aexos-core init my-project --force --skip-install
-  npx aexos-core init . --template enterprise
+  npx github:CyryxLabs/AEXOS init my-project
+  npx github:CyryxLabs/AEXOS init my-project --template minimal
+  npx github:CyryxLabs/AEXOS init my-project --force --skip-install
+  npx github:CyryxLabs/AEXOS init . --template enterprise
 `);
 }
 
@@ -846,7 +846,7 @@ async function initProject() {
 
   if (!projectName) {
     console.error('❌ Project name is required');
-    console.log('\nUsage: npx aexos-core init <project-name> [options]');
+    console.log('\nUsage: npx github:CyryxLabs/AEXOS init <project-name> [options]');
     console.log('Run with --help for more information.');
     process.exit(1);
   }

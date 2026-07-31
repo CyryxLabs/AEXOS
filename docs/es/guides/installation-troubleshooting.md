@@ -13,7 +13,7 @@
 ## Inicio Rápido
 
 ```bash
-npx aexos-core@latest
+npx github:CyryxLabs/AEXOS
 ```
 
 Este comando descarga y ejecuta la última versión del instalador de AEXOS-Core.
@@ -40,16 +40,16 @@ Este comando descarga y ejecuta la última versión del instalador de AEXOS-Core
 
 ```bash
 # Install in current directory
-npx aexos-core@latest
+npx github:CyryxLabs/AEXOS
 
 # Install with specific version
-npx aexos-core@2.2.0
+npx github:CyryxLabs/AEXOS
 
 # Show version
-npx aexos-core@latest --version
+npx github:CyryxLabs/AEXOS --version
 
 # Show help
-npx aexos-core@latest --help
+npx github:CyryxLabs/AEXOS --help
 ```
 
 ### Método 2: Desde GitHub
@@ -225,7 +225,7 @@ npm cache clean --force
 rm -rf node_modules
 
 # Try again
-npx aexos-core@latest
+npx github:CyryxLabs/AEXOS
 ```
 
 ---
@@ -256,7 +256,7 @@ npx clear-npx-cache
 npx --ignore-existing aexos-core@latest
 
 # Or use specific version
-npx aexos-core@2.2.0
+npx github:CyryxLabs/AEXOS
 ```
 
 ---
@@ -279,7 +279,7 @@ npx --version
 npm view aexos-core version
 
 # 5. Test installation
-npx aexos-core@latest --version
+npx github:CyryxLabs/AEXOS --version
 ```
 
 **Salida esperada:**
@@ -298,8 +298,8 @@ v22.x.x (or v18+/v20+)
 Si sigues teniendo problemas:
 
 1. **GitHub Issues**: https://github.com/CyryxLabs/AEXOS/issues
-2. **Ejecutar diagnósticos**: `npx aexos-core@latest doctor`
-3. **Verificar información del sistema**: `npx aexos-core@latest info`
+2. **Ejecutar diagnósticos**: `npx github:CyryxLabs/AEXOS doctor`
+3. **Verificar información del sistema**: `npx github:CyryxLabs/AEXOS info`
 
 Al reportar problemas, por favor incluye:
 - Sistema operativo y versión
@@ -314,13 +314,13 @@ Al reportar problemas, por favor incluye:
 
 | Comando | Descripción |
 |---------|-------------|
-| `npx aexos-core@latest` | Instalar/ejecutar asistente |
-| `npx aexos-core@latest --version` | Mostrar versión |
-| `npx aexos-core@latest --help` | Mostrar ayuda |
-| `npx aexos-core@latest install` | Instalar en directorio actual |
-| `npx aexos-core@latest init <name>` | Crear nuevo proyecto |
-| `npx aexos-core@latest doctor` | Ejecutar diagnósticos |
-| `npx aexos-core@latest info` | Mostrar información del sistema |
+| `npx github:CyryxLabs/AEXOS` | Instalar/ejecutar asistente |
+| `npx github:CyryxLabs/AEXOS --version` | Mostrar versión |
+| `npx github:CyryxLabs/AEXOS --help` | Mostrar ayuda |
+| `npx github:CyryxLabs/AEXOS install` | Instalar en directorio actual |
+| `npx github:CyryxLabs/AEXOS init <name>` | Crear nuevo proyecto |
+| `npx github:CyryxLabs/AEXOS doctor` | Ejecutar diagnósticos |
+| `npx github:CyryxLabs/AEXOS info` | Mostrar información del sistema |
 
 ---
 

@@ -23,7 +23,7 @@ async function run(context) {
       check: name,
       status: 'FAIL',
       message: 'Hooks directory not found (.claude/hooks/)',
-      fixCommand: 'npx aexos-core install --force',
+      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
     };
   }
 
@@ -35,7 +35,7 @@ async function run(context) {
       check: name,
       status: 'FAIL',
       message: 'Cannot read hooks directory',
-      fixCommand: 'npx aexos-core install --force',
+      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
     };
   }
 
@@ -49,7 +49,7 @@ async function run(context) {
       check: name,
       status: 'FAIL',
       message: 'No hook files found (.cjs)',
-      fixCommand: 'npx aexos-core install --force',
+      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
     };
   }
 
@@ -103,7 +103,7 @@ async function run(context) {
       check: name,
       status: 'WARN',
       message: `${hookCount} hook files found but not registered in settings.local.json`,
-      fixCommand: 'npx aexos-core install --force',
+      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
     };
   }
 
@@ -111,7 +111,7 @@ async function run(context) {
     check: name,
     status: 'WARN',
     message: `Only ${hookCount}/2 hook files found`,
-    fixCommand: 'npx aexos-core install --force',
+    fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
   };
 }
 

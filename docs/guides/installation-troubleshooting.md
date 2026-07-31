@@ -7,7 +7,7 @@
 ## Quick Start
 
 ```bash
-npx aexos-core@latest
+npx github:CyryxLabs/AEXOS
 ```
 
 This command downloads and runs the latest version of AEXOS-Core installer.
@@ -34,16 +34,16 @@ This command downloads and runs the latest version of AEXOS-Core installer.
 
 ```bash
 # Install in current directory
-npx aexos-core@latest
+npx github:CyryxLabs/AEXOS
 
 # Install with specific version
-npx aexos-core@2.2.0
+npx github:CyryxLabs/AEXOS
 
 # Show version
-npx aexos-core@latest --version
+npx github:CyryxLabs/AEXOS --version
 
 # Show help
-npx aexos-core@latest --help
+npx github:CyryxLabs/AEXOS --help
 ```
 
 > **Windows:** if `npx` fails with `ECOMPROMISED` / Lock compromised, use Method 3 (global) — see [Issue #773](https://github.com/CyryxLabs/AEXOS/issues/773).
@@ -108,7 +108,7 @@ aexos-core install
 **Alternatives:**
 ```bash
 npm cache verify
-npx aexos-core@latest install
+npx github:CyryxLabs/AEXOS install
 
 # or clone
 git clone https://github.com/CyryxLabs/AEXOS.git
@@ -254,7 +254,7 @@ npm cache clean --force
 rm -rf node_modules
 
 # Try again
-npx aexos-core@latest
+npx github:CyryxLabs/AEXOS
 ```
 
 ---
@@ -285,7 +285,7 @@ npx clear-npx-cache
 npx --ignore-existing aexos-core@latest
 
 # Or use specific version
-npx aexos-core@2.2.0
+npx github:CyryxLabs/AEXOS
 ```
 
 ### Issue 10: "Pro activation failed: Installed Pro artifact did not create node_modules/@aexos-squads/pro"
@@ -305,7 +305,7 @@ This is **fully fixed in `@aexos-squads/core@5.2.6` and above**. The installer n
 
 ```bash
 # Update to the fixed version (the -p flag is critical — it forces latest resolution)
-npx -y -p @aexos-squads/core@latest aexos install
+npx github:CyryxLabs/AEXOS install
 ```
 
 **Solution (if you previously hit the error and the fix above still misbehaves — residual state from old attempts):**
@@ -321,7 +321,7 @@ find . -maxdepth 5 -path "*/node_modules/@aexos-squads/pro" -type d 2>/dev/null 
 rm -rf ~/.npm/_npx 2>/dev/null
 
 # 3. Retry the install with -p forcing the latest published version
-npx -y -p @aexos-squads/core@latest aexos install
+npx github:CyryxLabs/AEXOS install
 ```
 
 *Windows (PowerShell):*
@@ -336,7 +336,7 @@ Get-ChildItem -Recurse -Depth 5 -Directory -ErrorAction SilentlyContinue `
 Remove-Item -Recurse -Force "$env:USERPROFILE\.npm\_npx" -ErrorAction SilentlyContinue
 
 # 3. Retry the install with -p forcing the latest published version
-npx -y -p @aexos-squads/core@latest aexos install
+npx github:CyryxLabs/AEXOS install
 ```
 
 *Windows (Command Prompt / cmd.exe):*
@@ -349,7 +349,7 @@ for /f "delims=" %i in ('dir /b /s /ad "node_modules\@aexos-squads\pro" 2^>nul')
 rd /s /q "%USERPROFILE%\.npm\_npx" 2>nul
 
 :: 3. Retry the install
-npx -y -p @aexos-squads/core@latest aexos install
+npx github:CyryxLabs/AEXOS install
 ```
 
 **You do NOT need:**
@@ -383,7 +383,7 @@ npx --version
 npm view aexos-core version
 
 # 5. Test installation
-npx aexos-core@latest --version
+npx github:CyryxLabs/AEXOS --version
 ```
 
 **Expected output:**
@@ -402,8 +402,8 @@ v22.x.x (or v18+/v20+)
 If you're still having issues:
 
 1. **GitHub Issues**: https://github.com/CyryxLabs/AEXOS/issues
-2. **Run diagnostics**: `npx aexos-core@latest doctor`
-3. **Check system info**: `npx aexos-core@latest info`
+2. **Run diagnostics**: `npx github:CyryxLabs/AEXOS doctor`
+3. **Check system info**: `npx github:CyryxLabs/AEXOS info`
 
 When reporting issues, please include:
 - Operating system and version
@@ -418,13 +418,13 @@ When reporting issues, please include:
 
 | Command | Description |
 |---------|-------------|
-| `npx aexos-core@latest` | Install/run wizard |
-| `npx aexos-core@latest --version` | Show version |
-| `npx aexos-core@latest --help` | Show help |
-| `npx aexos-core@latest install` | Install in current dir |
-| `npx aexos-core@latest init <name>` | Create new project |
-| `npx aexos-core@latest doctor` | Run diagnostics |
-| `npx aexos-core@latest info` | Show system info |
+| `npx github:CyryxLabs/AEXOS` | Install/run wizard |
+| `npx github:CyryxLabs/AEXOS --version` | Show version |
+| `npx github:CyryxLabs/AEXOS --help` | Show help |
+| `npx github:CyryxLabs/AEXOS install` | Install in current dir |
+| `npx github:CyryxLabs/AEXOS init <name>` | Create new project |
+| `npx github:CyryxLabs/AEXOS doctor` | Run diagnostics |
+| `npx github:CyryxLabs/AEXOS info` | Show system info |
 
 ---
 

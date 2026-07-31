@@ -44,13 +44,13 @@
 ### 新安装
 
 ```bash
-npx @aexos-squads/core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ### 升级
 
 ```bash
-npx @aexos-squads/core install --force-upgrade
+npx github:CyryxLabs/AEXOS install --force-upgrade
 ```
 
 ### 遇到问题？

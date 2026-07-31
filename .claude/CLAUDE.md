@@ -36,7 +36,7 @@ Configure in `~/.claude/settings.json` (global) or `.claude/settings.json` (proj
 { "language": "portuguese" }
 ```
 
-The installer writes this automatically during `npx aexos-core install`. No language config in `core-config.yaml`.
+The installer writes this automatically during `npx github:CyryxLabs/AEXOS install`. No language config in `core-config.yaml`.
 
 ---
 
@@ -308,9 +308,9 @@ npm run build               # Build produção
 
 ### CYRYX
 ```bash
-npx aexos-core install       # Instalar CYRYX
-npx aexos-core doctor        # Diagnóstico do sistema
-npx aexos-core info          # Informações do sistema
+npx github:CyryxLabs/AEXOS install       # Instalar CYRYX
+npx github:CyryxLabs/AEXOS doctor        # Diagnóstico do sistema
+npx github:CyryxLabs/AEXOS info          # Informações do sistema
 ```
 
 ### Dashboard (apps/dashboard/)

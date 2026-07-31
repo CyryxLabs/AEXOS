@@ -13,8 +13,8 @@ Today:
 ```
   CLI / skills          deterministic layer                   execution
   ────────────          ───────────────────                   ─────────
-  cyryx sdc plan   →    state machine, DAG, gates    →    ✗ callback never supplied
-  cyryx wave plan  →    wave-analyzer partitions     →    ✗ nothing consumes lanes
+  aexos sdc plan   →    state machine, DAG, gates    →    ✗ callback never supplied
+  aexos wave plan  →    wave-analyzer partitions     →    ✗ nothing consumes lanes
   /full-sdc        →    preflight, budget, binding   →    ✗ model reads markdown,
                                                              unobserved by any of it
 ```
@@ -155,7 +155,7 @@ same path is a planning-time error, not a merge-time surprise.
 Full rationale in [ADR-AEX-003](./adr/ADR-AEX-003-GOVERNANCE-HOT-PATH.md).
 
 `dispatch-governance.js` — budget ceilings, story binding, injection scanning —
-is reachable only from `pm.sh:362-377` and `cyryx sdc preflight`. Neither is
+is reachable only from `pm.sh:362-377` and `aexos sdc preflight`. Neither is
 where work happens.
 
 **Governance becomes a precondition of `execute()`**, inside the runtime
@@ -174,7 +174,7 @@ after preflight."*
 | `.claude/hooks/` `PreToolUse` | Article II — who may run which tool | exit 2 |
 | `AgentRuntime` | Article XII — budget, story binding, intent scan | token or rejection |
 
-`cyryx sdc preflight` keeps its exit contract (0 proceed / 5 governance
+`aexos sdc preflight` keeps its exit contract (0 proceed / 5 governance
 rejection) as a thin CLI wrapper over the same evaluation.
 
 **Record approvals, not only rejections.** Without approval records the audit

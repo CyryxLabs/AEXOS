@@ -200,7 +200,7 @@ function _collectGaps(data) {
       gaps.push({
         severity: 'HIGH',
         gap: `Hook: ${check.name} — ${check.detail}`,
-        recommendation: 'Run `npx aexos-core install` to reinstall hooks',
+        recommendation: 'Run `npx github:CyryxLabs/AEXOS install` to reinstall hooks',
       });
     }
   }

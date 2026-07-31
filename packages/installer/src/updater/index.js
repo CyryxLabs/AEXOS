@@ -33,8 +33,11 @@ const {
   updateInstalledManifest,
 } = require(path.join(installerDir, 'brownfield-upgrader'));
 
-const CORE_PACKAGE_NAME = '@aexos-squads/core';
-const LEGACY_CORE_PACKAGE_NAMES = ['aexos-core', '@cyryx/aexos-core'];
+// The updater's whole job is meeting projects installed under an older name, so
+// the legacy list is load-bearing here rather than defensive. Current name
+// first: an install carrying both resolves to the one it should upgrade toward.
+const CORE_PACKAGE_NAME = '@cyryxlabs/aexos';
+const LEGACY_CORE_PACKAGE_NAMES = ['@aexos-squads/core', 'aexos-core', '@cyryx/aexos-core'];
 const CORE_PACKAGE_CANDIDATES = [CORE_PACKAGE_NAME, ...LEGACY_CORE_PACKAGE_NAMES];
 
 function getPackageRoot(projectRoot, packageName) {

@@ -108,13 +108,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Validate @aexos-squads package names
+      - name: Validate package names
         run: |
           node <<'NODE'
           const fs = require('fs');
 
+          // The root package is named for the company and the product it is.
+          // That is also what makes `npx github:CyryxLabs/AEXOS <command>` run:
+          // npm infers the binary from the unscoped name, and `aexos` is a real
+          // bin. The previous name inferred `core`, which is not, so every
+          // documented zero-install command silently failed.
+          //
+          // The workspace packages keep their scope: nothing resolves them by
+          // name from outside, so renaming them would be churn without effect.
           const expected = {
-            'package.json': '@aexos-squads/core',
+            'package.json': '@cyryxlabs/aexos',
             'packages/aexos-install/package.json': '@aexos-squads/aexos-install',
             'packages/aexos-pro-cli/package.json': '@aexos-squads/aexos-pro-cli',
             'packages/installer/package.json': '@aexos-squads/installer',
@@ -759,8 +767,8 @@ jobs:
 
       - name: Test CLI basic commands
         run: |
-          npx aexos-core --version || echo "CLI version check skipped"
-          npx aexos-core --help || echo "CLI help check skipped"
+          npx github:CyryxLabs/AEXOS --version || echo "CLI version check skipped"
+          npx github:CyryxLabs/AEXOS --help || echo "CLI help check skipped"
         continue-on-error: true
 
   # INS-4.12: Dependency graph validation — ensures .aexos-core/package.json is complete

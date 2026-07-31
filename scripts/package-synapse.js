@@ -195,7 +195,7 @@ contextual rules through an 8-layer pipeline.
 
 - **Node.js** 18+
 - **Claude Code** CLI with hook support
-- **AEXOS Core** installed (\`npx aexos-core install\`)
+- **AEXOS Core** installed (\`npx github:CyryxLabs/AEXOS install\`)
 
 ## Quick Install
 

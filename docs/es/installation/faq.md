@@ -31,7 +31,7 @@
 
 ### P1: ¿Por qué npx en lugar de npm install -g?
 
-**Respuesta:** Recomendamos `npx aexos-core install` en lugar de instalación global por varias razones:
+**Respuesta:** Recomendamos `npx github:CyryxLabs/AEXOS install` en lugar de instalación global por varias razones:
 
 1. **Siempre la Última Versión**: npx obtiene la última versión automáticamente
 2. **Sin Contaminación Global**: No agrega a sus paquetes npm globales
@@ -77,7 +77,7 @@ npm --version   # Debe ser 9+
 
 ```bash
 cd /path/to/existing-project
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 El instalador:
@@ -149,13 +149,13 @@ your-project/
 
 ```bash
 # Actualizar vía npx (recomendado)
-npx aexos-core update
+npx github:CyryxLabs/AEXOS update
 
 # O reinstalar la última
-npx aexos-core install --force-upgrade
+npx github:CyryxLabs/AEXOS install --force-upgrade
 
 # Verificar versión actual
-npx aexos-core status
+npx github:CyryxLabs/AEXOS doctor
 ```
 
 **Qué se actualiza:**
@@ -178,15 +178,15 @@ npx aexos-core status
 
 | Tipo de Actualización          | Frecuencia   | Comando                     |
 | -------------------- | ----------- | --------------------------- |
-| **Parches de seguridad** | Inmediatamente | `npx aexos-core update` |
-| **Actualizaciones menores**    | Mensualmente     | `npx aexos-core update` |
+| **Parches de seguridad** | Inmediatamente | `npx github:CyryxLabs/AEXOS update` |
+| **Actualizaciones menores**    | Mensualmente     | `npx github:CyryxLabs/AEXOS update` |
 | **Versiones mayores**   | Trimestralmente   | Revise el changelog primero      |
 
 **Verificar actualizaciones:**
 
 ```bash
 npm show aexos-core version
-npx aexos-core status
+npx github:CyryxLabs/AEXOS doctor
 ```
 
 ---
@@ -198,7 +198,7 @@ npx aexos-core status
 **Opción 1: Reinstalar versión específica**
 
 ```bash
-npx aexos-core@1.1.0 install --force-upgrade
+npx github:CyryxLabs/AEXOS install --force-upgrade
 ```
 
 **Opción 2: Usar Git para restaurar**
@@ -228,7 +228,7 @@ mv .aexos-core.backup .aexos-core
 
 ```bash
 # Instalar una vez con internet
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 
 # Empaquetar para uso offline
 tar -czvf aexos-offline.tar.gz .aexos-core/ .claude/ .cursor/
@@ -260,7 +260,7 @@ tar -xzvf aexos-offline.tar.gz
 
    ```bash
    # Instalar y empaquetar
-   npx aexos-core install
+   npx github:CyryxLabs/AEXOS install
    cd your-project
    tar -czvf aexos-transfer.tar.gz .aexos-core/ .claude/ .cursor/ docs/
    ```
@@ -331,7 +331,7 @@ git clone your-repo
 cd your-repo
 
 # Opcionalmente configurar su IDE preferido
-npx aexos-core install --ide cursor
+npx github:CyryxLabs/AEXOS install --ide cursor
 ```
 
 Si `.aexos-core/` no está commiteado:
@@ -339,7 +339,7 @@ Si `.aexos-core/` no está commiteado:
 ```bash
 git clone your-repo
 cd your-repo
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 **Mejor práctica:** Commitear `.aexos-core/` para compartir configuraciones de agentes consistentes.
@@ -395,7 +395,7 @@ npx aexos-core install
 3. **Agregar a la configuración del IDE:**
 
    ```bash
-   npx aexos-core install --ide claude-code
+   npx github:CyryxLabs/AEXOS install --ide claude-code
    ```
 
 4. **Activar:** `/my-agent` o `@my-agent`
@@ -445,13 +445,13 @@ npx aexos-core install
 **Instalar un Squad:**
 
 ```bash
-npx aexos-core install --Squads hybrid-ops
+npx github:CyryxLabs/AEXOS install --Squads hybrid-ops
 ```
 
 **Listar paquetes disponibles:**
 
 ```bash
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -509,7 +509,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "18"
-      - run: npx aexos-core install --full --ide claude-code
+      - run: npx github:CyryxLabs/AEXOS install --full --ide claude-code
       - run: npm test
 ```
 
@@ -519,7 +519,7 @@ jobs:
 test:
   image: node:18
   script:
-    - npx aexos-core install --full
+    - npx github:CyryxLabs/AEXOS install --full
     - npm test
 ```
 

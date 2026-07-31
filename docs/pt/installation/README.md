@@ -46,13 +46,13 @@ Este diretório contém documentação abrangente de instalação e configuraç�
 ### Nova Instalação
 
 ```bash
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ### Atualização
 
 ```bash
-npx aexos-core install --force-upgrade
+npx github:CyryxLabs/AEXOS install --force-upgrade
 ```
 
 ### Está com Problemas?

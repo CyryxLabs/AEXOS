@@ -18,14 +18,14 @@ AEXOS (Cyryx) puede instalarse via NPX para una configuración rápida sin insta
 
 ### Uso Correcto
 
-Siempre ejecute `npx aexos-core install` **desde el directorio de su proyecto**:
+Siempre ejecute `npx github:CyryxLabs/AEXOS install` **desde el directorio de su proyecto**:
 
 ```bash
 # Navegue primero a su proyecto
 cd /path/to/your/project
 
 # Luego ejecute el instalador
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ### ⚠️ Error Común
@@ -35,11 +35,11 @@ npx aexos-core install
 ```bash
 # ❌ INCORRECTO - Fallará con error de directorio temporal NPX
 cd ~
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 
 # ✅ CORRECTO - Navegue al proyecto primero
 cd ~/my-project
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ## Por Qué Esto Importa
@@ -62,7 +62,7 @@ AEXOS from detecting your IDE correctly.
 
 Solution:
   cd /path/to/your/project
-  npx aexos-core install
+  npx github:CyryxLabs/AEXOS install
 
 See: https://aexos-core.dev/docs/npx-install
 ```
@@ -82,7 +82,7 @@ Su directorio de proyecto debería contener:
 ### Paso 2: Ejecute el Instalador
 
 ```bash
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ### Paso 3: Siga los Prompts Interactivos
@@ -128,7 +128,7 @@ Los usuarios de Windows típicamente no encuentran este problema, pero patrones 
    ```
 2. Vuelva a ejecutar el instalador:
    ```bash
-   npx aexos-core install
+   npx github:CyryxLabs/AEXOS install
    ```
 
 ### Directorio de Instalación Incorrecto

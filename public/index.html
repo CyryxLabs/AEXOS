@@ -3,348 +3,335 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cyryx Labs — The Command Layer for AI-Native Builders | MAAX Studio & AEXOS</title>
-    <meta name="description" content="Cyryx Labs builds MAAX Studio — an agentic execution OS that helps teams operate AI software squads with project memory, graph-based context, mission control, quality gates, and cost governance." />
-    
-    <!-- Open Graph & Twitter Cards -->
-    <meta property="og:title" content="Cyryx Labs — The Command Layer for AI-Native Builders" />
-    <meta property="og:description" content="Operate AI software squads with memory, graph context, mission control, quality gates, and cost governance." />
+    <title>AEXOS — Agentic eXecution &amp; Orchestration System</title>
+    <meta
+      name="description"
+      content="A CLI-first framework that orchestrates 64 specialised AI agents across nine squads. Every specialist is anchored to a published, named method and cites it, so its recommendations can be audited against the source."
+    />
+
+    <meta property="og:title" content="AEXOS — Agentic eXecution &amp; Orchestration System" />
+    <meta
+      property="og:description"
+      content="Sixty-four agents, nine squads, one command layer. Every specialist cites the published method it applies."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://github.com/CyryxLabs/AEXOS" />
+    <!--
+      Social cards must be raster: no major platform rasterises SVG for a preview,
+      so pointing og:image at the banner SVG produced a blank card. This is the
+      same wordmark geometry at the 1.91:1 ratio crawlers want — JPEG rather than
+      PNG because the teal wash is a gradient, which costs 252KB as PNG and 46KB
+      here with no visible difference.
+    -->
+    <meta property="og:image" content="https://raw.githubusercontent.com/CyryxLabs/AEXOS/main/public/assets/aexos-social.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AEXOS — Agentic eXecution & Orchestration System, by Cyryx Labs" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#050607" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
 
-    <!-- Header Navigation -->
-    <header class="header">
-      <div class="container header-container">
-        <a href="#" class="logo-lockup">
-          <span class="monolith-icon"></span>
-          <span class="logo-text">CYRYX LABS</span>
-          <span class="logo-subtext">MAAX STUDIO</span>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="#top" aria-label="AEXOS home">
+          <span class="brand-glyph" aria-hidden="true"></span>
+          <span class="brand-name">AEXOS</span>
+          <span class="brand-by">Cyryx Labs</span>
         </a>
 
-        <ul class="nav-links">
-          <li><a href="#vision">Vision</a></li>
-          <li><a href="#architecture">Architecture</a></li>
-          <li><a href="#command-units">Command Units</a></li>
-          <li><a href="#mission-ledger">Mission Ledger</a></li>
-          <li><a href="#cli-setup">CLI Guide</a></li>
-        </ul>
+        <nav class="nav" aria-label="Sections">
+          <a href="#premise">Premise</a>
+          <a href="#model">Model</a>
+          <a href="#squads">Squads</a>
+          <a href="#attribution">Attribution</a>
+          <a href="#gates">Gates</a>
+          <a href="#install">Install</a>
+        </nav>
 
-        <div class="cta-group">
-          <a href="https://github.com/CyryxLabs/AEXOS" target="_blank" class="btn btn-ghost">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            GitHub
-          </a>
-          <a href="#cli-setup" class="btn btn-primary">Explore MAAX Studio</a>
-        </div>
+        <a class="btn btn-ghost" href="https://github.com/CyryxLabs/AEXOS" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+          Repository
+        </a>
       </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="container hero-content text-center">
-        <span class="badge">
-          <span style="width:8px; height:8px; background:#19C7C0; border-radius:50%; display:inline-block;"></span>
-          Cyryx Labs Design System v1.0 — MAAX Protocol
-        </span>
-        
-        <h1 class="hero-title">The command layer for AI-native builders.</h1>
-        
-        <p class="hero-subtitle">
-          Cyryx Labs builds MAAX Studio — an agentic execution OS that helps founders, agencies, and product teams operate AI software squads with project memory, graph-based context, mission control, quality gates, and cost governance.
-        </p>
+    <main id="main">
+      <!-- ─── HERO ────────────────────────────────────────────────────────── -->
+      <section class="hero" id="top">
+        <div class="shell">
+          <p class="eyebrow">Cyryx Labs · v5.3.0 · Proprietary</p>
 
-        <div class="hero-actions">
-          <a href="#cli-setup" class="btn btn-primary">Explore MAAX Studio</a>
-          <a href="https://github.com/CyryxLabs/AEXOS" target="_blank" class="btn btn-secondary">Request Access / Design Partners</a>
-        </div>
+          <!-- The wordmark is the page title, so it carries the h1 rather than
+               sitting above a heading that repeats it. -->
+          <h1 class="wordmark-title">
+            <img class="wordmark" src="assets/aexos-wordmark.svg" alt="AEXOS" width="588" height="139" />
+          </h1>
 
-        <!-- CLI Command Box -->
-        <div class="terminal-card">
-          <div class="terminal-header">
-            <div class="terminal-dots">
-              <span class="dot dot-red"></span>
-              <span class="dot dot-yellow"></span>
-              <span class="dot dot-green"></span>
+          <p class="expansion">Agentic e<span class="x">X</span>ecution &amp; Orchestration System</p>
+
+          <p class="thesis">
+            Sixty-four specialised agents across nine squads, driven from one command layer.
+            Every specialist is anchored to a published, named method — and cites it.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#install">Install</a>
+            <a class="btn btn-secondary" href="#squads">See the squads</a>
+          </div>
+
+          <div class="panel term" data-panel="bash — aexos">
+            <div class="scroll">
+              <pre><code><span class="ln"><span class="pr">$</span> <span class="cmd">npx github:CyryxLabs/AEXOS install</span></span>
+<span class="ln dim">  Installing AEXOS core framework…</span>
+<span class="ln"><span class="ok">✓</span> <span class="dim">Core installed</span>  <span class="dim">12 agents · 213 tasks · 14 workflows</span></span>
+<span class="ln"><span class="ok">✓</span> <span class="dim">Squads installed</span>  <span class="dim">9 squads · 52 agents · 78 tasks</span></span>
+<span class="ln"><span class="ok">✓</span> <span class="dim">Registry</span>  <span class="dim">9 squads routable via</span> <span class="tl">@aexos-master</span></span></code></pre>
             </div>
-            <span class="terminal-title">bash — aexos-cli init</span>
+            <button class="copy" data-copy="npx github:CyryxLabs/AEXOS install">Copy<span class="sr">&nbsp;install command</span></button>
           </div>
-          <div class="terminal-body">
-            <span>$ <span class="command-text">npx github:CyryxLabs/AEXOS init my-project</span></span>
-            <button class="copy-btn" data-copy="npx github:CyryxLabs/AEXOS init my-project">Copy</button>
-          </div>
+
+          <ul class="metrics" aria-label="Project figures">
+            <li><b>9</b><span>squads</span></li>
+            <li><b>64</b><span>agents</span></li>
+            <li><b>291</b><span>tasks</span></li>
+            <li><b>33</b><span>workflows</span></li>
+            <li><b>9,306</b><span>tests</span></li>
+          </ul>
         </div>
+      </section>
 
-        <!-- High Quality Hero Console Mockup -->
-        <div class="image-frame">
-          <img src="assets/hero_console.png" alt="MAAX Studio Mission Control Console — Cyryx Labs" />
+      <!-- ─── PREMISE ─────────────────────────────────────────────────────── -->
+      <section class="band" id="premise">
+        <div class="shell">
+          <h2 class="cap">The premise</h2>
+          <p class="lede">
+            The command line is where the intelligence lives. Everything else observes it.
+          </p>
+
+          <ol class="ladder">
+            <li>
+              <span class="rank">01</span>
+              <h3>CLI first</h3>
+              <p>Execution, decisions and automation. A capability that does not work here does not exist yet.</p>
+            </li>
+            <li>
+              <span class="rank">02</span>
+              <h3>Observability second</h3>
+              <p>Dashboards watch what the CLI is doing. They never drive it, and are never required to operate it.</p>
+            </li>
+            <li>
+              <span class="rank">03</span>
+              <h3>UI third</h3>
+              <p>Point management and visualisation, where a screen genuinely beats a command.</p>
+            </li>
+          </ol>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Section 1: Category Tension (Before vs After) -->
-    <section id="vision" class="section-padding">
-      <div class="container">
-        <div class="text-center" style="max-width: 700px; margin:0 auto;">
-          <span class="badge">Category Tension</span>
-          <h2 style="font-size: 2.4rem; margin-top:1rem;">From Prompt Chaos to Governed Execution</h2>
-          <p style="margin-top:0.8rem;">Stop relying on scattered prompts and invisible context. Move your engineering into auditable mission execution.</p>
-        </div>
+      <!-- ─── MODEL ───────────────────────────────────────────────────────── -->
+      <section class="band alt" id="model">
+        <div class="shell">
+          <h2 class="cap">The expertise is in the procedure</h2>
+          <p class="lede">
+            Workflows are composed of connected <em>tasks</em>, not connected agents. A task declares
+            its inputs, its outputs and the checklist it must pass. The agent is a router; swap it
+            and the method is unchanged.
+          </p>
 
-        <div class="comparison-grid">
-          <div class="comparison-card before">
-            <h3 style="color: var(--text-steel); font-size: 1.3rem;">❌ Before: Scattered AI Assistance</h3>
-            <ul class="comparison-list">
-              <li><span class="icon-x">✕</span> Scattered prompts across browser tabs & loose chats</li>
-              <li><span class="icon-x">✕</span> Lost context & broken architectural decisions</li>
-              <li><span class="icon-x">✕</span> Invisible API costs and zero budget discipline</li>
-              <li><span class="icon-x">✕</span> Inconsistent code outputs without quality gates</li>
-              <li><span class="icon-x">✕</span> No audit trail or execution history</li>
-            </ul>
-          </div>
-
-          <div class="comparison-card after">
-            <h3 style="color: var(--accent-teal-glow); font-size: 1.3rem;">⚡ After: Governed Execution (MAAX)</h3>
-            <ul class="comparison-list">
-              <li><span class="icon-check">✓</span> Structured Missions operated by specialized Command Units</li>
-              <li><span class="icon-check">✓</span> Soul Kernel persistent project memory & Atlas Graph context</li>
-              <li><span class="icon-check">✓</span> Margin Governor cost tracking & intelligent model routing</li>
-              <li><span class="icon-check">✓</span> Command Gates enforcing security, TDD, and quality gates</li>
-              <li><span class="icon-check">✓</span> Mission Ledger with complete auditable history</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 2: MAAX Protocol Brand Architecture -->
-    <section id="architecture" class="section-padding" style="background: var(--bg-obsidian);">
-      <div class="container">
-        <div class="text-center" style="max-width: 750px; margin:0 auto 3rem auto;">
-          <span class="badge">Proprietary Architecture</span>
-          <h2 style="font-size: 2.4rem; margin-top:1rem;">MAAX Protocol Layers</h2>
-          <p style="margin-top:0.8rem;">The engineering system powering persistent memory, context graphs, command units, and governance ledgers.</p>
-        </div>
-
-        <div class="cards-grid">
-          <div class="card">
-            <span class="card-tag">Memory Core</span>
-            <h3 class="card-title">Soul Kernel</h3>
-            <p class="card-desc">Persistent project memory, operating rules, constraints, architectural principles, and historical decisions stored directly in your codebase.</p>
-          </div>
-
-          <div class="card">
-            <span class="card-tag">Context Intelligence</span>
-            <h3 class="card-title">Atlas Graph</h3>
-            <p class="card-desc">Graph-based context engine mapping file relationships, schemas, routes, dependencies, and documentation for precision prompt assembly.</p>
-          </div>
-
-          <div class="card">
-            <span class="card-tag">AI Squads</span>
-            <h3 class="card-title">Command Units</h3>
-            <p class="card-desc">Specialized AI operators covering Architecture, Frontend, Backend, QA, Release, DevOps, and Product Management.</p>
-          </div>
-
-          <div class="card">
-            <span class="card-tag">Validation Layer</span>
-            <h3 class="card-title">Command Gates</h3>
-            <p class="card-desc">Security audits, TDD red-green-refactor cycles, linting, typechecking, and release readiness checks before code integration.</p>
-          </div>
-
-          <div class="card">
-            <span class="card-tag">Audit Layer</span>
-            <h3 class="card-title">Mission Ledger</h3>
-            <p class="card-desc">Immutable audit record of every agent action, prompt token, file mutation, execution cost, model used, and gate approval.</p>
-          </div>
-
-          <div class="card">
-            <span class="card-tag">Economic Layer</span>
-            <h3 class="card-title">Margin Governor</h3>
-            <p class="card-desc">Real-time cost estimation, budget limits, dynamic LLM routing, and economic usage discipline to protect your bottom line.</p>
-          </div>
-        </div>
-
-        <!-- High Quality Architecture Image -->
-        <div class="image-frame" style="margin-top: 4rem;">
-          <img src="assets/squads_architecture.png" alt="MAAX Protocol Architectural Diagram — Cyryx Labs" />
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 3: Command Units (AI Squads Catalog) -->
-    <section id="command-units" class="section-padding">
-      <div class="container">
-        <div class="text-center" style="max-width: 750px; margin:0 auto 3rem auto;">
-          <span class="badge">Specialized Operators</span>
-          <h2 style="font-size: 2.4rem; margin-top:1rem;">Command Units & Squads</h2>
-          <p style="margin-top:0.8rem;">Operate specialized AI agents engineered for every phase of software delivery.</p>
-        </div>
-
-        <div class="cards-grid">
-          <div class="card">
-            <span class="card-tag">Orchestrator</span>
-            <h3 class="card-title">@aexos-master</h3>
-            <p class="card-desc">Universal swarm orchestrator. Delegates tasks, resolves cross-agent conflicts, and monitors mission progress.</p>
-            <span class="agent-pill">Trigger: /aexos-master</span>
-          </div>
-
-          <div class="card">
-            <span class="card-tag">Architecture</span>
-            <h3 class="card-title">@architect</h3>
-            <p class="card-desc">Analyzes system design, enforces ADRs, creates C4 diagrams, and verifies architectural integrity.</p>
-            <span class="agent-pill">Trigger: /aexos-architect</span>
-          </div>
-
-          <div class="card">
-            <span class="card-tag">Implementation</span>
-            <h3 class="card-title">@dev</h3>
-            <p class="card-desc">Executes code features following TDD workflow, strict typing, and clean code standards.</p>
-            <span class="agent-pill">Trigger: /aexos-dev</span>
-          </div>
-
-          <div class="card">
-            <span class="card-tag">Quality Assurance</span>
-            <h3 class="card-title">@qa</h3>
-            <p class="card-desc">Generates unit/integration tests, runs quality gates, and conducts vulnerability & security audits.</p>
-            <span class="agent-pill">Trigger: /aexos-qa</span>
-          </div>
-
-          <div class="card">
-            <span class="card-tag">Infrastructure</span>
-            <h3 class="card-title">@devops</h3>
-            <p class="card-desc">Manages CI/CD pipelines, Docker containers, Kubernetes deployments, and cloud infrastructure.</p>
-            <span class="agent-pill">Trigger: /aexos-devops</span>
-          </div>
-
-          <div class="card">
-            <span class="card-tag">Product Management</span>
-            <h3 class="card-title">@pm</h3>
-            <p class="card-desc">Translates requirements into user stories, acceptance criteria, and SDC story-driven roadmaps.</p>
-            <span class="agent-pill">Trigger: /aexos-pm</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 4: Mission Control & Ledger -->
-    <section id="mission-ledger" class="section-padding" style="background: var(--bg-obsidian);">
-      <div class="container">
-        <div class="text-center" style="max-width: 750px; margin:0 auto 3rem auto;">
-          <span class="badge">Telemetry & Governance</span>
-          <h2 style="font-size: 2.4rem; margin-top:1rem;">Mission Control & Audit Ledger</h2>
-          <p style="margin-top:0.8rem;">Complete transparency into agent decisions, token usage, file mutations, and validation gates.</p>
-        </div>
-
-        <div class="image-frame">
-          <img src="assets/mission_ledger.png" alt="Mission Ledger Telemetry & Audit Dashboard — Cyryx Labs" />
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 5: CLI Command Center -->
-    <section id="cli-setup" class="section-padding">
-      <div class="container">
-        <div class="text-center" style="max-width: 750px; margin:0 auto 3rem auto;">
-          <span class="badge">Developer Quick Start</span>
-          <h2 style="font-size: 2.4rem; margin-top:1rem;">CLI Installation & Commands</h2>
-          <p style="margin-top:0.8rem;">Initialize MAAX Studio / AEXOS in any project with zero configuration friction.</p>
-        </div>
-
-        <div style="max-width: 860px; margin:0 auto;">
-          <div class="tabs-header">
-            <button class="tab-btn active" data-tab="tab-init">Initial Setup</button>
-            <button class="tab-btn" data-tab="tab-agents">Agent Activation</button>
-            <button class="tab-btn" data-tab="tab-sdc">SDC Execution</button>
-            <button class="tab-btn" data-tab="tab-gates">Quality Gates</button>
-          </div>
-
-          <div id="tab-init" class="tab-pane">
-            <div class="code-box">
-              <span style="color: var(--text-steel);"># Create a new AI-orchestrated project</span><br/>
-              <span style="color: var(--accent-lime);">npx aexos-core init my-project</span><br/><br/>
-              <span style="color: var(--text-steel);"># Install in an existing codebase</span><br/>
-              <span style="color: var(--accent-lime);">cd my-existing-project && npx aexos-core install</span>
+          <dl class="model">
+            <div>
+              <dt>Agent</dt>
+              <dd>A role with a persona, a scope of authority and a list of procedures it may run.</dd>
             </div>
+            <div>
+              <dt>Task</dt>
+              <dd>An executable procedure with declared inputs, outputs and an exit checklist. The method lives here.</dd>
+            </div>
+            <div>
+              <dt>Template</dt>
+              <dd>The shape of the document the task produces.</dd>
+            </div>
+            <div>
+              <dt>Checklist</dt>
+              <dd>The validation a task must pass before it counts as done.</dd>
+            </div>
+            <div>
+              <dt>Data</dt>
+              <dd>The knowledge base a task reads from — reference tables, signal lists, decision models.</dd>
+            </div>
+            <div>
+              <dt>Workflow</dt>
+              <dd>A sequence of connected tasks, with the conditions for moving between them.</dd>
+            </div>
+          </dl>
+
+          <p class="note">
+            A validated task is binding: it runs as configured, with its dependencies respected,
+            regardless of who executes it — an agent, a worker or a human.
+          </p>
+        </div>
+      </section>
+
+      <!-- ─── SQUADS ──────────────────────────────────────────────────────── -->
+      <section class="band" id="squads">
+        <div class="shell">
+          <h2 class="cap">Nine squads, sixty-four agents</h2>
+          <p class="lede">
+            Twelve core agents cover the software lifecycle. Nine squads extend it into the rest of a
+            company. Each squad has one front door; the chief distributes internally.
+          </p>
+
+          <div class="panel roster" data-panel="SQUADS">
+            <div class="scroll"><table>
+              <thead>
+                <tr><th scope="col">Entry</th><th scope="col">Squad</th><th scope="col" class="num">Agents</th><th scope="col">Domain</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="handle">@ceo-chief</td><td>CEO</td><td class="num">5</td><td>Strategy, capital allocation, organisation</td></tr>
+                <tr><td class="handle">@board-chief</td><td>Board</td><td class="num">5</td><td>Governance, risk oversight, succession</td></tr>
+                <tr><td class="handle">@products-chief</td><td>Products</td><td class="num">7</td><td>Discovery, positioning, monetisation, proof</td></tr>
+                <tr><td class="handle">@marketing-chief</td><td>Marketing</td><td class="num">7</td><td>Brand, demand, offer, funnel, measurement</td></tr>
+                <tr><td class="handle">@sales-chief</td><td>Sales</td><td class="num">5</td><td>Qualification, method, negotiation, pipeline</td></tr>
+                <tr><td class="handle">@ops-chief</td><td>Operations</td><td class="num">5</td><td>Reliability, flow, continuous improvement, incident</td></tr>
+                <tr><td class="handle">@cs-chief</td><td>Customer Success</td><td class="num">5</td><td>Onboarding, retention, advocacy, voice</td></tr>
+                <tr><td class="handle">@admin-chief</td><td>Business Administration</td><td class="num">5</td><td>Finance, people, legal ops, process</td></tr>
+                <tr><td class="handle">@claude-mastery-chief</td><td>Claude Code Mastery</td><td class="num">8</td><td>Hooks, MCP, config, swarm, integration</td></tr>
+              </tbody>
+            </table></div>
           </div>
 
-          <div id="tab-agents" class="tab-pane" style="display:none;">
-            <div class="code-box">
-              <span style="color: var(--text-steel);"># Activate specific agents via CLI shortcuts</span><br/>
-              <span style="color: var(--accent-teal-glow);">/aexos-dev</span> <span style="color: var(--text-silver);">"Implement user authentication middleware"</span><br/>
-              <span style="color: var(--accent-teal-glow);">/aexos-qa</span> <span style="color: var(--text-silver);">"Run unit tests and security audit"</span><br/>
-              <span style="color: var(--accent-teal-glow);">/aexos-architect</span> <span style="color: var(--text-silver);">"Review API schema compliance"</span>
-            </div>
-          </div>
+          <p class="note">
+            Squads are routed by a generated registry, not by hardcoded names. Adding one requires no
+            change to the orchestrator — creating the squad is what registers it.
+          </p>
+        </div>
+      </section>
 
-          <div id="tab-sdc" class="tab-pane" style="display:none;">
-            <div class="code-box">
-              <span style="color: var(--text-steel);"># Story-Driven Development (SDC) workflow</span><br/>
-              <span style="color: var(--accent-lime);">aexos sdc plan docs/framework/epics/core-super-update/STORY-1.md</span><br/>
-              <span style="color: var(--accent-lime);">aexos sdc next STORY-1.1</span>
-            </div>
-          </div>
+      <!-- ─── ATTRIBUTION ─────────────────────────────────────────────────── -->
+      <section class="band alt" id="attribution">
+        <div class="shell">
+          <h2 class="cap">Method, not impersonation</h2>
+          <p class="lede">
+            Every specialist applies a published method and names it. That is load-bearing, not
+            decorative: an agent that follows a named method can be audited against the source, while
+            an agent doing celebrity impersonation has nothing to be verified against.
+          </p>
 
-          <div id="tab-gates" class="tab-pane" style="display:none;">
-            <div class="code-box">
-              <span style="color: var(--text-steel);"># Run automated quality gates before merge</span><br/>
-              <span style="color: var(--accent-lime);">npm run lint && npm run typecheck && npm test</span><br/>
-              <span style="color: var(--accent-teal-glow);">aexos doctor --json</span>
-            </div>
+          <div class="cards">
+            <article class="card">
+              <h3>Cited, not channelled</h3>
+              <p>
+                An agent declares the work its method comes from. Ask why it recommended something and
+                the answer traces to a page you can open.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Honest where there is no text</h3>
+              <p>
+                Where a role rests on a discipline with no canonical work, it says so instead of
+                manufacturing an authority. A wrong attribution is worse than none.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Numbers are not recalled</h3>
+              <p>
+                Figures from the source works are read from the publication or left unstated. A
+                coefficient quoted from memory is a defect, not a detail.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Evidence has a class</h3>
+              <p>
+                A practitioner heuristic supports construction and sequencing. Only measured data
+                supports a magnitude. Stating one in the voice of the other is a blocking error.
+              </p>
+            </article>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-brand">
-            <div class="logo-lockup">
-              <span class="monolith-icon"></span>
-              <span class="logo-text">CYRYX LABS</span>
-            </div>
-            <p>The command layer for AI-native builders.<br/>Cyryx Labs LLC — Building MAAX Studio & MAAX Protocol.</p>
-          </div>
+      <!-- ─── GATES ───────────────────────────────────────────────────────── -->
+      <section class="band" id="gates">
+        <div class="shell">
+          <h2 class="cap">The framework validates itself</h2>
+          <p class="lede">
+            A contract with no gate stops being a contract. These run in CI, and warnings are treated
+            as failures — each one names a missing field, a stale reference or a deprecated shape.
+          </p>
 
-          <div class="footer-col">
-            <h4>Ecosystem</h4>
+          <div class="panel checks" data-panel="CI">
             <ul>
-              <li><a href="https://github.com/CyryxLabs/AEXOS">Cyryx Labs</a></li>
-              <li><a href="#">MAAX Studio</a></li>
-              <li><a href="#">MAAX Protocol</a></li>
-              <li><a href="#">Soul Kernel</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
-            <h4>Resources</h4>
-            <ul>
-              <li><a href="https://github.com/CyryxLabs/AEXOS" target="_blank">GitHub Repository</a></li>
-              <li><a href="https://github.com/CyryxLabs/AEXOS/tree/main/docs" target="_blank">Documentation</a></li>
-              <li><a href="https://github.com/CyryxLabs/AEXOS/issues" target="_blank">Issue Tracker</a></li>
-              <li><a href="https://github.com/CyryxLabs/aexos-squads" target="_blank">CYRYX Squads</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
-            <h4>Legal & Community</h4>
-            <ul>
-              <li><a href="https://github.com/CyryxLabs/AEXOS/blob/main/LICENSE">MIT License</a></li>
-              <li><a href="https://github.com/CyryxLabs/AEXOS/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-              <li><a href="mailto:conduct@cyryx.ai">Contact Support</a></li>
+              <li><span class="ok">✓</span> Squad manifests validate against the JSON schema</li>
+              <li><span class="ok">✓</span> Every dependency an agent declares resolves on disk</li>
+              <li><span class="ok">✓</span> Every shipped YAML parses</li>
+              <li><span class="ok">✓</span> Manifest identity agrees with the definitions it describes</li>
+              <li><span class="ok">✓</span> Generated registries are byte-reproducible</li>
+              <li><span class="ok">✓</span> Agent definitions, IDE sync and skill export stay in step</li>
+              <li><span class="ok">✓</span> Install manifest hash matches the tree</li>
             </ul>
           </div>
         </div>
+      </section>
 
-        <div class="footer-bottom">
-          <span>&copy; 2026 Cyryx Labs LLC. All rights reserved.</span>
-          <span>MAAX Studio &bull; MAAX Protocol &bull; AEXOS</span>
+      <!-- ─── INSTALL ─────────────────────────────────────────────────────── -->
+      <section class="band alt" id="install">
+        <div class="shell">
+          <h2 class="cap">Install</h2>
+          <p class="lede">Node 18 or later. The installer scaffolds the core, the squads and the routing registry.</p>
+
+          <div class="steps">
+            <div class="step">
+              <p class="step-cap">Install into a project</p>
+              <div class="panel term small" data-panel="bash">
+                <div class="scroll"><pre><code><span class="pr">$</span> npx github:CyryxLabs/AEXOS install</code></pre></div>
+                <button class="copy" data-copy="npx github:CyryxLabs/AEXOS install">Copy<span class="sr">&nbsp;npx github:CyryxLabs/AEXOS install</span></button>
+              </div>
+            </div>
+
+            <div class="step">
+              <p class="step-cap">Check the installation</p>
+              <div class="panel term small" data-panel="bash">
+                <div class="scroll"><pre><code><span class="pr">$</span> aexos doctor</code></pre></div>
+                <button class="copy" data-copy="aexos doctor">Copy<span class="sr">&nbsp;aexos doctor</span></button>
+              </div>
+            </div>
+
+            <div class="step">
+              <p class="step-cap">Open the orchestrator</p>
+              <div class="panel term small" data-panel="agent">
+                <div class="scroll"><pre><code><span class="tl">@aexos-master</span></code></pre></div>
+                <button class="copy" data-copy="@aexos-master">Copy<span class="sr">&nbsp;@aexos-master</span></button>
+              </div>
+            </div>
+          </div>
+
+          <p class="note">
+            Ask the orchestrator for something and it reads the registry, matches the domain and routes
+            to the squad that owns it. Push, release and MCP configuration stay the exclusive authority
+            of one agent, by design.
+          </p>
         </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="shell foot-inner">
+        <span class="foot-brand">AEXOS</span>
+        <span class="foot-meta">© <span id="yr">2026</span> Cyryx Labs LLC · Proprietary · All rights reserved</span>
+        <a href="https://github.com/CyryxLabs/AEXOS" target="_blank" rel="noopener">github.com/CyryxLabs/AEXOS</a>
       </div>
     </footer>
 

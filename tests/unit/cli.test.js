@@ -59,7 +59,7 @@ describe('CLI Entry Point', () => {
       child.on('close', (code) => {
         expect(code).toBe(0);
         expect(output).toContain('USAGE');
-        expect(output).toContain('npx aexos-core@latest');
+        expect(output).toContain('npx github:CyryxLabs/AEXOS');
         done();
       });
     });

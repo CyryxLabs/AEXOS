@@ -49,7 +49,7 @@ Este guia fornece instruções completas para desinstalar o AEXOS (Cyryx) do seu
 
 ```bash
 # Criar backup completo
-npx aexos-core backup --complete
+npx github:CyryxLabs/AEXOS backup --complete
 
 # Ou fazer backup manual dos diretórios importantes
 tar -czf aexos-backup-$(date +%Y%m%d).tar.gz \
@@ -69,13 +69,13 @@ A forma mais rápida de desinstalar o AEXOS (Cyryx):
 
 ```bash
 # Desinstalação básica (preserva dados do usuário)
-npx aexos-core uninstall
+npx github:CyryxLabs/AEXOS uninstall
 
 # Desinstalação completa (remove tudo)
-npx aexos-core uninstall --complete
+npx github:CyryxLabs/AEXOS uninstall --complete
 
 # Desinstalação com preservação de dados
-npx aexos-core uninstall --keep-data
+npx github:CyryxLabs/AEXOS uninstall --keep-data
 ```
 
 ### Desinstalação Interativa
@@ -83,7 +83,7 @@ npx aexos-core uninstall --keep-data
 Para desinstalação guiada:
 
 ```bash
-npx aexos-core uninstall --interactive
+npx github:CyryxLabs/AEXOS uninstall --interactive
 ```
 
 Isso solicitará:
@@ -127,7 +127,7 @@ Isso solicitará:
 
 ```bash
 # Remoção completa
-npx aexos-core uninstall --complete --no-backup
+npx github:CyryxLabs/AEXOS uninstall --complete --no-backup
 ```
 
 ### Etapa 4: Remover Instalação Global
@@ -175,13 +175,13 @@ rm -rf /tmp/aexos-*
 
 ```bash
 # Remover apenas agentes
-npx aexos-core uninstall agents
+npx github:CyryxLabs/AEXOS uninstall agents
 
 # Remover apenas workflows
-npx aexos-core uninstall workflows
+npx github:CyryxLabs/AEXOS uninstall workflows
 
 # Remover camada de memória
-npx aexos-core uninstall memory-layer
+npx github:CyryxLabs/AEXOS uninstall memory-layer
 
 # Remover agente específico
 *uninstall agent-name
@@ -358,10 +358,10 @@ Write-Host "Limpeza do registro concluída!"
 
 ```bash
 # Linux/macOS
-sudo npx aexos-core uninstall --complete
+sudo npx github:CyryxLabs/AEXOS uninstall --complete
 
 # Windows (Executar como Administrador)
-npx aexos-core uninstall --complete
+npx github:CyryxLabs/AEXOS uninstall --complete
 ```
 
 #### 2. Processo Ainda em Execução
@@ -498,7 +498,7 @@ Se você quiser reinstalar o AEXOS (Cyryx):
 
 3. **Instalação limpa**
    ```bash
-   npx aexos-core@latest init my-project
+   npx github:CyryxLabs/AEXOS init my-project
    ```
 
 ### Restaurar a partir do Backup
@@ -548,7 +548,7 @@ Se você encontrar problemas durante a desinstalação:
 3. **Suporte de Emergência**
    ```bash
    # Gerar relatório de desinstalação
-   npx aexos-core diagnose --uninstall > uninstall-report.log
+   npx github:CyryxLabs/AEXOS diagnose --uninstall > uninstall-report.log
    ```
 
 ---

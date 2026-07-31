@@ -32,12 +32,12 @@
 
 ```bash
 # 新项目
-npx aexos-core init my-first-project
+npx github:CyryxLabs/AEXOS init my-first-project
 cd my-first-project
 
 # 现有项目
 # cd existing-project
-# npx aexos-core install
+# npx github:CyryxLabs/AEXOS install
 ```
 
 ### 步骤 2：选择您的 IDE 激活路径
@@ -68,7 +68,7 @@ cd my-first-project
 
 ```bash
 # 创建新项目
-npx aexos-core init my-first-project
+npx github:CyryxLabs/AEXOS init my-first-project
 
 # 导航到您的项目
 cd my-first-project
@@ -81,17 +81,17 @@ cd my-first-project
 
 ```bash
 # 1. 使用自定义模板创建新项目
-npx aexos-core init my-project --template enterprise
+npx github:CyryxLabs/AEXOS init my-project --template enterprise
 
 # 2. 在现有项目中安装
 cd existing-project
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 
 # 3. 在非空目录中强制安装
-npx aexos-core init my-project --force
+npx github:CyryxLabs/AEXOS init my-project --force
 
 # 4. 跳过依赖安装（稍后手动安装）
-npx aexos-core init my-project --skip-install
+npx github:CyryxLabs/AEXOS init my-project --skip-install
 ```
 
 ## 您的第一个项目
@@ -122,7 +122,7 @@ my-first-project/
 AEXOS 配置位于 `.aexos-core/core/config/`。安装程序处理初始设置。要验证您的安装：
 
 ```bash
-npx aexos-core doctor
+npx github:CyryxLabs/AEXOS doctor
 ```
 
 ## 基本命令
@@ -201,10 +201,10 @@ AEXOS 代理通过您的 IDE 激活。激活后，代理响应以 `*` 为前缀�
 cd my-existing-project
 
 # 安装 AEXOS（非破坏性，保留您的配置）
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 
 # 运行 doctor 验证兼容性
-npx aexos-core doctor
+npx github:CyryxLabs/AEXOS doctor
 ```
 
 ### 首次运行时发生的事情
@@ -279,10 +279,10 @@ npm run lint && npm run typecheck && npm test
 node --version  # 应该 >= 18.0.0
 
 # 运行诊断
-npx aexos-core doctor
+npx github:CyryxLabs/AEXOS doctor
 
 # 自动修复常见问题
-npx aexos-core doctor --fix
+npx github:CyryxLabs/AEXOS doctor --fix
 ```
 
 ### 代理无响应

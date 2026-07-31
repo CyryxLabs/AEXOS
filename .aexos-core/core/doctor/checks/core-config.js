@@ -23,7 +23,7 @@ async function run(context) {
       check: name,
       status: 'FAIL',
       message: 'core-config.yaml not found',
-      fixCommand: 'npx aexos-core install --force',
+      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
     };
   }
 
@@ -46,7 +46,7 @@ async function run(context) {
     check: name,
     status: 'FAIL',
     message: `Missing sections: ${missingSections.join(', ')}`,
-    fixCommand: 'npx aexos-core install --force',
+    fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
   };
 }
 

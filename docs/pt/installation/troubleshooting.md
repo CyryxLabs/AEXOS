@@ -34,7 +34,7 @@
 Execute este comando de diagnóstico primeiro para identificar problemas comuns:
 
 ```bash
-npx aexos-core status
+npx github:CyryxLabs/AEXOS doctor
 ```
 
 Se o comando de status falhar, trabalhe através das seções abaixo baseado na sua mensagem de erro.
@@ -43,7 +43,7 @@ Se o comando de status falhar, trabalhe através das seções abaixo baseado na 
 
 ## Problemas de Instalação
 
-### Problema 1: "npx aexos-core is not recognized"
+### Problema 1: "npx github:CyryxLabs/AEXOS is not recognized"
 
 **Sintomas:**
 
@@ -94,7 +94,7 @@ not in your home directory or temporary locations.
 cd /path/to/your/project
 
 # Então execute o instalador
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -119,7 +119,7 @@ mkdir -p /path/to/your/project
 cd /path/to/your/project
 
 # Execute o instalador
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -175,7 +175,7 @@ npm config get registry
 npm config set registry https://registry.npmjs.org/
 
 # Tente a instalação novamente
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -200,7 +200,7 @@ export PATH=~/.npm-global/bin:$PATH
 # Adicione a linha de export ao ~/.bashrc ou ~/.zshrc
 
 # Opção 2: Usar npx ao invés de instalação global (recomendado)
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 
 # Opção 3: Usar nvm para gerenciar Node.js
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
@@ -264,7 +264,7 @@ npm config set strict-ssl false
 
 # Verifique e tente novamente
 npm config get strict-ssl
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -294,7 +294,7 @@ npm ERR! network This is a problem related to network connectivity.
 
 # Tente novamente com timeout maior
 npm config set fetch-timeout 60000
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -324,7 +324,7 @@ lsof +D /path/to/project
 kill -9 <PID>
 
 # Tente a instalação novamente
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -351,7 +351,7 @@ mount | grep /path/to/project
 
 # Instale em um diretório com permissão de escrita
 cd ~/projects/my-project
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -373,7 +373,7 @@ Error: ENOTEMPTY: directory not empty, rmdir '.aexos-core'
 mv .aexos-core .aexos-core.backup
 
 # Execute o instalador com flag force
-npx aexos-core install --force-upgrade
+npx github:CyryxLabs/AEXOS install --force-upgrade
 
 # Se necessário, restaure arquivos customizados do backup
 cp .aexos-core.backup/custom-files/* .aexos-core/
@@ -404,7 +404,7 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # Ou use CMD ao invés de PowerShell
 cmd
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 #### Problema 14: "Path too long"
@@ -424,7 +424,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v LongPathsEnabled /
 
 # Ou use um caminho de projeto mais curto
 cd C:\dev\proj
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 #### Problema 15: "npm not found in Git Bash"
@@ -465,7 +465,7 @@ xcode-select --install
 
 # Siga o diálogo de instalação
 # Então tente novamente
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 #### Problema 17: "Apple Silicon (M1/M2) compatibility"
@@ -487,7 +487,7 @@ softwareupdate --install-rosetta
 # Use versão x86 do Node.js (se necessário)
 arch -x86_64 /bin/bash
 nvm install 18
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 ---
@@ -514,7 +514,7 @@ sudo dnf install vips-devel
 
 # Limpe o cache npm e reinstale
 npm cache clean --force
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 ```
 
 #### Problema 19: "GLIBC version too old"
@@ -563,7 +563,7 @@ nvm use 16
 3. Verifique se as configurações da IDE permitem comandos customizados
 4. Re-execute a instalação para IDE específica:
    ```bash
-   npx aexos-core install --ide claude-code
+   npx github:CyryxLabs/AEXOS install --ide claude-code
    ```
 
 ---
@@ -598,7 +598,7 @@ Error: Agent 'dev' not found in .aexos-core/agents/
 ls .aexos-core/agents/
 
 # Se estiverem faltando, reinstale o core
-npx aexos-core install --full
+npx github:CyryxLabs/AEXOS install --full
 
 # Verifique se core-config.yaml é válido
 cat .aexos-core/core-config.yaml
@@ -627,7 +627,7 @@ npx yaml-lint .aexos-core/agents/dev.md
 
 # Reinstale para obter arquivos de agentes limpos
 mv .aexos-core/agents/dev.md .aexos-core/agents/dev.md.backup
-npx aexos-core install --full
+npx github:CyryxLabs/AEXOS install --full
 ```
 
 ---
@@ -638,16 +638,16 @@ npx aexos-core install --full
 
 ```bash
 # Verifique status da instalação AEXOS
-npx aexos-core status
+npx github:CyryxLabs/AEXOS doctor
 
 # Liste Squads disponíveis
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 
 # Atualize instalação existente
-npx aexos-core update
+npx github:CyryxLabs/AEXOS update
 
 # Mostre logging verboso
-npx aexos-core install --verbose
+npx github:CyryxLabs/AEXOS install --verbose
 ```
 
 ### Informações do Sistema
@@ -687,7 +687,7 @@ ls -la .aexos-core/
 
 ### Antes de Solicitar Ajuda
 
-1. Execute `npx aexos-core status` e anote a saída
+1. Execute `npx github:CyryxLabs/AEXOS doctor` e anote a saída
 2. Consulte este guia de solução de problemas
 3. Pesquise [Issues existentes no GitHub](https://github.com/CyryxLabs/AEXOS/issues)
 

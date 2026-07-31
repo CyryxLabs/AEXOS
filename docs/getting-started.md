@@ -26,12 +26,12 @@ Use this exact flow if you are new:
 
 ```bash
 # New project
-npx aexos-core init my-first-project
+npx github:CyryxLabs/AEXOS init my-first-project
 cd my-first-project
 
 # Existing project
 # cd existing-project
-# npx aexos-core install
+# npx github:CyryxLabs/AEXOS install
 ```
 
 ### Step 2: Pick your IDE activation path
@@ -62,7 +62,7 @@ PASS rule: complete all 3 conditions in <= 10 minutes.
 
 ```bash
 # Create a new project
-npx aexos-core init my-first-project
+npx github:CyryxLabs/AEXOS init my-first-project
 
 # Navigate to your project
 cd my-first-project
@@ -75,17 +75,17 @@ cd my-first-project
 
 ```bash
 # 1. Create new project with custom template
-npx aexos-core init my-project --template enterprise
+npx github:CyryxLabs/AEXOS init my-project --template enterprise
 
 # 2. Install in existing project
 cd existing-project
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 
 # 3. Force installation in non-empty directory
-npx aexos-core init my-project --force
+npx github:CyryxLabs/AEXOS init my-project --force
 
 # 4. Skip dependency installation (manual install later)
-npx aexos-core init my-project --skip-install
+npx github:CyryxLabs/AEXOS init my-project --skip-install
 ```
 
 ## Your First Project
@@ -116,7 +116,7 @@ my-first-project/
 AEXOS configuration lives in `.aexos-core/core/config/`. The installer handles initial setup. To verify your installation:
 
 ```bash
-npx aexos-core doctor
+npx github:CyryxLabs/AEXOS doctor
 ```
 
 ## Basic Commands
@@ -195,10 +195,10 @@ Already have a codebase? AEXOS handles brownfield projects with a dedicated work
 cd my-existing-project
 
 # Install AEXOS (non-destructive, preserves your config)
-npx aexos-core install
+npx github:CyryxLabs/AEXOS install
 
 # Run doctor to verify compatibility
-npx aexos-core doctor
+npx github:CyryxLabs/AEXOS doctor
 ```
 
 ### What Happens on First Run
@@ -273,10 +273,10 @@ Squads extend AEXOS beyond software development into any domain. See [Squads Gui
 node --version  # Should be >= 18.0.0
 
 # Run diagnostics
-npx aexos-core doctor
+npx github:CyryxLabs/AEXOS doctor
 
 # Auto-fix common issues
-npx aexos-core doctor --fix
+npx github:CyryxLabs/AEXOS doctor --fix
 ```
 
 ### Agent Not Responding

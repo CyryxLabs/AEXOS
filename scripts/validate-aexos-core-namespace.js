@@ -4,7 +4,7 @@
  *
  * Story #739 (Bug 2 follow-up): the internal `.aexos-core/package.json`
  * manifest drifted to the legacy `@aexos-fullstack/core@4.31.1` namespace
- * while the surface package moved to `@aexos-squads/core@5.x`. Several
+ * while the surface package moved to `@cyryxlabs/aexos@5.x`. Several
  * releases shipped stale internal metadata that confused tooling and
  * misled operators investigating upgrade issues.
  *

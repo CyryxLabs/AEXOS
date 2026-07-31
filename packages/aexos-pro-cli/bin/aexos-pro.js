@@ -51,7 +51,7 @@ function delegateToCyryx(subcommand) {
   const cyryx = findCyryxCli();
   if (!cyryx) {
     console.error('AEXOS Core CLI not found.');
-    console.error('Install it first: npm install @aexos-squads/core');
+    console.error('Install it first: npm install @cyryxlabs/aexos');
     process.exit(1);
   }
 

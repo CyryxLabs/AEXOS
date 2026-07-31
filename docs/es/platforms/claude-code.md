@@ -104,7 +104,7 @@ export ANTHROPIC_API_KEY="tu-clave-api"
 cd tu-proyecto
 
 # Inicializa AEXOS
-npx @anthropic/aexos init
+npx github:CyryxLabs/AEXOS init
 
 # Selecciona "Claude Code" cuando se te solicite el IDE
 ```
@@ -608,7 +608,7 @@ R: Después de actualizar AEXOS o cuando los agentes se modifiquen en el núcleo
 
 2. Inicializa AEXOS con Claude Code:
    ```bash
-   npx @anthropic/aexos init --ide claude-code
+   npx github:CyryxLabs/AEXOS init --ide claude-code
    ```
 
 3. Migra reglas personalizadas:

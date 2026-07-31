@@ -1,7 +1,7 @@
 // Integration/Performance test - uses describeIntegration
 /**
  * STORY-1.1: NPX Integration Tests
- * Tests for npx aexos-core@latest execution
+ * Tests for npx github:CyryxLabs/AEXOS execution
  */
 
 const { spawn } = require('child_process');

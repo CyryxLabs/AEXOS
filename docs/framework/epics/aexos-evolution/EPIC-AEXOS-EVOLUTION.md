@@ -166,7 +166,7 @@ File-ownership partitioning becomes sound only once AEX-1.1 declares `produces`.
 ### AEX-1.4 — Governance on the hot path
 
 `dispatch-governance.js` — budget ceilings, story binding, injection scanning —
-is genuinely good and reachable only from `pm.sh` and `cyryx sdc preflight`. It
+is genuinely good and reachable only from `pm.sh` and `aexos sdc preflight`. It
 sits on the road nobody travels. Move it onto the Claude Code path, where all
 real work happens.
 

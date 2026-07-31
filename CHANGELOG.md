@@ -75,7 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Notes
 
 - Pipeline hardening from PR #744 (race condition fix between `publish_legacy_cyryx_core` and `publish`, smoke timeout 90s→240s with dual visibility check, structured notify summary distinguishing hard vs soft fails, Windows path escape via `WORKSPACE_DIR` env var in `installer-smoke-matrix.yml`) is already in production since 5.2.6 — this release does not change those workflows.
-- The `--ci`/`--yes` fix (Bug 1) directly benefits students running `npx aexos-core@latest install --ci --yes --merge --ide claude-code` in CI/CD pipelines. The `printf '\n\n\n' | npx ...` workaround is no longer required.
+- The `--ci`/`--yes` fix (Bug 1) directly benefits students running `npx github:CyryxLabs/AEXOS install --ci --yes --merge --ide claude-code` in CI/CD pipelines. The `printf '\n\n\n' | npx ...` workaround is no longer required.
 - `@aexos-squads/installer@3.3.6` ships alongside this release (PR #750 touched `packages/installer/src/wizard/`). `@aexos-squads/aexos-install` and `@aexos-squads/aexos-pro-cli` are unchanged.
 
 ## [5.2.6] - 2026-05-17
@@ -94,7 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
-- Students hit by the original error can update via `npx -y -p @aexos-squads/core@latest aexos install`. The fresh-directory workaround (`mkdir ~/aexos-pro && cd ~/aexos-pro`) is no longer required.
+- Students hit by the original error can update via `npx github:CyryxLabs/AEXOS install`. The fresh-directory workaround (`mkdir ~/aexos-pro && cd ~/aexos-pro`) is no longer required.
 
 ## [5.1.0] - 2026-05-06
 
@@ -141,7 +141,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Pro wizard (`npx aexos-core install`) now auto-installs `@aexos-fullstack/pro` package during Step 2, fixing "Pro package not found" error in greenfield and brownfield projects.
+- Pro wizard (`npx github:CyryxLabs/AEXOS install`) now auto-installs `@aexos-fullstack/pro` package during Step 2, fixing "Pro package not found" error in greenfield and brownfield projects.
 - Greenfield projects without `package.json` now get `npm init -y` automatically before pro install.
 - Removed unused `headings` import in `pro-setup.js`.
 
@@ -390,11 +390,11 @@ This release marks the **Open-Source Community Readiness** milestone, preparing 
 ### Fixed
 - NPX installation from temporary directory no longer attempts IDE detection
 - Clear error message guides users to correct installation directory
-- Prevents confusion when running `npx aexos-core install` from home directory
+- Prevents confusion when running `npx github:CyryxLabs/AEXOS install` from home directory
 
 ### Changed
 - Early exit with `process.exit(1)` when NPX temporary context detected
-- Help message provides actionable solution: `cd /path/to/your/project && npx aexos-core install`
+- Help message provides actionable solution: `cd /path/to/your/project && npx github:CyryxLabs/AEXOS install`
 
 ### Technical
 - Story: 2.3 - NPX Installation Context Detection & Help Text (macOS)
