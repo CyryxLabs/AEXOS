@@ -44,34 +44,34 @@
 
 ```yaml
 task: {taskIdentifier()}
-responsável: {AgentName}          # Agent executing this task (e.g., Dex, Quinn, Themis)
-responsavel_type: Agente          # Open-source: always "Agente" (Worker/Humano/Clone for services only)
+owner: {AgentName}          # Agent executing this task (e.g., Dex, Quinn, Themis)
+owner_type: Agente          # Open-source: always "Agente" (Worker/Humano/Clone for services only)
 atomic_layer: {Layer}             # Atom|Molecule|Organism|Template|Page|Config|Strategy|Content|Media|Layout|Analysis (optional for open-source)
 
-**Entrada:**
-- campo: {fieldName}
-  tipo: {type}                    # string | number | boolean | array<type> | object { key: type }
-  origem: {source}                # Step X ({stepName}) | User Input | config | {agent-id} output
-  obrigatório: {true|false}
+**Input:**
+- field: {fieldName}
+  type: {type}                    # string | number | boolean | array<type> | object { key: type }
+  source: {source}                # Step X ({stepName}) | User Input | config | {agent-id} output
+  required: {true|false}
   padrão: {defaultValue}          # Optional: default if not provided
-  validação: {validationRule}     # Optional: validation logic
+  validation: {validationRule}     # Optional: validation logic
 
-- campo: {fieldName2}
-  tipo: {type}
-  origem: {source}
-  obrigatório: {true|false}
+- field: {fieldName2}
+  type: {type}
+  source: {source}
+  required: {true|false}
 
-**Saída:**
-- campo: {fieldName}
-  tipo: {type}
-  destino: {destination}          # Step Y ({stepName}) | state | output | multiple steps
-  persistido: {true|false}        # Saved to file/DB or memory-only
+**Output:**
+- field: {fieldName}
+  type: {type}
+  destination: {destination}          # Step Y ({stepName}) | state | output | multiple steps
+  persisted: {true|false}        # Saved to file/DB or memory-only
   cache_key: {key}                # Optional: if cacheable
 
-- campo: {fieldName2}
-  tipo: {type}
-  destino: {destination}
-  persistido: {true|false}
+- field: {fieldName2}
+  type: {type}
+  destination: {destination}
+  persisted: {true|false}
 ```
 
 ---
@@ -85,16 +85,16 @@ atomic_layer: {Layer}             # Atom|Molecule|Organism|Template|Page|Config|
 ```yaml
 pre-conditions:
   - [ ] {condition_description}
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       {executable_validation_logic}
     error_message: "{message_if_fails}"
 
   - [ ] {condition_description_2}
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: "{simple_check}"
+    validation: "{simple_check}"
     error_message: "{message}"
 ```
 
@@ -103,9 +103,9 @@ pre-conditions:
 ```yaml
 pre-conditions:
   - [ ] Input file exists and is readable
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       const fs = require('fs');
       if (!fs.existsSync(inputPath)) {
         throw new Error(`File not found: ${inputPath}`);
@@ -113,9 +113,9 @@ pre-conditions:
     error_message: "Required input file not found"
 
   - [ ] Agent has required tools available
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: "expect(agent.tools).toContain('tool-name')"
+    validation: "expect(agent.tools).toContain('tool-name')"
     error_message: "Agent missing required tool: tool-name"
 ```
 
@@ -246,16 +246,16 @@ const statusMessage = generatePersonalizedStatus(agent.persona_profile.communica
 ```yaml
 post-conditions:
   - [ ] {condition_description}
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       {executable_validation_logic}
     rollback: {true|false}        # Rollback changes if fails?
 
   - [ ] {condition_description_2}
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: "{simple_check}"
+    validation: "{simple_check}"
     rollback: false
 ```
 
@@ -264,18 +264,18 @@ post-conditions:
 ```yaml
 post-conditions:
   - [ ] Output matches expected schema
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       const schema = loadSchema('output-schema.json');
       const valid = validateAgainstSchema(output, schema);
       if (!valid) throw new Error("Schema validation failed");
     rollback: false
 
   - [ ] All required fields present in output
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       expect(output.field1).toBeDefined();
       expect(output.field2).toBeDefined();
     rollback: false
@@ -292,14 +292,14 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] {criterion_description}
-    tipo: acceptance
+    type: acceptance
     blocker: false                # Non-blocking
     story: {STORY-XXX}
     manual_check: {true|false}
     test: {test_file_path}        # If automated
 
   - [ ] {criterion_description_2}
-    tipo: acceptance
+    type: acceptance
     blocker: false
     story: {STORY-XXX}
     manual_check: true
@@ -310,14 +310,14 @@ acceptance-criteria:
 ```yaml
 acceptance-criteria:
   - [ ] Output is user-friendly and easy to understand
-    tipo: acceptance
+    type: acceptance
     blocker: false
     story: STORY-6.1.2
     manual_check: false
     test: "tests/user-experience/output-clarity.test.js"
 
   - [ ] Agent personality is recognizable in output
-    tipo: acceptance
+    type: acceptance
     blocker: false
     story: STORY-6.1.2
     manual_check: true
@@ -825,21 +825,21 @@ describe('{Task Name}', () => {
 
 ```yaml
 task: loadConfig()
-responsável: System Loader
-responsavel_type: Agente
+owner: System Loader
+owner_type: agent
 atomic_layer: Config
 
-**Entrada:**
-- campo: config_path
-  tipo: string
-  origem: User Input
-  obrigatório: true
+**Input:**
+- field: config_path
+  type: string
+  source: User Input
+  required: true
 
-**Saída:**
-- campo: config
-  tipo: object
-  destino: state
-  persistido: false
+**Output:**
+- field: config
+  type: object
+  destination: state
+  persisted: false
 
 **Performance:**
 - duration_expected: 50ms
@@ -857,21 +857,21 @@ atomic_layer: Config
 
 ```yaml
 task: designComponent()
-responsável: Iris (Empathizer)
-responsavel_type: Agente
+owner: Iris (Empathizer)
+owner_type: agent
 atomic_layer: Molecule
 
-**Entrada:**
-- campo: componentSpec
-  tipo: object
-  origem: User Input
-  obrigatório: true
+**Input:**
+- field: componentSpec
+  type: object
+  source: User Input
+  required: true
 
-**Saída:**
-- campo: componentDesign
-  tipo: object
-  destino: state
-  persistido: true
+**Output:**
+- field: componentDesign
+  type: object
+  destination: state
+  persisted: true
 
 **Performance:**
 - duration_expected: 4000ms

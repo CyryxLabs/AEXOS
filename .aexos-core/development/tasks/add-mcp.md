@@ -8,40 +8,40 @@
 
 ```yaml
 task: addMcp()
-responsavel: DevOps Agent
-responsavel_type: Agente
+owner: DevOps Agent
+owner_type: agent
 atomic_layer: Infrastructure
 elicit: true
 
-**Entrada:**
-- campo: mcp_query
-  tipo: string
-  origem: User Input
-  obrigatorio: true
-  validacao: Search query for MCP catalog
+**Input:**
+- field: mcp_query
+  type: string
+  source: User Input
+  required: true
+  validation: Search query for MCP catalog
 
-- campo: mcp_name
-  tipo: string
-  origem: User Selection
-  obrigatorio: true
-  validacao: Exact MCP server name from catalog
+- field: mcp_name
+  type: string
+  source: User Selection
+  required: true
+  validation: Exact MCP server name from catalog
 
-- campo: credentials
-  tipo: object
-  origem: User Input
-  obrigatorio: false
-  validacao: API keys or tokens if required by MCP
+- field: credentials
+  type: object
+  source: User Input
+  required: false
+  validation: API keys or tokens if required by MCP
 
-**Saida:**
-- campo: mcp_added
-  tipo: boolean
-  destino: Docker MCP configuration
-  persistido: true
+**Output:**
+- field: mcp_added
+  type: boolean
+  destination: Docker MCP configuration
+  persisted: true
 
-- campo: tools_available
-  tipo: array
-  destino: Console output
-  persistido: false
+- field: tools_available
+  type: array
+  destination: Console output
+  persisted: false
 ```
 
 ---
@@ -51,15 +51,15 @@ elicit: true
 ```yaml
 pre-conditions:
   - [ ] Docker MCP Toolkit running
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: docker mcp gateway status succeeds
+    validation: docker mcp gateway status succeeds
     error_message: "Start gateway: docker mcp gateway run --watch"
 
   - [ ] Dynamic MCP feature enabled
-    tipo: pre-condition
+    type: pre-condition
     blocker: false
-    validacao: docker mcp feature list shows dynamic-tools
+    validation: docker mcp feature list shows dynamic-tools
     error_message: "Enable with: docker mcp feature enable dynamic-tools"
 ```
 
@@ -295,27 +295,27 @@ After user restarts Claude Code, verify tools are accessible:
 ```yaml
 post-conditions:
   - [ ] MCP server added
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: docker mcp server list includes new MCP
+    validation: docker mcp server list includes new MCP
     error_message: "MCP addition failed"
 
   - [ ] Tools available in Docker MCP
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: docker mcp tools ls shows MCP tools
+    validation: docker mcp tools ls shows MCP tools
     error_message: "MCP tools not available - check credentials"
 
   - [ ] AEXOS documentation updated
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: .claude/rules/mcp-usage.md includes new MCP
+    validation: .claude/rules/mcp-usage.md includes new MCP
     error_message: "Update mcp-usage.md with new MCP documentation"
 
   - [ ] User notified about session restart
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: User informed to restart Claude Code session
+    validation: User informed to restart Claude Code session
     error_message: "Notify user: tools only available after session restart"
 ```
 

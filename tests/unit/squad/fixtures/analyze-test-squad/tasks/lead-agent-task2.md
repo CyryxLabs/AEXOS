@@ -1,6 +1,6 @@
 ---
 task: task2
-responsavel: "@lead-agent"
+owner: "@lead-agent"
 ---
 
 # Task 2

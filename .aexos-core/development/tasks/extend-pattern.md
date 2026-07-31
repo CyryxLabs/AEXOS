@@ -31,44 +31,44 @@
 
 ```yaml
 task: extendPattern()
-responsável: Iris (Empathizer)
-responsavel_type: Agente
+owner: Iris (Empathizer)
+owner_type: agent
 atomic_layer: Molecule
 
-**Entrada:**
-- campo: target
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Must exist in system
+**Input:**
+- field: target
+  type: string
+  source: User Input
+  required: true
+  validation: Must exist in system
 
-- campo: changes
-  tipo: object
-  origem: User Input
-  obrigatório: true
-  validação: Valid modification object
+- field: changes
+  type: object
+  source: User Input
+  required: true
+  validation: Valid modification object
 
-- campo: backup
-  tipo: boolean
-  origem: User Input
-  obrigatório: false
-  validação: Default: true
+- field: backup
+  type: boolean
+  source: User Input
+  required: false
+  validation: Default: true
 
-**Saída:**
-- campo: modified_file
-  tipo: string
-  destino: File system
-  persistido: true
+**Output:**
+- field: modified_file
+  type: string
+  destination: File system
+  persisted: true
 
-- campo: backup_path
-  tipo: string
-  destino: File system
-  persistido: true
+- field: backup_path
+  type: string
+  destination: File system
+  persisted: true
 
-- campo: changes_applied
-  tipo: object
-  destino: Memory
-  persistido: false
+- field: changes_applied
+  type: object
+  destination: Memory
+  persisted: false
 ```
 
 ---
@@ -82,9 +82,9 @@ atomic_layer: Molecule
 ```yaml
 pre-conditions:
   - [ ] Target exists; backup created; valid modification parameters
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check target exists; backup created; valid modification parameters
     error_message: "Pre-condition failed: Target exists; backup created; valid modification parameters"
 ```
@@ -100,9 +100,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Modification applied; backup preserved; integrity verified
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify modification applied; backup preserved; integrity verified
     error_message: "Post-condition failed: Modification applied; backup preserved; integrity verified"
 ```
@@ -118,9 +118,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Changes applied correctly; original backed up; rollback possible
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert changes applied correctly; original backed up; rollback possible
     error_message: "Acceptance criterion not met: Changes applied correctly; original backed up; rollback possible"
 ```

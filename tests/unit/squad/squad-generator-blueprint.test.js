@@ -327,10 +327,25 @@ describe('SquadGenerator Blueprint Methods', () => {
       const markdown = generator.generateTaskFromBlueprint(task, 'test-squad');
 
       expect(markdown).toContain('# *create-order');
-      expect(markdown).toContain('responsavel: "@order-manager"');
+      expect(markdown).toContain('owner: "@order-manager"');
     });
 
-    it('should include entrada list', () => {
+    it('should read a blueprint written with the new field names', () => {
+      const renamed = {
+        ...task,
+        entrada: undefined,
+        saida: undefined,
+        inputs: ['customer_id', 'items', 'payment_method'],
+        outputs: ['order_id', 'status'],
+      };
+      const markdown = generator.generateTaskFromBlueprint(renamed, 'test-squad');
+
+      expect(markdown).toContain('owner: "@order-manager"');
+      expect(markdown).toContain('customer_id');
+      expect(markdown).toContain('order_id');
+    });
+
+    it('should include the input list', () => {
       const markdown = generator.generateTaskFromBlueprint(task, 'test-squad');
 
       expect(markdown).toContain('customer_id');
@@ -338,7 +353,7 @@ describe('SquadGenerator Blueprint Methods', () => {
       expect(markdown).toContain('payment_method');
     });
 
-    it('should include saida list', () => {
+    it('should include the output list', () => {
       const markdown = generator.generateTaskFromBlueprint(task, 'test-squad');
 
       expect(markdown).toContain('order_id');

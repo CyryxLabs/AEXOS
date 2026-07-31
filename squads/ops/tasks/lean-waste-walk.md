@@ -1,15 +1,15 @@
 ---
 task: Walk The Process And Register Waste
-responsavel: "@lean-lead"
-responsavel_type: agent
+owner: "@lean-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - process: The process to be walked, from trigger to completion (required)
   - occurrences: Real instances to observe or reconstruct from records, not recollection (required; three or more preferred)
   - documented_process: The written or diagrammed version of the process, if one exists (optional)
   - timing_source: Where step timings come from — ticket history, logs, direct observation (required)
   - known_problems: Recurring problems already suspected in this process (optional)
-Saida: |
+Output: |
   - waste_register: Every waste named by category, with the count or measured time behind it
   - value_time_ratio: Elapsed time split into value-adding, necessary non-value-adding, and pure waste
   - largest_block: The single largest non-value block, named with its owner

@@ -9,8 +9,8 @@ View, manage, and review learned workflow patterns captured by the Workflow Inte
 ```yaml
 task: patterns()
 agent: "@dev"
-responsável: Vulcan (Developer)
-responsavel_type: Agente
+owner: Vulcan (Developer)
+owner_type: agent
 atomic_layer: Workflow
 
 elicit: false
@@ -44,13 +44,13 @@ inputs:
 outputs:
   - name: patterns
     type: array
-    destino: Console
-    persistido: false
+    destination: Console
+    persisted: false
 
   - name: stats
     type: object
-    destino: Console
-    persistido: false
+    destination: Console
+    persisted: false
 ```
 
 ---
@@ -60,15 +60,15 @@ outputs:
 ```yaml
 pre-conditions:
   - [ ] Learning module is available
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: Check workflow-intelligence/learning module loads
+    validation: Check workflow-intelligence/learning module loads
     error_message: "Pattern learning module not available."
 
   - [ ] Pattern storage exists
-    tipo: pre-condition
+    type: pre-condition
     blocker: false
-    validação: Check .aexos-core/data/learned-patterns.yaml exists
+    validation: Check .aexos-core/data/learned-patterns.yaml exists
     error_message: "No patterns stored yet."
 ```
 
@@ -266,14 +266,14 @@ Review complete. 1 promoted, 0 skipped, 1 deprecated.
 ```yaml
 post-conditions:
   - [ ] Output displayed correctly
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validação: Verify console output matches expected format
+    validation: Verify console output matches expected format
 
   - [ ] Storage updated for prune/review
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: Check learned-patterns.yaml was modified
+    validation: Check learned-patterns.yaml was modified
 ```
 
 ---

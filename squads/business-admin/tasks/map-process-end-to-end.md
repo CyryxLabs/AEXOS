@@ -1,15 +1,15 @@
 ---
 task: Map Process End To End
-responsavel: "@process-lead"
-responsavel_type: agent
+owner: "@process-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - process: The process to be mapped, named by its output and its customer (required)
   - performers: Access to the people who actually perform the steps, across every function it crosses (required)
   - records: System logs, ticket timestamps, queue reports or any recorded timing available (optional but each absence downgrades a figure to ESTIMATED)
   - volumes: Cases per period and rework or round-trip rates, where recorded (optional)
   - trigger: What prompted the mapping — a complaint, a delay, an automation proposal (optional)
-Saida: |
+Output: |
   - process_map: Every step end to end with performer, system, working time, elapsed time, volume and rework rate
   - measurement_marks: Each figure marked OBSERVED, RECORDED or ESTIMATED
   - elapsed_vs_working: Total elapsed time against total working time, with the ratio stated prominently

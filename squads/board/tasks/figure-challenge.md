@@ -1,16 +1,16 @@
 ---
 task: Figure Challenge
-responsavel: "@audit-lead"
-responsavel_type: agent
+owner: "@audit-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - figure: The reported figure or report under challenge, as presented to the board (required)
   - assertor: The named person or function asserting it (required - "the system" is not an assertor)
   - period: The reporting period, and the comparative period if a movement is claimed (required)
   - source_data: Paths or descriptions of the underlying records, if available (optional)
   - prior_definition: The definition used in the comparative period, if a comparison is being made (optional)
   - assurance_evidence: Any independent test already performed, with party, scope and date (optional)
-Saida: |
+Output: |
   - restated_assertion: The figure restated as a precise assertion, with basis and comparative basis
   - assertor_named: The person or function standing behind the figure
   - basis_classification: MEASURED | COMPUTED | ESTIMATED | JUDGED, with the source data named

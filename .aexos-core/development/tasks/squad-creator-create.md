@@ -1,16 +1,16 @@
 ---
 task: Create Squad
-responsavel: "@squad-creator"
-responsavel_type: agent
+owner: "@squad-creator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - name: Nome do squad (kebab-case, obrigatorio)
   - description: Descricao (opcional, elicitacao)
   - author: Autor (opcional, default: git config user.name)
   - license: Licenca (opcional, default: MIT)
   - template: Template base (basic | etl | agent-only)
   - config_mode: extend | override | none
-Saida: |
+Output: |
   - squad_path: Caminho do squad criado
   - manifest: Conteudo do squad.yaml gerado
   - next_steps: Instrucoes para proximos passos

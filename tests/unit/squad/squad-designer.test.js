@@ -422,7 +422,7 @@ describe('SquadDesigner', () => {
       });
     });
 
-    it('should derive entrada from workflow inputs', () => {
+    it('should derive inputs from workflow inputs', () => {
       const analysis = {
         domain: 'order-management',
         entities: ['Order', 'Customer', 'Product'],
@@ -443,8 +443,8 @@ describe('SquadDesigner', () => {
 
       const createTask = tasks.find((t) => t.name === 'create-order');
       expect(createTask).toBeDefined();
-      expect(createTask.entrada).toBeDefined();
-      expect(Array.isArray(createTask.entrada)).toBe(true);
+      expect(createTask.inputs).toBeDefined();
+      expect(Array.isArray(createTask.inputs)).toBe(true);
     });
 
     it('should handle large number of commands', () => {

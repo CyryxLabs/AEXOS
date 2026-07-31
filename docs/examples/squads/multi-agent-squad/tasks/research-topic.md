@@ -1,12 +1,12 @@
 ---
 task: Research Topic
-responsavel: "@team-researcher"
-responsavel_type: agent
+owner: "@team-researcher"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - topic: Topic to research (required)
   - depth: shallow | medium | deep (default: medium)
-Saida: |
+Output: |
   - findings: Research findings summary
   - sources: List of sources consulted
 Checklist:

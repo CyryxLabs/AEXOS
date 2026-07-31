@@ -14,8 +14,8 @@ belongs in `.aexos-core/core/orchestration/session-state.js`.
 ```yaml
 task: next()
 agent: "@dev"
-responsável: Vulcan (Developer)
-responsavel_type: Agente
+owner: Vulcan (Developer)
+owner_type: agent
 atomic_layer: Workflow
 
 elicit: false
@@ -41,13 +41,13 @@ inputs:
 outputs:
   - name: suggestions
     type: array
-    destino: Console
-    persistido: false
+    destination: Console
+    persisted: false
 
   - name: workflow_context
     type: object
-    destino: Console
-    persistido: false
+    destination: Console
+    persisted: false
 ```
 
 ---
@@ -57,15 +57,15 @@ outputs:
 ```yaml
 pre-conditions:
   - [ ] WIS modules are available
-    tipo: pre-condition
+    type: pre-condition
     blocker: false
-    validação: Check workflow-intelligence module loads
+    validation: Check workflow-intelligence module loads
     error_message: "WIS not available. Suggestions may be limited."
 
   - [ ] Session state exists (optional)
-    tipo: pre-condition
+    type: pre-condition
     blocker: false
-    validação: Check .aexos/session-state.json exists
+    validation: Check .aexos/session-state.json exists
     error_message: "No session history. Using project context only."
 ```
 
@@ -230,14 +230,14 @@ Current agent: @dev
 ```yaml
 post-conditions:
   - [ ] Suggestions displayed within 100ms
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validação: Measure execution time
+    validation: Measure execution time
 
   - [ ] Output is properly formatted
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: Verify console output matches expected format
+    validation: Verify console output matches expected format
 ```
 
 ---

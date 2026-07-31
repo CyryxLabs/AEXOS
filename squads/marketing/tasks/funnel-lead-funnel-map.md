@@ -1,9 +1,9 @@
 ---
 task: Map a Funnel and Locate the Leak
-responsavel: "@funnel-lead"
-responsavel_type: agent
+owner: "@funnel-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - offer_artifact: The constructed offer from @marketing:offer-lead, with its integrity gate verdict (required — carried, never authored here)
   - funnel_surfaces: Every step as the visitor encounters it, in order, verbatim (required)
   - step_readings: Per-step readings segmented by traffic source, with instrument and period (optional; absent means no diagnosis is available)
@@ -12,7 +12,7 @@ Entrada: |
   - price_artifact: Price, packaging and renewal mechanics from @products:pricing-strategist (required — consumed)
   - delivery_readings: Time to first outcome, refunds, complaints, reason codes (optional)
   - brand_artifact: Distinctive assets and category entry points from @marketing:brand-lead the funnel must express (optional)
-Saida: |
+Output: |
   - funnel_map: Every step with its one job and the one reading that judges it
   - readings_table: Per-step readings segmented by source, each marked OUR DATA or ESTIMATED, or NOT INSTRUMENTED
   - primary_leak: One step and one leak class, with the evidence that selects it

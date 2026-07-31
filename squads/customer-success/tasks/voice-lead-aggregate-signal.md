@@ -1,16 +1,16 @@
 ---
 task: Aggregate Customer Signal Into Weighted Themes
-responsavel: "@voice-lead"
-responsavel_type: agent
+owner: "@voice-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - window: The date range being consolidated, and the equal preceding window for trend comparison (required)
   - signal_items: Items across channels, each with a date, an account reference and a channel (required)
   - channel_inventory: Which channels are in scope, and whether each is solicited or unsolicited (required)
   - collection_terms: Per channel - anonymous, confidential, or attributable - as promised at collection (required)
   - telemetry_access: Instrumented behaviour available for corroborating behavioural claims (optional)
   - exposure_bands: Account-level exposure bands, for reporting volume and exposure separately (optional)
-Saida: |
+Output: |
   - restatement_table: Each item restated as the problem it implies, with the original request kept as a source reference (persisted)
   - theme_table: Per theme - restated problem, distinct accounts, raise count, channel mix, date range, exposure band
   - strength_classification: STRONG, MODERATE or WEAK per theme, with the conditions that would raise or lower it

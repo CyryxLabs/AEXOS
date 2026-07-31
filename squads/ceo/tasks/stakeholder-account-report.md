@@ -1,16 +1,16 @@
 ---
 task: Stakeholder Account Report
-responsavel: "@stakeholder-lead"
-responsavel_type: agent
+owner: "@stakeholder-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - period: The reporting period being accounted for (required)
   - promise_register: The register of forward statements, or the sources needed to build it (required)
   - outcomes: Observable results for the period, in the units the promises used (required)
   - audience: Board, investors, employees or a named counterparty (required)
   - decision_records: Executive decision records covering the period, from @ceo-chief (optional)
   - prior_accounts: Accounts published for earlier periods, used for the consistency check (optional)
-Saida: |
+Output: |
   - account: Per promise due, the original wording, what happened, the variance, the cause and what changes
   - miss_reports: The fixed-structure report for each commitment not met
   - restatement_findings: Promises restated, disappeared, redefined or contradicted across periods

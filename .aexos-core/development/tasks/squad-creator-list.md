@@ -1,12 +1,12 @@
 ---
 task: List Squads
-responsavel: "@squad-creator"
-responsavel_type: agent
+owner: "@squad-creator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - path: Caminho alternativo (opcional, default: ./squads)
   - format: Formato de output (table | json | yaml)
-Saida: |
+Output: |
   - squads: Lista de squads encontrados
   - count: Numero total de squads
 Checklist:

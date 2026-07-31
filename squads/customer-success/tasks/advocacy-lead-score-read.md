@@ -1,16 +1,16 @@
 ---
 task: Read A Loyalty Measurement Wave
-responsavel: "@advocacy-lead"
-responsavel_type: agent
+owner: "@advocacy-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - wave: The completed wave with framing declared as relationship or transactional (required)
   - sample_facts: Invited count, responded count, response rate, and composition by segment and respondent role (required)
   - responses: Scores on the eleven-point scale with response ids and dates, no identifiers (required)
   - verbatims: Open-field reasons, de-identified before they leave the survey system (required)
   - previous_wave: The comparable previous wave with its own sample facts and declared method (optional)
   - method_changes: Any change to timing, channel, wording, population or suppression since the previous wave (optional)
-Saida: |
+Output: |
   - composition_report: Sample size, response rate and composition, reported before any score (persisted)
   - score_with_uncertainty: The net score expressed as a range for the sample size, with the underlying distribution
   - composition_attribution: Whether the movement is explained by mix before any experiential explanation

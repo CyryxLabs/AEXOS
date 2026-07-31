@@ -665,20 +665,20 @@ class SquadDesigner {
     for (const agent of agents) {
       for (const command of agent.commands) {
         const taskName = `${command}.md`;
-        const entrada = this.generateTaskEntrada(command, analysis);
-        const saida = this.generateTaskSaida(command, analysis);
+        const inputs = this.generateTaskInputs(command, analysis);
+        const outputs = this.generateTaskOutputs(command, analysis);
 
-        // Calculate confidence based on entrada/saida clarity
+        // Calculate confidence based on input/output clarity
         const confidence = Math.min(
           0.95,
-          0.5 + (entrada.length * 0.1) + (saida.length * 0.1),
+          0.5 + (inputs.length * 0.1) + (outputs.length * 0.1),
         );
 
         tasks.push({
           name: taskName.replace('.md', ''),
           agent: agent.id,
-          entrada,
-          saida,
+          inputs,
+          outputs,
           confidence: Math.round(confidence * 100) / 100,
         });
       }
@@ -688,12 +688,12 @@ class SquadDesigner {
   }
 
   /**
-   * Generate task entrada (inputs)
+   * Generate task inputs
    * @param {string} command - Command name
    * @param {Object} analysis - Domain analysis
    * @returns {string[]} Input parameters
    */
-  generateTaskEntrada(command, analysis) {
+  generateTaskInputs(command, analysis) {
     const inputs = [];
     const [action, ...rest] = command.split('-');
     const subject = rest.join('_');
@@ -747,12 +747,12 @@ class SquadDesigner {
   }
 
   /**
-   * Generate task saida (outputs)
+   * Generate task outputs
    * @param {string} command - Command name
    * @param {Object} _analysis - Domain analysis (reserved for future use)
    * @returns {string[]} Output parameters
    */
-  generateTaskSaida(command, _analysis) {
+  generateTaskOutputs(command, _analysis) {
     const outputs = [];
     const [action, ...rest] = command.split('-');
     const subject = rest.join('_');

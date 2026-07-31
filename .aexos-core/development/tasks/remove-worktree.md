@@ -31,34 +31,34 @@
 
 ```yaml
 task: removeWorktree()
-responsável: Polaris (DevOps)
-responsavel_type: Agente
+owner: Polaris (DevOps)
+owner_type: agent
 atomic_layer: Atom
 
 inputs:
-  - campo: story_id
-    tipo: string
-    origem: User Input
-    obrigatório: true
-    validação: Valid story identifier
+  - field: story_id
+    type: string
+    source: User Input
+    required: true
+    validation: Valid story identifier
 
-  - campo: force
-    tipo: boolean
-    origem: User Input
-    obrigatório: false
+  - field: force
+    type: boolean
+    source: User Input
+    required: false
     default: false
-    validação: Force removal even with uncommitted changes
+    validation: Force removal even with uncommitted changes
 
 outputs:
-  - campo: removed
-    tipo: boolean
-    destino: Return value
-    persistido: false
+  - field: removed
+    type: boolean
+    destination: Return value
+    persisted: false
 
-  - campo: story_id
-    tipo: string
-    destino: Return value
-    persistido: false
+  - field: story_id
+    type: string
+    destination: Return value
+    persisted: false
 ```
 
 ---
@@ -68,21 +68,21 @@ outputs:
 ```yaml
 pre-conditions:
   - [ ] Current directory is a git repository
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: git rev-parse --is-inside-work-tree
+    validation: git rev-parse --is-inside-work-tree
     error_message: "Not a git repository."
 
   - [ ] Worktree exists for story
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: manager.exists(storyId) === true
+    validation: manager.exists(storyId) === true
     error_message: "Worktree not found for this story."
 
   - [ ] Not currently in the worktree being removed
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: cwd !== worktreePath
+    validation: cwd !== worktreePath
     error_message: "Cannot remove worktree while inside it."
 ```
 
@@ -93,15 +93,15 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Worktree directory removed
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: Directory .aexos/worktrees/{storyId} does not exist
+    validation: Directory .aexos/worktrees/{storyId} does not exist
     error_message: "Worktree directory still exists."
 
   - [ ] Branch deleted (unless --keep-branch)
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validação: Branch auto-claude/{storyId} does not exist
+    validation: Branch auto-claude/{storyId} does not exist
     error_message: "Branch was not deleted (may be merged)."
 ```
 

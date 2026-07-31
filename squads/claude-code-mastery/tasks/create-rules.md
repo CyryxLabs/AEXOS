@@ -1,16 +1,16 @@
 ---
 task: Create Conditional Rules
-responsavel: "@config-engineer"
-responsavel_type: agent
+owner: "@config-engineer"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - rule_name: Kebab-case filename for the rule, e.g. api-conventions (required)
   - rule_type: conditional or always-on (optional, default conditional)
   - target_paths: Glob patterns for conditional loading, supplied by the user or auto-detected (optional)
   - description: The behaviour the rule is meant to enforce (optional)
   - project_structure: Existing directories used to suggest rules and to test the glob patterns (required)
   - existing_claude_md: Current CLAUDE.md content, checked for contradictions (optional)
-Saida: |
+Output: |
   - rule_file: .claude/rules/{rule_name}.md, or a domain subdirectory
   - frontmatter: paths: YAML array of quoted glob patterns, omitted entirely for always-on rules
   - rule_body: Conventions, Patterns with code examples, and Anti-patterns sections, 20-60 lines

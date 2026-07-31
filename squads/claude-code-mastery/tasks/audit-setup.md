@@ -1,14 +1,14 @@
 ---
 task: Audit Claude Code Setup
-responsavel: "@claude-mastery-chief"
-responsavel_type: agent
+owner: "@claude-mastery-chief"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_root: Working directory with a .claude/ directory or valid project markers (required)
   - depth: quick — checks 1-3 only, or full — all 8 checks (optional, default full)
   - claude_directory: settings.json, settings.local.json, CLAUDE.md, rules/, agents/, commands/, skills/, mcp.json as present (required, read-only)
   - user_settings: ~/.claude/settings.json, read to detect cross-layer conflicts (optional)
-Saida: |
+Output: |
   - check_results: PASS / WARN / FAIL plus points per check, across the 7 scored checks
   - score: Numeric 0-100 total with the per-check breakdown
   - grade: A-F letter from the grade range table

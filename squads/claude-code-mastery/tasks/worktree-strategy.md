@@ -1,16 +1,16 @@
 ---
 task: Git Worktree Isolation Strategy
-responsavel: "@swarm-orchestrator"
-responsavel_type: agent
+owner: "@swarm-orchestrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - agent_count: Number of agents needing isolation, taken from the team topology (required)
   - task_id: Identifier for this parallel work session, used in branch names (required)
   - base_branch: Branch the worktrees are created from (optional, default current branch)
   - shared_files: Files that multiple agents might modify, from the ownership analysis (optional)
   - auto_cleanup: Remove worktrees after merge (optional, default true)
   - repo_state: Repository with at least one commit, a clean working tree, git 2.5+ and disk space for N copies (required precondition)
-Saida: |
+Output: |
   - isolation_decision: Whether worktrees are needed, backed by the file-ownership matrix, or the documented decision to use a shared repo
   - branch_plan: Base branch plus one {task-id}/{agent-name} branch per agent with its owned file globs
   - worktrees: One sibling worktree directory per agent, created, verified with git worktree list and dependency-installed

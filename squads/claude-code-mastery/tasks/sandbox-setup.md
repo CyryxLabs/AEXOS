@@ -1,14 +1,14 @@
 ---
 task: Configure Sandbox Environment
-responsavel: "@config-engineer"
-responsavel_type: agent
+owner: "@config-engineer"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_root: Valid project directory whose filesystem and network needs are understood (required)
   - platform: macos, linux, wsl2 or windows, auto-detected when not supplied (optional)
   - isolation_level: standard, strict or airgapped (optional, default standard)
   - access_requirements: Which directories need write, read-only or invisible treatment, and which external domains and system commands are needed (required)
-Saida: |
+Output: |
   - platform_assessment: The sandbox technology available and its filesystem and network support status
   - sandbox_settings: The settings.json sandbox block — enabled, autoAllowBashIfSandboxed, excludedCommands, allowUnsandboxedCommands
   - network_policy: allowedDomains built from the project type, plus unix socket, local binding and proxy settings

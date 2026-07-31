@@ -1,16 +1,16 @@
 ---
 task: Run Switch Interview
-responsavel: "@jobs-analyst"
-responsavel_type: agent
+owner: "@jobs-analyst"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - segment: The segment, cohort or account list to recruit from, stated as a circumstance where possible (required)
   - switch_window: How recently the switch must have occurred (optional, default: last 60 to 90 days)
   - recruit_source: Where the switchers come from — recent wins, recent churn, closed-lost, sales call recordings (optional, default: recent wins)
   - target_count: Number of interviews to run in this pass (optional, default: 5, which is the squad completion floor)
   - transcript_dir: Directory for raw transcripts and recordings (optional, default: docs/product/jobs/transcripts/)
   - output_dir: Directory for switch timeline artifacts (optional, default: docs/product/jobs/switches/)
-Saida: |
+Output: |
   - switch_timelines: One timeline artifact per interview, six stages anchored in time, place and who was present
   - transcript_ids: Stable ids (SW-NN) linking every later job clause back to a specific interview
   - struggling_moments: The moment that started each search, in the interviewee's own words

@@ -1,15 +1,15 @@
 ---
 task: Qualify Deal Against MEDDIC
-responsavel: "@qualification-lead"
-responsavel_type: agent
+owner: "@qualification-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - deal: Deal or account being qualified (required)
   - meeting_notes: Notes from every buyer conversation, each with its date (required)
   - buyer_communications: Emails, messages and documents produced by the buyer, with dates (optional but expected)
   - crm_record: Current stage, close date and forecast category as recorded today (optional)
   - prior_qualification_record: Previous record for this deal, if one exists (optional)
-Saida: |
+Output: |
   - meddic_table: One row per letter with the finding, its named source, its date and its evidence score
   - unverified_block: Every field below evidence score 2, listed separately and visibly
   - gaps: Each gap with the single verification step that would close it, its owner and its date

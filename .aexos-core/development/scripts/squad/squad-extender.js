@@ -593,23 +593,23 @@ dependencies:
 
       task: `---
 task: ${context.componentName}
-responsavel: "@${context.agentId || 'agent'}"
-responsavel_type: Agent
+owner: "@${context.agentId || 'agent'}"
+owner_type: agent
 atomic_layer: Task
 elicit: false
 
-Entrada:
-  - campo: input_param
-    tipo: string
-    origem: User Input
-    obrigatorio: true
-    validacao: "Description of validation"
+Input:
+  - field: input_param
+    type: string
+    source: User Input
+    required: true
+    validation: "Description of validation"
 
-Saida:
-  - campo: output_result
-    tipo: object
-    destino: Return value
-    persistido: false
+Output:
+  - field: output_result
+    type: object
+    destination: Return value
+    persisted: false
 
 Checklist:
   - "[ ] Step 1"

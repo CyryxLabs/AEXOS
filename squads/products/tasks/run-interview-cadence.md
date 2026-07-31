@@ -1,9 +1,9 @@
 ---
 task: Run the Weekly Interview Cadence
-responsavel: "@discovery-lead"
-responsavel_type: agent
+owner: "@discovery-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - outcome: The measurable product outcome the touchpoints are in pursuit of (required)
   - trio: Named product manager, product designer and engineer, as people not roles (required)
   - recruiting_surface: The product surface or queue interviews can be recruited from (required)
@@ -11,7 +11,7 @@ Entrada: |
   - existing_snapshots: Path to snapshots already filed for this outcome (optional, default: none)
   - cadence_start: Date the eight-week window is measured from (optional, default: today)
   - output_dir: Directory for discovery artifacts (optional, default: docs/product/discovery/)
-Saida: |
+Output: |
   - cadence_plan: Versioned markdown file naming the trio, the recruiting automation, the weekly slot, the snapshot location and the synthesis ritual
   - recruiting_hook: The specific in-product trigger, its copy, its target volume per week and its owner
   - snapshot_index: The path convention and index file where every snapshot is filed

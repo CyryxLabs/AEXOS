@@ -3,19 +3,19 @@
 **Date:** 2025-11-13  
 **Version:** 1.0.0  
 **Status:** Standard  
-**Author:** Brad Frost Cognitive Clone
+**Author:** Brad Frost Cognitive clone
 
 ---
 
 ## Purpose
 
-This document defines HOW to choose the appropriate executor type (Agente, Worker, Humano, Clone) for any AEXOS Task based on task characteristics, requirements, and constraints.
+This document defines HOW to choose the appropriate executor type (agent, worker, human, clone) for any AEXOS Task based on task characteristics, requirements, and constraints.
 
 ---
 
 ## The Four Executor Types
 
-### 1. Agente (AI-Powered Execution)
+### 1. agent (AI-Powered Execution)
 
 **Definition:** AI agent that uses Large Language Models to perform creative, analytical, or generative tasks.
 
@@ -37,7 +37,7 @@ This document defines HOW to choose the appropriate executor type (Agente, Worke
 
 ---
 
-### 2. Worker (Script-Based Execution)
+### 2. worker (Script-Based Execution)
 
 **Definition:** Deterministic script or function that transforms data using predefined logic.
 
@@ -59,7 +59,7 @@ This document defines HOW to choose the appropriate executor type (Agente, Worke
 
 ---
 
-### 3. Humano (Manual Human Execution)
+### 3. human (Manual Human Execution)
 
 **Definition:** Human operator who performs the task manually, often requiring subjective judgment or approval.
 
@@ -81,7 +81,7 @@ This document defines HOW to choose the appropriate executor type (Agente, Worke
 
 ---
 
-### 4. Clone (Mind Emulation with Heuristics)
+### 4. clone (Mind Emulation with Heuristics)
 
 **Definition:** AI agent augmented with personality heuristics and domain axioms to emulate a specific person's methodology.
 
@@ -118,26 +118,26 @@ graph TD
     Q3 -->|Yes| Q5{Critical<br/>Decision<br/>with Legal/Financial<br/>Impact?}
     Q3 -->|No| Q6{Specific<br/>Methodology<br/>Required?}
     
-    Q4 -->|Yes| Worker[Worker<br/>with API]
-    Q4 -->|No| Worker2[Worker<br/>Script]
+    Q4 -->|Yes| worker[worker<br/>with API]
+    Q4 -->|No| Worker2[worker<br/>Script]
     
-    Q5 -->|Yes| Humano[Humano]
+    Q5 -->|Yes| human[human]
     Q5 -->|No| Q6
     
-    Q6 -->|Yes<br/>Brad Frost,<br/>Alex Hormozi,<br/>etc.| Clone[Clone<br/>with Heuristics]
-    Q6 -->|No| Agente[Agente<br/>Generic AI]
+    Q6 -->|Yes<br/>Brad Frost,<br/>Alex Hormozi,<br/>etc.| clone[clone<br/>with Heuristics]
+    Q6 -->|No| agent[agent<br/>Generic AI]
     
-    Worker --> End[Execute Task]
+    worker --> End[Execute Task]
     Worker2 --> End
-    Humano --> End
-    Clone --> End
-    Agente --> End
+    human --> End
+    clone --> End
+    agent --> End
     
-    style Worker fill:#90EE90
+    style worker fill:#90EE90
     style Worker2 fill:#90EE90
-    style Humano fill:#FFB6C1
-    style Clone fill:#ADD8E6
-    style Agente fill:#FFFFE0
+    style human fill:#FFB6C1
+    style clone fill:#ADD8E6
+    style agent fill:#FFFFE0
 ```
 
 ---
@@ -158,8 +158,8 @@ graph TD
 | Calculate content area height | ❌ No | Simple math: `canvas.height - safeZones.top - safeZones.bottom` |
 | Select optimal template | ✅ Yes | Requires matching brief goals with template strengths |
 
-**If YES → Consider Agente, Clone, or Humano**  
-**If NO → Consider Worker**
+**If YES → Consider agent, clone, or human**  
+**If NO → Consider worker**
 
 ---
 
@@ -176,8 +176,8 @@ graph TD
 | Calculate color contrast ratio | ✅ Yes | Formula: `(L1 + 0.05) / (L2 + 0.05)` (WCAG) |
 | Choose between 3 templates | ❌ No | Depends on brief goals, brand, campaign type |
 
-**If YES → Worker**  
-**If NO → Consider Agente, Clone, or Humano**
+**If YES → worker**  
+**If NO → Consider agent, clone, or human**
 
 ---
 
@@ -189,14 +189,14 @@ graph TD
 
 | Task | External API? | API |
 |------|--------------|-----|
-| Face detection | ✅ Yes (AI) | OpenRouter (Gemini Vision) → **Agente** |
-| Image search | ✅ Yes (AI) | Semantic search with embeddings → **Agente** |
-| File upload | ✅ Yes (Storage) | AWS S3, Supabase Storage → **Worker** |
-| Send email | ✅ Yes (Email) | SendGrid, Mailgun → **Worker** |
-| Webhook trigger | ✅ Yes (HTTP) | Generic HTTP POST → **Worker** |
+| Face detection | ✅ Yes (AI) | OpenRouter (Gemini Vision) → **agent** |
+| Image search | ✅ Yes (AI) | Semantic search with embeddings → **agent** |
+| File upload | ✅ Yes (Storage) | AWS S3, Supabase Storage → **worker** |
+| Send email | ✅ Yes (Email) | SendGrid, Mailgun → **worker** |
+| Webhook trigger | ✅ Yes (HTTP) | Generic HTTP POST → **worker** |
 
-**If YES (AI API) → Agente**  
-**If YES (Non-AI API) → Worker**  
+**If YES (AI API) → agent**  
+**If YES (Non-AI API) → worker**  
 **If NO → Continue decision tree**
 
 ---
@@ -215,8 +215,8 @@ graph TD
 | Brand alignment validation | ⚠️ Maybe | AI can check, but human can catch nuances |
 | Emergency bug fix decision | ✅ Yes | High stakes, requires human judgment |
 
-**If YES (critical/legal/financial) → Humano**  
-**If MAYBE → Consider Agente or Clone (with human review as acceptance criteria)**  
+**If YES (critical/legal/financial) → human**  
+**If MAYBE → Consider agent or clone (with human review as acceptance criteria)**  
 **If NO → Continue decision tree**
 
 ---
@@ -235,8 +235,8 @@ graph TD
 | Generic ad brief analysis | ❌ No | Any AI strategist can do it |
 | Generic component design | ❌ No | Standard design principles |
 
-**If YES → Clone (with heuristics + axioms of that person)**  
-**If NO → Agente (generic AI)**
+**If YES → clone (with heuristics + axioms of that person)**  
+**If NO → agent (generic AI)**
 
 ---
 
@@ -246,10 +246,10 @@ graph TD
 
 | Executor | Cost per Execution | Speed | Deterministic | When to Use |
 |----------|-------------------|-------|---------------|-------------|
-| **Worker** | $ Low<br/>($0 - $0.001) | ⚡ Fast<br/>(< 1s) | ✅ Yes | - Config loading<br/>- File I/O<br/>- Simple calculations<br/>- API calls (non-AI) |
-| **Agente** | $$$$ High<br/>($0.001 - $0.01) | 🐌 Slow<br/>(3-10s) | ❌ No | - Creative tasks<br/>- Analysis<br/>- Generation<br/>- AI API calls |
-| **Humano** | $$$ Medium<br/>($5 - $50) | 🐢 Very Slow<br/>(minutes-hours) | ❌ No | - Legal/financial decisions<br/>- Quality gates<br/>- Strategic decisions<br/>- Edge cases |
-| **Clone** | $$$$ High<br/>($0.002 - $0.015) | 🐌 Slow<br/>(5-15s) | ⚠️ Partial | - Methodology validation<br/>- Expert review<br/>- Domain-specific tasks<br/>- Personality-driven execution |
+| **worker** | $ Low<br/>($0 - $0.001) | ⚡ Fast<br/>(< 1s) | ✅ Yes | - Config loading<br/>- File I/O<br/>- Simple calculations<br/>- API calls (non-AI) |
+| **agent** | $$$$ High<br/>($0.001 - $0.01) | 🐌 Slow<br/>(3-10s) | ❌ No | - Creative tasks<br/>- Analysis<br/>- Generation<br/>- AI API calls |
+| **human** | $$$ Medium<br/>($5 - $50) | 🐢 Very Slow<br/>(minutes-hours) | ❌ No | - Legal/financial decisions<br/>- Quality gates<br/>- Strategic decisions<br/>- Edge cases |
+| **clone** | $$$$ High<br/>($0.002 - $0.015) | 🐌 Slow<br/>(5-15s) | ⚠️ Partial | - Methodology validation<br/>- Expert review<br/>- Domain-specific tasks<br/>- Personality-driven execution |
 
 ### ROI Calculation
 
@@ -258,60 +258,60 @@ graph TD
 ROI = (Time Saved × Hourly Rate - Executor Cost) / Executor Cost × 100%
 ```
 
-**Example 1: Brief Analysis (Agente vs Humano)**
+**Example 1: Brief Analysis (agent vs human)**
 
 ```
-Agente:
+agent:
   Cost: $0.0025
   Time: 4 seconds
   Human alternative: 15 minutes = $12.50 (at $50/hour)
   ROI: ($12.50 - $0.0025) / $0.0025 × 100% = 499,900%
 
-Humano:
+human:
   Cost: $12.50
   Time: 15 minutes
   ROI: N/A (baseline)
   
-Decision: ✅ Agente (massive ROI)
+Decision: ✅ agent (massive ROI)
 ```
 
-**Example 2: Load Config (Worker vs Agente)**
+**Example 2: Load Config (worker vs agent)**
 
 ```
-Worker:
+worker:
   Cost: $0
   Time: 0.05 seconds
-  Agente alternative: $0.005, 5 seconds
+  agent alternative: $0.005, 5 seconds
   ROI: Infinite (free vs paid)
 
-Agente:
+agent:
   Cost: $0.005
   Time: 5 seconds
   ROI: Negative (slower and more expensive)
   
-Decision: ✅ Worker (no reason to use AI)
+Decision: ✅ worker (no reason to use AI)
 ```
 
-**Example 3: Quality Review (Humano vs Agente)**
+**Example 3: Quality Review (human vs agent)**
 
 ```
-Humano:
+human:
   Cost: $5
   Time: 3 minutes
   Accuracy: 95%
 
-Agente:
+agent:
   Cost: $0.01
   Time: 5 seconds
   Accuracy: 85%
 
 Trade-off:
-  - Agente is 500x cheaper, 36x faster
+  - agent is 500x cheaper, 36x faster
   - But 10% less accurate
   
 Decision: Depends on use case:
-  - High-volume batch: ✅ Agente (with spot-check by Humano)
-  - Critical campaign: ✅ Humano (stakes too high)
+  - High-volume batch: ✅ agent (with spot-check by human)
+  - Critical campaign: ✅ human (stakes too high)
 ```
 
 ---
@@ -320,7 +320,7 @@ Decision: Depends on use case:
 
 ### What Each Executor CAN Do
 
-| Capability | Agente | Worker | Humano | Clone |
+| Capability | agent | worker | human | clone |
 |------------|--------|--------|--------|-------|
 | **AI Model Calls** | ✅ Yes | ❌ No | ❌ No | ✅ Yes |
 | **Script Execution** | ⚠️ Limited<br/>(via tools) | ✅ Yes | ❌ No | ⚠️ Limited<br/>(via tools) |
@@ -338,20 +338,20 @@ Decision: Depends on use case:
 
 ### When to Swap Executors
 
-#### Rule 1: Agente → Worker (Cost Optimization)
+#### Rule 1: agent → worker (Cost Optimization)
 
 **Condition:** If task becomes deterministic after enough training data.
 
 **Example:**
 ```yaml
-# BEFORE: Agente (creative)
+# BEFORE: agent (creative)
 Step 4: Select Template
-  responsavel_type: Agente
+  owner_type: agent
   cost: $0.0003
 
-# AFTER: Worker (lookup table)
+# AFTER: worker (lookup table)
 Step 4: Select Template
-  responsavel_type: Worker
+  owner_type: worker
   logic: |
     if (brief.campaign_goal === "conversion") return "ad-01-cta-focused";
     if (brief.campaign_goal === "awareness") return "ad-02-hero-visual";
@@ -363,28 +363,28 @@ Step 4: Select Template
 
 ---
 
-#### Rule 2: Humano → Agente (Automation)
+#### Rule 2: human → agent (Automation)
 
 **Condition:** If task can be automated with acceptable accuracy drop.
 
 **Example:**
 ```yaml
-# BEFORE: Humano (manual review)
+# BEFORE: human (manual review)
 Step 15: Quality Review
-  responsavel_type: Humano
+  owner_type: human
   cost: $5
   time: 3 minutes
   accuracy: 95%
 
-# AFTER: Agente (automated review) with spot-check
+# AFTER: agent (automated review) with spot-check
 Step 15: Quality Review
-  responsavel_type: Agente
+  owner_type: agent
   cost: $0.01
   time: 5 seconds
   accuracy: 85%
   acceptance-criteria:
-    - [ ] Random 10% reviewed by Humano
-      tipo: acceptance
+    - [ ] Random 10% reviewed by human
+      type: acceptance
       blocker: false
 ```
 
@@ -392,21 +392,21 @@ Step 15: Quality Review
 
 ---
 
-#### Rule 3: Agente → Clone (Methodology Enforcement)
+#### Rule 3: agent → clone (Methodology Enforcement)
 
 **Condition:** If task benefits from specific domain expertise or methodology.
 
 **Example:**
 ```yaml
-# BEFORE: Agente (generic design validation)
+# BEFORE: agent (generic design validation)
 Step 7c: Validate Components
-  responsavel_type: Agente
+  owner_type: agent
   prompt: "Check if components follow best practices"
   accuracy: 70%
 
-# AFTER: Clone (Brad Frost's Atomic Design)
+# AFTER: clone (Brad Frost's Atomic Design)
 Step 7c: Validate Components
-  responsavel_type: Clone
+  owner_type: clone
   heuristics: clones/brad_frost/heuristics.yaml
   axioms: clones/brad_frost/axioms.yaml
   accuracy: 95%  # Higher accuracy due to domain expertise
@@ -416,21 +416,21 @@ Step 7c: Validate Components
 
 ---
 
-#### Rule 4: Clone → Agente (Simplification)
+#### Rule 4: clone → agent (Simplification)
 
 **Condition:** If specific methodology is not critical to task success.
 
 **Example:**
 ```yaml
-# BEFORE: Clone (overkill for simple task)
+# BEFORE: clone (overkill for simple task)
 Step 5: Craft Ad Copy
-  responsavel_type: Clone
+  owner_type: clone
   clone: alex_hormozi
   cost: $0.015
 
-# AFTER: Agente (sufficient for generic copy)
+# AFTER: agent (sufficient for generic copy)
 Step 5: Craft Ad Copy
-  responsavel_type: Agente
+  owner_type: agent
   cost: $0.005
 ```
 
@@ -440,49 +440,49 @@ Step 5: Craft Ad Copy
 
 ## Hybrid Executor Strategies
 
-### Strategy 1: Agente + Worker (AI with Fallback)
+### Strategy 1: agent + worker (AI with Fallback)
 
-**Use Case:** AI does creative work, Worker provides fallback if AI fails.
+**Use Case:** AI does creative work, worker provides fallback if AI fails.
 
 ```yaml
 Step 4: Select Template
 
-responsavel_type: Agente
-fallback_executor: Worker
+owner_type: agent
+fallback_executor: worker
 
 logic: |
   try {
     # Try AI selection
     return await agente.selectTemplate(brief, brand);
   } catch (error) {
-    # Fallback to Worker (rule-based)
+    # Fallback to worker (rule-based)
     return worker.selectTemplateDefault(brief.campaign_goal);
   }
 
 cost:
-  - Primary: $0.0003 (Agente)
-  - Fallback: $0 (Worker)
+  - Primary: $0.0003 (agent)
+  - Fallback: $0 (worker)
   - Average: $0.00027 (if 90% success rate)
 ```
 
 ---
 
-### Strategy 2: Agente + Humano (AI with Review)
+### Strategy 2: agent + human (AI with Review)
 
-**Use Case:** AI does bulk work, Humano reviews edge cases or high-stakes decisions.
+**Use Case:** AI does bulk work, human reviews edge cases or high-stakes decisions.
 
 ```yaml
 Step 15: Quality Review
 
-responsavel_type: Agente
+owner_type: agent
 
 acceptance-criteria:
-  - [ ] If quality score < 80%, escalate to Humano
-    tipo: acceptance
+  - [ ] If quality score < 80%, escalate to human
+    type: acceptance
     blocker: false
     escalation:
       condition: quality_score < 80
-      executor: Humano
+      executor: human
 
 logic: |
   const aiReview = await agente.reviewQuality(ad);
@@ -495,28 +495,28 @@ logic: |
   return aiReview;
 
 cost:
-  - Agente: $0.01 (100% of ads)
-  - Humano: $5 (10% of ads)
+  - agent: $0.01 (100% of ads)
+  - human: $5 (10% of ads)
   - Average: $0.51 per ad
 ```
 
 ---
 
-### Strategy 3: Clone + Agente (Methodology + Creativity)
+### Strategy 3: clone + agent (Methodology + Creativity)
 
-**Use Case:** Clone validates, Agente executes (best of both worlds).
+**Use Case:** clone validates, agent executes (best of both worlds).
 
 ```yaml
 Step 7: Design Components
 
-primary_executor: Agente
-validator_executor: Clone
+primary_executor: agent
+validator_executor: clone
 
 logic: |
-  # 1. Agente designs component (creative)
+  # 1. agent designs component (creative)
   const component = await agente.designCTA(adCopy, brand);
   
-  # 2. Clone validates (methodology)
+  # 2. clone validates (methodology)
   const validation = await clone.validateAtomicDesign(component);
   
   if (!validation.valid) {
@@ -529,8 +529,8 @@ logic: |
   return component;
 
 cost:
-  - Agente: $0.005
-  - Clone: $0.001
+  - agent: $0.005
+  - clone: $0.001
   - Total: $0.006 (higher quality, worth it)
 ```
 
@@ -546,7 +546,7 @@ cost:
 2. Deterministic algorithm? ✅ Yes (read JSON, calculate content area)
 3. External API? ❌ No
 
-**Executor:** ✅ **Worker**
+**Executor:** ✅ **worker**
 
 **Rationale:** Pure data transformation, no AI needed.
 
@@ -560,11 +560,11 @@ cost:
 2. Human judgment? ⚠️ Maybe (can be automated with good accuracy)
 3. Specific methodology? ❌ No (generic strategy)
 
-**Executor:** ✅ **Agente**
+**Executor:** ✅ **agent**
 
 **Rationale:** AI excels at natural language understanding and insight extraction.
 
-**Alternative (Ready Copy Mode):** ✅ **Worker** (skip AI, use defaults)
+**Alternative (Ready Copy Mode):** ✅ **worker** (skip AI, use defaults)
 
 ---
 
@@ -576,11 +576,11 @@ cost:
 2. Specific methodology? ⚠️ Partial (Atomic Design compliance)
 3. Human judgment? ❌ No (can be automated)
 
-**Executor:** ✅ **Agente** (primary)
+**Executor:** ✅ **agent** (primary)
 
-**Alternative (with validation):** ✅ **Agente** + **Clone** (Brad Frost validates)
+**Alternative (with validation):** ✅ **agent** + **clone** (Brad Frost validates)
 
-**Rationale:** AI designs, Clone ensures Atomic Design compliance.
+**Rationale:** AI designs, clone ensures Atomic Design compliance.
 
 ---
 
@@ -592,7 +592,7 @@ cost:
 2. Specific methodology? ✅ Yes (Brad Frost's Atomic Design)
 3. Deterministic algorithm? ⚠️ Partial (heuristics + axioms)
 
-**Executor:** ✅ **Clone** (Brad Frost)
+**Executor:** ✅ **clone** (Brad Frost)
 
 **Rationale:** Validation requires domain expertise and methodology adherence.
 
@@ -606,7 +606,7 @@ cost:
 2. External API? ✅ Yes (OpenRouter Gemini Vision)
 3. Deterministic algorithm? ❌ No (AI vision model)
 
-**Executor:** ✅ **Agente** (external AI API)
+**Executor:** ✅ **agent** (external AI API)
 
 **Rationale:** Face detection requires AI, but it's an external API call.
 
@@ -620,7 +620,7 @@ cost:
 2. Deterministic algorithm? ✅ Yes (Handlebars rendering)
 3. External API? ❌ No
 
-**Executor:** ✅ **Worker**
+**Executor:** ✅ **worker**
 
 **Rationale:** Pure template compilation, no AI needed.
 
@@ -634,8 +634,8 @@ cost:
 2. Human judgment? ✅ Yes (subjective quality assessment)
 3. Critical decision? ⚠️ Depends (high-stakes campaigns → yes)
 
-**Executor (High Stakes):** ✅ **Humano**  
-**Executor (Batch Mode):** ✅ **Agente** (with spot-check by Humano)
+**Executor (High Stakes):** ✅ **human**  
+**Executor (Batch Mode):** ✅ **agent** (with spot-check by human)
 
 **Rationale:** Depends on campaign importance and volume.
 
@@ -648,29 +648,29 @@ Use this checklist to decide executor type for any task:
 ### Step 1: Quick Filters
 
 - [ ] Is task deterministic? (same input → same output)
-  - ✅ YES → **Worker**
+  - ✅ YES → **worker**
   - ❌ NO → Continue
   
 - [ ] Does task call external AI API?
-  - ✅ YES → **Agente**
+  - ✅ YES → **agent**
   - ❌ NO → Continue
   
 - [ ] Is task critical legal/financial decision?
-  - ✅ YES → **Humano**
+  - ✅ YES → **human**
   - ❌ NO → Continue
 
 ### Step 2: Creativity vs Methodology
 
 - [ ] Does task require creativity?
-  - ✅ YES + No specific methodology → **Agente**
-  - ✅ YES + Specific methodology → **Clone**
-  - ❌ NO → **Worker**
+  - ✅ YES + No specific methodology → **agent**
+  - ✅ YES + Specific methodology → **clone**
+  - ❌ NO → **worker**
 
 ### Step 3: Cost-Benefit
 
 - [ ] Is AI cost justified by time savings or quality?
-  - ✅ YES → Keep Agente/Clone
-  - ❌ NO → Consider Worker or Humano
+  - ✅ YES → Keep agent/clone
+  - ❌ NO → Consider worker or human
 
 ### Step 4: Hybrid Strategy
 
@@ -684,7 +684,7 @@ Use this checklist to decide executor type for any task:
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | 2025-11-13 | Brad Frost Clone | Initial decision tree |
+| 1.0.0 | 2025-11-13 | Brad Frost clone | Initial decision tree |
 
 ---
 

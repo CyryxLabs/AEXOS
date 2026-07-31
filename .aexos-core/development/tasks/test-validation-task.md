@@ -27,27 +27,27 @@
 
 ```yaml
 task: testValidationTask()
-responsável: Vulcan (Dev Agent)
-responsavel_type: Agente
+owner: Vulcan (Dev Agent)
+owner_type: agent
 atomic_layer: Test
 
-**Entrada:**
-- campo: test_input
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: Optional test input parameter
+**Input:**
+- field: test_input
+  type: string
+  source: User Input
+  required: false
+  validation: Optional test input parameter
 
-**Saída:**
-- campo: validation_result
-  tipo: object
-  destino: Memory
-  persistido: false
+**Output:**
+- field: validation_result
+  type: object
+  destination: Memory
+  persisted: false
 
-- campo: success
-  tipo: boolean
-  destino: Return value
-  persistido: false
+- field: success
+  type: boolean
+  destination: Return value
+  persisted: false
 ```
 
 ---
@@ -61,9 +61,9 @@ atomic_layer: Test
 ```yaml
 pre-conditions:
   - [ ] Test environment available
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Verify test environment is available
     error_message: "Pre-condition failed: Test environment not available"
 ```
@@ -79,9 +79,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Validation completed successfully
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify validation completed successfully
     error_message: "Post-condition failed: Validation did not complete successfully"
 ```
@@ -97,9 +97,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Task executed successfully
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert task executed successfully
     error_message: "Acceptance criterion not met: Task did not execute successfully"
 ```

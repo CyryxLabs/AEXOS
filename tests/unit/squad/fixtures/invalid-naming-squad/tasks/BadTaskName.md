@@ -1,11 +1,11 @@
 ---
 task: Bad Task Name
-responsavel: @test
-responsavel_type: agent
+owner: @test
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - input: string
-Saida: |
+Output: |
   - output: string
 Checklist:
   - [ ] Do something

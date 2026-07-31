@@ -33,43 +33,43 @@
 
 ```yaml
 task: resolveGithubIssue()
-responsavel: Polaris (Operator)
-responsavel_type: Agente
+owner: Polaris (Operator)
+owner_type: agent
 atomic_layer: Organism
 
-**Entrada:**
-- campo: issue_number
-  tipo: number
-  origem: User Input
-  obrigatorio: true
-  validacao: Must be a valid open GitHub issue number
+**Input:**
+- field: issue_number
+  type: number
+  source: User Input
+  required: true
+  validation: Must be a valid open GitHub issue number
 
-- campo: mode
-  tipo: string
-  origem: User Input
-  obrigatorio: false
-  validacao: yolo|interactive|pre-flight
+- field: mode
+  type: string
+  source: User Input
+  required: false
+  validation: yolo|interactive|pre-flight
   default: interactive
 
-- campo: branch
-  tipo: string
-  origem: Auto-detect or User Input
-  obrigatorio: false
-  validacao: Valid git branch name
+- field: branch
+  type: string
+  source: Auto-detect or User Input
+  required: false
+  validation: Valid git branch name
   default: Current branch
 
-**Saida:**
-- campo: resolution_summary
-  tipo: object
-  destino: GitHub Issue Comment + User Display
-  persistido: true
+**Output:**
+- field: resolution_summary
+  type: object
+  destination: GitHub Issue Comment + User Display
+  persisted: true
   formato: |
     { issue: number, commit: sha, files_changed: number, tests: pass/fail, closed: boolean }
 
-- campo: commit_sha
-  tipo: string
-  destino: Git
-  persistido: true
+- field: commit_sha
+  type: string
+  destination: Git
+  persisted: true
 ```
 
 ---
@@ -83,30 +83,30 @@ atomic_layer: Organism
 ```yaml
 pre-conditions:
   - [ ] GitHub CLI authenticated (gh auth status)
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
     error_message: "GitHub CLI not authenticated. Run: gh auth login"
 
   - [ ] Issue exists and is open
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: |
+    validation: |
       Run: gh issue view {issue_number} --json state
       Must return state: "OPEN"
     error_message: "Issue #{issue_number} not found or already closed"
 
   - [ ] Working tree is clean (no uncommitted changes)
-    tipo: pre-condition
+    type: pre-condition
     blocker: false
-    validacao: |
+    validation: |
       Run: git status --porcelain
       If dirty: warn user, suggest stash or commit first
     error_message: "Uncommitted changes detected. Commit or stash before proceeding."
 
   - [ ] On appropriate branch
-    tipo: pre-condition
+    type: pre-condition
     blocker: false
-    validacao: |
+    validation: |
       Check current branch with: git branch --show-current
       Warn if on main/master (suggest creating feature branch)
 ```
@@ -386,23 +386,23 @@ steps:
 ```yaml
 post-conditions:
   - [ ] All planned changes implemented
-    tipo: post-condition
+    type: post-condition
     blocker: true
 
   - [ ] Tests pass (npm test exit code 0)
-    tipo: post-condition
+    type: post-condition
     blocker: true
 
   - [ ] Changes committed with proper message referencing issue
-    tipo: post-condition
+    type: post-condition
     blocker: true
 
   - [ ] Changes pushed to remote
-    tipo: post-condition
+    type: post-condition
     blocker: true
 
   - [ ] Issue closed with resolution comment
-    tipo: post-condition
+    type: post-condition
     blocker: true
 ```
 
@@ -417,27 +417,27 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Issue root cause identified and documented in close comment
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 
   - [ ] Fix addresses the reported problem completely
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 
   - [ ] No regressions introduced (all existing tests pass)
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 
   - [ ] Commit follows Conventional Commits format with issue reference
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 
   - [ ] Issue closed on GitHub with detailed resolution
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 
   - [ ] If research was needed, saved to docs/research/
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: false
 ```
 

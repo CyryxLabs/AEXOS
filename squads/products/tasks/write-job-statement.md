@@ -1,15 +1,15 @@
 ---
 task: Write Job Statement
-responsavel: "@jobs-analyst"
-responsavel_type: agent
+owner: "@jobs-analyst"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - switch_transcripts: Switch interview transcripts with ids, from people who switched in the last 60 to 90 days (required, minimum one)
   - draft_statement: An existing job statement, persona line or requirement to repair (optional, default: none)
   - fallback_sources: Recent churn interviews, closed-lost records or sales call recordings, when recent switchers are unavailable (optional)
   - existing_personas: Path to personas, segments or ICP definitions to audit against the result (optional)
   - output_dir: Directory for job artifacts (optional, default: docs/product/jobs/)
-Saida: |
+Output: |
   - job_statement: Solution-free statement of circumstance, motivation and expected progress, every clause cited to a transcript id
   - dimensions: Functional, social and emotional dimensions stated separately, each with its evidence
   - struggling_moment: The moment that started the search, anchored in time, place and who was present

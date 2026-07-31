@@ -12,50 +12,50 @@ For guided automation (persona-switching), use `run-workflow.md` directly.
 
 ```yaml
 task: runWorkflowEngine()
-responsavel: Zeus (Commander)
-responsavel_type: Agente
+owner: Zeus (Commander)
+owner_type: agent
 atomic_layer: Config
 
-**Entrada:**
-- campo: workflow_name
-  tipo: string
-  origem: Delegated from run-workflow.md
-  obrigatório: true
-  validação: Must match an existing workflow YAML file
+**Input:**
+- field: workflow_name
+  type: string
+  source: Delegated from run-workflow.md
+  required: true
+  validation: Must match an existing workflow YAML file
 
-- campo: target_context
-  tipo: string
-  origem: Delegated from run-workflow.md
-  obrigatório: false
-  validação: Must be "core", "squad", or "hybrid". Default: "core"
+- field: target_context
+  type: string
+  source: Delegated from run-workflow.md
+  required: false
+  validation: Must be "core", "squad", or "hybrid". Default: "core"
 
-- campo: squad_name
-  tipo: string
-  origem: Delegated from run-workflow.md
-  obrigatório: false (required when target_context="squad" or "hybrid")
-  validação: Must be kebab-case, squad must exist in squads/
+- field: squad_name
+  type: string
+  source: Delegated from run-workflow.md
+  required: false (required when target_context="squad" or "hybrid")
+  validation: Must be kebab-case, squad must exist in squads/
 
-- campo: action
-  tipo: string
-  origem: Delegated from run-workflow.md
-  obrigatório: false
-  validação: Must be "start", "continue", "status", "skip", or "abort". Default: "continue"
+- field: action
+  type: string
+  source: Delegated from run-workflow.md
+  required: false
+  validation: Must be "start", "continue", "status", "skip", or "abort". Default: "continue"
 
-**Saída:**
-- campo: workflow_state
-  tipo: object
-  destino: File system (.aexos/{instance-id}-engine-state.yaml)
-  persistido: true
+**Output:**
+- field: workflow_state
+  type: object
+  destination: File system (.aexos/{instance-id}-engine-state.yaml)
+  persisted: true
 
-- campo: execution_report
-  tipo: object
-  destino: Output
-  persistido: false
+- field: execution_report
+  type: object
+  destination: Output
+  persisted: false
 
-- campo: step_outputs
-  tipo: map
-  destino: In-memory state (passed between steps)
-  persistido: true (in state file)
+- field: step_outputs
+  type: map
+  destination: In-memory state (passed between steps)
+  persisted: true (in state file)
 ```
 
 ---
@@ -65,27 +65,27 @@ atomic_layer: Config
 ```yaml
 pre-conditions:
   - [ ] workflow_name must resolve to an existing YAML file
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check workflow file exists at resolved path
     error_message: "Pre-condition failed: Workflow '{workflow_name}' not found"
   - [ ] When target_context="squad" or "hybrid", squad directory must exist
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       If target_context is "squad" or "hybrid", verify squads/{squad_name}/ exists
     error_message: "Pre-condition failed: Squad '{squad_name}' not found"
   - [ ] For action=continue/status/skip/abort, an active engine state file must exist
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check .aexos/{instance-id}-engine-state.yaml exists with status=active
     error_message: "Pre-condition failed: No active engine workflow instance found. Use action=start first."
   - [ ] Task tool must be available for subagent spawning
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Verify Task tool is accessible in the current Claude Code session
     error_message: "Pre-condition failed: Task tool not available"
 ```
@@ -97,15 +97,15 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] All non-optional steps completed or workflow aborted with report
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify all required steps have status: completed in state
     error_message: "Post-condition failed: Not all steps completed"
   - [ ] State file created with all step outputs
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify .aexos/{instance-id}-engine-state.yaml exists and contains outputs
     error_message: "Post-condition failed: State file not written"
 ```
@@ -117,21 +117,21 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Each action step spawned a real subagent via Task tool
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Each step with an agent was executed as a separate Task tool call
     error_message: "Acceptance criterion not met: Steps were not spawned as real subagents"
   - [ ] Outputs from previous steps were correctly passed to subsequent steps
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Verify requires chain: each step received the outputs it depends on
     error_message: "Acceptance criterion not met: Output chain broken"
   - [ ] Decision routing evaluated correctly based on thresholds
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Verify routing decisions match the conditions defined in the workflow
     error_message: "Acceptance criterion not met: Routing decisions incorrect"
 ```
@@ -536,11 +536,11 @@ For each step with `elicit: true`, the orchestrator collects input BEFORE spawni
 ### Process
 
 1. Read the `notes` field of the current step in the workflow YAML
-2. If the step has a `uses` field, read the task file and find its `Entrada` section
-3. For each field in `Entrada` with `origem: User Input` and `obrigatório: true`:
+2. If the step has a `uses` field, read the task file and find its `Input` section
+3. For each field in `Input` with `source: User Input` and `required: true`:
    - Use `AskUserQuestion` tool to ask the user
-   - Validate the response against the field's `validação` rule
-4. If no formal `Entrada` exists, extract questions from the step's `notes` field
+   - Validate the response against the field's `validation` rule
+4. If no formal `Input` exists, extract questions from the step's `notes` field
 5. Aggregate all responses into a YAML block:
 
 ```yaml

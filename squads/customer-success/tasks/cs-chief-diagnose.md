@@ -1,15 +1,15 @@
 ---
 task: Diagnose And Route A Customer Success Request
-responsavel: "@cs-chief"
-responsavel_type: agent
+owner: "@cs-chief"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - request: The request in the requester's own words (required)
   - symptom_date: When the symptom was first noticed and what changed before it (required)
   - population: One account, one cohort, one segment, or the whole base (required - do not proceed while ambiguous)
   - existing_evidence: Instrumented facts, dated records or dated interviews already available, with dates (optional)
   - pending_decision: The decision at stake and the human who makes it (optional)
-Saida: |
+Output: |
   - triage_record: Request as stated, request as owned, origin lifecycle stage, population, dated (persisted)
   - owner: Exactly one owning specialist id, with the excluded near misses and the reason for each
   - provisional_answer: A two-minute usable answer, explicitly labelled provisional

@@ -1,14 +1,14 @@
 ---
 task: Executive Request Triage
-responsavel: "@ceo-chief"
-responsavel_type: agent
+owner: "@ceo-chief"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - request: The executive question in the requester's own words (required)
   - context_artifacts: Paths to existing strategy, capital, org or stakeholder artifacts (optional)
   - known_constraints: Cash, time, people, contractual or regulatory limits already known (optional)
   - decision_deadline: Date by which a decision is actually needed (optional)
-Saida: |
+Output: |
   - restated_request: The request rewritten in the vocabulary of the discipline that owns it
   - reversibility_class: reversible-cheap | reversible-costly | irreversible
   - owning_specialist: Exactly one squad agent id, with the near-miss disciplines and why each was excluded

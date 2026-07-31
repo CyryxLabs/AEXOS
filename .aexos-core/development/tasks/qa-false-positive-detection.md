@@ -10,7 +10,7 @@ Critical thinking checklist to prevent confirmation bias and false positive appr
 
 ```yaml
 task: qaFalsePositiveDetection()
-responsavel: Argus (Guardian)
+owner: Argus (Guardian)
 atomic_layer: Molecule
 
 inputs:

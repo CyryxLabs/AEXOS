@@ -1,16 +1,16 @@
 ---
 task: Build Profit To Cash Bridge
-responsavel: "@finance-lead"
-responsavel_type: agent
+owner: "@finance-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - period: The reporting period under examination, with explicit start and end dates (required)
   - reported_result: The reported profit or loss for that exact period, with its source document (required)
   - cash_movement: Opening and closing cash for the same dates, with its source (required)
   - entity_scope: Which legal entity or consolidation the figures cover (required)
   - basis: Accrual or cash, gross or net, currency, and what is included or excluded (required)
   - supporting_records: Fixed asset register, ledger balances at both period ends, stock report, capex and financing detail (optional but each missing item becomes an unexplained residual)
-Saida: |
+Output: |
   - bridge_table: Each bridge item with amount, named source and class (non-cash, working capital, investing, financing, one-off)
   - residual: The unexplained remainder, shown as its own line and never absorbed into another
   - dominant_driver: The largest contributor to the gap, classified as structural or timing

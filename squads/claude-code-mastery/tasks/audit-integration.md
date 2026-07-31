@@ -1,14 +1,14 @@
 ---
 task: Audit Existing Claude Code Integration
-responsavel: "@project-integrator"
-responsavel_type: agent
+owner: "@project-integrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_path: Project to audit, from the user or the current working directory; must contain a .claude/ directory (required)
   - deep_scan: Whether to scan all source files for consistency (optional, default false)
   - claude_directory: The existing .claude/ tree — CLAUDE.md, settings.json, rules/, commands/, skills/ (required, read-only)
   - hook_and_mcp_config: Hook registrations and MCP server entries declared in settings.json or ~/.claude/settings.json (optional)
-Saida: |
+Output: |
   - component_status: PASS / WARN / FAIL per component, from the weighted completeness table
   - settings_findings: JSON validity, permission coherence, path accuracy, dangerous gaps and overly permissive rules
   - rule_coverage: Frontmatter validity plus the coverage gaps found (source, tests, CI/CD, database)

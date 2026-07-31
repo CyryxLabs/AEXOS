@@ -10,7 +10,7 @@ Enforce evidence-based QA with mandatory proof of fix and verification.
 
 ```yaml
 task: qaEvidenceRequirements()
-responsavel: Argus (Guardian)
+owner: Argus (Guardian)
 atomic_layer: Molecule
 
 inputs:

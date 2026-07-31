@@ -1,14 +1,14 @@
 ---
 task: Optimize Claude Code Workflow
-responsavel: "@project-integrator"
-responsavel_type: agent
+owner: "@project-integrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_path: Project directory that must already contain a .claude/ directory (required)
   - pain_points: Bottlenecks described by the user, e.g. too many permission prompts (optional)
   - workflow_type: solo-dev, team-review, ci-cd or exploratory (optional)
   - existing_config: CLAUDE.md, settings.json, rules, hooks, commands and skills already in place (required)
-Saida: |
+Output: |
   - maturity_classification: Starter, Intermediate, Advanced or Expert, with the signs that placed it there
   - bottlenecks: Each productivity killer found, with a HIGH / MEDIUM / LOW impact rating
   - permission_strategy: Safe allows, smart denies and contextual path-based permissions, with a before/after prompt count

@@ -99,13 +99,13 @@ Here is a real task contract, from `squads/ceo/tasks/strategy-kernel.md`:
 
 ```yaml
 task: Build Strategy Kernel
-responsavel: "@strategy-lead"
+owner: "@strategy-lead"
 atomic_layer: task
-Entrada: |
+Input: |
   - situation: What changed, what is not working, what the numbers say (required)
   - evidence_sources: Data, documents and observations available, each with origin and date (required)
   - constraints: Resource, contractual and capability limits already known (optional)
-Saida: |
+Output: |
   - diagnosis: A falsifiable claim about what is critical, with its evidence table
   - rejected_rival: The rival diagnosis considered in full, rejected with reasons or kept live
   - guiding_policy: The overall approach, and what it rules out

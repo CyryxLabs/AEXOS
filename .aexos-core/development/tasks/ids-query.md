@@ -4,39 +4,39 @@
 
 ```yaml
 task: idsQuery()
-responsável: Any Agent
-responsavel_type: Agente
+owner: Any Agent
+owner_type: agent
 atomic_layer: Molecule
 
-**Entrada:**
-- campo: intent
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Non-empty string describing what is needed
+**Input:**
+- field: intent
+  type: string
+  source: User Input
+  required: true
+  validation: Non-empty string describing what is needed
 
-- campo: context
-  tipo: object
-  origem: User Input
-  obrigatório: false
-  validação: Optional filters (type, category)
+- field: context
+  type: object
+  source: User Input
+  required: false
+  validation: Optional filters (type, category)
 
-- campo: format
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: "json" or "text" (default: text)
+- field: format
+  type: string
+  source: User Input
+  required: false
+  validation: "json" or "text" (default: text)
 
-**Saída:**
-- campo: analysis_result
-  tipo: object
-  destino: Return value
-  persistido: false
+**Output:**
+- field: analysis_result
+  type: object
+  destination: Return value
+  persisted: false
 
-- campo: decision
-  tipo: string
-  destino: Return value
-  persistido: false
+- field: decision
+  type: string
+  destination: Return value
+  persisted: false
 ```
 
 ---
@@ -46,9 +46,9 @@ atomic_layer: Molecule
 ```yaml
 pre-conditions:
   - [ ] Entity Registry exists at .aexos-core/data/entity-registry.yaml
-    tipo: pre-condition
+    type: pre-condition
     blocker: false
-    validação: |
+    validation: |
       If missing, engine returns CREATE with empty registry rationale
     error_message: "Registry not found — CREATE decisions will be recommended"
 ```

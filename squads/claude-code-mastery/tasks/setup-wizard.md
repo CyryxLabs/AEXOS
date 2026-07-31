@@ -1,15 +1,15 @@
 ---
 task: Setup Wizard
-responsavel: "@claude-mastery-chief"
-responsavel_type: agent
+owner: "@claude-mastery-chief"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_root: Valid, writable project root directory (required)
   - mode: guided — interactive, or express — smart defaults (optional, default guided)
   - preset: Project type override — monorepo, fullstack, library, api, cli (optional)
   - existing_claude_dir: Must be absent, or the user must confirm overwrite (required precondition)
   - user_answers: Responses on automation needs, MCP capabilities and custom subagents (required in guided mode)
-Saida: |
+Output: |
   - detected_type: The project type from the marker and structure matrix, confirmed by the user
   - claude_md: .claude/CLAUDE.md with overview, commands, standards, testing and architecture, under 200 lines
   - settings_json: deny rules for sensitive files, allow rules for the project type, and defaultMode from the type matrix

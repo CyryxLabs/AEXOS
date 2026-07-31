@@ -5,9 +5,12 @@
  * using code-based rules, no AI involvement in validation.
  *
  * Checklist items can define:
- * - tipo: pre-condition | post-condition | acceptance-criterion
+ * - type: pre-condition | post-condition | acceptance-criterion
  * - blocker: true | false (stops execution if fails)
- * - validação: Code-based validation rule
+ * - validation: Code-based validation rule
+ *
+ * `type` and `validation` were `tipo` and `validação`. Both spellings are
+ * accepted on input; only the English ones are produced.
  *
  * @module core/orchestration/checklist-runner
  * @version 1.0.0
@@ -125,7 +128,7 @@ class ChecklistRunner {
       if (!items.some(i => i.description.includes(description.substring(0, 30)))) {
         items.push({
           description,
-          tipo: 'manual',
+          type: 'manual',
           blocker: false,
           validation: null,
         });
@@ -145,7 +148,7 @@ class ChecklistRunner {
     if (typeof item === 'string') {
       return {
         description: item,
-        tipo: category,
+        type: category,
         blocker: category === 'pre-conditions',
         validation: null,
       };
@@ -157,9 +160,9 @@ class ChecklistRunner {
 
     return {
       description,
-      tipo: item.tipo || category,
+      type: item.type || item.tipo || category,
       blocker: item.blocker !== false && category !== 'manual',
-      validation: item.validação || item.validation || null,
+      validation: item.validation || item.validação || item.validacao || null,
       errorMessage: item.error_message || null,
     };
   }
@@ -173,7 +176,7 @@ class ChecklistRunner {
   async evaluateItem(item, targetPaths) {
     const result = {
       description: item.description,
-      tipo: item.tipo,
+      type: item.type,
       blocker: item.blocker,
       passed: true,
       message: null,
@@ -315,10 +318,10 @@ class ChecklistRunner {
       totalItems: items.length,
       blockers: items.filter(i => i.blocker).length,
       categories: {
-        preConditions: items.filter(i => i.tipo === 'pre-conditions').length,
-        postConditions: items.filter(i => i.tipo === 'post-conditions').length,
-        acceptanceCriteria: items.filter(i => i.tipo === 'acceptance-criteria').length,
-        manual: items.filter(i => i.tipo === 'manual').length,
+        preConditions: items.filter(i => i.type === 'pre-conditions').length,
+        postConditions: items.filter(i => i.type === 'post-conditions').length,
+        acceptanceCriteria: items.filter(i => i.type === 'acceptance-criteria').length,
+        manual: items.filter(i => i.type === 'manual').length,
       },
     };
   }

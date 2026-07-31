@@ -1,15 +1,15 @@
 ---
 task: Brownfield Project Claude Code Setup
-responsavel: "@project-integrator"
-responsavel_type: agent
+owner: "@project-integrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_root: Auto-detected existing project with source code and commit history (required)
   - critical_paths: Paths that must never be modified by AI (optional)
   - team_conventions_doc: Path to an existing coding standards document (optional)
   - deployment_branch: Branch used for deployment (optional, default main)
   - legacy_areas: Directories holding legacy code that needs careful handling (optional)
-Saida: |
+Output: |
   - pattern_inventory: Imports, component, state, API and naming conventions detected from the existing code
   - tooling_map: CI/CD, linting, formatting, testing and package.json scripts detected
   - claude_md: Convention-respecting CLAUDE.md under 200 lines that teaches the project's existing ways

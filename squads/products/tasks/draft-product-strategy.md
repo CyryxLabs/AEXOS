@@ -1,16 +1,16 @@
 ---
 task: Draft Product Strategy
-responsavel: "@product-strategist"
-responsavel_type: agent
+owner: "@product-strategist"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - business_outcome: The company objective the product is meant to serve, stated as a number (required)
   - vision_ref: Path to the existing product vision, or the horizon to draft one against (required)
   - evidence_sources: Data queries, discovery snapshots, market sources, technology signals available (required)
   - candidate_problems: The problems currently proposed for this cycle, however many (optional, default: elicit)
   - teams: The teams that would receive the resulting objectives, with their staffing (optional)
   - output_dir: Directory for strategy artifacts (optional, default: docs/product/strategy/)
-Saida: |
+Output: |
   - strategy_doc: Versioned markdown with focus, insights, action and management, and the declined alternatives named
   - insight_table: Every insight with its named source and the decision it changes
   - focus_decision: The very few chosen problems, plus the good ideas explicitly not funded this cycle

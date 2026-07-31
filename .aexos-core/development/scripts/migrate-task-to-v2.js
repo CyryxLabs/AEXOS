@@ -59,22 +59,22 @@ const sectionTemplates = {
 
 \`\`\`yaml
 task: {TODO: task identifier}
-responsável: {TODO: Agent Name}
-responsavel_type: Agente
+owner: {TODO: Agent Name}
+owner_type: agent
 atomic_layer: {TODO: Atom|Molecule|Organism}
 
-**Entrada:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: string|number|boolean}
-  origem: {TODO: User Input | config | Step X}
-  obrigatório: true
-  validação: {TODO: validation rule}
+**Input:**
+- field: {TODO: fieldName}
+  type: {TODO: string|number|boolean}
+  source: {TODO: User Input | config | Step X}
+  required: true
+  validation: {TODO: validation rule}
 
-**Saída:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: type}
-  destino: {TODO: output | state | Step Y}
-  persistido: true
+**Output:**
+- field: {TODO: fieldName}
+  type: {TODO: type}
+  destination: {TODO: output | state | Step Y}
+  persisted: true
 \`\`\`
 
 ---
@@ -89,9 +89,9 @@ atomic_layer: {TODO: Atom|Molecule|Organism}
 \`\`\`yaml
 pre-conditions:
   - [ ] {TODO: condition description}
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       {TODO: validation logic}
     error_message: "{TODO: error message}"
 \`\`\`
@@ -108,9 +108,9 @@ pre-conditions:
 \`\`\`yaml
 post-conditions:
   - [ ] {TODO: verification step}
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       {TODO: validation logic}
     error_message: "{TODO: error message}"
 \`\`\`
@@ -127,9 +127,9 @@ post-conditions:
 \`\`\`yaml
 acceptance-criteria:
   - [ ] {TODO: acceptance criterion}
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       {TODO: validation logic}
     error_message: "{TODO: error message}"
 \`\`\`
@@ -213,9 +213,21 @@ updated_at: ${new Date().toISOString().split('T')[0]}
 function analyzeMissingSections(content) {
   const checks = {
     executionModes: !content.includes('## Execution Modes') && !content.includes('# Execution Modes'),
-    taskDefinition: !(content.includes('responsável:') && content.includes('atomic_layer:')),
-    entrada: !content.includes('**Entrada:**'),
-    saida: !content.includes('**Saída:**'),
+    // Either spelling counts as present — this decides whether to *append* a
+    // template, so treating an older task as missing would duplicate its
+    // Task Definition rather than migrate it.
+    taskDefinition: !(
+      (content.includes('owner:') ||
+        content.includes('responsável:') ||
+        content.includes('responsavel:')) &&
+      content.includes('atomic_layer:')
+    ),
+    input: !(content.includes('**Input:**') || content.includes('**Entrada:**')),
+    output: !(
+      content.includes('**Output:**') ||
+      content.includes('**Saída:**') ||
+      content.includes('**Saida:**')
+    ),
     preConditions: !content.includes('pre-conditions:'),
     postConditions: !content.includes('post-conditions:'),
     acceptanceCriteria: !content.includes('acceptance-criteria:'),
@@ -280,7 +292,7 @@ function migrateTask(filePath) {
     sectionsToAdd += sectionTemplates.executionModes + '\n';
   }
   
-  if (missing.taskDefinition || missing.entrada || missing.saida) {
+  if (missing.taskDefinition || missing.input || missing.output) {
     sectionsToAdd += sectionTemplates.taskDefinition + '\n';
   }
   

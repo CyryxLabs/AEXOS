@@ -1,15 +1,15 @@
 ---
 task: Context Rot Audit
-responsavel: "@project-integrator"
-responsavel_type: agent
+owner: "@project-integrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_root: Auto-detected directory containing CLAUDE.md or .claude/ (required)
   - fix_automatically: Whether to auto-apply the simple P0 fixes (optional, default false)
   - verbose: Show passing checks as well as failures (optional, default false)
   - context_artifacts: CLAUDE.md, .claude/rules/*.md and .claude/agent-memory/ files to be examined (required)
   - git_history: Repository history used to judge staleness (optional — staleness checks skipped without it)
-Saida: |
+Output: |
   - size_audit: Total and per-section line counts, the three largest sections and duplicate content found
   - reference_audit: Every referenced path and command classified valid, missing or likely-moved, with suggested fixes
   - staleness_audit: Instructions classified current, stale or uncertain, each stale one with location, issue and fix

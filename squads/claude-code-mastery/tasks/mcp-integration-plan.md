@@ -1,14 +1,14 @@
 ---
 task: Plan MCP Server Integration
-responsavel: "@project-integrator"
-responsavel_type: agent
+owner: "@project-integrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_path: Valid project directory to analyse, from the user or the current working directory (required)
   - budget: minimal (1-2 MCPs), standard (3-5) or full (no limit) (optional)
   - priorities: Capability priorities such as documentation, web search, database or browser testing (optional)
   - mcp_ecosystem_knowledge: Awareness of the available official and community MCP servers (required precondition)
-Saida: |
+Output: |
   - needs_matrix: Need category, specific need, frequency and the current manual solution
   - candidate_map: Official and community MCP servers matched to each need, with a 1-5 fit score
   - context_budget: Per server tool count, estimated tokens and percentage of the context window, with a total

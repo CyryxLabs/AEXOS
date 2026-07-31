@@ -33,44 +33,44 @@
 
 ```yaml
 task: dbSeed()
-responsável: Ceres (Sage)
-responsavel_type: Agente
+owner: Ceres (Sage)
+owner_type: agent
 atomic_layer: Config
 
-**Entrada:**
-- campo: query
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Valid SQL query
+**Input:**
+- field: query
+  type: string
+  source: User Input
+  required: true
+  validation: Valid SQL query
 
-- campo: params
-  tipo: object
-  origem: User Input
-  obrigatório: false
-  validação: Query parameters
+- field: params
+  type: object
+  source: User Input
+  required: false
+  validation: Query parameters
 
-- campo: connection
-  tipo: object
-  origem: config
-  obrigatório: true
-  validação: Valid PostgreSQL connection via Supabase
+- field: connection
+  type: object
+  source: config
+  required: true
+  validation: Valid PostgreSQL connection via Supabase
 
-**Saída:**
-- campo: query_result
-  tipo: array
-  destino: Memory
-  persistido: false
+**Output:**
+- field: query_result
+  type: array
+  destination: Memory
+  persisted: false
 
-- campo: records_affected
-  tipo: number
-  destino: Return value
-  persistido: false
+- field: records_affected
+  type: number
+  destination: Return value
+  persisted: false
 
-- campo: execution_time
-  tipo: number
-  destino: Memory
-  persistido: false
+- field: execution_time
+  type: number
+  destination: Memory
+  persisted: false
 ```
 
 ---
@@ -84,9 +84,9 @@ atomic_layer: Config
 ```yaml
 pre-conditions:
   - [ ] Database connection established; query syntax valid
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check database connection established; query syntax valid
     error_message: "Pre-condition failed: Database connection established; query syntax valid"
 ```
@@ -102,9 +102,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Query executed; results returned; transaction committed
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify query executed; results returned; transaction committed
     error_message: "Post-condition failed: Query executed; results returned; transaction committed"
 ```
@@ -120,9 +120,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Data persisted correctly; constraints respected; no orphaned data
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert data persisted correctly; constraints respected; no orphaned data
     error_message: "Acceptance criterion not met: Data persisted correctly; constraints respected; no orphaned data"
 ```

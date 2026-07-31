@@ -31,33 +31,33 @@
 
 ```yaml
 task: createWorktree()
-responsável: Polaris (DevOps)
-responsavel_type: Agente
+owner: Polaris (DevOps)
+owner_type: agent
 atomic_layer: Atom
 
 inputs:
-  - campo: story_id
-    tipo: string
-    origem: User Input
-    obrigatório: true
-    validação: Valid story identifier (e.g., 'STORY-42', '1.3', 'fix-auth')
+  - field: story_id
+    type: string
+    source: User Input
+    required: true
+    validation: Valid story identifier (e.g., 'STORY-42', '1.3', 'fix-auth')
 
-  - campo: options
-    tipo: object
-    origem: User Input
-    obrigatório: false
-    validação: Optional configuration overrides
+  - field: options
+    type: object
+    source: User Input
+    required: false
+    validation: Optional configuration overrides
 
 outputs:
-  - campo: worktree_info
-    tipo: WorktreeInfo
-    destino: Return value
-    persistido: false
+  - field: worktree_info
+    type: WorktreeInfo
+    destination: Return value
+    persisted: false
 
-  - campo: worktree_path
-    tipo: string
-    destino: File system
-    persistido: true
+  - field: worktree_path
+    type: string
+    destination: File system
+    persisted: true
 ```
 
 ---
@@ -69,21 +69,21 @@ outputs:
 ```yaml
 pre-conditions:
   - [ ] Current directory is a git repository
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: git rev-parse --is-inside-work-tree
+    validation: git rev-parse --is-inside-work-tree
     error_message: "Not a git repository. Initialize git first."
 
   - [ ] WorktreeManager is available
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: Script exists at .aexos-core/infrastructure/scripts/worktree-manager.js
+    validation: Script exists at .aexos-core/infrastructure/scripts/worktree-manager.js
     error_message: "WorktreeManager not found. Ensure AEXOS is properly installed."
 
   - [ ] Max worktrees limit not reached
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: Current worktrees < maxWorktrees (default: 10)
+    validation: Current worktrees < maxWorktrees (default: 10)
     error_message: "Maximum worktrees limit reached. Remove stale worktrees first."
 ```
 
@@ -96,15 +96,15 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Worktree directory exists
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: Directory exists at .aexos/worktrees/{storyId}
+    validation: Directory exists at .aexos/worktrees/{storyId}
     error_message: "Worktree directory was not created."
 
   - [ ] Branch exists
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: Branch auto-claude/{storyId} exists
+    validation: Branch auto-claude/{storyId} exists
     error_message: "Worktree branch was not created."
 ```
 
@@ -115,15 +115,15 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Worktree created with isolated git state
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 
   - [ ] Branch follows naming convention auto-claude/{storyId}
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 
   - [ ] Worktree appears in list
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 ```
 

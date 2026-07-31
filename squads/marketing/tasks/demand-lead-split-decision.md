@@ -1,9 +1,9 @@
 ---
 task: Decide Brand And Activation Split
-responsavel: "@demand-lead"
-responsavel_type: agent
+owner: "@demand-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - brand_specification: What brand building must achieve, from @brand-lead (required — this task sizes it, it does not author it)
   - spend_list: Every line of current spend including agency fees, production and channel costs (required)
   - purchase_cycle: Typical length of the category purchase cycle (required)
@@ -11,7 +11,7 @@ Entrada: |
   - customer_mix: Split of growth expected from new versus existing customers (optional)
   - competitor_spend: Observed competitor spend behaviour and its recent trend (optional)
   - published_prior: The category prior, with the publication it comes from (optional — marked UNVERIFIED until checked against that publication)
-Saida: |
+Output: |
   - actual_split: The split the plan actually has, line by line, before any recommendation
   - recommended_split: A RANGE with a midpoint, never a point estimate
   - adjustment_log: Each adjustment away from the prior, with direction and stated reason

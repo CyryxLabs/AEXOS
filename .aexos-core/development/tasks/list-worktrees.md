@@ -17,35 +17,35 @@
 
 ```yaml
 task: listWorktrees()
-responsável: Polaris (DevOps)
-responsavel_type: Agente
+owner: Polaris (DevOps)
+owner_type: agent
 atomic_layer: Atom
 
 inputs:
-  - campo: format
-    tipo: enum
-    origem: User Input
-    obrigatório: false
-    validação: 'table | json | minimal'
+  - field: format
+    type: enum
+    source: User Input
+    required: false
+    validation: 'table | json | minimal'
     default: table
 
-  - campo: filter
-    tipo: enum
-    origem: User Input
-    obrigatório: false
-    validação: 'all | active | stale'
+  - field: filter
+    type: enum
+    source: User Input
+    required: false
+    validation: 'all | active | stale'
     default: all
 
 outputs:
-  - campo: worktrees
-    tipo: WorktreeInfo[]
-    destino: Return value
-    persistido: false
+  - field: worktrees
+    type: WorktreeInfo[]
+    destination: Return value
+    persisted: false
 
-  - campo: formatted_output
-    tipo: string
-    destino: Console
-    persistido: false
+  - field: formatted_output
+    type: string
+    destination: Console
+    persisted: false
 ```
 
 ---
@@ -55,15 +55,15 @@ outputs:
 ```yaml
 pre-conditions:
   - [ ] Current directory is a git repository
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: git rev-parse --is-inside-work-tree
+    validation: git rev-parse --is-inside-work-tree
     error_message: "Not a git repository."
 
   - [ ] WorktreeManager is available
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: Script exists at .aexos-core/infrastructure/scripts/worktree-manager.js
+    validation: Script exists at .aexos-core/infrastructure/scripts/worktree-manager.js
     error_message: "WorktreeManager not found."
 ```
 

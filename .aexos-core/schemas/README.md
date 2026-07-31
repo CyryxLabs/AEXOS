@@ -143,22 +143,22 @@ checklists: string[]
 # Task definition
 task:
   name: string
-  responsavel: string
-  responsavel_type: Agente|User|System
+  owner: string
+  owner_type: Agente|User|System
   atomic_layer: Atom|Molecule|Organism|Template|Page
 
 inputs:
-  - campo: string
-    tipo: string
-    origem: string
-    obrigatorio: boolean
-    validacao: string
+  - field: string
+    type: string
+    source: string
+    required: boolean
+    validation: string
 
 outputs:
-  - campo: string
-    tipo: string
-    destino: string
-    persistido: boolean
+  - field: string
+    type: string
+    destination: string
+    persisted: boolean
 
 executionModes:
   yolo: { enabled, prompts, description }
@@ -353,17 +353,17 @@ node validate-v3-schema.js .aexos-core/development/agents/dev.md --strict
 
    ```yaml
    # WRONG
-   validação: Default: 1 (0-3)
+   validation: Default: 1 (0-3)
 
    # CORRECT
-   validação: "Default: 1 (0-3)"
+   validation: "Default: 1 (0-3)"
    ```
 
 2. **Markdown formatting inside YAML blocks:**
 
    ```yaml
    # WRONG (validation script auto-converts these)
-   **Entrada:**
+   **Input:**
 
    # CORRECT
    inputs:

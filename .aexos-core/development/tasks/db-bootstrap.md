@@ -84,9 +84,9 @@ outputs:
 ```yaml
 pre-conditions:
   - [ ] Database connection established; query syntax valid
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check database connection established; query syntax valid
     error_message: "Pre-condition failed: Database connection established; query syntax valid"
 ```
@@ -102,9 +102,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Query executed; results returned; transaction committed
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify query executed; results returned; transaction committed
     error_message: "Post-condition failed: Query executed; results returned; transaction committed"
 ```
@@ -120,9 +120,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Data persisted correctly; constraints respected; no orphaned data
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert data persisted correctly; constraints respected; no orphaned data
     error_message: "Acceptance criterion not met: Data persisted correctly; constraints respected; no orphaned data"
 ```

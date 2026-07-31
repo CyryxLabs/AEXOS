@@ -27,44 +27,44 @@
 
 ```yaml
 task: indexDocs()
-responsável: Janus (Strategist)
-responsavel_type: Agente
+owner: Janus (Strategist)
+owner_type: agent
 atomic_layer: Molecule
 
-**Entrada:**
-- campo: source
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Valid path or URL
+**Input:**
+- field: source
+  type: string
+  source: User Input
+  required: true
+  validation: Valid path or URL
 
-- campo: format
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: markdown|html|json
+- field: format
+  type: string
+  source: User Input
+  required: false
+  validation: markdown|html|json
 
-- campo: template
-  tipo: string
-  origem: config
-  obrigatório: false
-  validação: Template name
+- field: template
+  type: string
+  source: config
+  required: false
+  validation: Template name
 
-**Saída:**
-- campo: generated_doc
-  tipo: string
-  destino: File (docs/*)
-  persistido: true
+**Output:**
+- field: generated_doc
+  type: string
+  destination: File (docs/*)
+  persisted: true
 
-- campo: metadata
-  tipo: object
-  destino: File (frontmatter)
-  persistido: true
+- field: metadata
+  type: object
+  destination: File (frontmatter)
+  persisted: true
 
-- campo: toc
-  tipo: array
-  destino: Memory
-  persistido: false
+- field: toc
+  type: array
+  destination: Memory
+  persisted: false
 ```
 
 ---
@@ -78,9 +78,9 @@ atomic_layer: Molecule
 ```yaml
 pre-conditions:
   - [ ] Template exists; source data available
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check template exists; source data available
     error_message: "Pre-condition failed: Template exists; source data available"
 ```
@@ -96,9 +96,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Documentation generated; format valid; links working
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify documentation generated; format valid; links working
     error_message: "Post-condition failed: Documentation generated; format valid; links working"
 ```
@@ -114,9 +114,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Documentation readable; examples work; links valid
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert documentation readable; examples work; links valid
     error_message: "Acceptance criterion not met: Documentation readable; examples work; links valid"
 ```

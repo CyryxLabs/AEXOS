@@ -1,16 +1,16 @@
 ---
 task: Parallel Task Decomposition for Agent Execution
-responsavel: "@swarm-orchestrator"
-responsavel_type: agent
+owner: "@swarm-orchestrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - task_description: Full description of the work to parallelize (required)
   - max_parallel_agents: Maximum simultaneous agents (optional, default 4)
   - isolation_mode: shared, worktree or branch (optional, default shared)
   - time_constraint: Target completion time (optional)
   - cost_constraint: low, medium or high — affects model selection (optional)
   - repo_state: Clean git working tree when worktree isolation is used, and sufficient API rate limits (required precondition)
-Saida: |
+Output: |
   - subtask_inventory: Atomic subtasks with id, complexity, estimated time and dependencies
   - dependency_graph: Data, resource, semantic and none dependencies drawn as a graph, with the critical path
   - execution_plan: Subtasks grouped into waves, each wave with its background, foreground or parallel-foreground mode and a timeline

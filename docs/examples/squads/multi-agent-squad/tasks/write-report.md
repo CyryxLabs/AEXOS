@@ -1,13 +1,13 @@
 ---
 task: Write Report
-responsavel: "@team-writer"
-responsavel_type: agent
+owner: "@team-writer"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - topic: Report topic (required)
   - findings: Research findings (from @team-researcher)
   - format: markdown | html | pdf (default: markdown)
-Saida: |
+Output: |
   - report: Generated report content
   - file_path: Path to saved report (optional)
 Checklist:

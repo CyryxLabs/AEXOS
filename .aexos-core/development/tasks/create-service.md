@@ -9,8 +9,8 @@ Create a new service using standardized Handlebars templates from WIS-10. Genera
 ```yaml
 task: createService()
 agent: "@dev"
-responsável: Vulcan (Developer)
-responsavel_type: Agente
+owner: Vulcan (Developer)
+owner_type: agent
 atomic_layer: Config
 
 elicit: true
@@ -47,12 +47,12 @@ outputs:
   - name: service_directory
     type: directory
     location: ".aexos-core/infrastructure/services/{service_name}/"
-    persistido: true
+    persisted: true
 
   - name: files_created
     type: array
-    destino: Memory
-    persistido: false
+    destination: Memory
+    persisted: false
 ```
 
 ---
@@ -62,21 +62,21 @@ outputs:
 ```yaml
 pre-conditions:
   - [ ] WIS-10 templates exist at .aexos-core/development/templates/service-template/
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: Check template directory exists with required .hbs files
+    validation: Check template directory exists with required .hbs files
     error_message: "Templates not found. Run WIS-10 first."
 
   - [ ] Service name is unique (no existing service with same name)
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: Check .aexos-core/infrastructure/services/{name}/ does not exist
+    validation: Check .aexos-core/infrastructure/services/{name}/ does not exist
     error_message: "Service '{name}' already exists. Choose a different name."
 
   - [ ] Service name follows kebab-case pattern
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: Regex match ^[a-z][a-z0-9-]*$
+    validation: Regex match ^[a-z][a-z0-9-]*$
     error_message: "Invalid name. Use kebab-case (e.g., my-api-service)"
 ```
 
@@ -308,19 +308,19 @@ Handlebars.registerHelper('upperCase', (str) => {
 ```yaml
 post-conditions:
   - [ ] All template files generated successfully
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: Verify all expected files exist in target directory
+    validation: Verify all expected files exist in target directory
 
   - [ ] TypeScript compiles without errors
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validação: Run npm run build, check exit code
+    validation: Run npm run build, check exit code
 
   - [ ] Tests pass
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validação: Run npm test, check exit code
+    validation: Run npm test, check exit code
 ```
 
 ---

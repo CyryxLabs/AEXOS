@@ -1,9 +1,9 @@
 ---
 task: Assess Product Risks
-responsavel: "@product-strategist"
-responsavel_type: agent
+owner: "@product-strategist"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - initiative: The proposed initiative, stated as the proposer stated it, verbatim (required)
   - proposer: Who is proposing it and the decision this assessment must unblock (required)
   - target_segment: The named customer segment the initiative is meant to serve (required)
@@ -12,7 +12,7 @@ Entrada: |
   - team: The team that would own the initiative, with its trio staffing (optional, default: elicit)
   - constraints: Deadline, contractual obligation, regulatory driver, or budget ceiling (optional, default: none)
   - output_dir: Directory for risk assessments (optional, default: docs/product/risks/)
-Saida: |
+Output: |
   - risk_assessment: Versioned markdown file with the four risks classified, owned, evidenced and verdicted
   - dominant_risk: The single risk whose negative answer makes the other three irrelevant
   - test_sequence: Ordered list of tests, cheapest disconfirming test first, each with owner, cost and stop rule

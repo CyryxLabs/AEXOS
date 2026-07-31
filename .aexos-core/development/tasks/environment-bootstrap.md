@@ -46,50 +46,50 @@ Complete environment bootstrap for new AEXOS projects. Verifies and installs all
 
 ```yaml
 task: environmentBootstrap()
-responsável: Polaris (Operator)
-responsavel_type: Agente
+owner: Polaris (Operator)
+owner_type: agent
 atomic_layer: Organism
 
-**Entrada:**
-- campo: project_name
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Valid project name (lowercase, hyphens allowed)
+**Input:**
+- field: project_name
+  type: string
+  source: User Input
+  required: true
+  validation: Valid project name (lowercase, hyphens allowed)
 
-- campo: project_path
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: Valid directory path (defaults to current directory)
+- field: project_path
+  type: string
+  source: User Input
+  required: false
+  validation: Valid directory path (defaults to current directory)
 
-- campo: github_org
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: Valid GitHub organization or username
+- field: github_org
+  type: string
+  source: User Input
+  required: false
+  validation: Valid GitHub organization or username
 
-- campo: options
-  tipo: object
-  origem: User Input
-  obrigatório: false
-  validação: Bootstrap options (skip_optional, force_reinstall, etc.)
+- field: options
+  type: object
+  source: User Input
+  required: false
+  validation: Bootstrap options (skip_optional, force_reinstall, etc.)
 
-**Saída:**
-- campo: environment_report
-  tipo: object
-  destino: File system (.aexos/environment-report.yaml)
-  persistido: true
+**Output:**
+- field: environment_report
+  type: object
+  destination: File system (.aexos/environment-report.yaml)
+  persisted: true
 
-- campo: git_initialized
-  tipo: boolean
-  destino: Return value
-  persistido: false
+- field: git_initialized
+  type: boolean
+  destination: Return value
+  persisted: false
 
-- campo: github_repo_url
-  tipo: string
-  destino: Return value
-  persistido: false
+- field: github_repo_url
+  type: string
+  destination: Return value
+  persisted: false
 ```
 
 ---
@@ -103,23 +103,23 @@ atomic_layer: Organism
 ```yaml
 pre-conditions:
   - [ ] Operating system is Windows, macOS, or Linux
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Detect OS via process.platform or uname
     error_message: "Unsupported operating system"
 
   - [ ] User has admin/sudo privileges for installations
-    tipo: pre-condition
+    type: pre-condition
     blocker: false
-    validação: |
+    validation: |
       Check if user can run elevated commands
     error_message: "Some installations may require elevated privileges"
 
   - [ ] Internet connection available
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Ping github.com or check connectivity
     error_message: "Internet connection required for tool installation and authentication"
 ```
@@ -135,23 +135,23 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] All essential CLIs installed and accessible in PATH
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify git, gh, node commands are executable
     error_message: "Essential CLI installation failed"
 
   - [ ] Git repository initialized with .gitignore
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Check .git directory exists and .gitignore is configured
     error_message: "Git initialization failed"
 
   - [ ] Environment report generated
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validação: |
+    validation: |
       Check .aexos/environment-report.yaml exists
     error_message: "Environment report not generated"
 ```
@@ -167,30 +167,30 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Essential CLIs (git, gh, node) are installed and working
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert all essential CLI commands return valid version output
     error_message: "Essential CLI verification failed"
 
   - [ ] GitHub CLI is authenticated
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       gh auth status returns authenticated
     error_message: "GitHub CLI not authenticated"
 
   - [ ] Git repository created locally and on GitHub
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       .git exists and gh repo view succeeds
     error_message: "Repository not properly initialized"
 
   - [ ] Project structure follows AEXOS conventions
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: false
-    validação: |
+    validation: |
       Check docs/, .aexos/, and package.json exist
     error_message: "Project structure incomplete"
 ```

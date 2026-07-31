@@ -1,56 +1,56 @@
 ---
 task: extendSquad()
-responsavel: "@squad-creator"
-responsavel_type: Agent
+owner: "@squad-creator"
+owner_type: agent
 atomic_layer: Task
 elicit: true
 
-Entrada:
-  - campo: squad_name
-    tipo: string
-    origem: User Input
-    obrigatorio: true
-    validacao: Squad must exist in ./squads/ directory
+Input:
+  - field: squad_name
+    type: string
+    source: User Input
+    required: true
+    validation: Squad must exist in ./squads/ directory
 
-  - campo: component_type
-    tipo: string
-    origem: User Input
-    obrigatorio: true
-    validacao: "agent | task | workflow | checklist | template | tool | script | data"
+  - field: component_type
+    type: string
+    source: User Input
+    required: true
+    validation: "agent | task | workflow | checklist | template | tool | script | data"
 
-  - campo: component_name
-    tipo: string
-    origem: User Input
-    obrigatorio: true
-    validacao: "kebab-case, no special characters"
+  - field: component_name
+    type: string
+    source: User Input
+    required: true
+    validation: "kebab-case, no special characters"
 
-  - campo: agent_id
-    tipo: string
-    origem: User Input
-    obrigatorio: false
-    validacao: "Required for tasks - must exist in squad's agents/"
+  - field: agent_id
+    type: string
+    source: User Input
+    required: false
+    validation: "Required for tasks - must exist in squad's agents/"
 
-  - campo: story_id
-    tipo: string
-    origem: User Input
-    obrigatorio: false
-    validacao: "Format: SQS-XX (optional traceability)"
+  - field: story_id
+    type: string
+    source: User Input
+    required: false
+    validation: "Format: SQS-XX (optional traceability)"
 
-Saida:
-  - campo: created_file
-    tipo: string
-    destino: Squad directory
-    persistido: true
+Output:
+  - field: created_file
+    type: string
+    destination: Squad directory
+    persisted: true
 
-  - campo: updated_manifest
-    tipo: boolean
-    destino: squad.yaml
-    persistido: true
+  - field: updated_manifest
+    type: boolean
+    destination: squad.yaml
+    persisted: true
 
-  - campo: validation_result
-    tipo: object
-    destino: Console
-    persistido: false
+  - field: validation_result
+    type: object
+    destination: Console
+    persisted: false
 
 Checklist:
   - "[ ] Validate squad exists"
@@ -78,16 +78,16 @@ Add new components to an existing squad with automatic manifest updates and vali
 ```yaml
 pre-conditions:
   - [ ] Squad exists in ./squads/ directory
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: |
+    validation: |
       Check if squad directory exists with valid manifest
     error_message: "Squad not found. Use *list-squads to see available squads."
 
   - [ ] Component name is valid kebab-case
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: |
+    validation: |
       Must match /^[a-z][a-z0-9-]*[a-z0-9]$/
     error_message: "Invalid component name. Use kebab-case (e.g., my-component)"
 ```
@@ -349,23 +349,23 @@ await fs.copyFile(manifestPath, backupPath);
 ```yaml
 post-conditions:
   - [ ] Component file created in correct directory
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: |
+    validation: |
       Verify file exists and contains valid content
     error_message: "Component file was not created successfully"
 
   - [ ] Manifest updated with new component
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: |
+    validation: |
       Verify squad.yaml contains new entry
     error_message: "Manifest was not updated"
 
   - [ ] Validation passes
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validacao: |
+    validation: |
       Squad passes validation after extension
     error_message: "Squad validation failed after extension"
 ```

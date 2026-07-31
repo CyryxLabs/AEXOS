@@ -210,7 +210,13 @@ function processTasks(rawAssets) {
       type: 'task',
       id: path.basename(asset.file, '.md'),
       name: taskName,
-      responsavel: parsed.task?.responsavel || parsed.responsavel || 'Unknown',
+      // `owner` was `responsavel`; older task files still spell it that way.
+      owner:
+        parsed.task?.owner ||
+        parsed.owner ||
+        parsed.task?.responsavel ||
+        parsed.responsavel ||
+        'Unknown',
       path: asset.path,
       version: detectVersion(parsed),
       dependencies: extractTaskDependencies(parsed, asset.content),

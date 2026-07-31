@@ -36,33 +36,33 @@
 
 ```yaml
 task: setupDatabase()
-responsável: Ceres (Sage)
-responsavel_type: Agente
+owner: Ceres (Sage)
+owner_type: agent
 atomic_layer: Config
 
-**Entrada:**
-- campo: project_path
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Valid directory path
+**Input:**
+- field: project_path
+  type: string
+  source: User Input
+  required: true
+  validation: Valid directory path
 
-- campo: options
-  tipo: object
-  origem: User Input
-  obrigatório: false
-  validação: Initialization options
+- field: options
+  type: object
+  source: User Input
+  required: false
+  validation: Initialization options
 
-**Saída:**
-- campo: initialized_project
-  tipo: string
-  destino: File system
-  persistido: true
+**Output:**
+- field: initialized_project
+  type: string
+  destination: File system
+  persisted: true
 
-- campo: config_created
-  tipo: boolean
-  destino: Return value
-  persistido: false
+- field: config_created
+  type: boolean
+  destination: Return value
+  persisted: false
 ```
 
 ---
@@ -76,9 +76,9 @@ atomic_layer: Config
 ```yaml
 pre-conditions:
   - [ ] Directory is empty or force flag set; config valid
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check directory is empty or force flag set; config valid
     error_message: "Pre-condition failed: Directory is empty or force flag set; config valid"
 ```
@@ -94,9 +94,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Project initialized; config files created; structure valid
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify project initialized; config files created; structure valid
     error_message: "Post-condition failed: Project initialized; config files created; structure valid"
 ```
@@ -112,9 +112,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Project structure correct; all config files valid
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert project structure correct; all config files valid
     error_message: "Acceptance criterion not met: Project structure correct; all config files valid"
 ```

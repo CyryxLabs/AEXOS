@@ -1,16 +1,16 @@
 ---
 task: Define Editorial Beats
-responsavel: "@content-lead"
-responsavel_type: agent
+owner: "@content-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - category_entry_points: The buying situations the brand must be retrievable in, from @brand-lead (required — the input to beat selection)
   - position_artifact: The position and competitive frame from @products:positioning-lead (required — beats must not teach a retired frame)
   - capacity: Commissions per period, at what depth, with which review and approval steps, by whom (required)
   - existing_estate: Inventory or sample of published content, if any (optional)
   - continuity_requirement: Where content substitutes for paid continuity, from @demand-lead phasing (optional)
   - candidate_beats: Territories already proposed internally (optional)
-Saida: |
+Output: |
   - beats: The territories the brand will cover continuously, each with its claim and the CEPs it serves
   - claim_per_beat: The brand's genuine claim to each territory — expertise, proprietary data, operating vantage point or customer access
   - declined_beats: Beats deliberately not taken, with reasons, so they are not re-proposed each quarter

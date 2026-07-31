@@ -36,44 +36,44 @@ Validate third-party library usage against official documentation using Context7
 
 ```yaml
 task: qaLibraryValidation()
-responsavel: Argus (Guardian)
-responsavel_type: Agente
+owner: Argus (Guardian)
+owner_type: agent
 atomic_layer: Molecule
 
-**Entrada:**
-- campo: story_id
-  tipo: string
-  origem: User Input
-  obrigatorio: true
-  validacao: Must be valid story ID format (e.g., "6.3")
+**Input:**
+- field: story_id
+  type: string
+  source: User Input
+  required: true
+  validation: Must be valid story ID format (e.g., "6.3")
 
-- campo: file_paths
-  tipo: array
-  origem: git diff or explicit list
-  obrigatorio: false
-  validacao: If empty, extracts from uncommitted changes
+- field: file_paths
+  type: array
+  source: git diff or explicit list
+  required: false
+  validation: If empty, extracts from uncommitted changes
 
-- campo: skip_stdlib
-  tipo: boolean
-  origem: config
-  obrigatorio: false
-  validacao: Default true (skip Node.js/Python stdlib)
+- field: skip_stdlib
+  type: boolean
+  source: config
+  required: false
+  validation: Default true (skip Node.js/Python stdlib)
 
-**Saida:**
-- campo: validation_report
-  tipo: object
-  destino: Return value
-  persistido: false
+**Output:**
+- field: validation_report
+  type: object
+  destination: Return value
+  persisted: false
 
-- campo: issues_found
-  tipo: number
-  destino: Memory
-  persistido: false
+- field: issues_found
+  type: number
+  destination: Memory
+  persisted: false
 
-- campo: report_file
-  tipo: file
-  destino: docs/stories/{story-id}/qa/library_validation.json
-  persistido: true
+- field: report_file
+  type: file
+  destination: docs/stories/{story-id}/qa/library_validation.json
+  persisted: true
 ```
 
 ---
@@ -87,16 +87,16 @@ atomic_layer: Molecule
 ```yaml
 pre-conditions:
   - [ ] Context7 MCP is available
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: |
+    validation: |
       Test: mcp__context7__resolve-library-id with test query
     error_message: "Pre-condition failed: Context7 MCP not available."
 
   - [ ] Modified files exist (git diff or explicit)
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: |
+    validation: |
       At least one file to analyze
     error_message: "Pre-condition failed: No files to validate."
 ```
@@ -112,16 +112,16 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Validation report generated
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: |
+    validation: |
       library_validation.json exists with results
     error_message: "Post-condition failed: Validation report not generated."
 
   - [ ] All imports processed
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validacao: |
+    validation: |
       processed_count >= imports_found
     error_message: "Warning: Some imports were not processed."
 ```
@@ -137,23 +137,23 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Each library validated against Context7 docs
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validacao: |
+    validation: |
       For each import: resolve-library-id + query-docs executed
     error_message: "Acceptance criterion not met: Libraries not validated."
 
   - [ ] API usage verified for correctness
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validacao: |
+    validation: |
       Function signatures, parameters, return types checked
     error_message: "Acceptance criterion not met: API usage not verified."
 
   - [ ] Deprecated methods flagged
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validacao: |
+    validation: |
       Deprecated APIs identified and reported
     error_message: "Acceptance criterion not met: Deprecated methods not checked."
 ```

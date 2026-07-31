@@ -1,14 +1,14 @@
 ---
 task: Governance Audit
-responsavel: "@governance-counsel"
-responsavel_type: agent
+owner: "@governance-counsel"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - organization: The organization under audit, and which body is being treated as the board (required)
   - adaptation_note: Statement of how the subject differs from a UK listed company board, the Cadbury Code's original scope (required)
   - governance_artifacts: Paths to any of - schedule of reserved matters, delegation policy, committee terms of reference, minutes, register of interests, appointment letters, board composition list (optional)
   - period: The twelve-month window used for the operated-not-just-existing test (optional, default: last 12 months)
-Saida: |
+Output: |
   - provision_table: Per provision - PRESENT | ASSERTED | ABSENT | NOT APPLICABLE, with the artifact or its absence named
   - gap_ranking: Gaps ordered by structural consequence, not by effort to fix
   - remediation_list: Per gap - the provision, its source, the concrete artifact that would close it, and the owner

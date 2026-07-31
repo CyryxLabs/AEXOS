@@ -1,9 +1,9 @@
 ---
 task: Design Controlled Experiment
-responsavel: "@experimentation-lead"
-responsavel_type: agent
+owner: "@experimentation-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - change: The change under test, described precisely enough to implement (required)
   - mechanism: Why the change is expected to move the metric, and in which direction (required)
   - decision: The decision the result must support, and who owns it (required)
@@ -11,7 +11,7 @@ Entrada: |
   - available_traffic: Eligible units per day, and the interference structure between them (required)
   - claim_source: The squad agent whose claim is being tested, when the hypothesis came from one (optional)
   - output_dir: Directory for experiment artifacts (optional, default: docs/product/experiments/)
-Saida: |
+Output: |
   - design_doc: Pre-registered design containing hypothesis, randomization unit, triggering, OEC, guardrails, MDE, power, duration, analysis plan, ramp and abort conditions
   - oec: The single metric or explicitly weighted combination on which the ship decision turns, registered before exposure
   - guardrail_set: Organizational and trust guardrails with breach thresholds that block a ship regardless of the OEC

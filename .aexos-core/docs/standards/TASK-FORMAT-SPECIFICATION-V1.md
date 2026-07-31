@@ -3,7 +3,7 @@
 **Date:** 2025-11-13  
 **Version:** 1.0.0  
 **Status:** Standard  
-**Author:** Brad Frost Cognitive Clone
+**Author:** Brad Frost Cognitive clone
 
 ---
 
@@ -21,39 +21,39 @@ Every AEXOS Task MUST follow this structure:
 #### Step X: [Task Name]
 
 task: taskIdentifier()
-responsável: [Role or Service Name]
-responsavel_type: Agente | Worker | Humano | Clone
+owner: [Role or Service Name]
+owner_type: agent | worker | human | clone
 atomic_layer: [Atom | Molecule | Organism | Template | Page | Config | Strategy | Content | Media | Layout | Analysis]
 
-**Entrada:**
-- campo: [name]
-  tipo: [type]
-  origem: [source step]
-  obrigatório: [true|false]
+**Input:**
+- field: [name]
+  type: [type]
+  source: [source step]
+  required: [true|false]
   padrão: [default value] (optional)
 
-**Saída:**
-- campo: [name]
-  tipo: [type]
-  destino: [destination step(s)]
-  persistido: [true|false]
+**Output:**
+- field: [name]
+  type: [type]
+  destination: [destination step(s)]
+  persisted: [true|false]
 
 **Checklist:**
   pre-conditions:
     - [ ] [condition description]
-      tipo: pre-condition
+      type: pre-condition
       blocker: [true|false]
-      validação: [validation logic or test path]
+      validation: [validation logic or test path]
   
   post-conditions:
     - [ ] [condition description]
-      tipo: post-condition
+      type: post-condition
       blocker: [true|false]
-      validação: [validation logic or test path]
+      validation: [validation logic or test path]
   
   acceptance-criteria:
     - [ ] [acceptance description]
-      tipo: acceptance
+      type: acceptance
       blocker: [false]
       story: [STORY-XXX]
       manual_check: [true|false]
@@ -132,7 +132,7 @@ task: designCTAComponent()
 
 ---
 
-#### 2. `responsável`
+#### 2. `owner`
 
 **Type:** `string`  
 **Required:** ✅ Yes  
@@ -142,19 +142,19 @@ task: designCTAComponent()
 
 **Examples:**
 ```yaml
-responsável: Creative Director
-responsável: format-loader.js
-responsável: OpenRouter Vision Model
-responsável: Brad Frost Clone
+owner: Creative Director
+owner: format-loader.js
+owner: OpenRouter Vision Model
+owner: Brad Frost clone
 ```
 
 ---
 
-#### 3. `responsavel_type`
+#### 3. `owner_type`
 
 **Type:** `enum`  
 **Required:** ✅ Yes  
-**Values:** `Agente | Worker | Humano | Clone`
+**Values:** `agent | worker | human | clone`
 
 **Purpose:** Defines the executor type for orchestration, cost tracking, and error handling.
 
@@ -166,10 +166,10 @@ responsável: Brad Frost Clone
 
 **Examples:**
 ```yaml
-responsavel_type: Agente  # AI-powered execution
-responsavel_type: Worker  # Script-based execution
-responsavel_type: Humano  # Manual human execution
-responsavel_type: Clone   # Mind emulation with heuristics
+owner_type: agent  # AI-powered execution
+owner_type: worker  # Script-based execution
+owner_type: human  # Manual human execution
+owner_type: clone   # Mind emulation with heuristics
 ```
 
 ---
@@ -201,7 +201,7 @@ atomic_layer: Strategy   # Step 3: Analyze Brief
 
 ---
 
-#### 5. `Entrada` (Inputs)
+#### 5. `Input` (Inputs)
 
 **Type:** `array of objects`  
 **Required:** ✅ Yes (can be empty array if no inputs)
@@ -211,54 +211,54 @@ atomic_layer: Strategy   # Step 3: Analyze Brief
 **Structure:**
 
 ```yaml
-**Entrada:**
-- campo: [field name]
-  tipo: [type definition]
-  origem: [source step or config]
-  obrigatório: [true|false]
+**Input:**
+- field: [field name]
+  type: [type definition]
+  source: [source step or config]
+  required: [true|false]
   padrão: [default value] (optional)
-  validação: [validation rule] (optional)
+  validation: [validation rule] (optional)
 ```
 
 **Field Details:**
 
 | Sub-field | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `campo` | string | ✅ Yes | Field name (camelCase) |
-| `tipo` | string | ✅ Yes | Type definition (see Type System below) |
-| `origem` | string | ✅ Yes | Source step ID or "config" or "user input" |
-| `obrigatório` | boolean | ✅ Yes | Whether field is required |
+| `field` | string | ✅ Yes | Field name (camelCase) |
+| `type` | string | ✅ Yes | Type definition (see Type System below) |
+| `source` | string | ✅ Yes | Source step ID or "config" or "user input" |
+| `required` | boolean | ✅ Yes | Whether field is required |
 | `padrão` | any | ⚠️ Optional | Default value if not provided |
-| `validação` | string | ⚠️ Optional | Validation rule or JSON Schema reference |
+| `validation` | string | ⚠️ Optional | Validation rule or JSON Schema reference |
 
 **Examples:**
 
 ```yaml
-**Entrada:**
-- campo: adCopy
-  tipo: object { title: string, body: string, cta: string }
-  origem: Step 5 (craftCopy)
-  obrigatório: true
-  validação: |
+**Input:**
+- field: adCopy
+  type: object { title: string, body: string, cta: string }
+  source: Step 5 (craftCopy)
+  required: true
+  validation: |
     title.length >= 1 && title.length <= 100
     body.length >= 1 && body.length <= 500
     cta.length >= 1 && cta.length <= 30
 
-- campo: brand
-  tipo: object (Brand schema)
-  origem: Step 2 (loadBrand)
-  obrigatório: true
+- field: brand
+  type: object (Brand schema)
+  source: Step 2 (loadBrand)
+  required: true
 
-- campo: ready_copy
-  tipo: object { title?, body?, cta? } | null
-  origem: User Input (config)
-  obrigatório: false
+- field: ready_copy
+  type: object { title?, body?, cta? } | null
+  source: User Input (config)
+  required: false
   padrão: null
 ```
 
 ---
 
-#### 6. `Saída` (Outputs)
+#### 6. `Output` (Outputs)
 
 **Type:** `array of objects`  
 **Required:** ✅ Yes (can be empty array if no outputs)
@@ -268,11 +268,11 @@ atomic_layer: Strategy   # Step 3: Analyze Brief
 **Structure:**
 
 ```yaml
-**Saída:**
-- campo: [field name]
-  tipo: [type definition]
-  destino: [destination step(s) or state]
-  persistido: [true|false]
+**Output:**
+- field: [field name]
+  type: [type definition]
+  destination: [destination step(s) or state]
+  persisted: [true|false]
   cache_key: [key] (if cacheable)
 ```
 
@@ -280,30 +280,30 @@ atomic_layer: Strategy   # Step 3: Analyze Brief
 
 | Sub-field | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `campo` | string | ✅ Yes | Field name (camelCase) |
-| `tipo` | string | ✅ Yes | Type definition |
-| `destino` | string or array | ✅ Yes | Destination step(s) or "state" or "output" |
-| `persistido` | boolean | ✅ Yes | Whether saved to ad-spec.json or DB |
+| `field` | string | ✅ Yes | Field name (camelCase) |
+| `type` | string | ✅ Yes | Type definition |
+| `destination` | string or array | ✅ Yes | Destination step(s) or "state" or "output" |
+| `persisted` | boolean | ✅ Yes | Whether saved to ad-spec.json or DB |
 | `cache_key` | string | ⚠️ Optional | Cache key if output is cacheable |
 
 **Examples:**
 
 ```yaml
-**Saída:**
-- campo: formatConfig
-  tipo: object { formatId, canvas, safeZones, contentArea }
-  destino: [Step 8, Step 10, Step 11, Step 12, Step 13, Step 14]
-  persistido: false  # Kept in memory only
+**Output:**
+- field: formatConfig
+  type: object { formatId, canvas, safeZones, contentArea }
+  destination: [Step 8, Step 10, Step 11, Step 12, Step 13, Step 14]
+  persisted: false  # Kept in memory only
 
-- campo: adAnalysis
-  tipo: object { goal, targetAudience, urgencyLevel, emotionalTriggers }
-  destino: state (ad-spec.json)
-  persistido: true
+- field: adAnalysis
+  type: object { goal, targetAudience, urgencyLevel, emotionalTriggers }
+  destination: state (ad-spec.json)
+  persisted: true
 
-- campo: designTokens
-  tipo: object { spacing, typography, colors, radius, shadows }
-  destino: Step 13 (renderHTML)
-  persistido: false
+- field: designTokens
+  type: object { spacing, typography, colors, radius, shadows }
+  destination: Step 13 (renderHTML)
+  persisted: false
   cache_key: format_${formatConfig.formatId}_${formatConfig.orientation}
 ```
 
@@ -324,21 +324,21 @@ atomic_layer: Strategy   # Step 3: Analyze Brief
 **Checklist:**
   pre-conditions:
     - [ ] [description]
-      tipo: pre-condition
+      type: pre-condition
       blocker: [true|false]
-      validação: [logic or test path]
+      validation: [logic or test path]
       error_message: [message if fails]
   
   post-conditions:
     - [ ] [description]
-      tipo: post-condition
+      type: post-condition
       blocker: [true|false]
-      validação: [logic or test path]
+      validation: [logic or test path]
       rollback: [true|false]
   
   acceptance-criteria:
     - [ ] [description]
-      tipo: acceptance
+      type: acceptance
       blocker: false
       story: [STORY-XXX]
       manual_check: [true|false]
@@ -371,47 +371,47 @@ atomic_layer: Strategy   # Step 3: Analyze Brief
 **Checklist:**
   pre-conditions:
     - [ ] brand.typography exists and is valid
-      tipo: pre-condition
+      type: pre-condition
       blocker: true
-      validação: |
+      validation: |
         if (!brand.typography || !brand.typography.primaryFont) {
           throw new Error("Brand typography not loaded");
         }
       error_message: "Brand typography missing or invalid"
     
     - [ ] adCopy.title is not empty
-      tipo: pre-condition
+      type: pre-condition
       blocker: true
-      validação: "expect(adCopy.title).toBeTruthy()"
+      validation: "expect(adCopy.title).toBeTruthy()"
       error_message: "Copy title is required"
   
   post-conditions:
     - [ ] typography.title.htmlContent is valid HTML
-      tipo: post-condition
+      type: post-condition
       blocker: true
-      validação: |
+      validation: |
         const isValid = await validateHTML(typography.title.htmlContent);
         if (!isValid) throw new Error("Invalid HTML");
       rollback: false
     
     - [ ] All required transformations applied
-      tipo: post-condition
+      type: post-condition
       blocker: true
-      validação: |
+      validation: |
         expect(typography.title.transformations).toBeInstanceOf(Array);
         expect(typography.title.transformations.length).toBeGreaterThan(0);
       rollback: false
   
   acceptance-criteria:
     - [ ] Typography matches brand voice (bold, uppercase for urgent CTAs)
-      tipo: acceptance
+      type: acceptance
       blocker: false
       story: STORY-006
       manual_check: false
       test: "tests/typography-brand-voice.test.js"
     
     - [ ] Transformations are visually appealing
-      tipo: acceptance
+      type: acceptance
       blocker: false
       story: STORY-006
       manual_check: true
@@ -422,7 +422,7 @@ atomic_layer: Strategy   # Step 3: Analyze Brief
 #### 8. `Template`
 
 **Type:** `object`  
-**Required:** ⚠️ Optional (but recommended for Agente executors)
+**Required:** ⚠️ Optional (but recommended for agent executors)
 
 **Purpose:** References template files that define input/output schemas, prompts, or UI forms.
 
@@ -445,12 +445,12 @@ atomic_layer: Strategy   # Step 3: Analyze Brief
 | `output` | Validates output schema | `templates/output-schemas/analyze-brief.json` |
 | `prompt` | AI agent prompt structure | `Squads/.../analyze-ad-brief.md` |
 | `ui` | Human interface form | `templates/ui-forms/manual-approval.html` |
-| `script` | Worker script template | `templates/scripts/image-processor.sh` |
+| `script` | worker script template | `templates/scripts/image-processor.sh` |
 
 **Examples:**
 
 ```yaml
-# Agente executor with prompt template
+# agent executor with prompt template
 **Template:**
 - path: Squads/instagram-content-creator/tasks/ads/analyze-ad-brief.md
   type: prompt
@@ -458,14 +458,14 @@ atomic_layer: Strategy   # Step 3: Analyze Brief
   variables: [brief_text, brand_id, campaign_goal, ready_copy]
   schema: Squads/instagram-content-creator/schemas/analyze-brief-output.json
 
-# Worker executor with script template
+# worker executor with script template
 **Template:**
 - path: scripts/utils/format-loader.js
   type: script
   version: 1.0.0
   variables: [format_id, orientation]
   
-# Humano executor with UI form
+# human executor with UI form
 **Template:**
 - path: templates/ui-forms/manual-review-ad-quality.html
   type: ui
@@ -529,7 +529,7 @@ atomic_layer: Strategy   # Step 3: Analyze Brief
 #### 10. `Scripts`
 
 **Type:** `object`  
-**Required:** ⚠️ Optional (for Worker executors primarily)
+**Required:** ⚠️ Optional (for worker executors primarily)
 
 **Purpose:** References custom scripts executed by the task.
 
@@ -711,7 +711,7 @@ atomic_layer: Strategy   # Step 3: Analyze Brief
 - breaking_changes:
     - Output format changed: added computedSpacing object
     - Removed nested fallback (SMELL 1 fix)
-- author: Brad Frost Clone
+- author: Brad Frost clone
 - created_at: 2025-11-10
 - updated_at: 2025-11-13
 ```
@@ -759,17 +759,17 @@ AdAnalysis             # References schemas/AdAnalysis.json
 **Examples:**
 
 ```yaml
-- campo: adCopy
-  tipo: object { title: string, body: string, cta: string }
+- field: adCopy
+  type: object { title: string, body: string, cta: string }
 
-- campo: faces
-  tipo: array<object { top: number, left: number, bottom: number, right: number }>
+- field: faces
+  type: array<object { top: number, left: number, bottom: number, right: number }>
 
-- campo: ready_copy
-  tipo: object { title?: string, body?: string, cta?: string } | null
+- field: ready_copy
+  type: object { title?: string, body?: string, cta?: string } | null
 
-- campo: brand
-  tipo: Brand  # References schemas/Brand.json
+- field: brand
+  type: Brand  # References schemas/Brand.json
 ```
 
 ---
@@ -780,7 +780,7 @@ AdAnalysis             # References schemas/AdAnalysis.json
 
 ```javascript
 function validateTask(task) {
-  const required = ['task', 'responsável', 'responsavel_type', 'atomic_layer', 'Entrada', 'Saída'];
+  const required = ['task', 'owner', 'owner_type', 'atomic_layer', 'Input', 'Output'];
   
   for (const field of required) {
     if (!task[field]) {
@@ -789,9 +789,9 @@ function validateTask(task) {
   }
   
   // Validate executor type
-  const validExecutors = ['Agente', 'Worker', 'Humano', 'Clone'];
-  if (!validExecutors.includes(task.responsavel_type)) {
-    throw new Error(`Invalid responsavel_type: ${task.responsavel_type}`);
+  const validExecutors = ['agent', 'worker', 'human', 'clone'];
+  if (!validExecutors.includes(task.owner_type)) {
+    throw new Error(`Invalid owner_type: ${task.owner_type}`);
   }
   
   // Validate atomic layer
@@ -808,11 +808,11 @@ function validateTask(task) {
 
 ```javascript
 function validateInputOutput(io, type) {
-  const required = ['campo', 'tipo', 'origem', 'obrigatório'];
+  const required = ['field', 'type', 'source', 'required'];
   
   for (const item of io) {
     for (const field of required) {
-      if (!item[field] && field !== 'origem') {  // origem not required for output
+      if (!item[field] && field !== 'source') {  // source not required for output
         throw new Error(`${type} missing required field: ${field}`);
       }
     }
@@ -826,58 +826,58 @@ function validateInputOutput(io, type) {
 
 ## Examples by Executor Type
 
-### Agente (AI-Powered)
+### agent (AI-Powered)
 
 ```yaml
 #### Step 3: Analyze Brief
 
 task: analyzeBrief()
-responsável: Ad Strategist
-responsavel_type: Agente
+owner: Ad Strategist
+owner_type: agent
 atomic_layer: Strategy
 
-**Entrada:**
-- campo: brief_text
-  tipo: string
-  origem: User Input (config)
-  obrigatório: true
-  validação: "length >= 50"
+**Input:**
+- field: brief_text
+  type: string
+  source: User Input (config)
+  required: true
+  validation: "length >= 50"
 
-- campo: brand
-  tipo: Brand
-  origem: Step 2 (loadBrand)
-  obrigatório: true
+- field: brand
+  type: Brand
+  source: Step 2 (loadBrand)
+  required: true
 
-- campo: ready_copy
-  tipo: object { title?, body?, cta? } | null
-  origem: User Input (config)
-  obrigatório: false
+- field: ready_copy
+  type: object { title?, body?, cta? } | null
+  source: User Input (config)
+  required: false
   padrão: null
 
-**Saída:**
-- campo: adAnalysis
-  tipo: object { goal, targetAudience, urgencyLevel, emotionalTriggers, keyMessage }
-  destino: state (ad-spec.json)
-  persistido: true
+**Output:**
+- field: adAnalysis
+  type: object { goal, targetAudience, urgencyLevel, emotionalTriggers, keyMessage }
+  destination: state (ad-spec.json)
+  persisted: true
 
 **Checklist:**
   pre-conditions:
     - [ ] brief_text has minimum 50 characters
-      tipo: pre-condition
+      type: pre-condition
       blocker: true
-      validação: "expect(brief_text.length).toBeGreaterThanOrEqual(50)"
+      validation: "expect(brief_text.length).toBeGreaterThanOrEqual(50)"
   
   post-conditions:
     - [ ] adAnalysis contains all required fields
-      tipo: post-condition
+      type: post-condition
       blocker: true
-      validação: |
+      validation: |
         expect(adAnalysis.goal).toBeTruthy();
         expect(adAnalysis.urgencyLevel).toMatch(/high|medium|low/);
   
   acceptance-criteria:
     - [ ] Analysis aligns with brand voice
-      tipo: acceptance
+      type: acceptance
       blocker: false
       story: STORY-003
       manual_check: false
@@ -929,42 +929,42 @@ atomic_layer: Strategy
 
 ---
 
-### Worker (Script-Based)
+### worker (Script-Based)
 
 ```yaml
 #### Step 1: Load Format Configuration
 
 task: loadFormatConfig()
-responsável: format-loader.js
-responsavel_type: Worker
+owner: format-loader.js
+owner_type: worker
 atomic_layer: Config
 
-**Entrada:**
-- campo: format_id
-  tipo: string
-  origem: User Input (config)
-  obrigatório: true
-  validação: "format_id in ['instagram-stories', 'instagram-reels', 'instagram-feed-square', 'instagram-feed-portrait']"
+**Input:**
+- field: format_id
+  type: string
+  source: User Input (config)
+  required: true
+  validation: "format_id in ['instagram-stories', 'instagram-reels', 'instagram-feed-square', 'instagram-feed-portrait']"
 
-- campo: orientation
-  tipo: string
-  origem: User Input (config)
-  obrigatório: false
+- field: orientation
+  type: string
+  source: User Input (config)
+  required: false
   padrão: "portrait"
-  validação: "orientation in ['portrait', 'landscape']"
+  validation: "orientation in ['portrait', 'landscape']"
 
-**Saída:**
-- campo: formatConfig
-  tipo: FormatConfig
-  destino: [Step 8, Step 10, Step 11, Step 12, Step 13, Step 14]
-  persistido: false
+**Output:**
+- field: formatConfig
+  type: FormatConfig
+  destination: [Step 8, Step 10, Step 11, Step 12, Step 13, Step 14]
+  persisted: false
 
 **Checklist:**
   pre-conditions:
     - [ ] format_id is valid
-      tipo: pre-condition
+      type: pre-condition
       blocker: true
-      validação: |
+      validation: |
         const validFormats = ['instagram-stories', 'instagram-reels', 'instagram-feed-square', 'instagram-feed-portrait'];
         if (!validFormats.includes(format_id)) {
           throw new Error(`Invalid format_id: ${format_id}`);
@@ -972,16 +972,16 @@ atomic_layer: Config
   
   post-conditions:
     - [ ] formatConfig.safeZones are defined
-      tipo: post-condition
+      type: post-condition
       blocker: true
-      validação: |
+      validation: |
         expect(formatConfig.safeZones).toBeDefined();
         expect(formatConfig.safeZones.top).toBeGreaterThan(0);
     
     - [ ] formatConfig.contentArea.height calculated correctly
-      tipo: post-condition
+      type: post-condition
       blocker: true
-      validação: |
+      validation: |
         const expectedHeight = formatConfig.canvas.height - formatConfig.safeZones.top - formatConfig.safeZones.bottom;
         expect(formatConfig.contentArea.height).toBe(expectedHeight);
 
@@ -1024,52 +1024,52 @@ atomic_layer: Config
 - version: 1.0.0
 - dependencies: []
 - breaking_changes: []
-- author: Brad Frost Clone
+- author: Brad Frost clone
 - created_at: 2025-11-10
 - updated_at: 2025-11-10
 ```
 
 ---
 
-### Humano (Manual Review)
+### human (Manual Review)
 
 ```yaml
 #### Step 15: Quality Review (Optional)
 
 task: reviewAdQuality()
-responsável: Quality Assurance Team
-responsavel_type: Humano
+owner: Quality Assurance Team
+owner_type: human
 atomic_layer: Page
 
-**Entrada:**
-- campo: final_ad_png
-  tipo: string (file path)
-  origem: Step 14 (exportPNG)
-  obrigatório: true
+**Input:**
+- field: final_ad_png
+  type: string (file path)
+  source: Step 14 (exportPNG)
+  required: true
 
-- campo: ad_spec
-  tipo: object (complete ad specification)
-  origem: state (ad-spec.json)
-  obrigatório: true
+- field: ad_spec
+  type: object (complete ad specification)
+  source: state (ad-spec.json)
+  required: true
 
-- campo: quality_criteria
-  tipo: array<string>
-  origem: config
-  obrigatório: true
+- field: quality_criteria
+  type: array<string>
+  source: config
+  required: true
   padrão: ["brand_alignment", "text_legibility", "visual_appeal", "no_face_coverage"]
 
-**Saída:**
-- campo: quality_review
-  tipo: object { approved: boolean, score: number, feedback: string, reviewer: string }
-  destino: state (ad-spec.json)
-  persistido: true
+**Output:**
+- field: quality_review
+  type: object { approved: boolean, score: number, feedback: string, reviewer: string }
+  destination: state (ad-spec.json)
+  persisted: true
 
 **Checklist:**
   pre-conditions:
     - [ ] final_ad_png file exists
-      tipo: pre-condition
+      type: pre-condition
       blocker: true
-      validação: |
+      validation: |
         const fs = require('fs');
         if (!fs.existsSync(final_ad_png)) {
           throw new Error(`Ad PNG not found: ${final_ad_png}`);
@@ -1077,13 +1077,13 @@ atomic_layer: Page
   
   acceptance-criteria:
     - [ ] Ad meets all quality criteria
-      tipo: acceptance
+      type: acceptance
       blocker: false
       story: STORY-QA
       manual_check: true
     
     - [ ] Reviewer provided detailed feedback
-      tipo: acceptance
+      type: acceptance
       blocker: false
       story: STORY-QA
       manual_check: true
@@ -1129,45 +1129,45 @@ atomic_layer: Page
 
 ---
 
-### Clone (Mind Emulation)
+### clone (Mind Emulation)
 
 ```yaml
-#### Step 7c: Validate Components (Brad Frost Clone)
+#### Step 7c: Validate Components (Brad Frost clone)
 
 task: validateComponentsAtomicDesign()
-responsável: Brad Frost Clone
-responsavel_type: Clone
+owner: Brad Frost clone
+owner_type: clone
 atomic_layer: Atom
 
-**Entrada:**
-- campo: ctaComponent
-  tipo: object { text, style, colors }
-  origem: Step 7a (designCTAComponent)
-  obrigatório: true
+**Input:**
+- field: ctaComponent
+  type: object { text, style, colors }
+  source: Step 7a (designCTAComponent)
+  required: true
 
-- campo: badgeComponent
-  tipo: object { text, style, colors } | null
-  origem: Step 7b (designBadgeComponent)
-  obrigatório: false
+- field: badgeComponent
+  type: object { text, style, colors } | null
+  source: Step 7b (designBadgeComponent)
+  required: false
 
-**Saída:**
-- campo: validation_result
-  tipo: object { valid: boolean, violations: array<object { rule, severity, message }> }
-  destino: state (ad-spec.json)
-  persistido: true
+**Output:**
+- field: validation_result
+  type: object { valid: boolean, violations: array<object { rule, severity, message }> }
+  destination: state (ad-spec.json)
+  persisted: true
 
 **Checklist:**
   pre-conditions:
     - [ ] ctaComponent exists
-      tipo: pre-condition
+      type: pre-condition
       blocker: true
-      validação: "expect(ctaComponent).toBeDefined()"
+      validation: "expect(ctaComponent).toBeDefined()"
   
   post-conditions:
     - [ ] No Atomic Design violations detected
-      tipo: post-condition
+      type: post-condition
       blocker: true
-      validação: |
+      validation: |
         if (!validation_result.valid) {
           const criticalViolations = validation_result.violations.filter(v => v.severity === 'critical');
           if (criticalViolations.length > 0) {
@@ -1176,9 +1176,9 @@ atomic_layer: Atom
         }
     
     - [ ] All components are context-agnostic (no positioning)
-      tipo: post-condition
+      type: post-condition
       blocker: true
-      validação: |
+      validation: |
         if (ctaComponent.position || ctaComponent.size) {
           throw new Error("CTA component has positioning data (DECISION-03 violation)");
         }
@@ -1188,12 +1188,12 @@ atomic_layer: Atom
   
   acceptance-criteria:
     - [ ] Components follow Brad Frost's Atomic Design principles
-      tipo: acceptance
+      type: acceptance
       blocker: false
       story: DECISION-03
       manual_check: false
 
-**Clone Configuration:**
+**clone Configuration:**
 - heuristics: clones/brad_frost/heuristics.yaml
 - axioms: clones/brad_frost/axioms.yaml
 - ai_fallback: true
@@ -1242,7 +1242,7 @@ atomic_layer: Atom
 - version: 1.0.0
 - dependencies: [Step 7a, Step 7b]
 - breaking_changes: []
-- author: Brad Frost Clone
+- author: Brad Frost clone
 - created_at: 2025-11-13
 - updated_at: 2025-11-13
 ```
@@ -1256,16 +1256,16 @@ Use this checklist to validate any AEXOS Task:
 ### Required Fields
 
 - [ ] `task` is defined and unique
-- [ ] `responsável` is defined
-- [ ] `responsavel_type` is one of: Agente, Worker, Humano, Clone
+- [ ] `owner` is defined
+- [ ] `owner_type` is one of: agent, worker, human, clone
 - [ ] `atomic_layer` is defined (or explicitly marked N/A)
-- [ ] `Entrada` is defined (array, can be empty)
-- [ ] `Saída` is defined (array, can be empty)
+- [ ] `Input` is defined (array, can be empty)
+- [ ] `Output` is defined (array, can be empty)
 
 ### Input/Output Quality
 
-- [ ] All inputs have: campo, tipo, origem, obrigatório
-- [ ] All outputs have: campo, tipo, destino, persistido
+- [ ] All inputs have: field, type, source, required
+- [ ] All outputs have: field, type, destination, persisted
 - [ ] Types are well-defined (not just "object" or "any")
 - [ ] Sources/destinations reference valid steps
 
@@ -1311,30 +1311,30 @@ Use this checklist to validate any AEXOS Task:
 #### Step 3: Analyze Brief
 
 task: analyzeBrief()
-responsável: Ad Strategist
+owner: Ad Strategist
 
-**Entrada:**
-**Saída:**
+**Input:**
+**Output:**
 
 # AFTER (v3.0 - complete)
 #### Step 3: Analyze Brief
 
 task: analyzeBrief()
-responsável: Ad Strategist
-responsavel_type: Agente  # ← ADDED
+owner: Ad Strategist
+owner_type: agent  # ← ADDED
 atomic_layer: Strategy    # ← ADDED
 
-**Entrada:**
-- campo: brief_text
-  tipo: string
-  origem: User Input (config)
-  obrigatório: true
+**Input:**
+- field: brief_text
+  type: string
+  source: User Input (config)
+  required: true
 
-**Saída:**
-- campo: adAnalysis
-  tipo: object { ... }
-  destino: state (ad-spec.json)
-  persistido: true
+**Output:**
+- field: adAnalysis
+  type: object { ... }
+  destination: state (ad-spec.json)
+  persisted: true
 ```
 
 ### Step 2: Structure Checklists
@@ -1349,15 +1349,15 @@ atomic_layer: Strategy    # ← ADDED
 **Checklist:**
   pre-conditions:
     - [ ] brief_text has minimum 50 characters
-      tipo: pre-condition
+      type: pre-condition
       blocker: true
-      validação: "expect(brief_text.length).toBeGreaterThanOrEqual(50)"
+      validation: "expect(brief_text.length).toBeGreaterThanOrEqual(50)"
   
   post-conditions:
     - [ ] adAnalysis contains all required fields
-      tipo: post-condition
+      type: post-condition
       blocker: true
-      validação: |
+      validation: |
         expect(adAnalysis.goal).toBeTruthy();
         expect(adAnalysis.urgencyLevel).toMatch(/high|medium|low/);
 ```
@@ -1401,7 +1401,7 @@ atomic_layer: Strategy    # ← ADDED
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | 2025-11-13 | Brad Frost Clone | Initial specification |
+| 1.0.0 | 2025-11-13 | Brad Frost clone | Initial specification |
 
 ---
 

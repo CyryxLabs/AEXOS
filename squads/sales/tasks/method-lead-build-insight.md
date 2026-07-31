@@ -1,15 +1,15 @@
 ---
 task: Build Commercial Insight
-responsavel: "@method-lead"
-responsavel_type: agent
+owner: "@method-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - segment_or_account: The buyer segment or account the insight is being built for (required)
   - current_belief: What that segment currently believes about the problem, in their language (required)
   - evidence_pool: Data, benchmarks, research or observed operational patterns available to us, each with a source (required)
   - unique_attributes: Our unique strengths as defined by @products:positioning-lead, if available (optional)
   - existing_pitch: Current deck or pitch to audit against the insight (optional)
-Saida: |
+Output: |
   - insight: The assumption being challenged and what is actually true instead
   - evidence_table: One row per claim with its source, and UNVERIFIED marked where the only source is our own marketing
   - status_quo_cost: The cost of the status quo in the buyer's units, labelled as buyer-stated or seller-constructed

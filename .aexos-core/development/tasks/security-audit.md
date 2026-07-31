@@ -37,44 +37,44 @@
 
 ```yaml
 task: securityAudit()
-responsável: Argus (Guardian)
-responsavel_type: Agente
+owner: Argus (Guardian)
+owner_type: agent
 atomic_layer: Strategy
 
-**Entrada:**
-- campo: target
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Valid path or resource
+**Input:**
+- field: target
+  type: string
+  source: User Input
+  required: true
+  validation: Valid path or resource
 
-- campo: scan_depth
-  tipo: number
-  origem: config
-  obrigatório: false
-  validação: Default: 2 (1-5)
+- field: scan_depth
+  type: number
+  source: config
+  required: false
+  validation: Default: 2 (1-5)
 
-- campo: rules
-  tipo: array
-  origem: config
-  obrigatório: true
-  validação: Security rule set
+- field: rules
+  type: array
+  source: config
+  required: true
+  validation: Security rule set
 
-**Saída:**
-- campo: scan_report
-  tipo: object
-  destino: File (.ai/security/*)
-  persistido: true
+**Output:**
+- field: scan_report
+  type: object
+  destination: File (.ai/security/*)
+  persisted: true
 
-- campo: vulnerabilities
-  tipo: array
-  destino: Memory
-  persistido: false
+- field: vulnerabilities
+  type: array
+  destination: Memory
+  persisted: false
 
-- campo: risk_score
-  tipo: number
-  destino: Memory
-  persistido: false
+- field: risk_score
+  type: number
+  destination: Memory
+  persisted: false
 ```
 
 ---
@@ -88,9 +88,9 @@ atomic_layer: Strategy
 ```yaml
 pre-conditions:
   - [ ] Scanner available; target accessible; rules configured
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check scanner available; target accessible; rules configured
     error_message: "Pre-condition failed: Scanner available; target accessible; rules configured"
 ```
@@ -106,9 +106,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Scan completed; vulnerabilities reported; no scan errors
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify scan completed; vulnerabilities reported; no scan errors
     error_message: "Post-condition failed: Scan completed; vulnerabilities reported; no scan errors"
 ```
@@ -124,9 +124,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] No critical vulnerabilities; all checks passed
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert no critical vulnerabilities; all checks passed
     error_message: "Acceptance criterion not met: No critical vulnerabilities; all checks passed"
 ```

@@ -10,22 +10,22 @@ Validate document governance for all data files referenced by agents. Ensures ev
 
 ```yaml
 task: updateSourceTree()
-responsavel: Zeus (Master)
-responsavel_type: Agente
+owner: Zeus (Master)
+owner_type: agent
 atomic_layer: Molecule
 
-**Entrada:**
-- campo: mode
-  tipo: string
-  origem: User Input
-  obrigatorio: false
-  validacao: audit|fix
+**Input:**
+- field: mode
+  type: string
+  source: User Input
+  required: false
+  validation: audit|fix
 
-**Saida:**
-- campo: governance_report
-  tipo: object
-  destino: Console
-  persistido: false
+**Output:**
+- field: governance_report
+  type: object
+  destination: Console
+  persisted: false
 ```
 
 ---
@@ -101,13 +101,13 @@ If `mode=fix`:
 ```yaml
 acceptance-criteria:
   - [ ] All files in agent-config-requirements.yaml verified to exist on disk
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
   - [ ] All files in agent-config-requirements.yaml documented in source-tree.md
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
   - [ ] All documented files have owner and fill rule
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 ```
 

@@ -1,16 +1,16 @@
 ---
 task: Risk Appetite Statement
-responsavel: "@risk-oversight"
-responsavel_type: agent
+owner: "@risk-oversight"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - strategy: The chosen strategy, stated (required - this task halts without it)
   - objectives: The business objectives the appetite is set against (required)
   - risk_types: Risk types in scope, adapted to the organization (optional, default: strategic, financial, operational, technology and security, regulatory and compliance, reputational, people and key-person)
   - existing_appetite: Path to a prior appetite statement being revised, under squads/board/data/ (optional)
   - mandate_artifact: Path to the reserved-matters schedule or delegation map that establishes who may approve this (optional)
   - measures: Performance measures available for tolerance bands, with their sources (optional)
-Saida: |
+Output: |
   - appetite_statements: One statement per risk type, each naming what is accepted and what is not
   - forbidden_decision_tests: Per statement, the concrete plausible proposal it would cause the board to reject
   - tolerance_bands: Per appetite, a measurable band around a named measure and the point at which it is breached

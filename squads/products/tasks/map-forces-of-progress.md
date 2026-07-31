@@ -1,15 +1,15 @@
 ---
 task: Map Forces of Progress
-responsavel: "@jobs-analyst"
-responsavel_type: agent
+owner: "@jobs-analyst"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - switch: The specific switch to analyse, identified by transcript id (required, e.g. SW-09)
   - switch_timelines: Path to the switch timeline artifacts produced by *switch-interview (required)
   - transcripts: Raw transcripts for quote-level evidence (required)
   - comparison_set: Other switch ids to compare the binding force against (optional, default: all timelines in the same job)
   - output_dir: Directory for forces artifacts (optional, default: docs/product/jobs/forces/)
-Saida: |
+Output: |
   - forces_map: All four forces evidenced from transcript quotes, with direction and relative weight
   - binding_force: Exactly one named force identified as the constraint on this switch, with its reasoning
   - implication: What the binding force means for what to build, stated as a decision rather than an observation

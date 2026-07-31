@@ -34,44 +34,44 @@ Generate a structured fix request document (`QA_FIX_REQUEST.md`) for @dev based 
 
 ```yaml
 task: qaCreateFixRequest()
-responsavel: Argus (Guardian)
-responsavel_type: Agente
+owner: Argus (Guardian)
+owner_type: agent
 atomic_layer: Molecule
 
-**Entrada:**
-- campo: story_id
-  tipo: string
-  origem: User Input
-  obrigatorio: true
-  validacao: Must be valid story ID format (e.g., "6.3")
+**Input:**
+- field: story_id
+  type: string
+  source: User Input
+  required: true
+  validation: Must be valid story ID format (e.g., "6.3")
 
-- campo: severity_filter
-  tipo: array
-  origem: config
-  obrigatorio: false
-  validacao: Default ["CRITICAL", "MAJOR"]
+- field: severity_filter
+  type: array
+  source: config
+  required: false
+  validation: Default ["CRITICAL", "MAJOR"]
 
-- campo: include_minor
-  tipo: boolean
-  origem: User Input
-  obrigatorio: false
-  validacao: Default false
+- field: include_minor
+  type: boolean
+  source: User Input
+  required: false
+  validation: Default false
 
-**Saida:**
-- campo: fix_request_path
-  tipo: string
-  destino: Return value
-  persistido: false
+**Output:**
+- field: fix_request_path
+  type: string
+  destination: Return value
+  persisted: false
 
-- campo: issues_count
-  tipo: number
-  destino: Memory
-  persistido: false
+- field: issues_count
+  type: number
+  destination: Memory
+  persisted: false
 
-- campo: fix_request_file
-  tipo: file
-  destino: docs/stories/{story-id}/qa/QA_FIX_REQUEST.md
-  persistido: true
+- field: fix_request_file
+  type: file
+  destination: docs/stories/{story-id}/qa/QA_FIX_REQUEST.md
+  persisted: true
 ```
 
 ---
@@ -85,16 +85,16 @@ atomic_layer: Molecule
 ```yaml
 pre-conditions:
   - [ ] QA report exists for the story
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: |
+    validation: |
       Check docs/stories/{story-id}/qa/qa_report.md exists
     error_message: "Pre-condition failed: QA report not found. Run *review {story-id} first."
 
   - [ ] Story is in Review or Rejected status
-    tipo: pre-condition
+    type: pre-condition
     blocker: false
-    validacao: |
+    validation: |
       Story should be in Review status for fix request
     error_message: "Warning: Story may not need fix request if not in Review status."
 ```
@@ -110,16 +110,16 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] QA_FIX_REQUEST.md created with all issues
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: |
+    validation: |
       Verify file created at docs/stories/{story-id}/qa/QA_FIX_REQUEST.md
     error_message: "Post-condition failed: QA_FIX_REQUEST.md was not created."
 
   - [ ] All CRITICAL and MAJOR issues included
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: |
+    validation: |
       Verify issue count matches source report
     error_message: "Post-condition failed: Not all issues were included in fix request."
 ```
@@ -135,23 +135,23 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Fix request generated with proper structure
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validacao: |
+    validation: |
       Assert fix request follows template structure
     error_message: "Acceptance criterion not met: Fix request structure invalid."
 
   - [ ] Each issue has location, problem, expected, verification
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validacao: |
+    validation: |
       Assert all required fields present for each issue
     error_message: "Acceptance criterion not met: Missing required issue fields."
 
   - [ ] Constraints section included
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validacao: |
+    validation: |
       Assert constraints checklist present
     error_message: "Acceptance criterion not met: Constraints section missing."
 ```

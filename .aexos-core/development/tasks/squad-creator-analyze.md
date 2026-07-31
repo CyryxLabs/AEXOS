@@ -1,55 +1,55 @@
 ---
 task: analyzeSquad()
-responsavel: "@squad-creator"
-responsavel_type: Agent
+owner: "@squad-creator"
+owner_type: agent
 atomic_layer: Task
 elicit: true
 
-Entrada:
-  - campo: squad_name
-    tipo: string
-    origem: User Input
-    obrigatorio: true
-    validacao: Squad must exist in ./squads/ directory
+Input:
+  - field: squad_name
+    type: string
+    source: User Input
+    required: true
+    validation: Squad must exist in ./squads/ directory
 
-  - campo: output_format
-    tipo: string
-    origem: User Input
-    obrigatorio: false
-    validacao: "console | markdown | json (default: console)"
+  - field: output_format
+    type: string
+    source: User Input
+    required: false
+    validation: "console | markdown | json (default: console)"
 
-  - campo: verbose
-    tipo: boolean
-    origem: User Input
-    obrigatorio: false
-    validacao: "Include file details (default: false)"
+  - field: verbose
+    type: boolean
+    source: User Input
+    required: false
+    validation: "Include file details (default: false)"
 
-  - campo: suggestions
-    tipo: boolean
-    origem: User Input
-    obrigatorio: false
-    validacao: "Include improvement suggestions (default: true)"
+  - field: suggestions
+    type: boolean
+    source: User Input
+    required: false
+    validation: "Include improvement suggestions (default: true)"
 
-Saida:
-  - campo: analysis_report
-    tipo: object
-    destino: Console or file
-    persistido: false
+Output:
+  - field: analysis_report
+    type: object
+    destination: Console or file
+    persisted: false
 
-  - campo: component_inventory
-    tipo: object
-    destino: Return value
-    persistido: false
+  - field: component_inventory
+    type: object
+    destination: Return value
+    persisted: false
 
-  - campo: coverage_metrics
-    tipo: object
-    destino: Return value
-    persistido: false
+  - field: coverage_metrics
+    type: object
+    destination: Return value
+    persisted: false
 
-  - campo: suggestions
-    tipo: array
-    destino: Return value
-    persistido: false
+  - field: suggestions
+    type: array
+    destination: Return value
+    persisted: false
 
 Checklist:
   - "[ ] Validate squad exists"
@@ -76,9 +76,9 @@ Analyze an existing squad's structure, components, and coverage to provide insig
 ```yaml
 pre-conditions:
   - [ ] Squad exists in ./squads/ directory
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: |
+    validation: |
       Check if squad directory exists with valid manifest
     error_message: "Squad not found. Use *list-squads to see available squads."
 ```
@@ -278,9 +278,9 @@ recovery: chmod 644 for files, 755 for directories
 ```yaml
 post-conditions:
   - [ ] Analysis report generated successfully
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validacao: |
+    validation: |
       Verify all components were inventoried
     error_message: "Analysis incomplete - some components may not be listed"
 ```

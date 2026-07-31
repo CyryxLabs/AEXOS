@@ -1,9 +1,9 @@
 ---
 task: Design an Assumption Test
-responsavel: "@discovery-lead"
-responsavel_type: agent
+owner: "@discovery-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - assumption: The single assumption to be tested, stated as something that must be true (required)
   - solution: The solution the assumption belongs to, and the opportunity that solution serves (required)
   - assumption_map: Path to the importance x evidence map the assumption was classified on (required)
@@ -11,7 +11,7 @@ Entrada: |
   - target_segment: Who the assumption must hold true for (optional, default: the screener from the cadence plan)
   - recruiting_channel: Where test participants or traffic come from (optional, default: the cadence recruiting hook)
   - output_dir: Directory for discovery artifacts (optional, default: docs/product/discovery/)
-Saida: |
+Output: |
   - test_plan: Versioned markdown file with the assumption, method, threshold, sample, duration and cost ratio, written and committed BEFORE the test runs
   - pass_threshold: The pre-declared numeric or categorical criterion that separates pass from fail, plus the action on each side
   - cost_ratio: Test cost against solution cost, with the order-of-magnitude check result

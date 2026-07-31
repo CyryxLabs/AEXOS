@@ -31,20 +31,33 @@
     "task": {
       "type": "object",
       "description": "Core task definition (AEXOS Task Format)",
-      "required": ["name", "responsavel"],
+      "required": ["name"],
+      "anyOf": [
+        { "required": ["owner"] },
+        { "required": ["responsavel"] }
+      ],
       "properties": {
         "name": {
           "type": "string",
           "description": "Task function name (e.g., 'executeChecklist()')"
         },
-        "responsavel": {
+        "owner": {
           "type": "string",
           "description": "Agent responsible for this task"
         },
+        "owner_type": {
+          "type": "string",
+          "enum": ["agent", "worker", "human", "clone", "user", "system"],
+          "default": "agent",
+          "description": "What kind of executor runs this task"
+        },
+        "responsavel": {
+          "type": "string",
+          "description": "DEPRECATED — earlier name for `owner`. Read, never written."
+        },
         "responsavel_type": {
           "type": "string",
-          "enum": ["Agente", "User", "System"],
-          "default": "Agente"
+          "description": "DEPRECATED — earlier name for `owner_type`. Read, never written."
         },
         "atomic_layer": {
           "type": "string",
@@ -59,32 +72,41 @@
       "description": "Task input parameters",
       "items": {
         "type": "object",
-        "required": ["campo", "tipo"],
+        "anyOf": [
+          { "required": ["field", "type"] },
+          { "required": ["campo", "tipo"] }
+        ],
         "properties": {
-          "campo": {
+          "field": {
             "type": "string",
             "description": "Parameter name"
           },
-          "tipo": {
+          "type": {
             "type": "string",
             "description": "Parameter type (string, object, array, boolean, number)"
           },
-          "origem": {
+          "source": {
             "type": "string",
             "description": "Data source (User Input, Context, File, etc.)"
           },
-          "obrigatorio": {
+          "required": {
             "type": "boolean",
             "description": "Whether parameter is required",
             "default": false
           },
-          "validacao": {
+          "validation": {
             "type": "string",
             "description": "Validation rules"
           },
           "default": {
             "description": "Default value if not provided"
-          }
+          },
+
+          "campo": { "type": "string", "description": "DEPRECATED — earlier name for `field`." },
+          "tipo": { "type": "string", "description": "DEPRECATED — earlier name for `type`." },
+          "origem": { "type": "string", "description": "DEPRECATED — earlier name for `source`." },
+          "obrigatorio": { "type": "boolean", "description": "DEPRECATED — earlier name for `required`." },
+          "validacao": { "type": "string", "description": "DEPRECATED — earlier name for `validation`." }
         }
       }
     },
@@ -94,25 +116,33 @@
       "description": "Task output definitions",
       "items": {
         "type": "object",
-        "required": ["campo", "tipo"],
+        "anyOf": [
+          { "required": ["field", "type"] },
+          { "required": ["campo", "tipo"] }
+        ],
         "properties": {
-          "campo": {
+          "field": {
             "type": "string",
             "description": "Output field name"
           },
-          "tipo": {
+          "type": {
             "type": "string",
             "description": "Output type"
           },
-          "destino": {
+          "destination": {
             "type": "string",
             "description": "Output destination (File, Memory, State, etc.)"
           },
-          "persistido": {
+          "persisted": {
             "type": "boolean",
             "description": "Whether output is persisted",
             "default": false
-          }
+          },
+
+          "campo": { "type": "string", "description": "DEPRECATED — earlier name for `field`." },
+          "tipo": { "type": "string", "description": "DEPRECATED — earlier name for `type`." },
+          "destino": { "type": "string", "description": "DEPRECATED — earlier name for `destination`." },
+          "persistido": { "type": "boolean", "description": "DEPRECATED — earlier name for `persisted`." }
         }
       }
     },

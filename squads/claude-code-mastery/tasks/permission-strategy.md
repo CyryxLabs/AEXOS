@@ -1,15 +1,15 @@
 ---
 task: Design Permission Strategy
-responsavel: "@config-engineer"
-responsavel_type: agent
+owner: "@config-engineer"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_root: Valid project directory whose technology stack is understood (required)
   - team_size: solo, small (2-5), team (6+) or enterprise (optional)
   - sensitivity: low, standard, high or regulated (optional, default standard)
   - compliance_requirements: Any applicable framework such as SOC2 or HIPAA (optional)
   - configured_mcp_servers: The MCP servers that need permission rules assigned (optional)
-Saida: |
+Output: |
   - sensitivity_profile: The weighted assessment across PII/PHI, production credentials, external APIs, financial data and project openness
   - sensitive_file_inventory: Detected .env, certificate, key, secret-directory and Terraform state patterns
   - permission_mode: The mode selected via the decision tree, with rationale and room for user override

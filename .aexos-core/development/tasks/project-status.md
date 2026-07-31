@@ -182,7 +182,7 @@ When divergence is detected, suggest the fix:
 ```yaml
 pre-conditions:
   - [ ] Directory docs/stories/ exists
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
     error_message: "No docs/stories/ directory found"
 ```
@@ -194,9 +194,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Every story file in docs/stories/ was read for status
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Count of story files read == count of story files found by Glob
     error_message: "Not all story files were read — status may be inaccurate"
 ```

@@ -1,14 +1,14 @@
 ---
 task: Validate Tech Preset
-responsável: @architect
-responsável_type: agent
+owner: @architect
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - preset_path: Path to the tech preset file (default: .aexos-core/data/tech-presets/)
   - name: Preset name without extension (e.g., "nextjs-react")
   - strict: If true, warnings become errors (default: false)
   - fix: If true, create story for fixes (default: false)
-Saída: |
+Output: |
   - validation_result: Object with { valid, errors, warnings, suggestions }
   - report: Formatted report for display
   - story_path: Path to created story (if --fix and errors found)

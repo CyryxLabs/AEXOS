@@ -36,38 +36,38 @@ Validate database migrations are properly created and applied for schema changes
 
 ```yaml
 task: qaMigrationValidation()
-responsavel: Argus (Guardian)
-responsavel_type: Agente
+owner: Argus (Guardian)
+owner_type: agent
 atomic_layer: Molecule
 
-**Entrada:**
-- campo: story_id
-  tipo: string
-  origem: User Input
-  obrigatorio: true
-  validacao: Must be valid story ID format (e.g., "6.3")
+**Input:**
+- field: story_id
+  type: string
+  source: User Input
+  required: true
+  validation: Must be valid story ID format (e.g., "6.3")
 
-- campo: framework
-  tipo: string
-  origem: Auto-detect or explicit
-  obrigatorio: false
-  validacao: "supabase" | "prisma" | "drizzle" | "django" | "rails" | "sequelize"
+- field: framework
+  type: string
+  source: Auto-detect or explicit
+  required: false
+  validation: "supabase" | "prisma" | "drizzle" | "django" | "rails" | "sequelize"
 
-**Saida:**
-- campo: migration_report
-  tipo: object
-  destino: Return value
-  persistido: false
+**Output:**
+- field: migration_report
+  type: object
+  destination: Return value
+  persisted: false
 
-- campo: issues_found
-  tipo: number
-  destino: Memory
-  persistido: false
+- field: issues_found
+  type: number
+  destination: Memory
+  persisted: false
 
-- campo: report_file
-  tipo: file
-  destino: docs/stories/{story-id}/qa/migration_validation.json
-  persistido: true
+- field: report_file
+  type: file
+  destination: docs/stories/{story-id}/qa/migration_validation.json
+  persisted: true
 ```
 
 ---
@@ -81,16 +81,16 @@ atomic_layer: Molecule
 ```yaml
 pre-conditions:
   - [ ] Database framework detected
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: |
+    validation: |
       One of: supabase/, prisma/, drizzle/, migrations/, db/
     error_message: "Pre-condition failed: No database framework detected."
 
   - [ ] Schema changes detected in diff
-    tipo: pre-condition
+    type: pre-condition
     blocker: false
-    validacao: |
+    validation: |
       Changes in schema files, models, or migration directories
     error_message: "Info: No schema changes detected, validation may be skipped."
 ```

@@ -10,52 +10,52 @@ Extract and consolidate gotchas from session insights into a searchable knowledg
 
 ```yaml
 task: documentGotchas()
-responsável: Vulcan (Builder)
-responsavel_type: Agente
+owner: Vulcan (Builder)
+owner_type: agent
 atomic_layer: Service
 
-**Entrada:**
-- campo: command
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: update|list|search|category
+**Input:**
+- field: command
+  type: string
+  source: User Input
+  required: false
+  validation: update|list|search|category
   default: update
 
-- campo: query
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: Free text for search/category
+- field: query
+  type: string
+  source: User Input
+  required: false
+  validation: Free text for search/category
 
-- campo: severity
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: high|medium|low
+- field: severity
+  type: string
+  source: User Input
+  required: false
+  validation: high|medium|low
 
-- campo: format
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: md|json
+- field: format
+  type: string
+  source: User Input
+  required: false
+  validation: md|json
   default: md
 
-**Saída:**
-- campo: gotchas_file
-  tipo: string
-  destino: .aexos/gotchas.md
-  persistido: true
+**Output:**
+- field: gotchas_file
+  type: string
+  destination: .aexos/gotchas.md
+  persisted: true
 
-- campo: gotchas_json
-  tipo: string
-  destino: .aexos/gotchas.json
-  persistido: true
+- field: gotchas_json
+  type: string
+  destination: .aexos/gotchas.json
+  persisted: true
 
-- campo: statistics
-  tipo: object
-  destino: Console
-  persistido: false
+- field: statistics
+  type: object
+  destination: Console
+  persisted: false
 ```
 
 ---
@@ -69,16 +69,16 @@ atomic_layer: Service
 ```yaml
 pre-conditions:
   - [ ] Project has .aexos directory initialized
-    tipo: pre-condition
+    type: pre-condition
     blocker: false
-    validação: |
+    validation: |
       Check if .aexos/ directory exists, create if not
     error_message: "Creating .aexos/ directory"
 
   - [ ] Node.js available for script execution
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check node --version returns valid version
     error_message: "Node.js required for gotchas-documenter.js"
 ```
@@ -94,16 +94,16 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] gotchas.md file generated/updated
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Check .aexos/gotchas.md exists and has content
     error_message: "Failed to generate gotchas.md"
 
   - [ ] gotchas.json schema valid
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validação: |
+    validation: |
       Validate .aexos/gotchas.json against schema
     error_message: "gotchas.json schema validation failed"
 ```
@@ -119,21 +119,21 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Gotchas extracted from session insights (AC1)
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       At least one insights file scanned
 
   - [ ] gotchas.md generated with proper format (AC2, AC3)
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       File contains Wrong/Right/Reason format
 
   - [ ] Gotchas categorized by area (AC4)
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Categories present in output
 ```
 

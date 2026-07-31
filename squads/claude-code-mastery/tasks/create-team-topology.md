@@ -1,16 +1,16 @@
 ---
 task: Design Agent Team Configuration
-responsavel: "@swarm-orchestrator"
-responsavel_type: agent
+owner: "@swarm-orchestrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - workload_description: Clear description of the full task the team will carry (required)
   - team_size: Suggested number of agents (optional, default auto-detect)
   - isolation_mode: shared, worktree or none (optional, default shared)
   - topology_preference: hub-spoke, pipeline, peer or auto (optional)
   - max_budget: Cost constraint on model selection and team size (optional)
   - agents_directory: .claude/agents/ must exist, with at least 2 distinct subtasks in the workload (required)
-Saida: |
+Output: |
   - decomposition: Separable concerns, parallel vs sequential subtasks, shared resources and the minimum team size
   - roles: Per agent — responsibility, inputs, outputs, model and tools, with no overlapping responsibilities
   - agent_files: .claude/agents/{role-name}.md per member, including team-specific instructions

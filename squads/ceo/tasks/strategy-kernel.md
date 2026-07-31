@@ -1,15 +1,15 @@
 ---
 task: Build Strategy Kernel
-responsavel: "@strategy-lead"
-responsavel_type: agent
+owner: "@strategy-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - situation: What changed, what is not working, what the numbers say (required)
   - evidence_sources: Data, documents and observations available, each with origin and date (required)
   - existing_plan: Path to a current strategy document, if one exists (optional)
   - constraints: Resource, contractual and capability limits already known (optional)
   - horizon: The period the strategy is meant to cover (optional, default: the next four quarters)
-Saida: |
+Output: |
   - diagnosis: A falsifiable claim about what is critical, with its evidence table
   - rejected_rival: The rival diagnosis considered in full, rejected with reasons or kept live
   - crux: The difficulty that is both important and addressable with current resources

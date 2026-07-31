@@ -1,16 +1,16 @@
 ---
 task: Integrate Claude Code into Existing Project
-responsavel: "@project-integrator"
-responsavel_type: agent
+owner: "@project-integrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_root: Auto-detected directory containing source code, with write access (required)
   - project_name: Human-readable project name (optional)
   - primary_language: Main programming language, auto-detected when not given (optional)
   - team_size: solo, small, medium or large (optional)
   - existing_ci: Whether CI/CD is already configured, auto-detected (optional)
   - detection_signals: package.json, tsconfig, framework configs, linters, test configs, Dockerfile, workflows and database markers (derived)
-Saida: |
+Output: |
   - detection: Language, framework, package manager, test framework, linter, formatter, CI, database and structure
   - claude_md: CLAUDE.md under 200 lines with overview, stack, standards, testing, git conventions, key directories and commands
   - settings_json: .claude/settings.json with deny rules for sensitive paths and allow rules for build, test and lint

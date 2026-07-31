@@ -44,21 +44,24 @@ const validationRules = [
     id: 2,
     name: 'Task Definition YAML format',
     check: (content) => {
-      return content.includes('task:') && 
-             content.includes('responsável:') &&
-             content.includes('responsavel_type:') &&
+      // `owner`/`owner_type` were `responsável`/`responsavel_type`. Both count:
+      // a task written before the rename is still a well-formed task.
+      const has = (...names) => names.some((n) => content.includes(`${n}:`));
+      return content.includes('task:') &&
+             has('owner', 'responsável', 'responsavel') &&
+             has('owner_type', 'responsavel_type') &&
              content.includes('atomic_layer:');
     },
-    message: 'Task Definition incomplete (missing task, responsável, responsavel_type, or atomic_layer)',
+    message: 'Task Definition incomplete (missing task, owner, owner_type, or atomic_layer)',
   },
   {
     id: 3,
-    name: 'Entrada and Saída defined',
+    name: 'Input and Output defined',
     check: (content) => {
-      return content.includes('**Entrada:**') && 
-             content.includes('**Saída:**');
+      const has = (...names) => names.some((n) => content.includes(`**${n}:**`));
+      return has('Input', 'Entrada') && has('Output', 'Saída', 'Saida');
     },
-    message: 'Missing Entrada or Saída sections',
+    message: 'Missing Input or Output sections',
   },
   {
     id: 4,
@@ -74,12 +77,13 @@ const validationRules = [
     id: 5,
     name: 'Checklist items have required fields',
     check: (content) => {
-      const hasType = content.includes('tipo:');
+      const hasType = content.includes('type:') || content.includes('tipo:');
       const hasBlocker = content.includes('blocker:');
-      const hasValidation = content.includes('validação:') || content.includes('validation:');
+      const hasValidation =
+        content.includes('validation:') || content.includes('validação:');
       return hasType && hasBlocker && hasValidation;
     },
-    message: 'Checklist items missing required fields (tipo, blocker, validação)',
+    message: 'Checklist items missing required fields (type, blocker, validation)',
   },
   {
     id: 6,

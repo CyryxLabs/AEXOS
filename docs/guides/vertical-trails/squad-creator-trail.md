@@ -191,11 +191,11 @@ Ready to create? Run:
 📋 TASK FORMAT VALIDATION
   ✅ generate-social-post.md
     - task: ✓
-    - responsavel: ✓
-    - responsavel_type: ✓
+    - owner: ✓
+    - owner_type: ✓
     - atomic_layer: ✓
-    - Entrada: ✓
-    - Saida: ✓
+    - Input: ✓
+    - Output: ✓
     - Checklist: ✓
 
   ✅ analyze-engagement.md (all fields present)
@@ -318,19 +318,19 @@ Especialista em criação de conteúdo para redes sociais...
 ```markdown
 ---
 task: generate-social-post
-responsavel: content-creator
-responsavel_type: agent
+owner: content-creator
+owner_type: agent
 atomic_layer: execution
 ---
 
 # Generate Social Post
 
-## Entrada
+## Input
 - Tema/tópico do post
 - Plataforma alvo (Twitter, LinkedIn, Instagram)
 - Tom desejado (formal, casual, técnico)
 
-## Saida
+## Output
 - Post formatado para a plataforma
 - Sugestões de hashtags
 - Horário sugerido de publicação
@@ -401,7 +401,7 @@ cat squads/my-squad/squad.yaml
 ### Task falha validação
 ```bash
 # Verificar campos obrigatórios
-# task, responsavel, responsavel_type, atomic_layer, Entrada, Saida, Checklist
+# task, owner, owner_type, atomic_layer, Input, Output, Checklist
 ```
 
 ### Blueprint não gerou agentes

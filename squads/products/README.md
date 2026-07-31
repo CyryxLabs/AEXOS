@@ -64,7 +64,7 @@ apply these methods — they are not the authors and do not speak as them.
 ## Tasks
 
 Seven executable tasks, one per discipline, each conforming to TASK-FORMAT-SPECIFICATION-V1
-(`Entrada`, `Saida`, `Checklist`, acceptance criteria, handoff table, method attribution).
+(`Input`, `Output`, `Checklist`, acceptance criteria, handoff table, method attribution).
 
 | Task | Owner | Materializes | Produces |
 |------|-------|--------------|----------|

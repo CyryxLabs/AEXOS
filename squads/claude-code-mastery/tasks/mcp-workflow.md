@@ -1,15 +1,15 @@
 ---
 task: MCP Server Management Workflow
-responsavel: "@mcp-integrator"
-responsavel_type: agent
+owner: "@mcp-integrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_root: Auto-detected directory with package.json or an equivalent manifest (required)
   - tech_stack: Frameworks and languages in use, from the scan or from the user (required)
   - current_mcps: Existing MCP configuration in .claude/settings.json (optional)
   - context_budget_limit: Maximum tokens allowed for MCP overhead (optional, default 10000)
   - install_access: Ability to install MCP server binaries via npm, pip or docker, and network access for remote servers (required precondition)
-Saida: |
+Output: |
   - discovery: Tech stack signals detected, recommended servers per signal and the gaps in the current configuration
   - budget_report: Token cost per server, the total, and the green/yellow/red decision with any removal recommendations
   - mcp_config: mcpServers entries written to .claude/settings.json or ~/.claude.json, with valid JSON confirmed

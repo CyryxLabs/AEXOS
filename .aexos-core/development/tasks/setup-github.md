@@ -44,22 +44,22 @@ Configure complete GitHub DevOps infrastructure for user projects created with A
 
 ```yaml
 task: setupGitHub()
-responsável: Polaris (Operator)
-responsavel_type: Agente
+owner: Polaris (Operator)
+owner_type: agent
 atomic_layer: Organism
 
-**Entrada:**
-- campo: project_path
-  tipo: string
-  origem: Auto-detect (cwd)
-  obrigatório: false
-  validação: Valid directory with .git and GitHub remote
+**Input:**
+- field: project_path
+  type: string
+  source: Auto-detect (cwd)
+  required: false
+  validation: Valid directory with .git and GitHub remote
 
-- campo: options
-  tipo: object
-  origem: User Input
-  obrigatório: false
-  validação: |
+- field: options
+  type: object
+  source: User Input
+  required: false
+  validation: |
     {
       skip_workflows: boolean,      // Skip GitHub Actions setup
       skip_coderabbit: boolean,     // Skip CodeRabbit configuration
@@ -68,21 +68,21 @@ atomic_layer: Organism
       project_type: string          // node | python | go | rust | mixed
     }
 
-**Saída:**
-- campo: devops_setup_report
-  tipo: object
-  destino: File system (.aexos/devops-setup-report.yaml)
-  persistido: true
+**Output:**
+- field: devops_setup_report
+  type: object
+  destination: File system (.aexos/devops-setup-report.yaml)
+  persisted: true
 
-- campo: workflows_installed
-  tipo: array
-  destino: Return value
-  persistido: false
+- field: workflows_installed
+  type: array
+  destination: Return value
+  persisted: false
 
-- campo: protection_enabled
-  tipo: boolean
-  destino: Return value
-  persistido: false
+- field: protection_enabled
+  type: boolean
+  destination: Return value
+  persisted: false
 ```
 
 ---
@@ -96,37 +96,37 @@ atomic_layer: Organism
 ```yaml
 pre-conditions:
   - [ ] Git repository exists (.git directory present)
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Test-Path ".git" (PowerShell) or [ -d .git ] (bash)
     error_message: "Git repository not found. Run *environment-bootstrap first."
 
   - [ ] GitHub remote configured
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       git remote get-url origin
     error_message: "GitHub remote not configured. Run *environment-bootstrap first."
 
   - [ ] GitHub CLI authenticated
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       gh auth status
     error_message: "GitHub CLI not authenticated. Run 'gh auth login'."
 
   - [ ] Repository exists on GitHub
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       gh repo view
     error_message: "Repository not found on GitHub. Push changes first."
 
   - [ ] Not already configured (idempotency check)
-    tipo: pre-condition
+    type: pre-condition
     blocker: false
-    validação: |
+    validation: |
       Check .aexos/devops-setup-report.yaml existence
     warning_message: "DevOps setup already completed. Use --force to reconfigure."
 ```
@@ -142,23 +142,23 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] GitHub Actions workflows present in .github/workflows/
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Test-Path ".github/workflows/ci.yml"
     error_message: "Workflow installation failed"
 
   - [ ] CodeRabbit config present (if not skipped)
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validação: |
+    validation: |
       Test-Path ".coderabbit.yaml"
     warning_message: "CodeRabbit not configured"
 
   - [ ] DevOps setup report generated
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validação: |
+    validation: |
       Test-Path ".aexos/devops-setup-report.yaml"
     error_message: "Setup report not generated"
 ```
@@ -174,23 +174,23 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] At least ci.yml workflow is installed and valid
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Verify .github/workflows/ci.yml exists and is valid YAML
     error_message: "CI workflow not installed"
 
   - [ ] Workflows are customized for project type
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: false
-    validação: |
+    validation: |
       Check node_version, python_version, etc. match project
     error_message: "Workflow customization failed"
 
   - [ ] Setup report documents all configurations
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       .aexos/devops-setup-report.yaml contains all setup details
     error_message: "Setup report incomplete"
 ```

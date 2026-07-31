@@ -78,9 +78,9 @@ outputs:
 ```yaml
 pre-conditions:
   - [ ] Task is registered; required parameters provided; dependencies met
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check task is registered; required parameters provided; dependencies met
     error_message: "Pre-condition failed: Task is registered; required parameters provided; dependencies met"
 ```
@@ -96,9 +96,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Task completed; exit code 0; expected outputs created
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify task completed; exit code 0; expected outputs created
     error_message: "Post-condition failed: Task completed; exit code 0; expected outputs created"
 ```
@@ -114,9 +114,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Task completed as expected; side effects documented
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert task completed as expected; side effects documented
     error_message: "Acceptance criterion not met: Task completed as expected; side effects documented"
 ```

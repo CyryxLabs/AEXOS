@@ -10,47 +10,47 @@
 
 ```yaml
 task: delegateToExternalExecutor()
-responsavel: Orchestrating agent
-responsavel_type: Agente
+owner: Orchestrating agent
+owner_type: agent
 atomic_layer: Organism
 
 inputs:
-  - campo: prompt
-    tipo: string
-    obrigatorio: true
-    validacao: Must cite acceptance criteria, story path, file scope, and explicit non-goals
-  - campo: slug
-    tipo: string
-    obrigatorio: true
-    validacao: Stable filesystem-safe run slug
-  - campo: story_id
-    tipo: string
-    obrigatorio: false
-  - campo: story_path
-    tipo: string
-    obrigatorio: false
-  - campo: workdir
-    tipo: string
-    obrigatorio: false
+  - field: prompt
+    type: string
+    required: true
+    validation: Must cite acceptance criteria, story path, file scope, and explicit non-goals
+  - field: slug
+    type: string
+    required: true
+    validation: Stable filesystem-safe run slug
+  - field: story_id
+    type: string
+    required: false
+  - field: story_path
+    type: string
+    required: false
+  - field: workdir
+    type: string
+    required: false
     default: Current project root
-  - campo: provider
-    tipo: string
-    obrigatorio: false
+  - field: provider
+    type: string
+    required: false
     default: codex
 
 outputs:
-  - campo: run_dir
-    tipo: string
-    destino: Orchestrator
-  - campo: output
-    tipo: file
-    destino: <run_dir>/output.md
-  - campo: log
-    tipo: file
-    destino: <run_dir>/<provider>.log
-  - campo: diff
-    tipo: git-diff
-    destino: Orchestrator review
+  - field: run_dir
+    type: string
+    destination: Orchestrator
+  - field: output
+    type: file
+    destination: <run_dir>/output.md
+  - field: log
+    type: file
+    destination: <run_dir>/<provider>.log
+  - field: diff
+    type: git-diff
+    destination: Orchestrator review
 ```
 
 ## Configuration

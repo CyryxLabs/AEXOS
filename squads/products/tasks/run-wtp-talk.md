@@ -1,9 +1,9 @@
 ---
 task: Run Willingness To Pay Talk
-responsavel: "@pricing-strategist"
-responsavel_type: agent
+owner: "@pricing-strategist"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - offer_concept: The product or capability under consideration, described as outcomes rather than features (required)
   - feature_set: The features in scope, each to be classified (required)
   - build_status: Whether the offer is pre-build, in build, or already shipped (required)
@@ -11,7 +11,7 @@ Entrada: |
   - positioning_ref: Best-fit segment and value themes from @positioning-lead, when available (optional)
   - current_prices: Existing prices, packages and discount practice, for an audit rather than a new design (optional)
   - output_dir: Directory for monetization artifacts (optional, default: docs/product/pricing/)
-Saida: |
+Output: |
   - wtp_findings: Willingness-to-pay ranges per segment, with the method, the sample and the confidence stated
   - feature_classification: Every feature classified leader, filler or killer, with the supporting evidence
   - killer_list: Features or requirements that measurably reduce willingness to pay, and the segment each affects

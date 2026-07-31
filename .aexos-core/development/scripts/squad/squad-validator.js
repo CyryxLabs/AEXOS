@@ -39,18 +39,30 @@ function loadSchema() {
 const MANIFEST_FILES = ['squad.yaml', 'config.yaml'];
 
 /**
- * Required fields in tasks (TASK-FORMAT-SPECIFICATION-V1)
- * @constant {string[]}
+ * Required fields in tasks (TASK-FORMAT-SPECIFICATION-V1).
+ *
+ * Four of these were Portuguese — `responsavel`, `responsavel_type`, `Entrada`,
+ * `Saida` — in a framework whose every other identifier is English. They are
+ * now named in English, with the old spelling accepted alongside: a task
+ * written before this change is still valid, and a project that pins an older
+ * version of the framework can still be read by a newer validator.
+ *
+ * Canonical name first in each entry; the rest are recognised, never emitted.
+ *
+ * @constant {Array<string[]>}
  */
-const TASK_REQUIRED_FIELDS = [
-  'task',
-  'responsavel',
-  'responsavel_type',
-  'atomic_layer',
-  'Entrada',
-  'Saida',
-  'Checklist',
+const TASK_FIELD_ALIASES = [
+  ['task'],
+  ['owner', 'responsavel'],
+  ['owner_type', 'responsavel_type'],
+  ['atomic_layer'],
+  ['Input', 'Entrada'],
+  ['Output', 'Saida'],
+  ['Checklist'],
 ];
+
+/** Flat list of canonical names, for callers that only need the current spelling. */
+const TASK_REQUIRED_FIELDS = TASK_FIELD_ALIASES.map(([canonical]) => canonical);
 
 /**
  * Error codes for SquadValidatorError
@@ -727,25 +739,27 @@ class SquadValidator {
       const content = await fs.readFile(taskPath, 'utf-8');
 
       // Check for required fields (case-insensitive, handle accents)
-      for (const field of TASK_REQUIRED_FIELDS) {
-        // Create patterns that handle Portuguese accents
-        const patterns = [
-          new RegExp(`^[#*-]*\\s*${field}\\s*:`, 'im'),
+      for (const [canonical, ...legacy] of TASK_FIELD_ALIASES) {
+        // A field satisfies the format under its current name or any earlier
+        // one. The accent variants stay because the Portuguese names were
+        // written both with and without them.
+        const spellings = [canonical, ...legacy];
+        const patterns = spellings.flatMap((name) => [
+          new RegExp(`^[#*-]*\\s*${name}\\s*:`, 'im'),
           new RegExp(
-            `^[#*-]*\\s*${field.replace(/a/g, '[aá]').replace(/i/g, '[ií]')}\\s*:`,
+            `^[#*-]*\\s*${name.replace(/a/g, '[aá]').replace(/i/g, '[ií]')}\\s*:`,
             'im',
           ),
-          // Also check for markdown headers with the field
-          new RegExp(`^#+\\s*${field}`, 'im'),
-        ];
+          new RegExp(`^#+\\s*${name}`, 'im'),
+        ]);
 
         const found = patterns.some((p) => p.test(content));
         if (!found) {
           result.warnings.push({
             code: ValidationErrorCodes.TASK_MISSING_FIELD,
             file: filename,
-            message: `Task missing recommended field: ${field}`,
-            suggestion: `Add "${field}:" to ${filename} (TASK-FORMAT-SPECIFICATION-V1)`,
+            message: `Task missing recommended field: ${canonical}`,
+            suggestion: `Add "${canonical}:" to ${filename} (TASK-FORMAT-SPECIFICATION-V1)`,
           });
         }
       }
@@ -851,5 +865,6 @@ module.exports = {
   SquadValidator,
   ValidationErrorCodes,
   TASK_REQUIRED_FIELDS,
+  TASK_FIELD_ALIASES,
   MANIFEST_FILES,
 };

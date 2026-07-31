@@ -1,14 +1,14 @@
 ---
 task: Audit Claude Code Settings
-responsavel: "@config-engineer"
-responsavel_type: agent
+owner: "@config-engineer"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_root: Working directory to audit; must contain .claude/ or be a project root (required)
   - check_managed: Whether to inspect the platform managed-settings.json (optional, default true)
   - settings_layers: The five precedence layers that exist on disk — managed, local, shared, user (at least .claude/settings.json required)
   - aexos_marker: Presence of .aexos-core/ , which activates the AEXOS-specific deny-rule checks (optional)
-Saida: |
+Output: |
   - layer_summary: Per layer — path, existence, deny/allow counts and declared permission mode
   - effective_config: Effective permission mode and its source layer, merged deny/allow totals, MCP and hook counts
   - conflicts: Rule, mode, array-merge and hook conflicts found between layers

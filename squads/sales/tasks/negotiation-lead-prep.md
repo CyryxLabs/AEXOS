@@ -1,16 +1,16 @@
 ---
 task: Prepare Commercial Negotiation
-responsavel: "@negotiation-lead"
-responsavel_type: agent
+owner: "@negotiation-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - deal: The deal being negotiated (required)
   - qualification_record: Qualification record confirming economic buyer and decision process (required — gate)
   - stated_positions: Everything the counterparty has asked for, verbatim, with who said it and when (required)
   - approved_structure: The commercial structure approved by @products:pricing-strategist that this negotiation operates inside (required)
   - counterparty_communications: Emails, messages and documents from the counterparty, with dates (optional)
   - our_constraints: Real constraints on our side — approval cycles, capacity, delivery dates (optional)
-Saida: |
+Output: |
   - interest_map: Each stated position with at least two candidate interests, marked VERIFIED or INFERRED
   - walk_away: The terms below which no agreement is better than agreement, plus who may change it and how
   - leverage_read: Alternatives on both sides, our weak points stated plainly, and who needs this more

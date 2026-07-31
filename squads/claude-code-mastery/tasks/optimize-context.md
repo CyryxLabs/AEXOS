@@ -1,15 +1,15 @@
 ---
 task: Optimize Context Window Usage
-responsavel: "@config-engineer"
-responsavel_type: agent
+owner: "@config-engineer"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_root: Working directory that must contain CLAUDE.md or .claude/CLAUDE.md (required)
   - target_lines: Target maximum line count for CLAUDE.md (optional, default 200)
   - dry_run: Report only, without applying any change (optional)
   - claude_md_files: ./CLAUDE.md, ./.claude/CLAUDE.md, ./CLAUDE.local.md and ~/.claude/CLAUDE.md as present (required)
   - auto_memory_dir: ~/.claude/projects/{project-hash}/memory/, read for staleness (optional)
-Saida: |
+Output: |
   - size_analysis: Per file line count, section count, estimated tokens and @import inventory
   - section_categorization: Each section labelled core, conditional, reference or redundant with a keep/move/import/remove recommendation
   - new_rule_files: .claude/rules/{section-name}.md files carrying the moved conditional content, with paths: frontmatter

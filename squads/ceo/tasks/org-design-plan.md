@@ -1,16 +1,16 @@
 ---
 task: Organisation Design Plan
-responsavel: "@org-designer"
-responsavel_type: agent
+owner: "@org-designer"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - guiding_policy: The current diagnosis and guiding policy from @strategy-lead (required)
   - roles_in_scope: The management roles and teams the design covers (required)
   - calendar_data: Two to four weeks of observed calendar and meeting data (required for the leverage and cadence steps)
   - decision_log: Last quarter of decisions, escalations or tickets, used to derive real decision rights (required)
   - key_processes: The work processes to be modelled as production (optional)
   - existing_structure: Current org chart and reporting lines, if documented (optional)
-Saida: |
+Output: |
   - output_definitions: Per management role, the team output plus the neighbouring output influenced
   - limiting_steps: Per key process, the limiting step with its evidence
   - indicator_set: Paired indicators with owner, frequency and the action each movement triggers

@@ -1,15 +1,15 @@
 ---
 task: Diagnose And Route An Operations Request
-responsavel: "@ops-chief"
-responsavel_type: agent
+owner: "@ops-chief"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - request: The operations request in the requester's own words (required)
   - is_active_failure: Whether something is failing right now (required, yes/no)
   - implied_action: Any action the request implies on a running system (optional)
   - existing_artifacts: Paths to operational policies already written for this system (optional)
   - requester: Who is asking and what decision they must make (optional)
-Saida: |
+Output: |
   - authority_note: Which agent is authorized to perform any implied action, produced before routing
   - restatement: The request restated in the owning discipline's vocabulary, confirmed with the requester
   - owner: Exactly one owning specialist, with the near-miss disciplines and why each was excluded

@@ -528,22 +528,22 @@ Create a new file in `.aexos-core/development/tasks/`:
 
 ```yaml
 task: myTaskFunction()
-responsável: AgentName
-responsavel_type: Agente
+owner: AgentName
+owner_type: agent
 atomic_layer: Config
 
-**Entrada:**
-- campo: inputName
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Must be non-empty
+**Input:**
+- field: inputName
+  type: string
+  source: User Input
+  required: true
+  validation: Must be non-empty
 
-**Saída:**
-- campo: outputName
-  tipo: string
-  destino: File system
-  persistido: true
+**Output:**
+- field: outputName
+  type: string
+  destination: File system
+  persisted: true
 ```
 ````
 

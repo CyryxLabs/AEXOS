@@ -1,15 +1,15 @@
 ---
 task: Diagnose And Route Marketing Request
-responsavel: "@marketing-chief"
-responsavel_type: agent
+owner: "@marketing-chief"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - request: The marketing request, recorded in the requester's own words (required)
   - initiative: Name of the initiative or campaign the request belongs to (optional)
   - position_artifact: Path to the current position owned by @products:positioning-lead (optional)
   - existing_artifacts: Paths to squad artifacts already produced for this initiative (optional)
   - requester: Who is asking and what decision they must take (optional)
-Saida: |
+Output: |
   - verbatim_record: The request as stated, captured before any reframe
   - restatement: The request restated in the owning discipline's vocabulary, confirmed aloud
   - owner: Exactly one owning specialist id, or one named out-of-squad owner

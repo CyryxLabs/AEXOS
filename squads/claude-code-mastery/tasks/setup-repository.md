@@ -1,15 +1,15 @@
 ---
 task: Set Up Repository with Claude Code Integration
-responsavel: "@project-integrator"
-responsavel_type: agent
+owner: "@project-integrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_path: Existing writable target directory (required)
   - project_type: monorepo, fullstack, frontend, backend, library or mobile (required)
   - team_size: solo, small (2-5), medium (6-15) or enterprise (15+) (optional)
   - existing_git: Auto-detected from the presence of .git/ (optional)
   - environment: Node.js 18+ on PATH and git configured with user.name and user.email (required precondition)
-Saida: |
+Output: |
   - git_repository: Initialized repository with an initial .gitignore, or the noted existing branch and history
   - claude_directory: .claude/ tree with CLAUDE.md, settings.json, settings.local.json, rules/, commands/, skills/ and agent-memory/
   - claude_md: Project context, build and test commands, code standards, file structure, protected files and common patterns, under 150 lines

@@ -42,16 +42,22 @@ async function _loadSchema(schemaPath) {
 
 /**
  * Clean YAML content by removing markdown formatting inside YAML blocks
+ *
+ * Section headers are written bold — `**Input:**` — which is not valid YAML,
+ * so each is rewritten to the plain key the schema expects. Both the English
+ * headers and the Portuguese ones they replaced are handled: tasks written
+ * before the rename are still readable.
  */
 function cleanYamlContent(yamlContent) {
-  // Replace markdown bold headers with valid YAML keys
-  // e.g., "**Entrada:**" -> "inputs:"
   const cleaned = yamlContent
+    .replace(/\*\*Input:\*\*/g, 'inputs:')
     .replace(/\*\*Entrada:\*\*/g, 'inputs:')
+    .replace(/\*\*Output:\*\*/g, 'outputs:')
     .replace(/\*\*Saida:\*\*/g, 'outputs:')
     .replace(/\*\*Saída:\*\*/g, 'outputs:')
     .replace(/\*\*Steps:\*\*/g, 'steps:')
     .replace(/\*\*Passos:\*\*/g, 'steps:')
+    .replace(/\*\*Pre-conditions:\*\*/g, 'preConditions:')
     .replace(/\*\*Pre-condições:\*\*/g, 'preConditions:')
     .replace(/\*\*Pré-condições:\*\*/g, 'preConditions:');
 

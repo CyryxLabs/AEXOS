@@ -1,15 +1,15 @@
 ---
 task: Identify The System Constraint
-responsavel: "@flow-lead"
-responsavel_type: agent
+owner: "@flow-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - value_stream: The stages from work entering the system to value being delivered (required)
   - queue_evidence: Items waiting per stage and the age of the oldest item (required; anecdote is not evidence)
   - state_times: Median work time and median wait time per stage (optional but strongly preferred)
   - proposal_on_table: Any improvement, hire or investment already being proposed (optional)
   - existing_policies: Approval rules, batch rules, release windows and handoff agreements in force (optional)
-Saida: |
+Output: |
   - constraint: Exactly one named step that sets throughput, with the evidence behind the claim
   - constraint_type: Capacity, policy, skill, dependency or market
   - excluded_candidates: Other candidates with the reason each was excluded

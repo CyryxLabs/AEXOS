@@ -70,13 +70,13 @@ pre-conditions:
 post-conditions:
   - [ ] Commands installed in PATH
     blocker: true
-    validação: |
+    validation: |
       Windows: where claude-free.cmd
       Unix: which claude-free
 
   - [ ] DEEPSEEK_API_KEY available (for claude-free)
     blocker: false
-    validação: |
+    validation: |
       Check .env file or environment variable
 ```
 
@@ -88,15 +88,15 @@ post-conditions:
 acceptance-criteria:
   - [ ] claude-max command works
     blocker: true
-    validação: claude-max --version
+    validation: claude-max --version
 
   - [ ] claude-free command works (with API key)
     blocker: true
-    validação: claude-free --version
+    validation: claude-free --version
 
   - [ ] Tool calling works with DeepSeek
     blocker: true
-    validação: Test function call succeeds
+    validation: Test function call succeeds
 ```
 
 ---

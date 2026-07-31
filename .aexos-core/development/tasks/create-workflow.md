@@ -45,56 +45,56 @@ Before proceeding, check the Entity Registry for existing artifacts:
 
 ```yaml
 task: createWorkflow()
-responsável: Zeus (Commander)
-responsavel_type: Agente
+owner: Zeus (Commander)
+owner_type: agent
 atomic_layer: Config
 
-**Entrada:**
-- campo: name
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Must be non-empty, lowercase, kebab-case
+**Input:**
+- field: name
+  type: string
+  source: User Input
+  required: true
+  validation: Must be non-empty, lowercase, kebab-case
 
-- campo: target_context
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: Must be "core", "squad", or "hybrid". Default: "core"
+- field: target_context
+  type: string
+  source: User Input
+  required: false
+  validation: Must be "core", "squad", or "hybrid". Default: "core"
 
-- campo: squad_name
-  tipo: string
-  origem: User Input
-  obrigatório: false (required when target_context="squad" or "hybrid")
-  validação: Must be kebab-case, squad must exist in squads/
+- field: squad_name
+  type: string
+  source: User Input
+  required: false (required when target_context="squad" or "hybrid")
+  validation: Must be kebab-case, squad must exist in squads/
 
-- campo: options
-  tipo: object
-  origem: User Input
-  obrigatório: false
-  validação: Valid JSON object with allowed keys
+- field: options
+  type: object
+  source: User Input
+  required: false
+  validation: Valid JSON object with allowed keys
 
-- campo: force
-  tipo: boolean
-  origem: User Input
-  obrigatório: false
-  validação: Default: false
+- field: force
+  type: boolean
+  source: User Input
+  required: false
+  validation: Default: false
 
-**Saída:**
-- campo: created_file
-  tipo: string
-  destino: File system
-  persistido: true
+**Output:**
+- field: created_file
+  type: string
+  destination: File system
+  persisted: true
 
-- campo: validation_report
-  tipo: object
-  destino: Memory
-  persistido: false
+- field: validation_report
+  type: object
+  destination: Memory
+  persisted: false
 
-- campo: success
-  tipo: boolean
-  destino: Return value
-  persistido: false
+- field: success
+  type: boolean
+  destination: Return value
+  persisted: false
 ```
 
 ---
@@ -108,15 +108,15 @@ atomic_layer: Config
 ```yaml
 pre-conditions:
   - [ ] Target does not already exist; required inputs provided; permissions granted
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check target does not already exist; required inputs provided; permissions granted
     error_message: "Pre-condition failed: Target does not already exist; required inputs provided; permissions granted"
   - [ ] When target_context="squad" or "hybrid", squad directory must exist at squads/{squad_name}/
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       If target_context is "squad" or "hybrid", verify squads/{squad_name}/ exists and has a valid squad.yaml
     error_message: "Pre-condition failed: Squad '{squad_name}' not found in squads/"
 ```
@@ -132,9 +132,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Resource created successfully; validation passed; no errors logged
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify resource created successfully; validation passed; no errors logged
     error_message: "Post-condition failed: Resource created successfully; validation passed; no errors logged"
 ```
@@ -150,9 +150,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Resource exists and is valid; no duplicate resources created
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert resource exists and is valid; no duplicate resources created
     error_message: "Acceptance criterion not met: Resource exists and is valid; no duplicate resources created"
 ```

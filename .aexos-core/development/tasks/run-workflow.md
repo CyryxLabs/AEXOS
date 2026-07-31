@@ -27,56 +27,56 @@
 
 ```yaml
 task: runWorkflow()
-responsavel: Zeus (Commander)
-responsavel_type: Agente
+owner: Zeus (Commander)
+owner_type: agent
 atomic_layer: Config
 
-**Entrada:**
-- campo: workflow_name
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Must match an existing workflow YAML file
+**Input:**
+- field: workflow_name
+  type: string
+  source: User Input
+  required: true
+  validation: Must match an existing workflow YAML file
 
-- campo: target_context
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: Must be "core", "squad", or "hybrid". Default: "core"
+- field: target_context
+  type: string
+  source: User Input
+  required: false
+  validation: Must be "core", "squad", or "hybrid". Default: "core"
 
-- campo: squad_name
-  tipo: string
-  origem: User Input
-  obrigatório: false (required when target_context="squad" or "hybrid")
-  validação: Must be kebab-case, squad must exist in squads/
+- field: squad_name
+  type: string
+  source: User Input
+  required: false (required when target_context="squad" or "hybrid")
+  validation: Must be kebab-case, squad must exist in squads/
 
-- campo: action
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: Must be "start", "continue", "status", "skip", or "abort". Default: "continue"
+- field: action
+  type: string
+  source: User Input
+  required: false
+  validation: Must be "start", "continue", "status", "skip", or "abort". Default: "continue"
 
-- campo: mode
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: Must be "guided" or "engine". Default: "guided"
+- field: mode
+  type: string
+  source: User Input
+  required: false
+  validation: Must be "guided" or "engine". Default: "guided"
 
-**Saída:**
-- campo: workflow_state
-  tipo: object
-  destino: File system (.aexos/{instance-id}-state.yaml)
-  persistido: true
+**Output:**
+- field: workflow_state
+  type: object
+  destination: File system (.aexos/{instance-id}-state.yaml)
+  persisted: true
 
-- campo: next_steps
-  tipo: array
-  destino: Output
-  persistido: false
+- field: next_steps
+  type: array
+  destination: Output
+  persisted: false
 
-- campo: handoff_prompt
-  tipo: string
-  destino: Output
-  persistido: false
+- field: handoff_prompt
+  type: string
+  destination: Output
+  persisted: false
 ```
 
 ---
@@ -90,21 +90,21 @@ atomic_layer: Config
 ```yaml
 pre-conditions:
   - [ ] workflow_name must resolve to an existing YAML file
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check workflow file exists at resolved path
     error_message: "Pre-condition failed: Workflow '{workflow_name}' not found"
   - [ ] For action=continue/status/skip/abort, an active state file must exist
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check .aexos/{instance-id}-state.yaml exists with status=active
     error_message: "Pre-condition failed: No active workflow instance found"
   - [ ] When target_context="squad" or "hybrid", squad directory must exist
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       If target_context is "squad" or "hybrid", verify squads/{squad_name}/ exists
     error_message: "Pre-condition failed: Squad '{squad_name}' not found"
 ```
@@ -120,9 +120,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] State file created/updated and next steps displayed
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify state file exists and output was generated
     error_message: "Post-condition failed: State file not written or output missing"
 ```
@@ -138,9 +138,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Action executed correctly; state persisted; next steps shown
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert action was completed and state reflects the change
     error_message: "Acceptance criterion not met: Action execution failed"
 ```

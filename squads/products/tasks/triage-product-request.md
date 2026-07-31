@@ -1,15 +1,15 @@
 ---
 task: Triage Product Request
-responsavel: "@products-chief"
-responsavel_type: agent
+owner: "@products-chief"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - request: The product question or problem as the requester stated it, verbatim (required)
   - requester: Who is asking and what decision they need to make (required)
   - existing_artifacts: Paths to squad artifacts already produced for this initiative (optional, default: none)
   - deadline: When the decision must be made (optional, default: none)
   - output_dir: Directory for the triage record (optional, default: docs/product/triage/)
-Saida: |
+Output: |
   - triage_record: Versioned markdown file with restatement, reframe, named owner, excluded near misses, short answer, and handoff brief
   - owner: Exactly one squad agent id that owns the request
   - sequence: Ordered specialist list when more than one discipline is genuinely required, with the input each one needs

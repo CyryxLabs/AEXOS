@@ -1,14 +1,14 @@
 ---
 task: Design Squad from Documentation
-responsavel: "@squad-creator"
-responsavel_type: agent
+owner: "@squad-creator"
+owner_type: agent
 atomic_layer: task
 elicit: true
-Entrada: |
+Input: |
   - docs: Documentation sources (text, files, or verbal description)
   - domain: Optional domain hint to guide analysis
   - output_path: Where to save blueprint (default: ./squads/.designs/)
-Saida: |
+Output: |
   - blueprint_path: Path to generated squad-design.yaml
   - summary: Human-readable summary of recommendations
   - confidence: Overall confidence score (0-1)
@@ -112,12 +112,12 @@ Recommended Agent 2 of 3:
 Tasks for order-manager:
 
   1. create-order.md (90% confidence)
-     Entrada: customer_id, items[], payment_method
-     Saida: order_id, status, total
+     Input: customer_id, items[], payment_method
+     Output: order_id, status, total
 
   2. update-order.md (85% confidence)
-     Entrada: order_id, updates{}
-     Saida: updated_order, changelog
+     Input: order_id, updates{}
+     Output: updated_order, changelog
 
   [A]ccept all / Review [1-2] / [R]eject all
 > A

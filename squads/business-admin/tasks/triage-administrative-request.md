@@ -1,14 +1,14 @@
 ---
 task: Triage Administrative Request
-responsavel: "@admin-chief"
-responsavel_type: agent
+owner: "@admin-chief"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - request: The administrative question or initiative, in the requester's own words (required)
   - decision: The business decision that depends on the answer, and its deadline (optional)
   - existing_artefacts: Squad artefacts already produced for this initiative, with their dates (optional)
   - contentious_signal: Whether the matter is, or could become, a dispute, claim or demand (optional, default: unknown)
-Saida: |
+Output: |
   - gate_verdict: inside | outside | split, with the licensed professional named for every outside part
   - referral_questions: One written question per outward referral, plus the list of what to bring that professional
   - restatement: The request expressed in the owning discipline's vocabulary, confirmed by the requester

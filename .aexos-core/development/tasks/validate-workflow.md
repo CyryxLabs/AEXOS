@@ -27,63 +27,63 @@
 
 ```yaml
 task: validateWorkflow()
-responsavel: Zeus (Commander)
-responsavel_type: Agente
+owner: Zeus (Commander)
+owner_type: agent
 atomic_layer: Config
 
-**Entrada:**
-- campo: workflow_path
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: Path to specific workflow YAML file
+**Input:**
+- field: workflow_path
+  type: string
+  source: User Input
+  required: false
+  validation: Path to specific workflow YAML file
 
-- campo: workflow_name
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: Resolves to workflow file by name
+- field: workflow_name
+  type: string
+  source: User Input
+  required: false
+  validation: Resolves to workflow file by name
 
-- campo: target_context
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: Must be "core", "squad", or "hybrid". Default: "core"
+- field: target_context
+  type: string
+  source: User Input
+  required: false
+  validation: Must be "core", "squad", or "hybrid". Default: "core"
 
-- campo: squad_name
-  tipo: string
-  origem: User Input
-  obrigatório: false (required when target_context="squad" or "hybrid")
-  validação: Must be kebab-case, squad must exist in squads/
+- field: squad_name
+  type: string
+  source: User Input
+  required: false (required when target_context="squad" or "hybrid")
+  validation: Must be kebab-case, squad must exist in squads/
 
-- campo: strict
-  tipo: boolean
-  origem: User Input
-  obrigatório: false
-  validação: Default: false. When true, warnings become errors
+- field: strict
+  type: boolean
+  source: User Input
+  required: false
+  validation: Default: false. When true, warnings become errors
 
-- campo: all
-  tipo: boolean
-  origem: User Input
-  obrigatório: false
-  validação: Default: false. When true, validate all workflows in context
+- field: all
+  type: boolean
+  source: User Input
+  required: false
+  validation: Default: false. When true, validate all workflows in context
 
-**Saída:**
-- campo: validation_result
-  tipo: object
-  destino: Memory
-  persistido: false
+**Output:**
+- field: validation_result
+  type: object
+  destination: Memory
+  persisted: false
 
-- campo: report
-  tipo: string
-  destino: Output
-  persistido: false
+- field: report
+  type: string
+  destination: Output
+  persisted: false
 
-- campo: exit_code
-  tipo: number
-  destino: Return value
-  persistido: false
-  validação: 0=valid, 1=invalid
+- field: exit_code
+  type: number
+  destination: Return value
+  persisted: false
+  validation: 0=valid, 1=invalid
 ```
 
 ---
@@ -97,15 +97,15 @@ atomic_layer: Config
 ```yaml
 pre-conditions:
   - [ ] At least one of workflow_path, workflow_name, or all flag must be provided
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check that workflow_path OR workflow_name OR all=true is provided
     error_message: "Pre-condition failed: Must specify workflow_path, workflow_name, or --all flag"
   - [ ] When target_context="squad", squad directory must exist
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       If target_context is "squad", verify squads/{squad_name}/ exists
     error_message: "Pre-condition failed: Squad '{squad_name}' not found in squads/"
 ```
@@ -121,9 +121,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Validation report generated and displayed
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify validation report was generated with errors/warnings/result
     error_message: "Post-condition failed: Validation report not generated"
 ```
@@ -139,9 +139,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] All specified workflow files validated; report displayed; exit code returned
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert each workflow file was validated and results consolidated
     error_message: "Acceptance criterion not met: Validation incomplete"
 ```

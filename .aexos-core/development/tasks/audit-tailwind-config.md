@@ -31,44 +31,44 @@
 
 ```yaml
 task: auditTailwindConfig()
-responsável: Iris (Empathizer)
-responsavel_type: Agente
+owner: Iris (Empathizer)
+owner_type: agent
 atomic_layer: Strategy
 
-**Entrada:**
-- campo: target
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Valid path or identifier
+**Input:**
+- field: target
+  type: string
+  source: User Input
+  required: true
+  validation: Valid path or identifier
 
-- campo: options
-  tipo: object
-  origem: config
-  obrigatório: false
-  validação: Analysis configuration
+- field: options
+  type: object
+  source: config
+  required: false
+  validation: Analysis configuration
 
-- campo: depth
-  tipo: number
-  origem: User Input
-  obrigatório: false
-  validação: Default: 1 (0-3)
+- field: depth
+  type: number
+  source: User Input
+  required: false
+  validation: Default: 1 (0-3)
 
-**Saída:**
-- campo: analysis_report
-  tipo: object
-  destino: File (.ai/*.json)
-  persistido: true
+**Output:**
+- field: analysis_report
+  type: object
+  destination: File (.ai/*.json)
+  persisted: true
 
-- campo: findings
-  tipo: array
-  destino: Memory
-  persistido: false
+- field: findings
+  type: array
+  destination: Memory
+  persisted: false
 
-- campo: metrics
-  tipo: object
-  destino: Memory
-  persistido: false
+- field: metrics
+  type: object
+  destination: Memory
+  persisted: false
 ```
 
 ---
@@ -82,9 +82,9 @@ atomic_layer: Strategy
 ```yaml
 pre-conditions:
   - [ ] Target exists and is accessible; analysis tools available
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check target exists and is accessible; analysis tools available
     error_message: "Pre-condition failed: Target exists and is accessible; analysis tools available"
 ```
@@ -100,9 +100,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Analysis complete; report generated; no critical issues
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify analysis complete; report generated; no critical issues
     error_message: "Post-condition failed: Analysis complete; report generated; no critical issues"
 ```
@@ -118,9 +118,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Analysis accurate; all targets covered; report complete
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert analysis accurate; all targets covered; report complete
     error_message: "Acceptance criterion not met: Analysis accurate; all targets covered; report complete"
 ```

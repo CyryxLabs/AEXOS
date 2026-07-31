@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.3.0
-generated_at: "2026-07-31T21:40:37.257Z"
+generated_at: "2026-07-31T22:38:47.920Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1167
 files:
@@ -893,9 +893,9 @@ files:
     type: core
     size: 26871
   - path: core/orchestration/checklist-runner.js
-    hash: sha256:6755b44e81c1ea6edfbf5ed82a31c4790ec74cbf1ba080bbb651938c885ae93b
+    hash: sha256:2b634def23b60ae7b9d816074aa5c47eaa0490e920c2e7376c67ecc3cc56f10b
     type: core
-    size: 10095
+    size: 10263
   - path: core/orchestration/cli-commands.js
     hash: sha256:49be140b55189b4203364874eb4ff4c4758d812f975ab8e28bb80a72941bd3bf
     type: core
@@ -1757,9 +1757,9 @@ files:
     type: script
     size: 21727
   - path: development/scripts/migrate-task-to-v2.js
-    hash: sha256:dcc38f2fe1ffb4872ebdf12e57e1675b12cba299c39e7fa07c1c46f3b15b9684
+    hash: sha256:fe8725c2b73a8ecfa0645e14e0a20745d28e1af5bd17a24586901956d30f923e
     type: script
-    size: 9452
+    size: 9863
   - path: development/scripts/modification-validator.js
     hash: sha256:1f9dd02a1b0bc66064f094abb0eb83adb6905ca582a979e45bfe63167dcae33b
     type: script
@@ -1793,9 +1793,9 @@ files:
     type: script
     size: 9927
   - path: development/scripts/squad/index.js
-    hash: sha256:110e88f0ef0c2d0df52c17be392bbe9e11cf1d0e1c690d33e20c2f5401b39be6
+    hash: sha256:1d5d5c7158cc19b5908e5859704e18e752d1c82d7eb2e3f953cf50af4703245d
     type: script
-    size: 2652
+    size: 2696
   - path: development/scripts/squad/README.md
     hash: sha256:5870c604cbc1e654e5baf4dcf64044c5d796e5825dbe54f3b2682347b68f8630
     type: script
@@ -1805,21 +1805,21 @@ files:
     type: script
     size: 18185
   - path: development/scripts/squad/squad-designer.js
-    hash: sha256:101cbb7d6ded0d6f991b29ac63dfee2c7bb86cbc8c4fefef728b7d12c3352829
+    hash: sha256:038f2ffdf7da23b8328c14967e143ec91b94207dcec02cbe7951c4f4efe477a7
     type: script
-    size: 29548
+    size: 29534
   - path: development/scripts/squad/squad-downloader.js
     hash: sha256:b8b82be3b11471deb8233bd1bb0d8700d69ca5c9f2960ae5087794c0a87512a3
     type: script
     size: 15347
   - path: development/scripts/squad/squad-extender.js
-    hash: sha256:511361a2fea4c3000e6f065374f48adb77605394eb21fbf4dbcc8c72a1cd79d6
+    hash: sha256:d5bd2c3cb643577a0fd9cc5df9d34fa7e3e2d0c67bfbfb4760ff10f67c57e7f1
     type: script
-    size: 20647
+    size: 20635
   - path: development/scripts/squad/squad-generator.js
-    hash: sha256:4d38c9ede5973222a17fe2a000cd8ece4cd55d29d3b5b26c7fa6b7d80b2abbc6
+    hash: sha256:25f971fc14334015bba2ad9add78ed41198a7d4f65b6369c4030a6e657e81d38
     type: script
-    size: 44066
+    size: 44249
   - path: development/scripts/squad/squad-loader.js
     hash: sha256:7093b9457c93da6845722bf7eac660164963d5007c459afae2149340a7979f1f
     type: script
@@ -1833,9 +1833,9 @@ files:
     type: script
     size: 18737
   - path: development/scripts/squad/squad-validator.js
-    hash: sha256:52d847e456bbd5ba164356d42ba07961d98350189448454ee60b5cdbefb3af60
+    hash: sha256:716bf955e4dce562882c4f5411e9a8ce3ba540872b011e8b60dd0893eacab76d
     type: script
-    size: 25154
+    size: 26059
   - path: development/scripts/story-index-generator.js
     hash: sha256:ca311ee2e2dedecb1bc2ecfc616bed026cca414bca7261218036735a17425883
     type: script
@@ -1885,13 +1885,13 @@ files:
     type: script
     size: 6251
   - path: development/scripts/validate-task-v2.js
-    hash: sha256:c3bd0267250b098c65a7f8c27c75547e55c9b6de6d93e1cbb9aebfa9c6a639e2
+    hash: sha256:d68103c379a7d3c9b392ebfe7e4edbac9cbabc5774c301fb0e6eab22d9870560
     type: script
-    size: 9930
+    size: 10249
   - path: development/scripts/verify-workflow-gaps.js
-    hash: sha256:eb48576d353086443b3fcacfe36541cee11ed36eb7510339d7dfe77465671711
+    hash: sha256:890d8c2267868e2762eda801289b49b766ee4f54daf70992cfd4380e87c7260a
     type: script
-    size: 33454
+    size: 33716
   - path: development/scripts/version-tracker.js
     hash: sha256:b414a8fe009e49a8399f6ddd7ad5df724809e715005d99c57cdee39f0a5d670d
     type: script
@@ -1945,17 +1945,17 @@ files:
     type: development
     size: 5190
   - path: development/tasks/add-mcp.md
-    hash: sha256:80da082988c26b8dcc420df85b0b96d8e4e5f2c87ca6c500a39d898891a94e78
+    hash: sha256:f282f70feee7aa8e30f5eeaf95fde07296df928d6853943ff736c02c4729c431
     type: task
-    size: 10211
+    size: 10203
   - path: development/tasks/advanced-elicitation.md
-    hash: sha256:5fe460777557c4739b5f6340a818dde63ce69258e33c51837d94bfdb5c49bd3a
+    hash: sha256:7bd450ffb18f5e9b735da539fee1f28b21d0aa1a9270c0b0d9825e2ed68e751f
     type: task
-    size: 8746
+    size: 8743
   - path: development/tasks/analyst-facilitate-brainstorming.md
-    hash: sha256:13c40df7879c635c6e8ed02c62fec496a99c0a40b94829acd4480e0db398b31e
+    hash: sha256:d952273987b261ea5cecb95d6f7638b62225965401d94197f9195f5a9c5c6c2e
     type: task
-    size: 9176
+    size: 9151
   - path: development/tasks/analyze-brownfield.md
     hash: sha256:422ccab61090061e5996c230ea93169f6b4763c22dc87920d6969ab2d299a758
     type: task
@@ -1965,37 +1965,37 @@ files:
     type: task
     size: 7711
   - path: development/tasks/analyze-framework.md
-    hash: sha256:89d2fd6b063c181902b640261377595c403dc878dd781b5c57e440a3e25ef7bb
+    hash: sha256:af0adb5f10f3f4a31c77cfed944dcd769d5b61cec11926d16d06ffbb6e920826
     type: task
-    size: 21868
+    size: 21843
   - path: development/tasks/analyze-performance.md
-    hash: sha256:e98b88f9e1eb68174eaa4e0acfb391ee91a0e5146f8f7dacf7c26c266d487c17
+    hash: sha256:4cb272b3f1cc76727b0cbc6b12410ba5280dcf69679114facd247022f7fc3cd9
     type: task
-    size: 15470
+    size: 15445
   - path: development/tasks/analyze-project-structure.md
     hash: sha256:ec840409fde1ae76587befe2d5756b755885f610203b238e1bda5bce06083409
     type: task
     size: 16175
   - path: development/tasks/apply-qa-fixes.md
-    hash: sha256:046e066029a495e27fecae50802f7e4fc310a65afb833ebdf891c8f7cb90190a
+    hash: sha256:15d24709b8e4d6299e928dbab215dc2101a25a39fd841169ef6a259e054f1ee8
     type: task
-    size: 9114
+    size: 9089
   - path: development/tasks/architect-analyze-impact.md
-    hash: sha256:247f7bfc107a123d377446fae7235e1d4b83938a5c4170f1025189bb01e00f23
+    hash: sha256:2b6aa2d52d6cd29ac4631b9ebb57cf1a125b639e370807be554b411b4f42d01f
     type: task
-    size: 26721
+    size: 26696
   - path: development/tasks/audit-codebase.md
-    hash: sha256:297a794050b0763087e5d9cd30b701d23801be2a8de68b1f06957b82b1684a56
+    hash: sha256:7c62792bffe5ef8ae06a47f1991102e2d974222aee613af223bd13845eda6d2c
     type: task
-    size: 10814
+    size: 10789
   - path: development/tasks/audit-tailwind-config.md
-    hash: sha256:66faea128e123790543800e10e364e30d9a4eccec437c3ac30991b2b8cfa3c9b
+    hash: sha256:51b16d79430347379c095098e3fbe9d69c2a211df58c56a5a1bc83824bb404fc
     type: task
-    size: 7685
+    size: 7660
   - path: development/tasks/audit-utilities.md
-    hash: sha256:204d041d874211f16f0afc23d6a4a3a9fbd8226d9ba47cee4c4dbd39015a6674
+    hash: sha256:079b75bba7fe12817bcb5f54c47ac9bc313de3071969433868509ab9d197be85
     type: task
-    size: 8420
+    size: 8395
   - path: development/tasks/blocks/agent-prompt-template.md
     hash: sha256:142158bb472b333382261e91b91bf42cc51c3945ee65cb63b318b7fb487c644c
     type: task
@@ -2017,25 +2017,25 @@ files:
     type: task
     size: 5291
   - path: development/tasks/bootstrap-shadcn-library.md
-    hash: sha256:d73f7983fc819d89140576222d4c180f04d59d2feb971c9daf4f7eff4c04bb53
+    hash: sha256:b459b78bea83b3bbadc0299d8de501829e3fbe77ce0d3a41481a4bc05ba190c0
     type: task
-    size: 7615
+    size: 7590
   - path: development/tasks/brownfield-create-epic.md
-    hash: sha256:972f348a9e2349df2bb1eefd8f6ead5a2048e43b4cec039a6390795ca25a15b5
+    hash: sha256:8c4dda24f13a53ecbe9229ec661d0113f3c87a8a4a9f5ff3107820e12f5cb25c
     type: task
-    size: 17908
+    size: 17883
   - path: development/tasks/brownfield-create-story.md
-    hash: sha256:21760b04429810a4a843b32e215a352bd2c6f1a24b993c37164e07cf4e938b9f
+    hash: sha256:e106071b115c7dcc27613319a65a7148544ca60954f4f9b0e537835a1b288f58
     type: task
-    size: 9234
+    size: 9209
   - path: development/tasks/build-autonomous.md
     hash: sha256:0d8fa4c56dbcfd27265c385981e183e3134c0589b5a5849d614c03a83f6e877d
     type: task
     size: 6283
   - path: development/tasks/build-component.md
-    hash: sha256:6983350d012b71795c4c92f05a0730ccefff0b209f310feea5ea587c9a01aedb
+    hash: sha256:7aaf9cb06a8b99a00011d2fc5edc028e82f23b701e43f5817130f65565754be8
     type: task
-    size: 14019
+    size: 13994
   - path: development/tasks/build-resume.md
     hash: sha256:920b1faa39d021fd7c0013b5d2ac4f66ac6de844723821b65dfaceba41d37885
     type: task
@@ -2049,197 +2049,197 @@ files:
     type: task
     size: 4391
   - path: development/tasks/calculate-roi.md
-    hash: sha256:63853f3bba6546c635591013ce6f5867e870db394a14f4b174d7699573460e10
+    hash: sha256:73770399fc5798cdf4757bc4fcc9b54cc41e95579529b23bfc1f5b9e4a0f1497
     type: task
-    size: 11531
+    size: 11506
   - path: development/tasks/check-docs-links.md
     hash: sha256:9a7e1400d894777caa607486ff78b77ea454e4ace1c16d54308533ecc7f2c015
     type: task
     size: 3082
   - path: development/tasks/ci-cd-configuration.md
-    hash: sha256:acb25e86c572c52e2929d5f92809bc13b32dc1053ec74698a46003b75f4b9a35
+    hash: sha256:14e6e3b8b59640755ecce3d805d292e6fe9a35d245ce968265deaeed77e6935d
     type: task
-    size: 20859
+    size: 20834
   - path: development/tasks/cleanup-utilities.md
-    hash: sha256:020cd00e4dd7987ab395c4a8c94952b1df734930a9b9c1ff24ce0f239bffeff0
+    hash: sha256:bd110ad763fa64de1f1edb88fbc99ff10e9806924f9d0e654194208a19edab38
     type: task
-    size: 17825
+    size: 17800
   - path: development/tasks/cleanup-worktrees.md
     hash: sha256:10d9fab42ba133a03f76094829ab467d2ef53b80bcc3de39245805679cedfbbd
     type: task
     size: 877
   - path: development/tasks/collaborative-edit.md
-    hash: sha256:8698c8d788493afb094e56288cfb77242d69cfbe5dfa19b95d1d7da38c3ea10f
+    hash: sha256:9037d2a2bb273ecaf0aa7aaba819a687b270e2ccf2f7fa453ce78f288a3f9e12
     type: task
-    size: 32271
+    size: 32246
   - path: development/tasks/compose-molecule.md
-    hash: sha256:304f2645311378f59e58c5f6cf8cc80dc59d693f59e25e13e02b4aa3f5c43fb5
+    hash: sha256:a26f0ca45e2e9955fde9bd6e0bb7181d981bd1c33330432dd15912ed3f3fc31f
     type: task
-    size: 6816
+    size: 6791
   - path: development/tasks/consolidate-patterns.md
-    hash: sha256:c7557a324aa72980d5224cd1895a4879b0f8de17504d8457b5dfa669b08271ce
+    hash: sha256:370c566eb04f15253dcf97eee68ca8d9ca4e63ff210fd1da81fe66bfe4a2f042
     type: task
-    size: 11315
+    size: 11290
   - path: development/tasks/correct-course.md
-    hash: sha256:e5a10bdf36c0da5573d441e22876f8811a0f9681552aadde513f47e34e9c47de
+    hash: sha256:5ce0aa597152a6613dc2b81796169016d8b7baea355de7b269a2affecf1cd4dc
     type: task
-    size: 11655
+    size: 11630
   - path: development/tasks/create-agent.md
     hash: sha256:8b0f33f91cac29aee1924981c2694dbf9b43839bfe8519f99addeb32ba2cdc95
     type: task
     size: 32300
   - path: development/tasks/create-brownfield-story.md
-    hash: sha256:a335919c1d14dc082c4c217c7254a415495740f9138697e32c8992efa3eb211e
+    hash: sha256:b585ef433a84ccd8ee4bc05af9bdc91349ea892b2d9f5dc42426446f7d36c7d4
     type: task
-    size: 22386
+    size: 22361
   - path: development/tasks/create-deep-research-prompt.md
-    hash: sha256:ce8a4380ca2613eb7db4787f09ac6c5589410198b003b46f6f01522019bb0be0
+    hash: sha256:8d897c611099b9dec09f78bd49c3aa4ac5ab6f37a30b0d2cd72f52f4a9612804
     type: task
-    size: 12488
+    size: 12463
   - path: development/tasks/create-doc.md
-    hash: sha256:d2591690a9e0a3c70bd442653b80ade944f3fb943aa201cca1619a6d09e7c165
+    hash: sha256:9891999f42e5f5d27beac938a7bfe4fd3f9496207b21fa25ad1805247bf29049
     type: task
-    size: 10340
+    size: 10315
   - path: development/tasks/create-next-story.md
-    hash: sha256:ba545eecac205642707aa4779200b7fabf31a833abf62e128b34c48604ab578c
+    hash: sha256:47499d5a8cd4653977efebba303c0f935a0a84da9a61099d3e6ca48f7323dc61
     type: task
-    size: 30614
+    size: 30589
   - path: development/tasks/create-service.md
-    hash: sha256:6290fcbdad49c5e9e892369827c8e8f85cfe5017b55d4355503863e39d2d20e5
+    hash: sha256:e587fc516856c4b74db88523a79f1806acb1c4863fe02e2a8cd0dc25ed9b7104
     type: task
-    size: 9900
+    size: 9882
   - path: development/tasks/create-suite.md
-    hash: sha256:f97f0204317c80801c1a7bcdb106857425a5c0da6ec05f2e49c68fced3073b05
+    hash: sha256:78d50f641f38bb9d771abf62f84b2a4eebfa52c976b62d644719283819415508
     type: task
-    size: 7388
+    size: 7363
   - path: development/tasks/create-task.md
-    hash: sha256:cffbadc5919b3796170e66c6bbb80026fdad3474c1c4ab4969bb3143bdd57c56
+    hash: sha256:5d7e9105a06a977a3193430a3a33814052dbf5b2cc3e956145ab51a7dcacf0ab
     type: task
-    size: 9956
+    size: 9931
   - path: development/tasks/create-workflow.md
-    hash: sha256:ce9fe47f09a34aeed87dbd820caabc80966705567d7b9b1ce9966efd811e8e42
+    hash: sha256:df24e6225a6bd8a2b0cb3243669690ec2e3dce2daabfcedf8d4eda48722ea387
     type: task
-    size: 11773
+    size: 11737
   - path: development/tasks/create-worktree.md
-    hash: sha256:660fe3d1251f9855fc1963888a1dd589d3922501cabf507530a0d91ad0f11306
+    hash: sha256:f0c8d4cf87f4a625522474e1936ca8e7d8a03b7e52d4e667a45ab37889131111
     type: task
-    size: 9203
+    size: 9180
   - path: development/tasks/db-analyze-hotpaths.md
-    hash: sha256:dc10e64c3762d51ab79b30fdc090c8e54024d9707ba04f89f7a5b9406fa8fa0c
+    hash: sha256:74a5f5522938fb5f5b2070de9013384980909d0cfc9488780b0876d5fadc730b
     type: task
-    size: 12915
+    size: 12890
   - path: development/tasks/db-apply-migration.md
-    hash: sha256:64772a697aa719ddb5c1a688d4afb683c0b41bc1dbd4c7259c778688d1cfc9ec
+    hash: sha256:54a5e918018e43273b670120372a1a250a2470a2318ab32ee0c1796455ff76b1
     type: task
-    size: 8209
+    size: 8184
   - path: development/tasks/db-bootstrap.md
-    hash: sha256:2e371759545b8a0ec17a4453458070b6eceaa27ef030b1b364fe2a26f97f2f31
+    hash: sha256:200d26f7ab594aae59bbccba98c0a27cb951e89c7ee9b02c3c0c3f2f663e8f5a
     type: task
-    size: 13210
+    size: 13207
   - path: development/tasks/db-domain-modeling.md
-    hash: sha256:816fa4dfa7bc70a0f37c17b0a75298ebb2f206250a51db4f2e472446bc70c950
+    hash: sha256:41a831f5876a0050ae6f5734734941b3b5691493b1ba1577d0ec589b384c3468
     type: task
-    size: 15551
+    size: 15526
   - path: development/tasks/db-dry-run.md
-    hash: sha256:c90212657bfdd28b83526c4a00b2365f1e582aa39be0adac10e18e8b8a8134c5
+    hash: sha256:c1c0148e820c04f43a51d60c32a07e0923d21b3d80b0024b87f4e74ec486d547
     type: task
-    size: 6112
+    size: 6089
   - path: development/tasks/db-env-check.md
-    hash: sha256:5d8d8d9e3e1977112edd9396fe8663bb604650cafbe3d27de56ba15ae827ad23
+    hash: sha256:1d90810abc11c21c9157cde5b17fbd1dfb14f763c1f255e405321f218c78f2ff
     type: task
-    size: 5714
+    size: 5689
   - path: development/tasks/db-explain.md
-    hash: sha256:36407415a71f5c9968c95f9059e276265377d8362c544478bdc540852d051d68
+    hash: sha256:fe47bd4e4b2b15e5840c4c8a0f88c72125e5627741a14cb9d3165ed585e9b7e6
     type: task
-    size: 12442
+    size: 12417
   - path: development/tasks/db-impersonate.md
-    hash: sha256:e15034f40ff1d4e39fc0652551d1c2e9042330fabb2836241161c034a347461a
+    hash: sha256:467304e0a6c68d9996d85f17f8d498228dc58d7051e011c4395ba13dd4743047
     type: task
-    size: 10189
+    size: 10164
   - path: development/tasks/db-load-csv.md
-    hash: sha256:1f50dd0fad29288b3b7237a79857cfc17b636e56fe50a8efb265da18ed5f350a
+    hash: sha256:8fc3519fe321eb43cee0f438bc237a1fbfa727e84b25026eabbe85ab868d0a8c
     type: task
-    size: 12211
+    size: 12186
   - path: development/tasks/db-policy-apply.md
-    hash: sha256:9aed94e52153ef7b1934288b0064c5ed4092317b161afc633a9bfd95c2709f3c
+    hash: sha256:801cd756c739434b57a67875d1098ed1932a1f9c521135beb68c41f6d2bc885f
     type: task
-    size: 15039
+    size: 15014
   - path: development/tasks/db-rls-audit.md
-    hash: sha256:c3cc4cc710329b4f42fb5472f0a5dd8f583e655eeb3dd63fc03092e44dcc6035
+    hash: sha256:f7a1f18ac482ceaaf431045da5989f315344d606c9ac20c953008a62a3715459
     type: task
-    size: 8901
+    size: 8876
   - path: development/tasks/db-rollback.md
-    hash: sha256:76f5721be589ed539d188a2e7aded7dd47114abcbb17b5bc2047e78cdde9e170
+    hash: sha256:13d41f0f4862965c047fd7071ad9884871de1afc01ea4dc0da216f7bff8ab3c6
     type: task
-    size: 16417
+    size: 16392
   - path: development/tasks/db-run-sql.md
-    hash: sha256:178e51c3f86e264fea892392fec2448489b61a85d6e359a23dce5d6077cdf163
+    hash: sha256:09775d255336c6aea86c918f6f87047de4d625fb10d209c0e17f9ea98d0ee156
     type: task
-    size: 12132
+    size: 12107
   - path: development/tasks/db-schema-audit.md
-    hash: sha256:d7dbb35140b07c03a11fb810ee5c8ed84c95034ec7a81d64f7a749a48a84a686
+    hash: sha256:56d7f0d0d00512e7ade94ae795790a8eb9046d2c23211f56315955d3ded6afbc
     type: task
-    size: 25132
+    size: 25107
   - path: development/tasks/db-seed.md
-    hash: sha256:665517218b2cf7b06241a0f0b94421bbe177217e005daf548eadab2262ef1f22
+    hash: sha256:15941c686af12ed2909e6add5f16cda15493df7f6d0a585d30b9c8a53a4c198e
     type: task
-    size: 8197
+    size: 8172
   - path: development/tasks/db-smoke-test.md
-    hash: sha256:1f817a8c3aced18a0d7599ed0542737efb118f699ce14a666897abacfd098daa
+    hash: sha256:a89211b0ca77b08e6b9f25a197dabb4a7d4258c4c1cf450c4433c3b12fd7b6d8
     type: task
-    size: 7631
+    size: 7606
   - path: development/tasks/db-snapshot.md
-    hash: sha256:c186fd0d2090a38084c909fcc99e58a6b633c392a9c53ff038426b2d47162366
+    hash: sha256:3be4b719ad85d987839ca6399c386f5491c52ef6d789fd4daad0d77d307f6c0f
     type: task
-    size: 11717
+    size: 11692
   - path: development/tasks/db-squad-integration.md
-    hash: sha256:247f4ff05f50157b31dd122571a0707347b972b2c7858863f776ff250c16dd15
+    hash: sha256:09a2b008b48d136356f9818f9e66d9dfdf82e5525a702399e1564284ff86c629
     type: task
-    size: 16751
+    size: 16726
   - path: development/tasks/db-supabase-setup.md
-    hash: sha256:f5dd1bebf3efd83723df221e9fe5a7ddcff1fb8e2cc042fa73761ec000ac8a2e
+    hash: sha256:aca0f5bb93deb32fc81dbf3e1765842dd6e9a37f09f3d0c4b2401b40d998ada1
     type: task
-    size: 15994
+    size: 15969
   - path: development/tasks/db-verify-order.md
-    hash: sha256:1d3b3e3fce3927b04830040c667ae794c0178a564c20829c7da04c3d94978dc6
+    hash: sha256:5a823a0636c31fa987dbd5f5d431dc4ccc0a19b51c182007f0ca4ee0e09d103a
     type: task
-    size: 11492
+    size: 11467
   - path: development/tasks/delegate-to-external-executor.md
-    hash: sha256:258afc582747487ef0dcc316b7cc38ded806f323ba80a9ff50c8884f20a8b10b
+    hash: sha256:cca1b2f36444baf6d43a470e066537103d071a6950dc7623e27dddf472824e83
     type: task
-    size: 4405
+    size: 4392
   - path: development/tasks/deprecate-component.md
-    hash: sha256:dc75888fa453f3ef477a48ed153480a4c34991b853e8a94fdcd37a3d0b0ec5a9
+    hash: sha256:d7367592264fc02def85d5abf5078ad68195bcd2b39802d5559d5bfc886102ab
     type: task
-    size: 29485
+    size: 29460
   - path: development/tasks/dev-apply-qa-fixes.md
-    hash: sha256:5868d0094005edf435c7a2b31dfff176a8388e8ebaf6114ec7dc524b3199dd71
+    hash: sha256:4289f4c6e499232e982aef9c238138337b431d62eef4a9124797771f37dc4b15
     type: task
-    size: 8106
+    size: 8081
   - path: development/tasks/dev-backlog-debt.md
-    hash: sha256:602cb57677a8dba0519b65d042b2ada1f50be211ff463c110a315efa873635b6
+    hash: sha256:53b82704b09a9f11ad6f15d62d62aaca95c13fdc8ca0193b66ecd225d3cbbfb3
     type: task
-    size: 11030
+    size: 11005
   - path: development/tasks/dev-develop-story.md
-    hash: sha256:bd642fd91e4435b68013b16f54a63e07cca40fda7aa42b0d0b74a12132ac9972
+    hash: sha256:214bb9dd9be97dc5bd38ae0ab1e785190ea2161f898bdd4dd7a941386344a48e
     type: task
-    size: 30151
+    size: 30125
   - path: development/tasks/dev-improve-code-quality.md
-    hash: sha256:5f2a8a4bc31d2aafda5f63a84f652c1b40cc0736dbc6961645a7f1e7d54f9456
+    hash: sha256:bed3c24b6305524ed55f95b6a0e77ef73f7118597f0b82ff1e54ae2a03a8c122
     type: task
-    size: 24735
+    size: 24710
   - path: development/tasks/dev-optimize-performance.md
-    hash: sha256:bf9e6cbdb988bbfd0a6f19cfcaf3b450b24f4f0e642de2ee116466e1813c522d
+    hash: sha256:b703958b121883e3b5d8b7f0367d488349613878d0dee8e1d671ac54b0f2fbc5
     type: task
-    size: 29285
+    size: 29260
   - path: development/tasks/dev-suggest-refactoring.md
-    hash: sha256:82767f4d1203314daf8a64a07f666c8b315c0e56652b49907f5c815c5d95e0e2
+    hash: sha256:9cbe1666bb5779f29d646175900e0f01a2ccbb0305a5b5b1eb9f447ce4979136
     type: task
-    size: 24684
+    size: 24659
   - path: development/tasks/dev-validate-next-story.md
-    hash: sha256:e983226e896a1256ea2db457a28a98a029b0e0c52711ca9a32ef98794686eaae
+    hash: sha256:2b34e738ff71f61ae0d150004026009a15c4ee82a2c790852fe86b45705f91a0
     type: task
-    size: 11392
+    size: 11367
   - path: development/tasks/devops-pro-access-grant.md
     hash: sha256:5974d2660fe2a7fce7842b9aeee88fe2d95a70590a5015699f2d433ff6973bf4
     type: task
@@ -2273,81 +2273,81 @@ files:
     type: task
     size: 638
   - path: development/tasks/document-gotchas.md
-    hash: sha256:c8dd24570d6ec7690ff62dee4344f3ceba114447bbcd450194afc3970f595ca6
+    hash: sha256:28d03a60f3d79aed116cbfc95472f0edc58c28ff337d69b86d02bc50bebbb39b
     type: task
-    size: 10416
+    size: 10382
   - path: development/tasks/document-project.md
-    hash: sha256:8d8c38b93489482664b0c270ade96d55efac183e50f9eeb63a3bb560603a15ec
+    hash: sha256:90c0e9de1e16f5cc00772d5f85cb1848f168d89bc90611a5e05b4990df130dd6
     type: task
-    size: 18044
+    size: 18019
   - path: development/tasks/environment-bootstrap.md
-    hash: sha256:97e9e5bf8f9e1d309c7028bc91814b13bdad04ced4c39af8dd32c1bee9b82998
+    hash: sha256:313d7f3cfaa4ac2a627fc28cc7fc5b2b76f5808e4ae6d392a76a02940eaafdea
     type: task
-    size: 46078
+    size: 46041
   - path: development/tasks/execute-checklist.md
-    hash: sha256:b91f50f709431f64465f9f8a8dee315fa577f55b1fe1c9ce81d4509e401e98dc
+    hash: sha256:44215624c74320343f98e8f843d58643c44be9c44430a87eb054686bc3bfb28d
     type: task
-    size: 8803
+    size: 8778
   - path: development/tasks/execute-epic-plan.md
-    hash: sha256:314b0f9b533e5ac7e11b4cbb0b1c5a810f847067ef2fa65bae6740beb5c8eab3
+    hash: sha256:13e13eb146de26f37ef88caffcbb698ed79db417c4a1a01d2a117e7be91626ef
     type: task
-    size: 25514
+    size: 25478
   - path: development/tasks/export-design-tokens-dtcg.md
-    hash: sha256:079c817c9bc013b650507a57ae1c9f48023c8c305d220349a1b449286c165d33
+    hash: sha256:cb9fbf9269d50554e61cd2ac3421a2de8e57a0eb8effab45224d501d871fd1a0
     type: task
-    size: 7236
+    size: 7211
   - path: development/tasks/extend-pattern.md
-    hash: sha256:671ed3c83372c8650956d42d8e427c29bb5e93fc51a5d24ccbd5250e02511b24
+    hash: sha256:6d98d7ae6877f6c9bb235b80981d8d60ee6e373219b8adb9e2eea6bc34459745
     type: task
-    size: 6132
+    size: 6107
   - path: development/tasks/extract-patterns.md
-    hash: sha256:24bbf0acfc8a6b9820bd75234ec9dc9abca8717734bb259ab3ec8dff7de1cfa5
+    hash: sha256:22b6d9bfcc56d84d9a0aab3218d8d17481421a5de4239fc1c09e8813ebf45993
     type: task
-    size: 8898
+    size: 8889
   - path: development/tasks/extract-tokens.md
-    hash: sha256:832b1757c2379fb54637a9bbd18579a9bcf34c963e90156dd2ece9c9d825414a
+    hash: sha256:4a24fefc94b15b19a0d72b103d2ef42635bcf690846e89c086da5c32c755bef1
     type: task
-    size: 13111
+    size: 13086
   - path: development/tasks/facilitate-brainstorming-session.md
-    hash: sha256:df65b995f47cc6736948393027b67a5301ea53162192bb498b9c04f6dd64caf6
+    hash: sha256:b2c43fde4772d2a5406de728a2249c054c30a0ce54494cc33136022ea09627d2
     type: task
-    size: 13912
+    size: 13887
   - path: development/tasks/fast-path-gate.md
     hash: sha256:62e2a51647b501c5d59adee8f996af06bee75f33e002537dba0a50e04ea2cb5d
     type: task
     size: 3637
   - path: development/tasks/generate-ai-frontend-prompt.md
-    hash: sha256:7229f10d84cbc936575e77329f5e83bfaba37a8f14868b6bba2fc0d09da2f772
+    hash: sha256:331171ebd510dcfb050241331eabe207dc56a9aae820f5adebbdc03dc5cacaf4
     type: task
-    size: 9359
+    size: 9334
   - path: development/tasks/generate-documentation.md
-    hash: sha256:2652692f4ab2e42ed61e70a2962e89baa90b9aa08a8ddb3f493ea1fe581c6a1e
+    hash: sha256:2f5ca068933c7b618be4b2273285493e582dd65663adffa2d43c2c87af6a4462
     type: task
-    size: 6791
+    size: 6766
   - path: development/tasks/generate-migration-strategy.md
-    hash: sha256:9646cc30d409b3a315765b06e56f10c73d2cc5dd716b76027f937b9f121a5efe
+    hash: sha256:bb29ae7e063d340e199ea9c5dfd536e93c8d9f89593a9ea25c0a25c7ec4317c5
     type: task
-    size: 14107
+    size: 14082
   - path: development/tasks/generate-shock-report.md
-    hash: sha256:ead59d5d4dac940593e116486e6aa8a762e73be491cc666f63d5c45fd93b06b6
+    hash: sha256:daa19f86e027c5bdd7bafafcfa1d4c0a176de7a0dcb93e049c2f980f4c7c1e2e
     type: task
-    size: 13663
+    size: 13638
   - path: development/tasks/github-devops-github-pr-automation.md
-    hash: sha256:09fdf1e803939fece277c78a9499dbbf7fb20f1cc5e5f6a6b644b2a35f991053
+    hash: sha256:2a8dcfc7bea079b43cf6bd29e4e632a4042a88ebf4780d3f74ad658239dd6ebf
     type: task
-    size: 19488
+    size: 19463
   - path: development/tasks/github-devops-pre-push-quality-gate.md
-    hash: sha256:f407297f2ef9033ef09df140397e365980f002af12d91ab301de7828091a8614
+    hash: sha256:12c609a935b14349b1b60ce96beddd0bcb874588b9837ca79aa2a4afc82afab3
     type: task
-    size: 25794
+    size: 25768
   - path: development/tasks/github-devops-repository-cleanup.md
-    hash: sha256:80a63d3a03d28aada54f5862ab7d34e8b78c40dd9b8cad6d8391c8676884424f
+    hash: sha256:ed9511c534323d536218088dbf90e467fad2e4b0e5eae4cfca6dcd2fca6fdeca
     type: task
-    size: 8764
+    size: 8739
   - path: development/tasks/github-devops-version-management.md
-    hash: sha256:8cae9e848a30669ae5446cbf2df0f8b5c08787478188ac80113b4e2b19f7eb78
+    hash: sha256:8931889044d39bb1cf2e481654500b0d2937ac64ef55b3f5ed4dff0e9c81be59
     type: task
-    size: 11746
+    size: 11721
   - path: development/tasks/github-issue-triage.md
     hash: sha256:6fa9ddd199cc71d1064ff9050d69b277ce69f92f8a55e65bd9e42360de3e0b12
     type: task
@@ -2373,65 +2373,65 @@ files:
     type: task
     size: 2079
   - path: development/tasks/ids-query.md
-    hash: sha256:2f69235970ad2f3e0b8acf96e7dca220e6b531739c3c728663f71a1b38d1442d
+    hash: sha256:819e64678121cf205924630bb2074312cf7c4bcf16e871850e4295e91bcd57d0
     type: task
-    size: 3460
+    size: 3434
   - path: development/tasks/improve-self.md
-    hash: sha256:1ca29615dfa85554d266572160fd9e3e01a161bfc2a4d7b86d8a938941c3e433
+    hash: sha256:ffc50420d99aa139e595d718d0d9bdfbcbac91d6ad1e43bb8594e624c3b78f9c
     type: task
-    size: 19609
+    size: 19584
   - path: development/tasks/index-docs.md
-    hash: sha256:4054d65a2918ff138bbc0fe828cfa8ea22160a5bb5e787b29a694643cd7fb19d
+    hash: sha256:9c3509b1e7d05c94119206b47f3cf59efd1ceb549c15bae6827141e800838c9b
     type: task
-    size: 9944
+    size: 9919
   - path: development/tasks/init-project-status.md
-    hash: sha256:8e1a9cd66523e5271d8994c6aecd6018ef93883ffb195d44487799b1806e684b
+    hash: sha256:750d9c70b314d31d683e050bf5dd9e765c083ed265173e60267e94edd0d716cb
     type: task
-    size: 11027
+    size: 11004
   - path: development/tasks/integrate-squad.md
-    hash: sha256:89645c21c9541d95f21c1fe46d31b9254f9eb5e5edd5d09e931458c907d06a48
+    hash: sha256:073bdaf11c5532d437394f77663a023cc01b0939ff3e61bf2419093f2df18bcc
     type: task
-    size: 6828
+    size: 6803
   - path: development/tasks/kb-mode-interaction.md
-    hash: sha256:3ace4d837c9baf283cae5945b3741cfe9fde4ceb0b2c1ad795fca2db6230365c
+    hash: sha256:ec7dde2b048d543d45810d3fbf9f8ced3be3bbf0dbfaa4a437d45772d3e894aa
     type: task
-    size: 7171
+    size: 7146
   - path: development/tasks/learn-patterns.md
-    hash: sha256:4847fa038c1aadd0b7f9e318032b7e2f51152213e0c7233ca87f33135583dfae
+    hash: sha256:04a2567d6a1631ed48ad59d2d36e153cd07260936892b25e892bdf968de2a68d
     type: task
-    size: 26890
+    size: 26865
   - path: development/tasks/list-mcps.md
     hash: sha256:c2eca1a9c8d0be7c83a3e2eea59b33155bf7955f534eb0b36b27ed3852ea7dd1
     type: task
     size: 521
   - path: development/tasks/list-worktrees.md
-    hash: sha256:c2a6fc936471dbfda0a69c7e7fdebfa83b0a47977da3b4ad1c8d5ea3c30d1c3a
+    hash: sha256:bc9833c415899b94f6d30f9ce6bdbedba18b14c4a284cef448990e78ddef9dc5
     type: task
-    size: 6536
+    size: 6516
   - path: development/tasks/mcp-workflow.md
-    hash: sha256:729bb731b280661d6de2e4416575e497a4ef34b78603c1f46e441060ea0dc30c
+    hash: sha256:3ed1eb96aef67c065ed4c3ccd53c16b6e554f180d33f937722f45d856f6004ae
     type: task
-    size: 8856
+    size: 8844
   - path: development/tasks/merge-worktree.md
     hash: sha256:e33a96e1961bbaba60f2258f4a98b8c9d384754a07eba705732f41d61ed2d4f4
     type: task
     size: 930
   - path: development/tasks/modify-agent.md
-    hash: sha256:e4f6646132afb4ef33676b376023f63ae8c227fad403377d4b2ac3a260337579
+    hash: sha256:947ceec6b26fa1c71df7f5873df36e0af4d260fecfc97ece77d09118a9b60430
     type: task
-    size: 9890
+    size: 9865
   - path: development/tasks/modify-task.md
-    hash: sha256:e2a0cbb722df060f27632058762538356cb77d7a6a257bd59fd09d684c94942b
+    hash: sha256:61433cec194365059f6d4217dff5d81621e22b96782043b334fec203f2c22b90
     type: task
-    size: 10921
+    size: 10896
   - path: development/tasks/modify-workflow.md
-    hash: sha256:242390e520cb64b4eb1f576dbaa9c0c637a1a41d1938809facf2aa99e4939c8f
+    hash: sha256:a016800850ee286a967529bd8e578f7f566688bb39fdea6765dd79e5a55a0e89
     type: task
-    size: 13362
+    size: 13326
   - path: development/tasks/next.md
-    hash: sha256:94cd61797c7d428d147f7cfa79c7f137a2aa77c4d9e0a42a9c48df43a66b8b6f
+    hash: sha256:e653c0c54e4dc46f5ab7c9ce5cb7ed4d55a7a546ebf74523601dc942de63acd1
     type: task
-    size: 7805
+    size: 7793
   - path: development/tasks/orchestrate-resume.md
     hash: sha256:cfcd973e87e13870c68ec6cbd497b3d3dcabff63b77a5566dd0da4ceebcc84bb
     type: task
@@ -2449,9 +2449,9 @@ files:
     type: task
     size: 1288
   - path: development/tasks/patterns.md
-    hash: sha256:692f7646e359522578370c5a27691c2ed4dc10fa8828767a482f6fb9e730ce2b
+    hash: sha256:d9e2e57af2e526d97199ff4df3b777bb233cbb323881acc1dc685170f5263e88
     type: task
-    size: 7383
+    size: 7371
   - path: development/tasks/plan-create-context.md
     hash: sha256:9a05e696eac9c2ab62e6e6a75075f9e27c5cd6117d799045e8819346bb5f77e5
     type: task
@@ -2465,49 +2465,49 @@ files:
     type: task
     size: 21370
   - path: development/tasks/po-backlog-add.md
-    hash: sha256:9967f138b4c2ba9458cd4c0b2ce356570993775f3b245f55e0729fc0034bba64
+    hash: sha256:d26a0765c384eec16f2285ffcbae63b235ea050d32a0b19bbed95b5014d305a3
     type: task
-    size: 8310
+    size: 8285
   - path: development/tasks/po-close-story.md
     hash: sha256:418fbd93861be71900d51e2e2ecba8959b2ca6f4ac2a67abf7d363e7c31763f9
     type: task
     size: 4044
   - path: development/tasks/po-manage-story-backlog.md
-    hash: sha256:6d221b4194163faf867d2c7d1e12e333d811d08cdbdb291b714466dd6a8b1a93
+    hash: sha256:a8dc59a4aefaf7a6f67a4fc9a8c3e3d1dda9d6cc7ed155a48024b1b0d26bbcfe
     type: task
-    size: 14224
+    size: 14199
   - path: development/tasks/po-pull-story-from-clickup.md
-    hash: sha256:d20be0516e64abff64f98f9fcb87ea87ddd27fec5d4f1879a1ed7b6789e19220
+    hash: sha256:1b5acdbda4ae97e48c290c1819526f24eb3bd1e1ce75df4846dd910ad797e6c7
     type: task
-    size: 13483
+    size: 13458
   - path: development/tasks/po-pull-story.md
-    hash: sha256:f6efb6a5bc71894087078e5c58ed0067ec84d71c69826f52b6ce5b51ec615784
+    hash: sha256:9abb01da2ae24021c787f3ce926515e694be3a3fc4c3f169150121dfa8af266a
     type: task
-    size: 7229
+    size: 7204
   - path: development/tasks/po-stories-index.md
-    hash: sha256:b61ef5bbe59f1975d03a4783812ecfae38e47dbf47d573cac9de815b4dcc0948
+    hash: sha256:d686b7fd2803653f8d78e203541f9a1d142174fd3318f8daa4a54393bd3201f9
     type: task
-    size: 7612
+    size: 7587
   - path: development/tasks/po-sync-story-to-clickup.md
-    hash: sha256:f42d2de5949a0510c42afa0abcfccdb8ee774ea18119e1bc8c0601fe9ba227ae
+    hash: sha256:6d2c203a2cf2b3c94811579ff36aa2108cf14a6a1aaa7f85db94c7a9e664247b
     type: task
-    size: 10981
+    size: 10956
   - path: development/tasks/po-sync-story.md
-    hash: sha256:0ca0edeb40edcf0e458e861ee16fa039061e43525ab02690a57bbad771b1a920
+    hash: sha256:be89cd8b0a345b9d1f67d7c618df5da9380810a5531348f8024398e9497bafb1
     type: task
-    size: 6907
+    size: 6882
   - path: development/tasks/pr-automation.md
-    hash: sha256:e155fac05f7d0b6f5ac3793c9cf7081a619f7cec88c030102451c5ef41a972fc
+    hash: sha256:63a3e7eb251c685fd8fb59c12013c1bd70767e9daeb0bedae741ea696dc37084
     type: task
-    size: 19114
+    size: 19089
   - path: development/tasks/project-status.md
-    hash: sha256:70fa6f9d9a946e97d883cac349c5ba1c2f3858a1102470e3123110b0414486d6
+    hash: sha256:f0c9780a58136abe40fabf279bf66f9e15b1886e17391951a44782dd6fe38bda
     type: task
-    size: 8666
+    size: 8665
   - path: development/tasks/propose-modification.md
-    hash: sha256:9d92c11059a97f806f9e7ab72b2347f5eec3b138ccbf19d4549d303c6d824518
+    hash: sha256:73b644953385b565f665e91445a34d782d985debec2363ff71d1d1a9ebe78a84
     type: task
-    size: 23899
+    size: 23874
   - path: development/tasks/publish-npm.md
     hash: sha256:ddd61dd518d53c62e6c671932f5b4da7c4777df850ec31b876695571acce537b
     type: task
@@ -2517,81 +2517,81 @@ files:
     type: task
     size: 13994
   - path: development/tasks/qa-backlog-add-followup.md
-    hash: sha256:c241c64531b5bc742d2453c7b7638366db06b75dc64943204d9c5e39fdd6e202
+    hash: sha256:7f3bc01920f117bd9052f5605ced124ea5810ba6b2a8f0dd6e36aec33867632c
     type: task
-    size: 10179
+    size: 10154
   - path: development/tasks/qa-browser-console-check.md
-    hash: sha256:e341752b4fadf97ec492d89ea2f905a31ceb90e59fab1b613983ebd6b7402634
+    hash: sha256:27568a65a679289631e1bb6f1f2b5d13272295c37bcd526879d0862095616a89
     type: task
-    size: 6827
+    size: 6821
   - path: development/tasks/qa-create-fix-request.md
-    hash: sha256:2cccfef862be408fa8571e36031a7f15a0dfdd653e768a9dff6476aed2bb7c13
+    hash: sha256:9401883cee5e24dfd7c911b2e0e35925693fcf8abbb9ce554c6e5a52e693af3b
     type: task
-    size: 13495
+    size: 13491
   - path: development/tasks/qa-evidence-requirements.md
-    hash: sha256:ea71e5051c4c7db38dad17886772cd761515d579e0ffa75a7f17207e8d5c31c9
+    hash: sha256:957836bb3b92144928b6532c03642ed64ac9897b921627e4df4eede498ae40fb
     type: task
-    size: 6649
+    size: 6643
   - path: development/tasks/qa-false-positive-detection.md
-    hash: sha256:93ee4ff7b424052dbb0fb332b5e71eb37a33efe5758f827061546acc946200a6
+    hash: sha256:e151d2ed2a4f2d9cc5d8a36dc818c989495effd3b75b49732d6d909806fe91c3
     type: task
-    size: 9387
+    size: 9381
   - path: development/tasks/qa-fix-issues.md
     hash: sha256:16989542d74dc194ca6605dc80860e107ca347cdcd8d5f44633363ea350ade2e
     type: task
     size: 15789
   - path: development/tasks/qa-gate.md
-    hash: sha256:9ca1d2a085955ad999ac9250f5ad23f52d8a55568070ccf171b4853a8d31004c
+    hash: sha256:85d6e38ee0afa8e21339544b4a4b92afc2fc38f5a9e335b3c281ab7711e17c45
     type: task
-    size: 13756
+    size: 13731
   - path: development/tasks/qa-generate-tests.md
-    hash: sha256:697b4097ea3c9a38238bccd2f380a2d67f170cea6399e46d9b98f96d1b7c8605
+    hash: sha256:1741b7ab98694143b4b96ab60b72f7da1ea7defc984666fd0abd80cbbb865242
     type: task
-    size: 37104
+    size: 37079
   - path: development/tasks/qa-library-validation.md
-    hash: sha256:7f393729d1357e64ac117f1ad3ed02cb67a7f9bc107007c343a1a7b7c65c3399
+    hash: sha256:33211c6fcd0aa5bcdade853e6526cf3dfee57fe6be7fc6fc373b5472e8d46835
     type: task
-    size: 11474
+    size: 11470
   - path: development/tasks/qa-migration-validation.md
-    hash: sha256:0ae18327e6ed20add725e0ebacba36c1963008e312e2dd71ae91a7213ecf4872
+    hash: sha256:612b80f30acd044843dcf49ef839567bf10665e6476a994805da69fc3ae7649e
     type: task
-    size: 13058
+    size: 13051
   - path: development/tasks/qa-nfr-assess.md
-    hash: sha256:7144c13ecc2a3aaa6e6926122163d5ea64a98de2d7fc967b4dff06c2513a6c0b
+    hash: sha256:b327f2ec9589d912aeb6247afdfe075b2d6eed7102b6dcc62317b6f6534c37c3
     type: task
-    size: 12160
+    size: 12135
   - path: development/tasks/qa-review-build.md
     hash: sha256:d8fb509bb88454706b143954bb314a8d316d7eb904ae9d53b09fe8ccbda4fc84
     type: task
     size: 30684
   - path: development/tasks/qa-review-proposal.md
-    hash: sha256:161b66c67e8dc84f2bb29359c0b222c7cf46387de30b0640b79796a6d924921a
+    hash: sha256:514c26077f13c47aef9c2876ea37675f2c908b51048d97efbedd63c1d5bde0f5
     type: task
-    size: 35277
+    size: 35252
   - path: development/tasks/qa-review-story.md
-    hash: sha256:f9580fc8a0c815610a8255a62a4818a1bda2047f12cac869a2110007a88e402d
+    hash: sha256:0e39090603ab0881f726ceab90b73813ea2327b174df1510a5938514973e7e87
     type: task
-    size: 26840
+    size: 26815
   - path: development/tasks/qa-risk-profile.md
-    hash: sha256:4b81276d050dc0087a9afbf0609ef65d6b51fe7c5bb133e8e1ee2dca2c2e583d
+    hash: sha256:b45f7fafb4b7cee6f6aa5f8a4f710c537b5661ed7ae34d2a8c3129ae7d634909
     type: task
-    size: 13188
+    size: 13163
   - path: development/tasks/qa-run-tests.md
-    hash: sha256:de46c343939c76252370eb29717ea46d923bf12e37c6f5d3f18a90173e1ca233
+    hash: sha256:639165f9fad7d535973402ee60dbecbc664e78aa11c2a120e8a2987cc684d063
     type: task
-    size: 5837
+    size: 5812
   - path: development/tasks/qa-security-checklist.md
-    hash: sha256:787a732bb450c77462eb2ea1181075cb63f2aaa1439bd33508db4b990666e889
+    hash: sha256:7b988c3006e8634e612499b2886a0c0709b691091b3b712411303b1fa090613f
     type: task
-    size: 12445
+    size: 12438
   - path: development/tasks/qa-test-design.md
-    hash: sha256:25044c7a540e6ab2a73dfbfed3774eae18eec60f0dea0e6148e113034a2ad9dc
+    hash: sha256:278da5e1edb09143ba74ab869e7e5be1ecc65aeac3b36c88304cec4706a083b0
     type: task
-    size: 9133
+    size: 9108
   - path: development/tasks/qa-trace-requirements.md
-    hash: sha256:cd158fa299497c5463aa946c1a1dd557ed301b54351f0ee5ed131a34195929a8
+    hash: sha256:3549428fa3ea2a8f8fdb199fa44f825a40b3cef566495c4f6ef0ab453c0ebbe3
     type: task
-    size: 11415
+    size: 11390
   - path: development/tasks/release-management.md
     hash: sha256:df573b0c173041393ede1ed56cb7da1bebd74b5e7498d5d9e07fd03b3190c3b4
     type: task
@@ -2601,77 +2601,77 @@ files:
     type: task
     size: 659
   - path: development/tasks/remove-worktree.md
-    hash: sha256:af63a6edf1d95d133b814004bab87053a608ee15251dbc95381cd5cbf9758820
+    hash: sha256:4de8b5a5bc7763175117d7a57929bf3e89d1913665455b1f0ab1681610813de2
     type: task
-    size: 8669
+    size: 8646
   - path: development/tasks/resolve-github-issue.md
-    hash: sha256:f762e72be0acbe1ffd9589631b38f9b30720948fbbd04e438552c9b938f081b4
+    hash: sha256:96dd70c0a7503322ad67d6a32757753fd3b6fcf3d1c2448f778ba8546565f371
     type: task
-    size: 18284
+    size: 18273
   - path: development/tasks/review-contributor-pr.md
     hash: sha256:1061a4df821514440c6ccbfd3600d3f0fe9e518bfd37fb7c838fd9cdcbc5eb92
     type: task
     size: 5257
   - path: development/tasks/run-design-system-pipeline.md
-    hash: sha256:d91b8bba940eeb432112288d742c1bdfb7f61234ec87a80926550f2f1593d163
+    hash: sha256:c3ad2ed89258c9be51c3537a6c9b4cfdc3b93ee0e8d608a677290cf91e634957
     type: task
-    size: 16173
+    size: 16154
   - path: development/tasks/run-workflow-engine.md
-    hash: sha256:be84a05c93f9e863caf2da7dee94d4df1cdab32b3512ad7d01b676f4a3993799
+    hash: sha256:67f54fc4336f7cc68de28e4526964ca8446cf360aaa68b4224f73bae0f812557
     type: task
-    size: 26327
+    size: 26281
   - path: development/tasks/run-workflow.md
-    hash: sha256:b89cc86e565b72a299c79178f567efb8ada5c363445173fa6b9fd44301d5d358
+    hash: sha256:4616a63d7e49dbe20604172999c312a418c61bf1c2e6990c24ce41fbd4b5f4ed
     type: task
-    size: 10735
+    size: 10699
   - path: development/tasks/search-mcp.md
-    hash: sha256:4c7d9239c740b250baf9d82a5aa3baf1cd0bb8c671f0889c9a6fc6c0a668ac9c
+    hash: sha256:d8a9ad8c456312c5bff07527ebf209437798a88282056eadc8f47c805d7f89a5
     type: task
-    size: 7799
+    size: 7792
   - path: development/tasks/security-audit.md
-    hash: sha256:3c49cf85327d1323ac97d5b9d9b5ca85a8edc9f41762f3288511f83b7cbc74fd
+    hash: sha256:0870ab4aefa5cd6147b1208e899019b2dc2b4b7ae9fa4ee5909de857c1ccd5ca
     type: task
-    size: 13364
+    size: 13339
   - path: development/tasks/security-scan.md
-    hash: sha256:ae04f74610294a05f0687a81dc08e696d82c7103252d8552d05eedb8115d7500
+    hash: sha256:41357696738d9bd1cb0493142bdbc970746dfbcf059751731a67eca1d2e6ff2a
     type: task
-    size: 19077
+    size: 19052
   - path: development/tasks/session-resume.md
     hash: sha256:19e946cd5c668b9ba60feb80ebbad308188ae1344b77166bebd5fa7ac1228e90
     type: task
     size: 4282
   - path: development/tasks/setup-database.md
-    hash: sha256:88262dc049776e2ec8a830f2a70f4d51367c4f1789a9d9f0f7e507c641ba73cc
+    hash: sha256:949c66219164bf67a7d18edd62b35d283223384cf401e32e30a871bc828abe7b
     type: task
-    size: 15990
+    size: 15967
   - path: development/tasks/setup-design-system.md
-    hash: sha256:d532484c771bad125f13d4775402e6b822dab90ef0b97619c9d86d4b4bba78d0
+    hash: sha256:609afa9fbceffec90cbc4124e8cb502597212053b3024aaa4bd3252d4cc294b7
     type: task
-    size: 13048
+    size: 13025
   - path: development/tasks/setup-github.md
-    hash: sha256:0d765aa2834ad7ffdbeab1fe826bc6755ba25b0601f57f41928b04b0eb1e7d47
+    hash: sha256:05381a52d38faa9bcef052d46ff5c7ac1efc0f0f727f18e9cefaecfe79fdc3f5
     type: task
-    size: 31230
+    size: 31202
   - path: development/tasks/setup-llm-routing.md
-    hash: sha256:ba29949dc870910a86d7768383cb484b9891bff0ae609e9fd33819ee28aeccae
+    hash: sha256:5e0edbab357c3f9dbbe25a03df812b717f78c7257346ad2bcf54ef07a64b642c
     type: task
-    size: 4702
+    size: 4697
   - path: development/tasks/setup-mcp-docker.md
-    hash: sha256:761372963028f4f19754b32feccc96235ce98da490c5087aed825475008be287
+    hash: sha256:48eb44bc66dc30cbb4709b4f0686591db966fd4d8d983d2aecb564c74b0e8fb8
     type: task
-    size: 16315
+    size: 16288
   - path: development/tasks/setup-project-docs.md
     hash: sha256:5dc0b10e686e00ba98dad51877bd89b8c7072b333ddc39115616cf9ff0361460
     type: task
     size: 12330
   - path: development/tasks/shard-doc.md
-    hash: sha256:c8d706849e2bf6f5455220bddae2ef830d39f585e64da6144d17cbdf45d7efdd
+    hash: sha256:49458917d79a53b18edd90021d44aca376fe3759f889dc8fbcdf799fabb5a9d9
     type: task
-    size: 14713
+    size: 14687
   - path: development/tasks/sm-create-next-story.md
-    hash: sha256:83bdf43cd48dbbce8d8e75fbd32fa3c1b1c10628dec1db157c4631435d8ddaa5
+    hash: sha256:180a3c5dd80b0ef14ef896b556ac7b251a55990d4edb771f6e31d2cbc28070e1
     type: task
-    size: 18109
+    size: 18084
   - path: development/tasks/spec-assess-complexity.md
     hash: sha256:63c600a3ed23d1e9b0f8bf1dee15c7cef966635a4b9156f0242d903167e7f70e
     type: task
@@ -2693,121 +2693,121 @@ files:
     type: task
     size: 11457
   - path: development/tasks/squad-creator-analyze.md
-    hash: sha256:e43113453f235b88c9c1e2585c56a0097ffbcdb48abef73baf9df7d4fee3ebfb
+    hash: sha256:140d522deaa6aee5f4d11ba4327cc792a5cc87784fcc6dc8831975565e7041c7
     type: task
-    size: 7049
+    size: 7042
   - path: development/tasks/squad-creator-create.md
-    hash: sha256:458955711205ab4afbde0a6e0edf5e72bd0fe83e8c5cd3355ec26962891d5d05
+    hash: sha256:f815357f474ad37f8cdcf4d86c4666e7fb6827de0b3495bbb851632214c5a02b
     type: task
-    size: 8457
+    size: 8444
   - path: development/tasks/squad-creator-design.md
-    hash: sha256:b5b2a5e9939728f27eab20ea6be5f541b3a91eda4bf434b3f8f5f43a270948ef
+    hash: sha256:f5de6103e6075f488f311e626b33c4a710029fcf6dccedd553a3055f99eefe60
     type: task
-    size: 12702
+    size: 12687
   - path: development/tasks/squad-creator-download.md
-    hash: sha256:442d4dca90b9dcb2de8b13f906d677382b4ba08fbe1d55acdc05bc90caed2f78
+    hash: sha256:b3cfa7a8b8a705a9e4d8a07ca35589ededbd800f5d4097bf16f126e607dfe1f2
     type: task
-    size: 3864
+    size: 3851
   - path: development/tasks/squad-creator-extend.md
-    hash: sha256:b915f0f32bcf1a098b55a69cfe9aa63299a430c61b0c0e04787c2c199dc22c7e
+    hash: sha256:b7eaf8a304627b2a8ff6aa6bb1957336f3f5bdea49023fb3705a90fbc54bd626
     type: task
-    size: 10234
+    size: 10225
   - path: development/tasks/squad-creator-list.md
-    hash: sha256:371d3b707ba583f17dd743727a305f2db047cb9d6d50353981876425aa1641ca
+    hash: sha256:086b5baab8a68c3a0e378990df764bff5e2f30e8b354bd2c5d9a08a7420c3573
     type: task
-    size: 6559
+    size: 6546
   - path: development/tasks/squad-creator-migrate.md
-    hash: sha256:ba16ce83bbb754a6c518e7efe65fc2aae7c4e7b96b4ab114f3f9587da791cc03
+    hash: sha256:f19bc8f45975cacc5b3e80b93a9f552f00da9e0e5e9934e88ee7bc72aa6dc649
     type: task
-    size: 8713
+    size: 8697
   - path: development/tasks/squad-creator-publish.md
-    hash: sha256:efbf290f4063afbc4656d7e8b6e7ad4f855115ab15636b204a3bee5535b18b6b
+    hash: sha256:c63b29fc98fb85b146c1e1eee55bdd128aca901a7379aa3af7613e7ef31bdd8b
     type: task
-    size: 4929
+    size: 4916
   - path: development/tasks/squad-creator-sync-aexos.md
-    hash: sha256:56282aff939ab9f4e582a3c187ba86660ef24bbdf7c3b4590f6d1ae0451979e1
+    hash: sha256:5b7efc146d4fd8ca731483cbfb90c77a0a5e5b31791042ae8e471f0a029c0c37
     type: task
-    size: 8604
+    size: 8591
   - path: development/tasks/squad-creator-sync-ide-command.md
-    hash: sha256:bf08609c8661c597875e38605767465aaea9fe34ba961afc859800d975f9bb4a
+    hash: sha256:79a86cce0b31262e5f8fe64e86e9d7a61f37f5950617a602401f8de2f62d8830
     type: task
-    size: 12351
+    size: 12338
   - path: development/tasks/squad-creator-validate.md
-    hash: sha256:6eae9e0315e35d6e7a1995330c288e97864b339f8b0c4803296d5f37db4bbe58
+    hash: sha256:42f34a86fe4a822e5bcb3af53be69664e6bd03671cc200165bc81d171f561583
     type: task
-    size: 5071
+    size: 5055
   - path: development/tasks/story-checkpoint.md
     hash: sha256:f299d40b953ab022b1dcb34ae3d245ad4f48d6757246911359bf68dec07a6944
     type: task
     size: 11472
   - path: development/tasks/sync-documentation.md
-    hash: sha256:2b44baf9418a7278039a0a2cd683b6ad14e6972028dd8746f9026634602c0a06
+    hash: sha256:589cccd167430dc10386b9daddc44044452a354d4eb9a2ae8b42b4bce11d7c2f
     type: task
-    size: 23366
+    size: 23341
   - path: development/tasks/sync-registry-intel.md
     hash: sha256:4fec3e869cd20b1956d22937134d88fe17139fde2232af87224dec5c7207b553
     type: task
     size: 1667
   - path: development/tasks/tailwind-upgrade.md
-    hash: sha256:58617eb3b31f761abc461baf81d194e4d4157b4bbc87f889d8613eb6ef3e87f0
+    hash: sha256:6150d79ec65b8d2d26889d44553a97e5cf36a155b151d35562f1d6f7a7e2e99f
     type: task
-    size: 8159
+    size: 8134
   - path: development/tasks/test-as-user.md
-    hash: sha256:a905909c9a1c4d2f882a0a132539d1eef58821abee3d1a3a069ad67d5e2e9a01
+    hash: sha256:7b0e8412a203c09bb9f91b184b225d2b0250ad41b497fe676cc0f9be63bf57df
     type: task
-    size: 14049
+    size: 14024
   - path: development/tasks/test-validation-task.md
-    hash: sha256:54d236b1730503691093decde6283eac78ee3722f7b0fbc0f1024ddcabf4742a
+    hash: sha256:5af1d4d6caa75fedba1b9f031efbe4442cc03fac4ceb0eb0f8355aa8232357eb
     type: task
-    size: 3348
+    size: 3330
   - path: development/tasks/triage-github-issues.md
-    hash: sha256:b3a297c3376ca30ace81f169399b28c4216045fecc22ef5ef59b70aaba9adb8b
+    hash: sha256:944aa71c6201eff138b8d40beec8abb7159e39a67f3b2bf06b8e41e858b4f7a7
     type: task
-    size: 10012
+    size: 10005
   - path: development/tasks/undo-last.md
-    hash: sha256:11555378c90257684556b4cfc1268101d002e908b124e73d51ee62d4fc53d6fb
+    hash: sha256:238479c50e4278666048edb92aa1f707712e46c37c7b2844a521e0b7293af337
     type: task
-    size: 7660
+    size: 7637
   - path: development/tasks/update-aexos.md
     hash: sha256:7129400aafd2f6003d7ca05b994e73683384e181de98cc3264261ab845e81140
     type: task
     size: 4184
   - path: development/tasks/update-manifest.md
-    hash: sha256:fa9a77847ebf0f6d5e60ebfc91b0a290f20b6f16c46a6f34e1fc672fb57b3e75
+    hash: sha256:705d41ea6ff17726858928f52e35ca1bdac65af62c3a4493ef140bca5fa9a717
     type: task
-    size: 9751
+    size: 9726
   - path: development/tasks/update-source-tree.md
-    hash: sha256:489f913206a6e0db92608af1850d136af63124b996dbbea1e9eb1ec0d03ec893
+    hash: sha256:2852f2cdeb0602d11c1c376c6b650304a9747d8596c82ee019c870f199e037c8
     type: task
-    size: 3118
+    size: 3105
   - path: development/tasks/ux-create-wireframe.md
-    hash: sha256:76dd1c007d48ee836a404229e46eeca234abb0c8038780ef7e0ab3e439daa70f
+    hash: sha256:8fa347902c6ec10bfc32b485e889e0577ceb3e8979c5020b54969ed7a594ae3a
     type: task
-    size: 15447
+    size: 15422
   - path: development/tasks/ux-ds-scan-artifact.md
-    hash: sha256:47c19af844202958bd7a01a568952313c2a997651b630026ed7f58029a673502
+    hash: sha256:f847047d3a9b230db728918104449d8dfd48d7f1fce66f8ca32bc79afd56be70
     type: task
-    size: 16189
+    size: 16164
   - path: development/tasks/ux-user-research.md
-    hash: sha256:96a0c1c5672fab3bc7a03c1fc344ddc023e798ab941c6ca414ea5a7d24f3a32f
+    hash: sha256:c01c6cc86a8444bccc484e898123e54819c7c1d87f2d7e78f7771700d2d6d5ee
     type: task
-    size: 13280
+    size: 13255
   - path: development/tasks/validate-agents.md
     hash: sha256:c61fcb2dbd45e3f97185746c80cf7f53a67da1bb09ed11f1298d4f6c52875840
     type: task
     size: 3601
   - path: development/tasks/validate-next-story.md
-    hash: sha256:aad20e5d1f11f9e58f3e73e6a806f7c6be79b01bf2d93d1fe64b2dd6f4a15459
+    hash: sha256:2df40c4a4b4b1d35fc8b9a5ac7c9d3985d21ee8c27e382e1e872ab9aadc979c2
     type: task
-    size: 18875
+    size: 18850
   - path: development/tasks/validate-tech-preset.md
-    hash: sha256:355a375e8b419db651e0cab89815f1019c1db11dcf5688fd632f8df7354ca68e
+    hash: sha256:5f3657d31ba7bbbc6646ede30346c2bfcd383152f4d095c54c26a92f931f8e54
     type: task
-    size: 5999
+    size: 5983
   - path: development/tasks/validate-workflow.md
-    hash: sha256:d285f01cf5873e3b523ede382a0586acbc98b29829753e4acb91e547af7fb39d
+    hash: sha256:377e6018cd8b88fe7d86c828e67f66be40c3e47145676388d6e303fcc04ca4d4
     type: task
-    size: 8343
+    size: 8302
   - path: development/tasks/verify-subtask.md
     hash: sha256:2cdf083788024476a71f297a430df5c7b7182d308bc839bd49b575eec775ce2a
     type: task
@@ -2817,9 +2817,9 @@ files:
     type: task
     size: 4687
   - path: development/tasks/yolo-toggle.md
-    hash: sha256:0e2c028625dd7cdca74ab25fcd9b051f1959fe40765dbca7014625d68d68b832
+    hash: sha256:5887a8c952f0094ead40db7c3cb6873717df3598a2cdda7abb2bcce64984c85b
     type: task
-    size: 2242
+    size: 2224
   - path: development/templates/aexos-doc-template.md
     hash: sha256:91fbd05afd3ccf5c875e36d247b3cf6f483387f2abc300b81da194623a374281
     type: template
@@ -2937,9 +2937,9 @@ files:
     type: template
     size: 3375
   - path: development/templates/squad/task-template.md
-    hash: sha256:241de16ff21e7fe6b1adfb99c1ffe6dc42f7fc6f6f03c159dd58b910aed3b243
+    hash: sha256:ae7e5a7f166fcfd3aa030ba3310d1c5ed1657bd6e6b8ab7cf739458a1f16ec9d
     type: template
-    size: 2581
+    size: 2571
   - path: development/templates/squad/template-template.md
     hash: sha256:7e65a676b0d6eb92a89a2da1233992bfe86c1baa2a5fe2ad0bc51505004302c0
     type: template
@@ -3029,9 +3029,9 @@ files:
     type: documentation
     size: 16065
   - path: docs/standards/EXECUTOR-DECISION-TREE.md
-    hash: sha256:623cfa86e5062cd4a24b24b84a7615d8ae5e8f65c7c4b38d8fdbb52935e808c4
+    hash: sha256:e3125802b6af26598bd40b0fd428f6f8b0f6c2bd421e3979ad0eb489e1ebb67a
     type: documentation
-    size: 19270
+    size: 19124
   - path: docs/standards/OPEN-SOURCE-VS-SERVICE-DIFFERENCES.md
     hash: sha256:ca5285d0885219ab99899c25effaa94d2f61dc5442b6d4af4bda5c8f0bfc3a79
     type: documentation
@@ -3049,9 +3049,9 @@ files:
     type: documentation
     size: 11581
   - path: docs/standards/TASK-FORMAT-SPECIFICATION-V1.md
-    hash: sha256:0d0a68baeca3a9ad86cf0aebf2a81cd7018ee9bdd9926c2bb3e0d19d46dc8eba
+    hash: sha256:bfcc2b28dc8e6ad336e14c4ae66d2c999aea452d44235e62c09dd5564df777cc
     type: documentation
-    size: 34478
+    size: 34177
   - path: elicitation/agent-elicitation.js
     hash: sha256:ef13ebff1375279e7b8f0f0bbd3699a0d201f9a67127efa64c4142159a26f417
     type: elicitation
@@ -3181,9 +3181,9 @@ files:
     type: script
     size: 21579
   - path: infrastructure/scripts/asset-inventory.js
-    hash: sha256:0cca342e03465a3e758166b29a5e36457a01718dca22a24c8f4616e5f03bb623
+    hash: sha256:0f155761a43ce34ae77d1b169d21fdac72c64e0140d36ed70016a8d719c36519
     type: script
-    size: 17517
+    size: 17667
   - path: infrastructure/scripts/atomic-layer-classifier.js
     hash: sha256:6e43822348e1ea2e387570081999cde4e0dcf06f1f2d4b0f6ee2128ff0ab586b
     type: script
@@ -4201,9 +4201,9 @@ files:
     type: template
     size: 8307
   - path: product/templates/personalized-task-template-v2.md
-    hash: sha256:ce44db8dfd1f50f90db3d9a5de7d6d2ed318af99b4683f8f6590bef1acd715c2
+    hash: sha256:cd586194d25ddcdc8ac63a0d3ae05a18c88fcc5d3f1d1654fc28d7cec59f952c
     type: template
-    size: 23686
+    size: 23626
   - path: product/templates/personalized-task-template.md
     hash: sha256:82611bc783c8d7bd6e388bf267d2c71eddf673accce19b49b33af408bb39741c
     type: template

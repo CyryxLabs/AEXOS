@@ -1,16 +1,16 @@
 ---
 task: Create Custom Subagent Definition
-responsavel: "@swarm-orchestrator"
-responsavel_type: agent
+owner: "@swarm-orchestrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - agent_name: Kebab-case name with no spaces, unique among existing agents (required)
   - agent_purpose: One-sentence description of what the agent does (required)
   - complexity: simple, standard or complex — drives model selection (required)
   - tools_needed: Tools the agent must be able to access (optional)
   - output_format: Expected output structure — markdown, json or yaml (optional)
   - agents_directory: .claude/agents/, created if absent (required)
-Saida: |
+Output: |
   - agent_file: .claude/agents/{name}.md with YAML frontmatter and instruction body
   - frontmatter: name, description, model and allowed-tools fields
   - scope_definition: What the agent does, the 3-5 tasks it handles, the 2-3 things it must not do, and the context it needs

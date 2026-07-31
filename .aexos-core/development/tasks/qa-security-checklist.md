@@ -36,44 +36,44 @@ Automated security vulnerability scanning for common security anti-patterns.
 
 ```yaml
 task: qaSecurityChecklist()
-responsavel: Argus (Guardian)
-responsavel_type: Agente
+owner: Argus (Guardian)
+owner_type: agent
 atomic_layer: Molecule
 
-**Entrada:**
-- campo: story_id
-  tipo: string
-  origem: User Input
-  obrigatorio: true
-  validacao: Must be valid story ID format (e.g., "6.3")
+**Input:**
+- field: story_id
+  type: string
+  source: User Input
+  required: true
+  validation: Must be valid story ID format (e.g., "6.3")
 
-- campo: file_paths
-  tipo: array
-  origem: git diff or explicit list
-  obrigatorio: false
-  validacao: If empty, extracts from uncommitted changes
+- field: file_paths
+  type: array
+  source: git diff or explicit list
+  required: false
+  validation: If empty, extracts from uncommitted changes
 
-- campo: severity_threshold
-  tipo: string
-  origem: config
-  obrigatorio: false
-  validacao: "CRITICAL" | "HIGH" | "MEDIUM" | "LOW" (default: "HIGH")
+- field: severity_threshold
+  type: string
+  source: config
+  required: false
+  validation: "CRITICAL" | "HIGH" | "MEDIUM" | "LOW" (default: "HIGH")
 
-**Saida:**
-- campo: security_report
-  tipo: object
-  destino: Return value
-  persistido: false
+**Output:**
+- field: security_report
+  type: object
+  destination: Return value
+  persisted: false
 
-- campo: vulnerabilities_found
-  tipo: number
-  destino: Memory
-  persistido: false
+- field: vulnerabilities_found
+  type: number
+  destination: Memory
+  persisted: false
 
-- campo: report_file
-  tipo: file
-  destino: docs/stories/{story-id}/qa/security_issues.json
-  persistido: true
+- field: report_file
+  type: file
+  destination: docs/stories/{story-id}/qa/security_issues.json
+  persisted: true
 ```
 
 ---
@@ -87,16 +87,16 @@ atomic_layer: Molecule
 ```yaml
 pre-conditions:
   - [ ] Files to scan exist
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: |
+    validation: |
       git diff --name-only returns files OR --files provided
     error_message: "Pre-condition failed: No files to scan."
 
   - [ ] Grep tool available
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: |
+    validation: |
       Native Grep tool accessible
     error_message: "Pre-condition failed: Grep tool not available."
 ```
@@ -112,16 +112,16 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Security report generated
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: |
+    validation: |
       security_issues.json exists with results
     error_message: "Post-condition failed: Security report not generated."
 
   - [ ] All patterns checked
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: |
+    validation: |
       All 8 security patterns scanned
     error_message: "Post-condition failed: Not all patterns checked."
 ```

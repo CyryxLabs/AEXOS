@@ -9,8 +9,8 @@ Extract and document code patterns from the codebase. Analyzes code via AST and 
 ```yaml
 task: extract-patterns()
 agent: "@dev"
-responsável: Vulcan (Developer)
-responsavel_type: Agente
+owner: Vulcan (Developer)
+owner_type: agent
 atomic_layer: Workflow
 
 elicit: false
@@ -54,18 +54,18 @@ inputs:
 outputs:
   - name: patterns_markdown
     type: string
-    destino: File (.aexos/patterns.md)
-    persistido: true
+    destination: File (.aexos/patterns.md)
+    persisted: true
 
   - name: patterns_json
     type: object
-    destino: Console or File
-    persistido: false
+    destination: Console or File
+    persisted: false
 
   - name: summary
     type: object
-    destino: Console
-    persistido: false
+    destination: Console
+    persisted: false
 ```
 
 ---
@@ -75,15 +75,15 @@ outputs:
 ```yaml
 pre-conditions:
   - [ ] Project root is a valid codebase
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: Check package.json or .aexos-core exists
+    validation: Check package.json or .aexos-core exists
     error_message: "Could not find project root. Run from within a project directory."
 
   - [ ] Code files exist
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: At least one .ts/.tsx/.js/.jsx file exists
+    validation: At least one .ts/.tsx/.js/.jsx file exists
     error_message: "No code files found to analyze."
 ```
 
@@ -292,14 +292,14 @@ Total patterns detected: 12
 ```yaml
 post-conditions:
   - [ ] Patterns file created/updated
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validação: Check .aexos/patterns.md exists and is valid markdown
+    validation: Check .aexos/patterns.md exists and is valid markdown
 
   - [ ] Summary displayed
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validação: Console shows pattern count summary
+    validation: Console shows pattern count summary
 ```
 
 ---

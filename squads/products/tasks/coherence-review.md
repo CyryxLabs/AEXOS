@@ -1,15 +1,15 @@
 ---
 task: Coherence Review
-responsavel: "@products-chief"
-responsavel_type: agent
+owner: "@products-chief"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - initiative: The initiative or product area whose artifacts are being audited (required)
   - artifacts: Paths to every squad artifact written for this initiative, with the date each was last revised (required, minimum 2 — a single artifact cannot contradict anything)
   - current_strategy: Path to the strategy artifact that is currently in force (required — it is the baseline the chain is read against)
   - decision_pending: The decision this audit must unblock, if any (optional, default: none)
   - output_dir: Directory for the coherence report (optional, default: docs/product/coherence/)
-Saida: |
+Output: |
   - coherence_report: Versioned markdown file with the chain table, every break classified, the repair order, and the repair direction verdict
   - breaks: List of chain breaks, each classified INDEPENDENT or INHERITED, with the link it occurs at
   - repair_order: Ordered repair list, upstream-first, with the parallel-safe items flagged

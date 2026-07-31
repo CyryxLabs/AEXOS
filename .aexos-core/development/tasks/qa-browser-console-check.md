@@ -10,7 +10,7 @@ Automated browser console error detection for frontend changes.
 
 ```yaml
 task: qaBrowserConsoleCheck()
-responsavel: Argus (Guardian)
+owner: Argus (Guardian)
 atomic_layer: Molecule
 
 inputs:

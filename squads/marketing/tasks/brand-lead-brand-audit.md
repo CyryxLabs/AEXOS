@@ -1,9 +1,9 @@
 ---
 task: Audit Brand Growth Health
-responsavel: "@brand-lead"
-responsavel_type: agent
+owner: "@brand-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - category: The category as the buyer defines it, with its buyer population (required)
   - position_artifact: The competitive frame from @products:positioning-lead (required — consumed, never authored here)
   - penetration_data: Share of category buyers who bought this brand in a defined period (optional; drives the UNVERIFIED verdict if absent)
@@ -11,7 +11,7 @@ Entrada: |
   - tracking_data: CEP-linked prompted recall among category buyers, including non-buyers (optional)
   - asset_test_data: Fame and uniqueness readings per distinctive asset (optional)
   - buying_path: The purchase path from moment of need to completed purchase (optional)
-Saida: |
+Output: |
   - denominator: The category buyer population, with its source named
   - readings_table: Six readings, each marked SOURCED or UNVERIFIED
   - double_jeopardy_verdict: Whether loyalty sits where the pattern predicts for this share

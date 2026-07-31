@@ -1,15 +1,15 @@
 ---
 task: Design Pipeline Stages
-responsavel: "@pipeline-ops"
-responsavel_type: agent
+owner: "@pipeline-ops"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - buyer_journey: How the buyer experiences the purchase, as the buyer experiences it (required)
   - current_stages: The stage model in use today, with its advance rules (required)
   - open_pipeline: Current open deals with their stage, close date and attached evidence (required)
   - qualification_standard: The evidence standard used by @qualification-lead, for alignment (required)
   - historical_conversion: Our own stage-to-stage conversion and cycle time, with deal counts (optional)
-Saida: |
+Output: |
   - stage_model: Each stage named after buyer action, with its buyer-side exit criterion
   - exit_criteria: The buyer-produced artifact that evidences each stage, and where it lives
   - field_test_results: Per criterion, whether a rep could satisfy it by updating a CRM field

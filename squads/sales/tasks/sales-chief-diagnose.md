@@ -1,14 +1,14 @@
 ---
 task: Diagnose And Route Sales Request
-responsavel: "@sales-chief"
-responsavel_type: agent
+owner: "@sales-chief"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - request: The sales question or situation, in the requester's own words (required)
   - deal_or_account: Deal, account or initiative the request concerns (optional, default: unnamed)
   - existing_artifacts: Paths or contents of squad artifacts already produced for this deal (optional)
   - deadline: Date pressure attached to the request, and whose date it is (optional)
-Saida: |
+Output: |
   - restated_request: The request rewritten in the owning discipline's vocabulary, confirmed with the requester
   - owner: Exactly one specialist id from squads/sales/squad.yaml that owns the request
   - near_misses: The two nearest non-owners, each with the reason it was excluded

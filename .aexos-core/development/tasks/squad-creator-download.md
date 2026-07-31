@@ -1,17 +1,17 @@
 ---
 task: Download Squad
-responsavel: "@squad-creator"
-responsavel_type: agent
+owner: "@squad-creator"
+owner_type: agent
 atomic_layer: task
 status: active
 sprint: 8
 story: SQS-6
-Entrada: |
+Input: |
   - squad_name: Nome do squad para baixar (obrigatório)
   - version: Versão específica (opcional, default: latest)
   - list: Flag para listar squads disponíveis (--list)
   - overwrite: Flag para sobrescrever squad existente (--overwrite)
-Saida: |
+Output: |
   - squad_path: Caminho do squad baixado
   - manifest: Manifest do squad
   - validation_result: Resultado da validação

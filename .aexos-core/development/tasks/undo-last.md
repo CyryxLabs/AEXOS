@@ -35,33 +35,33 @@
 
 ```yaml
 task: undoLast()
-responsável: Vulcan (Builder)
-responsavel_type: Agente
+owner: Vulcan (Builder)
+owner_type: agent
 atomic_layer: Atom
 
-**Entrada:**
-- campo: target
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Must exist
+**Input:**
+- field: target
+  type: string
+  source: User Input
+  required: true
+  validation: Must exist
 
-- campo: version
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: Target version or timestamp
+- field: version
+  type: string
+  source: User Input
+  required: false
+  validation: Target version or timestamp
 
-**Saída:**
-- campo: restored_state
-  tipo: object
-  destino: File system
-  persistido: true
+**Output:**
+- field: restored_state
+  type: object
+  destination: File system
+  persisted: true
 
-- campo: rollback_log
-  tipo: array
-  destino: File (.ai/rollback/*)
-  persistido: true
+- field: rollback_log
+  type: array
+  destination: File (.ai/rollback/*)
+  persisted: true
 ```
 
 ---
@@ -75,9 +75,9 @@ atomic_layer: Atom
 ```yaml
 pre-conditions:
   - [ ] Backup exists; rollback target valid
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check backup exists; rollback target valid
     error_message: "Pre-condition failed: Backup exists; rollback target valid"
 ```
@@ -93,9 +93,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] State restored; integrity verified; no data loss
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify state restored; integrity verified; no data loss
     error_message: "Post-condition failed: State restored; integrity verified; no data loss"
 ```
@@ -111,9 +111,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Original state restored; no residual changes
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert original state restored; no residual changes
     error_message: "Acceptance criterion not met: Original state restored; no residual changes"
 ```

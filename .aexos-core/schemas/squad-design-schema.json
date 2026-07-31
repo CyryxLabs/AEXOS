@@ -213,7 +213,7 @@
           "maxLength": 64,
           "description": "Owning agent identifier"
         },
-        "entrada": {
+        "inputs": {
           "type": "array",
           "items": {
             "type": "string",
@@ -223,7 +223,7 @@
           "maxItems": 20,
           "description": "Task input parameters"
         },
-        "saida": {
+        "outputs": {
           "type": "array",
           "items": {
             "type": "string",
@@ -232,6 +232,18 @@
           },
           "maxItems": 20,
           "description": "Task output parameters"
+        },
+        "entrada": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "maxItems": 20,
+          "description": "DEPRECATED — earlier name for `inputs`. Read, never written."
+        },
+        "saida": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "maxItems": 20,
+          "description": "DEPRECATED — earlier name for `outputs`. Read, never written."
         },
         "confidence": {
           "type": "number",
@@ -280,8 +292,8 @@
           {
             "name": "create-order",
             "agent": "order-manager",
-            "entrada": ["customer_id", "items", "payment_method"],
-            "saida": ["order_id", "status"],
+            "inputs": ["customer_id", "items", "payment_method"],
+            "outputs": ["order_id", "status"],
             "confidence": 0.88
           }
         ],

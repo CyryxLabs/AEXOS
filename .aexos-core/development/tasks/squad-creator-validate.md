@@ -1,14 +1,14 @@
 ---
 task: Validate Squad
-responsável: @squad-creator
-responsável_type: agent
+owner: @squad-creator
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - squad_path: Path to the squad directory (default: ./squads/{name})
   - name: Squad name (alternative to full path)
   - strict: If true, warnings become errors (default: false)
   - verbose: If true, show detailed output (default: false)
-Saída: |
+Output: |
   - validation_result: Object with { valid, errors, warnings, suggestions }
   - report: Formatted report for display
   - exit_code: 0 if valid, 1 if invalid

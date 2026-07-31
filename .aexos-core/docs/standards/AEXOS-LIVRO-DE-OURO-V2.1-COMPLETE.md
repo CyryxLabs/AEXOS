@@ -273,10 +273,10 @@ inputs: { market_data: object }
 outputs: { insights: array }
 
 # Executor é apenas um campo
-responsavel_type: Humano   # Day 1
-responsavel_type: Worker   # Week 10
-responsavel_type: Agente   # Month 6
-responsavel_type: Clone    # Year 2
+owner_type: Humano   # Day 1
+owner_type: Worker   # Week 10
+owner_type: Agente   # Month 6
+owner_type: Clone    # Year 2
 ```
 
 ### Migração Instantânea

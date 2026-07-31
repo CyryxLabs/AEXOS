@@ -1,16 +1,16 @@
 ---
 task: Enterprise Configuration
-responsavel: "@config-engineer"
-responsavel_type: agent
+owner: "@config-engineer"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - org_name: Organization identifier used in announcements and artifacts (required)
   - compliance: Frameworks to enforce — soc2, hipaa, gdpr, pci, iso27001 (optional)
   - platform_targets: macos, linux, windows, wsl2 (optional, default all)
   - team_count: Number of developers or teams using Claude Code (optional)
   - admin_access: Administrative rights to deploy managed files, plus MDM access for plist or registry deployment (required precondition)
   - approved_tooling: The organization's approved tools and MCP servers (required precondition)
-Saida: |
+Output: |
   - managed_settings_json: Per-platform managed-settings.json with deny-first rules and the managed-only policy keys
   - managed_mcp_json: Per-platform managed-mcp.json with mcpServers, allowedMcpServers and deniedMcpServers
   - mdm_profiles: macOS plist and Windows registry snippets, plus the Linux configuration-management path

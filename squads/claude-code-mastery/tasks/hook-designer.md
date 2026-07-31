@@ -1,14 +1,14 @@
 ---
 task: Design Custom Hooks
-responsavel: "@project-integrator"
-responsavel_type: agent
+owner: "@project-integrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - hook_purpose: Description of the automation the hook should provide (required)
   - trigger_event: A specific event if the user already knows it, e.g. PreToolUse or Stop (optional)
   - project_path: Project directory supplying the workflow context (required)
   - workflow_pain_points: Understanding of the project's workflow and where friction occurs (required precondition)
-Saida: |
+Output: |
   - suitability_verdict: The categorized need, and whether a hook is the right mechanism or a skill, rule or CI/CD step is better
   - hook_type: command or prompt transport, with the language chosen for the implementation
   - event_selection: The primary event plus guard conditions, timeout and error behaviour

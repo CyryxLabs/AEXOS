@@ -1,16 +1,16 @@
 ---
 task: Build Marketing Measurement Model
-responsavel: "@analytics-lead"
-responsavel_type: agent
+owner: "@analytics-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - business_objectives: What the business is trying to achieve, from @demand-lead and @brand-lead (required — never invented here)
   - effect_windows: The window over which each effect occurs, from @demand-lead (required)
   - brand_objectives: What brand building must achieve, from @brand-lead (optional)
   - existing_dashboard: The report or dashboard currently in use, metric by metric (optional)
   - instrumentation_inventory: Which events, properties and identity basis exist today (optional)
   - segments: Established segments from @products:positioning-lead, if any (optional)
-Saida: |
+Output: |
   - model_table: Objectives, goals, critical few metrics, targets, segments, horizon and feasibility in one table
   - critical_few: Two to three metrics per goal, maximum, each passing the decision test
   - targets: A target set in advance for every metric, with the basis stated

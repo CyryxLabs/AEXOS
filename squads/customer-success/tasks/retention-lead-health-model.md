@@ -1,15 +1,15 @@
 ---
 task: Design And Validate The Account Health Model
-responsavel: "@retention-lead"
-responsavel_type: agent
+owner: "@retention-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - activation_inputs: First-value definitions, activation milestones and the habit criterion from @onboarding-lead (required)
   - candidate_signals: Proposed signals with the data that backs each one (required)
   - completed_period: A closed renewal period with known outcomes, for backward validation (required)
   - intervention_window: The time each touch model needs for an intervention to change anything (required)
   - instrumentation_inventory: Which candidate inputs are instrumented, proxied or unavailable (optional)
-Saida: |
+Output: |
   - health_model: Four dimensions kept separate, with the admitted signals per dimension (persisted)
   - signal_table: Per signal - measured lead time, hit rate, loss coverage, segment validity, verdict
   - backward_validation: Renewal rate by health state over the completed period, with the separation reported

@@ -1,9 +1,9 @@
 ---
 task: Build and Screen an Offer
-responsavel: "@offer-lead"
-responsavel_type: agent
+owner: "@offer-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - price_artifact: The settled price and packaging from @products:pricing-strategist (required — consumed, never authored here)
   - position_artifact: The competitive frame and segment from @products:positioning-lead (required — consumed, never authored here)
   - buyer_problem: The problem in the buyer's own words, and evidence they have money and authority (required)
@@ -12,7 +12,7 @@ Entrada: |
   - time_to_first_outcome: Measured time from payment to the first outcome the buyer can feel (optional; drives the denominator diagnosis)
   - proof_inventory: Real, attributable evidence available today — clients, results, references (optional)
   - brand_artifact: Distinctive assets and category entry points from @marketing:brand-lead the offer must not contradict (optional)
-Saida: |
+Output: |
   - value_equation_reading: All four terms stated, each with its current state and evidence class
   - binding_term: One of DREAM OUTCOME, PERCEIVED LIKELIHOOD, TIME DELAY, EFFORT AND SACRIFICE — with the evidence that selects it
   - problem_solution_stack: Obstacles enumerated first, each with the offer element that removes it, plus obstacles with no solution

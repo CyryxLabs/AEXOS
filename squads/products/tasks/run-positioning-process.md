@@ -1,9 +1,9 @@
 ---
 task: Run Positioning Process
-responsavel: "@positioning-lead"
-responsavel_type: agent
+owner: "@positioning-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - product: The product or capability being positioned (required)
   - best_fit_customers: Accounts that already love the product, with why they were selected (required)
   - win_loss_records: Win, loss and no-decision records available, with dates (required)
@@ -11,7 +11,7 @@ Entrada: |
   - current_position: The position in market today, however informal (optional, default: elicit)
   - education_budget: Budget available for market education, which gates category creation (optional)
   - output_dir: Directory for positioning artifacts (optional, default: docs/product/positioning/)
-Saida: |
+Output: |
   - positioning_document: Captured position with all five components sourced, per-function actions and a review date
   - alternatives_table: True competitive alternatives ranked by frequency in real deals, including do-nothing
   - attribute_table: Unique attributes with the alternatives that lack each, and the table stakes struck out

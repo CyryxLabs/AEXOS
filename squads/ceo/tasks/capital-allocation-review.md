@@ -1,15 +1,15 @@
 ---
 task: Capital Allocation Review
-responsavel: "@capital-allocator"
-responsavel_type: agent
+owner: "@capital-allocator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - cash_position: Cash on hand, expected free cash flow over the horizon, obligations, minimum operating buffer (required)
   - guiding_policy: The current diagnosis and guiding policy from @strategy-lead (required)
   - proposals: Candidate uses of cash already on the table, each with its requested amount (optional)
   - hurdle_rate: An existing hurdle rate with its derivation, if one is already published (optional)
   - horizon: The comparison period applied to every door (optional, default: five years)
-Saida: |
+Output: |
   - position_statement: The cash position with every figure carrying its source and date
   - hurdle: The rate, its derivation, its horizon and the anti-drift rule
   - five_doors: One row per use of cash including doors with no candidate

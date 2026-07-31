@@ -1,16 +1,16 @@
 ---
 task: Build Opportunity Solution Tree
-responsavel: "@discovery-lead"
-responsavel_type: agent
+owner: "@discovery-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - outcome: The measurable product outcome the trio is pursuing, with baseline and target (required)
   - snapshots: Interview snapshots available, each with an id (required, minimum one)
   - trio: The product manager, product designer and engineer who attend the interviews (required)
   - existing_tree: Path to a tree being updated rather than created (optional, default: none)
   - business_outcome: The business outcome the product outcome ladders to (optional, default: elicit)
   - output_dir: Directory for discovery artifacts (optional, default: docs/product/discovery/)
-Saida: |
+Output: |
   - tree: Versioned opportunity solution tree with outcome at the root and snapshot provenance per opportunity
   - target_opportunity: Exactly one selected target, with the sizing that justified it
   - structural_report: Result of the single-parent, sibling-distinctness, solution-leakage and provenance checks

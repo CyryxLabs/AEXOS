@@ -1,16 +1,16 @@
 ---
 task: Declare An Incident And Assign Command
-responsavel: "@incident-lead"
-responsavel_type: agent
+owner: "@incident-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - observed_impact: What users are experiencing right now, stated as observation not diagnosis (required)
   - population: How many users and which journeys, as far as it is known at this moment (required)
   - severity_matrix: The written severity criteria, if one exists (optional; its absence is itself a finding)
   - available_responders: Who is present and what each can actually do (required)
   - reversibility: Whether the failure appears recoverable, if known (optional)
   - accepted_risks: Any recorded accepted risk that covers this failure mode (optional)
-Saida: |
+Output: |
   - incident_record: An opened, identified incident record with declaration time and observed impact
   - severity: A classification against written criteria, with the reason, and any reclassification recorded
   - command_structure: Named commander, operations, communications and scribe, plus the agent holding each mechanical authority

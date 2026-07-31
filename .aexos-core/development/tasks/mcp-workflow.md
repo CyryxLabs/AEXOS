@@ -8,52 +8,52 @@
 
 ```yaml
 task: mcpWorkflow()
-responsavel: Dev Agent
-responsavel_type: Agente
+owner: Dev Agent
+owner_type: agent
 atomic_layer: Development
 elicit: true
 
-**Entrada:**
-- campo: workflow_name
-  tipo: string
-  origem: User Input
-  obrigatorio: true
-  validacao: Kebab-case name (e.g., scrape-process-store)
+**Input:**
+- field: workflow_name
+  type: string
+  source: User Input
+  required: true
+  validation: Kebab-case name (e.g., scrape-process-store)
 
-- campo: workflow_description
-  tipo: string
-  origem: User Input
-  obrigatorio: true
-  validacao: Brief description of workflow purpose
+- field: workflow_description
+  type: string
+  source: User Input
+  required: true
+  validation: Brief description of workflow purpose
 
-- campo: mcps_required
-  tipo: array
-  origem: User Selection
-  obrigatorio: true
-  validacao: List of MCPs the workflow will use
+- field: mcps_required
+  type: array
+  source: User Selection
+  required: true
+  validation: List of MCPs the workflow will use
 
-- campo: input_params
-  tipo: object
-  origem: User Input
-  obrigatorio: false
-  validacao: Input parameters specification
+- field: input_params
+  type: object
+  source: User Input
+  required: false
+  validation: Input parameters specification
 
-- campo: output_format
-  tipo: string
-  origem: User Selection
-  obrigatorio: false
-  validacao: json, text, or custom
+- field: output_format
+  type: string
+  source: User Selection
+  required: false
+  validation: json, text, or custom
 
-**Saida:**
-- campo: workflow_file
-  tipo: file
-  destino: scripts/mcp-workflows/{workflow_name}.js
-  persistido: true
+**Output:**
+- field: workflow_file
+  type: file
+  destination: scripts/mcp-workflows/{workflow_name}.js
+  persisted: true
 
-- campo: workflow_meta
-  tipo: object
-  destino: Console output
-  persistido: false
+- field: workflow_meta
+  type: object
+  destination: Console output
+  persisted: false
 ```
 
 ---
@@ -63,21 +63,21 @@ elicit: true
 ```yaml
 pre-conditions:
   - [ ] Docker MCP Toolkit available
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: docker mcp --version succeeds
+    validation: docker mcp --version succeeds
     error_message: "Docker MCP Toolkit not installed"
 
   - [ ] Required MCPs enabled
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: All specified MCPs available in docker mcp tools ls
+    validation: All specified MCPs available in docker mcp tools ls
     error_message: "Missing MCPs - add with *add-mcp"
 
   - [ ] Workflow directory exists
-    tipo: pre-condition
+    type: pre-condition
     blocker: false
-    validacao: scripts/mcp-workflows/ directory exists
+    validation: scripts/mcp-workflows/ directory exists
     error_message: "Will create directory automatically"
 ```
 
@@ -298,21 +298,21 @@ docker mcp exec ./scripts/mcp-workflows/{workflow_name}.js --param value
 ```yaml
 post-conditions:
   - [ ] Workflow file created
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: File exists at scripts/mcp-workflows/{workflow_name}.js
+    validation: File exists at scripts/mcp-workflows/{workflow_name}.js
     error_message: "Workflow file not created"
 
   - [ ] Workflow executes
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: docker mcp exec completes without error
+    validation: docker mcp exec completes without error
     error_message: "Workflow execution failed"
 
   - [ ] README updated
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validacao: Workflow documented in README.md
+    validation: Workflow documented in README.md
     error_message: "Remember to document workflow"
 ```
 

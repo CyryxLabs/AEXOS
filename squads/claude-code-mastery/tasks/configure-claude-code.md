@@ -1,14 +1,14 @@
 ---
 task: Configure Claude Code Settings
-responsavel: "@config-engineer"
-responsavel_type: agent
+owner: "@config-engineer"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_root: Working directory holding the project files, with write access to .claude/ (required)
   - security_level: standard, strict or enterprise (optional, default standard)
   - existing_settings: Current .claude/settings.json to merge with, plus the user's merge-or-overwrite decision (optional)
   - detected_stack: Package manager, framework, test runner, database and .aexos-core/ markers found by the scan (derived)
-Saida: |
+Output: |
   - settings_json: .claude/settings.json built deny-first, with populated allow rules and a defaultMode
   - deny_rules: Blocks for .env, secrets, certificates, keys and destructive or pipe-to-shell commands
   - allow_rules: Safe operations derived from the detected stack — git read-only, package scripts, test, build and lint commands

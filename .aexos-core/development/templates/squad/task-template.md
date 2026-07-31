@@ -1,22 +1,22 @@
 ---
 task: {{COMPONENTNAME}}
-responsavel: "@{{AGENTID}}"
-responsavel_type: Agent
+owner: "@{{AGENTID}}"
+owner_type: agent
 atomic_layer: Task
 elicit: false
 
-Entrada:
-  - campo: input_param
-    tipo: string
-    origem: User Input
-    obrigatorio: true
-    validacao: "Describe validation rules"
+Input:
+  - field: input_param
+    type: string
+    source: User Input
+    required: true
+    validation: "Describe validation rules"
 
-Saida:
-  - campo: result
-    tipo: object
-    destino: Return value
-    persistido: false
+Output:
+  - field: result
+    type: object
+    destination: Return value
+    persisted: false
 
 Checklist:
   - "[ ] Step 1: Describe first step"
@@ -42,9 +42,9 @@ Checklist:
 ```yaml
 pre-conditions:
   - [ ] Pre-condition 1
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: |
+    validation: |
       Describe what to validate
     error_message: "Error message if pre-condition fails"
 ```
@@ -119,9 +119,9 @@ recovery: Suggested recovery action
 ```yaml
 post-conditions:
   - [ ] Result is valid
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: |
+    validation: |
       Describe validation
     error_message: "Error message if post-condition fails"
 ```

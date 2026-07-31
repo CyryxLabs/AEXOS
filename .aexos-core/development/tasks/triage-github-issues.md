@@ -33,37 +33,37 @@
 
 ```yaml
 task: triageGithubIssues()
-responsavel: Polaris (Operator)
-responsavel_type: Agente
+owner: Polaris (Operator)
+owner_type: agent
 atomic_layer: Organism
 
-**Entrada:**
-- campo: filters
-  tipo: object
-  origem: User Input
-  obrigatorio: false
-  validacao: |
+**Input:**
+- field: filters
+  type: object
+  source: User Input
+  required: false
+  validation: |
     Optional filters: { state: 'open', labels: [], assignee: '', limit: 30 }
   default: { state: 'open', limit: 30 }
 
-- campo: mode
-  tipo: string
-  origem: User Input
-  obrigatorio: false
-  validacao: yolo|interactive|pre-flight
+- field: mode
+  type: string
+  source: User Input
+  required: false
+  validation: yolo|interactive|pre-flight
 
-**Saida:**
-- campo: triage_report
-  tipo: object
-  destino: User Display
-  persistido: false
+**Output:**
+- field: triage_report
+  type: object
+  destination: User Display
+  persisted: false
   formato: |
     Tabela priorizada com: issue#, titulo, tipo, severidade, esforco, recomendacao
 
-- campo: recommended_next
-  tipo: array
-  destino: User Display
-  persistido: false
+- field: recommended_next
+  type: array
+  destination: User Display
+  persisted: false
   formato: |
     Top 3-5 issues recomendados para resolver em ordem
 ```
@@ -79,17 +79,17 @@ atomic_layer: Organism
 ```yaml
 pre-conditions:
   - [ ] GitHub CLI authenticated (gh auth status)
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: |
+    validation: |
       Run: gh auth status
       Must show authenticated user
     error_message: "GitHub CLI not authenticated. Run: gh auth login"
 
   - [ ] Repository has GitHub remote configured
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: |
+    validation: |
       Run: git remote -v
       Must show github.com remote
     error_message: "No GitHub remote found. Add with: git remote add origin <url>"
@@ -226,21 +226,21 @@ Present the triage report and wait for user to:
 ```yaml
 post-conditions:
   - [ ] All open issues classified with type, severity, and effort
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validacao: |
+    validation: |
       Every issue in report has Type, Severity, and Effort columns filled
 
   - [ ] Priority ranking presented to user
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validacao: |
+    validation: |
       User has seen the prioritized triage report
 
   - [ ] User has selected next action (resolve, close, or defer)
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validacao: |
+    validation: |
       User has made a decision on at least one issue
 ```
 
@@ -255,19 +255,19 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Triage report covers all open issues (or up to limit)
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 
   - [ ] Each issue has type, severity, effort, and priority tier
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 
   - [ ] Quick wins are clearly identified
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 
   - [ ] User-facing output is a clean, scannable table
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 ```
 

@@ -24,6 +24,7 @@ const {
   SquadValidator,
   ValidationErrorCodes,
   TASK_REQUIRED_FIELDS,
+  TASK_FIELD_ALIASES,
 } = require('../../../.aexos-core/development/scripts/squad');
 
 // Test fixtures path
@@ -68,11 +69,24 @@ describe('SquadValidator', () => {
       expect(TASK_REQUIRED_FIELDS).toBeDefined();
       expect(Array.isArray(TASK_REQUIRED_FIELDS)).toBe(true);
       expect(TASK_REQUIRED_FIELDS).toContain('task');
-      expect(TASK_REQUIRED_FIELDS).toContain('responsavel');
+      expect(TASK_REQUIRED_FIELDS).toContain('owner');
+      expect(TASK_REQUIRED_FIELDS).toContain('owner_type');
       expect(TASK_REQUIRED_FIELDS).toContain('atomic_layer');
-      expect(TASK_REQUIRED_FIELDS).toContain('Entrada');
-      expect(TASK_REQUIRED_FIELDS).toContain('Saida');
+      expect(TASK_REQUIRED_FIELDS).toContain('Input');
+      expect(TASK_REQUIRED_FIELDS).toContain('Output');
       expect(TASK_REQUIRED_FIELDS).toContain('Checklist');
+    });
+
+    it('should still recognise the Portuguese field names it replaced', () => {
+      const aliases = Object.fromEntries(
+        TASK_FIELD_ALIASES.map(([canonical, ...legacy]) => [canonical, legacy]),
+      );
+      expect(aliases.owner).toContain('responsavel');
+      expect(aliases.owner_type).toContain('responsavel_type');
+      expect(aliases.Input).toContain('Entrada');
+      expect(aliases.Output).toContain('Saida');
+      // Canonical names are the only ones reported as required.
+      expect(TASK_REQUIRED_FIELDS).not.toContain('responsavel');
     });
   });
 

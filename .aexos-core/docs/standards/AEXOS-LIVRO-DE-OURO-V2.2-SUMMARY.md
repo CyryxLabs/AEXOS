@@ -616,8 +616,8 @@ $ aexos clone activate brad-frost
 
 # Use clone in workflow
 task: validateDesignSystem()
-responsavel: Brad Frost Clone
-responsavel_type: Clone
+owner: Brad Frost Clone
+owner_type: clone
 
 # Clone provides expert-level validation
 [Brad Frost Clone]: 

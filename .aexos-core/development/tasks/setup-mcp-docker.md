@@ -63,44 +63,44 @@ Configure Docker MCP Toolkit as the primary MCP infrastructure for AEXOS, using 
 
 ```yaml
 task: setupMcpDocker()
-responsável: DevOps Agent
-responsavel_type: Agente
+owner: DevOps Agent
+owner_type: agent
 atomic_layer: Infrastructure
 
-**Entrada:**
-- campo: docker_version
-  tipo: string
-  origem: System Check
-  obrigatório: true
-  validação: Must be Docker Desktop 4.50+ with MCP Toolkit enabled
+**Input:**
+- field: docker_version
+  type: string
+  source: System Check
+  required: true
+  validation: Must be Docker Desktop 4.50+ with MCP Toolkit enabled
 
-- campo: mcps_to_enable
-  tipo: array
-  origem: User Input
-  obrigatório: false
-  validação: Array of MCP server names from Docker catalog
+- field: mcps_to_enable
+  type: array
+  source: User Input
+  required: false
+  validation: Array of MCP server names from Docker catalog
 
-- campo: presets
-  tipo: object
-  origem: User Input
-  obrigatório: false
-  validação: Preset configurations (dev, research, full)
+- field: presets
+  type: object
+  source: User Input
+  required: false
+  validation: Preset configurations (dev, research, full)
 
-**Saída:**
-- campo: gordon_config
-  tipo: file
-  destino: .docker/mcp/gordon-mcp.yml
-  persistido: true
+**Output:**
+- field: gordon_config
+  type: file
+  destination: .docker/mcp/gordon-mcp.yml
+  persisted: true
 
-- campo: claude_integration
-  tipo: boolean
-  destino: Claude Code configuration
-  persistido: true
+- field: claude_integration
+  type: boolean
+  destination: Claude Code configuration
+  persisted: true
 
-- campo: validation_report
-  tipo: object
-  destino: Console output
-  persistido: false
+- field: validation_report
+  type: object
+  destination: Console output
+  persisted: false
 ```
 
 ---
@@ -114,21 +114,21 @@ atomic_layer: Infrastructure
 ```yaml
 pre-conditions:
   - [ ] Docker Desktop 4.50+ installed
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: docker --version must return 4.50.0 or higher
+    validation: docker --version must return 4.50.0 or higher
     error_message: "Docker Desktop 4.50+ required. Download from https://docker.com/desktop"
 
   - [ ] Docker MCP Toolkit available
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: docker mcp --version must succeed
+    validation: docker mcp --version must succeed
     error_message: "Enable Docker MCP Toolkit in Docker Desktop settings"
 
   - [ ] Docker daemon running
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: docker info must succeed
+    validation: docker info must succeed
     error_message: "Start Docker Desktop before running this task"
 ```
 
@@ -143,15 +143,15 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] MCP Gateway accessible
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: docker mcp gateway status returns healthy
+    validation: docker mcp gateway status returns healthy
     error_message: "MCP Gateway failed to start"
 
   - [ ] Claude Code connected
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: Claude Code shows docker-gateway in MCP list
+    validation: Claude Code shows docker-gateway in MCP list
     error_message: "Claude Code not connected to MCP Gateway"
 ```
 

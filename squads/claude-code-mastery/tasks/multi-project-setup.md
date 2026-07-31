@@ -1,14 +1,14 @@
 ---
 task: Multi-Project Claude Code Setup
-responsavel: "@project-integrator"
-responsavel_type: agent
+owner: "@project-integrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - projects: Array of {path, name, type} for every project to configure; all directories must exist (required)
   - relationship: monorepo, polyrepo-shared-stack, polyrepo-independent or workspace (required)
   - shared_tools: Tools used across all projects, e.g. eslint, jest, docker (optional)
   - user_config_access: Write access to ~/.claude/ for the user-level layer (required precondition)
-Saida: |
+Output: |
   - relationship_map: Per project language, framework, shared dependencies, shared patterns, communication and git topology
   - user_settings: ~/.claude/settings.json with global allows, global denies and global preferences
   - user_claude_md: ~/.claude/CLAUDE.md with developer identity and cross-project conventions, under 50 lines

@@ -8,28 +8,28 @@
 
 ```yaml
 task: searchMcp()
-responsavel: DevOps Agent
-responsavel_type: Agente
+owner: DevOps Agent
+owner_type: agent
 atomic_layer: Infrastructure
 elicit: true
 
-**Entrada:**
-- campo: search_query
-  tipo: string
-  origem: User Input
-  obrigatorio: true
-  validacao: Search query for MCP catalog (e.g., "notion", "database", "slack")
+**Input:**
+- field: search_query
+  type: string
+  source: User Input
+  required: true
+  validation: Search query for MCP catalog (e.g., "notion", "database", "slack")
 
-**Saida:**
-- campo: mcp_results
-  tipo: array
-  destino: Console output
-  persistido: false
+**Output:**
+- field: mcp_results
+  type: array
+  destination: Console output
+  persisted: false
 
-- campo: mcp_details
-  tipo: object
-  destino: Console output (if user selects an MCP)
-  persistido: false
+- field: mcp_details
+  type: object
+  destination: Console output (if user selects an MCP)
+  persisted: false
 ```
 
 ---
@@ -39,15 +39,15 @@ elicit: true
 ```yaml
 pre-conditions:
   - [ ] Docker MCP Toolkit running
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: docker mcp --version succeeds
+    validation: docker mcp --version succeeds
     error_message: "Docker MCP Toolkit required. Enable in Docker Desktop settings."
 
   - [ ] Docker daemon running
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validacao: docker info succeeds
+    validation: docker info succeeds
     error_message: "Start Docker Desktop before running this task"
 ```
 
@@ -186,9 +186,9 @@ docker mcp catalog search --category automation
 ```yaml
 post-conditions:
   - [ ] Search results displayed
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validacao: User can see matching MCPs or "no results" message
+    validation: User can see matching MCPs or "no results" message
     error_message: "Search failed - check Docker MCP connection"
 ```
 

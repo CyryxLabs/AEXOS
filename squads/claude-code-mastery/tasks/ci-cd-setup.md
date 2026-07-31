@@ -1,16 +1,16 @@
 ---
 task: Claude Code CI/CD Pipeline Setup
-responsavel: "@project-integrator"
-responsavel_type: agent
+owner: "@project-integrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - ci_platform: github-actions, gitlab-ci or other (required)
   - integration_pattern: pr-review, code-gen, testing or custom (required)
   - max_cost_per_run: Budget cap per invocation (optional, default $1.00)
   - trigger_events: When the pipeline runs (optional, default pull_request)
   - claude_version: Pinned Claude Code version or "latest" (optional)
   - anthropic_api_key: API key available to be stored as a repository secret (required precondition)
-Saida: |
+Output: |
   - workflow_file: .github/workflows/claude-*.yml (or platform equivalent) with triggers, permissions and timeout-minutes
   - ci_system_prompt: .claude/ci-system-prompt.md carrying the CI-specific context
   - headless_command: The composed `claude -p` invocation with --output-format, --max-turns and --model

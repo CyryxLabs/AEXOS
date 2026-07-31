@@ -1,9 +1,9 @@
 ---
 task: Convert Feature Roadmap
-responsavel: "@product-strategist"
-responsavel_type: agent
+owner: "@product-strategist"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - roadmap: The existing roadmap as it stands today, every line, with dates as written (required)
   - roadmap_owner: Who publishes the roadmap and who consumes it — board, sales, teams (required)
   - cycle: The planning cycle being converted, e.g. Q3 2026 (required)
@@ -12,7 +12,7 @@ Entrada: |
   - commitments: Known contractual, regulatory or partner obligations with their real dates (optional, default: elicit)
   - teams: Teams that would receive the resulting problems, with their staffing (optional, default: elicit)
   - output_dir: Directory for the converted roadmap (optional, default: docs/product/roadmap/)
-Saida: |
+Output: |
   - converted_roadmap: Versioned markdown with every original line classified and its disposition
   - problems_to_solve: Chosen problems with outcome key results, owning team and confidence level
   - commitment_register: Genuine high-integrity commitments preserved as dated commitments, with the discovery that made the date honest

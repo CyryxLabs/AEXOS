@@ -26,44 +26,44 @@
 
 ```yaml
 task: qaTraceRequirements()
-responsável: Argus (Guardian)
-responsavel_type: Agente
+owner: Argus (Guardian)
+owner_type: agent
 atomic_layer: Strategy
 
-**Entrada:**
-- campo: target
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Must exist
+**Input:**
+- field: target
+  type: string
+  source: User Input
+  required: true
+  validation: Must exist
 
-- campo: criteria
-  tipo: array
-  origem: config
-  obrigatório: true
-  validação: Non-empty validation criteria
+- field: criteria
+  type: array
+  source: config
+  required: true
+  validation: Non-empty validation criteria
 
-- campo: strict
-  tipo: boolean
-  origem: User Input
-  obrigatório: false
-  validação: Default: true
+- field: strict
+  type: boolean
+  source: User Input
+  required: false
+  validation: Default: true
 
-**Saída:**
-- campo: validation_result
-  tipo: boolean
-  destino: Return value
-  persistido: false
+**Output:**
+- field: validation_result
+  type: boolean
+  destination: Return value
+  persisted: false
 
-- campo: errors
-  tipo: array
-  destino: Memory
-  persistido: false
+- field: errors
+  type: array
+  destination: Memory
+  persisted: false
 
-- campo: report
-  tipo: object
-  destino: File (.ai/*.json)
-  persistido: true
+- field: report
+  type: object
+  destination: File (.ai/*.json)
+  persisted: true
 ```
 
 ---
@@ -77,9 +77,9 @@ atomic_layer: Strategy
 ```yaml
 pre-conditions:
   - [ ] Validation rules loaded; target available for validation
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check validation rules loaded; target available for validation
     error_message: "Pre-condition failed: Validation rules loaded; target available for validation"
 ```
@@ -95,9 +95,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Validation executed; results accurate; report generated
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify validation executed; results accurate; report generated
     error_message: "Post-condition failed: Validation executed; results accurate; report generated"
 ```
@@ -113,9 +113,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Validation rules applied; pass/fail accurate; actionable feedback
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert validation rules applied; pass/fail accurate; actionable feedback
     error_message: "Acceptance criterion not met: Validation rules applied; pass/fail accurate; actionable feedback"
 ```

@@ -34,8 +34,8 @@
 
 ```yaml
 task: run-design-system-pipeline
-responsável: Brad (Design System Architect)
-responsavel_type: Agente
+owner: Brad (Design System Architect)
+owner_type: agent
 atomic_layer: Pipeline
 
 inputs:
@@ -101,23 +101,23 @@ outputs:
 ```yaml
 pre-conditions:
   - [ ] Design System project exists with components
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check for design-system/ or components/ui/ directory
     error_message: "Pre-condition failed: No Design System found in project"
 
   - [ ] Package.json exists with required dependencies
-    tipo: pre-condition
+    type: pre-condition
     blocker: false
-    validação: |
+    validation: |
       Check for React, TypeScript, Tailwind dependencies
     error_message: "Warning: Some dependencies may be missing"
 
   - [ ] Build tools configured (vite, webpack, or similar)
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check for build configuration files
     error_message: "Pre-condition failed: No build configuration found"
 ```
@@ -133,16 +133,16 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] All pipeline steps completed without critical errors
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify each step exit code = 0 or has acceptable warnings
     error_message: "Post-condition failed: Pipeline had critical errors"
 
   - [ ] Output artifacts generated in expected locations
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Check outputs/design-system/ contains expected files
     error_message: "Post-condition failed: Missing output artifacts"
 ```
@@ -158,19 +158,19 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Build step: Components compiled successfully
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 
   - [ ] Document step: Pattern Library documentation generated
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: false
 
   - [ ] A11y step: WCAG AA audit completed (warnings OK, errors block)
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
 
   - [ ] ROI step: Metrics calculated and report generated
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: false
 ```
 

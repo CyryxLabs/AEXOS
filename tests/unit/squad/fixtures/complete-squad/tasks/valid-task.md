@@ -1,12 +1,12 @@
 ---
 task: Test Task
-responsavel: @test-agent
-responsavel_type: agent
+owner: @test-agent
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - input_param: string (required)
   - optional_param: boolean (default: false)
-Saida: |
+Output: |
   - result: Object with { success, data }
 Checklist:
   - [ ] Validate input parameters

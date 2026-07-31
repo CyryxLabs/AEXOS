@@ -1,19 +1,19 @@
 ---
 task: Sync Command to IDE Configurations
-responsavel: '@squad-creator'
-responsavel_type: agent
+owner: '@squad-creator'
+owner_type: agent
 atomic_layer: task
 status: active
 sprint: 9
 story: SQC-12
 version: 1.0.0
-Entrada: |
+Input: |
   - type: agent | task | workflow | squad (obrigatório)
   - name: Nome do componente para sincronizar (obrigatório)
   - ides: Lista de IDEs alvo (opcional, default: todas ativas)
   - dry_run: Preview sem sincronizar (--dry-run)
   - force: Sobrescrever existentes (--force)
-Saida: |
+Output: |
   - sync_results: Mapa de resultados por IDE
   - files_created: Lista de arquivos criados
   - files_updated: Lista de arquivos atualizados

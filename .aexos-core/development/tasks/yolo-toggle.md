@@ -18,22 +18,22 @@ This task is invoked by the `*yolo` command available in all 12 agents.
 
 ```yaml
 task: yoloToggle()
-responsável: Any Agent
-responsavel_type: Agente
+owner: Any Agent
+owner_type: agent
 atomic_layer: Atom
 
-**Entrada:**
-- campo: projectRoot
-  tipo: string
-  origem: Context (process.cwd())
-  obrigatório: false
-  validação: Valid directory path
+**Input:**
+- field: projectRoot
+  type: string
+  source: Context (process.cwd())
+  required: false
+  validation: Valid directory path
 
-**Saída:**
-- campo: newMode
-  tipo: object
-  destino: .aexos/config.yaml
-  persistido: true
+**Output:**
+- field: newMode
+  type: object
+  destination: .aexos/config.yaml
+  persisted: true
 ```
 
 ---

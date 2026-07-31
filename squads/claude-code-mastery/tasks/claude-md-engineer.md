@@ -1,15 +1,15 @@
 ---
 task: Engineer Optimal CLAUDE.md
-responsavel: "@project-integrator"
-responsavel_type: agent
+owner: "@project-integrator"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - project_root: Auto-detected project directory containing source code to analyse (required)
   - existing_claude_md: Path to a CLAUDE.md already in the project, if one exists (optional)
   - project_name: Human-readable project name (optional)
   - team_notes: Team conventions not captured anywhere in the code (optional)
   - style: minimal, standard or comprehensive (optional, default standard)
-Saida: |
+Output: |
   - claude_md: The engineered CLAUDE.md, under 200 lines, every line actionable
   - code_standards_section: Only the patterns that deviate from framework defaults, under 20 lines
   - testing_section: The project's real test commands and patterns, under 15 lines

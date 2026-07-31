@@ -1,12 +1,12 @@
 ---
 task: Greet User
-responsavel: "@basic-greeter"
-responsavel_type: agent
+owner: "@basic-greeter"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - name: Name to greet (required)
   - style: formal | casual | enthusiastic (default: casual)
-Saida: |
+Output: |
   - greeting: The greeting message
 Checklist:
   - "[ ] Receive name"

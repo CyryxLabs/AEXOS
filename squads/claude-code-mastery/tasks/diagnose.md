@@ -1,14 +1,14 @@
 ---
 task: Diagnose Claude Code Question
-responsavel: "@claude-mastery-chief"
-responsavel_type: agent
+owner: "@claude-mastery-chief"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - question: Non-empty natural language question or problem description from the user (required)
   - context: Session state — active story, branch, recent errors — when available (optional)
   - routing_matrix: The 7-domain keyword matrix loaded from the agent definition (required)
   - squad_registry: The 7 specialist agents registered in config.yaml (required)
-Saida: |
+Output: |
   - category: The matched domain name, or cross-cutting
   - confidence: HIGH, MEDIUM or LOW, derived from the keyword match counts
   - quick_answer: A 3-10 line answer with a concrete example — always produced before any routing

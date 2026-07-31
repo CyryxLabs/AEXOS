@@ -1,15 +1,15 @@
 ---
 task: Extract Obligation Register
-responsavel: "@legal-ops"
-responsavel_type: agent
+owner: "@legal-ops"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - agreement: The executed and final agreement, complete with every amendment (required)
   - parties_and_dates: Identity of the document, its parties, effective date and term as stated on its face (required)
   - owner_candidates: The business roles available to own each obligation (required)
   - lead_time_policy: How far ahead an owner must be warned for each class of date (optional, default: two-stage alerting)
   - existing_register: The current contract or obligation register, where one exists, for reconciliation (optional)
-Saida: |
+Output: |
   - obligation_register: One row per administratively visible obligation — date, duty, clause reference, owner, lead time, action date
   - ambiguous_list: Items whose date or duty depends on interpreting wording rather than reading it, routed to counsel as questions
   - removed_items: Candidate entries dropped for having no clause reference, listed rather than estimated

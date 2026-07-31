@@ -1,15 +1,15 @@
 ---
 task: Define First Value Per Segment
-responsavel: "@onboarding-lead"
-responsavel_type: agent
+owner: "@onboarding-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - segments: The distinct use cases or customer types in the base, with counts (required)
   - outcome_sources: Dated interviews, renewal notes or won-deal records stating the outcome bought, in the customer's words (required)
   - event_catalog: Events observable in the product today, and their instrumentation status (required)
   - retained_sample: At least ten accounts retained beyond one renewal, account ids only (optional but required for the separation test)
   - churned_early_sample: At least ten accounts churned early, account ids only (optional but required for the separation test)
-Saida: |
+Output: |
   - first_value_definitions: One binary, observable, customer-side definition per segment (persisted)
   - evidence_map: The dated source behind each outcome statement, by segment
   - instrumentation_status: Per definition - INSTRUMENTED, PARTIALLY INSTRUMENTED or UNMEASURED, with the missing event named

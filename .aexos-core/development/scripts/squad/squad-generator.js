@@ -573,13 +573,13 @@ function generateExampleTask(config) {
 
   return `---
 task: ${title}
-responsavel: "@${config.template === 'etl' ? 'data-extractor' : 'example-agent'}"
-responsavel_type: agent
+owner: "@${config.template === 'etl' ? 'data-extractor' : 'example-agent'}"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - source: Data source path or URL
   - format: Output format (json, csv, yaml)
-Saida: |
+Output: |
   - data: Extracted data
   - status: Success or error message
 Checklist:
@@ -1237,8 +1237,12 @@ ${agent.user_modified ? 'Modified by user during design refinement.' : ''}
    * @returns {string} Markdown content for task file
    */
   generateTaskFromBlueprint(task, squadName) {
-    const entradaList = (task.entrada || []).map(e => `  - ${e}`).join('\n');
-    const saidaList = (task.saida || []).map(s => `  - ${s}`).join('\n');
+    // `inputs`/`outputs` were `entrada`/`saida`; a blueprint saved before the
+    // rename still generates the same task file.
+    const taskInputs = task.inputs || task.entrada || [];
+    const taskOutputs = task.outputs || task.saida || [];
+    const inputList = taskInputs.map(e => `  - ${e}`).join('\n');
+    const outputList = taskOutputs.map(s => `  - ${s}`).join('\n');
     const checklistItems = (task.checklist || [
       '[ ] Validate input parameters',
       '[ ] Execute main logic',
@@ -1248,13 +1252,13 @@ ${agent.user_modified ? 'Modified by user during design refinement.' : ''}
 
     return `---
 task: "${task.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}"
-responsavel: "@${task.agent}"
-responsavel_type: agent
+owner: "@${task.agent}"
+owner_type: agent
 atomic_layer: task
-Entrada: |
-${entradaList || '  - (no inputs defined)'}
-Saida: |
-${saidaList || '  - (no outputs defined)'}
+Input: |
+${inputList || '  - (no inputs defined)'}
+Output: |
+${outputList || '  - (no outputs defined)'}
 Checklist:
 ${checklistItems}
 ---
@@ -1274,11 +1278,11 @@ Task generated from squad design blueprint for ${squadName}.
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-${(task.entrada || []).map(e => `| \`${e}\` | string | Yes | ${e.replace(/_/g, ' ')} |`).join('\n') || '| - | - | - | No parameters defined |'}
+${taskInputs.map(e => `| \`${e}\` | string | Yes | ${e.replace(/_/g, ' ')} |`).join('\n') || '| - | - | - | No parameters defined |'}
 
 ## Output
 
-${(task.saida || []).map(s => `- **${s}**: ${s.replace(/_/g, ' ')}`).join('\n') || '- No outputs defined'}
+${taskOutputs.map(s => `- **${s}**: ${s.replace(/_/g, ' ')}`).join('\n') || '- No outputs defined'}
 
 ## Origin
 

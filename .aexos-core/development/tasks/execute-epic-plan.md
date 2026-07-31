@@ -27,50 +27,50 @@
 
 ```yaml
 task: executeEpicPlan()
-responsavel: Janus (PM)
-responsavel_type: Agente
+owner: Janus (PM)
+owner_type: agent
 atomic_layer: Orchestration
 
-**Entrada:**
-- campo: execution_plan_path
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Must be a valid path to an EXECUTION.yaml file (typically in docs/stories/epics/{epic}/)
+**Input:**
+- field: execution_plan_path
+  type: string
+  source: User Input
+  required: true
+  validation: Must be a valid path to an EXECUTION.yaml file (typically in docs/stories/epics/{epic}/)
 
-- campo: action
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: Must be "start", "continue", "status", "skip-story", or "abort". Default: "start"
+- field: action
+  type: string
+  source: User Input
+  required: false
+  validation: Must be "start", "continue", "status", "skip-story", or "abort". Default: "start"
 
-- campo: mode
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: Must be "yolo", "interactive", or "preflight". Default: "interactive"
+- field: mode
+  type: string
+  source: User Input
+  required: false
+  validation: Must be "yolo", "interactive", or "preflight". Default: "interactive"
 
-- campo: wave
-  tipo: number
-  origem: User Input
-  obrigatório: false
-  validação: Wave number to resume from (only with action=continue). Default: auto-detect from state.
+- field: wave
+  type: number
+  source: User Input
+  required: false
+  validation: Wave number to resume from (only with action=continue). Default: auto-detect from state.
 
-**Saída:**
-- campo: epic_state
-  tipo: object
-  destino: File system (.aexos/epic-{epicId}-state.yaml)
-  persistido: true
+**Output:**
+- field: epic_state
+  type: object
+  destination: File system (.aexos/epic-{epicId}-state.yaml)
+  persisted: true
 
-- campo: wave_report
-  tipo: object
-  destino: Output
-  persistido: false
+- field: wave_report
+  type: object
+  destination: Output
+  persisted: false
 
-- campo: next_steps
-  tipo: string
-  destino: Output
-  persistido: false
+- field: next_steps
+  type: string
+  destination: Output
+  persisted: false
 ```
 
 ---
@@ -80,37 +80,37 @@ atomic_layer: Orchestration
 ```yaml
 pre-conditions:
   - [ ] execution_plan_path must resolve to an existing YAML file
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       File must exist and contain execution.epicId, execution.stories, execution.waves
     error_message: "Pre-condition failed: Execution plan not found at '{execution_plan_path}'"
 
   - [ ] All story files referenced in the plan must exist
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       For each story in execution.stories, verify {storyBasePath}/{story.file} exists
     error_message: "Pre-condition failed: Story file '{story.file}' not found"
 
   - [ ] Template workflow must exist
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       execution.template must resolve to .aexos-core/development/workflows/{template}.yaml
     error_message: "Pre-condition failed: Template '{template}' not found"
 
   - [ ] For action=continue, state file must exist
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       .aexos/epic-{epicId}-state.yaml must exist with status=active
     error_message: "Pre-condition failed: No active state found. Use action=start first."
 
   - [ ] Git working tree must be clean (no uncommitted changes)
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       git status --porcelain returns empty or only untracked files
     error_message: "Pre-condition failed: Uncommitted changes detected. Commit or stash first."
 ```
@@ -122,16 +122,16 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] State file updated with current wave progress
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       .aexos/epic-{epicId}-state.yaml exists and reflects completed waves/stories
     error_message: "Post-condition failed: State file not persisted"
 
   - [ ] All completed stories have branches pushed
-    tipo: post-condition
+    type: post-condition
     blocker: false
-    validação: |
+    validation: |
       For each completed story, git branch {story.branch} exists
     error_message: "Warning: Some story branches may not have been pushed"
 ```
@@ -143,24 +143,24 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Each story in each wave was executed via development-cycle
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Each story spawned a subagent that followed the full development-cycle
       (PO validate -> Executor develop -> Self-healing -> Quality gate -> DevOps push)
     error_message: "Acceptance criterion not met: Stories did not follow development-cycle"
 
   - [ ] Wave gates were executed between waves
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       After each wave, the gate agent reviewed cross-story integration
     error_message: "Acceptance criterion not met: Wave gates skipped"
 
   - [ ] State supports resume across sessions
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Aborting and running action=continue resumes from last completed wave
     error_message: "Acceptance criterion not met: Resume not working"
 ```

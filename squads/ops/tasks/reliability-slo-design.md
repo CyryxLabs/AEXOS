@@ -1,16 +1,16 @@
 ---
 task: Design Service Level Objectives
-responsavel: "@reliability-lead"
-responsavel_type: agent
+owner: "@reliability-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - service: The service the objective is being set for (required)
   - critical_journeys: The user journeys that matter, named as journeys not components (required)
   - measured_history: Observed performance data over at least one full window (optional; absence forces a provisional target)
   - contractual_floor: Any SLA, regulatory or contractual availability floor (optional)
   - dependency_chain: Hard dependencies and their documented failure and recovery behaviour (optional)
   - business_context: Who pays for the reliability and what they will fund (optional)
-Saida: |
+Output: |
   - sli_table: One row per indicator with event definition, valid-event denominator, data source, current value
   - slo_table: Target, measurement window, and a perceptibility or cost justification per objective
   - error_budget: The objective's complement, expressed over the window in time or events

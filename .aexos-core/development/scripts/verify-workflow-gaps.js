@@ -50,6 +50,14 @@ function section(title) {
   console.log('='.repeat(60));
 }
 
+/**
+ * True when a task file declares `name` as an input field, in either the
+ * current spelling (`field:`) or the one it replaced (`campo:`).
+ */
+function declaresField(content, name) {
+  return content.includes(`field: ${name}`) || content.includes(`campo: ${name}`);
+}
+
 // ============ GAP 1: Context Targeting ============
 
 function verifyGap1() {
@@ -58,14 +66,14 @@ function verifyGap1() {
   // 1.1 create-workflow.md has target_context and squad_name
   const createWf = fs.readFileSync(path.join(ROOT, '.aexos-core/development/tasks/create-workflow.md'), 'utf-8');
   assert(
-    createWf.includes('campo: target_context'),
+    declaresField(createWf, 'target_context'),
     '1.1a create-workflow.md has target_context field',
-    'Missing "campo: target_context" in Entrada',
+    'Missing "field: target_context" in Input',
   );
   assert(
-    createWf.includes('campo: squad_name'),
+    declaresField(createWf, 'squad_name'),
     '1.1b create-workflow.md has squad_name field',
-    'Missing "campo: squad_name" in Entrada',
+    'Missing "field: squad_name" in Input',
   );
   assert(
     createWf.includes('target_context="squad"'),
@@ -86,14 +94,14 @@ function verifyGap1() {
   // 1.2 modify-workflow.md
   const modifyWf = fs.readFileSync(path.join(ROOT, '.aexos-core/development/tasks/modify-workflow.md'), 'utf-8');
   assert(
-    modifyWf.includes('campo: target_context'),
+    declaresField(modifyWf, 'target_context'),
     '1.2a modify-workflow.md has target_context field',
-    'Missing "campo: target_context" in Entrada',
+    'Missing "field: target_context" in Input',
   );
   assert(
-    modifyWf.includes('campo: squad_name'),
+    declaresField(modifyWf, 'squad_name'),
     '1.2b modify-workflow.md has squad_name field',
-    'Missing "campo: squad_name" in Entrada',
+    'Missing "field: squad_name" in Input',
   );
   assert(
     modifyWf.includes('Resolve workflow path based on target_context'),

@@ -1,15 +1,15 @@
 ---
 task: Resolve Specialist Conflict
-responsavel: "@products-chief"
-responsavel_type: agent
+owner: "@products-chief"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - artifact_a: Path to the first contradictory specialist artifact, with its owning agent id (required)
   - artifact_b: Path to the second contradictory specialist artifact, with its owning agent id (required)
   - decision_at_stake: The decision that cannot be made while the two artifacts disagree (required)
   - initiative: The initiative both artifacts belong to (required — two artifacts about different initiatives are not in conflict)
   - output_dir: Directory for the arbitration record (optional, default: docs/product/arbitration/)
-Saida: |
+Output: |
   - arbitration_record: Versioned markdown file with the contradiction in plain terms, the unshared assumption, the evidence table, the rule applied, and the outcome
   - unshared_assumption: The single assumption the two specialists do not share, stated explicitly
   - outcome: One of EVIDENCE_WINS | SEGMENT_SPLIT | ESCALATE_AND_TEST | TEST_SPECIFICATION | VALUES_DECISION

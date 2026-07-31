@@ -1,16 +1,16 @@
 ---
 task: Succession Audit
-responsavel: "@succession-lead"
-responsavel_type: agent
+owner: "@succession-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - organization: The organization and the leadership scope under audit (required)
   - strategy_horizon: Where the strategy says the organization is going over the next three to five years (required for the criteria test)
   - emergency_plan: Path to any written emergency succession plan, under squads/board/data/ (optional)
   - succession_criteria: Path to written chief-executive succession criteria, if any exist (optional)
   - bench_data: Named candidates with any existing readiness ratings and the evidence behind them (optional)
   - agenda_history: When succession last appeared as a decision item, and how many periods it has been deferred (optional)
-Saida: |
+Output: |
   - emergency_finding: Whether a plan exists, when it was last reviewed, and whether it would function tomorrow
   - criteria_finding: Whether criteria exist and whether they were derived from strategy or from the incumbent
   - bench_finding: Candidates with readiness horizons - READY NOW, 1-2 YEARS, 3+ YEARS, NOT ON THIS PATH - and the evidence basis per rating

@@ -1,15 +1,15 @@
 ---
 task: Define Hiring Standard
-responsavel: "@people-lead"
-responsavel_type: agent
+owner: "@people-lead"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - role: The role the bar is being defined for, as a role and never as a named person (required)
   - first_year_outcomes: What the role must produce in its first year, stated as outcomes not duties (required)
   - assessment_surface: Which stages exist in the loop and roughly how much interview time is available (required)
   - existing_practice: The current bar, questions or rubric if any exist, for comparison (optional)
   - organisation_context: Size, hiring volume and evidence volume per decision, used for transfer caveats (optional)
-Saida: |
+Output: |
   - assessed_attributes: Four or five attributes derived from the outcomes, no more
   - behavioural_anchors: Three or four observable levels per attribute, written before any candidate is seen
   - disqualifiers: Stated explicitly and kept separate from the scored attributes

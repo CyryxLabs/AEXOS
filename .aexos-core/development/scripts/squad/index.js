@@ -25,6 +25,7 @@ const {
   SquadValidator,
   ValidationErrorCodes,
   TASK_REQUIRED_FIELDS,
+  TASK_FIELD_ALIASES,
 } = require('./squad-validator');
 
 const {
@@ -82,6 +83,7 @@ module.exports = {
   SquadValidator,
   ValidationErrorCodes,
   TASK_REQUIRED_FIELDS,
+  TASK_FIELD_ALIASES,
 
   // Squad Generator (SQS-4)
   SquadGenerator,

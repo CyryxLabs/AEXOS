@@ -1,15 +1,15 @@
 ---
 task: Triage Board Matter
-responsavel: "@board-chief"
-responsavel_type: agent
+owner: "@board-chief"
+owner_type: agent
 atomic_layer: task
-Entrada: |
+Input: |
   - matter: The question, decision or event brought to the board, in the requester's own words (required)
   - requester: Who is bringing the matter and in what capacity (required)
   - deadline: Date by which a disposition is needed (optional, default: none stated)
   - existing_artifacts: Paths to board artifacts already written for this matter, under squads/board/data/ (optional)
   - delegation_record: Path to a recorded schedule of reserved matters or delegation map, if one exists (optional)
-Saida: |
+Output: |
   - classification: RESERVED | DELEGATED WITH OVERSIGHT | NOT A BOARD MATTER | UNDEFINED, with the three boundary tests shown
   - limit_note: Explicit statement of any legal, tax, statutory-audit or regulatory question refused and referred out
   - owning_specialist: Exactly one squad agent id, with near-miss disciplines and why each was excluded

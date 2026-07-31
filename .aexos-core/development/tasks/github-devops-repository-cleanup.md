@@ -33,44 +33,44 @@
 
 ```yaml
 task: githubDevopsRepositoryCleanup()
-responsável: Polaris (Automator)
-responsavel_type: Agente
+owner: Polaris (Automator)
+owner_type: agent
 atomic_layer: Organism
 
-**Entrada:**
-- campo: task
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Must be registered task
+**Input:**
+- field: task
+  type: string
+  source: User Input
+  required: true
+  validation: Must be registered task
 
-- campo: parameters
-  tipo: object
-  origem: User Input
-  obrigatório: false
-  validação: Valid task parameters
+- field: parameters
+  type: object
+  source: User Input
+  required: false
+  validation: Valid task parameters
 
-- campo: mode
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: yolo|interactive|pre-flight
+- field: mode
+  type: string
+  source: User Input
+  required: false
+  validation: yolo|interactive|pre-flight
 
-**Saída:**
-- campo: execution_result
-  tipo: object
-  destino: Memory
-  persistido: false
+**Output:**
+- field: execution_result
+  type: object
+  destination: Memory
+  persisted: false
 
-- campo: logs
-  tipo: array
-  destino: File (.ai/logs/*)
-  persistido: true
+- field: logs
+  type: array
+  destination: File (.ai/logs/*)
+  persisted: true
 
-- campo: state
-  tipo: object
-  destino: State management
-  persistido: true
+- field: state
+  type: object
+  destination: State management
+  persisted: true
 ```
 
 ---
@@ -84,9 +84,9 @@ atomic_layer: Organism
 ```yaml
 pre-conditions:
   - [ ] Task is registered; required parameters provided; dependencies met
-    tipo: pre-condition
+    type: pre-condition
     blocker: true
-    validação: |
+    validation: |
       Check task is registered; required parameters provided; dependencies met
     error_message: "Pre-condition failed: Task is registered; required parameters provided; dependencies met"
 ```
@@ -102,9 +102,9 @@ pre-conditions:
 ```yaml
 post-conditions:
   - [ ] Task completed; exit code 0; expected outputs created
-    tipo: post-condition
+    type: post-condition
     blocker: true
-    validação: |
+    validation: |
       Verify task completed; exit code 0; expected outputs created
     error_message: "Post-condition failed: Task completed; exit code 0; expected outputs created"
 ```
@@ -120,9 +120,9 @@ post-conditions:
 ```yaml
 acceptance-criteria:
   - [ ] Task completed as expected; side effects documented
-    tipo: acceptance-criterion
+    type: acceptance-criterion
     blocker: true
-    validação: |
+    validation: |
       Assert task completed as expected; side effects documented
     error_message: "Acceptance criterion not met: Task completed as expected; side effects documented"
 ```
