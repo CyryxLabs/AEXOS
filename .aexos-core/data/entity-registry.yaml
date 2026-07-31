@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-07-31T22:38:49.586Z'
+  lastUpdated: '2026-07-31T23:10:12.348Z'
   entityCount: 846
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -14753,6 +14753,7 @@ entities:
         - claude-rules
         - codex-rules
         - cursor-rules
+        - entity-registry
         - brownfield-discovery
         - brownfield-fullstack
         - greenfield-fullstack
@@ -15868,9 +15869,7 @@ entities:
       usedBy:
         - doctor-checks-index
       dependencies:
-        - brownfield-analyzer
-        - brownfield-analyzer.js
-        - mode-detector.js
+        - analyst
       externalDeps: []
       plannedDeps: []
       lifecycle: production
@@ -15879,7 +15878,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:<self-reference>
-      lastVerified: '2026-07-31T22:38:49.586Z'
+      lastVerified: '2026-07-31T23:10:12.348Z'
     learned-patterns:
       path: .aexos-core/data/learned-patterns.yaml
       layer: L3
@@ -18588,7 +18587,6 @@ entities:
         - analyzer
       usedBy:
         - analyze-brownfield
-        - entity-registry
         - documentation-integrity-index
       dependencies: []
       externalDeps: []
@@ -18721,7 +18719,6 @@ entities:
       usedBy:
         - analyze-brownfield
         - setup-project-docs
-        - entity-registry
         - documentation-integrity-index
       dependencies: []
       externalDeps: []
@@ -18950,8 +18947,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:2b0a1dcd6e64747c105047c09ef8c50d59534219513edfb751fc33cda73c9a94
-      lastVerified: '2026-07-30T19:35:41.993Z'
+      checksum: sha256:bad256b201943fc63a9fbfe6025793ee5582eaecd3c73b25906087cf5de404f9
+      lastVerified: '2026-07-31T23:10:11.792Z'
     cursor:
       path: .aexos-core/infrastructure/scripts/ide-sync/transformers/cursor.js
       layer: L2
