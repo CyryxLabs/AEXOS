@@ -109,7 +109,7 @@
     "sync:ide:cursor": "node .aexos-core/infrastructure/scripts/ide-sync/index.js sync --ide cursor",
     "validate:publish": "node bin/utils/validate-publish.js",
     "prepublishOnly": "node bin/utils/validate-publish.js && npm run generate:manifest && npm run validate:manifest",
-    "prepare": "husky",
+    "prepare": "husky || true",
     "validate:aexos-core-namespace": "node scripts/validate-aexos-core-namespace.js",
     "validate:port-denylist": "node scripts/validate-port-denylist.js",
     "diff:framework-3way": "node .aexos-core/infrastructure/scripts/framework-3way-diff.js",
