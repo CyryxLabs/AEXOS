@@ -281,7 +281,31 @@ async function runWizard(options = {}) {
 
     let answers = {};
 
-    if (options.quiet) {
+    // A terminal that cannot be prompted is not a reason to crash. Without this
+    // the wizard reached inquirer, the closed stdin tore the readline down
+    // mid-question, and the install died on an ERR_USE_AFTER_CLOSE stack trace
+    // — which is what anyone piping `npx github:CyryxLabs/AEXOS install` into a
+    // log or running it from a script saw first.
+    // `options.interactive` lets a caller state the answer outright — an
+    // embedder driving the wizard programmatically should not have to fake a
+    // terminal. Absent that, detect one.
+    const canPrompt =
+      options.interactive !== undefined
+        ? Boolean(options.interactive)
+        : Boolean(process.stdin.isTTY && process.stdout.isTTY);
+    const nonInteractive = options.quiet || !canPrompt;
+
+    if (nonInteractive && !options.quiet) {
+      // Say so. Silent defaults are worse than no defaults: the user gets a
+      // configured project and never learns which choices were made for them.
+      console.log(
+        '\n  No interactive terminal detected — installing with defaults.' +
+          '\n  Re-run in a terminal to choose language, IDEs and project type,' +
+          '\n  or pass --ci to make this explicit.\n',
+      );
+    }
+
+    if (nonInteractive) {
       // Quiet mode: Skip all prompts, use defaults
       // Story 10.2: Check for existing user_profile (idempotency)
       // Story ACT-12: Language delegated to Claude Code settings.json

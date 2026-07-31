@@ -50,7 +50,13 @@ async function resolveFileAction(filePath, options = {}) {
     return 'merge';
   }
 
-  if (skipPrompts) {
+  // Asking is only possible with a terminal attached. Guarded here rather than
+  // at each call site: this is reached from several paths, and one of them
+  // forgetting to thread a flag through is how an install ends up hanging on a
+  // question nobody can see.
+  const canPrompt = Boolean(process.stdin.isTTY && process.stdout.isTTY);
+
+  if (skipPrompts || !canPrompt) {
     return isBrownfield && canMerge ? 'merge' : 'overwrite';
   }
 

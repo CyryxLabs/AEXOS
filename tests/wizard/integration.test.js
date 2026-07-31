@@ -56,6 +56,13 @@ describe('Wizard Integration - Story 1.7', () => {
     consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
     consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
 
+    // These tests drive the interactive path with a mocked inquirer, so they
+    // are simulating a terminal session. Say so: under Jest there is no TTY,
+    // and the wizard now refuses to prompt without one rather than dying on a
+    // closed readline.
+    process.stdin.isTTY = true;
+    process.stdout.isTTY = true;
+
     // Default mocks for successful flow
     inquirer.prompt.mockResolvedValue({
       projectType: 'greenfield',
@@ -104,6 +111,11 @@ describe('Wizard Integration - Story 1.7', () => {
   afterEach(() => {
     consoleLogSpy.mockRestore();
     consoleErrorSpy.mockRestore();
+
+    // Leave the process as it was found: these flags are global, and a suite
+    // that runs after this one would inherit a terminal that is not there.
+    delete process.stdin.isTTY;
+    delete process.stdout.isTTY;
   });
 
   describe('Full Wizard Flow (AC Integration)', () => {
