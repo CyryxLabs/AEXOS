@@ -51,7 +51,7 @@ sequenceDiagram
 
     par Parallel Loading (Promise.all)
         GG->>ACL: loadComplete(coreConfig)
-        ACL-->>GG: { agent: { name: 'Dara', icon: '📊' }, commands: [...31], ... }
+        ACL-->>GG: { agent: { name: 'Ceres', icon: '📊' }, commands: [...31], ... }
         GG->>SCL: loadContext('data-engineer')
         SCL-->>GG: { sessionType: 'new', lastCommands: [], ... }
         GG->>PSL: loadProjectStatus()

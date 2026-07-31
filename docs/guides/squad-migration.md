@@ -1,7 +1,5 @@
 # Squad Migration Guide
 
-> **EN** | [PT](../pt/guides/squad-migration.md) | [ES](../es/guides/squad-migration.md)
-
 ---
 
 How to migrate legacy squads to AEXOS 2.1 format.

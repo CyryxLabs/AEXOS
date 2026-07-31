@@ -1,7 +1,5 @@
 # Template Engine v2.0
 
-> **EN** | [PT](../pt/guides/template-engine-v2.md) | [ES](../es/guides/template-engine-v2.md)
-
 ---
 
 > Document generation and variable substitution engine for AEXOS (Cyryx).
@@ -372,7 +370,7 @@ const output = engine.process(template, {
   COMPONENT_NAME: 'Button',
   COMPONENT_TYPE: 'React',
   DATE: new Date().toISOString().split('T')[0],
-  AUTHOR: 'Dex',
+  AUTHOR: 'Vulcan',
   DESCRIPTION: 'A reusable button component',
   HAS_PROPS: true,
   PROPS: [

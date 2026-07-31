@@ -8,80 +8,80 @@
 
 ## Overview
 
-Este handoff não é para descoberta genérica de Supabase.
+This handoff is not for generic Supabase discovery.
 
-Ele existe para operações repetíveis do AEXOS-Pro access/licensing, onde o projeto, o serviço e o fluxo já são conhecidos. O foco aqui é permitir que o squad-creator gere tasks específicas para operações como:
+It exists for repeatable AEXOS-Pro access/licensing operations, where the project, the service and the flow are already known. The focus here is to allow the squad-creator to generate specific tasks for operations such as:
 
-- criar novo acesso
-- liberar Pro para um e-mail existente
-- reenviar verificação
-- confirmar e-mail por admin
-- reset de senha
-- diagnosticar por que um login/acesso falhou
+- create new access
+- grant Pro to an existing email
+- resend verification
+- confirm email as admin
+- password reset
+- diagnose why a login/access failed
 
-O documento precisa ser profundo o suficiente para evitar que a task gerada repita investigação desnecessária ou tome atalhos perigosos.
+The document needs to be deep enough to prevent the generated task from repeating unnecessary investigation or taking dangerous shortcuts.
 
 ---
 
 ## Fixed Context
 
-Para este fluxo, os fatos já conhecidos são:
+For this flow, the already known facts are:
 
-- serviço real: `https://aexos-license-server.vercel.app`
-- projeto Supabase correto: `aexos-license-server`
+- real service: `https://aexos-license-server.vercel.app`
+- correct Supabase project: `aexos-license-server`
 - project ref: `evvvnarpwcdybxdvcwjh`
-- auth backend: Supabase Auth do projeto `evvvnarpwcdybxdvcwjh`
-- entitlement/buyer oracle: tabela `public.buyers`
-- tabelas auxiliares relevantes:
+- auth backend: Supabase Auth of the project `evvvnarpwcdybxdvcwjh`
+- entitlement/buyer oracle: table `public.buyers`
+- relevant auxiliary tables:
   - `public.buyer_validations`
   - `public.licenses`
   - `public.activations`
 
-**Regra:** para operações de acesso AEXOS-Pro, não gastar tempo redescobrindo projeto. Começar direto deste contexto.
+**Rule:** for AEXOS-Pro access operations, do not spend time rediscovering the project. Start directly from this context.
 
 ---
 
 ## What We Already Learned In Practice
 
-Este fluxo já foi executado manualmente e os aprendizados abaixo devem ser tratados como conhecimento operacional consolidado:
+This flow has already been executed manually and the learnings below must be treated as consolidated operational knowledge:
 
-- `POST /api/v1/auth/check-email` é o pré-check oficial do backend
-  - ele retorna `isBuyer` e `hasAccount`
-  - ele deve ser o primeiro oracle de estado do usuário
+- `POST /api/v1/auth/check-email` is the official backend pre-check
+  - it returns `isBuyer` and `hasAccount`
+  - it must be the first oracle of the user's state
 
-- `POST /api/v1/auth/login` é o segundo oracle
-  - se retornar `EMAIL_NOT_VERIFIED`, o problema é confirmação de e-mail
-  - se retornar `INVALID_CREDENTIALS`, o problema é senha
-  - se retornar `200`, auth está funcional
+- `POST /api/v1/auth/login` is the second oracle
+  - if it returns `EMAIL_NOT_VERIFIED`, the problem is email confirmation
+  - if it returns `INVALID_CREDENTIALS`, the problem is the password
+  - if it returns `200`, auth is functional
 
-- no projeto `evvvnarpwcdybxdvcwjh`, o login real depende do Supabase Auth
+- in the project `evvvnarpwcdybxdvcwjh`, the real login depends on Supabase Auth
 
-- o entitlement Pro não vem de `public.licenses`
-  - o oracle operacional para buyer é `public.buyers`
-  - se `buyers` não tiver o e-mail ativo, `check-email` não sobe `isBuyer`
+- the Pro entitlement does not come from `public.licenses`
+  - the operational oracle for buyer is `public.buyers`
+  - if `buyers` does not have the email active, `check-email` does not raise `isBuyer`
 
-- `public.licenses` e `public.activations` são importantes para licença e máquinas
-  - mas não são o primeiro write para “liberar acesso”
+- `public.licenses` and `public.activations` are important for license and machines
+  - but they are not the first write to "grant access"
 
-- não é necessário ativar licença em máquina para concluir onboarding/access ops
-  - ativação consome seat/estado operacional e deve ficar fora de tasks de provisionamento básico
+- it is not necessary to activate a license on a machine to complete onboarding/access ops
+  - activation consumes seat/operational state and must stay out of basic provisioning tasks
 
 ---
 
 ## Operational Goal
 
-Toda task derivada deste handoff deve responder claramente:
+Every task derived from this handoff must answer clearly:
 
-- o usuário já existe no auth?
-- o e-mail está confirmado?
-- o e-mail já está liberado em `buyers`?
-- o fluxo final no serviço real funciona?
+- does the user already exist in auth?
+- is the email confirmed?
+- is the email already granted in `buyers`?
+- does the final flow work on the real service?
 
 ---
 
 ## Known Endpoints
 
-Endpoints do serviço real que importam:
+Endpoints of the real service that matter:
 
 - `POST /api/v1/auth/check-email`
 - `POST /api/v1/auth/signup`
@@ -90,9 +90,9 @@ Endpoints do serviço real que importam:
 - `POST /api/v1/auth/request-reset`
 - `POST /api/v1/auth/resend-verification`
 
-UI/flow auxiliar:
+Auxiliary UI/flow:
 
-- reset de senha: `https://aexos-license-server.vercel.app/reset-password`
+- password reset: `https://aexos-license-server.vercel.app/reset-password`
 
 ---
 
@@ -100,51 +100,51 @@ UI/flow auxiliar:
 
 ### `POST /api/v1/auth/check-email`
 
-Usar para classificar o caso antes de qualquer write.
+Use it to classify the case before any write.
 
-Resposta de interesse:
+Response of interest:
 
 - `isBuyer: boolean`
 - `hasAccount: boolean`
 - `email`
 
-Interpretação:
+Interpretation:
 
 - `isBuyer=false`, `hasAccount=false`
-  - falta conta e falta entitlement
+  - account missing and entitlement missing
 - `isBuyer=false`, `hasAccount=true`
-  - conta existe, falta buyer
+  - account exists, buyer missing
 - `isBuyer=true`, `hasAccount=false`
-  - caso inconsistente ou migração parcial; investigar auth
+  - inconsistent case or partial migration; investigate auth
 - `isBuyer=true`, `hasAccount=true`
-  - provisioning quase completo; validar login
+  - provisioning almost complete; validate login
 
 ### `POST /api/v1/auth/signup`
 
-Usar somente quando `hasAccount=false`.
+Use only when `hasAccount=false`.
 
-Saída útil:
+Useful output:
 
 - `userId`
 - `message`
 
 ### `POST /api/v1/auth/login`
 
-Usar para validar se o usuário consegue de fato entrar.
+Use it to validate whether the user can actually sign in.
 
-Saídas/erros úteis:
+Useful outputs/errors:
 
-- `200` com `accessToken`, `userId`, `emailVerified`
+- `200` with `accessToken`, `userId`, `emailVerified`
 - `EMAIL_NOT_VERIFIED`
 - `INVALID_CREDENTIALS`
 
 ### `POST /api/v1/auth/request-reset`
 
-Usar para recovery padrão quando não for desejável reset manual por admin.
+Use for standard recovery when a manual admin reset is not desirable.
 
 ### `POST /api/v1/auth/resend-verification`
 
-Usar quando a conta existe mas ainda depende do inbox do usuário.
+Use when the account exists but still depends on the user's inbox.
 
 ---
 
@@ -152,9 +152,9 @@ Usar quando a conta existe mas ainda depende do inbox do usuário.
 
 ### `public.buyers`
 
-Oracle de entitlement Pro.
+Pro entitlement oracle.
 
-Campos relevantes:
+Relevant fields:
 
 - `email`
 - `source`
@@ -162,16 +162,16 @@ Campos relevantes:
 - `is_active`
 - `metadata`
 
-Regra prática:
+Practical rule:
 
-- se o e-mail não está ativo em `buyers`, `check-email` não vai retornar `isBuyer: true`
-- para “liberar acesso Pro”, este é o write primário
+- if the email is not active in `buyers`, `check-email` will not return `isBuyer: true`
+- to "grant Pro access", this is the primary write
 
 ### `public.buyer_validations`
 
-Cache/registro de validação de buyer por usuário autenticado.
+Cache/record of buyer validation per authenticated user.
 
-Campos relevantes:
+Relevant fields:
 
 - `user_id`
 - `email`
@@ -179,17 +179,17 @@ Campos relevantes:
 - `validated_at`
 - `expires_at`
 
-Regra prática:
+Practical rule:
 
-- é tabela de apoio/cache
-- não é o primeiro write para grant manual
-- pode ser inspecionada em diagnóstico, mas o provisioning deve preferir `buyers`
+- it is a support/cache table
+- it is not the first write for a manual grant
+- it can be inspected during diagnosis, but provisioning must prefer `buyers`
 
 ### `public.licenses`
 
-Licenças emitidas pelo backend.
+Licenses issued by the backend.
 
-Campos relevantes:
+Relevant fields:
 
 - `key`
 - `customer_email`
@@ -198,62 +198,62 @@ Campos relevantes:
 - `expires_at`
 - `user_id`
 
-Regra prática:
+Practical rule:
 
-- relevante para emissão/licença existente
-- não usar como primeiro mecanismo de grant manual de acesso
+- relevant for issuance/existing license
+- do not use it as the first mechanism for a manual access grant
 
 ### `public.activations`
 
-Ativações por máquina.
+Activations per machine.
 
-Campos relevantes:
+Relevant fields:
 
 - `license_id`
 - `machine_id`
 - `activated_at`
 - `deactivated_at`
 
-Regra prática:
+Practical rule:
 
-- só entra em cena quando o problema é ativação/seat/machine lifecycle
-- não é etapa padrão de criar acesso ou reset de senha
+- it only comes into play when the problem is activation/seat/machine lifecycle
+- it is not a standard step for creating access or resetting a password
 
 ---
 
 ## Non-Negotiable Rules
 
-- não redescobrir projeto Supabase para AEXOS-Pro access ops
-- não escrever em `full-agent` para resolver licensing
-- não inferir schema diferente do que já está confirmado acima
-- não encerrar tarefa sem validar no serviço real
-- não expor `service_role`, `anon`, JWT, reset token ou access token
-- não consumir seat/activation sem necessidade explícita
-- não escrever em `licenses` para resolver um caso que é apenas buyer/auth
-- não usar `buyer_validations` como substitute de `buyers`
+- do not rediscover the Supabase project for AEXOS-Pro access ops
+- do not write to `full-agent` to solve licensing
+- do not infer a schema different from the one already confirmed above
+- do not close the task without validating on the real service
+- do not expose `service_role`, `anon`, JWT, reset token or access token
+- do not consume seat/activation without an explicit need
+- do not write to `licenses` to solve a case that is only buyer/auth
+- do not use `buyer_validations` as a substitute for `buyers`
 
 ---
 
 ## Mandatory Diagnostic Order
 
-Toda task deve seguir esta ordem, mesmo quando parecer óbvio o que está errado:
+Every task must follow this order, even when what is wrong seems obvious:
 
 1. `check-email`
-2. `login` se houver senha (read-only, classifica auth rapidamente)
-3. `auth admin` por e-mail
-4. `buyers` por e-mail
-5. `buyer_validations` apenas se houver dúvida de cache/estado intermediário
-6. `licenses` por `customer_email` apenas se o problema incluir licença
-7. `activations` apenas se o problema incluir máquina/seat
+2. `login` if there is a password (read-only, classifies auth quickly)
+3. `auth admin` by email
+4. `buyers` by email
+5. `buyer_validations` only if there is doubt about cache/intermediate state
+6. `licenses` by `customer_email` only if the problem includes the license
+7. `activations` only if the problem includes machine/seat
 
-> Esta ordem é a mesma da seção [Better Triage Order In Practice](#better-triage-order-in-practice) abaixo — única lista canônica. `check-email + login` classifica a maioria dos casos sem write.
+> This order is the same as the [Better Triage Order In Practice](#better-triage-order-in-practice) section below — a single canonical list. `check-email + login` classifies most cases without a write.
 
-Justificativa:
+Rationale:
 
-- esta ordem minimiza writes
-- evita tocar licença quando o problema é apenas auth
-- evita tocar auth quando o problema é apenas buyer
-- evita consumir seat durante suporte básico
+- this order minimizes writes
+- it avoids touching the license when the problem is only auth
+- it avoids touching auth when the problem is only buyer
+- it avoids consuming a seat during basic support
 
 ---
 
@@ -263,91 +263,91 @@ Justificativa:
 
 `check-email => isBuyer=false, hasAccount=false`
 
-Fazer:
+Do:
 
 1. `signup`
-2. confirmar e-mail por admin se acesso imediato for necessário
-3. inserir `buyers`
-4. revalidar `check-email`
-5. validar `login`
+2. confirm the email as admin if immediate access is required
+3. insert into `buyers`
+4. revalidate `check-email`
+5. validate `login`
 
 ### Case B
 
 `check-email => isBuyer=false, hasAccount=true`
 
-Fazer:
+Do:
 
-1. localizar auth user
-2. inserir `buyers` se ausente
-3. se login falhar por `EMAIL_NOT_VERIFIED`, confirmar e-mail por admin ou reenviar verificação
-4. revalidar `check-email`
-5. validar `login`
+1. locate the auth user
+2. insert into `buyers` if absent
+3. if login fails with `EMAIL_NOT_VERIFIED`, confirm the email as admin or resend verification
+4. revalidate `check-email`
+5. validate `login`
 
 ### Case C
 
-`check-email => isBuyer=true, hasAccount=true`, mas login falha por `EMAIL_NOT_VERIFIED`
+`check-email => isBuyer=true, hasAccount=true`, but login fails with `EMAIL_NOT_VERIFIED`
 
-Fazer:
+Do:
 
-1. confirmar e-mail por admin ou reenviar verificação
-2. revalidar `login`
+1. confirm the email as admin or resend verification
+2. revalidate `login`
 
 ### Case D
 
-`check-email => isBuyer=true, hasAccount=true`, mas login falha por `INVALID_CREDENTIALS`
+`check-email => isBuyer=true, hasAccount=true`, but login fails with `INVALID_CREDENTIALS`
 
-Fazer:
+Do:
 
-1. `request-reset` se o fluxo for self-service
-2. ou update manual de senha por admin se o suporte precisar entregar senha provisória
-3. validar `login`
+1. `request-reset` if the flow is self-service
+2. or a manual admin password update if support needs to deliver a temporary password
+3. validate `login`
 
 ### Case E
 
 `check-email => isBuyer=true, hasAccount=false`
 
-Fazer:
+Do:
 
-1. tratar como estado inconsistente
-2. inspecionar auth admin
-3. criar conta somente se confirmar ausência de user
-4. não tocar licença antes de resolver auth
+1. treat it as an inconsistent state
+2. inspect auth admin
+3. create the account only after confirming the user is absent
+4. do not touch the license before resolving auth
 
 ---
 
 ## Standard Validation Sequence
 
-Toda task deve terminar com esta sequência:
+Every task must end with this sequence:
 
-1. validar `check-email`
-2. validar `login` se houver senha conhecida
-3. só validar `activate-pro` se o objetivo da task for ativação real em máquina
+1. validate `check-email`
+2. validate `login` if a password is known
+3. only validate `activate-pro` if the task's goal is a real activation on a machine
 
-Estados esperados:
+Expected states:
 
-- acesso liberado:
+- access granted:
   - `isBuyer: true`
   - `hasAccount: true`
-- login funcionando:
+- login working:
   - status `200`
   - `emailVerified: true`
 
-Se a task não consegue provar esses estados, ela não está concluída.
+If the task cannot prove these states, it is not complete.
 
 ---
 
 ## Evidence Pack Required
 
-Toda execução operacional deve sair com um pacote mínimo de evidências:
+Every operational execution must produce a minimum evidence package:
 
-- resultado inicial de `check-email`
-- existência ou ausência do usuário no auth
-- existência ou ausência do e-mail em `buyers`
-- writes executados
-- resultado final de `check-email`
-- resultado final de `login`, se aplicável
+- initial result of `check-email`
+- existence or absence of the user in auth
+- existence or absence of the email in `buyers`
+- writes performed
+- final result of `check-email`
+- final result of `login`, if applicable
 
-Formato esperado do resumo:
+Expected summary format:
 
 - `initial_check`
 - `auth_state`
@@ -358,49 +358,49 @@ Formato esperado do resumo:
 
 ---
 
-## Playbook 1: Criar Novo Acesso Pro
+## Playbook 1: Create New Pro Access
 
 ### Use When
 
-- o e-mail ainda não tem conta
-- o e-mail precisa ganhar acesso Pro
-- há senha inicial definida para onboarding/manual setup
+- the email does not have an account yet
+- the email needs to gain Pro access
+- there is an initial password defined for onboarding/manual setup
 
 ### Inputs
 
 - `email`
 - `password`
-- origem da liberação, ex.: `manual`
-- motivo operacional
+- source of the grant, e.g.: `manual`
+- operational reason
 
 ### Steps
 
-1. checar `POST /api/v1/auth/check-email`
-2. se `hasAccount: false`, criar conta com `signup`
-3. localizar usuário no `auth admin`
-4. confirmar e-mail por admin se a operação exigir acesso imediato
-5. verificar se existe registro em `public.buyers`
-6. se não existir, inserir buyer ativo
-7. revalidar `check-email`
-8. validar `login`
+1. check `POST /api/v1/auth/check-email`
+2. if `hasAccount: false`, create the account with `signup`
+3. locate the user in `auth admin`
+4. confirm the email as admin if the operation requires immediate access
+5. check whether a record exists in `public.buyers`
+6. if it does not exist, insert an active buyer
+7. revalidate `check-email`
+8. validate `login`
 
 ### Writes Allowed
 
-- criar `auth user`
-- inserir linha em `buyers`
-- update admin de confirmação de e-mail
+- create the `auth user`
+- insert a row into `buyers`
+- admin update of email confirmation
 
 ### Writes Not Allowed
 
-- criar activation
-- inventar linha em `licenses`
-- alterar outras tabelas fora do fluxo
+- create an activation
+- invent a row in `licenses`
+- change other tables outside the flow
 
 ### Success Criteria
 
 - `isBuyer: true`
 - `hasAccount: true`
-- `login` retorna `200`
+- `login` returns `200`
 - `emailVerified: true`
 
 ### Minimal Data Write
@@ -410,165 +410,165 @@ Formato esperado do resumo:
 
 ---
 
-## Playbook 2: Liberar Pro Para Conta Já Existente
+## Playbook 2: Grant Pro To An Already Existing Account
 
 ### Use When
 
-- o usuário já tem conta
-- o problema é só falta de entitlement
+- the user already has an account
+- the problem is only a missing entitlement
 
 ### Steps
 
-1. checar `POST /api/v1/auth/check-email`
-2. confirmar que `hasAccount: true`
-3. verificar `public.buyers` por e-mail
-4. se ausente, inserir buyer ativo
-5. revalidar `check-email`
-6. validar `login` se a senha for conhecida
+1. check `POST /api/v1/auth/check-email`
+2. confirm that `hasAccount: true`
+3. check `public.buyers` by email
+4. if absent, insert an active buyer
+5. revalidate `check-email`
+6. validate `login` if the password is known
 
 ### Writes Allowed
 
-- inserir ou corrigir `buyers`
-- update admin de confirmação de e-mail, se necessário para destravar login
+- insert or fix `buyers`
+- admin update of email confirmation, if needed to unblock login
 
 ### Success Criteria
 
 - `isBuyer: true`
-- conta existente preservada
-- nenhum write extra além de `buyers`, salvo necessidade explícita
+- existing account preserved
+- no extra write beyond `buyers`, unless explicitly needed
 
 ---
 
-## Playbook 3: Reenviar Verificação de E-mail
+## Playbook 3: Resend Email Verification
 
 ### Use When
 
-- a conta existe
-- o login falha por e-mail não confirmado
-- não é desejável confirmar por admin imediatamente
+- the account exists
+- login fails because the email is not confirmed
+- confirming as admin immediately is not desirable
 
 ### Steps
 
-1. confirmar que a conta existe
-2. chamar `POST /api/v1/auth/resend-verification`
-3. registrar que o usuário precisa abrir o link recebido
-4. se a operação exigir liberação imediata, usar o Playbook 4
+1. confirm that the account exists
+2. call `POST /api/v1/auth/resend-verification`
+3. record that the user needs to open the link received
+4. if the operation requires an immediate grant, use Playbook 4
 
 ### Output Contract
 
-- informar explicitamente se ainda há dependência de ação do usuário
-- não reportar “acesso resolvido” se ainda depende do inbox
+- state explicitly whether there is still a dependency on user action
+- do not report "access resolved" if it still depends on the inbox
 
 ### Success Criteria
 
-- endpoint responde com sucesso
-- comunicação deixa claro que a ação do usuário ainda é necessária
+- the endpoint responds successfully
+- the communication makes it clear that user action is still required
 
 ---
 
-## Playbook 4: Confirmar E-mail Por Admin
+## Playbook 4: Confirm Email As Admin
 
 ### Use When
 
-- existe conta
-- e-mail não confirmado
-- é necessário desbloquear acesso imediatamente sem esperar inbox
+- an account exists
+- the email is not confirmed
+- it is necessary to unblock access immediately without waiting for the inbox
 
 ### Steps
 
-1. localizar o usuário no `auth admin`
-2. aplicar update admin com `email_confirm: true`
-3. revalidar login
+1. locate the user in `auth admin`
+2. apply an admin update with `email_confirm: true`
+3. revalidate login
 
 ### Why This Exists
 
-- evita bloquear acesso imediato por dependência do inbox
-- é o caminho de suporte quando a operação não pode esperar e-mail do usuário
+- it avoids blocking immediate access because of an inbox dependency
+- it is the support path when the operation cannot wait for the user's email
 
 ### Success Criteria
 
-- `email_confirmed_at` preenchido
-- `login` retorna `200`
+- `email_confirmed_at` filled in
+- `login` returns `200`
 
 ### Caution
 
-- usar somente quando o processo permitir override administrativo
+- use it only when the process allows an administrative override
 
 ---
 
-## Playbook 5: Reset de Senha
+## Playbook 5: Password Reset
 
 ### Use When
 
-- o usuário esqueceu a senha
-- não é necessário impor uma senha manual por admin
+- the user forgot the password
+- it is not necessary to impose a manual password as admin
 
 ### Steps
 
-1. confirmar se a conta existe
-2. chamar `POST /api/v1/auth/request-reset`
-3. orientar uso de `https://aexos-license-server.vercel.app/reset-password`
-4. não mudar entitlement durante reset
+1. confirm whether the account exists
+2. call `POST /api/v1/auth/request-reset`
+3. guide the use of `https://aexos-license-server.vercel.app/reset-password`
+4. do not change the entitlement during the reset
 
 ### Important Distinction
 
-- reset de senha não corrige buyer
-- reset de senha não corrige e-mail não confirmado
-- reset de senha é só para credenciais
+- a password reset does not fix the buyer
+- a password reset does not fix an unconfirmed email
+- a password reset is only for credentials
 
 ### Success Criteria
 
-- request-reset responde com sucesso
-- usuário consegue seguir o fluxo de recuperação
+- request-reset responds successfully
+- the user can follow the recovery flow
 
 ---
 
-## Playbook 6: Definir Nova Senha Manualmente
+## Playbook 6: Set A New Password Manually
 
 ### Use When
 
-- suporte precisa definir uma senha inicial ou temporária
-- a operação é administrativa e explícita
+- support needs to set an initial or temporary password
+- the operation is administrative and explicit
 
 ### Steps
 
-1. localizar usuário no `auth admin`
-2. atualizar a senha por admin
-3. validar `login` com a nova senha
+1. locate the user in `auth admin`
+2. update the password as admin
+3. validate `login` with the new password
 
 ### When Preferred Over Request Reset
 
-- onboarding assistido
-- suporte executivo/manual
-- ambiente onde a senha inicial precisa ser entregue explicitamente
+- assisted onboarding
+- executive/manual support
+- environment where the initial password must be delivered explicitly
 
 ### Success Criteria
 
-- login com a nova senha funciona
-- nenhuma outra tabela é alterada sem necessidade
+- login with the new password works
+- no other table is changed unnecessarily
 
 ---
 
-## Playbook 7: Diagnosticar Falha de Acesso
+## Playbook 7: Diagnose Access Failure
 
 ### Use When
 
-- o usuário diz “não consigo entrar”
-- o acesso Pro não ativa
-- não está claro se o problema é auth, buyer ou licença
+- the user says "I can't sign in"
+- Pro access does not activate
+- it is not clear whether the problem is auth, buyer or license
 
 ### Diagnostic Order
 
 1. `check-email`
-2. `auth admin users` por e-mail
-3. `buyers` por e-mail
+2. `auth admin users` by email
+3. `buyers` by email
 4. `login`
-5. `licenses` por `customer_email`
-6. `buyer_validations` por `email` ou `user_id`
+5. `licenses` by `customer_email`
+6. `buyer_validations` by `email` or `user_id`
 
 ### Better Triage Order In Practice
 
-Use esta priorização:
+Use this prioritization:
 
 1. `check-email`
 2. `login`
@@ -578,86 +578,86 @@ Use esta priorização:
 6. `licenses`
 7. `activations`
 
-Motivo:
+Reason:
 
-- `check-email + login` já classificam a maioria dos casos sem write
+- `check-email + login` already classify most cases without a write
 
 ### Interpretation
 
-- `isBuyer: false` e `hasAccount: false`
-  - falta conta e falta entitlement
-- `isBuyer: false` e `hasAccount: true`
-  - conta existe, falta buyer
-- `isBuyer: true` e login falha por `EMAIL_NOT_VERIFIED`
-  - buyer ok, falta confirmação de e-mail
-- `isBuyer: true` e login falha por credenciais
-  - entitlement ok, problema é senha
+- `isBuyer: false` and `hasAccount: false`
+  - account missing and entitlement missing
+- `isBuyer: false` and `hasAccount: true`
+  - account exists, buyer missing
+- `isBuyer: true` and login fails with `EMAIL_NOT_VERIFIED`
+  - buyer ok, email confirmation missing
+- `isBuyer: true` and login fails on credentials
+  - entitlement ok, the problem is the password
 
-- `isBuyer: true`, login ok, ativação falha
-  - sair do escopo de access ops e abrir investigação de licença/activation
+- `isBuyer: true`, login ok, activation fails
+  - leave the access ops scope and open a license/activation investigation
 
 ---
 
 ## Minimal Command/Action Contract For Tasks
 
-Uma task boa para o squad-creator não deve pedir “investigar como fazer”.
+A good task for the squad-creator must not ask to "investigate how to do it".
 
-Ela deve declarar explicitamente:
+It must state explicitly:
 
-1. quais leituras fará primeiro
-2. qual write mínimo fará em cada ramo da árvore de decisão
-3. qual validação final provará o sucesso
-4. quais writes estão proibidos naquele caso
+1. which reads it will perform first
+2. which minimal write it will perform in each branch of the decision tree
+3. which final validation will prove success
+4. which writes are forbidden in that case
 
-Exemplo de contrato ruim:
+Example of a bad contract:
 
-- “verificar Supabase e resolver acesso”
+- "check Supabase and resolve access"
 
-Exemplo de contrato bom:
+Example of a good contract:
 
-- “rodar check-email; se hasAccount=false criar auth user; se buyer ausente inserir em buyers; confirmar e-mail por admin apenas se acesso imediato for necessário; validar check-email e login”
+- "run check-email; if hasAccount=false create the auth user; if the buyer is absent insert into buyers; confirm the email as admin only if immediate access is required; validate check-email and login"
 
 ---
 
 ## Expected Task Outputs
 
-Toda task gerada a partir deste handoff deve devolver:
+Every task generated from this handoff must return:
 
-- ação executada
-- e-mail alvo
-- writes realizados
-- estado final de `check-email`
-- estado final de `login`, se aplicável
-- pendências restantes, se houver
+- action performed
+- target email
+- writes performed
+- final state of `check-email`
+- final state of `login`, if applicable
+- remaining pending items, if any
 
-Também deve devolver:
+It must also return:
 
-- classificação do caso na árvore de decisão
-- motivo para cada write executado
-- confirmação explícita de que nenhuma activation/seat foi consumida, salvo pedido explícito
+- classification of the case in the decision tree
+- reason for each write performed
+- explicit confirmation that no activation/seat was consumed, unless explicitly requested
 
 ---
 
 ## Squad-Creator Task Briefs
 
-### Brief A: Criar Novo Acesso AEXOS-Pro
+### Brief A: Create New AEXOS-Pro Access
 
 ```md
-Criar task operacional para criar um novo acesso AEXOS-Pro no backend de licensing já conhecido.
+Create an operational task to create new AEXOS-Pro access on the already known licensing backend.
 
-Contexto fixo:
-- serviço: https://aexos-license-server.vercel.app
-- projeto Supabase: evvvnarpwcdybxdvcwjh
-- oracle de buyer: public.buyers
+Fixed context:
+- service: https://aexos-license-server.vercel.app
+- Supabase project: evvvnarpwcdybxdvcwjh
+- buyer oracle: public.buyers
 
-A task deve:
-- rodar check-email e classificar o caso
-- receber email e senha inicial
-- criar conta se não existir
-- confirmar email por admin quando necessário para liberação imediata
-- inserir buyer ativo se ausente
-- validar via check-email e login
-- listar writes permitidos e proibidos
+The task must:
+- run check-email and classify the case
+- receive the email and initial password
+- create the account if it does not exist
+- confirm the email as admin when needed for an immediate grant
+- insert an active buyer if absent
+- validate via check-email and login
+- list allowed and forbidden writes
 
 Done:
 - isBuyer=true
@@ -665,103 +665,103 @@ Done:
 - login 200
 ```
 
-### Brief B: Liberar Pro Para Conta Existente
+### Brief B: Grant Pro To An Existing Account
 
 ```md
-Criar task operacional para liberar entitlement Pro para uma conta já existente no AEXOS-Pro.
+Create an operational task to grant the Pro entitlement to an account that already exists in AEXOS-Pro.
 
-Contexto fixo:
-- serviço: https://aexos-license-server.vercel.app
-- projeto Supabase: evvvnarpwcdybxdvcwjh
-- tabela de entitlement: public.buyers
+Fixed context:
+- service: https://aexos-license-server.vercel.app
+- Supabase project: evvvnarpwcdybxdvcwjh
+- entitlement table: public.buyers
 
-A task deve:
-- confirmar existência da conta
-- inserir buyer ativo apenas se ausente
-- confirmar e-mail por admin apenas se login falhar por não verificado
-- revalidar check-email
-- validar login se houver senha fornecida
+The task must:
+- confirm the account exists
+- insert an active buyer only if absent
+- confirm the email as admin only if login fails as not verified
+- revalidate check-email
+- validate login if a password is provided
 
 Done:
 - isBuyer=true
-- conta preservada
+- account preserved
 ```
 
-### Brief C: Reenviar Verificação
+### Brief C: Resend Verification
 
 ```md
-Criar task operacional para reenviar verificação de email do AEXOS-Pro.
+Create an operational task to resend the AEXOS-Pro email verification.
 
-Contexto fixo:
-- serviço: https://aexos-license-server.vercel.app
-- projeto Supabase: evvvnarpwcdybxdvcwjh
+Fixed context:
+- service: https://aexos-license-server.vercel.app
+- Supabase project: evvvnarpwcdybxdvcwjh
 
-A task deve:
-- confirmar que a conta existe
-- chamar resend-verification
-- reportar claramente se ainda depende de ação do usuário
-- proibir conclusão “resolvido” sem prova de login, salvo se o objetivo explícito for apenas reenvio
+The task must:
+- confirm that the account exists
+- call resend-verification
+- report clearly whether it still depends on user action
+- forbid a "resolved" conclusion without proof of login, unless the explicit goal is only the resend
 ```
 
-### Brief D: Confirmar E-mail Por Admin
+### Brief D: Confirm Email As Admin
 
 ```md
-Criar task operacional para confirmar por admin o email de uma conta do AEXOS-Pro.
+Create an operational task to confirm, as admin, the email of an AEXOS-Pro account.
 
-Contexto fixo:
-- auth backend: Supabase Auth do projeto evvvnarpwcdybxdvcwjh
+Fixed context:
+- auth backend: Supabase Auth of the project evvvnarpwcdybxdvcwjh
 
-A task deve:
-- localizar user por email
-- aplicar email_confirm=true
-- validar login após a confirmação
-- explicitar que não deve tocar buyers/licenças se o problema for apenas verificação
+The task must:
+- locate the user by email
+- apply email_confirm=true
+- validate login after the confirmation
+- state that it must not touch buyers/licenses if the problem is only verification
 ```
 
-### Brief E: Reset de Senha
+### Brief E: Password Reset
 
 ```md
-Criar task operacional para reset de senha do AEXOS-Pro.
+Create an operational task for an AEXOS-Pro password reset.
 
-Contexto fixo:
-- serviço: https://aexos-license-server.vercel.app
-- página de recovery: https://aexos-license-server.vercel.app/reset-password
+Fixed context:
+- service: https://aexos-license-server.vercel.app
+- recovery page: https://aexos-license-server.vercel.app/reset-password
 
-A task deve:
-- confirmar existência da conta
-- chamar request-reset
-- reportar o próximo passo para o usuário
-- explicitar que reset não resolve buyer nem verificação de e-mail
+The task must:
+- confirm the account exists
+- call request-reset
+- report the next step for the user
+- state that a reset resolves neither the buyer nor the email verification
 ```
 
-### Brief F: Diagnóstico de Falha de Acesso
+### Brief F: Access Failure Diagnosis
 
 ```md
-Criar task operacional para diagnosticar por que um usuário não consegue acessar o AEXOS-Pro.
+Create an operational task to diagnose why a user cannot access AEXOS-Pro.
 
-Contexto fixo:
-- serviço: https://aexos-license-server.vercel.app
-- projeto Supabase: evvvnarpwcdybxdvcwjh
-- tabelas relevantes: buyers, buyer_validations, licenses, activations
+Fixed context:
+- service: https://aexos-license-server.vercel.app
+- Supabase project: evvvnarpwcdybxdvcwjh
+- relevant tables: buyers, buyer_validations, licenses, activations
 
-A task deve:
-- rodar check-email
-- testar login cedo para classificar o erro
-- verificar auth user
-- verificar buyers
-- classificar a falha em: falta conta, falta buyer, email não confirmado, senha inválida ou problema de licença
-- listar o próximo playbook exato a executar
+The task must:
+- run check-email
+- test login early to classify the error
+- check the auth user
+- check buyers
+- classify the failure as: missing account, missing buyer, unconfirmed email, invalid password or license problem
+- list the exact next playbook to execute
 ```
 
 ---
 
 ## Definition Of Done
 
-- task parte do contexto fixo correto
-- task não perde tempo redescobrindo projeto/licensing
-- task executa apenas o playbook relevante
-- task valida no serviço real
-- resultado final fica objetivo e auditável
+- the task starts from the correct fixed context
+- the task does not waste time rediscovering project/licensing
+- the task executes only the relevant playbook
+- the task validates on the real service
+- the final result is objective and auditable
 
 ---
 

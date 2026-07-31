@@ -304,4 +304,4 @@ const result = await guard.guard('Bash', { command: 'rm -rf node_modules' });
 
 ---
 
-_Permission Modes - Inspired by [Craft Agents OSS](https://github.com/lukilabs/craft-agents-oss)_
+_Permission Modes - Inspired by [Arkantos Agents OSS](https://github.com/lukilabs/craft-agents-oss)_

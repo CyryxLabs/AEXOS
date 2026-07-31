@@ -1,143 +1,143 @@
-# Trilha @devops: Do Problema ao Output Validado
+# @devops Trail: From Problem to Validated Output
 
 > **Story:** CYRYX-DIFF-4.3.1
-> **Agente:** @devops (Polaris)
-> **Tempo estimado:** 20-40 minutos
+> **Agent:** @devops (Polaris)
+> **Estimated time:** 20-40 minutes
 
 ---
 
-## Mapa da Trilha
+## Trail Map
 
 ```
-PROBLEMA: "Preciso configurar CI/CD e fazer push seguro"
+PROBLEM: "I need to set up CI/CD and push safely"
     ↓
-WORKFLOW: Setup GitHub → CI/CD Config → Quality Gate → Push
+WORKFLOW: GitHub Setup → CI/CD Config → Quality Gate → Push
     ↓
 TASKS: *setup-github → *ci-cd → *push
     ↓
-OUTPUT: Repo configurado + Pipeline ativo + Push com gates verdes
+OUTPUT: Configured repo + Active pipeline + Push with green gates
 ```
 
 ---
 
-## Exemplo Reproduzível Passo a Passo
+## Reproducible Step-by-Step Example
 
-### Cenário
+### Scenario
 
-Você está em um projeto AEXOS e precisa:
-1. Configurar repositório GitHub
-2. Criar pipeline CI/CD (GitHub Actions)
-3. Fazer push seguro com quality gates
-4. Validar que o pipeline executa corretamente
+You are in an AEXOS project and you need to:
+1. Set up a GitHub repository
+2. Create a CI/CD pipeline (GitHub Actions)
+3. Push safely with quality gates
+4. Validate that the pipeline runs correctly
 
-### Pré-requisitos
+### Prerequisites
 
 ```bash
-# Projeto AEXOS inicializado
-npx github:CyryxLabs/AEXOS doctor  # deve retornar healthy
+# AEXOS project initialized
+npx github:CyryxLabs/AEXOS doctor  # must return healthy
 
-# GitHub CLI autenticado
-gh auth status  # deve mostrar usuário logado
+# GitHub CLI authenticated
+gh auth status  # must show the logged-in user
 
-# Git configurado
-git config user.name   # deve ter valor
-git config user.email  # deve ter valor
+# Git configured
+git config user.name   # must have a value
+git config user.email  # must have a value
 ```
 
 ---
 
-### Passo 1: Ativar @devops
+### Step 1: Activate @devops
 
 ```bash
 @devops
 ```
 
-**Output esperado:**
+**Expected output:**
 ```
--- Gage aqui! DevOps & Infrastructure Specialist.
-Pronto para CI/CD, MCP, releases e operações Git.
+-- Polaris here! DevOps & Infrastructure Specialist.
+Ready for CI/CD, MCP, releases and Git operations.
 
 Quick commands:
-  *setup-github      - Configurar repositório GitHub
-  *ci-cd             - Configurar pipeline CI/CD
-  *push              - Push com quality gates
-  *release           - Criar release com changelog
+  *setup-github      - Set up the GitHub repository
+  *ci-cd             - Set up the CI/CD pipeline
+  *push              - Push with quality gates
+  *release           - Create a release with a changelog
 ```
 
 ---
 
-### Passo 2: Setup do Repositório
+### Step 2: Repository Setup
 
 ```bash
 *setup-github
 ```
 
-**Interação:**
+**Interaction:**
 ```
-Gage: Qual nome do repositório?
-Você: my-aexos-project
+Polaris: What is the repository name?
+You: my-aexos-project
 
-Gage: Visibilidade?
-Você: private
+Polaris: Visibility?
+You: private
 
-Gage: Criar issues templates?
-Você: sim
+Polaris: Create issue templates?
+You: yes
 
-Gage: Habilitar branch protection em main?
-Você: sim
+Polaris: Enable branch protection on main?
+You: yes
 ```
 
-**Output esperado:**
+**Expected output:**
 ```
-🔧 Configurando repositório GitHub...
+🔧 Setting up the GitHub repository...
 
-✅ Repositório criado: github.com/seu-user/my-aexos-project
-✅ Branch protection configurada em main
+✅ Repository created: github.com/your-user/my-aexos-project
+✅ Branch protection configured on main
   - Require PR reviews: 1
   - Require status checks: lint, test
-✅ Issue templates criados:
+✅ Issue templates created:
   - .github/ISSUE_TEMPLATE/bug_report.md
   - .github/ISSUE_TEMPLATE/feature_request.md
-✅ CODEOWNERS criado
-✅ Remote origin adicionado
+✅ CODEOWNERS created
+✅ Remote origin added
 
-📋 Próximos passos:
-  *ci-cd github-actions  - Configurar pipeline
+📋 Next steps:
+  *ci-cd github-actions  - Set up the pipeline
 ```
 
-**Evidência de sucesso:**
+**Evidence of success:**
 ```bash
-gh repo view --web  # Abre o repo no browser
+gh repo view --web  # Opens the repo in the browser
 ```
 
 ---
 
-### Passo 3: Configurar CI/CD
+### Step 3: Set Up CI/CD
 
 ```bash
 *ci-cd github-actions
 ```
 
-**Interação:**
+**Interaction:**
 ```
-Gage: Qual stack tecnológica?
-Você: Node.js
+Polaris: Which technology stack?
+You: Node.js
 
-Gage: Versão do Node?
-Você: 20
+Polaris: Node version?
+You: 20
 
-Gage: Incluir CodeRabbit?
-Você: sim
+Polaris: Include CodeRabbit?
+You: yes
 
-Gage: Stages do pipeline?
-Você: lint, test, build
+Polaris: Pipeline stages?
+You: lint, test, build
 ```
 
-**Output esperado:**
+**Expected output:**
 ```
-🔧 Configurando GitHub Actions CI/CD...
+🔧 Setting up GitHub Actions CI/CD...
 
-📄 Criando .github/workflows/ci.yml
+📄 Creating .github/workflows/ci.yml
 
 name: CI Pipeline
 
@@ -180,16 +180,16 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-✅ Pipeline CI/CD criado
-✅ CodeRabbit integration configurada (.coderabbit.yaml)
+✅ CI/CD pipeline created
+✅ CodeRabbit integration configured (.coderabbit.yaml)
 
-📋 Commit e push para ativar:
+📋 Commit and push to activate it:
   git add .github/
   git commit -m "ci: add GitHub Actions pipeline"
   git push
 ```
 
-**Evidência de sucesso:**
+**Evidence of success:**
 ```bash
 ls .github/workflows/
 # ci.yml
@@ -197,7 +197,7 @@ ls .github/workflows/
 
 ---
 
-### Passo 4: Fazer Commit Local
+### Step 4: Make a Local Commit
 
 ```bash
 git add .github/
@@ -206,13 +206,13 @@ git commit -m "ci: add GitHub Actions pipeline"
 
 ---
 
-### Passo 5: Push com Quality Gates
+### Step 5: Push with Quality Gates
 
 ```bash
 *push
 ```
 
-**Output esperado:**
+**Expected output:**
 ```
 🚦 Pre-Push Quality Gate
 
@@ -240,18 +240,18 @@ Pushing to origin/main...
   ✅ Push successful
 
 📋 CI Pipeline triggered:
-  https://github.com/seu-user/my-aexos-project/actions/runs/xxxxx
+  https://github.com/your-user/my-aexos-project/actions/runs/xxxxx
 ```
 
 ---
 
-### Passo 6: Verificar Pipeline
+### Step 6: Check the Pipeline
 
 ```bash
 gh run list --limit 1
 ```
 
-**Output esperado:**
+**Expected output:**
 ```
 STATUS  NAME         WORKFLOW  BRANCH  EVENT  ID
 ✓       CI Pipeline  ci.yml    main    push   xxxxx
@@ -259,22 +259,22 @@ STATUS  NAME         WORKFLOW  BRANCH  EVENT  ID
 
 ---
 
-## Checklist de Validação
+## Validation Checklist
 
-| Step | Comando | Output Esperado | ✓ |
+| Step | Command | Expected Output | ✓ |
 |------|---------|-----------------|---|
-| 1 | `@devops` | Greeting de Polaris | [ ] |
-| 2 | `*setup-github` | "Repositório criado" | [ ] |
-| 3 | `*ci-cd github-actions` | "Pipeline criado" | [ ] |
-| 4 | `git commit` | Commit local | [ ] |
+| 1 | `@devops` | Polaris greeting | [ ] |
+| 2 | `*setup-github` | "Repository created" | [ ] |
+| 3 | `*ci-cd github-actions` | "Pipeline created" | [ ] |
+| 4 | `git commit` | Local commit | [ ] |
 | 5 | `*push` | "All gates passed" | [ ] |
-| 6 | `gh run list` | Pipeline verde | [ ] |
+| 6 | `gh run list` | Green pipeline | [ ] |
 
 ---
 
-## Fluxo de Release (Bônus)
+## Release Flow (Bonus)
 
-Após várias features:
+After several features:
 
 ```bash
 *version-check
@@ -310,76 +310,76 @@ Suggested bump: minor (1.1.0)
 ✅ GitHub Release published
 
 Release URL:
-  https://github.com/seu-user/my-aexos-project/releases/tag/v1.1.0
+  https://github.com/your-user/my-aexos-project/releases/tag/v1.1.0
 ```
 
 ---
 
-## Variações da Trilha
+## Trail Variations
 
-### Variação A: GitLab CI
+### Variation A: GitLab CI
 ```bash
 *ci-cd gitlab
-# Gera .gitlab-ci.yml
+# Generates .gitlab-ci.yml
 ```
 
-### Variação B: CircleCI
+### Variation B: CircleCI
 ```bash
 *ci-cd circleci
-# Gera .circleci/config.yml
+# Generates .circleci/config.yml
 ```
 
-### Variação C: MCP Setup
+### Variation C: MCP Setup
 ```bash
 *search-mcp "browser automation"
 *add-mcp playwright -s project
-# Configura MCP para o projeto
+# Configures MCP for the project
 ```
 
 ---
 
-## Comandos Relacionados
+## Related Commands
 
-| Comando | Uso |
+| Command | Use |
 |---------|-----|
-| `*setup-github` | Configurar repo e proteções |
-| `*ci-cd` | Criar pipeline CI/CD |
-| `*push` | Push com quality gates |
-| `*release` | Criar release com changelog |
-| `*version-check` | Analisar versão sugerida |
-| `*cleanup` | Limpar branches merged |
-| `*security-scan` | Varredura de vulnerabilidades |
-| `*add-mcp` | Adicionar servidor MCP |
+| `*setup-github` | Set up the repo and its protections |
+| `*ci-cd` | Create the CI/CD pipeline |
+| `*push` | Push with quality gates |
+| `*release` | Create a release with a changelog |
+| `*version-check` | Analyze the suggested version |
+| `*cleanup` | Clean up merged branches |
+| `*security-scan` | Vulnerability scan |
+| `*add-mcp` | Add an MCP server |
 
 ---
 
 ## Troubleshooting
 
-### Quality gate falha em lint
+### The quality gate fails on lint
 ```bash
-# Fix automático
+# Automatic fix
 npm run lint -- --fix
 # Re-run
 *push
 ```
 
-### Pipeline falha no GitHub
+### The pipeline fails on GitHub
 ```bash
-# Ver logs
+# View the logs
 gh run view --log-failed
-# Fix local e re-push
+# Fix locally and re-push
 *push
 ```
 
-### Sem permissão de push
+### No push permission
 ```bash
-# Verificar autenticação
+# Check the authentication
 gh auth status
-# Re-autenticar se necessário
+# Re-authenticate if necessary
 gh auth login
 ```
 
 ---
 
-*Trilha criada para Story CYRYX-DIFF-4.3.1*
-*-- Gage, automatizando tudo*
+*Trail created for Story CYRYX-DIFF-4.3.1*
+*-- Polaris, automating everything*

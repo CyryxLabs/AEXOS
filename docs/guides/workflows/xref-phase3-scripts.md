@@ -207,7 +207,7 @@ All agents share the same GreetingBuilder logic but differ in:
 | @pm (Janus) | `\U0001f4cb` | Strategist | Capricorn | "Janus the Strategist ready!" |
 | @sm (Chronos) | `\U0001f30a` | Facilitator | Sagittarius | "Chronos the Facilitator ready!" |
 | @architect (Vega) | `\U0001f3d7\ufe0f` | Visionary | Gemini | "Vega the Visionary ready!" |
-| @analyst (Alex) | `\U0001f50d` | Decoder | Scorpio | "Alex the Decoder ready!" |
+| @analyst (Sirius) | `\U0001f50d` | Decoder | Scorpio | "Sirius the Decoder ready!" |
 | @devops (Polaris) | `\u2699\ufe0f` | Automator | Aries | "Polaris the Automator ready!" |
 | @data-engineer (Ceres) | `\U0001f4ca` | Sage | Taurus | "Ceres the Sage ready!" |
 | @ux-design-expert (Iris) | `\U0001f3a8` | Empathizer | Pisces | "Iris the Empathizer ready!" |

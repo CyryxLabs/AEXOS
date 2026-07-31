@@ -1,94 +1,94 @@
-# Workflow Greenfield UI - Guia Completo
+# Greenfield UI Workflow - Complete Guide
 
 > **Workflow ID:** `greenfield-ui`
-> **Tipo:** Greenfield
-> **Versão:** 1.0
-> **Última Atualização:** 2026-02-04
+> **Type:** Greenfield
+> **Version:** 1.0
+> **Last Updated:** 2026-02-04
 
-## Visão Geral
+## Overview
 
-O workflow **Greenfield UI** e o fluxo orquestrado para desenvolvimento de aplicações frontend do zero (greenfield). Ele cobre todo o ciclo de vida desde a conceituação ate a implementação, suportando tanto planejamento abrangente para UIs complexas quanto prototipagem rápida para interfaces simples.
+The **Greenfield UI** workflow is the orchestrated flow for developing frontend applications from scratch (greenfield). It covers the entire lifecycle from conception to implementation, supporting both comprehensive planning for complex UIs and rapid prototyping for simple interfaces.
 
-### Tipos de Projeto Suportados
+### Supported Project Types
 
-| Tipo | Descrição |
-|------|-----------|
+| Type | Description |
+|------|-------------|
 | `spa` | Single Page Applications |
-| `mobile-app` | Aplicativos móveis |
+| `mobile-app` | Mobile applications |
 | `micro-frontend` | Micro-frontends |
-| `static-site` | Sites estáticos |
-| `ui-prototype` | Prototipos de UI |
-| `simple-interface` | Interfaces simples |
+| `static-site` | Static sites |
+| `ui-prototype` | UI prototypes |
+| `simple-interface` | Simple interfaces |
 
-### Quando Usar Este Workflow
+### When to Use This Workflow
 
-- Construindo aplicações frontend de produção
-- Múltiplas views/paginas com interações complexas
-- Necessidade de design UI/UX abrangente e testes
-- Múltiplos membros da equipe envolvidos
-- Manutenção de longo prazo esperada
-- Aplicacoes voltadas ao cliente
+- Building production frontend applications
+- Multiple views/pages with complex interactions
+- Need for comprehensive UI/UX design and testing
+- Multiple team members involved
+- Long-term maintenance expected
+- Customer-facing applications
 
 ---
 
-## Diagrama do Workflow
+## Workflow Diagram
 
-### Fluxo Principal
+### Main Flow
 
 ```mermaid
 graph TD
-    subgraph "Fase 1: Planejamento e Especificação"
-        A[Inicio: Desenvolvimento UI] --> B["@analyst: project-brief.md"]
+    subgraph "Phase 1: Planning and Specification"
+        A[Start: UI Development] --> B["@analyst: project-brief.md"]
         B --> C["@pm: prd.md"]
         C --> D["@ux-expert: front-end-spec.md"]
-        D --> D2{Gerar prompt v0?}
-        D2 -->|Sim| D3["@ux-expert: criar prompt v0"]
-        D2 -->|Não| E["@architect: front-end-architecture.md"]
-        D3 --> D4[Usuario: gerar UI em v0/Lovable]
+        D --> D2{Generate v0 prompt?}
+        D2 -->|Yes| D3["@ux-expert: create v0 prompt"]
+        D2 -->|No| E["@architect: front-end-architecture.md"]
+        D3 --> D4[User: generate UI in v0/Lovable]
         D4 --> E
     end
 
-    subgraph "Fase 2: Validação e Ajustes"
-        E --> F{Arquitetura sugere mudanças no PRD?}
-        F -->|Sim| G["@pm: atualizar prd.md"]
-        F -->|Não| H["@po: validar todos os artefatos"]
+    subgraph "Phase 2: Validation and Adjustments"
+        E --> F{Does architecture suggest PRD changes?}
+        F -->|Yes| G["@pm: update prd.md"]
+        F -->|No| H["@po: validate all artifacts"]
         G --> H
-        H --> I{PO encontrou problemas?}
-        I -->|Sim| J[Retornar ao agente relevante]
-        I -->|Não| K["@po: fragmentar documentos"]
+        H --> I{Did the PO find issues?}
+        I -->|Yes| J[Return to the relevant agent]
+        I -->|No| K["@po: shard documents"]
         J --> H
     end
 
-    subgraph "Fase 3: Desenvolvimento"
-        K --> L["@sm: criar story"]
-        L --> M{Revisar story draft?}
-        M -->|Sim| N["@analyst/@pm: revisar e aprovar"]
-        M -->|Não| O["@dev: implementar story"]
+    subgraph "Phase 3: Development"
+        K --> L["@sm: create story"]
+        L --> M{Review story draft?}
+        M -->|Yes| N["@analyst/@pm: review and approve"]
+        M -->|No| O["@dev: implement story"]
         N --> O
-        O --> P{Revisão QA?}
-        P -->|Sim| Q["@qa: revisar implementação"]
-        P -->|Não| R{Mais stories?}
-        Q --> S{QA encontrou problemas?}
-        S -->|Sim| T["@dev: corrigir feedback QA"]
-        S -->|Não| R
+        O --> P{QA review?}
+        P -->|Yes| Q["@qa: review implementation"]
+        P -->|No| R{More stories?}
+        Q --> S{Did QA find issues?}
+        S -->|Yes| T["@dev: fix QA feedback"]
+        S -->|No| R
         T --> Q
-        R -->|Sim| L
-        R -->|Não| U{Retrospectiva do Epic?}
+        R -->|Yes| L
+        R -->|No| U{Epic retrospective?}
     end
 
-    subgraph "Fase 4: Finalização"
-        U -->|Sim| V["@po: retrospectiva do epic"]
-        U -->|Não| W[Projeto Completo]
+    subgraph "Phase 4: Wrap-Up"
+        U -->|Yes| V["@po: epic retrospective"]
+        U -->|No| W[Project Complete]
         V --> W
     end
 
-    %% Steps Opcionais
-    B -.-> B1[Opcional: brainstorming]
-    B -.-> B2[Opcional: pesquisa de mercado]
-    D -.-> D1[Opcional: pesquisa de usuários]
-    E -.-> E1[Opcional: pesquisa técnica]
+    %% Optional Steps
+    B -.-> B1[Optional: brainstorming]
+    B -.-> B2[Optional: market research]
+    D -.-> D1[Optional: user research]
+    E -.-> E1[Optional: technical research]
 
-    %% Estilos
+    %% Styles
     style W fill:#90EE90
     style K fill:#ADD8E6
     style L fill:#ADD8E6
@@ -104,24 +104,24 @@ graph TD
     style V fill:#F0E68C
 ```
 
-### Legenda de Cores
+### Color Legend
 
-| Cor | Significado |
-|-----|-------------|
-| Laranja (`#FFE4B5`) | Criação de Documentos |
-| Azul Claro (`#ADD8E6`) | Ciclo de Desenvolvimento |
-| Lavanda (`#E6E6FA`) | Geração AI (Opcional) |
-| Amarelo (`#F0E68C`) | Revisão/Validação (Opcional) |
-| Verde (`#90EE90`) | Conclusão |
+| Color | Meaning |
+|-------|---------|
+| Orange (`#FFE4B5`) | Document Creation |
+| Light Blue (`#ADD8E6`) | Development Cycle |
+| Lavender (`#E6E6FA`) | AI Generation (Optional) |
+| Yellow (`#F0E68C`) | Review/Validation (Optional) |
+| Green (`#90EE90`) | Completion |
 
 ---
 
-## Diagrama de Sequência
+## Sequence Diagram
 
 ```mermaid
 sequenceDiagram
     autonumber
-    participant U as Usuario
+    participant U as User
     participant AN as @analyst (Sirius)
     participant PM as @pm (Janus)
     participant UX as @ux-expert (Iris)
@@ -132,245 +132,245 @@ sequenceDiagram
     participant QA as @qa (Argus)
 
     rect rgb(255, 228, 181)
-        Note over U,AR: Fase 1: Planejamento
-        U->>AN: Iniciar projeto UI
-        AN->>AN: Brainstorming (opcional)
-        AN->>AN: Pesquisa de mercado (opcional)
+        Note over U,AR: Phase 1: Planning
+        U->>AN: Start UI project
+        AN->>AN: Brainstorming (optional)
+        AN->>AN: Market research (optional)
         AN-->>U: project-brief.md
-        U->>PM: Criar PRD
+        U->>PM: Create PRD
         PM-->>U: prd.md
-        U->>UX: Criar especificação frontend
-        UX->>UX: Pesquisa de usuários (opcional)
+        U->>UX: Create frontend specification
+        UX->>UX: User research (optional)
         UX-->>U: front-end-spec.md
 
-        alt Geração AI desejada
-            U->>UX: Gerar prompt v0
-            UX-->>U: prompt para v0/Lovable
-            U->>U: Gerar UI externamente
+        alt AI generation desired
+            U->>UX: Generate v0 prompt
+            UX-->>U: prompt for v0/Lovable
+            U->>U: Generate UI externally
         end
 
-        U->>AR: Criar arquitetura frontend
-        AR->>AR: Pesquisa técnica (opcional)
+        U->>AR: Create frontend architecture
+        AR->>AR: Technical research (optional)
         AR-->>U: front-end-architecture.md
     end
 
     rect rgb(173, 216, 230)
-        Note over PM,PO: Fase 2: Validação
-        alt Mudanças sugeridas no PRD
-            AR->>PM: Sugerir atualizacoes
-            PM-->>U: prd.md atualizado
+        Note over PM,PO: Phase 2: Validation
+        alt Changes suggested for the PRD
+            AR->>PM: Suggest updates
+            PM-->>U: updated prd.md
         end
 
-        U->>PO: Validar artefatos
-        PO->>PO: Executar po-master-checklist
+        U->>PO: Validate artifacts
+        PO->>PO: Run po-master-checklist
 
-        alt Problemas encontrados
-            PO-->>U: Listar problemas
-            U->>U: Retornar ao agente relevante
-            U->>PO: Revalidar
+        alt Issues found
+            PO-->>U: List issues
+            U->>U: Return to the relevant agent
+            U->>PO: Revalidate
         end
 
-        PO-->>U: Artefatos validados
-        U->>PO: Fragmentar documentos
-        PO-->>U: docs/prd/ e docs/architecture/
+        PO-->>U: Artifacts validated
+        U->>PO: Shard documents
+        PO-->>U: docs/prd/ and docs/architecture/
     end
 
     rect rgb(144, 238, 144)
-        Note over SM,QA: Fase 3: Desenvolvimento
-        loop Para cada Epic/Story
-            U->>SM: Criar próxima story
+        Note over SM,QA: Phase 3: Development
+        loop For each Epic/Story
+            U->>SM: Create next story
             SM-->>U: story.md (Draft)
 
-            opt Revisão de Draft
-                U->>AN: Revisar story
-                AN-->>U: Story aprovada
+            opt Draft Review
+                U->>AN: Review story
+                AN-->>U: Story approved
             end
 
-            U->>DEV: Implementar story
-            DEV->>DEV: Código + Testes
-            DEV-->>U: Implementação completa
+            U->>DEV: Implement story
+            DEV->>DEV: Code + Tests
+            DEV-->>U: Implementation complete
 
-            opt Revisão QA
-                U->>QA: Revisar implementação
-                alt Problemas encontrados
+            opt QA Review
+                U->>QA: Review implementation
+                alt Issues found
                     QA-->>DEV: Feedback
-                    DEV->>DEV: Corrigir
-                    DEV-->>QA: Resubmeter
+                    DEV->>DEV: Fix
+                    DEV-->>QA: Resubmit
                 end
-                QA-->>U: Aprovado
+                QA-->>U: Approved
             end
         end
     end
 
     rect rgb(240, 230, 140)
-        Note over PO,PO: Fase 4: Finalização
-        opt Retrospectiva
-            U->>PO: Retrospectiva do Epic
+        Note over PO,PO: Phase 4: Wrap-Up
+        opt Retrospective
+            U->>PO: Epic retrospective
             PO-->>U: epic-retrospective.md
         end
     end
 
-    U->>U: Projeto Completo!
+    U->>U: Project Complete!
 ```
 
 ---
 
-## Steps Detalhados
+## Detailed Steps
 
-### Fase 1: Planejamento e Especificação
+### Phase 1: Planning and Specification
 
-#### Step 1: Criação do Project Brief
+#### Step 1: Project Brief Creation
 
-| Atributo | Valor |
-|----------|-------|
-| **Agente** | `@analyst` (Sirius) |
-| **Comando** | `*create-project-brief` |
+| Attribute | Value |
+|-----------|-------|
+| **Agent** | `@analyst` (Sirius) |
+| **Command** | `*create-project-brief` |
 | **Task** | `create-doc.md` + `project-brief-tmpl.yaml` |
-| **Cria** | `project-brief.md` |
-| **Steps Opcionais** | `brainstorming_session`, `market_research_prompt` |
+| **Creates** | `project-brief.md` |
+| **Optional Steps** | `brainstorming_session`, `market_research_prompt` |
 
-**Descrição:** O Analyst facilita a ideacao inicial, conduz pesquisa de mercado opcional e cria o brief do projeto que serve como base para todo o desenvolvimento.
+**Description:** The Analyst facilitates the initial ideation, conducts optional market research and creates the project brief that serves as the foundation for all development.
 
 **Input:**
-- Visao do usuario sobre o projeto
-- Contexto de mercado
-- Restrições conhecidas
+- User's vision for the project
+- Market context
+- Known constraints
 
 **Output:**
-- `docs/project-brief.md` - Brief completo do projeto
+- `docs/project-brief.md` - Complete project brief
 
-**Prompt de Handoff:**
+**Handoff Prompt:**
 > "Project brief is complete. Save it as docs/project-brief.md in your project, then create the PRD."
 
 ---
 
-#### Step 2: Criação do PRD
+#### Step 2: PRD Creation
 
-| Atributo | Valor |
-|----------|-------|
-| **Agente** | `@pm` (Janus) |
-| **Comando** | `*create-prd` |
+| Attribute | Value |
+|-----------|-------|
+| **Agent** | `@pm` (Janus) |
+| **Command** | `*create-prd` |
 | **Task** | `create-doc.md` + `prd-tmpl.yaml` |
-| **Requer** | `project-brief.md` |
-| **Cria** | `prd.md` |
+| **Requires** | `project-brief.md` |
+| **Creates** | `prd.md` |
 
-**Descrição:** O Product Manager transforma o brief em um Product Requirements Document (PRD) detalhado, focado em requisitos de UI/frontend.
+**Description:** The Product Manager turns the brief into a detailed Product Requirements Document (PRD) focused on UI/frontend requirements.
 
 **Input:**
 - `project-brief.md`
-- Feedback de stakeholders
+- Stakeholder feedback
 
 **Output:**
-- `docs/prd.md` - PRD completo com epics e stories
+- `docs/prd.md` - Complete PRD with epics and stories
 
-**Prompt de Handoff:**
+**Handoff Prompt:**
 > "PRD is ready. Save it as docs/prd.md in your project, then create the UI/UX specification."
 
 ---
 
-#### Step 3: Especificação de Frontend
+#### Step 3: Frontend Specification
 
-| Atributo | Valor |
-|----------|-------|
-| **Agente** | `@ux-expert` (Iris) |
-| **Comando** | `*create-front-end-spec` |
+| Attribute | Value |
+|-----------|-------|
+| **Agent** | `@ux-expert` (Iris) |
+| **Command** | `*create-front-end-spec` |
 | **Task** | `create-doc.md` + `front-end-spec-tmpl.yaml` |
-| **Requer** | `prd.md` |
-| **Cria** | `front-end-spec.md` |
-| **Steps Opcionais** | `user_research_prompt` |
+| **Requires** | `prd.md` |
+| **Creates** | `front-end-spec.md` |
+| **Optional Steps** | `user_research_prompt` |
 
-**Descrição:** O UX Expert cria a especificação detalhada de UI/UX, incluindo wireframes, fluxos de interacao e design system.
+**Description:** The UX Expert creates the detailed UI/UX specification, including wireframes, interaction flows and the design system.
 
 **Input:**
 - `prd.md`
-- Pesquisa de usuários (opcional)
+- User research (optional)
 
 **Output:**
-- `docs/front-end-spec.md` - Especificação completa de frontend
+- `docs/front-end-spec.md` - Complete frontend specification
 
 ---
 
-#### Step 4: Geração de Prompt AI (Opcional)
+#### Step 4: AI Prompt Generation (Optional)
 
-| Atributo | Valor |
-|----------|-------|
-| **Agente** | `@ux-expert` (Iris) |
-| **Comando** | `*generate-ui-prompt` |
+| Attribute | Value |
+|-----------|-------|
+| **Agent** | `@ux-expert` (Iris) |
+| **Command** | `*generate-ui-prompt` |
 | **Task** | `generate-ai-frontend-prompt.md` |
-| **Requer** | `front-end-spec.md` |
-| **Cria** | `v0_prompt` |
-| **Condição** | `user_wants_ai_generation` |
+| **Requires** | `front-end-spec.md` |
+| **Creates** | `v0_prompt` |
+| **Condition** | `user_wants_ai_generation` |
 
-**Descrição:** Gera prompts otimizados para ferramentas de geracao de UI como v0, Lovable, ou similares.
+**Description:** Generates prompts optimized for UI generation tools such as v0, Lovable, or similar.
 
 **Input:**
 - `front-end-spec.md`
-- Preferencias de estilo
+- Style preferences
 
 **Output:**
-- Prompt formatado para ferramenta AI
-- Usuario gera UI externamente e baixa estrutura do projeto
+- Prompt formatted for the AI tool
+- The user generates the UI externally and downloads the project structure
 
 ---
 
-#### Step 5: Arquitetura de Frontend
+#### Step 5: Frontend Architecture
 
-| Atributo | Valor |
-|----------|-------|
-| **Agente** | `@architect` (Vega) |
-| **Comando** | `*create-front-end-architecture` |
+| Attribute | Value |
+|-----------|-------|
+| **Agent** | `@architect` (Vega) |
+| **Command** | `*create-front-end-architecture` |
 | **Task** | `create-doc.md` + `front-end-architecture-tmpl.yaml` |
-| **Requer** | `front-end-spec.md` |
-| **Cria** | `front-end-architecture.md` |
-| **Steps Opcionais** | `technical_research_prompt`, `review_generated_ui_structure` |
+| **Requires** | `front-end-spec.md` |
+| **Creates** | `front-end-architecture.md` |
+| **Optional Steps** | `technical_research_prompt`, `review_generated_ui_structure` |
 
-**Descrição:** O Architect cria a arquitetura técnica do frontend, incluindo decisões de stack, patterns e estrutura de componentes.
+**Description:** The Architect creates the frontend's technical architecture, including stack decisions, patterns and component structure.
 
 **Input:**
 - `front-end-spec.md`
-- Estrutura gerada por v0/Lovable (se aplicavel)
+- Structure generated by v0/Lovable (if applicable)
 
 **Output:**
-- `docs/front-end-architecture.md` - Arquitetura técnica completa
+- `docs/front-end-architecture.md` - Complete technical architecture
 
-**Prompt de Handoff:**
+**Handoff Prompt:**
 > "Frontend architecture complete. Save it as docs/front-end-architecture.md. Do you suggest any changes to the PRD stories or need new stories added?"
 
 ---
 
-### Fase 2: Validação e Ajustes
+### Phase 2: Validation and Adjustments
 
-#### Step 6: Atualização do PRD (Condicional)
+#### Step 6: PRD Update (Conditional)
 
-| Atributo | Valor |
-|----------|-------|
-| **Agente** | `@pm` (Janus) |
-| **Comando** | `*create-prd` (update) |
-| **Requer** | `front-end-architecture.md` |
-| **Atualiza** | `prd.md` |
-| **Condição** | `architecture_suggests_prd_changes` |
+| Attribute | Value |
+|-----------|-------|
+| **Agent** | `@pm` (Janus) |
+| **Command** | `*create-prd` (update) |
+| **Requires** | `front-end-architecture.md` |
+| **Updates** | `prd.md` |
+| **Condition** | `architecture_suggests_prd_changes` |
 
-**Descrição:** Se o Architect sugerir mudanças nas stories ou novos requisitos, o PM atualiza o PRD.
+**Description:** If the Architect suggests changes to the stories or new requirements, the PM updates the PRD.
 
 **Input:**
-- Sugestoes do Architect
-- PRD atual
+- Architect's suggestions
+- Current PRD
 
 **Output:**
-- `docs/prd.md` atualizado
+- Updated `docs/prd.md`
 
 ---
 
-#### Step 7: Validação pelo PO
+#### Step 7: PO Validation
 
-| Atributo | Valor |
-|----------|-------|
-| **Agente** | `@po` (Themis) |
-| **Comando** | `*execute-checklist-po` |
+| Attribute | Value |
+|-----------|-------|
+| **Agent** | `@po` (Themis) |
+| **Command** | `*execute-checklist-po` |
 | **Task** | `execute-checklist.md` + `po-master-checklist.md` |
-| **Valida** | Todos os artefatos |
+| **Validates** | All artifacts |
 
-**Descrição:** O Product Owner valida a consistencia e completude de todos os documentos criados.
+**Description:** The Product Owner validates the consistency and completeness of every document created.
 
 **Input:**
 - `project-brief.md`
@@ -379,231 +379,231 @@ sequenceDiagram
 - `front-end-architecture.md`
 
 **Output:**
-- Validação PASS ou lista de problemas
+- PASS validation or list of issues
 
-**Prompt em caso de problemas:**
+**Prompt when issues are found:**
 > "PO found issues with [document]. Please return to [agent] to fix and re-save the updated document."
 
 ---
 
-#### Step 8: Fragmentação de Documentos
+#### Step 8: Document Sharding
 
-| Atributo | Valor |
-|----------|-------|
-| **Agente** | `@po` (Themis) |
-| **Comando** | `*shard-doc` |
+| Attribute | Value |
+|-----------|-------|
+| **Agent** | `@po` (Themis) |
+| **Command** | `*shard-doc` |
 | **Task** | `shard-doc.md` |
-| **Requer** | Todos os artefatos validados |
-| **Cria** | `sharded_docs` |
+| **Requires** | All validated artifacts |
+| **Creates** | `sharded_docs` |
 
-**Descrição:** Fragmenta documentos grandes em partes menores para facilitar o desenvolvimento no IDE.
+**Description:** Shards large documents into smaller parts to make development in the IDE easier.
 
-**Opções de Execução:**
-- **Opção A:** Usar agente PO: `@po` depois pedir para fragmentar `docs/prd.md`
-- **Opção B:** Manual: Arrastar task `shard-doc` + `docs/prd.md` para o chat
+**Execution Options:**
+- **Option A:** Use the PO agent: `@po`, then ask it to shard `docs/prd.md`
+- **Option B:** Manual: Drag the `shard-doc` task + `docs/prd.md` into the chat
 
 **Output:**
-- `docs/prd/` - PRD fragmentado
-- `docs/architecture/` - Arquitetura fragmentada
+- `docs/prd/` - Sharded PRD
+- `docs/architecture/` - Sharded architecture
 
 ---
 
-### Fase 3: Desenvolvimento
+### Phase 3: Development
 
-#### Step 9: Criação de Story
+#### Step 9: Story Creation
 
-| Atributo | Valor |
-|----------|-------|
-| **Agente** | `@sm` (Chronos) |
-| **Comando** | `*draft` |
+| Attribute | Value |
+|-----------|-------|
+| **Agent** | `@sm` (Chronos) |
+| **Command** | `*draft` |
 | **Task** | `create-next-story.md` |
-| **Requer** | `sharded_docs` |
-| **Cria** | `story.md` |
-| **Repete** | Para cada epic |
+| **Requires** | `sharded_docs` |
+| **Creates** | `story.md` |
+| **Repeats** | For each epic |
 
-**Descrição:** O Scrum Master cria stories detalhadas a partir dos documentos fragmentados.
+**Description:** The Scrum Master creates detailed stories from the sharded documents.
 
-**Ciclo de Criação:**
-1. SM Agent (Nova Sessao): `@sm` → `*draft`
-2. Cria próxima story dos docs fragmentados
-3. Story inicia com status "Draft"
+**Creation Cycle:**
+1. SM Agent (New Session): `@sm` → `*draft`
+2. Creates the next story from the sharded docs
+3. The story starts with status "Draft"
 
 **Input:**
-- Documentos fragmentados
-- Contexto do sprint
+- Sharded documents
+- Sprint context
 
 **Output:**
-- `docs/stories/epic-X/story-X.Y.md` - Story em Draft
+- `docs/stories/epic-X/story-X.Y.md` - Story in Draft
 
 ---
 
-#### Step 10: Revisão de Draft (Opcional)
+#### Step 10: Draft Review (Optional)
 
-| Atributo | Valor |
-|----------|-------|
-| **Agente** | `@analyst` ou `@pm` |
-| **Comando** | `*review` (coming soon) |
-| **Atualiza** | `story.md` |
-| **Condição** | `user_wants_story_review` |
-| **Opcional** | Sim |
+| Attribute | Value |
+|-----------|-------|
+| **Agent** | `@analyst` or `@pm` |
+| **Command** | `*review` (coming soon) |
+| **Updates** | `story.md` |
+| **Condition** | `user_wants_story_review` |
+| **Optional** | Yes |
 
-**Descrição:** Revisão opcional do draft para garantir completude e alinhamento.
+**Description:** Optional review of the draft to ensure completeness and alignment.
 
-**Acoes:**
-- Revisar completude da story
-- Verificar alinhamento com PRD
-- Atualizar status: Draft → Approved
+**Actions:**
+- Review the story's completeness
+- Verify alignment with the PRD
+- Update status: Draft → Approved
 
 ---
 
-#### Step 11: Implementação
+#### Step 11: Implementation
 
-| Atributo | Valor |
-|----------|-------|
-| **Agente** | `@dev` (Vulcan) |
-| **Comando** | `*develop` |
+| Attribute | Value |
+|-----------|-------|
+| **Agent** | `@dev` (Vulcan) |
+| **Command** | `*develop` |
 | **Task** | `dev-develop-story.md` |
-| **Requer** | `story.md` (aprovada) |
-| **Cria** | Arquivos de implementação |
+| **Requires** | `story.md` (approved) |
+| **Creates** | Implementation files |
 
-**Descrição:** O Developer implementa a story seguindo os requisitos e tasks definidos.
+**Description:** The Developer implements the story following the defined requirements and tasks.
 
-**Ciclo de Implementação:**
-1. Dev Agent (Nova Sessao): `@dev`
-2. Implementa story aprovada
-3. Atualiza File List com todas as mudanças
-4. Marca story como "Review" quando completa
+**Implementation Cycle:**
+1. Dev Agent (New Session): `@dev`
+2. Implements the approved story
+3. Updates the File List with every change
+4. Marks the story as "Review" when complete
 
 **Input:**
-- Story aprovada
-- Arquitetura de referencia
+- Approved story
+- Reference architecture
 
 **Output:**
-- Código implementado
-- Testes
-- Story atualizada com File List
+- Implemented code
+- Tests
+- Story updated with the File List
 
 ---
 
-#### Step 12: Revisão QA (Opcional)
+#### Step 12: QA Review (Optional)
 
-| Atributo | Valor |
-|----------|-------|
-| **Agente** | `@qa` (Argus) |
-| **Comando** | `*review` |
+| Attribute | Value |
+|-----------|-------|
+| **Agent** | `@qa` (Argus) |
+| **Command** | `*review` |
 | **Task** | `review-story.md` |
-| **Requer** | Arquivos implementados |
-| **Atualiza** | Implementação |
-| **Opcional** | Sim |
+| **Requires** | Implemented files |
+| **Updates** | Implementation |
+| **Optional** | Yes |
 
-**Descrição:** Revisão de senior dev com capacidade de refatoração.
+**Description:** Senior dev review with refactoring capability.
 
-**Ciclo de QA:**
-1. QA Agent (Nova Sessao): `@qa` → `*review {story}`
-2. Corrige problemas pequenos diretamente
-3. Deixa checklist para itens restantes
-4. Atualiza status (Review → Done ou permanece Review)
+**QA Cycle:**
+1. QA Agent (New Session): `@qa` → `*review {story}`
+2. Fixes small issues directly
+3. Leaves a checklist for the remaining items
+4. Updates status (Review → Done or stays in Review)
 
 **Output:**
-- Código revisado/refatorado
-- Checklist de itens pendentes (se houver)
+- Reviewed/refactored code
+- Checklist of pending items (if any)
 - QA Gate decision (PASS/CONCERNS/FAIL)
 
 ---
 
-#### Step 13: Correção de Feedback QA (Condicional)
+#### Step 13: QA Feedback Fixes (Conditional)
 
-| Atributo | Valor |
-|----------|-------|
-| **Agente** | `@dev` (Vulcan) |
-| **Comando** | `*apply-qa-fixes` |
+| Attribute | Value |
+|-----------|-------|
+| **Agent** | `@dev` (Vulcan) |
+| **Command** | `*apply-qa-fixes` |
 | **Task** | `apply-qa-fixes.md` |
-| **Condição** | `qa_left_unchecked_items` |
-| **Atualiza** | Arquivos de implementação |
+| **Condition** | `qa_left_unchecked_items` |
+| **Updates** | Implementation files |
 
-**Descrição:** Se QA deixou itens nao marcados, Dev corrige e resubmete.
+**Description:** If QA left items unchecked, Dev fixes them and resubmits.
 
-**Ciclo:**
-1. Dev Agent (Nova Sessao): Endereca itens restantes
-2. Retorna para QA para aprovacao final
-
----
-
-#### Step 14: Ciclo de Desenvolvimento
-
-| Atributo | Valor |
-|----------|-------|
-| **Acao** | Repetir ciclo SM → Dev → QA |
-| **Condição** | Ate todas as stories do PRD estarem completas |
-
-**Descrição:** Repete o ciclo de criacao de story, implementação e revisao para todas as stories.
+**Cycle:**
+1. Dev Agent (New Session): Addresses the remaining items
+2. Returns to QA for final approval
 
 ---
 
-### Fase 4: Finalização
+#### Step 14: Development Cycle
 
-#### Step 15: Retrospectiva do Epic (Opcional)
+| Attribute | Value |
+|-----------|-------|
+| **Action** | Repeat the SM → Dev → QA cycle |
+| **Condition** | Until every story in the PRD is complete |
 
-| Atributo | Valor |
-|----------|-------|
-| **Agente** | `@po` (Themis) |
-| **Comando** | `*epic-retrospective` (coming soon) |
-| **Condição** | `epic_complete` |
-| **Cria** | `epic-retrospective.md` |
-| **Opcional** | Sim |
+**Description:** Repeats the story creation, implementation and review cycle for all stories.
 
-**Descrição:** Apos conclusao do epic, valida se foi completado corretamente e documenta aprendizados.
+---
+
+### Phase 4: Wrap-Up
+
+#### Step 15: Epic Retrospective (Optional)
+
+| Attribute | Value |
+|-----------|-------|
+| **Agent** | `@po` (Themis) |
+| **Command** | `*epic-retrospective` (coming soon) |
+| **Condition** | `epic_complete` |
+| **Creates** | `epic-retrospective.md` |
+| **Optional** | Yes |
+
+**Description:** After the epic is finished, validates that it was completed correctly and documents the lessons learned.
 
 **Output:**
 - `docs/retrospectives/epic-X-retrospective.md`
-- Melhorias documentadas
+- Documented improvements
 
 ---
 
-#### Step 16: Conclusão do Projeto
+#### Step 16: Project Completion
 
-| Atributo | Valor |
-|----------|-------|
-| **Acao** | Projeto completo |
+| Attribute | Value |
+|-----------|-------|
+| **Action** | Project complete |
 
-**Descrição:** Todas as stories implementadas e revisadas. Fase de desenvolvimento do projeto concluida.
+**Description:** All stories implemented and reviewed. The project's development phase is finished.
 
-**Referencia:** `.aexos-core/data/aexos-kb.md#IDE Development Workflow`
+**Reference:** `.aexos-core/data/aexos-kb.md#IDE Development Workflow`
 
 ---
 
-## Agentes Participantes
+## Participating Agents
 
-### Tabela de Agentes
+### Agent Table
 
-| Agente | Nome | Papel | Principais Comandos |
-|--------|------|-------|---------------------|
+| Agent | Name | Role | Main Commands |
+|-------|------|------|---------------|
 | `@analyst` | Sirius | Business Analyst | `*create-project-brief`, `*brainstorm`, `*research` |
 | `@pm` | Janus | Product Manager | `*create-prd`, `*shard-prd`, `*create-epic` |
-| `@ux-expert` | Uma | UX/UI Designer | `*create-front-end-spec`, `*generate-ui-prompt`, `*wireframe` |
+| `@ux-expert` | Iris | UX/UI Designer | `*create-front-end-spec`, `*generate-ui-prompt`, `*wireframe` |
 | `@architect` | Vega | System Architect | `*create-front-end-architecture`, `*document-project` |
 | `@po` | Themis | Product Owner | `*execute-checklist-po`, `*shard-doc`, `*validate-story-draft` |
 | `@sm` | Chronos | Scrum Master | `*draft`, `*story-checklist` |
 | `@dev` | Vulcan | Full Stack Developer | `*develop`, `*run-tests`, `*apply-qa-fixes` |
 | `@qa` | Argus | Test Architect | `*review`, `*gate`, `*test-design` |
 
-### Diagrama de Colaboração entre Agentes
+### Agent Collaboration Diagram
 
 ```mermaid
 graph LR
-    subgraph "Planejamento"
+    subgraph "Planning"
         AN[Sirius<br/>@analyst] --> PM[Janus<br/>@pm]
-        PM --> UX[Uma<br/>@ux-expert]
+        PM --> UX[Iris<br/>@ux-expert]
         UX --> AR[Vega<br/>@architect]
     end
 
-    subgraph "Validação"
+    subgraph "Validation"
         AR --> PM
         AR --> PO[Themis<br/>@po]
         PM --> PO
     end
 
-    subgraph "Desenvolvimento"
+    subgraph "Development"
         PO --> SM[Chronos<br/>@sm]
         SM --> DEV[Vulcan<br/>@dev]
         DEV --> QA[Argus<br/>@qa]
@@ -625,80 +625,80 @@ graph LR
 
 ---
 
-## Tasks Executadas
+## Tasks Executed
 
-### Por Fase
+### By Phase
 
-#### Fase 1: Planejamento
+#### Phase 1: Planning
 
-| Task | Agente | Template | Descrição |
-|------|--------|----------|-----------|
-| `create-doc.md` | @analyst | `project-brief-tmpl.yaml` | Criar brief do projeto |
-| `create-deep-research-prompt.md` | @analyst | - | Pesquisa de mercado |
-| `facilitate-brainstorming-session.md` | @analyst | `brainstorming-output-tmpl.yaml` | Sessao de brainstorming |
-| `create-doc.md` | @pm | `prd-tmpl.yaml` | Criar PRD |
-| `create-doc.md` | @ux-expert | `front-end-spec-tmpl.yaml` | Especificação frontend |
-| `generate-ai-frontend-prompt.md` | @ux-expert | - | Prompt para v0/Lovable |
-| `create-doc.md` | @architect | `front-end-architecture-tmpl.yaml` | Arquitetura frontend |
+| Task | Agent | Template | Description |
+|------|-------|----------|-------------|
+| `create-doc.md` | @analyst | `project-brief-tmpl.yaml` | Create the project brief |
+| `create-deep-research-prompt.md` | @analyst | - | Market research |
+| `facilitate-brainstorming-session.md` | @analyst | `brainstorming-output-tmpl.yaml` | Brainstorming session |
+| `create-doc.md` | @pm | `prd-tmpl.yaml` | Create the PRD |
+| `create-doc.md` | @ux-expert | `front-end-spec-tmpl.yaml` | Frontend specification |
+| `generate-ai-frontend-prompt.md` | @ux-expert | - | Prompt for v0/Lovable |
+| `create-doc.md` | @architect | `front-end-architecture-tmpl.yaml` | Frontend architecture |
 
-#### Fase 2: Validação
+#### Phase 2: Validation
 
-| Task | Agente | Checklist | Descrição |
-|------|--------|-----------|-----------|
-| `execute-checklist.md` | @po | `po-master-checklist.md` | Validar artefatos |
-| `shard-doc.md` | @po | - | Fragmentar documentos |
+| Task | Agent | Checklist | Description |
+|------|-------|-----------|-------------|
+| `execute-checklist.md` | @po | `po-master-checklist.md` | Validate artifacts |
+| `shard-doc.md` | @po | - | Shard documents |
 
-#### Fase 3: Desenvolvimento
+#### Phase 3: Development
 
-| Task | Agente | Descrição |
-|------|--------|-----------|
-| `create-next-story.md` | @sm | Criar próxima story |
-| `execute-checklist.md` | @sm | Checklist de story draft |
-| `dev-develop-story.md` | @dev | Implementar story |
-| `apply-qa-fixes.md` | @dev | Aplicar correções QA |
-| `review-story.md` | @qa | Revisar implementação |
-| `qa-gate.md` | @qa | Decisão de quality gate |
-
----
-
-## Pré-requisitos
-
-### Antes de Iniciar o Workflow
-
-1. **Ambiente Configurado**
-   - Node.js 18+ instalado
-   - Git configurado
-   - Gerenciador de pacotes (npm/yarn/pnpm)
-
-2. **AEXOS-Core Disponivel**
-   - Templates em `.aexos-core/development/templates/`
-   - Tasks em `.aexos-core/development/tasks/`
-   - Checklists em `.aexos-core/development/checklists/`
-
-3. **Estrutura de Projeto**
-   - Diretório `docs/` criado
-   - Diretório `docs/stories/` criado
-
-4. **Ferramentas de Pesquisa (Opcionais)**
-   - EXA MCP configurado para pesquisa web
-   - Context7 para documentação de bibliotecas
+| Task | Agent | Description |
+|------|-------|-------------|
+| `create-next-story.md` | @sm | Create the next story |
+| `execute-checklist.md` | @sm | Story draft checklist |
+| `dev-develop-story.md` | @dev | Implement the story |
+| `apply-qa-fixes.md` | @dev | Apply QA fixes |
+| `review-story.md` | @qa | Review the implementation |
+| `qa-gate.md` | @qa | Quality gate decision |
 
 ---
 
-## Entradas e Saidas
+## Prerequisites
 
-### Diagrama de Fluxo de Dados
+### Before Starting the Workflow
+
+1. **Configured Environment**
+   - Node.js 18+ installed
+   - Git configured
+   - Package manager (npm/yarn/pnpm)
+
+2. **AEXOS-Core Available**
+   - Templates in `.aexos-core/development/templates/`
+   - Tasks in `.aexos-core/development/tasks/`
+   - Checklists in `.aexos-core/development/checklists/`
+
+3. **Project Structure**
+   - `docs/` directory created
+   - `docs/stories/` directory created
+
+4. **Research Tools (Optional)**
+   - EXA MCP configured for web research
+   - Context7 for library documentation
+
+---
+
+## Inputs and Outputs
+
+### Data Flow Diagram
 
 ```mermaid
 flowchart LR
-    subgraph "Entradas"
-        I1[Visao do Projeto]
-        I2[Requisitos de Negocio]
-        I3[Restrições Tecnicas]
-        I4[Feedback Stakeholders]
+    subgraph "Inputs"
+        I1[Project Vision]
+        I2[Business Requirements]
+        I3[Technical Constraints]
+        I4[Stakeholder Feedback]
     end
 
-    subgraph "Artefatos Intermediarios"
+    subgraph "Intermediate Artifacts"
         A1[project-brief.md]
         A2[prd.md]
         A3[front-end-spec.md]
@@ -707,10 +707,10 @@ flowchart LR
         A6[stories/]
     end
 
-    subgraph "Saidas Finais"
-        O1[Código Implementado]
-        O2[Testes]
-        O3[Documentação]
+    subgraph "Final Outputs"
+        O1[Implemented Code]
+        O2[Tests]
+        O3[Documentation]
         O4[epic-retrospective.md]
     end
 
@@ -731,152 +731,152 @@ flowchart LR
     O1 --> O4
 ```
 
-### Matriz de Entradas e Saidas por Step
+### Input and Output Matrix by Step
 
-| Step | Entrada | Saida | Localização |
-|------|---------|-------|-------------|
-| 1 | Visao do usuario | `project-brief.md` | `docs/project-brief.md` |
+| Step | Input | Output | Location |
+|------|-------|--------|----------|
+| 1 | User's vision | `project-brief.md` | `docs/project-brief.md` |
 | 2 | `project-brief.md` | `prd.md` | `docs/prd.md` |
 | 3 | `prd.md` | `front-end-spec.md` | `docs/front-end-spec.md` |
-| 4 | `front-end-spec.md` | Prompt v0 | (externo) |
+| 4 | `front-end-spec.md` | v0 prompt | (external) |
 | 5 | `front-end-spec.md` | `front-end-architecture.md` | `docs/front-end-architecture.md` |
-| 6 | Sugestoes arquitetura | `prd.md` atualizado | `docs/prd.md` |
-| 7 | Todos artefatos | Validação | - |
-| 8 | Artefatos validados | Docs fragmentados | `docs/prd/`, `docs/architecture/` |
-| 9 | Docs fragmentados | `story.md` | `docs/stories/epic-X/` |
-| 11 | `story.md` | Código + Testes | `src/`, `tests/` |
-| 12 | Implementação | QA Gate | `docs/qa/gates/` |
+| 6 | Architecture suggestions | updated `prd.md` | `docs/prd.md` |
+| 7 | All artifacts | Validation | - |
+| 8 | Validated artifacts | Sharded docs | `docs/prd/`, `docs/architecture/` |
+| 9 | Sharded docs | `story.md` | `docs/stories/epic-X/` |
+| 11 | `story.md` | Code + Tests | `src/`, `tests/` |
+| 12 | Implementation | QA Gate | `docs/qa/gates/` |
 
 ---
 
-## Pontos de Decisão
+## Decision Points
 
-### Diagrama de Decisões
+### Decision Diagram
 
 ```mermaid
 flowchart TD
-    D1{Gerar prompt v0?}
-    D1 -->|Sim| A1[Usar ferramenta AI externa]
-    D1 -->|Não| A2[Prosseguir para arquitetura]
+    D1{Generate v0 prompt?}
+    D1 -->|Yes| A1[Use external AI tool]
+    D1 -->|No| A2[Proceed to architecture]
 
-    D2{Arquitetura sugere mudanças?}
-    D2 -->|Sim| B1[PM atualiza PRD]
-    D2 -->|Não| B2[Prosseguir para validação]
+    D2{Does architecture suggest changes?}
+    D2 -->|Yes| B1[PM updates the PRD]
+    D2 -->|No| B2[Proceed to validation]
 
-    D3{PO encontrou problemas?}
-    D3 -->|Sim| C1[Retornar ao agente relevante]
-    D3 -->|Não| C2[Fragmentar documentos]
+    D3{Did the PO find issues?}
+    D3 -->|Yes| C1[Return to the relevant agent]
+    D3 -->|No| C2[Shard documents]
 
-    D4{Revisar draft da story?}
-    D4 -->|Sim| D1A[Analyst/PM revisa]
-    D4 -->|Não| D1B[Dev implementa diretamente]
+    D4{Review the story draft?}
+    D4 -->|Yes| D1A[Analyst/PM reviews]
+    D4 -->|No| D1B[Dev implements directly]
 
-    D5{Executar revisao QA?}
-    D5 -->|Sim| E1[QA revisa implementação]
-    D5 -->|Não| E2[Verificar mais stories]
+    D5{Run QA review?}
+    D5 -->|Yes| E1[QA reviews the implementation]
+    D5 -->|No| E2[Check for more stories]
 
-    D6{QA encontrou problemas?}
-    D6 -->|Sim| F1[Dev corrige feedback]
-    D6 -->|Não| F2[Prosseguir]
+    D6{Did QA find issues?}
+    D6 -->|Yes| F1[Dev fixes the feedback]
+    D6 -->|No| F2[Proceed]
 
-    D7{Mais stories?}
-    D7 -->|Sim| G1[Criar próxima story]
-    D7 -->|Não| G2[Verificar retrospectiva]
+    D7{More stories?}
+    D7 -->|Yes| G1[Create the next story]
+    D7 -->|No| G2[Check retrospective]
 
-    D8{Fazer retrospectiva?}
-    D8 -->|Sim| H1[PO executa retrospectiva]
-    D8 -->|Não| H2[Projeto completo]
+    D8{Run a retrospective?}
+    D8 -->|Yes| H1[PO runs the retrospective]
+    D8 -->|No| H2[Project complete]
 ```
 
-### Descrição dos Pontos de Decisão
+### Description of the Decision Points
 
-| Ponto | Condição | Caminho Sim | Caminho Não |
-|-------|----------|-------------|-------------|
-| D1 | Usuario deseja geracao AI | UX gera prompt, usuario usa v0/Lovable | Prossegue para arquitetura |
-| D2 | Arquitetura requer mudanças | PM atualiza PRD | Prossegue para validação PO |
-| D3 | PO encontra inconsistencias | Retorna ao agente para correcao | Fragmenta documentos |
-| D4 | Usuario quer revisar draft | Analyst/PM valida story | Dev implementa diretamente |
-| D5 | Revisão QA desejada | QA executa revisao completa | Verifica próximas stories |
-| D6 | QA identificou problemas | Dev corrige e resubmete | Prossegue para próxima story |
-| D7 | Existem mais stories | Cria próxima story no ciclo | Verifica retrospectiva |
-| D8 | Retrospectiva desejada | PO documenta aprendizados | Projeto finalizado |
+| Point | Condition | Yes Path | No Path |
+|-------|-----------|----------|---------|
+| D1 | User wants AI generation | UX generates the prompt, user uses v0/Lovable | Proceeds to architecture |
+| D2 | Architecture requires changes | PM updates the PRD | Proceeds to PO validation |
+| D3 | PO finds inconsistencies | Returns to the agent for the fix | Shards documents |
+| D4 | User wants to review the draft | Analyst/PM validates the story | Dev implements directly |
+| D5 | QA review desired | QA runs a complete review | Checks the next stories |
+| D6 | QA identified issues | Dev fixes and resubmits | Proceeds to the next story |
+| D7 | More stories exist | Creates the next story in the cycle | Checks retrospective |
+| D8 | Retrospective desired | PO documents the lessons learned | Project finished |
 
 ---
 
 ## Troubleshooting
 
-### Problemas Comuns e Soluções
+### Common Problems and Solutions
 
-#### Fase de Planejamento
+#### Planning Phase
 
-| Problema | Causa Provável | Solução |
-|----------|----------------|---------|
-| Brief incompleto | Falta de informações do usuario | Executar `*brainstorm` ou `*elicit` antes |
-| PRD muito generico | Brief insuficiente | Retornar ao Analyst para enriquecer brief |
-| Spec sem detalhes de UX | Requisitos vagos no PRD | PM deve detalhar user journeys no PRD |
+| Problem | Likely Cause | Solution |
+|---------|--------------|----------|
+| Incomplete brief | Missing information from the user | Run `*brainstorm` or `*elicit` beforehand |
+| PRD too generic | Insufficient brief | Return to the Analyst to enrich the brief |
+| Spec without UX detail | Vague requirements in the PRD | The PM must detail user journeys in the PRD |
 
-#### Fase de Validação
+#### Validation Phase
 
-| Problema | Causa Provável | Solução |
-|----------|----------------|---------|
-| PO rejeita artefatos | Inconsistencia entre docs | Usar po-master-checklist para identificar gaps |
-| Muitas iterações de correcao | Falta de alinhamento inicial | Garantir revisao cruzada antes do PO |
-| Fragmentação falha | Documentos mal estruturados | Verificar formatacao markdown dos docs |
+| Problem | Likely Cause | Solution |
+|---------|--------------|----------|
+| PO rejects the artifacts | Inconsistency between docs | Use po-master-checklist to identify gaps |
+| Too many fix iterations | Lack of initial alignment | Ensure cross-review before the PO |
+| Sharding fails | Poorly structured documents | Check the markdown formatting of the docs |
 
-#### Fase de Desenvolvimento
+#### Development Phase
 
-| Problema | Causa Provável | Solução |
-|----------|----------------|---------|
-| Story muito grande | Epics mal definidos | PM deve quebrar epic em stories menores |
-| Dev bloqueado | Story ambigua | SM deve refinar story com mais detalhes |
-| QA rejeita repetidamente | Falta de testes | Dev deve incluir testes antes de marcar complete |
-| Ciclo infinito Dev-QA | Requisitos em mudanca | Congelar scope da story antes de implementar |
+| Problem | Likely Cause | Solution |
+|---------|--------------|----------|
+| Story too large | Poorly defined epics | The PM must break the epic into smaller stories |
+| Dev blocked | Ambiguous story | The SM must refine the story with more detail |
+| QA rejects repeatedly | Lack of tests | Dev must include tests before marking it complete |
+| Infinite Dev-QA loop | Changing requirements | Freeze the story scope before implementing |
 
-#### Problemas Tecnicos
+#### Technical Problems
 
-| Problema | Causa Provável | Solução |
-|----------|----------------|---------|
-| Templates nao encontrados | Path incorreto | Verificar `.aexos-core/development/templates/` |
-| Agente nao ativa | YAML malformado | Validar sintaxe do arquivo de agente |
-| Checklists falham | Dependencias faltando | Verificar `dependencies` no agente |
+| Problem | Likely Cause | Solution |
+|---------|--------------|----------|
+| Templates not found | Incorrect path | Check `.aexos-core/development/templates/` |
+| Agent does not activate | Malformed YAML | Validate the agent file's syntax |
+| Checklists fail | Missing dependencies | Check `dependencies` in the agent |
 
-### Fluxo de Escalação
+### Escalation Flow
 
 ```mermaid
 flowchart TD
-    P[Problema Identificado] --> T1{Problema Tecnico?}
-    T1 -->|Sim| D1[Verificar logs e configs]
-    T1 -->|Não| T2{Problema de Processo?}
+    P[Problem Identified] --> T1{Technical problem?}
+    T1 -->|Yes| D1[Check logs and configs]
+    T1 -->|No| T2{Process problem?}
 
-    D1 --> R1[Resolver ou escalar para DevOps]
+    D1 --> R1[Resolve or escalate to DevOps]
 
-    T2 -->|Sim| D2[Revisar workflow step]
-    T2 -->|Não| T3{Problema de Requisitos?}
+    T2 -->|Yes| D2[Review the workflow step]
+    T2 -->|No| T3{Requirements problem?}
 
-    D2 --> R2[Ajustar processo ou retornar step]
+    D2 --> R2[Adjust the process or go back a step]
 
-    T3 -->|Sim| D3[Retornar ao agente responsavel]
-    T3 -->|Não| D4[Consultar usuario para clarificacao]
+    T3 -->|Yes| D3[Return to the responsible agent]
+    T3 -->|No| D4[Consult the user for clarification]
 
-    D3 --> R3[Re-executar step com ajustes]
-    D4 --> R4[Documentar decisao e prosseguir]
+    D3 --> R3[Re-run the step with adjustments]
+    D4 --> R4[Document the decision and proceed]
 ```
 
 ---
 
-## Referências
+## References
 
-### Arquivos do Workflow
+### Workflow Files
 
-| Arquivo | Caminho |
-|---------|---------|
-| Definição do Workflow | `.aexos-core/development/workflows/greenfield-ui.yaml` |
+| File | Path |
+|------|------|
+| Workflow Definition | `.aexos-core/development/workflows/greenfield-ui.yaml` |
 | Knowledge Base | `.aexos-core/data/aexos-kb.md` |
 
-### Agentes
+### Agents
 
-| Agente | Caminho |
-|--------|---------|
+| Agent | Path |
+|-------|------|
 | @analyst | `.aexos-core/development/agents/analyst.md` |
 | @pm | `.aexos-core/development/agents/pm.md` |
 | @ux-expert | `.aexos-core/development/agents/ux-design-expert.md` |
@@ -886,10 +886,10 @@ flowchart TD
 | @dev | `.aexos-core/development/agents/dev.md` |
 | @qa | `.aexos-core/development/agents/qa.md` |
 
-### Templates Principais
+### Main Templates
 
-| Template | Caminho |
-|----------|---------|
+| Template | Path |
+|----------|------|
 | Project Brief | `.aexos-core/development/templates/project-brief-tmpl.yaml` |
 | PRD | `.aexos-core/development/templates/prd-tmpl.yaml` |
 | Frontend Spec | `.aexos-core/development/templates/front-end-spec-tmpl.yaml` |
@@ -898,25 +898,25 @@ flowchart TD
 
 ### Checklists
 
-| Checklist | Caminho |
-|-----------|---------|
+| Checklist | Path |
+|-----------|------|
 | PO Master | `.aexos-core/development/checklists/po-master-checklist.md` |
 | Story Draft | `.aexos-core/development/checklists/story-draft-checklist.md` |
 | Story DoD | `.aexos-core/development/checklists/story-dod-checklist.md` |
 
-### Documentação Relacionada
+### Related Documentation
 
-- [AEXOS Knowledge Base](.aexos-core/data/aexos-kb.md) - Base de conhecimento central
-- [Brownfield Workflow](./BROWNFIELD-WORKFLOW.md) - Workflow para projetos existentes (se disponível)
-
----
-
-## Histórico de Versões
-
-| Versao | Data | Autor | Mudanças |
-|--------|------|-------|----------|
-| 1.0 | 2026-02-04 | Documentation Specialist | Versao inicial do guia |
+- [AEXOS Knowledge Base](.aexos-core/data/aexos-kb.md) - Central knowledge base
+- [Brownfield Workflow](./BROWNFIELD-WORKFLOW.md) - Workflow for existing projects (if available)
 
 ---
 
-*Documento gerado automaticamente a partir de `.aexos-core/development/workflows/greenfield-ui.yaml`*
+## Version History
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| 1.0 | 2026-02-04 | Documentation Specialist | Initial version of the guide |
+
+---
+
+*Document generated automatically from `.aexos-core/development/workflows/greenfield-ui.yaml`*

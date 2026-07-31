@@ -50,7 +50,7 @@ echo $SUPABASE_DB_URL  # deve ter valor
 
 **Output esperado:**
 ```
--- Dara aqui! Database Architect & Operations Engineer.
+-- Ceres aqui! Database Architect & Operations Engineer.
 Pronto para modelar, migrar ou auditar.
 
 Quick commands:
@@ -89,19 +89,19 @@ ls supabase/
 
 **Interação:**
 ```
-Dara: Qual domínio você está modelando?
+Ceres: Qual domínio você está modelando?
 Você: Sistema de usuários para SaaS
 
-Dara: Quais entidades principais?
+Ceres: Quais entidades principais?
 Você: Users com email, nome, role e timestamps
 
-Dara: Relações entre entidades?
+Ceres: Relações entre entidades?
 Você: Por enquanto só users, depois adiciono organizations
 ```
 
 **Output esperado:**
 ```sql
--- Modelo gerado por Dara
+-- Modelo gerado por Ceres
 
 CREATE TABLE public.users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -313,4 +313,4 @@ CREATE POLICY "Users can update own data"
 ---
 
 *Trilha criada para Story CYRYX-DIFF-4.3.1*
-*-- Dara, arquitetando dados*
+*-- Ceres, arquitetando dados*

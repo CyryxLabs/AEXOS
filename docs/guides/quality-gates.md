@@ -1,7 +1,5 @@
 # AEXOS Quality Gate System Guide
 
-> **EN** | [PT](../pt/guides/quality-gates.md) | [ES](../es/guides/quality-gates.md)
-
 ---
 
 > Comprehensive guide to the 3-layer quality gate system for AEXOS (Cyryx).
@@ -218,7 +216,7 @@ The QA agent performs automated review focused on:
 - Acceptance criteria validation
 
 ```javascript
-// Programmatic Quinn invocation
+// Programmatic Argus invocation
 const QualityGateManager = require('./.aexos-core/core/quality-gates/quality-gate-manager');
 const manager = new QualityGateManager();
 const result = await manager.runQuinnReview(pullRequestId);
@@ -354,7 +352,7 @@ Layer 1: Pre-commit
 
 Layer 2: PR Automation
   CodeRabbit: ✓ Passed (0 critical, 2 medium)
-  Quinn:      ✓ Passed
+  Argus:      ✓ Passed
 
 Layer 3: Human Review
   Status:    Pending

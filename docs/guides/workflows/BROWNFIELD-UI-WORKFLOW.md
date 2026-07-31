@@ -429,7 +429,7 @@ graph LR
     subgraph "Fase de Planejamento"
         ARCH[architect<br/>Vega]
         PM[pm<br/>Janus]
-        UX[ux-expert<br/>Uma]
+        UX[ux-expert<br/>Iris]
     end
 
     subgraph "Fase de Validacao"

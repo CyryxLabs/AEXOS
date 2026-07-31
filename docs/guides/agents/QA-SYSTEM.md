@@ -1,108 +1,108 @@
-# Sistema do Agente @qa
+# @qa Agent System
 
-> **Versao:** 1.0.0
-> **Criado:** 2026-02-04
+> **Version:** 1.0.0
+> **Created:** 2026-02-04
 > **Owner:** @qa (Argus - Guardian)
-> **Status:** Documentacao Oficial
+> **Status:** Official Documentation
 
 ---
 
-## Visao Geral
+## Overview
 
-O agente **@qa (Argus)** e o Test Architect & Quality Advisor do AEXOS. Seu papel e fornecer analise abrangente de qualidade, decisoes de quality gates e recomendacoes acionaveis para equipes de desenvolvimento.
+The **@qa (Argus)** agent is the AEXOS Test Architect & Quality Advisor. Its role is to provide comprehensive quality analysis, quality gate decisions and actionable recommendations for development teams.
 
-**Arquetipo:** Guardian (Virgem)
-**Tom de Comunicacao:** Analitico, sistematico, educacional, pragmatico
-**Vocabulario Caracteristico:** validar, verificar, garantir, proteger, auditar, inspecionar, assegurar
+**Archetype:** Guardian (Virgo)
+**Communication Tone:** Analytical, systematic, educational, pragmatic
+**Characteristic Vocabulary:** validate, verify, ensure, protect, audit, inspect, assure
 
-### Principios Core
+### Core Principles
 
-1. **Profundidade Conforme Necessario** - Ir fundo baseado em sinais de risco, manter conciso quando baixo risco
-2. **Rastreabilidade de Requisitos** - Mapear todas stories para testes usando padroes Given-When-Then
-3. **Testes Baseados em Risco** - Avaliar e priorizar por probabilidade x impacto
-4. **Atributos de Qualidade** - Validar NFRs (seguranca, performance, confiabilidade)
-5. **Avaliacao de Testabilidade** - Avaliar controlabilidade, observabilidade, debuggabilidade
-6. **Governanca de Gates** - Fornecer decisoes claras PASS/CONCERNS/FAIL/WAIVED com justificativa
-7. **Excelencia Consultiva** - Educar atraves de documentacao, nunca bloquear arbitrariamente
-8. **Integracao CodeRabbit** - Usar revisao automatizada para detectar problemas precocemente
+1. **Depth As Needed** - Go deep based on risk signals, stay concise when risk is low
+2. **Requirements Traceability** - Map every story to tests using Given-When-Then patterns
+3. **Risk-Based Testing** - Assess and prioritize by probability x impact
+4. **Quality Attributes** - Validate NFRs (security, performance, reliability)
+5. **Testability Assessment** - Evaluate controllability, observability, debuggability
+6. **Gate Governance** - Provide clear PASS/CONCERNS/FAIL/WAIVED decisions with rationale
+7. **Advisory Excellence** - Educate through documentation, never block arbitrarily
+8. **CodeRabbit Integration** - Use automated review to catch problems early
 
 ---
 
-## Lista Completa de Arquivos
+## Complete File List
 
-### Arquivos Core de Tasks do @qa
+### @qa Core Task Files
 
-| Arquivo | Comando | Proposito |
+| File | Command | Purpose |
 |---------|---------|-----------|
-| `.aexos-core/development/tasks/qa-gate.md` | `*gate {story}` | Criar arquivo de decisao de quality gate |
-| `.aexos-core/development/tasks/qa-review-story.md` | `*review {story}` | Revisao completa de story com decisao de gate |
-| `.aexos-core/development/tasks/qa-test-design.md` | `*test-design {story}` | Criar cenarios de teste abrangentes |
-| `.aexos-core/development/tasks/qa-risk-profile.md` | `*risk-profile {story}` | Gerar matriz de avaliacao de risco |
-| `.aexos-core/development/tasks/qa-nfr-assess.md` | `*nfr-assess {story}` | Validar requisitos nao-funcionais |
-| `.aexos-core/development/tasks/qa-trace-requirements.md` | `*trace {story}` | Mapear requisitos para testes (Given-When-Then) |
-| `.aexos-core/development/tasks/qa-generate-tests.md` | `*generate-tests` | Gerar suites de teste automaticamente |
-| `.aexos-core/development/tasks/qa-run-tests.md` | `*run-tests` | Executar suite de testes com gate de qualidade |
-| `.aexos-core/development/tasks/qa-backlog-add-followup.md` | `*backlog-add` | Adicionar follow-ups ao backlog |
-| `.aexos-core/development/tasks/qa-create-fix-request.md` | `*create-fix-request {story}` | Gerar documento de fix request para @dev |
+| `.aexos-core/development/tasks/qa-gate.md` | `*gate {story}` | Create quality gate decision file |
+| `.aexos-core/development/tasks/qa-review-story.md` | `*review {story}` | Full story review with gate decision |
+| `.aexos-core/development/tasks/qa-test-design.md` | `*test-design {story}` | Create comprehensive test scenarios |
+| `.aexos-core/development/tasks/qa-risk-profile.md` | `*risk-profile {story}` | Generate risk assessment matrix |
+| `.aexos-core/development/tasks/qa-nfr-assess.md` | `*nfr-assess {story}` | Validate non-functional requirements |
+| `.aexos-core/development/tasks/qa-trace-requirements.md` | `*trace {story}` | Map requirements to tests (Given-When-Then) |
+| `.aexos-core/development/tasks/qa-generate-tests.md` | `*generate-tests` | Generate test suites automatically |
+| `.aexos-core/development/tasks/qa-run-tests.md` | `*run-tests` | Run the test suite with a quality gate |
+| `.aexos-core/development/tasks/qa-backlog-add-followup.md` | `*backlog-add` | Add follow-ups to the backlog |
+| `.aexos-core/development/tasks/qa-create-fix-request.md` | `*create-fix-request {story}` | Generate a fix request document for @dev |
 
-### Arquivos de Tasks Secundarias do @qa
+### @qa Secondary Task Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/tasks/qa-browser-console-check.md` | Verificar erros no console do browser |
-| `.aexos-core/development/tasks/qa-evidence-requirements.md` | Requisitos de evidencia para QA |
-| `.aexos-core/development/tasks/qa-false-positive-detection.md` | Deteccao de falsos positivos |
-| `.aexos-core/development/tasks/qa-fix-issues.md` | Task para @dev aplicar fixes de QA |
-| `.aexos-core/development/tasks/qa-library-validation.md` | Validacao de bibliotecas |
-| `.aexos-core/development/tasks/qa-migration-validation.md` | Validacao de migracoes |
-| `.aexos-core/development/tasks/qa-review-build.md` | Revisao de builds |
-| `.aexos-core/development/tasks/qa-security-checklist.md` | Checklist de seguranca |
-| `.aexos-core/development/tasks/qa-review-proposal.md` | Revisao de propostas |
+| `.aexos-core/development/tasks/qa-browser-console-check.md` | Check for browser console errors |
+| `.aexos-core/development/tasks/qa-evidence-requirements.md` | Evidence requirements for QA |
+| `.aexos-core/development/tasks/qa-false-positive-detection.md` | False positive detection |
+| `.aexos-core/development/tasks/qa-fix-issues.md` | Task for @dev to apply QA fixes |
+| `.aexos-core/development/tasks/qa-library-validation.md` | Library validation |
+| `.aexos-core/development/tasks/qa-migration-validation.md` | Migration validation |
+| `.aexos-core/development/tasks/qa-review-build.md` | Build review |
+| `.aexos-core/development/tasks/qa-security-checklist.md` | Security checklist |
+| `.aexos-core/development/tasks/qa-review-proposal.md` | Proposal review |
 
-### Arquivos de Definicao do Agente
+### Agent Definition Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/agents/qa.md` | Definicao completa do agente QA |
-| `.claude/commands/AEXOS/agents/qa.md` | Comando Claude Code para ativar @qa |
+| `.aexos-core/development/agents/qa.md` | Full QA agent definition |
+| `.claude/commands/AEXOS/agents/qa.md` | Claude Code command to activate @qa |
 
-### Arquivos de Workflow
+### Workflow Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/workflows/qa-loop.yaml` | Orquestrador do loop QA (Review -> Fix -> Re-review) |
+| `.aexos-core/development/workflows/qa-loop.yaml` | QA loop orchestrator (Review -> Fix -> Re-review) |
 
-### Arquivos de Time
+### Team Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/agent-teams/team-qa-focused.yaml` | Configuracao do time focado em QA (@dev, @qa, @github-devops) |
+| `.aexos-core/development/agent-teams/team-qa-focused.yaml` | QA-focused team configuration (@dev, @qa, @github-devops) |
 
-### Arquivos de Dados (Outputs)
+### Data Files (Outputs)
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `docs/qa/gates/` | Arquivos de decisao de quality gate |
-| `docs/qa/assessments/` | Avaliacoes de risco, NFR e trace |
-| `docs/qa/coderabbit-reports/` | Relatorios de revisao do CodeRabbit |
-| `docs/qa/backlog-archive-{YYYY-MM}.md` | Arquivo de itens completados |
+| `docs/qa/gates/` | Quality gate decision files |
+| `docs/qa/assessments/` | Risk, NFR and trace assessments |
+| `docs/qa/coderabbit-reports/` | CodeRabbit review reports |
+| `docs/qa/backlog-archive-{YYYY-MM}.md` | Archive of completed items |
 
-### Arquivos de Configuracao
+### Configuration Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/core-config.yaml` | Configuracao central (qa.qaLocation, etc.) |
-| `.aexos-core/development/data/technical-preferences.md` | Preferencias tecnicas para QA |
+| `.aexos-core/core-config.yaml` | Central configuration (qa.qaLocation, etc.) |
+| `.aexos-core/development/data/technical-preferences.md` | Technical preferences for QA |
 
 ---
 
-## Flowchart: Sistema Completo de QA
+## Flowchart: Complete QA System
 
 ```mermaid
 flowchart TB
-    subgraph TRIGGERS["Gatilhos de QA"]
-        DEV_DONE["@dev marca story<br/>Ready for Review"]
-        MANUAL["Usuario executa<br/>*review {story}"]
+    subgraph TRIGGERS["QA Triggers"]
+        DEV_DONE["@dev marks story<br/>Ready for Review"]
+        MANUAL["User runs<br/>*review {story}"]
         LOOP["QA Loop<br/>*qa-loop {story}"]
     end
 
@@ -110,31 +110,31 @@ flowchart TB
     MANUAL --> START
     LOOP --> START
 
-    subgraph QA_PROCESS["Processo de QA"]
-        START["Iniciar Review"]
+    subgraph QA_PROCESS["QA Process"]
+        START["Start Review"]
 
         subgraph CODERABBIT["CodeRabbit Self-Healing"]
-            CR_SCAN["Scan CodeRabbit"]
-            CR_CHECK{{"CRITICAL ou<br/>HIGH issues?"}}
+            CR_SCAN["CodeRabbit Scan"]
+            CR_CHECK{{"CRITICAL or<br/>HIGH issues?"}}
             CR_FIX["Auto-Fix<br/>(max 3 iter)"]
             CR_PASS["CodeRabbit PASS"]
             CR_FAIL["CodeRabbit FAIL"]
 
             CR_SCAN --> CR_CHECK
-            CR_CHECK -->|Sim| CR_FIX
+            CR_CHECK -->|Yes| CR_FIX
             CR_FIX --> CR_SCAN
-            CR_CHECK -->|Nao| CR_PASS
+            CR_CHECK -->|No| CR_PASS
             CR_SCAN -->|3 iter max| CR_FAIL
         end
 
         START --> CR_SCAN
 
-        subgraph MANUAL_REVIEW["Review Manual"]
-            RISK["*risk-profile<br/>Avaliacao de Risco"]
-            NFR["*nfr-assess<br/>NFRs (Seg/Perf/Rel/Mnt)"]
-            TEST["*test-design<br/>Design de Testes"]
-            TRACE["*trace<br/>Rastreabilidade"]
-            ANALYSIS["Analise de Codigo<br/>e Refatoracao"]
+        subgraph MANUAL_REVIEW["Manual Review"]
+            RISK["*risk-profile<br/>Risk Assessment"]
+            NFR["*nfr-assess<br/>NFRs (Sec/Perf/Rel/Mnt)"]
+            TEST["*test-design<br/>Test Design"]
+            TRACE["*trace<br/>Traceability"]
+            ANALYSIS["Code Analysis<br/>and Refactoring"]
         end
 
         CR_PASS --> RISK
@@ -143,7 +143,7 @@ flowchart TB
         TEST --> TRACE
         TRACE --> ANALYSIS
 
-        subgraph GATE_DECISION["Decisao de Gate"]
+        subgraph GATE_DECISION["Gate Decision"]
             GATE["*gate {story}"]
             PASS["PASS"]
             CONCERNS["CONCERNS"]
@@ -157,7 +157,7 @@ flowchart TB
         GATE -->|Score OK| PASS
         GATE -->|Issues Medium| CONCERNS
         GATE -->|Issues High/Critical| FAIL
-        GATE -->|Aprovado com Ressalvas| WAIVED
+        GATE -->|Approved with Caveats| WAIVED
     end
 
     subgraph OUTPUTS["Outputs"]
@@ -173,7 +173,7 @@ flowchart TB
     WAIVED --> GATE_FILE
 
     GATE_FILE --> STORY_UPDATE
-    FIX_REQUEST --> DEV_FIX["@dev aplica fixes"]
+    FIX_REQUEST --> DEV_FIX["@dev applies fixes"]
     DEV_FIX --> LOOP
 
     style TRIGGERS fill:#e1f5fe
@@ -188,11 +188,11 @@ flowchart TB
     style WAIVED fill:#e1bee7
 ```
 
-### Fluxo do QA Loop Automatizado
+### Automated QA Loop Flow
 
 ```mermaid
 flowchart LR
-    subgraph LOOP["QA Loop (max 5 iteracoes)"]
+    subgraph LOOP["QA Loop (max 5 iterations)"]
         direction TB
 
         REVIEW["Phase 1<br/>QA Review"]
@@ -202,13 +202,13 @@ flowchart LR
         INCREMENT{{"iter < max?"}}
 
         REVIEW --> CHECK
-        CHECK -->|APPROVE| COMPLETE["COMPLETO"]
-        CHECK -->|BLOCKED| ESCALATE["ESCALAR"]
+        CHECK -->|APPROVE| COMPLETE["COMPLETE"]
+        CHECK -->|BLOCKED| ESCALATE["ESCALATE"]
         CHECK -->|REJECT| FIX_REQ
         FIX_REQ --> DEV_FIX
         DEV_FIX --> INCREMENT
-        INCREMENT -->|Sim| REVIEW
-        INCREMENT -->|Nao| ESCALATE
+        INCREMENT -->|Yes| REVIEW
+        INCREMENT -->|No| ESCALATE
     end
 
     style COMPLETE fill:#c8e6c9
@@ -217,64 +217,64 @@ flowchart LR
 
 ---
 
-## Mapeamento de Comandos para Tasks
+## Command to Task Mapping
 
-### Comandos de Analise e Review
+### Analysis and Review Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*code-review {scope}` | (interno) | Executar revisao automatizada |
-| `*review {story}` | `qa-review-story.md` | Revisao completa de story |
+| `*code-review {scope}` | (internal) | Run automated review |
+| `*review {story}` | `qa-review-story.md` | Full story review |
 
-### Comandos de Quality Gates
+### Quality Gate Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*gate {story}` | `qa-gate.md` | Criar decisao de quality gate |
-| `*nfr-assess {story}` | `qa-nfr-assess.md` | Validar requisitos nao-funcionais |
-| `*risk-profile {story}` | `qa-risk-profile.md` | Gerar matriz de risco |
+| `*gate {story}` | `qa-gate.md` | Create quality gate decision |
+| `*nfr-assess {story}` | `qa-nfr-assess.md` | Validate non-functional requirements |
+| `*risk-profile {story}` | `qa-risk-profile.md` | Generate risk matrix |
 
-### Comandos de Estrategia de Testes
+### Test Strategy Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*test-design {story}` | `qa-test-design.md` | Criar cenarios de teste |
-| `*trace {story}` | `qa-trace-requirements.md` | Mapear requisitos para testes |
-| `*generate-tests` | `qa-generate-tests.md` | Gerar testes automaticamente |
-| `*run-tests` | `qa-run-tests.md` | Executar suite de testes |
+| `*test-design {story}` | `qa-test-design.md` | Create test scenarios |
+| `*trace {story}` | `qa-trace-requirements.md` | Map requirements to tests |
+| `*generate-tests` | `qa-generate-tests.md` | Generate tests automatically |
+| `*run-tests` | `qa-run-tests.md` | Run the test suite |
 
-### Comandos de Backlog
+### Backlog Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*backlog-add` | `qa-backlog-add-followup.md` | Adicionar follow-up ao backlog |
-| `*backlog-update {id} {status}` | (via po-manage-story-backlog) | Atualizar status de item |
-| `*backlog-review` | (via po-manage-story-backlog) | Gerar revisao de backlog |
+| `*backlog-add` | `qa-backlog-add-followup.md` | Add follow-up to the backlog |
+| `*backlog-update {id} {status}` | (via po-manage-story-backlog) | Update item status |
+| `*backlog-review` | (via po-manage-story-backlog) | Generate backlog review |
 
-### Comandos de Utilitarios
+### Utility Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*help` | (interno) | Mostrar todos os comandos |
-| `*session-info` | (interno) | Mostrar detalhes da sessao |
-| `*guide` | (interno) | Mostrar guia de uso completo |
-| `*exit` | (interno) | Sair do modo QA |
+| `*help` | (internal) | Show all commands |
+| `*session-info` | (internal) | Show session details |
+| `*guide` | (internal) | Show the full usage guide |
+| `*exit` | (internal) | Exit QA mode |
 
 ---
 
-## Ciclo de Vida de Review de Story
+## Story Review Lifecycle
 
-### 1. Pre-Requisitos
+### 1. Prerequisites
 
 ```yaml
 Pre-conditions:
   - Story status: "Review"
-  - Developer completou todas as tasks
-  - File List atualizada no story
-  - Todos os testes automatizados passando
+  - Developer completed all tasks
+  - File List updated in the story
+  - All automated tests passing
 ```
 
-### 2. Processo de Review
+### 2. Review Process
 
 ```mermaid
 stateDiagram-v2
@@ -308,45 +308,45 @@ stateDiagram-v2
     DevFix --> [*]: Re-review
 ```
 
-### 3. Severidades de Issues
+### 3. Issue Severities
 
-| Severidade | Prefixo | Acao | Impacto no Gate |
+| Severity | Prefix | Action | Gate Impact |
 |------------|---------|------|-----------------|
-| CRITICAL | `SEC-`, `DATA-` | Auto-fix ou bloquear | Gate = FAIL |
-| HIGH | `PERF-`, `REL-` | Auto-fix ou documentar | Gate = FAIL |
+| CRITICAL | `SEC-`, `DATA-` | Auto-fix or block | Gate = FAIL |
+| HIGH | `PERF-`, `REL-` | Auto-fix or document | Gate = FAIL |
 | MEDIUM | `MNT-`, `TEST-` | Tech debt issue | Gate = CONCERNS |
-| LOW | `DOC-`, `ARCH-` | Nota no review | Gate = PASS |
+| LOW | `DOC-`, `ARCH-` | Note in the review | Gate = PASS |
 
-### 4. Decisoes de Gate
+### 4. Gate Decisions
 
 ```yaml
 Gate Criteria:
   PASS:
-    - Todos acceptance criteria atendidos
-    - Nenhum issue high-severity
-    - Test coverage atende padroes do projeto
+    - All acceptance criteria met
+    - No high-severity issues
+    - Test coverage meets project standards
 
   CONCERNS:
-    - Issues nao-bloqueantes presentes
-    - Devem ser rastreados e agendados
-    - Pode prosseguir com consciencia
+    - Non-blocking issues present
+    - Must be tracked and scheduled
+    - May proceed with awareness
 
   FAIL:
-    - Acceptance criteria nao atendidos
-    - Issues high-severity presentes
-    - Recomendar retorno para InProgress
+    - Acceptance criteria not met
+    - High-severity issues present
+    - Recommend returning to InProgress
 
   WAIVED:
-    - Issues explicitamente aceitos
-    - Requer aprovacao e justificativa
-    - Prosseguir apesar de issues conhecidos
+    - Issues explicitly accepted
+    - Requires approval and rationale
+    - Proceed despite known issues
 ```
 
 ---
 
-## Integracao CodeRabbit
+## CodeRabbit Integration
 
-### Configuracao de Self-Healing
+### Self-Healing Configuration
 
 ```yaml
 coderabbit_integration:
@@ -365,13 +365,13 @@ coderabbit_integration:
       - HIGH
 
     behavior:
-      CRITICAL: auto_fix       # Auto-fix (3 tentativas max)
-      HIGH: auto_fix           # Auto-fix (3 tentativas max)
-      MEDIUM: document_as_debt # Criar issue de tech debt
-      LOW: ignore              # Nota no review, sem acao
+      CRITICAL: auto_fix       # Auto-fix (3 attempts max)
+      HIGH: auto_fix           # Auto-fix (3 attempts max)
+      MEDIUM: document_as_debt # Create tech debt issue
+      LOW: ignore              # Note in the review, no action
 ```
 
-### Comandos CodeRabbit
+### CodeRabbit Commands
 
 ```bash
 # Pre-review (uncommitted changes)
@@ -381,37 +381,37 @@ wsl bash -c 'cd /mnt/c/.../aexos-core && ~/.local/bin/coderabbit --prompt-only -
 wsl bash -c 'cd /mnt/c/.../aexos-core && ~/.local/bin/coderabbit --prompt-only -t committed --base main'
 ```
 
-### Fluxo de Self-Healing
+### Self-Healing Flow
 
 ```mermaid
 flowchart TB
-    START["Iniciar Self-Healing"]
+    START["Start Self-Healing"]
     SCAN["Run CodeRabbit CLI"]
     PARSE["Parse Output"]
-    CHECK{{"CRITICAL ou HIGH?"}}
+    CHECK{{"CRITICAL or HIGH?"}}
 
     FIX["Auto-Fix Issues"]
     INCREMENT["iteration++"]
     MAX_CHECK{{"iteration < 3?"}}
 
-    SUCCESS["PASS - Proceder Review Manual"]
-    TECH_DEBT["Criar Tech Debt Issues"]
-    FAIL["FAIL - Intervencao Humana"]
+    SUCCESS["PASS - Proceed to Manual Review"]
+    TECH_DEBT["Create Tech Debt Issues"]
+    FAIL["FAIL - Human Intervention"]
 
     START --> SCAN
     SCAN --> PARSE
     PARSE --> CHECK
 
-    CHECK -->|Nao| MEDIUM_CHECK{{"MEDIUM issues?"}}
-    MEDIUM_CHECK -->|Sim| TECH_DEBT
-    MEDIUM_CHECK -->|Nao| SUCCESS
+    CHECK -->|No| MEDIUM_CHECK{{"MEDIUM issues?"}}
+    MEDIUM_CHECK -->|Yes| TECH_DEBT
+    MEDIUM_CHECK -->|No| SUCCESS
     TECH_DEBT --> SUCCESS
 
-    CHECK -->|Sim| FIX
+    CHECK -->|Yes| FIX
     FIX --> INCREMENT
     INCREMENT --> MAX_CHECK
-    MAX_CHECK -->|Sim| SCAN
-    MAX_CHECK -->|Nao| FAIL
+    MAX_CHECK -->|Yes| SCAN
+    MAX_CHECK -->|No| FAIL
 
     style SUCCESS fill:#c8e6c9
     style FAIL fill:#ffcdd2
@@ -420,38 +420,38 @@ flowchart TB
 
 ---
 
-## Integracoes entre Agentes
+## Integrations Between Agents
 
-### Diagrama de Integracao
+### Integration Diagram
 
 ```mermaid
 flowchart TB
-    subgraph AGENTS["Integracoes do @qa"]
+    subgraph AGENTS["@qa Integrations"]
         direction TB
 
         subgraph QA_BOX["@qa (Argus) - Test Architect"]
-            QA_DESC["Revisa stories, cria gates,<br/>design de testes, rastreabilidade"]
-            QA_CMDS["Comandos principais:<br/>*review, *gate, *test-design<br/>*risk-profile, *nfr-assess, *trace"]
+            QA_DESC["Reviews stories, creates gates,<br/>test design, traceability"]
+            QA_CMDS["Main commands:<br/>*review, *gate, *test-design<br/>*risk-profile, *nfr-assess, *trace"]
         end
 
         subgraph DEV_BOX["@dev (Vulcan) - Developer"]
-            DEV_DESC["Recebe feedback de QA,<br/>aplica fixes"]
-            DEV_CMDS["Recebe: QA_FIX_REQUEST.md<br/>Executa: *fix-qa-issues"]
+            DEV_DESC["Receives QA feedback,<br/>applies fixes"]
+            DEV_CMDS["Receives: QA_FIX_REQUEST.md<br/>Runs: *fix-qa-issues"]
         end
 
         subgraph PO_BOX["@po (Themis) - Product Owner"]
-            PO_DESC["Gerencia backlog de follow-ups"]
-            PO_CMDS["Recebe: Backlog items<br/>Executa: *backlog-review"]
+            PO_DESC["Manages the follow-up backlog"]
+            PO_CMDS["Receives: Backlog items<br/>Runs: *backlog-review"]
         end
 
         subgraph SM_BOX["@sm (Chronos) - Scrum Master"]
-            SM_DESC["Pode solicitar risk profiling"]
-            SM_CMDS["Colabora em: Sprint planning"]
+            SM_DESC["May request risk profiling"]
+            SM_CMDS["Collaborates on: Sprint planning"]
         end
 
         subgraph DEVOPS_BOX["@github-devops - DevOps"]
-            DEVOPS_DESC["Quality gates para PRs<br/>e deployments"]
-            DEVOPS_CMDS["Usa: CodeRabbit integration"]
+            DEVOPS_DESC["Quality gates for PRs<br/>and deployments"]
+            DEVOPS_CMDS["Uses: CodeRabbit integration"]
         end
     end
 
@@ -472,26 +472,26 @@ flowchart TB
     style CODERABBIT fill:#e1f5fe
 ```
 
-### Fluxo de Handoff QA -> Dev
+### QA -> Dev Handoff Flow
 
-1. @qa executa `*review {story}`
-2. Identifica issues criticos
-3. Cria `*create-fix-request {story}`
-4. @dev recebe `QA_FIX_REQUEST.md`
-5. @dev executa `*fix-qa-issues {story}`
-6. @dev cria `READY_FOR_REREVIEW.md`
-7. @qa re-revisa com `*review {story}`
+1. @qa runs `*review {story}`
+2. Identifies critical issues
+3. Creates `*create-fix-request {story}`
+4. @dev receives `QA_FIX_REQUEST.md`
+5. @dev runs `*fix-qa-issues {story}`
+6. @dev creates `READY_FOR_REREVIEW.md`
+7. @qa re-reviews with `*review {story}`
 
-### Fluxo de Backlog
+### Backlog Flow
 
-1. @qa durante review identifica follow-ups
-2. Adiciona item com `*backlog-add`
-3. Item rastreado com source: "QA Review"
-4. @po prioriza com `*backlog-prioritize`
+1. @qa identifies follow-ups during the review
+2. Adds an item with `*backlog-add`
+3. Item tracked with source: "QA Review"
+4. @po prioritizes with `*backlog-prioritize`
 
 ---
 
-## Configuracao
+## Configuration
 
 ### core-config.yaml
 
@@ -514,91 +514,91 @@ qa:
 devStoryLocation: docs/stories
 ```
 
-### Restricoes de Git
+### Git Restrictions
 
 ```yaml
 git_restrictions:
   allowed_operations:
-    - git status      # Verificar estado do repositorio
-    - git log         # Ver historico de commits
-    - git diff        # Revisar mudancas
-    - git branch -a   # Listar branches
+    - git status      # Check repository state
+    - git log         # View commit history
+    - git diff        # Review changes
+    - git branch -a   # List branches
 
   blocked_operations:
-    - git push        # APENAS @github-devops pode push
-    - git commit      # QA revisa, nao commita
-    - gh pr create    # APENAS @github-devops cria PRs
+    - git push        # ONLY @github-devops can push
+    - git commit      # QA reviews, does not commit
+    - gh pr create    # ONLY @github-devops creates PRs
 ```
 
 ---
 
 ## Best Practices
 
-### Durante Revisao
+### During Review
 
-1. **Executar CodeRabbit primeiro** - Deixar automacao encontrar issues obvios
-2. **Avaliar risco** - Determinar profundidade da revisao
-3. **Verificar rastreabilidade** - Cada AC deve ter teste correspondente
-4. **Documentar refatoracoes** - Se modificar codigo, explicar WHY e HOW
-5. **Manter foco** - Apenas atualizar secao QA Results
+1. **Run CodeRabbit first** - Let automation find the obvious issues
+2. **Assess risk** - Determine the depth of the review
+3. **Check traceability** - Every AC must have a corresponding test
+4. **Document refactorings** - If you modify code, explain WHY and HOW
+5. **Stay focused** - Only update the QA Results section
 
-### Criacao de Gates
+### Gate Creation
 
-1. **Usar severidades corretas** - low/medium/high apenas
-2. **Justificar decisao** - status_reason em 1-2 sentencas
-3. **Identificar owners** - dev/sm/po para cada issue
-4. **Definir expiracao** - Tipicamente 2 semanas
+1. **Use the correct severities** - low/medium/high only
+2. **Justify the decision** - status_reason in 1-2 sentences
+3. **Identify owners** - dev/sm/po for each issue
+4. **Set an expiration** - Typically 2 weeks
 
-### Evitar
+### Avoid
 
-- Modificar secoes da story alem de QA Results
-- Bloquear sem justificativa clara
-- Ignorar issues medium (documentar como tech debt)
-- Fazer review antes de CodeRabbit completar
-- Aprovar sem verificar test coverage
+- Modifying story sections beyond QA Results
+- Blocking without a clear rationale
+- Ignoring medium issues (document them as tech debt)
+- Reviewing before CodeRabbit finishes
+- Approving without checking test coverage
 
 ---
 
 ## Troubleshooting
 
-### CodeRabbit nao encontrado
+### CodeRabbit not found
 
 ```bash
-# Verificar instalacao
+# Check the installation
 wsl bash -c '~/.local/bin/coderabbit --version'
 
-# Se nao instalado, usar wsl_config.installation_path no agent
+# If not installed, use wsl_config.installation_path in the agent
 ```
 
-### Timeout na revisao
+### Review timeout
 
-- CodeRabbit pode levar ate 30 minutos
-- Aumentar timeout se necessario
-- Verificar se nao ha processos travados
+- CodeRabbit may take up to 30 minutes
+- Increase the timeout if needed
+- Check whether there are stuck processes
 
-### Gate file nao criado
+### Gate file not created
 
-1. Verificar se `qa.qaLocation/gates` existe
-2. Verificar permissoes de escrita
-3. Confirmar que template `qa-gate-tmpl.yaml` esta disponivel
+1. Check whether `qa.qaLocation/gates` exists
+2. Check write permissions
+3. Confirm that the `qa-gate-tmpl.yaml` template is available
 
-### Story nao encontrada
+### Story not found
 
-1. Verificar formato do story ID (epic.story)
-2. Confirmar que story existe em `docs/stories/`
-3. Usar path completo se necessario
+1. Check the story ID format (epic.story)
+2. Confirm that the story exists in `docs/stories/`
+3. Use the full path if needed
 
-### Issues de self-healing persistem
+### Self-healing issues persist
 
-1. Verificar se issues sao realmente auto-fixaveis
-2. Considerar intervencao manual apos 3 iteracoes
-3. Criar tech debt para issues complexos
+1. Check whether the issues are actually auto-fixable
+2. Consider manual intervention after 3 iterations
+3. Create tech debt for complex issues
 
 ---
 
-## Referencias
+## References
 
-### Tasks Core
+### Core Tasks
 
 - [qa-gate.md](/.aexos-core/development/tasks/qa-gate.md)
 - [qa-review-story.md](/.aexos-core/development/tasks/qa-review-story.md)
@@ -615,40 +615,40 @@ wsl bash -c '~/.local/bin/coderabbit --version'
 
 - [team-qa-focused.yaml](/.aexos-core/development/agent-teams/team-qa-focused.yaml)
 
-### Agente
+### Agent
 
 - [qa.md](/.aexos-core/development/agents/qa.md)
 
-### Documentos Relacionados
+### Related Documents
 
 - [BACKLOG-MANAGEMENT-SYSTEM.md](/docs/guides/BACKLOG-MANAGEMENT-SYSTEM.md)
 
 ---
 
-## Resumo
+## Summary
 
-| Aspecto | Detalhes |
+| Aspect | Details |
 |---------|----------|
-| **Total de Tasks Core** | 10 task files principais |
-| **Total de Tasks Secundarias** | 9 task files de suporte |
-| **Workflow Principal** | qa-loop.yaml (orquestracao) |
-| **Comandos de Review** | 2 (`*code-review`, `*review`) |
-| **Comandos de Gate** | 3 (`*gate`, `*nfr-assess`, `*risk-profile`) |
-| **Comandos de Teste** | 4 (`*test-design`, `*trace`, `*generate-tests`, `*run-tests`) |
-| **Comandos de Backlog** | 3 (`*backlog-*` family) |
-| **Decisoes de Gate** | 4 (PASS, CONCERNS, FAIL, WAIVED) |
-| **Severidades** | 3 (low, medium, high) |
-| **Self-Healing Max** | 3 iteracoes |
-| **Integracao CodeRabbit** | Sim (WSL mode) |
+| **Total Core Tasks** | 10 main task files |
+| **Total Secondary Tasks** | 9 supporting task files |
+| **Main Workflow** | qa-loop.yaml (orchestration) |
+| **Review Commands** | 2 (`*code-review`, `*review`) |
+| **Gate Commands** | 3 (`*gate`, `*nfr-assess`, `*risk-profile`) |
+| **Test Commands** | 4 (`*test-design`, `*trace`, `*generate-tests`, `*run-tests`) |
+| **Backlog Commands** | 3 (`*backlog-*` family) |
+| **Gate Decisions** | 4 (PASS, CONCERNS, FAIL, WAIVED) |
+| **Severities** | 3 (low, medium, high) |
+| **Self-Healing Max** | 3 iterations |
+| **CodeRabbit Integration** | Yes (WSL mode) |
 
 ---
 
 ## Changelog
 
-| Data | Autor | Descricao |
+| Date | Author | Description |
 |------|-------|-----------|
-| 2026-02-04 | @qa | Documento inicial criado com diagramas Mermaid completos |
+| 2026-02-04 | @qa | Initial document created with complete Mermaid diagrams |
 
 ---
 
-*-- Quinn, guardiao da qualidade*
+*-- Argus, guardian of quality*

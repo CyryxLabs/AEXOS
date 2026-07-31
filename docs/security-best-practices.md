@@ -1,7 +1,5 @@
 # AEXOS (Cyryx) Security Best Practices
 
-> 🌐 **EN** | [PT](./pt/security-best-practices.md) | [ES](./es/security-best-practices.md)
-
 ---
 
 This guide provides comprehensive security recommendations for deploying and maintaining AEXOS (Cyryx) in production environments.

@@ -50,7 +50,7 @@ ls squads/  # ou será criado automaticamente
 
 **Output esperado:**
 ```
--- Craft aqui! Squad Creation & Management Specialist.
+-- Arkantos aqui! Squad Creation & Management Specialist.
 Pronto para criar, validar e gerenciar squads.
 
 Quick commands:
@@ -70,20 +70,20 @@ Quick commands:
 
 **Interação:**
 ```
-Craft: Qual domínio do squad?
+Arkantos: Qual domínio do squad?
 Você: Marketing automation
 
-Craft: Descreva o propósito principal:
+Arkantos: Descreva o propósito principal:
 Você: Automação de criação de conteúdo para redes sociais e análise de performance
 
-Craft: Quais processos precisa automatizar?
+Arkantos: Quais processos precisa automatizar?
 Você:
 1. Gerar posts para diferentes plataformas
 2. Analisar métricas de engajamento
 3. Sugerir melhorias baseadas em dados
 4. Criar calendário editorial
 
-Craft: Integrações externas?
+Arkantos: Integrações externas?
 Você: APIs de redes sociais (Twitter, LinkedIn, Instagram)
 ```
 
@@ -413,4 +413,4 @@ cat squads/my-squad/squad.yaml
 ---
 
 *Trilha criada para Story CYRYX-DIFF-4.3.1*
-*-- Craft, sempre estruturando*
+*-- Arkantos, sempre estruturando*

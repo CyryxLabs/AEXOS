@@ -835,4 +835,4 @@ stateDiagram-v2
 
 ---
 
-*-- Atlas, decodificando complexidade em clareza*
+*-- Sirius, decodificando complexidade em clareza*

@@ -1,7 +1,5 @@
 # LLM Routing Guide
 
-> **EN** | [PT](../pt/guides/llm-routing.md) | [ES](../es/guides/llm-routing.md)
-
 ---
 
 **Version:** 1.0.0

@@ -1,51 +1,51 @@
-# QA Loop Workflow - Documentação Completa
+# QA Loop Workflow - Complete Documentation
 
-**Versão:** 1.0
-**Última Atualização:** 2026-02-04
+**Version:** 1.0
+**Last Updated:** 2026-02-04
 **Epic:** 6 - QA Evolution: Autonomous Development Engine (ADE)
 **Story:** 6.5
-**Autor:** @architect (Vega)
+**Author:** @architect (Vega)
 
 ---
 
-## Índice
+## Table of Contents
 
-1. [Visao Geral](#visao-geral)
-2. [Diagrama do Workflow](#diagrama-do-workflow)
-3. [Steps Detalhados](#steps-detalhados)
-4. [Agentes Participantes](#agentes-participantes)
-5. [Tasks Executadas](#tasks-executadas)
-6. [Pré-requisitos](#pre-requisitos)
-7. [Entradas e Saidas](#entradas-e-saidas)
-8. [Pontos de Decisão](#pontos-de-decisão)
-9. [Configuração](#configuracao)
-10. [Controle de Execução](#controle-de-execucao)
-11. [Escalação](#escalacao)
-12. [Integração com Dashboard](#integracao-com-dashboard)
-13. [Tratamento de Erros](#tratamento-de-erros)
+1. [Overview](#overview)
+2. [Workflow Diagram](#workflow-diagram)
+3. [Detailed Steps](#detailed-steps)
+4. [Participating Agents](#participating-agents)
+5. [Tasks Executed](#tasks-executed)
+6. [Prerequisites](#prerequisites)
+7. [Inputs and Outputs](#inputs-and-outputs)
+8. [Decision Points](#decision-points)
+9. [Configuration](#configuration)
+10. [Execution Control](#execution-control)
+11. [Escalation](#escalation)
+12. [Dashboard Integration](#dashboard-integration)
+13. [Error Handling](#error-handling)
 14. [Troubleshooting](#troubleshooting)
-15. [Referências](#referencias)
+15. [References](#references)
 
 ---
 
-## Visão Geral
+## Overview
 
-O **QA Loop Orchestrator** e um workflow automatizado que orquestra o ciclo completo de:
+The **QA Loop Orchestrator** is an automated workflow that orchestrates the complete cycle of:
 
 ```
 Review -> Fix -> Re-review
 ```
 
-Este workflow executa ate um maximo de iterações configuravel (padrao: 5), rastreando os resultados de cada iteracao. Quando o limite maximo e atingido ou uma parada manual e solicitada, o workflow escala para intervenção humana.
+This workflow runs up to a configurable maximum number of iterations (default: 5), tracking the results of each iteration. When the maximum limit is reached or a manual stop is requested, the workflow escalates to human intervention.
 
-### Propósito
+### Purpose
 
-- Automatizar o ciclo de revisao de qualidade
-- Reduzir tempo entre feedback e correção
-- Garantir rastreabilidade completa do processo de QA
-- Escalar automaticamente quando necessario
+- Automate the quality review cycle
+- Reduce the time between feedback and correction
+- Ensure complete traceability of the QA process
+- Escalate automatically when necessary
 
-### Tipos de Projeto Suportados
+### Supported Project Types
 
 - `aexos-development`
 - `autonomous-development`
@@ -53,59 +53,59 @@ Este workflow executa ate um maximo de iterações configuravel (padrao: 5), ras
 
 ---
 
-## Diagrama do Workflow
+## Workflow Diagram
 
-### Fluxo Principal
+### Main Flow
 
 ```mermaid
 flowchart TD
-    subgraph TRIGGER["Triggers de Inicio"]
+    subgraph TRIGGER["Start Triggers"]
         T1["*qa-loop {storyId}"]
         T2["*qa-loop-review"]
         T3["*qa-loop-fix"]
     end
 
-    subgraph INIT["Inicialização"]
-        I1["Carregar/Criar loop-status.json"]
-        I2["Definir iteration = 0"]
+    subgraph INIT["Initialization"]
+        I1["Load/Create loop-status.json"]
+        I2["Set iteration = 0"]
         I3["maxIterations = 5 (config)"]
     end
 
-    subgraph REVIEW["Fase 1: QA Review"]
-        R1["@qa executa qa-review-story.md"]
-        R2["Gera gate-file.yaml"]
-        R3["Retorna verdict + issuesFound"]
+    subgraph REVIEW["Phase 1: QA Review"]
+        R1["@qa runs qa-review-story.md"]
+        R2["Generates gate-file.yaml"]
+        R3["Returns verdict + issuesFound"]
     end
 
-    subgraph CHECK["Fase 2: Verificar Verdict"]
+    subgraph CHECK["Phase 2: Check Verdict"]
         C1{"verdict?"}
         C2["APPROVE"]
         C3["BLOCKED"]
         C4["REJECT"]
     end
 
-    subgraph FIX_REQ["Fase 3: Criar Fix Request"]
-        F1["@qa executa qa-create-fix-request.md"]
-        F2["Gera fix-request.md"]
-        F3["Prioriza issues"]
+    subgraph FIX_REQ["Phase 3: Create Fix Request"]
+        F1["@qa runs qa-create-fix-request.md"]
+        F2["Generates fix-request.md"]
+        F3["Prioritizes issues"]
     end
 
-    subgraph FIX["Fase 4: Aplicar Fixes"]
-        X1["@dev executa dev-apply-qa-fixes.md"]
-        X2["Aplica correções"]
-        X3["Valida com testes"]
-        X4["Gera fixes-applied.json"]
+    subgraph FIX["Phase 4: Apply Fixes"]
+        X1["@dev runs dev-apply-qa-fixes.md"]
+        X2["Applies corrections"]
+        X3["Validates with tests"]
+        X4["Generates fixes-applied.json"]
     end
 
-    subgraph ITER["Fase 5: Verificar Iteração"]
+    subgraph ITER["Phase 5: Check Iteration"]
         IT1{"iteration >= max?"}
         IT2["iteration++"]
     end
 
-    subgraph END["Finalização"]
-        E1["COMPLETE - Story Aprovada"]
-        E2["ESCALATE - Requer Humano"]
-        E3["Gerar Sumario Final"]
+    subgraph END["Completion"]
+        E1["COMPLETE - Story Approved"]
+        E2["ESCALATE - Requires Human"]
+        E3["Generate Final Summary"]
     end
 
     T1 --> I1
@@ -137,8 +137,8 @@ flowchart TD
     X3 --> X4
     X4 --> IT1
 
-    IT1 --> |"Sim"| E2
-    IT1 --> |"Não"| IT2
+    IT1 --> |"Yes"| E2
+    IT1 --> |"No"| IT2
     IT2 --> R1
 
     E1 --> E3
@@ -153,13 +153,13 @@ flowchart TD
     style END fill:#e0f2f1
 ```
 
-### Diagrama de Estados
+### State Diagram
 
 ```mermaid
 stateDiagram-v2
     [*] --> pending: *qa-loop {storyId}
 
-    pending --> in_progress: Iniciar Loop
+    pending --> in_progress: Start Loop
 
     in_progress --> in_progress: REJECT (iteration < max)
     in_progress --> completed: APPROVE
@@ -171,63 +171,63 @@ stateDiagram-v2
     escalated --> in_progress: *resume-qa-loop
 
     completed --> [*]
-    escalated --> [*]: Intervencao Humana
+    escalated --> [*]: Human Intervention
 ```
 
-### Sequencia de Comunicação entre Agentes
+### Communication Sequence Between Agents
 
 ```mermaid
 sequenceDiagram
-    participant U as Usuario
+    participant U as User
     participant S as System
     participant QA as @qa (Argus)
     participant DEV as @dev (Vulcan)
 
     U->>S: *qa-loop STORY-42
-    S->>S: Inicializar loop-status.json
+    S->>S: Initialize loop-status.json
 
-    loop Ate max iterações ou APPROVE
-        S->>QA: Executar qa-review-story.md
+    loop Until max iterations or APPROVE
+        S->>QA: Run qa-review-story.md
         QA->>QA: CodeRabbit Self-Healing
-        QA->>QA: Análise Completa
+        QA->>QA: Complete Analysis
         QA-->>S: verdict, issuesFound, gate-file
 
         alt verdict == APPROVE
-            S-->>U: Story APROVADA
+            S-->>U: Story APPROVED
         else verdict == BLOCKED
-            S-->>U: ESCALATE - Requer Humano
+            S-->>U: ESCALATE - Requires Human
         else verdict == REJECT
-            S->>QA: Executar qa-create-fix-request.md
+            S->>QA: Run qa-create-fix-request.md
             QA-->>S: fix-request.md, prioritizedIssues
 
-            S->>DEV: Executar dev-apply-qa-fixes.md
-            DEV->>DEV: Aplicar Fixes
-            DEV->>DEV: Rodar Testes
+            S->>DEV: Run dev-apply-qa-fixes.md
+            DEV->>DEV: Apply Fixes
+            DEV->>DEV: Run Tests
             DEV-->>S: fixes-applied.json, issuesFixed
 
-            S->>S: Incrementar iteration
+            S->>S: Increment iteration
         end
     end
 
-    S-->>U: Sumario Final
+    S-->>U: Final Summary
 ```
 
 ---
 
-## Steps Detalhados
+## Detailed Steps
 
-### Step 1: Review (Fase 1)
+### Step 1: Review (Phase 1)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Nome** | `review` |
-| **Fase** | 1 - QA Review |
-| **Agente** | `@qa` (Argus) |
+| **Name** | `review` |
+| **Phase** | 1 - QA Review |
+| **Agent** | `@qa` (Argus) |
 | **Task** | `qa-review-story.md` |
-| **Timeout** | 30 minutos (1.800.000 ms) |
+| **Timeout** | 30 minutes (1,800,000 ms) |
 
-**Descrição:**
-Executa revisao completa de QA da implementação da story, produzindo um verdict: APPROVE, REJECT ou BLOCKED.
+**Description:**
+Performs a complete QA review of the story implementation, producing a verdict: APPROVE, REJECT or BLOCKED.
 
 **Inputs:**
 
@@ -239,9 +239,9 @@ previousIssues: "{history[-1].issuesFound|0}"
 
 **Outputs:**
 
-- `gate-file.yaml` - Arquivo de gate com decisão
+- `gate-file.yaml` - Gate file with the decision
 - `verdict` - APPROVE | REJECT | BLOCKED
-- `issuesFound` - Numero de issues encontrados
+- `issuesFound` - Number of issues found
 
 **On Success:**
 ```
@@ -251,32 +251,32 @@ next: check_verdict
 
 **On Failure:**
 ```
-action: retry (max 2 tentativas)
+action: retry (max 2 attempts)
 on_exhausted: escalate
 ```
 
 ---
 
-### Step 2: Check Verdict (Fase 2)
+### Step 2: Check Verdict (Phase 2)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Nome** | `check_verdict` |
-| **Fase** | 2 - Verdict Check |
-| **Agente** | `system` |
+| **Name** | `check_verdict` |
+| **Phase** | 2 - Verdict Check |
+| **Agent** | `system` |
 
-**Descrição:**
-Avalia o verdict da revisao e determina a próxima acao.
+**Description:**
+Evaluates the review verdict and determines the next action.
 
-**Lógica de Decisão:**
+**Decision Logic:**
 
 ```mermaid
 flowchart TD
     V{"verdict?"}
 
-    V -->|"APPROVE"| A["Action: COMPLETE<br/>Story aprovada apos N iterações"]
-    V -->|"BLOCKED"| B["Action: ESCALATE<br/>Requer intervenção humana"]
-    V -->|"REJECT"| C["Action: CONTINUE<br/>Prosseguir para criar fix request"]
+    V -->|"APPROVE"| A["Action: COMPLETE<br/>Story approved after N iterations"]
+    V -->|"BLOCKED"| B["Action: ESCALATE<br/>Requires human intervention"]
+    V -->|"REJECT"| C["Action: CONTINUE<br/>Proceed to create the fix request"]
 
     style A fill:#c8e6c9
     style B fill:#ffcdd2
@@ -285,17 +285,17 @@ flowchart TD
 
 ---
 
-### Step 3: Create Fix Request (Fase 3)
+### Step 3: Create Fix Request (Phase 3)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Nome** | `create_fix_request` |
-| **Fase** | 3 - Create Fix Request |
-| **Agente** | `@qa` (Argus) |
+| **Name** | `create_fix_request` |
+| **Phase** | 3 - Create Fix Request |
+| **Agent** | `@qa` (Argus) |
 | **Task** | `qa-create-fix-request.md` |
 
-**Descrição:**
-Gera um documento estruturado de fix request a partir dos findings da revisao. Prioriza issues e fornece instruções acionaveis de correção.
+**Description:**
+Generates a structured fix request document from the review findings. Prioritizes issues and provides actionable correction instructions.
 
 **Inputs:**
 
@@ -307,8 +307,8 @@ iteration: "{currentIteration}"
 
 **Outputs:**
 
-- `fix-request.md` - Documento com issues priorizados
-- `prioritizedIssues` - Lista de issues ordenados por prioridade
+- `fix-request.md` - Document with prioritized issues
+- `prioritizedIssues` - List of issues ordered by priority
 
 **On Success:**
 ```
@@ -324,18 +324,18 @@ fallback: "Use raw gate file for fixes"
 
 ---
 
-### Step 4: Fix Issues (Fase 4)
+### Step 4: Fix Issues (Phase 4)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Nome** | `fix_issues` |
-| **Fase** | 4 - Apply Fixes |
-| **Agente** | `@dev` (Vulcan) |
+| **Name** | `fix_issues` |
+| **Phase** | 4 - Apply Fixes |
+| **Agent** | `@dev` (Vulcan) |
 | **Task** | `dev-apply-qa-fixes.md` |
-| **Timeout** | 60 minutos (3.600.000 ms) |
+| **Timeout** | 60 minutes (3,600,000 ms) |
 
-**Descrição:**
-O agente desenvolvedor aplica as correções baseadas no fix request. Executa testes e valida as mudanças.
+**Description:**
+The developer agent applies the corrections based on the fix request. It runs tests and validates the changes.
 
 **Inputs:**
 
@@ -347,8 +347,8 @@ iteration: "{currentIteration}"
 
 **Outputs:**
 
-- `fixes-applied.json` - Registro das correções aplicadas
-- `issuesFixed` - Numero de issues corrigidos
+- `fixes-applied.json` - Record of the corrections applied
+- `issuesFixed` - Number of issues fixed
 
 **On Success:**
 ```
@@ -358,31 +358,31 @@ next: increment_iteration
 
 **On Failure:**
 ```
-action: retry (max 2 tentativas)
-on_exhausted: escalate com razao "Dev agent unable to apply fixes after retries"
+action: retry (max 2 attempts)
+on_exhausted: escalate with reason "Dev agent unable to apply fixes after retries"
 ```
 
 ---
 
-### Step 5: Increment Iteration (Fase 5)
+### Step 5: Increment Iteration (Phase 5)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Nome** | `increment_iteration` |
-| **Fase** | 5 - Check Iteration |
-| **Agente** | `system` |
+| **Name** | `increment_iteration` |
+| **Phase** | 5 - Check Iteration |
+| **Agent** | `system` |
 
-**Descrição:**
-Incrementa o contador de iteracao e verifica contra o maximo. Se max atingido, escala para humano.
+**Description:**
+Increments the iteration counter and checks it against the maximum. If the max is reached, it escalates to a human.
 
-**Lógica:**
+**Logic:**
 
 ```mermaid
 flowchart TD
     I{"iteration >= maxIterations?"}
 
-    I -->|"Sim"| E["ESCALATE<br/>Max iterations reached without APPROVE"]
-    I -->|"Não"| C["CONTINUE<br/>Voltar para Step 1 (review)<br/>iteration++"]
+    I -->|"Yes"| E["ESCALATE<br/>Max iterations reached without APPROVE"]
+    I -->|"No"| C["CONTINUE<br/>Back to Step 1 (review)<br/>iteration++"]
 
     style E fill:#ffcdd2
     style C fill:#c8e6c9
@@ -390,36 +390,36 @@ flowchart TD
 
 ---
 
-## Agentes Participantes
+## Participating Agents
 
 ### @qa - Argus (Test Architect)
 
 ```yaml
-Nome: Quinn
+Name: Argus
 ID: qa
-Titulo: Test Architect & Quality Advisor
-Icone: ✅
-Arquetipo: Guardian
-Signo: Virgo
+Title: Test Architect & Quality Advisor
+Icon: ✅
+Archetype: Guardian
+Sign: Virgo
 
-Responsabilidades no QA Loop:
-  - Executar revisao completa de QA (qa-review-story.md)
-  - Criar fix requests estruturados (qa-create-fix-request.md)
-  - Determinar verdict: APPROVE, REJECT, BLOCKED
-  - Gerar gate files com decisoes documentadas
+Responsibilities in the QA Loop:
+  - Run the complete QA review (qa-review-story.md)
+  - Create structured fix requests (qa-create-fix-request.md)
+  - Determine the verdict: APPROVE, REJECT, BLOCKED
+  - Generate gate files with documented decisions
 ```
 
-**Ferramentas Utilizadas:**
+**Tools Used:**
 
-| Ferramenta | Propósito |
+| Tool | Purpose |
 |------------|-----------|
-| `github-cli` | Code review e PR management |
-| `browser` | End-to-end testing e UI validation |
+| `github-cli` | Code review and PR management |
+| `browser` | End-to-end testing and UI validation |
 | `context7` | Research testing frameworks |
-| `supabase` | Database testing e data validation |
+| `supabase` | Database testing and data validation |
 | `coderabbit` | Automated code review |
 
-**Integração CodeRabbit:**
+**CodeRabbit Integration:**
 
 ```yaml
 self_healing:
@@ -440,23 +440,23 @@ self_healing:
 ### @dev - Vulcan (Full Stack Developer)
 
 ```yaml
-Nome: Dex
+Name: Vulcan
 ID: dev
-Titulo: Full Stack Developer
-Icone: 💻
-Arquetipo: Builder
-Signo: Aquarius
+Title: Full Stack Developer
+Icon: 💻
+Archetype: Builder
+Sign: Aquarius
 
-Responsabilidades no QA Loop:
-  - Aplicar correções baseadas em fix request (dev-apply-qa-fixes.md)
-  - Executar testes para validar correções
-  - Atualizar Dev Agent Record na story
-  - Garantir que fixes nao quebrem funcionalidades existentes
+Responsibilities in the QA Loop:
+  - Apply corrections based on the fix request (dev-apply-qa-fixes.md)
+  - Run tests to validate the corrections
+  - Update the Dev Agent Record in the story
+  - Ensure that fixes do not break existing functionality
 ```
 
-**Ferramentas Utilizadas:**
+**Tools Used:**
 
-| Ferramenta | Propósito |
+| Tool | Purpose |
 |------------|-----------|
 | `git` | Local operations: add, commit, status, diff |
 | `context7` | Look up library documentation |
@@ -469,42 +469,42 @@ Responsabilidades no QA Loop:
 ### System Agent
 
 ```yaml
-Tipo: Automatico
-Responsabilidades:
-  - Verificar verdicts
-  - Incrementar iterações
-  - Controlar fluxo do workflow
-  - Gerenciar status do loop
+Type: Automatic
+Responsibilities:
+  - Check verdicts
+  - Increment iterations
+  - Control the workflow flow
+  - Manage the loop status
 ```
 
 ---
 
-## Tasks Executadas
+## Tasks Executed
 
 ### 1. qa-review-story.md
 
-**Localização:** `.aexos-core/development/tasks/qa-review-story.md`
+**Location:** `.aexos-core/development/tasks/qa-review-story.md`
 
-**Propósito:** Realizar revisao arquitetural de testes com decisão de quality gate.
+**Purpose:** Perform a test architecture review with a quality gate decision.
 
-**Processo de Revisao:**
+**Review Process:**
 
 ```mermaid
 flowchart TD
     subgraph PRE["Pre-Review"]
         P1["CodeRabbit Self-Healing Loop"]
-        P2["Max 3 iterações CRITICAL/HIGH"]
+        P2["Max 3 CRITICAL/HIGH iterations"]
     end
 
-    subgraph RISK["Avaliação de Risco"]
+    subgraph RISK["Risk Assessment"]
         R1["Auth/Payment/Security?"]
-        R2["Sem testes adicionados?"]
-        R3["Diff > 500 linhas?"]
-        R4["Gate anterior FAIL?"]
+        R2["No tests added?"]
+        R3["Diff > 500 lines?"]
+        R4["Previous gate FAIL?"]
         R5["> 5 ACs?"]
     end
 
-    subgraph ANALYSIS["Análise Completa"]
+    subgraph ANALYSIS["Complete Analysis"]
         A1["Requirements Traceability"]
         A2["Code Quality Review"]
         A3["Test Architecture Assessment"]
@@ -513,7 +513,7 @@ flowchart TD
         A6["Technical Debt Identification"]
     end
 
-    subgraph OUTPUT["Saidas"]
+    subgraph OUTPUT["Outputs"]
         O1["QA Results Section"]
         O2["gate-file.yaml"]
     end
@@ -523,53 +523,53 @@ flowchart TD
     ANALYSIS --> OUTPUT
 ```
 
-**Critérios de Gate:**
+**Gate Criteria:**
 
-| Gate | Condição |
+| Gate | Condition |
 |------|----------|
-| **PASS** | Todos requisitos criticos atendidos, sem issues bloqueantes |
-| **CONCERNS** | Issues nao-criticos encontrados, time deve revisar |
-| **FAIL** | Issues criticos que devem ser enderecados |
-| **WAIVED** | Issues reconhecidos mas explicitamente waived pelo time |
+| **PASS** | All critical requirements met, no blocking issues |
+| **CONCERNS** | Non-critical issues found, the team should review |
+| **FAIL** | Critical issues that must be addressed |
+| **WAIVED** | Issues acknowledged but explicitly waived by the team |
 
 ---
 
 ### 2. qa-create-fix-request.md
 
-**Localização:** `.aexos-core/development/tasks/qa-create-fix-request.md`
+**Location:** `.aexos-core/development/tasks/qa-create-fix-request.md`
 
-**Propósito:** Gerar documento estruturado `QA_FIX_REQUEST.md` para @dev baseado nos findings de QA.
+**Purpose:** Generate a structured `QA_FIX_REQUEST.md` document for @dev based on the QA findings.
 
 **Workflow:**
 
 ```mermaid
 flowchart LR
-    subgraph LOAD["Fase 1: Carregar"]
-        L1["Localizar QA Report"]
+    subgraph LOAD["Phase 1: Load"]
+        L1["Locate QA Report"]
         L2["Parse metadata"]
     end
 
-    subgraph EXTRACT["Fase 2: Extrair"]
-        E1["Filtrar por severidade"]
-        E2["CRITICAL: sempre"]
-        E3["MAJOR: sempre"]
-        E4["MINOR: opcional"]
+    subgraph EXTRACT["Phase 2: Extract"]
+        E1["Filter by severity"]
+        E2["CRITICAL: always"]
+        E3["MAJOR: always"]
+        E4["MINOR: optional"]
     end
 
-    subgraph GENERATE["Fase 3: Gerar"]
-        G1["Criar QA_FIX_REQUEST.md"]
-        G2["Template estruturado"]
+    subgraph GENERATE["Phase 3: Generate"]
+        G1["Create QA_FIX_REQUEST.md"]
+        G2["Structured template"]
     end
 
-    subgraph NOTIFY["Fase 4: Notificar"]
-        N1["Output sucesso"]
-        N2["Proximos passos @dev"]
+    subgraph NOTIFY["Phase 4: Notify"]
+        N1["Success output"]
+        N2["Next steps for @dev"]
     end
 
     LOAD --> EXTRACT --> GENERATE --> NOTIFY
 ```
 
-**Estrutura do Fix Request:**
+**Fix Request Structure:**
 
 ```markdown
 # QA Fix Request: {storyId}
@@ -602,45 +602,45 @@ flowchart LR
 
 ### 3. dev-apply-qa-fixes.md
 
-**Localização:** `.aexos-core/development/tasks/dev-apply-qa-fixes.md`
+**Location:** `.aexos-core/development/tasks/dev-apply-qa-fixes.md`
 
-**Propósito:** Aplicar fixes baseados no feedback de QA e gate review.
+**Purpose:** Apply fixes based on the QA feedback and gate review.
 
-**Workflow do Developer:**
+**Developer Workflow:**
 
 ```mermaid
 flowchart TD
-    subgraph LOAD["1. Carregar Gate Report"]
-        L1["Carregar gate file"]
-        L2["Ou buscar referencia na story"]
+    subgraph LOAD["1. Load Gate Report"]
+        L1["Load the gate file"]
+        L2["Or find the reference in the story"]
     end
 
-    subgraph REVIEW["2. Revisar Findings"]
-        R1["Categorizar issues"]
+    subgraph REVIEW["2. Review Findings"]
+        R1["Categorize issues"]
         R2["BLOCKING: Must fix"]
         R3["WARNING: Should fix"]
         R4["RECOMMENDATION: Nice to have"]
     end
 
-    subgraph PLAN["3. Criar Plano"]
-        P1["Identificar arquivos afetados"]
-        P2["Determinar root cause"]
-        P3["Planejar approach"]
+    subgraph PLAN["3. Create Plan"]
+        P1["Identify affected files"]
+        P2["Determine the root cause"]
+        P3["Plan the approach"]
     end
 
-    subgraph FIX["4. Aplicar Fixes"]
-        F1["Fazer mudanças"]
-        F2["Seguir coding standards"]
-        F3["Atualizar testes"]
+    subgraph FIX["4. Apply Fixes"]
+        F1["Make the changes"]
+        F2["Follow coding standards"]
+        F3["Update tests"]
     end
 
-    subgraph VALIDATE["5. Validacao"]
+    subgraph VALIDATE["5. Validation"]
         V1["npm run lint"]
         V2["npm test"]
         V3["npm run typecheck"]
     end
 
-    subgraph UPDATE["6. Atualizar Story"]
+    subgraph UPDATE["6. Update Story"]
         U1["Dev Agent Record"]
         U2["File List"]
     end
@@ -650,70 +650,70 @@ flowchart TD
 
 **Exit Criteria:**
 
-- Todos issues BLOCKING resolvidos
-- Todos testes passando (lint, unit, integration)
-- Story file atualizado
-- Código pronto para re-review
+- All BLOCKING issues resolved
+- All tests passing (lint, unit, integration)
+- Story file updated
+- Code ready for re-review
 
 ---
 
-## Pré-requisitos
+## Prerequisites
 
-### Para Iniciar o QA Loop
+### To Start the QA Loop
 
-| Requisito | Descrição |
+| Requirement | Description |
 |-----------|-----------|
-| **Story Status** | Deve estar em "Review" |
-| **Implementacao Completa** | Developer completou todas as tasks |
-| **File List Atualizada** | Lista de arquivos no story file esta atual |
-| **Testes Automatizados** | Todos testes automatizados passando |
-| **CodeRabbit Configurado** | CLI instalado no WSL (opcional mas recomendado) |
+| **Story Status** | Must be in "Review" |
+| **Complete Implementation** | The developer completed all tasks |
+| **Updated File List** | The file list in the story file is current |
+| **Automated Tests** | All automated tests passing |
+| **CodeRabbit Configured** | CLI installed in WSL (optional but recommended) |
 
-### Configuração do Ambiente
+### Environment Configuration
 
 ```yaml
-# Verificar CodeRabbit
+# Check CodeRabbit
 wsl bash -c '~/.local/bin/coderabbit auth status'
 
-# Verificar Node.js
+# Check Node.js
 node --version  # >= 18
 
-# Verificar dependencias
-npm test        # Deve passar
-npm run lint    # Deve passar
+# Check dependencies
+npm test        # Must pass
+npm run lint    # Must pass
 ```
 
 ---
 
-## Entradas e Saidas
+## Inputs and Outputs
 
-### Entradas do Workflow
+### Workflow Inputs
 
-| Campo | Tipo | Obrigatório | Descrição |
+| Field | Type | Required | Description |
 |-------|------|-------------|-----------|
-| `storyId` | string | Sim | Identificador da story (ex: "STORY-42") |
-| `maxIterations` | number | Não | Override do max (default: 5) |
-| `mode` | string | Não | `yolo`, `interactive`, `preflight` |
+| `storyId` | string | Yes | Story identifier (e.g.: "STORY-42") |
+| `maxIterations` | number | No | Override of the max (default: 5) |
+| `mode` | string | No | `yolo`, `interactive`, `preflight` |
 
-### Saidas do Workflow
+### Workflow Outputs
 
-| Arquivo | Localização | Descrição |
+| File | Location | Description |
 |---------|-------------|-----------|
-| `loop-status.json` | `qa/loop-status.json` | Status atual do loop |
-| `gate-file.yaml` | `qa/gates/{storyId}.yaml` | Decisão de quality gate |
-| `fix-request.md` | `qa/QA_FIX_REQUEST.md` | Documento de correções |
-| `fixes-applied.json` | `qa/fixes-applied.json` | Registro de correções |
-| `summary.md` | `qa/summary.md` | Sumario final do loop |
+| `loop-status.json` | `qa/loop-status.json` | Current loop status |
+| `gate-file.yaml` | `qa/gates/{storyId}.yaml` | Quality gate decision |
+| `fix-request.md` | `qa/QA_FIX_REQUEST.md` | Corrections document |
+| `fixes-applied.json` | `qa/fixes-applied.json` | Record of corrections |
+| `summary.md` | `qa/summary.md` | Final loop summary |
 
-### Schema do Status File
+### Status File Schema
 
 ```yaml
-storyId: string              # ID da story
-currentIteration: number     # Iteração atual
-maxIterations: number        # Maximo configurado
+storyId: string              # Story ID
+currentIteration: number     # Current iteration
+maxIterations: number        # Configured maximum
 status: enum                 # pending | in_progress | completed | stopped | escalated
-startedAt: ISO-8601          # Timestamp de inicio
-updatedAt: ISO-8601          # Ultima atualizacao
+startedAt: ISO-8601          # Start timestamp
+updatedAt: ISO-8601          # Last update
 
 history:
   - iteration: number
@@ -727,60 +727,60 @@ history:
 
 ---
 
-## Pontos de Decisão
+## Decision Points
 
-### Diagrama de Decisoes
+### Decision Diagram
 
 ```mermaid
 flowchart TD
-    subgraph D1["Decisão 1: Verdict"]
-        V1{"Qual o verdict?"}
-        V1 -->|"APPROVE"| V1A["Completar Loop"]
-        V1 -->|"BLOCKED"| V1B["Escalar Imediatamente"]
-        V1 -->|"REJECT"| V1C["Continuar para Fixes"]
+    subgraph D1["Decision 1: Verdict"]
+        V1{"What is the verdict?"}
+        V1 -->|"APPROVE"| V1A["Complete the Loop"]
+        V1 -->|"BLOCKED"| V1B["Escalate Immediately"]
+        V1 -->|"REJECT"| V1C["Continue to Fixes"]
     end
 
-    subgraph D2["Decisão 2: Max Iterations"]
+    subgraph D2["Decision 2: Max Iterations"]
         I1{"iteration >= max?"}
-        I1 -->|"Sim"| I1A["Escalar: Max Atingido"]
-        I1 -->|"Não"| I1B["Incrementar e Continuar"]
+        I1 -->|"Yes"| I1A["Escalate: Max Reached"]
+        I1 -->|"No"| I1B["Increment and Continue"]
     end
 
-    subgraph D3["Decisão 3: Fix Failure"]
-        F1{"Fixes aplicados?"}
-        F1 -->|"Sucesso"| F1A["Prosseguir para Review"]
-        F1 -->|"Falha"| F1B{"Retries restantes?"}
-        F1B -->|"Sim"| F1C["Retry"]
-        F1B -->|"Não"| F1D["Escalar: Fix Failure"]
+    subgraph D3["Decision 3: Fix Failure"]
+        F1{"Fixes applied?"}
+        F1 -->|"Success"| F1A["Proceed to Review"]
+        F1 -->|"Failure"| F1B{"Retries remaining?"}
+        F1B -->|"Yes"| F1C["Retry"]
+        F1B -->|"No"| F1D["Escalate: Fix Failure"]
     end
 
-    subgraph D4["Decisão 4: Review Failure"]
-        R1{"Review completou?"}
-        R1 -->|"Sucesso"| R1A["Processar Verdict"]
-        R1 -->|"Falha"| R1B{"Retries restantes?"}
-        R1B -->|"Sim"| R1C["Retry Review"]
-        R1B -->|"Não"| R1D["Escalar: Review Failure"]
+    subgraph D4["Decision 4: Review Failure"]
+        R1{"Did the review complete?"}
+        R1 -->|"Success"| R1A["Process the Verdict"]
+        R1 -->|"Failure"| R1B{"Retries remaining?"}
+        R1B -->|"Yes"| R1C["Retry Review"]
+        R1B -->|"No"| R1D["Escalate: Review Failure"]
     end
 ```
 
-### Critérios de Escalação
+### Escalation Criteria
 
-| Trigger | Razao | Ação |
+| Trigger | Reason | Action |
 |---------|-------|------|
-| `max_iterations_reached` | Loop atingiu max sem APPROVE | Escalar com contexto completo |
-| `verdict_blocked` | QA retornou BLOCKED | Escalar imediatamente |
-| `fix_failure` | @dev nao conseguiu aplicar fixes apos retries | Escalar com log de erros |
-| `manual_escalate` | Usuario executou `*escalate-qa-loop` | Escalar sob demanda |
+| `max_iterations_reached` | The loop reached the max without APPROVE | Escalate with the complete context |
+| `verdict_blocked` | QA returned BLOCKED | Escalate immediately |
+| `fix_failure` | @dev could not apply the fixes after retries | Escalate with the error log |
+| `manual_escalate` | The user ran `*escalate-qa-loop` | Escalate on demand |
 
 ---
 
-## Configuração
+## Configuration
 
-### Parametros Configuraveis
+### Configurable Parameters
 
 ```yaml
 config:
-  # Maximo de iterações (AC2)
+  # Maximum number of iterations (AC2)
   maxIterations: 5
   configPath: autoClaude.qaLoop.maxIterations
 
@@ -788,77 +788,77 @@ config:
   showProgress: true
   verbose: true
 
-  # Localização do status file (AC4)
+  # Status file location (AC4)
   statusFile: qa/loop-status.json
 
-  # Integração com Dashboard (AC7)
+  # Dashboard integration (AC7)
   dashboardStatusPath: .aexos/dashboard/status.json
   legacyStatusPath: .aexos/status.json
 
-  # Timeout por fase (milliseconds)
-  reviewTimeout: 1800000    # 30 minutos
-  fixTimeout: 3600000       # 60 minutos
+  # Timeout per phase (milliseconds)
+  reviewTimeout: 1800000    # 30 minutes
+  fixTimeout: 3600000       # 60 minutes
 
-  # Configuração de retry
+  # Retry configuration
   maxRetries: 2
-  retryDelay: 5000          # 5 segundos
+  retryDelay: 5000          # 5 seconds
 ```
 
-### Customizacao por Projeto
+### Customization Per Project
 
-No arquivo `.aexos-core/core-config.yaml`:
+In the `.aexos-core/core-config.yaml` file:
 
 ```yaml
 autoClaude:
   qaLoop:
-    maxIterations: 3        # Reduzir para projetos menores
-    reviewTimeout: 900000   # 15 min para reviews rapidos
-    fixTimeout: 1800000     # 30 min para fixes simples
+    maxIterations: 3        # Reduce for smaller projects
+    reviewTimeout: 900000   # 15 min for fast reviews
+    fixTimeout: 1800000     # 30 min for simple fixes
 ```
 
 ---
 
-## Controle de Execução
+## Execution Control
 
-### Comandos Disponiveis
+### Available Commands
 
-| Comando | Ação | Descrição |
+| Command | Action | Description |
 |---------|------|-----------|
-| `*qa-loop {storyId}` | `start_loop` | Inicia loop completo |
-| `*qa-loop-review` | `run_step: review` | Inicia apenas do step review |
-| `*qa-loop-fix` | `run_step: fix` | Inicia apenas do step fix |
-| `*stop-qa-loop` | `stop_loop` | Para loop e salva estado |
-| `*resume-qa-loop` | `resume_loop` | Retoma loop parado/escalado |
-| `*escalate-qa-loop` | `escalate` | Forca escalacao manual |
-| `*qa-loop --reset` | `reset` | Deleta status e reinicia |
+| `*qa-loop {storyId}` | `start_loop` | Starts the complete loop |
+| `*qa-loop-review` | `run_step: review` | Starts only from the review step |
+| `*qa-loop-fix` | `run_step: fix` | Starts only from the fix step |
+| `*stop-qa-loop` | `stop_loop` | Stops the loop and saves the state |
+| `*resume-qa-loop` | `resume_loop` | Resumes a stopped/escalated loop |
+| `*escalate-qa-loop` | `escalate` | Forces manual escalation |
+| `*qa-loop --reset` | `reset` | Deletes the status and restarts |
 
-### Fluxo de Stop/Resume
+### Stop/Resume Flow
 
 ```mermaid
 sequenceDiagram
-    participant U as Usuario
+    participant U as User
     participant S as System
     participant F as loop-status.json
 
     Note over U,F: STOP
     U->>S: *stop-qa-loop
     S->>F: status = "stopped"
-    S->>F: Salvar estado atual
-    S-->>U: Loop parado em iteration N
+    S->>F: Save the current state
+    S-->>U: Loop stopped at iteration N
 
     Note over U,F: RESUME
     U->>S: *resume-qa-loop
-    S->>F: Carregar estado
-    S->>S: Verificar status era stopped/escalated
+    S->>F: Load the state
+    S->>S: Check that the status was stopped/escalated
     S->>F: status = "in_progress"
-    S-->>U: Loop retomado em iteration N
+    S-->>U: Loop resumed at iteration N
 ```
 
 ---
 
-## Escalação
+## Escalation
 
-### Triggers de Escalação
+### Escalation Triggers
 
 ```yaml
 escalation:
@@ -870,18 +870,18 @@ escalation:
     - manual_escalate
 ```
 
-### Pacote de Contexto
+### Context Package
 
-Quando ocorre escalacao, o sistema prepara:
+When an escalation occurs, the system prepares:
 
-| Item | Descrição |
+| Item | Description |
 |------|-----------|
-| `loop-status.json` | Status completo do loop |
-| Gate files | Todos gate files do historico |
-| Fix requests | Todos fix requests gerados |
-| Summary | Resumo de todas iterações |
+| `loop-status.json` | Complete loop status |
+| Gate files | All gate files from the history |
+| Fix requests | All fix requests generated |
+| Summary | Summary of all iterations |
 
-### Mensagem de Notificação
+### Notification Message
 
 ```
 QA Loop Escalation for {storyId}
@@ -897,14 +897,14 @@ Review the context package and decide:
 3. Reject story and create follow-up
 ```
 
-### Canais de Notificação
+### Notification Channels
 
-- `log` - Log do sistema
-- `console` - Output no terminal
+- `log` - System log
+- `console` - Terminal output
 
 ---
 
-## Integração com Dashboard
+## Dashboard Integration
 
 ### Status JSON Schema
 
@@ -925,7 +925,7 @@ integration:
       updatedAt: ISO-8601
 ```
 
-### Atualização de Status do Projeto
+### Project Status Update
 
 ```yaml
 project_status:
@@ -933,9 +933,9 @@ project_status:
   status_field: qaLoopStatus
 ```
 
-### Notificações
+### Notifications
 
-| Evento | Mensagem | Canais |
+| Event | Message | Channels |
 |--------|----------|--------|
 | `on_approve` | "QA Loop APPROVED: {storyId}" | log |
 | `on_escalate` | "QA Loop ESCALATED: {storyId} - needs attention" | log |
@@ -943,137 +943,137 @@ project_status:
 
 ---
 
-## Tratamento de Erros
+## Error Handling
 
-### Erros Comuns e Resoluções
+### Common Errors and Resolutions
 
-| Erro | Causa | Resolução | Ação |
+| Error | Cause | Resolution | Action |
 |------|-------|-----------|------|
-| `missing_story_id` | Story ID nao fornecido | "Usage: *qa-loop STORY-42" | prompt |
-| `review_timeout` | Fase de review excedeu timeout | Verificar status do QA agent | escalate |
-| `fix_timeout` | Fase de fix excedeu timeout | Verificar status do Dev agent | escalate |
-| `invalid_status` | Arquivo de status corrompido | "Reset loop: *qa-loop {storyId} --reset" | halt |
+| `missing_story_id` | Story ID not provided | "Usage: *qa-loop STORY-42" | prompt |
+| `review_timeout` | The review phase exceeded the timeout | Check the QA agent status | escalate |
+| `fix_timeout` | The fix phase exceeded the timeout | Check the Dev agent status | escalate |
+| `invalid_status` | Corrupted status file | "Reset loop: *qa-loop {storyId} --reset" | halt |
 
-### Estrategias de Retry
+### Retry Strategies
 
 ```yaml
 on_failure:
   action: retry
-  max_retries: 2              # Maximo de tentativas
-  retryDelay: 5000            # Delay entre tentativas
-  on_exhausted: escalate      # Ação quando retries esgotados
+  max_retries: 2              # Maximum number of attempts
+  retryDelay: 5000            # Delay between attempts
+  on_exhausted: escalate      # Action when the retries are exhausted
 ```
 
 ---
 
 ## Troubleshooting
 
-### Problema: Loop Travado em Review
+### Problem: Loop Stuck in Review
 
-**Sintomas:**
-- Review nao completa apos 30 minutos
-- Status permanece "in_progress"
+**Symptoms:**
+- The review does not complete after 30 minutes
+- The status stays "in_progress"
 
-**Diagnóstico:**
+**Diagnosis:**
 ```bash
-# Verificar status do loop
+# Check the loop status
 cat qa/loop-status.json | jq '.status, .currentIteration'
 
-# Verificar ultimo gate file
+# Check the last gate file
 ls -la qa/gates/
 ```
 
-**Solução:**
-1. Executar `*stop-qa-loop`
-2. Verificar se CodeRabbit esta respondendo
-3. Executar `*resume-qa-loop` para retomar
+**Solution:**
+1. Run `*stop-qa-loop`
+2. Check whether CodeRabbit is responding
+3. Run `*resume-qa-loop` to resume
 
 ---
 
-### Problema: Fix Não Aplicado
+### Problem: Fix Not Applied
 
-**Sintomas:**
-- @dev reporta sucesso mas issues persistem
-- Re-review encontra mesmos problemas
+**Symptoms:**
+- @dev reports success but the issues persist
+- The re-review finds the same problems
 
-**Diagnóstico:**
+**Diagnosis:**
 ```bash
-# Verificar fix request
+# Check the fix request
 cat qa/QA_FIX_REQUEST.md
 
-# Verificar fixes aplicados
+# Check the applied fixes
 cat qa/fixes-applied.json
 ```
 
-**Solução:**
-1. Revisar manualmente o fix-request.md
-2. Verificar se @dev atualizou os arquivos corretos
-3. Rodar testes localmente antes de re-review
+**Solution:**
+1. Manually review the fix-request.md
+2. Check whether @dev updated the correct files
+3. Run the tests locally before the re-review
 
 ---
 
-### Problema: Max Iterations Atingido
+### Problem: Max Iterations Reached
 
-**Sintomas:**
-- Loop escala apos 5 iterações sem APPROVE
+**Symptoms:**
+- The loop escalates after 5 iterations without APPROVE
 
-**Diagnóstico:**
+**Diagnosis:**
 ```bash
-# Ver historico completo
+# See the complete history
 cat qa/loop-status.json | jq '.history'
 ```
 
-**Solução:**
-1. Analisar pattern de issues recorrentes
-2. Verificar se requisitos estao claros
-3. Considerar aumentar maxIterations ou resolver manualmente
+**Solution:**
+1. Analyze the pattern of recurring issues
+2. Check whether the requirements are clear
+3. Consider increasing maxIterations or resolving it manually
 
 ---
 
-### Problema: CodeRabbit Não Funciona
+### Problem: CodeRabbit Does Not Work
 
-**Sintomas:**
-- Erro "coderabbit: command not found"
-- Timeout na fase de self-healing
+**Symptoms:**
+- Error "coderabbit: command not found"
+- Timeout in the self-healing phase
 
-**Diagnóstico:**
+**Diagnosis:**
 ```bash
-# Verificar instalacao
+# Check the installation
 wsl bash -c 'which coderabbit'
 
-# Verificar autenticacao
+# Check the authentication
 wsl bash -c '~/.local/bin/coderabbit auth status'
 ```
 
-**Solução:**
-1. Reinstalar CodeRabbit no WSL
-2. Executar `coderabbit auth login`
-3. Verificar path no agent config
+**Solution:**
+1. Reinstall CodeRabbit in WSL
+2. Run `coderabbit auth login`
+3. Check the path in the agent config
 
 ---
 
-### Problema: Status File Corrompido
+### Problem: Corrupted Status File
 
-**Sintomas:**
-- Erro "invalid_status"
-- Loop nao inicia ou retoma
+**Symptoms:**
+- Error "invalid_status"
+- The loop does not start or resume
 
-**Solução:**
+**Solution:**
 ```bash
-# Backup do arquivo corrompido
+# Back up the corrupted file
 mv qa/loop-status.json qa/loop-status.json.bak
 
-# Reiniciar loop
+# Restart the loop
 *qa-loop {storyId} --reset
 ```
 
 ---
 
-## Referências
+## References
 
-### Arquivos do Workflow
+### Workflow Files
 
-| Arquivo | Localização |
+| File | Location |
 |---------|-------------|
 | Workflow Definition | `.aexos-core/development/workflows/qa-loop.yaml` |
 | QA Review Task | `.aexos-core/development/tasks/qa-review-story.md` |
@@ -1082,30 +1082,30 @@ mv qa/loop-status.json qa/loop-status.json.bak
 | QA Agent | `.aexos-core/development/agents/qa.md` |
 | Dev Agent | `.aexos-core/development/agents/dev.md` |
 
-### Documentação Relacionada
+### Related Documentation
 
-| Documento | Descrição |
+| Document | Description |
 |-----------|-----------|
-| Epic 6 - QA Evolution | Contexto do Autonomous Development Engine |
-| Story 6.5 | Story de implementação do QA Loop |
+| Epic 6 - QA Evolution | Context of the Autonomous Development Engine |
+| Story 6.5 | QA Loop implementation story |
 | Story 6.3.3 | CodeRabbit Self-Healing Integration |
-| ADR-XXX | Architecture Decision Record (se existir) |
+| ADR-XXX | Architecture Decision Record (if it exists) |
 
 ### Templates
 
-| Template | Localização | Uso |
+| Template | Location | Use |
 |----------|-------------|-----|
 | `qa-gate-tmpl.yaml` | `.aexos-core/development/templates/` | Gate file structure |
 | `story-tmpl.yaml` | `.aexos-core/development/templates/` | Story file structure |
 
 ---
 
-## Historico de Alterações
+## Change History
 
-| Data | Versao | Autor | Mudanças |
+| Date | Version | Author | Changes |
 |------|--------|-------|----------|
-| 2026-02-04 | 1.0 | Technical Documentation Specialist | Versao inicial |
+| 2026-02-04 | 1.0 | Technical Documentation Specialist | Initial version |
 
 ---
 
-*Documentação gerada automaticamente a partir do workflow `qa-loop.yaml`*
+*Documentation generated automatically from the `qa-loop.yaml` workflow*

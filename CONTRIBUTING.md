@@ -1,7 +1,5 @@
 # Contributing to AEXOS (Cyryx)
 
-> **[Versao em Portugues](docs/pt/contributing.md)**
-
 Welcome to AEXOS! Thank you for your interest in contributing. This guide will help you understand our development workflow, contribution process, and how to submit your changes.
 
 ## Table of Contents
@@ -550,7 +548,7 @@ git push --force-with-lease
 
 ### Q: Can I contribute in Portuguese?
 
-**A:** Yes! We accept PRs in Portuguese. See [CONTRIBUTING-PT](docs/pt/contributing.md).
+**A:** Contributions are accepted in English. Issues, pull requests and documentation are English-only.
 
 ### Q: How do I become a maintainer?
 

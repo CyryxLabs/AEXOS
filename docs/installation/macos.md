@@ -1,7 +1,5 @@
 # macOS Installation Guide for AEXOS (Cyryx)
 
-> 🌐 **EN** | [PT](../pt/installation/macos.md) | [ES](../es/installation/macos.md)
-
 ## Prerequisites
 
 ### 1. Node.js (v20 or higher)
@@ -91,7 +89,6 @@ The installer automatically:
 
 1. Commands are installed to `.claude/commands/AEXOS/`
 2. Use `/agent-name` to activate agents
-
 
 2. Use `@agent-name` to activate agents
 

@@ -1,69 +1,69 @@
 # Workflow: Story Development Cycle
 
-**Versao:** 1.0
-**Tipo:** Workflow Generico
-**Autor:** Zeus (AEXOS Master)
-**Data de Criacao:** 2025-01-30
+**Version:** 1.0
+**Type:** Generic Workflow
+**Author:** Zeus (AEXOS Master)
+**Creation Date:** 2025-01-30
 **Tags:** story, development-cycle, quality-gate, agile, generic
 
 ---
 
-## Visao Geral
+## Overview
 
-O **Story Development Cycle** e o workflow central do AEXOS para desenvolvimento de stories. Ele automatiza o fluxo completo desde a criacao ate a entrega com quality gate integrado, seguindo a sequencia: **criar -> validar -> implementar -> QA review**.
+The **Story Development Cycle** is the central AEXOS workflow for story development. It automates the complete flow from creation to delivery with an integrated quality gate, following the sequence: **create -> validate -> implement -> QA review**.
 
-### Objetivo
+### Objective
 
-Garantir que cada story passe por um processo estruturado e rastreavel, com pontos de validacao em cada fase, reduzindo retrabalho e aumentando a qualidade das entregas.
+Ensure that every story goes through a structured and traceable process, with validation points at each phase, reducing rework and increasing delivery quality.
 
-### Tipos de Projeto Suportados
+### Supported Project Types
 
-| Tipo | Descricao |
+| Type | Description |
 |------|-----------|
-| `greenfield` | Projetos novos, do zero |
-| `brownfield` | Projetos existentes, manutencao |
-| `feature-development` | Desenvolvimento de novas funcionalidades |
-| `bug-fix` | Correcao de bugs |
-| `enhancement` | Melhorias em funcionalidades existentes |
+| `greenfield` | New projects, from scratch |
+| `brownfield` | Existing projects, maintenance |
+| `feature-development` | Development of new features |
+| `bug-fix` | Bug fixing |
+| `enhancement` | Improvements to existing features |
 
 ---
 
-## Diagrama Mermaid do Workflow
+## Mermaid Workflow Diagram
 
-### Fluxo Principal
+### Main Flow
 
 ```mermaid
 flowchart TD
-    subgraph PHASE_1["Fase 1: Story Creation"]
-        START([Inicio: Story Development Cycle]) --> SM_CREATE
-        SM_CREATE["@sm: Criar proxima story<br/>Task: create-next-story"]
+    subgraph PHASE_1["Phase 1: Story Creation"]
+        START([Start: Story Development Cycle]) --> SM_CREATE
+        SM_CREATE["@sm: Create next story<br/>Task: create-next-story"]
     end
 
-    subgraph PHASE_2["Fase 2: Story Validation"]
-        SM_CREATE --> PO_VALIDATE["@po: Validar story<br/>Task: validate-next-story<br/>10 Checks"]
-        PO_VALIDATE --> VALID_DECISION{Validacao OK?}
-        VALID_DECISION -->|Nao| FEEDBACK_SM["Feedback para SM<br/>Story retorna para ajustes"]
+    subgraph PHASE_2["Phase 2: Story Validation"]
+        SM_CREATE --> PO_VALIDATE["@po: Validate story<br/>Task: validate-next-story<br/>10 Checks"]
+        PO_VALIDATE --> VALID_DECISION{Validation OK?}
+        VALID_DECISION -->|No| FEEDBACK_SM["Feedback to SM<br/>Story returns for adjustments"]
         FEEDBACK_SM --> SM_CREATE
-        VALID_DECISION -->|Sim| DEV_IMPLEMENT
+        VALID_DECISION -->|Yes| DEV_IMPLEMENT
     end
 
-    subgraph PHASE_3["Fase 3: Implementation"]
-        DEV_IMPLEMENT["@dev: Implementar story<br/>Task: dev-develop-story<br/>+ CodeRabbit Self-Healing"]
+    subgraph PHASE_3["Phase 3: Implementation"]
+        DEV_IMPLEMENT["@dev: Implement story<br/>Task: dev-develop-story<br/>+ CodeRabbit Self-Healing"]
     end
 
-    subgraph PHASE_4["Fase 4: QA Review"]
+    subgraph PHASE_4["Phase 4: QA Review"]
         DEV_IMPLEMENT --> QA_REVIEW["@qa: Review + Quality Gate<br/>Task: qa-gate"]
         QA_REVIEW --> QA_DECISION{Quality Gate OK?}
-        QA_DECISION -->|Nao| FEEDBACK_DEV["Feedback para Dev<br/>Checklist de fixes"]
+        QA_DECISION -->|No| FEEDBACK_DEV["Feedback to Dev<br/>Checklist of fixes"]
         FEEDBACK_DEV --> DEV_IMPLEMENT
-        QA_DECISION -->|Sim| STORY_DONE
+        QA_DECISION -->|Yes| STORY_DONE
     end
 
-    subgraph COMPLETION["Conclusao"]
+    subgraph COMPLETION["Completion"]
         STORY_DONE([Story Done!])
-        STORY_DONE --> MORE_STORIES{Mais stories?}
-        MORE_STORIES -->|Sim| SM_CREATE
-        MORE_STORIES -->|Nao| CYCLE_COMPLETE([Ciclo Completo])
+        STORY_DONE --> MORE_STORIES{More stories?}
+        MORE_STORIES -->|Yes| SM_CREATE
+        MORE_STORIES -->|No| CYCLE_COMPLETE([Cycle Complete])
     end
 
     style CYCLE_COMPLETE fill:#90EE90
@@ -76,31 +76,31 @@ flowchart TD
     style FEEDBACK_DEV fill:#FFB6C1
 ```
 
-### Fluxo de Status da Story
+### Story Status Flow
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Draft: SM cria story
-    Draft --> Ready: PO valida (10 checks)
-    Ready --> InProgress: Dev inicia implementacao
-    InProgress --> InReview: Dev conclui + CodeRabbit
-    InReview --> Done: QA aprova
-    InReview --> InProgress: QA rejeita
-    Draft --> Draft: PO rejeita validacao
+    [*] --> Draft: SM creates the story
+    Draft --> Ready: PO validates (10 checks)
+    Ready --> InProgress: Dev starts implementation
+    InProgress --> InReview: Dev finishes + CodeRabbit
+    InReview --> Done: QA approves
+    InReview --> InProgress: QA rejects
+    Draft --> Draft: PO rejects validation
     Done --> [*]
 
-    note right of Draft : Status inicial
-    note right of Ready : Pronta para dev
-    note right of InProgress : Em desenvolvimento
-    note right of InReview : Aguardando QA
-    note right of Done : Concluida
+    note right of Draft : Initial status
+    note right of Ready : Ready for dev
+    note right of InProgress : In development
+    note right of InReview : Awaiting QA
+    note right of Done : Completed
 ```
 
-### Diagrama de Interacao entre Agentes
+### Agent Interaction Diagram
 
 ```mermaid
 sequenceDiagram
-    participant U as Usuario
+    participant U as User
     participant SM as @sm (Chronos)
     participant PO as @po (Themis)
     participant DEV as @dev (Vulcan)
@@ -110,218 +110,218 @@ sequenceDiagram
     U->>SM: *workflow story-development-cycle
 
     rect rgb(135, 206, 235)
-        Note over SM: Fase 1: Criacao
-        SM->>SM: Identifica proxima story
-        SM->>SM: Extrai requisitos do epic
-        SM->>SM: Popula template
-        SM-->>U: Story criada (status: Draft)
+        Note over SM: Phase 1: Creation
+        SM->>SM: Identifies the next story
+        SM->>SM: Extracts requirements from the epic
+        SM->>SM: Populates the template
+        SM-->>U: Story created (status: Draft)
     end
 
     rect rgb(255, 228, 181)
-        Note over PO: Fase 2: Validacao
-        SM->>PO: Handoff para validacao
-        PO->>PO: Executa 10 checks
-        alt Validacao falhou
-            PO-->>SM: Feedback com issues
-            SM->>SM: Ajusta story
-        else Validacao OK
-            PO-->>U: Story validada (status: Ready)
+        Note over PO: Phase 2: Validation
+        SM->>PO: Handoff for validation
+        PO->>PO: Runs 10 checks
+        alt Validation failed
+            PO-->>SM: Feedback with issues
+            SM->>SM: Adjusts the story
+        else Validation OK
+            PO-->>U: Story validated (status: Ready)
         end
     end
 
     rect rgb(152, 251, 152)
-        Note over DEV: Fase 3: Implementacao
-        PO->>DEV: Handoff para implementacao
-        DEV->>DEV: Implementa tasks
-        DEV->>DEV: Escreve testes
+        Note over DEV: Phase 3: Implementation
+        PO->>DEV: Handoff for implementation
+        DEV->>DEV: Implements tasks
+        DEV->>DEV: Writes tests
         DEV->>CR: Pre-commit review
         CR-->>DEV: Feedback (CRITICAL/HIGH)
         DEV->>DEV: Self-healing loop
-        DEV-->>U: Story implementada (status: In Review)
+        DEV-->>U: Story implemented (status: In Review)
     end
 
     rect rgb(221, 160, 221)
-        Note over QA: Fase 4: QA Review
-        DEV->>QA: Handoff para review
-        QA->>CR: Review automatizado
-        CR-->>QA: Scan de qualidade
-        QA->>QA: Review manual
-        alt Quality Gate falhou
-            QA-->>DEV: Feedback com fixes
-            DEV->>DEV: Aplica correcoes
+        Note over QA: Phase 4: QA Review
+        DEV->>QA: Handoff for review
+        QA->>CR: Automated review
+        CR-->>QA: Quality scan
+        QA->>QA: Manual review
+        alt Quality Gate failed
+            QA-->>DEV: Feedback with fixes
+            DEV->>DEV: Applies fixes
         else Quality Gate OK
-            QA-->>U: Story aprovada (status: Done)
+            QA-->>U: Story approved (status: Done)
         end
     end
 ```
 
 ---
 
-## Steps Detalhados
+## Detailed Steps
 
-### Step 1: Create Story (Fase 1)
+### Step 1: Create Story (Phase 1)
 
-| Campo | Valor |
+| Field | Value |
 |-------|-------|
 | **ID** | `create` |
-| **Agente** | @sm (Chronos - Scrum Master) |
-| **Acao** | Criar proxima story |
+| **Agent** | @sm (Chronos - Scrum Master) |
+| **Action** | Create the next story |
 | **Task** | `create-next-story.md` |
 
-#### Descricao
+#### Description
 
-O Scrum Master (Chronos) identifica e cria a proxima story do backlog utilizando o PRD shardado ou documentacao do projeto como fonte.
+The Scrum Master (Chronos) identifies and creates the next story from the backlog using the sharded PRD or project documentation as the source.
 
 #### Inputs
 
-| Input | Tipo | Origem | Obrigatorio |
+| Input | Type | Origin | Required |
 |-------|------|--------|-------------|
-| `name` | string | User Input | Sim |
-| `options` | object | User Input | Nao |
-| `force` | boolean | User Input | Nao |
-| PRD shardado | arquivo | Sistema de arquivos | Sim |
-| Contexto do epic | documento | docs/stories/epic-X/ | Sim |
+| `name` | string | User Input | Yes |
+| `options` | object | User Input | No |
+| `force` | boolean | User Input | No |
+| Sharded PRD | file | File system | Yes |
+| Epic context | document | docs/stories/epic-X/ | Yes |
 
 #### Outputs
 
-| Output | Tipo | Destino |
+| Output | Type | Destination |
 |--------|------|---------|
-| `story_file` | arquivo | `{devStoryLocation}/{epicNum}.{storyNum}.story.md` |
-| `story_id` | string | Contexto do workflow |
-| `validation_report` | object | Memoria |
+| `story_file` | file | `{devStoryLocation}/{epicNum}.{storyNum}.story.md` |
+| `story_id` | string | Workflow context |
+| `validation_report` | object | Memory |
 
-#### Criterios de Sucesso
+#### Success Criteria
 
-- [ ] Story criada com titulo descritivo
-- [ ] Acceptance criteria definidos
-- [ ] Escopo claro e delimitado
-- [ ] Dependencias identificadas
+- [ ] Story created with a descriptive title
+- [ ] Acceptance criteria defined
+- [ ] Clear and bounded scope
+- [ ] Dependencies identified
 
-#### Status da Story
+#### Story Status
 
-- **Antes:** N/A
-- **Depois:** `Draft`
+- **Before:** N/A
+- **After:** `Draft`
 
 ---
 
-### Step 2: Validate Story (Fase 2)
+### Step 2: Validate Story (Phase 2)
 
-| Campo | Valor |
+| Field | Value |
 |-------|-------|
 | **ID** | `validate` |
-| **Agente** | @po (Themis - Product Owner) |
-| **Acao** | Validar story (10 checks) |
+| **Agent** | @po (Themis - Product Owner) |
+| **Action** | Validate the story (10 checks) |
 | **Task** | `validate-next-story.md` |
-| **Requer** | `create` |
+| **Requires** | `create` |
 
-#### Descricao
+#### Description
 
-O Product Owner (Themis) valida a story criada usando um checklist rigoroso de 10 pontos, garantindo que a story esta pronta para implementacao.
+The Product Owner (Themis) validates the created story using a rigorous 10-point checklist, ensuring the story is ready for implementation.
 
 #### Inputs
 
-| Input | Tipo | Origem | Obrigatorio |
+| Input | Type | Origin | Required |
 |-------|------|--------|-------------|
-| `story_file` | arquivo | Output do step anterior | Sim |
-| `target` | string | User Input | Sim |
-| `criteria` | array | Config | Sim |
-| `strict` | boolean | User Input | Nao (default: true) |
+| `story_file` | file | Output of the previous step | Yes |
+| `target` | string | User Input | Yes |
+| `criteria` | array | Config | Yes |
+| `strict` | boolean | User Input | No (default: true) |
 
 #### Outputs
 
-| Output | Tipo | Destino |
+| Output | Type | Destination |
 |--------|------|---------|
-| `validation_report` | object | Arquivo (.ai/*.json) |
+| `validation_report` | object | File (.ai/*.json) |
 | `validation_result` | boolean | Return value |
-| `errors` | array | Memoria |
+| `errors` | array | Memory |
 | `story_status` | string | Story file |
 
-#### Checklist de Validacao (10 Pontos)
+#### Validation Checklist (10 Points)
 
-| # | Check | Descricao |
+| # | Check | Description |
 |---|-------|-----------|
-| 1 | Titulo claro e objetivo | O titulo descreve precisamente o que sera feito |
-| 2 | Descricao completa | Problema/necessidade claramente explicado |
-| 3 | Acceptance criteria testaveis | Formato Given/When/Then preferido |
-| 4 | Escopo bem definido | O que esta IN e OUT claramente listado |
-| 5 | Dependencias mapeadas | Stories ou recursos prerequisitos identificados |
-| 6 | Estimativa de complexidade | Pontos de complexidade ou T-shirt sizing |
-| 7 | Valor de negocio | Beneficio para o usuario/negocio claro |
-| 8 | Riscos documentados | Potenciais problemas identificados |
-| 9 | Criterios de Done | Definicao clara de quando esta completa |
-| 10 | Alinhamento com PRD/Epic | Consistencia com documentos fonte |
+| 1 | Clear and objective title | The title precisely describes what will be done |
+| 2 | Complete description | Problem/need clearly explained |
+| 3 | Testable acceptance criteria | Given/When/Then format preferred |
+| 4 | Well-defined scope | What is IN and OUT clearly listed |
+| 5 | Mapped dependencies | Prerequisite stories or resources identified |
+| 6 | Complexity estimate | Complexity points or T-shirt sizing |
+| 7 | Business value | Clear benefit to the user/business |
+| 8 | Documented risks | Potential problems identified |
+| 9 | Done criteria | Clear definition of when it is complete |
+| 10 | Alignment with PRD/Epic | Consistency with the source documents |
 
-#### Resultado
+#### Result
 
-| Resultado | Acao |
+| Result | Action |
 |-----------|------|
-| **Aprovada** | Status muda para `Ready`, prossegue para implementacao |
-| **Rejeitada** | Retorna para SM com feedback detalhado |
+| **Approved** | Status changes to `Ready`, proceeds to implementation |
+| **Rejected** | Returns to SM with detailed feedback |
 
-#### Status da Story
+#### Story Status
 
-- **Antes:** `Draft`
-- **Depois (Sucesso):** `Ready`
-- **Depois (Falha):** `Draft` (retorna para SM)
+- **Before:** `Draft`
+- **After (Success):** `Ready`
+- **After (Failure):** `Draft` (returns to SM)
 
 ---
 
-### Step 3: Implement Story (Fase 3)
+### Step 3: Implement Story (Phase 3)
 
-| Campo | Valor |
+| Field | Value |
 |-------|-------|
 | **ID** | `implement` |
-| **Agente** | @dev (Vulcan - Full Stack Developer) |
-| **Acao** | Implementar story |
+| **Agent** | @dev (Vulcan - Full Stack Developer) |
+| **Action** | Implement the story |
 | **Task** | `dev-develop-story.md` |
-| **Requer** | `validate` |
+| **Requires** | `validate` |
 
-#### Descricao
+#### Description
 
-O Dev Agent (Vulcan) implementa a story validada, seguindo os acceptance criteria e as tarefas definidas. Inclui o CodeRabbit Self-Healing Loop para garantir qualidade do codigo.
+The Dev Agent (Vulcan) implements the validated story, following the acceptance criteria and the defined tasks. It includes the CodeRabbit Self-Healing Loop to ensure code quality.
 
-#### Modos de Execucao
+#### Execution Modes
 
-| Modo | Descricao | Prompts ao Usuario |
+| Mode | Description | User Prompts |
 |------|-----------|-------------------|
-| **YOLO** | Execucao autonoma com logging de decisoes | 0-1 |
-| **Interactive** | Checkpoints de decisao e feedback educacional (DEFAULT) | 5-10 |
-| **Pre-Flight** | Planejamento completo antes da execucao | 10-15 (upfront) |
+| **YOLO** | Autonomous execution with decision logging | 0-1 |
+| **Interactive** | Decision checkpoints and educational feedback (DEFAULT) | 5-10 |
+| **Pre-Flight** | Complete planning before execution | 10-15 (upfront) |
 
 #### Inputs
 
-| Input | Tipo | Origem | Obrigatorio |
+| Input | Type | Origin | Required |
 |-------|------|--------|-------------|
-| `story_file` | arquivo | Output do step anterior | Sim |
-| `task` | string | User Input | Sim |
-| `parameters` | object | User Input | Nao |
-| `mode` | string | User Input | Nao (default: interactive) |
+| `story_file` | file | Output of the previous step | Yes |
+| `task` | string | User Input | Yes |
+| `parameters` | object | User Input | No |
+| `mode` | string | User Input | No (default: interactive) |
 
 #### Outputs
 
-| Output | Tipo | Destino |
+| Output | Type | Destination |
 |--------|------|---------|
-| `implementation_files` | array | Sistema de arquivos |
+| `implementation_files` | array | File system |
 | `test_results` | object | Console/logs |
 | `commit_hash` | string | Git |
-| `execution_result` | object | Memoria |
+| `execution_result` | object | Memory |
 | `logs` | array | `.ai/logs/*` |
-| `decision_log` | arquivo | `.ai/decision-log-{story-id}.md` (modo YOLO) |
+| `decision_log` | file | `.ai/decision-log-{story-id}.md` (YOLO mode) |
 
-#### Fluxo de Execucao
+#### Execution Flow
 
 ```mermaid
 flowchart LR
-    A[Ler task] --> B[Implementar task + subtasks]
-    B --> C[Escrever testes]
-    C --> D[Executar validacoes]
-    D --> E{Todas passaram?}
-    E -->|Sim| F[Marcar checkbox [x]]
-    E -->|Nao| B
-    F --> G[Atualizar File List]
-    G --> H{Mais tasks?}
-    H -->|Sim| A
-    H -->|Nao| I[CodeRabbit Self-Healing]
+    A[Read task] --> B[Implement task + subtasks]
+    B --> C[Write tests]
+    C --> D[Run validations]
+    D --> E{All passed?}
+    E -->|Yes| F[Mark checkbox [x]]
+    E -->|No| B
+    F --> G[Update File List]
+    G --> H{More tasks?}
+    H -->|Yes| A
+    H -->|No| I[CodeRabbit Self-Healing]
     I --> J[Story DOD Checklist]
     J --> K[Status: In Review]
 ```
@@ -330,200 +330,200 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    START[Iniciar Self-Healing] --> RUN[Executar CodeRabbit CLI]
-    RUN --> PARSE[Analisar resultados]
-    PARSE --> CHECK{Issues CRITICAL?}
-    CHECK -->|Nao| DOC[Documentar HIGH issues]
-    DOC --> PASS[PASSED - Prosseguir]
-    CHECK -->|Sim| ITER{iteration < 2?}
-    ITER -->|Sim| FIX[Tentar auto-fix]
+    START[Start Self-Healing] --> RUN[Run CodeRabbit CLI]
+    RUN --> PARSE[Parse the results]
+    PARSE --> CHECK{CRITICAL issues?}
+    CHECK -->|No| DOC[Document HIGH issues]
+    DOC --> PASS[PASSED - Proceed]
+    CHECK -->|Yes| ITER{iteration < 2?}
+    ITER -->|Yes| FIX[Attempt auto-fix]
     FIX --> INCREMENT[iteration++]
     INCREMENT --> RUN
-    ITER -->|Nao| FAIL[FAILED - HALT]
-    FAIL --> MANUAL[Requer intervencao manual]
+    ITER -->|No| FAIL[FAILED - HALT]
+    FAIL --> MANUAL[Requires manual intervention]
 ```
 
-#### Criterios de Sucesso
+#### Success Criteria
 
-- [ ] Todos os acceptance criteria implementados
-- [ ] Testes passando
-- [ ] File List atualizada
-- [ ] Codigo commitado
-- [ ] CodeRabbit Self-Healing passou
+- [ ] All acceptance criteria implemented
+- [ ] Tests passing
+- [ ] File List updated
+- [ ] Code committed
+- [ ] CodeRabbit Self-Healing passed
 
-#### Status da Story
+#### Story Status
 
-- **Antes:** `Ready`
-- **Durante:** `In Progress`
-- **Depois:** `In Review`
+- **Before:** `Ready`
+- **During:** `In Progress`
+- **After:** `In Review`
 
 ---
 
-### Step 4: QA Review (Fase 4)
+### Step 4: QA Review (Phase 4)
 
-| Campo | Valor |
+| Field | Value |
 |-------|-------|
 | **ID** | `review` |
-| **Agente** | @qa (Argus - Test Architect) |
-| **Acao** | Review final + Quality Gate |
+| **Agent** | @qa (Argus - Test Architect) |
+| **Action** | Final review + Quality Gate |
 | **Task** | `qa-gate.md` |
-| **Requer** | `implement` |
+| **Requires** | `implement` |
 
-#### Descricao
+#### Description
 
-O QA Agent (Argus) executa o review final com quality gate, validando codigo, testes, e aderencia aos acceptance criteria.
+The QA Agent (Argus) performs the final review with a quality gate, validating code, tests, and adherence to the acceptance criteria.
 
 #### Inputs
 
-| Input | Tipo | Origem | Obrigatorio |
+| Input | Type | Origin | Required |
 |-------|------|--------|-------------|
-| `story_file` | arquivo | Output do step anterior | Sim |
-| `target` | string | User Input | Sim |
-| `criteria` | array | Config | Sim |
-| `strict` | boolean | User Input | Nao (default: true) |
+| `story_file` | file | Output of the previous step | Yes |
+| `target` | string | User Input | Yes |
+| `criteria` | array | Config | Yes |
+| `strict` | boolean | User Input | No (default: true) |
 
 #### Outputs
 
-| Output | Tipo | Destino |
+| Output | Type | Destination |
 |--------|------|---------|
-| `qa_report` | arquivo | `{qaLocation}/gates/{epic}.{story}-{slug}.yml` |
+| `qa_report` | file | `{qaLocation}/gates/{epic}.{story}-{slug}.yml` |
 | `quality_gate_status` | string | PASS/CONCERNS/FAIL/WAIVED |
 | `story_final_status` | string | Story file |
 | `validation_result` | boolean | Return value |
-| `errors` | array | Memoria |
+| `errors` | array | Memory |
 
 #### Quality Gate Checks
 
-| # | Check | Descricao |
+| # | Check | Description |
 |---|-------|-----------|
-| 1 | Code review | Padroes, legibilidade, manutenibilidade |
-| 2 | Testes unitarios | Adequados e passando |
-| 3 | Acceptance criteria | Todos atendidos |
-| 4 | Sem regressoes | Funcionalidades existentes preservadas |
-| 5 | Performance | Dentro dos limites aceitaveis |
-| 6 | Seguranca | OWASP basics verificados |
-| 7 | Documentacao | Atualizada se necessario |
+| 1 | Code review | Standards, readability, maintainability |
+| 2 | Unit tests | Adequate and passing |
+| 3 | Acceptance criteria | All met |
+| 4 | No regressions | Existing features preserved |
+| 5 | Performance | Within acceptable limits |
+| 6 | Security | OWASP basics verified |
+| 7 | Documentation | Updated if needed |
 
-#### Decisoes do Quality Gate
+#### Quality Gate Decisions
 
-| Decisao | Criterios | Acao |
+| Decision | Criteria | Action |
 |---------|-----------|------|
-| **PASS** | Todos os checks passaram, sem issues HIGH | Aprovar story |
-| **CONCERNS** | Issues nao-bloqueantes presentes | Aprovar com observacoes |
-| **FAIL** | Issues HIGH/CRITICAL presentes | Retornar para Dev |
-| **WAIVED** | Issues explicitamente aceitas | Aprovar com waiver documentado |
+| **PASS** | All checks passed, no HIGH issues | Approve the story |
+| **CONCERNS** | Non-blocking issues present | Approve with observations |
+| **FAIL** | HIGH/CRITICAL issues present | Return to Dev |
+| **WAIVED** | Issues explicitly accepted | Approve with a documented waiver |
 
-#### Severidade de Issues
+#### Issue Severity
 
-| Severidade | Descricao | Acao |
+| Severity | Description | Action |
 |------------|-----------|------|
-| `low` | Issues menores, cosmeticos | Documentar |
-| `medium` | Deveria corrigir em breve | Criar tech debt |
-| `high` | Critico, deveria bloquear release | Retornar para Dev |
+| `low` | Minor, cosmetic issues | Document |
+| `medium` | Should be fixed soon | Create tech debt |
+| `high` | Critical, should block the release | Return to Dev |
 
-#### Resultado
+#### Result
 
-| Resultado | Acao |
+| Result | Action |
 |-----------|------|
-| **Aprovada** | Status muda para `Done` |
-| **Rejeitada** | Retorna para Dev com checklist de fixes |
+| **Approved** | Status changes to `Done` |
+| **Rejected** | Returns to Dev with a checklist of fixes |
 
-#### Status da Story
+#### Story Status
 
-- **Antes:** `In Review`
-- **Depois (Sucesso):** `Done`
-- **Depois (Falha):** `In Progress` (retorna para Dev)
+- **Before:** `In Review`
+- **After (Success):** `Done`
+- **After (Failure):** `In Progress` (returns to Dev)
 
 ---
 
-## Agentes Participantes
+## Participating Agents
 
 ### @sm - Chronos (Scrum Master)
 
-| Aspecto | Descricao |
+| Aspect | Description |
 |---------|-----------|
-| **Icone** | 🌊 |
-| **Arquetipo** | Facilitator |
-| **Papel** | Technical Scrum Master - Story Preparation Specialist |
-| **Foco** | Criar stories claras e acionaveis para agentes de desenvolvimento |
-| **Responsabilidades** | Story creation, epic management, sprint planning, local branch management |
+| **Icon** | 🌊 |
+| **Archetype** | Facilitator |
+| **Role** | Technical Scrum Master - Story Preparation Specialist |
+| **Focus** | Create clear and actionable stories for development agents |
+| **Responsibilities** | Story creation, epic management, sprint planning, local branch management |
 
-**Comandos Relevantes:**
-- `*draft` - Criar proxima story
-- `*story-checklist` - Executar checklist de story
+**Relevant Commands:**
+- `*draft` - Create the next story
+- `*story-checklist` - Run the story checklist
 
 ---
 
 ### @po - Themis (Product Owner)
 
-| Aspecto | Descricao |
+| Aspect | Description |
 |---------|-----------|
-| **Icone** | 🎯 |
-| **Arquetipo** | Balancer |
-| **Papel** | Technical Product Owner & Process Steward |
-| **Foco** | Validar coesao de artefatos e garantir qualidade de documentacao |
-| **Responsabilidades** | Backlog management, story validation, prioritization, PM tool sync |
+| **Icon** | 🎯 |
+| **Archetype** | Balancer |
+| **Role** | Technical Product Owner & Process Steward |
+| **Focus** | Validate artifact cohesion and ensure documentation quality |
+| **Responsibilities** | Backlog management, story validation, prioritization, PM tool sync |
 
-**Comandos Relevantes:**
-- `*validate-story-draft {story}` - Validar qualidade da story
-- `*backlog-review` - Review para sprint planning
+**Relevant Commands:**
+- `*validate-story-draft {story}` - Validate story quality
+- `*backlog-review` - Review for sprint planning
 
 ---
 
 ### @dev - Vulcan (Full Stack Developer)
 
-| Aspecto | Descricao |
+| Aspect | Description |
 |---------|-----------|
-| **Icone** | 💻 |
-| **Arquetipo** | Builder |
-| **Papel** | Expert Senior Software Engineer & Implementation Specialist |
-| **Foco** | Executar tarefas de story com precisao e testes abrangentes |
-| **Responsabilidades** | Code implementation, testing, debugging, refactoring |
+| **Icon** | 💻 |
+| **Archetype** | Builder |
+| **Role** | Expert Senior Software Engineer & Implementation Specialist |
+| **Focus** | Execute story tasks with precision and comprehensive testing |
+| **Responsibilities** | Code implementation, testing, debugging, refactoring |
 
-**Comandos Relevantes:**
-- `*develop {story-id}` - Implementar story
-- `*run-tests` - Executar linting e testes
-- `*apply-qa-fixes` - Aplicar correcoes do QA
+**Relevant Commands:**
+- `*develop {story-id}` - Implement the story
+- `*run-tests` - Run linting and tests
+- `*apply-qa-fixes` - Apply QA fixes
 
 ---
 
 ### @qa - Argus (Test Architect)
 
-| Aspecto | Descricao |
+| Aspect | Description |
 |---------|-----------|
-| **Icone** | ✅ |
-| **Arquetipo** | Guardian |
-| **Papel** | Test Architect with Quality Advisory Authority |
-| **Foco** | Analise de qualidade abrangente atraves de arquitetura de testes |
-| **Responsabilidades** | Code review, quality gates, test strategy, risk assessment |
+| **Icon** | ✅ |
+| **Archetype** | Guardian |
+| **Role** | Test Architect with Quality Advisory Authority |
+| **Focus** | Comprehensive quality analysis through test architecture |
+| **Responsibilities** | Code review, quality gates, test strategy, risk assessment |
 
-**Comandos Relevantes:**
-- `*review {story}` - Review abrangente de story
-- `*gate {story}` - Criar decisao de quality gate
-- `*code-review {scope}` - Review automatizado
+**Relevant Commands:**
+- `*review {story}` - Comprehensive story review
+- `*gate {story}` - Create a quality gate decision
+- `*code-review {scope}` - Automated review
 
 ---
 
-## Tasks Executadas
+## Executed Tasks
 
-### Mapa de Tasks por Fase
+### Task Map by Phase
 
 ```mermaid
 graph TD
-    subgraph "Fase 1: Criacao"
+    subgraph "Phase 1: Creation"
         T1[create-next-story.md]
     end
 
-    subgraph "Fase 2: Validacao"
+    subgraph "Phase 2: Validation"
         T2[validate-next-story.md]
     end
 
-    subgraph "Fase 3: Implementacao"
+    subgraph "Phase 3: Implementation"
         T3[dev-develop-story.md]
         T3a[story-dod-checklist.md]
     end
 
-    subgraph "Fase 4: QA Review"
+    subgraph "Phase 4: QA Review"
         T4[qa-gate.md]
     end
 
@@ -533,285 +533,285 @@ graph TD
     T3a --> T4
 ```
 
-### Detalhamento das Tasks
+### Task Details
 
-| Task | Arquivo | Agente | Proposito |
+| Task | File | Agent | Purpose |
 |------|---------|--------|-----------|
-| Create Next Story | `create-next-story.md` | @sm | Criar story a partir do PRD/epic |
-| Validate Next Story | `validate-next-story.md` | @po | Validar completude e qualidade |
-| Develop Story | `dev-develop-story.md` | @dev | Implementar codigo e testes |
-| Story DOD Checklist | `story-dod-checklist.md` | @dev | Verificar Definition of Done |
-| QA Gate | `qa-gate.md` | @qa | Criar decisao de quality gate |
+| Create Next Story | `create-next-story.md` | @sm | Create a story from the PRD/epic |
+| Validate Next Story | `validate-next-story.md` | @po | Validate completeness and quality |
+| Develop Story | `dev-develop-story.md` | @dev | Implement code and tests |
+| Story DOD Checklist | `story-dod-checklist.md` | @dev | Verify the Definition of Done |
+| QA Gate | `qa-gate.md` | @qa | Create a quality gate decision |
 
 ---
 
-## Pre-requisitos
+## Prerequisites
 
-### Configuracao do Projeto
+### Project Configuration
 
-1. **core-config.yaml** - Arquivo de configuracao AEXOS obrigatorio
-   - `devStoryLocation` - Local das stories
-   - `prd.*` - Configuracao do PRD
-   - `architecture.*` - Configuracao da arquitetura
-   - `qa.qaLocation` - Local dos artefatos de QA
+1. **core-config.yaml** - Required AEXOS configuration file
+   - `devStoryLocation` - Story location
+   - `prd.*` - PRD configuration
+   - `architecture.*` - Architecture configuration
+   - `qa.qaLocation` - Location of the QA artifacts
 
-2. **Story Template** - `story-tmpl.yaml` disponivel em `.aexos-core/development/templates/`
+2. **Story Template** - `story-tmpl.yaml` available in `.aexos-core/development/templates/`
 
-3. **Checklists** - Checklists obrigatorios disponiveis:
+3. **Checklists** - Required checklists available:
    - `story-draft-checklist.md`
    - `story-dod-checklist.md`
    - `po-master-checklist.md`
 
-### Documentacao Prerequisita
+### Prerequisite Documentation
 
-| Documento | Local | Obrigatorio |
+| Document | Location | Required |
 |-----------|-------|-------------|
-| PRD (shardado ou monolitico) | Conforme `prd.*` config | Sim |
-| Epic file | `docs/stories/epic-X/` | Sim |
-| Architecture docs | Conforme `architecture.*` config | Sim |
+| PRD (sharded or monolithic) | Per the `prd.*` config | Yes |
+| Epic file | `docs/stories/epic-X/` | Yes |
+| Architecture docs | Per the `architecture.*` config | Yes |
 
-### Ferramentas Integradas
+### Integrated Tools
 
-| Ferramenta | Proposito | Agentes |
+| Tool | Purpose | Agents |
 |------------|-----------|---------|
-| `git` | Controle de versao | @sm, @dev, @qa |
-| `coderabbit` | Review automatizado | @dev, @qa |
-| `clickup` | Tracking de stories | @sm, @po |
-| `context7` | Documentacao de libs | Todos |
-| `github-cli` | Operacoes GitHub | @po, @qa |
+| `git` | Version control | @sm, @dev, @qa |
+| `coderabbit` | Automated review | @dev, @qa |
+| `clickup` | Story tracking | @sm, @po |
+| `context7` | Library documentation | All |
+| `github-cli` | GitHub operations | @po, @qa |
 
 ---
 
-## Entradas e Saidas
+## Inputs and Outputs
 
-### Entradas do Workflow
+### Workflow Inputs
 
-| Entrada | Tipo | Fonte | Descricao |
+| Input | Type | Source | Description |
 |---------|------|-------|-----------|
-| Epic requirements | Documento | `docs/stories/epic-X/` | Requisitos do epic |
-| PRD | Documento | Conforme config | Product Requirements |
-| Architecture docs | Documentos | `docs/architecture/` | Especificacoes tecnicas |
-| Story template | YAML | `.aexos-core/development/templates/` | Template padrao |
+| Epic requirements | Document | `docs/stories/epic-X/` | Epic requirements |
+| PRD | Document | Per the config | Product Requirements |
+| Architecture docs | Documents | `docs/architecture/` | Technical specifications |
+| Story template | YAML | `.aexos-core/development/templates/` | Standard template |
 
-### Saidas do Workflow
+### Workflow Outputs
 
-| Saida | Tipo | Destino | Descricao |
+| Output | Type | Destination | Description |
 |-------|------|---------|-----------|
-| Story file | Markdown | `{devStoryLocation}/{epic}.{story}.story.md` | Story completa |
-| Implementation files | Codigo | Conforme story tasks | Codigo implementado |
-| Test files | Codigo | Conforme padrao do projeto | Testes unitarios |
-| QA Gate file | YAML | `{qaLocation}/gates/{epic}.{story}-{slug}.yml` | Decisao de QA |
-| Decision log | Markdown | `.ai/decision-log-{story-id}.md` | Log de decisoes (modo YOLO) |
+| Story file | Markdown | `{devStoryLocation}/{epic}.{story}.story.md` | Complete story |
+| Implementation files | Code | Per the story tasks | Implemented code |
+| Test files | Code | Per the project standard | Unit tests |
+| QA Gate file | YAML | `{qaLocation}/gates/{epic}.{story}-{slug}.yml` | QA decision |
+| Decision log | Markdown | `.ai/decision-log-{story-id}.md` | Decision log (YOLO mode) |
 
 ---
 
-## Pontos de Decisao
+## Decision Points
 
-### Diagrama de Decisoes
+### Decision Diagram
 
 ```mermaid
 graph TD
-    D1{Validacao PO<br/>10 checks passaram?}
-    D1 -->|Sim| CONTINUE1[Prosseguir para Dev]
-    D1 -->|Nao| RETURN1[Retornar para SM]
+    D1{PO validation<br/>10 checks passed?}
+    D1 -->|Yes| CONTINUE1[Proceed to Dev]
+    D1 -->|No| RETURN1[Return to SM]
 
-    D2{Quality Gate<br/>Issues CRITICAL/HIGH?}
-    D2 -->|Nao| CONTINUE2[Aprovar Story]
-    D2 -->|Sim| RETURN2[Retornar para Dev]
+    D2{Quality Gate<br/>CRITICAL/HIGH issues?}
+    D2 -->|No| CONTINUE2[Approve Story]
+    D2 -->|Yes| RETURN2[Return to Dev]
 
-    D3{Self-Healing<br/>Issues CRITICAL?}
-    D3 -->|Nao| CONTINUE3[Prosseguir para DOD]
-    D3 -->|Sim| D4{iteration < 2?}
-    D4 -->|Sim| FIX[Tentar auto-fix]
-    D4 -->|Nao| HALT[HALT - Manual]
+    D3{Self-Healing<br/>CRITICAL issues?}
+    D3 -->|No| CONTINUE3[Proceed to DOD]
+    D3 -->|Yes| D4{iteration < 2?}
+    D4 -->|Yes| FIX[Attempt auto-fix]
+    D4 -->|No| HALT[HALT - Manual]
 ```
 
-### Pontos de Decisao Detalhados
+### Detailed Decision Points
 
-| Ponto | Fase | Decisor | Criterio | Resultado Positivo | Resultado Negativo |
+| Point | Phase | Decider | Criterion | Positive Result | Negative Result |
 |-------|------|---------|----------|-------------------|-------------------|
-| Validacao PO | 2 | @po | 10 checks passam | Status: Ready | Retorna para SM |
-| Self-Healing | 3 | Sistema | Sem CRITICAL issues | Prossegue para DOD | Halt ou auto-fix |
-| Quality Gate | 4 | @qa | Sem HIGH/CRITICAL | Status: Done | Retorna para Dev |
+| PO validation | 2 | @po | 10 checks pass | Status: Ready | Returns to SM |
+| Self-Healing | 3 | System | No CRITICAL issues | Proceeds to DOD | Halt or auto-fix |
+| Quality Gate | 4 | @qa | No HIGH/CRITICAL | Status: Done | Returns to Dev |
 
-### Condicoes de Bloqueio
+### Blocking Conditions
 
-O workflow deve HALT e solicitar intervencao do usuario quando:
+The workflow must HALT and request user intervention when:
 
-1. **Dependencias nao aprovadas necessarias** - Nova lib ou recurso requerido
-2. **Ambiguidade apos verificar story** - Requisitos nao claros
-3. **3 falhas consecutivas** - Tentativas de implementacao ou correcao
-4. **Configuracao faltando** - core-config.yaml ou templates ausentes
-5. **Regressao falhando** - Testes existentes quebraram
+1. **Unapproved dependencies needed** - A new library or resource is required
+2. **Ambiguity after checking the story** - Requirements are unclear
+3. **3 consecutive failures** - Implementation or fix attempts
+4. **Missing configuration** - core-config.yaml or templates absent
+5. **Failing regression** - Existing tests broke
 
 ---
 
-## Modos de Execucao
+## Execution Modes
 
-O workflow suporta tres modos de execucao que afetam todos os steps:
+The workflow supports three execution modes that affect all steps:
 
-### 1. YOLO Mode (Autonomo)
+### 1. YOLO Mode (Autonomous)
 
 ```yaml
 mode: yolo
 prompts: 0-1
-best_for: Tarefas simples e deterministicas
+best_for: Simple and deterministic tasks
 ```
 
-- Decisoes autonomas com logging automatico
-- Minima interacao com usuario
-- Gera `decision-log-{story-id}.md` com todas as decisoes
+- Autonomous decisions with automatic logging
+- Minimal user interaction
+- Generates `decision-log-{story-id}.md` with all decisions
 
-### 2. Interactive Mode (Balanceado) [DEFAULT]
+### 2. Interactive Mode (Balanced) [DEFAULT]
 
 ```yaml
 mode: interactive
 prompts: 5-10
-best_for: Aprendizado e decisoes complexas
+best_for: Learning and complex decisions
 ```
 
-- Checkpoints de decisao explicitos
-- Explicacoes educacionais em cada passo
-- Confirma entendimento com usuario
+- Explicit decision checkpoints
+- Educational explanations at each step
+- Confirms understanding with the user
 
-### 3. Pre-Flight Mode (Planejamento)
+### 3. Pre-Flight Mode (Planning)
 
 ```yaml
 mode: preflight
 prompts: 10-15 (upfront)
-best_for: Requisitos ambiguos e trabalho critico
+best_for: Ambiguous requirements and critical work
 ```
 
-- Analise completa de ambiguidades antes de iniciar
-- Questionario abrangente upfront
-- Execucao sem ambiguidades apos planejamento
+- Complete ambiguity analysis before starting
+- Comprehensive upfront questionnaire
+- Execution without ambiguity after planning
 
 ---
 
 ## Troubleshooting
 
-### Problemas Comuns
+### Common Problems
 
-#### 1. Story nao pode ser criada
+#### 1. Story cannot be created
 
-**Sintoma:** Erro ao executar `create-next-story`
+**Symptom:** Error when running `create-next-story`
 
-**Possiveis Causas:**
-- `core-config.yaml` nao encontrado
-- Epic file nao existe
-- PRD nao disponivel
+**Possible Causes:**
+- `core-config.yaml` not found
+- Epic file does not exist
+- PRD not available
 
-**Solucao:**
+**Solution:**
 ```bash
-# Verificar se core-config.yaml existe
+# Check whether core-config.yaml exists
 cat .aexos-core/core-config.yaml
 
-# Verificar estrutura de epics
+# Check the epic structure
 ls docs/stories/epic-*/
 
-# Verificar PRD
-cat docs/prd/PRD.md  # ou localizado conforme config
+# Check the PRD
+cat docs/prd/PRD.md  # or wherever the config points
 ```
 
-#### 2. Validacao PO falha repetidamente
+#### 2. PO validation fails repeatedly
 
-**Sintoma:** Story retorna para SM multiplas vezes
+**Symptom:** The story returns to SM multiple times
 
-**Possiveis Causas:**
-- Acceptance criteria mal definidos
-- Falta de informacoes no Dev Notes
-- Escopo nao claro
+**Possible Causes:**
+- Poorly defined acceptance criteria
+- Missing information in the Dev Notes
+- Unclear scope
 
-**Solucao:**
-1. Revisar os 10 checks do checklist
-2. Garantir formato Given/When/Then nos ACs
-3. Preencher Dev Notes com referencias de arquitetura
+**Solution:**
+1. Review the 10 checks of the checklist
+2. Ensure the Given/When/Then format in the ACs
+3. Fill the Dev Notes with architecture references
 
-#### 3. CodeRabbit Self-Healing falha
+#### 3. CodeRabbit Self-Healing fails
 
-**Sintoma:** CRITICAL issues persistem apos 2 iteracoes
+**Symptom:** CRITICAL issues persist after 2 iterations
 
-**Possiveis Causas:**
-- Issues que requerem refatoracao significativa
-- Problemas de seguranca complexos
-- Codigo que viola padroes de arquitetura
+**Possible Causes:**
+- Issues that require significant refactoring
+- Complex security problems
+- Code that violates architecture standards
 
-**Solucao:**
+**Solution:**
 ```bash
-# Verificar output do CodeRabbit
+# Check the CodeRabbit output
 wsl bash -c 'cd /mnt/c/.../aexos-core && ~/.local/bin/coderabbit --prompt-only -t uncommitted'
 
-# Corrigir issues manualmente
-# Depois re-executar *develop
+# Fix the issues manually
+# Then re-run *develop
 ```
 
-#### 4. Quality Gate retorna FAIL
+#### 4. Quality Gate returns FAIL
 
-**Sintoma:** QA rejeita story com HIGH issues
+**Symptom:** QA rejects the story with HIGH issues
 
-**Possiveis Causas:**
-- Acceptance criteria nao atendidos
-- Cobertura de testes insuficiente
-- Problemas de seguranca
+**Possible Causes:**
+- Acceptance criteria not met
+- Insufficient test coverage
+- Security problems
 
-**Solucao:**
-1. Revisar `qa-gate.yml` gerado
-2. Executar `*apply-qa-fixes` no @dev
-3. Re-submeter para review
+**Solution:**
+1. Review the generated `qa-gate.yml`
+2. Run `*apply-qa-fixes` on @dev
+3. Re-submit for review
 
-#### 5. Workflow trava em handoff
+#### 5. Workflow hangs at a handoff
 
-**Sintoma:** Transicao entre agentes nao acontece
+**Symptom:** The transition between agents does not happen
 
-**Possiveis Causas:**
-- Outputs nao gerados corretamente
-- Status da story inconsistente
-- Dependencia de step anterior nao satisfeita
+**Possible Causes:**
+- Outputs not generated correctly
+- Inconsistent story status
+- Dependency on a previous step not satisfied
 
-**Solucao:**
+**Solution:**
 ```bash
-# Verificar status da story
+# Check the story status
 cat docs/stories/{story-file}.md | grep "status:"
 
-# Forcar transicao manual
+# Force the transition manually
 @{next-agent}
-*{comando-apropriado}
+*{appropriate-command}
 ```
 
-### Logs e Diagnostico
+### Logs and Diagnostics
 
-| Arquivo | Local | Conteudo |
+| File | Location | Content |
 |---------|-------|----------|
-| Decision Log | `.ai/decision-log-{story-id}.md` | Decisoes autonomas (modo YOLO) |
-| QA Gate | `{qaLocation}/gates/{epic}.{story}-{slug}.yml` | Decisao do quality gate |
-| Story File | `{devStoryLocation}/{epic}.{story}.story.md` | Historia completa com logs |
+| Decision Log | `.ai/decision-log-{story-id}.md` | Autonomous decisions (YOLO mode) |
+| QA Gate | `{qaLocation}/gates/{epic}.{story}-{slug}.yml` | Quality gate decision |
+| Story File | `{devStoryLocation}/{epic}.{story}.story.md` | Complete story with logs |
 
 ---
 
-## Quando Usar e Quando Nao Usar
+## When to Use and When Not to Use
 
-### Quando Usar Este Workflow
+### When to Use This Workflow
 
-- Desenvolvimento de qualquer story (greenfield ou brownfield)
-- Quando precisa de ciclo completo com validacao e quality gate
-- Quando precisa de rastreabilidade do processo
-- Equipes que seguem processo agil estruturado
+- Development of any story (greenfield or brownfield)
+- When you need the complete cycle with validation and quality gate
+- When you need process traceability
+- Teams that follow a structured agile process
 
-### Quando NAO Usar Este Workflow
+### When NOT to Use This Workflow
 
-| Situacao | Alternativa |
+| Situation | Alternative |
 |----------|-------------|
-| Hotfixes urgentes | Fluxo simplificado sem QA gate |
-| Spikes/POCs exploratorios | Desenvolvimento ad-hoc |
-| Tasks puramente tecnicas sem story | Tarefas diretas com @dev |
+| Urgent hotfixes | Simplified flow without a QA gate |
+| Exploratory spikes/POCs | Ad-hoc development |
+| Purely technical tasks without a story | Direct tasks with @dev |
 
 ---
 
-## Referencias
+## References
 
-### Arquivos Relacionados
+### Related Files
 
-| Arquivo | Caminho |
+| File | Path |
 |---------|---------|
 | Workflow Definition | `.aexos-core/development/workflows/story-development-cycle.yaml` |
 | SM Agent | `.aexos-core/development/agents/sm.md` |
@@ -824,20 +824,20 @@ cat docs/stories/{story-file}.md | grep "status:"
 | QA Gate Task | `.aexos-core/development/tasks/qa-gate.md` |
 | Story Template | `.aexos-core/development/templates/story-tmpl.yaml` |
 
-### Documentacao Adicional
+### Additional Documentation
 
-- [Guia de Workflows YAML](../workflows-yaml-guide.md)
-- [Guia de Squads](../squads-user-guide.md)
-- [Framework de Priorizacao](../PRIORITIZATION-FRAMEWORK.md)
+- [YAML Workflows Guide](../workflows-yaml-guide.md)
+- [Squads Guide](../squads-user-guide.md)
+- [Prioritization Framework](../PRIORITIZATION-FRAMEWORK.md)
 
 ---
 
 ## Changelog
 
-| Versao | Data | Mudancas |
+| Version | Date | Changes |
 |--------|------|----------|
-| 1.0 | 2025-01-30 | Versao inicial do workflow |
+| 1.0 | 2025-01-30 | Initial version of the workflow |
 
 ---
 
-*Documentacao gerada automaticamente baseada no arquivo `story-development-cycle.yaml`*
+*Documentation generated automatically based on the `story-development-cycle.yaml` file*

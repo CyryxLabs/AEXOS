@@ -1,7 +1,5 @@
 # AEXOS Technology Stack
 
-> 🌐 **EN** | [PT](../pt/framework/tech-stack.md) | [ES](../es/framework/tech-stack.md)
-
 **Version:** 1.1
 **Last Updated:** 2025-12-14
 **Status:** Official Framework Standard

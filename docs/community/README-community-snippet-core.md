@@ -1,7 +1,5 @@
 # README Community Section - aexos-core
 
-> 🌐 **EN** | [PT](../pt/community/README-community-snippet-core.md) | [ES](../es/community/README-community-snippet-core.md)
-
 > **Purpose:** Copy this snippet into the README.md of `CyryxLabs/AEXOS` repository.
 
 ---

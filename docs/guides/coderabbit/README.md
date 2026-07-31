@@ -50,7 +50,7 @@ Layer 3: HUMAN REVIEW
 
 ### @qa (Argus) - Quality Assurance Agent
 
-Quinn uses CodeRabbit for comprehensive story reviews with self-healing capabilities.
+Argus uses CodeRabbit for comprehensive story reviews with self-healing capabilities.
 
 **Usage:**
 
@@ -69,7 +69,7 @@ Quinn uses CodeRabbit for comprehensive story reviews with self-healing capabili
 
 ### @devops (Polaris) - DevOps Agent
 
-Gage uses CodeRabbit as a quality gate before push and PR creation.
+Polaris uses CodeRabbit as a quality gate before push and PR creation.
 
 **Usage:**
 

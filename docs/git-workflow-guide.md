@@ -1,7 +1,5 @@
 # AEXOS Git Workflow Guide
 
-> 🌐 **EN** | [PT](./pt/git-workflow-guide.md) | [ES](./es/git-workflow-guide.md)
-
 ---
 
 _Story: 2.2-git-workflow-implementation.yaml_
@@ -750,7 +748,6 @@ status: 'completed'
 tasks:
   - '[x] Task 1'
   - '[ ] Task 2' # ← Fix this
-
 
 # Solution: Complete all tasks or change status
 ```

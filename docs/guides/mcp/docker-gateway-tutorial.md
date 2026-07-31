@@ -1,7 +1,5 @@
 # Docker Gateway MCP Tutorial
 
-> **EN** | [PT](../../pt/guides/mcp/docker-gateway-tutorial.md)
-
 ---
 
 Tutorial for setting up docker-gateway with MCP servers running inside Docker containers.

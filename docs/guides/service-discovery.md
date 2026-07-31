@@ -1,7 +1,5 @@
 # AEXOS Service Discovery Guide
 
-> **EN** | [PT](../pt/guides/service-discovery.md) | [ES](../es/guides/service-discovery.md)
-
 ---
 
 > How to discover, query, and use workers in the AEXOS framework.

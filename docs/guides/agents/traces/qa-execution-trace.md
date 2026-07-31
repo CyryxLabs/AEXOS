@@ -38,7 +38,7 @@ sequenceDiagram
     CC->>QMd: Load agent file (STEP 1)
     CC->>QMd: Adopt persona (STEP 2)
     CC->>ACL: loadAgentDefinition('qa')
-    ACL-->>CC: { agent: { name: 'Quinn', icon: '✅' }, commands: [...27], ... }
+    ACL-->>CC: { agent: { name: 'Argus', icon: '✅' }, commands: [...27], ... }
 
     CC->>GB: new GreetingBuilder()
     Note over GB: Loads ContextDetector, GitConfigDetector,<br/>WorkflowNavigator, GreetingPreferenceManager,<br/>core-config.yaml

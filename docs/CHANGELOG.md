@@ -1,7 +1,5 @@
 # Changelog
 
-> 🌐 **EN** | [PT](./pt/CHANGELOG.md) | [ES](./es/CHANGELOG.md)
-
 ---
 
 All notable changes to AEXOS (Cyryx) will be documented in this file.

@@ -1,170 +1,170 @@
-# Sistema do Agente @aexos-master
+# @aexos-master Agent System
 
-> **Versao:** 1.0.0
-> **Criado:** 2026-02-04
+> **Version:** 1.0.0
+> **Created:** 2026-02-04
 > **Owner:** @aexos-master (Zeus)
-> **Status:** Documentacao Oficial
+> **Status:** Official Documentation
 
 ---
 
-## Visao Geral
+## Overview
 
-O **@aexos-master** (Zeus - The Orchestrator) e o meta-agente principal do framework AEXOS-FULLSTACK. Ele atua como orquestrador universal, desenvolvedor de framework e especialista no metodo AEXOS. Suas principais responsabilidades incluem:
+**@aexos-master** (Zeus - The Orchestrator) is the primary meta-agent of the AEXOS-FULLSTACK framework. It acts as universal orchestrator, framework developer and AEXOS method specialist. Its main responsibilities include:
 
-- **Orquestracao Universal**: Executa qualquer task de qualquer agente diretamente
-- **Desenvolvimento de Framework**: Cria e modifica agentes, tasks, workflows e templates
-- **Gestao de Componentes**: Valida, deprecia e analisa componentes do sistema
-- **Coordenacao Multi-Agente**: Gerencia workflows complexos entre multiplos agentes
-- **Knowledge Base**: Acesso ao conhecimento completo do AEXOS Method
+- **Universal Orchestration**: Runs any task from any agent directly
+- **Framework Development**: Creates and modifies agents, tasks, workflows and templates
+- **Component Management**: Validates, deprecates and analyzes system components
+- **Multi-Agent Coordination**: Manages complex workflows across multiple agents
+- **Knowledge Base**: Access to the full AEXOS Method knowledge
 
-### Quando Usar
+### When to Use
 
-- Criar ou modificar componentes do framework (agentes, tasks, workflows)
-- Orquestrar workflows multi-agente complexos
-- Executar qualquer task diretamente sem transformacao de persona
-- Operacoes de meta-framework e coordenacao cross-agente
-- Acessar o Knowledge Base do AEXOS (*kb)
+- Create or modify framework components (agents, tasks, workflows)
+- Orchestrate complex multi-agent workflows
+- Run any task directly without persona transformation
+- Meta-framework operations and cross-agent coordination
+- Access the AEXOS Knowledge Base (*kb)
 
 ---
 
-## Lista Completa de Arquivos
+## Complete File List
 
-### Arquivos Core de Tasks do @aexos-master
+### @aexos-master Core Task Files
 
-| Arquivo | Comando | Proposito |
+| File | Command | Purpose |
 |---------|---------|-----------|
-| `.aexos-core/development/tasks/create-agent.md` | `*create agent` | Cria nova definicao de agente usando sistema de templates |
-| `.aexos-core/development/tasks/create-task.md` | `*create task` | Cria novo arquivo de task com estrutura padronizada |
-| `.aexos-core/development/tasks/create-workflow.md` | `*create workflow` | Cria nova definicao de workflow multi-agente |
-| `.aexos-core/development/tasks/modify-agent.md` | `*modify agent` | Modifica agente existente com backup e rollback |
-| `.aexos-core/development/tasks/modify-task.md` | `*modify task` | Modifica task existente preservando compatibilidade |
-| `.aexos-core/development/tasks/modify-workflow.md` | `*modify workflow` | Modifica workflow existente mantendo integridade |
-| `.aexos-core/development/tasks/analyze-framework.md` | `*analyze-framework` | Analisa estrutura do framework, redundancias e performance |
-| `.aexos-core/development/tasks/deprecate-component.md` | `*deprecate-component` | Deprecia componente com timeline e migracao |
-| `.aexos-core/development/tasks/propose-modification.md` | `*propose-modification` | Cria proposta de modificacao para revisao colaborativa |
-| `.aexos-core/development/tasks/execute-checklist.md` | `*execute-checklist` | Executa checklist de validacao |
-| `.aexos-core/development/tasks/create-doc.md` | `*create-doc` | Cria documento a partir de template YAML |
-| `.aexos-core/development/tasks/advanced-elicitation.md` | `*advanced-elicitation` | Executa elicitacao avancada com multiplos metodos |
-| `.aexos-core/development/tasks/kb-mode-interaction.md` | `*kb` | Habilita modo Knowledge Base interativo |
-| `.aexos-core/development/tasks/correct-course.md` | `*correct-course` | Analisa e corrige desvios de processo/qualidade |
-| `.aexos-core/development/tasks/update-manifest.md` | `*update-manifest` | Atualiza manifesto de equipe com novos agentes |
-| `.aexos-core/development/tasks/create-next-story.md` | `*create-next-story` | Cria proxima user story |
-| `.aexos-core/development/tasks/create-deep-research-prompt.md` | - | Gera prompts de pesquisa profunda |
-| `.aexos-core/development/tasks/improve-self.md` | - | Auto-melhoria do agente |
-| `.aexos-core/development/tasks/shard-doc.md` | `*shard-doc` | Quebra documento em partes menores |
-| `.aexos-core/development/tasks/document-project.md` | `*document-project` | Gera documentacao do projeto |
-| `.aexos-core/development/tasks/index-docs.md` | `*index-docs` | Indexa documentacao para busca |
+| `.aexos-core/development/tasks/create-agent.md` | `*create agent` | Creates a new agent definition using the template system |
+| `.aexos-core/development/tasks/create-task.md` | `*create task` | Creates a new task file with a standardized structure |
+| `.aexos-core/development/tasks/create-workflow.md` | `*create workflow` | Creates a new multi-agent workflow definition |
+| `.aexos-core/development/tasks/modify-agent.md` | `*modify agent` | Modifies an existing agent with backup and rollback |
+| `.aexos-core/development/tasks/modify-task.md` | `*modify task` | Modifies an existing task while preserving compatibility |
+| `.aexos-core/development/tasks/modify-workflow.md` | `*modify workflow` | Modifies an existing workflow while maintaining integrity |
+| `.aexos-core/development/tasks/analyze-framework.md` | `*analyze-framework` | Analyzes framework structure, redundancies and performance |
+| `.aexos-core/development/tasks/deprecate-component.md` | `*deprecate-component` | Deprecates a component with timeline and migration |
+| `.aexos-core/development/tasks/propose-modification.md` | `*propose-modification` | Creates a modification proposal for collaborative review |
+| `.aexos-core/development/tasks/execute-checklist.md` | `*execute-checklist` | Runs a validation checklist |
+| `.aexos-core/development/tasks/create-doc.md` | `*create-doc` | Creates a document from a YAML template |
+| `.aexos-core/development/tasks/advanced-elicitation.md` | `*advanced-elicitation` | Runs advanced elicitation with multiple methods |
+| `.aexos-core/development/tasks/kb-mode-interaction.md` | `*kb` | Enables interactive Knowledge Base mode |
+| `.aexos-core/development/tasks/correct-course.md` | `*correct-course` | Analyzes and corrects process/quality deviations |
+| `.aexos-core/development/tasks/update-manifest.md` | `*update-manifest` | Updates the team manifest with new agents |
+| `.aexos-core/development/tasks/create-next-story.md` | `*create-next-story` | Creates the next user story |
+| `.aexos-core/development/tasks/create-deep-research-prompt.md` | - | Generates deep research prompts |
+| `.aexos-core/development/tasks/improve-self.md` | - | Agent self-improvement |
+| `.aexos-core/development/tasks/shard-doc.md` | `*shard-doc` | Splits a document into smaller parts |
+| `.aexos-core/development/tasks/document-project.md` | `*document-project` | Generates project documentation |
+| `.aexos-core/development/tasks/index-docs.md` | `*index-docs` | Indexes documentation for search |
 
-### Arquivos de Definicao do Agente
+### Agent Definition Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/agents/aexos-master.md` | Definicao completa do agente (persona, comandos, dependencias) |
-| `.claude/commands/AEXOS/agents/aexos-master.md` | Comando Claude Code para ativar @aexos-master |
+| `.aexos-core/development/agents/aexos-master.md` | Full agent definition (persona, commands, dependencies) |
+| `.claude/commands/AEXOS/agents/aexos-master.md` | Claude Code command to activate @aexos-master |
 
-### Arquivos de Templates do @aexos-master
+### @aexos-master Template Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/templates/agent-template.yaml` | Template para criacao de novos agentes |
-| `.aexos-core/development/templates/task-template.md` | Template para criacao de novas tasks |
-| `.aexos-core/development/templates/workflow-template.yaml` | Template para criacao de novos workflows |
-| `.aexos-core/development/templates/prd-tmpl.yaml` | Template para PRD |
-| `.aexos-core/development/templates/story-tmpl.yaml` | Template para stories |
-| `.aexos-core/development/templates/architecture-tmpl.yaml` | Template para arquitetura |
-| `.aexos-core/development/templates/brownfield-prd-tmpl.yaml` | Template PRD brownfield |
-| `.aexos-core/development/templates/brownfield-architecture-tmpl.yaml` | Template arquitetura brownfield |
-| `.aexos-core/development/templates/competitor-analysis-tmpl.yaml` | Template analise de concorrentes |
-| `.aexos-core/development/templates/market-research-tmpl.yaml` | Template pesquisa de mercado |
-| `.aexos-core/development/templates/project-brief-tmpl.yaml` | Template brief de projeto |
-| `.aexos-core/development/templates/front-end-architecture-tmpl.yaml` | Template arquitetura frontend |
-| `.aexos-core/development/templates/front-end-spec-tmpl.yaml` | Template spec frontend |
-| `.aexos-core/development/templates/fullstack-architecture-tmpl.yaml` | Template arquitetura fullstack |
+| `.aexos-core/development/templates/agent-template.yaml` | Template for creating new agents |
+| `.aexos-core/development/templates/task-template.md` | Template for creating new tasks |
+| `.aexos-core/development/templates/workflow-template.yaml` | Template for creating new workflows |
+| `.aexos-core/development/templates/prd-tmpl.yaml` | PRD template |
+| `.aexos-core/development/templates/story-tmpl.yaml` | Story template |
+| `.aexos-core/development/templates/architecture-tmpl.yaml` | Architecture template |
+| `.aexos-core/development/templates/brownfield-prd-tmpl.yaml` | Brownfield PRD template |
+| `.aexos-core/development/templates/brownfield-architecture-tmpl.yaml` | Brownfield architecture template |
+| `.aexos-core/development/templates/competitor-analysis-tmpl.yaml` | Competitor analysis template |
+| `.aexos-core/development/templates/market-research-tmpl.yaml` | Market research template |
+| `.aexos-core/development/templates/project-brief-tmpl.yaml` | Project brief template |
+| `.aexos-core/development/templates/front-end-architecture-tmpl.yaml` | Frontend architecture template |
+| `.aexos-core/development/templates/front-end-spec-tmpl.yaml` | Frontend spec template |
+| `.aexos-core/development/templates/fullstack-architecture-tmpl.yaml` | Fullstack architecture template |
 
-### Arquivos de Dados e Utilidades
+### Data and Utility Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/data/aexos-kb.md` | Knowledge Base do AEXOS Method |
-| `.aexos-core/development/data/brainstorming-techniques.md` | Tecnicas de brainstorming |
-| `.aexos-core/development/data/elicitation-methods.md` | Metodos de elicitacao |
-| `.aexos-core/development/data/technical-preferences.md` | Preferencias tecnicas |
-| `.aexos-core/development/utils/security-checker.js` | Validador de seguranca |
-| `.aexos-core/development/utils/yaml-validator.js` | Validador de YAML |
-| `.aexos-core/development/utils/workflow-management.md` | Gestao de workflows |
+| `.aexos-core/development/data/aexos-kb.md` | AEXOS Method Knowledge Base |
+| `.aexos-core/development/data/brainstorming-techniques.md` | Brainstorming techniques |
+| `.aexos-core/development/data/elicitation-methods.md` | Elicitation methods |
+| `.aexos-core/development/data/technical-preferences.md` | Technical preferences |
+| `.aexos-core/development/utils/security-checker.js` | Security validator |
+| `.aexos-core/development/utils/yaml-validator.js` | YAML validator |
+| `.aexos-core/development/utils/workflow-management.md` | Workflow management |
 
-### Arquivos de Workflows do @aexos-master
+### @aexos-master Workflow Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/workflows/brownfield-fullstack.md` | Workflow fullstack brownfield |
-| `.aexos-core/development/workflows/brownfield-service.md` | Workflow servico brownfield |
-| `.aexos-core/development/workflows/brownfield-ui.md` | Workflow UI brownfield |
-| `.aexos-core/development/workflows/greenfield-fullstack.md` | Workflow fullstack greenfield |
-| `.aexos-core/development/workflows/greenfield-service.md` | Workflow servico greenfield |
-| `.aexos-core/development/workflows/greenfield-ui.md` | Workflow UI greenfield |
+| `.aexos-core/development/workflows/brownfield-fullstack.md` | Brownfield fullstack workflow |
+| `.aexos-core/development/workflows/brownfield-service.md` | Brownfield service workflow |
+| `.aexos-core/development/workflows/brownfield-ui.md` | Brownfield UI workflow |
+| `.aexos-core/development/workflows/greenfield-fullstack.md` | Greenfield fullstack workflow |
+| `.aexos-core/development/workflows/greenfield-service.md` | Greenfield service workflow |
+| `.aexos-core/development/workflows/greenfield-ui.md` | Greenfield UI workflow |
 
-### Arquivos de Checklists do @aexos-master
+### @aexos-master Checklist Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/checklists/architect-checklist.md` | Checklist de arquitetura |
-| `.aexos-core/development/checklists/change-checklist.md` | Checklist de mudancas |
-| `.aexos-core/development/checklists/pm-checklist.md` | Checklist de PM |
-| `.aexos-core/development/checklists/po-master-checklist.md` | Checklist de PO |
-| `.aexos-core/development/checklists/story-dod-checklist.md` | Checklist DoD de stories |
-| `.aexos-core/development/checklists/story-draft-checklist.md` | Checklist draft de stories |
+| `.aexos-core/development/checklists/architect-checklist.md` | Architecture checklist |
+| `.aexos-core/development/checklists/change-checklist.md` | Change checklist |
+| `.aexos-core/development/checklists/pm-checklist.md` | PM checklist |
+| `.aexos-core/development/checklists/po-master-checklist.md` | PO checklist |
+| `.aexos-core/development/checklists/story-dod-checklist.md` | Story DoD checklist |
+| `.aexos-core/development/checklists/story-draft-checklist.md` | Story draft checklist |
 
-### Arquivos Relacionados de Outros Agentes
+### Related Files from Other Agents
 
-| Arquivo | Agente | Proposito |
+| File | Agent | Purpose |
 |---------|--------|-----------|
-| `.aexos-core/development/tasks/brownfield-create-epic.md` | @pm | Criacao de epics (delegada) |
-| `.aexos-core/development/tasks/brownfield-create-story.md` | @pm | Criacao de stories (delegada) |
-| `.aexos-core/development/tasks/analyst-facilitate-brainstorming.md` | @analyst | Brainstorming (delegado) |
-| `.aexos-core/development/tasks/generate-ai-frontend-prompt.md` | @architect | Geracao de prompts AI (delegada) |
-| `.aexos-core/development/tasks/create-suite.md` | @qa | Criacao de suites de teste (delegada) |
+| `.aexos-core/development/tasks/brownfield-create-epic.md` | @pm | Epic creation (delegated) |
+| `.aexos-core/development/tasks/brownfield-create-story.md` | @pm | Story creation (delegated) |
+| `.aexos-core/development/tasks/analyst-facilitate-brainstorming.md` | @analyst | Brainstorming (delegated) |
+| `.aexos-core/development/tasks/generate-ai-frontend-prompt.md` | @architect | AI prompt generation (delegated) |
+| `.aexos-core/development/tasks/create-suite.md` | @qa | Test suite creation (delegated) |
 
 ---
 
-## Flowchart: Sistema Completo
+## Flowchart: Complete System
 
 ```mermaid
 flowchart TB
-    subgraph ACTIVATION["🚀 ATIVACAO"]
-        USER["👤 Usuario"]
+    subgraph ACTIVATION["🚀 ACTIVATION"]
+        USER["👤 User"]
         ACTIVATE["@aexos-master"]
-        GREETING["greeting-builder.js<br/>Saudacao Inteligente"]
+        GREETING["greeting-builder.js<br/>Smart Greeting"]
     end
 
     USER -->|"@aexos-master"| ACTIVATE
     ACTIVATE --> GREETING
 
-    subgraph COMMANDS["👑 COMANDOS PRINCIPAIS"]
+    subgraph COMMANDS["👑 MAIN COMMANDS"]
         direction TB
 
-        subgraph CREATE["📝 CRIACAO"]
+        subgraph CREATE["📝 CREATION"]
             CREATE_AGENT["*create agent"]
             CREATE_TASK["*create task"]
             CREATE_WORKFLOW["*create workflow"]
             CREATE_DOC["*create-doc"]
         end
 
-        subgraph MODIFY["🔧 MODIFICACAO"]
+        subgraph MODIFY["🔧 MODIFICATION"]
             MOD_AGENT["*modify agent"]
             MOD_TASK["*modify task"]
             MOD_WORKFLOW["*modify workflow"]
             UPDATE_MANIFEST["*update-manifest"]
         end
 
-        subgraph ANALYZE["🔍 ANALISE"]
+        subgraph ANALYZE["🔍 ANALYSIS"]
             ANALYZE_FW["*analyze-framework"]
             DEPRECATE["*deprecate-component"]
             PROPOSE["*propose-modification"]
             CORRECT["*correct-course"]
         end
 
-        subgraph EXECUTE["⚡ EXECUCAO"]
+        subgraph EXECUTE["⚡ EXECUTION"]
             TASK_CMD["*task {name}"]
             WORKFLOW_CMD["*workflow {name}"]
             CHECKLIST["*execute-checklist"]
@@ -204,7 +204,7 @@ flowchart TB
     WORKFLOW_TMPL --> WORKFLOWS_DIR
     DOC_TMPLS --> DOCS_DIR
 
-    subgraph DELEGATION["🤝 DELEGACAO"]
+    subgraph DELEGATION["🤝 DELEGATION"]
         PM["@pm<br/>Epics/Stories"]
         ANALYST["@analyst<br/>Brainstorming"]
         ARCHITECT["@architect<br/>AI Prompts"]
@@ -223,110 +223,110 @@ flowchart TB
     style DELEGATION fill:#f3e5f5
 ```
 
-### Diagrama de Ciclo de Vida de Componentes
+### Component Lifecycle Diagram
 
 ```mermaid
 stateDiagram-v2
     [*] --> IDEA: *propose-modification
 
-    IDEA --> DRAFT: Usuario aprova
-    IDEA --> REJECTED: Usuario rejeita
+    IDEA --> DRAFT: User approves
+    IDEA --> REJECTED: User rejects
 
     DRAFT --> CREATED: *create {type}
     DRAFT --> MODIFIED: *modify {type}
 
-    CREATED --> ACTIVE: Validacao OK
-    MODIFIED --> ACTIVE: Validacao OK
+    CREATED --> ACTIVE: Validation OK
+    MODIFIED --> ACTIVE: Validation OK
 
     ACTIVE --> ANALYZED: *analyze-framework
     ACTIVE --> DEPRECATED: *deprecate-component
 
-    ANALYZED --> MODIFIED: Melhorias identificadas
-    ANALYZED --> ACTIVE: Sem mudancas
+    ANALYZED --> MODIFIED: Improvements identified
+    ANALYZED --> ACTIVE: No changes
 
-    DEPRECATED --> REMOVED: Apos timeline
+    DEPRECATED --> REMOVED: After timeline
 
     REMOVED --> [*]
     REJECTED --> [*]
 
-    note right of IDEA: 💡 Proposta de modificacao
-    note right of DRAFT: 📝 Rascunho em progresso
-    note right of CREATED: ✨ Componente criado
-    note right of ACTIVE: ✅ Em uso no sistema
-    note right of DEPRECATED: ⚠️ Marcado para remocao
-    note right of REMOVED: 🗑️ Removido do sistema
+    note right of IDEA: 💡 Modification proposal
+    note right of DRAFT: 📝 Draft in progress
+    note right of CREATED: ✨ Component created
+    note right of ACTIVE: ✅ In use in the system
+    note right of DEPRECATED: ⚠️ Marked for removal
+    note right of REMOVED: 🗑️ Removed from the system
 ```
 
 ---
 
-## Mapeamento de Comandos para Tasks
+## Command to Task Mapping
 
-### Comandos de Criacao
+### Creation Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*create agent {name}` | `create-agent.md` | Cria novo agente via elicitacao progressiva |
-| `*create task {name}` | `create-task.md` | Cria nova task com estrutura padronizada |
-| `*create workflow {name}` | `create-workflow.md` | Cria novo workflow multi-agente |
-| `*create-doc {template}` | `create-doc.md` | Cria documento a partir de template YAML |
-| `*create-next-story` | `create-next-story.md` | Cria proxima user story |
+| `*create agent {name}` | `create-agent.md` | Creates a new agent through progressive elicitation |
+| `*create task {name}` | `create-task.md` | Creates a new task with a standardized structure |
+| `*create workflow {name}` | `create-workflow.md` | Creates a new multi-agent workflow |
+| `*create-doc {template}` | `create-doc.md` | Creates a document from a YAML template |
+| `*create-next-story` | `create-next-story.md` | Creates the next user story |
 
-### Comandos de Modificacao
+### Modification Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*modify agent {name}` | `modify-agent.md` | Modifica agente com backup/rollback |
-| `*modify task {name}` | `modify-task.md` | Modifica task preservando compatibilidade |
-| `*modify workflow {name}` | `modify-workflow.md` | Modifica workflow mantendo integridade |
-| `*update-manifest` | `update-manifest.md` | Atualiza manifesto de equipe |
-| `*propose-modification` | `propose-modification.md` | Cria proposta de modificacao |
+| `*modify agent {name}` | `modify-agent.md` | Modifies an agent with backup/rollback |
+| `*modify task {name}` | `modify-task.md` | Modifies a task while preserving compatibility |
+| `*modify workflow {name}` | `modify-workflow.md` | Modifies a workflow while maintaining integrity |
+| `*update-manifest` | `update-manifest.md` | Updates the team manifest |
+| `*propose-modification` | `propose-modification.md` | Creates a modification proposal |
 
-### Comandos de Analise e Validacao
+### Analysis and Validation Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*analyze-framework` | `analyze-framework.md` | Analise completa do framework |
-| `*deprecate-component` | `deprecate-component.md` | Deprecia componente com timeline |
-| `*execute-checklist {name}` | `execute-checklist.md` | Executa checklist de validacao |
-| `*validate-component` | - | Valida seguranca e padroes |
-| `*correct-course` | `correct-course.md` | Corrige desvios de processo |
+| `*analyze-framework` | `analyze-framework.md` | Full framework analysis |
+| `*deprecate-component` | `deprecate-component.md` | Deprecates a component with a timeline |
+| `*execute-checklist {name}` | `execute-checklist.md` | Runs a validation checklist |
+| `*validate-component` | - | Validates security and standards |
+| `*correct-course` | `correct-course.md` | Corrects process deviations |
 
-### Comandos de Execucao
+### Execution Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*task {name}` | (dinamico) | Executa task especifica |
-| `*workflow {name}` | (dinamico) | Inicia workflow multi-agente |
-| `*plan [create\|status\|update]` | - | Planejamento de workflow |
+| `*task {name}` | (dynamic) | Runs a specific task |
+| `*workflow {name}` | (dynamic) | Starts a multi-agent workflow |
+| `*plan [create\|status\|update]` | - | Workflow planning |
 
-### Comandos de Utilidade
+### Utility Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*help` | - | Mostra comandos disponiveis |
-| `*kb` | `kb-mode-interaction.md` | Toggle modo Knowledge Base |
-| `*status` | - | Mostra contexto e progresso atual |
-| `*guide` | - | Mostra guia de uso do agente |
-| `*yolo` | - | Toggle skip de confirmacoes |
-| `*exit` | - | Sai do modo agente |
-| `*advanced-elicitation` | `advanced-elicitation.md` | Elicitacao avancada |
-| `*shard-doc` | `shard-doc.md` | Quebra documento em partes |
-| `*doc-out` | - | Output documento completo |
-| `*index-docs` | `index-docs.md` | Indexa documentacao |
+| `*help` | - | Shows available commands |
+| `*kb` | `kb-mode-interaction.md` | Toggles Knowledge Base mode |
+| `*status` | - | Shows current context and progress |
+| `*guide` | - | Shows the agent usage guide |
+| `*yolo` | - | Toggles skipping confirmations |
+| `*exit` | - | Exits agent mode |
+| `*advanced-elicitation` | `advanced-elicitation.md` | Advanced elicitation |
+| `*shard-doc` | `shard-doc.md` | Splits a document into parts |
+| `*doc-out` | - | Outputs the full document |
+| `*index-docs` | `index-docs.md` | Indexes documentation |
 
 ---
 
-## Integracoes entre Agentes
+## Integrations Between Agents
 
-### Diagrama de Delegacao
+### Delegation Diagram
 
 ```mermaid
 flowchart LR
     subgraph MASTER["👑 @aexos-master (Zeus)"]
-        MASTER_DESC["Orquestra todos os agentes<br/>Cria/modifica componentes<br/>Executa qualquer task"]
+        MASTER_DESC["Orchestrates all agents<br/>Creates/modifies components<br/>Runs any task"]
     end
 
-    subgraph DELEGATED["🔀 RESPONSABILIDADES DELEGADAS"]
+    subgraph DELEGATED["🔀 DELEGATED RESPONSIBILITIES"]
         direction TB
 
         subgraph PM_BOX["📋 @pm"]
@@ -351,8 +351,8 @@ flowchart LR
     MASTER -->|"AI prompt generation"| ARCHITECT_BOX
     MASTER -->|"Test suite creation"| QA_BOX
 
-    subgraph SPECIALIZED["🎯 AGENTES ESPECIALIZADOS"]
-        DEV["@dev - Implementacao"]
+    subgraph SPECIALIZED["🎯 SPECIALIZED AGENTS"]
+        DEV["@dev - Implementation"]
         SM["@sm - Story Management"]
         PO["@po - Product Ownership"]
         DATA["@data-engineer - Database"]
@@ -360,41 +360,41 @@ flowchart LR
         DEVOPS["@devops - Infrastructure"]
     end
 
-    MASTER -.->|"Pode executar tasks de"| SPECIALIZED
+    MASTER -.->|"Can run tasks from"| SPECIALIZED
 
     style MASTER fill:#fff3e0
     style DELEGATED fill:#e3f2fd
     style SPECIALIZED fill:#e8f5e9
 ```
 
-### Quando Usar Agentes Especializados
+### When to Use Specialized Agents
 
-| Cenario | Agente Recomendado | Razao |
+| Scenario | Recommended Agent | Reason |
 |---------|-------------------|-------|
-| Implementacao de story | @dev | Expertise em codigo |
-| Code review | @qa | Foco em qualidade |
-| Criacao de PRD | @pm | Expertise em produto |
-| Criacao de stories | @sm ou @pm | Especializacao Agile |
-| Decisoes de arquitetura | @architect | Expertise tecnica |
-| Operacoes de database | @data-engineer | Expertise em dados |
-| Design de UX/UI | @ux-design-expert | Expertise em design |
-| Operacoes Git | @github-devops | Expertise em DevOps |
-| Pesquisa e analise | @analyst | Expertise analitica |
+| Story implementation | @dev | Code expertise |
+| Code review | @qa | Quality focus |
+| PRD creation | @pm | Product expertise |
+| Story creation | @sm or @pm | Agile specialization |
+| Architecture decisions | @architect | Technical expertise |
+| Database operations | @data-engineer | Data expertise |
+| UX/UI design | @ux-design-expert | Design expertise |
+| Git operations | @github-devops | DevOps expertise |
+| Research and analysis | @analyst | Analytical expertise |
 
 ---
 
-## Configuracao
+## Configuration
 
-### Arquivos de Configuracao Relevantes
+### Relevant Configuration Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/core-config.yaml` | Configuracao central do framework |
-| `.aexos-core/install-manifest.yaml` | Manifesto de instalacao |
-| `.aexos-core/config/agent-config-requirements.yaml` | Requisitos de configuracao de agentes |
-| `.aexos/project-registry.yaml` | Registry central de projetos |
+| `.aexos-core/core-config.yaml` | Central framework configuration |
+| `.aexos-core/install-manifest.yaml` | Installation manifest |
+| `.aexos-core/config/agent-config-requirements.yaml` | Agent configuration requirements |
+| `.aexos/project-registry.yaml` | Central project registry |
 
-### Configuracao de Seguranca
+### Security Configuration
 
 ```yaml
 security:
@@ -413,7 +413,7 @@ security:
     - Rate limit memory operations
 ```
 
-### Customizacao do Agente
+### Agent Customization
 
 ```yaml
 agent:
@@ -428,114 +428,114 @@ agent:
 
 ## Best Practices
 
-### 1. Criacao de Componentes
+### 1. Component Creation
 
-- **Sempre use templates**: Use `*create {type}` ao inves de criar manualmente
-- **Siga a elicitacao**: Nao pule etapas do processo interativo
-- **Valide antes de usar**: Execute `*validate-component` apos criacao
-- **Documente dependencias**: Liste todas as dependencias no componente
+- **Always use templates**: Use `*create {type}` instead of creating manually
+- **Follow the elicitation**: Do not skip steps of the interactive process
+- **Validate before use**: Run `*validate-component` after creation
+- **Document dependencies**: List all dependencies in the component
 
-### 2. Modificacao de Componentes
+### 2. Component Modification
 
-- **Backup primeiro**: O sistema cria backup automaticamente, mas verifique
-- **Use propose-modify**: Para mudancas significativas, use `*propose-modification`
-- **Teste apos modificar**: Sempre teste o componente modificado
-- **Atualize manifestos**: Lembre de executar `*update-manifest` se necessario
+- **Back up first**: The system creates a backup automatically, but verify it
+- **Use propose-modify**: For significant changes, use `*propose-modification`
+- **Test after modifying**: Always test the modified component
+- **Update manifests**: Remember to run `*update-manifest` if needed
 
-### 3. Orquestracao de Workflows
+### 3. Workflow Orchestration
 
-- **Use agentes especializados**: Delegue para o agente mais apropriado
-- **Planeje antes de executar**: Use `*plan` para workflows complexos
-- **Monitore progresso**: Use `*status` para acompanhar
+- **Use specialized agents**: Delegate to the most appropriate agent
+- **Plan before executing**: Use `*plan` for complex workflows
+- **Monitor progress**: Use `*status` to follow along
 
-### 4. Gestao de Knowledge Base
+### 4. Knowledge Base Management
 
-- **Ative KB quando necessario**: Use `*kb` para consultas sobre o framework
-- **Nao carregue automaticamente**: KB so e carregado sob demanda
-- **Explore topicos especificos**: Use navegacao guiada do KB mode
+- **Enable KB when needed**: Use `*kb` for questions about the framework
+- **Do not load it automatically**: The KB is only loaded on demand
+- **Explore specific topics**: Use the guided navigation of KB mode
 
-### 5. Seguranca
+### 5. Security
 
-- **Valide inputs**: Sempre sanitize inputs do usuario
-- **Verifique permissoes**: Cheque autorizacao antes de operacoes sensiveis
-- **Audite operacoes**: Todas as acoes sao logadas automaticamente
+- **Validate inputs**: Always sanitize user inputs
+- **Check permissions**: Verify authorization before sensitive operations
+- **Audit operations**: All actions are logged automatically
 
 ---
 
 ## Troubleshooting
 
-### Problema: Componente nao encontrado
+### Problem: Component not found
 
-**Sintoma:** Erro "Component not found" ao tentar modificar/depreciar
+**Symptom:** "Component not found" error when trying to modify/deprecate
 
-**Solucao:**
-1. Verifique o nome exato do componente
-2. Use `*list-components` para ver componentes disponiveis
-3. Cheque o tipo correto (agent, task, workflow, util)
+**Solution:**
+1. Verify the exact component name
+2. Use `*list-components` to see available components
+3. Check the correct type (agent, task, workflow, util)
 
-### Problema: Template nao encontrado
+### Problem: Template not found
 
-**Sintoma:** Erro ao executar `*create-doc`
+**Symptom:** Error when running `*create-doc`
 
-**Solucao:**
-1. Liste templates disponiveis: verifique `.aexos-core/development/templates/`
-2. Use nome correto do template sem extensao
-3. Verifique se template existe e e valido YAML
+**Solution:**
+1. List available templates: check `.aexos-core/development/templates/`
+2. Use the correct template name without the extension
+3. Verify that the template exists and is valid YAML
 
-### Problema: Workflow falha
+### Problem: Workflow fails
 
-**Sintoma:** Workflow interrompe com erro
+**Symptom:** The workflow stops with an error
 
-**Solucao:**
-1. Verifique logs com `*status`
-2. Cheque dependencias do workflow
-3. Valide agentes participantes
-4. Use `*correct-course` para analise
+**Solution:**
+1. Check the logs with `*status`
+2. Check the workflow dependencies
+3. Validate the participating agents
+4. Use `*correct-course` for analysis
 
-### Problema: KB mode nao carrega
+### Problem: KB mode does not load
 
-**Sintoma:** Conhecimento nao disponivel apos `*kb`
+**Symptom:** Knowledge not available after `*kb`
 
-**Solucao:**
-1. Verifique existencia de `.aexos-core/development/data/aexos-kb.md`
-2. Certifique-se de que arquivo nao esta corrompido
-3. Reinicie o agente se necessario
+**Solution:**
+1. Verify that `.aexos-core/development/data/aexos-kb.md` exists
+2. Make sure the file is not corrupted
+3. Restart the agent if necessary
 
-### Problema: Backup/rollback falha
+### Problem: Backup/rollback fails
 
-**Sintoma:** Erro ao criar backup ou reverter
+**Symptom:** Error creating a backup or rolling back
 
-**Solucao:**
-1. Verifique permissoes de escrita no diretorio
-2. Cheque espaco em disco
-3. Tente rollback manual do arquivo `.backups/`
+**Solution:**
+1. Check write permissions on the directory
+2. Check disk space
+3. Try a manual rollback from the `.backups/` file
 
-### Problema: Elicitacao interrompida
+### Problem: Elicitation interrupted
 
-**Sintoma:** Processo de elicitacao para no meio
+**Symptom:** The elicitation process stops midway
 
-**Solucao:**
-1. Sessions sao salvas automaticamente
-2. Use `*status` para ver progresso
-3. Continue de onde parou ou reinicie
+**Solution:**
+1. Sessions are saved automatically
+2. Use `*status` to see progress
+3. Continue from where it stopped or start over
 
 ---
 
-## Referencias
+## References
 
-### Arquivos Core
+### Core Files
 
-- [Agente aexos-master](.aexos-core/development/agents/aexos-master.md)
+- [aexos-master Agent](.aexos-core/development/agents/aexos-master.md)
 - [Knowledge Base](.aexos-core/development/data/aexos-kb.md)
-- [Guia do Usuario](.aexos-core/user-guide.md)
+- [User Guide](.aexos-core/user-guide.md)
 
-### Standards e Documentacao
+### Standards and Documentation
 
 - [AEXOS Framework Master](.aexos-core/docs/standards/CYRYX-FRAMEWORK-MASTER.md)
-- [AEXOS Livro de Ouro](.aexos-core/docs/standards/AEXOS-LIVRO-DE-OURO.md)
+- [AEXOS Golden Book](.aexos-core/docs/standards/AEXOS-LIVRO-DE-OURO.md)
 - [Agent Personalization Standard](.aexos-core/docs/standards/AGENT-PERSONALIZATION-STANDARD-V1.md)
 
-### Diretorio de Tasks
+### Task Directory
 
 - [Tasks Directory](.aexos-core/development/tasks/)
 - [Templates Directory](.aexos-core/development/templates/)
@@ -543,33 +543,33 @@ agent:
 
 ---
 
-## Resumo
+## Summary
 
-| Aspecto | Detalhes |
+| Aspect | Details |
 |---------|----------|
-| **Nome do Agente** | Zeus (aexos-master) |
-| **Arquetipo** | Orchestrator |
-| **Icone** | 👑 |
-| **Total de Tasks Diretas** | 21 tasks |
-| **Total de Templates** | 14 templates |
-| **Total de Workflows** | 6 workflows |
-| **Total de Checklists** | 6 checklists |
-| **Agentes que Delega** | 4 (@pm, @analyst, @architect, @qa) |
-| **Comandos de Criacao** | 5 (`*create *`) |
-| **Comandos de Modificacao** | 5 (`*modify *`, `*update-*`, `*propose-*`) |
-| **Comandos de Analise** | 4 (`*analyze-*`, `*deprecate-*`, `*validate-*`, `*correct-*`) |
-| **Comandos de Execucao** | 3 (`*task`, `*workflow`, `*execute-checklist`) |
-| **Comandos de Utilidade** | 10 (`*help`, `*kb`, `*status`, etc.) |
-| **Modos de Execucao** | 3 (YOLO, Interactive, Pre-Flight) |
+| **Agent Name** | Zeus (aexos-master) |
+| **Archetype** | Orchestrator |
+| **Icon** | 👑 |
+| **Total Direct Tasks** | 21 tasks |
+| **Total Templates** | 14 templates |
+| **Total Workflows** | 6 workflows |
+| **Total Checklists** | 6 checklists |
+| **Agents It Delegates To** | 4 (@pm, @analyst, @architect, @qa) |
+| **Creation Commands** | 5 (`*create *`) |
+| **Modification Commands** | 5 (`*modify *`, `*update-*`, `*propose-*`) |
+| **Analysis Commands** | 4 (`*analyze-*`, `*deprecate-*`, `*validate-*`, `*correct-*`) |
+| **Execution Commands** | 3 (`*task`, `*workflow`, `*execute-checklist`) |
+| **Utility Commands** | 10 (`*help`, `*kb`, `*status`, etc.) |
+| **Execution Modes** | 3 (YOLO, Interactive, Pre-Flight) |
 
 ---
 
 ## Changelog
 
-| Data | Autor | Descricao |
+| Date | Author | Description |
 |------|-------|-----------|
-| 2026-02-04 | @aexos-master | Documento inicial criado com mapeamento completo |
+| 2026-02-04 | @aexos-master | Initial document created with full mapping |
 
 ---
 
-*-- Orion, orquestrando o sistema*
+*-- Zeus, orchestrating the system*

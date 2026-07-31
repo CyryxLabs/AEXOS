@@ -1,7 +1,5 @@
 # AEXOS (Cyryx) FAQ
 
-> 🌐 **EN** | [PT](../pt/installation/faq.md) | [ES](../es/installation/faq.md)
-
 **Version:** 2.1.0
 **Last Updated:** 2025-01-24
 

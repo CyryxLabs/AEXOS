@@ -1,4 +1,4 @@
-# Story CORE-SU.R1: Remediação da revisão do Core Super Update
+# Story CORE-SU.R1: Core Super Update review remediation
 
 ## Status
 
@@ -6,150 +6,150 @@ Done
 
 ## Story
 
-**Como** mantenedor do AEXOS Core,
-**quero** corrigir os gaps funcionais, de segurança, governança e qualidade encontrados na revisão do Core Super Update,
-**para que** o fluxo SDC completo, o harness de portabilidade e os gates do framework sejam seguros, determinísticos, auditáveis e aderentes à Constitution.
+**As a** maintainer of AEXOS Core,
+**I want** to fix the functional, security, governance and quality gaps found in the Core Super Update review,
+**so that** the complete SDC flow, the portability harness and the framework gates are secure, deterministic, auditable and compliant with the Constitution.
 
 ## Acceptance Criteria
 
-1. Todo auto-dispatch de modelo executado por `pm.sh`, Full SDC e Wave Execute exige antes da execução: teto de orçamento positivo e explícito, story válida vinculada para tarefas de implementação e varredura de prompt/contexto contra instruções ou caminhos perigosos; falhas bloqueiam o dispatch com mensagem acionável e sem invocar o modelo.
-2. Os caminhos visual e headless de dispatch não concatenam entrada controlada pelo usuário em comandos avaliados por shell; parâmetros, caminhos e contexto preservam seus valores literalmente, incluindo espaços, aspas, `$()`, ponto e vírgula e quebras de linha.
-3. O lifecycle canônico mantém a autoridade de QA para concluir a story: verdicts aprovados movem `InReview` para `Done`, enquanto PO permanece responsável por validação/priorização do draft e não por concluir QA.
-4. O Full SDC implementa transições condicionais corretas: review aprovado segue para fechamento; review reprovado segue para correções; após correções a story retorna obrigatoriamente ao review; o ciclo de correção e re-review é limitado a 3 iterações e para com diagnóstico explícito ao atingir o limite.
-5. A contagem de iterações de quality gate é persistida e incrementada pelo fluxo automático real, não apenas por comandos manuais, e é coberta por testes de PASS, FAIL, re-review e limite excedido.
-6. Um ADR explícito define a relação entre checkpoints operacionais em `.aexos/sdc` e `.aexos/waves` e o `SessionState`, incluindo fonte de verdade, limites de autoridade, recuperação, retenção e proibição de esses checkpoints alterarem lifecycle canônico por conta própria; a documentação de orquestração referencia essa decisão.
-7. Existem testes de integração dos comandos CLI completos relevantes e do `pm.sh` usando um executável de modelo falso, cobrindo argumentos hostis, bloqueios de governança, propagação literal de parâmetros e códigos de saída, sem rede nem credenciais reais.
-8. A auditoria do lifecycle registra evidência de conformidade entre source of truth e projeções de IDE/agentes, corrige divergências QA/PO e valida que stories concluídas possuem histórico mínimo auditável sem reabrir status já concluído.
-9. Exports públicos criados ou alterados pelo Core Super Update possuem JSDoc útil com contrato, parâmetros, retorno e erros relevantes; a checagem correspondente cobre os módulos públicos afetados.
-10. O harness Wave 0 compara todos os pares OSS↔Hub, OSS↔Enterprise e Hub↔Enterprise, produz classificação real de buckets 3-way, classificação por wave e ocorrências do port denylist.
-11. O harness Wave 0 é determinístico por padrão, oferece modo strict `--require-external` que falha quando Hub ou Enterprise não estão disponíveis e produz saída ordenada e estável para a mesma entrada; timestamp, quando solicitado, é opt-in e não altera o resultado semântico.
-12. O port denylist cobre `.grok`, caminhos genéricos de `workspace`, padrões de secrets/credenciais e os ports existentes, com allowlist explícita apenas para documentação/testes legítimos e sem mascarar ocorrências reais.
-13. O port denylist é executado por gate local pre-push e por CI; ambos falham com saída acionável ao detectar violações. Alterações de CI/pre-push respeitam a autoridade de DevOps e são verificadas sem efetuar push.
-14. A suite completa fica estável em execuções consecutivas: sem diretórios temporários residuais, sem mutações persistentes de fixtures/configuração, sem open handles e sem falhas nos testes SYNAPSE A1 observados durante a revisão.
-15. Todos os testes focados adicionados passam, e os quality gates do repositório (`npm run lint`, `npm run typecheck`, `npm test`, validações de sync/paridade e port denylist aplicáveis) terminam com sucesso.
-16. Testes locais, runners Jest e overrides explícitos inline/no-visual nunca invocam Terminal.app; testes de validação exercitam a seam pura sem spawn, e um repro com `osascript` interceptado comprova `4 → 0` tentativas visuais.
+1. Every model auto-dispatch executed by `pm.sh`, Full SDC and Wave Execute requires, before execution: a positive and explicit budget ceiling, a valid bound story for implementation tasks, and a prompt/context scan against dangerous instructions or paths; failures block the dispatch with an actionable message and without invoking the model.
+2. The visual and headless dispatch paths do not concatenate user-controlled input into shell-evaluated commands; parameters, paths and context preserve their values literally, including spaces, quotes, `$()`, semicolons and line breaks.
+3. The canonical lifecycle keeps QA's authority to close the story: approved verdicts move `InReview` to `Done`, while the PO remains responsible for draft validation/prioritization and not for closing QA.
+4. Full SDC implements correct conditional transitions: an approved review proceeds to closure; a failed review proceeds to fixes; after fixes the story must return to review; the fix and re-review cycle is limited to 3 iterations and stops with an explicit diagnostic when the limit is reached.
+5. The quality gate iteration count is persisted and incremented by the real automatic flow, not only by manual commands, and is covered by tests for PASS, FAIL, re-review and limit exceeded.
+6. An explicit ADR defines the relationship between the operational checkpoints in `.aexos/sdc` and `.aexos/waves` and `SessionState`, including source of truth, authority boundaries, recovery, retention and the prohibition against those checkpoints altering the canonical lifecycle on their own; the orchestration documentation references that decision.
+7. Integration tests exist for the relevant complete CLI commands and for `pm.sh` using a fake model executable, covering hostile arguments, governance blocks, literal parameter propagation and exit codes, with no network and no real credentials.
+8. The lifecycle audit records evidence of conformance between the source of truth and the IDE/agent projections, corrects QA/PO divergences and validates that completed stories have a minimum auditable history without reopening an already completed status.
+9. Public exports created or changed by the Core Super Update have useful JSDoc with contract, parameters, return value and relevant errors; the corresponding check covers the affected public modules.
+10. The Wave 0 harness compares every OSS↔Hub, OSS↔Enterprise and Hub↔Enterprise pair, produces a real 3-way bucket classification, a per-wave classification and port denylist occurrences.
+11. The Wave 0 harness is deterministic by default, offers a strict `--require-external` mode that fails when Hub or Enterprise are unavailable, and produces sorted, stable output for the same input; the timestamp, when requested, is opt-in and does not change the semantic result.
+12. The port denylist covers `.grok`, generic `workspace` paths, secret/credential patterns and the existing ports, with an explicit allowlist only for legitimate documentation/tests and without masking real occurrences.
+13. The port denylist is executed by a local pre-push gate and by CI; both fail with actionable output when violations are detected. CI/pre-push changes respect DevOps authority and are verified without performing a push.
+14. The full suite stays stable across consecutive runs: no leftover temporary directories, no persistent mutations of fixtures/configuration, no open handles and no failures in the SYNAPSE A1 tests observed during the review.
+15. All added focused tests pass, and the repository quality gates (`npm run lint`, `npm run typecheck`, `npm test`, applicable sync/parity validations and port denylist) finish successfully.
+16. Local tests, Jest runners and explicit inline/no-visual overrides never invoke Terminal.app; validation tests exercise the pure seam without spawning, and a repro with `osascript` intercepted proves `4 → 0` visual attempts.
 
 ## Tasks / Subtasks
 
-- [x] Task 1 — Implementar governança e segurança do auto-dispatch (AC: 1, 2)
-  - [x] Centralizar a validação de budget, story binding e prompt/context scan em uma API reutilizável.
-  - [x] Integrar o guard em `pm.sh`, Full SDC e Wave Execute antes de qualquer invocação de modelo.
-  - [x] Remover construção de comandos por concatenação nos fluxos visual e headless.
-  - [x] Cobrir caracteres de shell, multiline, caminhos com espaços e tentativas de bypass.
+- [x] Task 1 — Implement auto-dispatch governance and security (AC: 1, 2)
+  - [x] Centralize budget validation, story binding and prompt/context scan in a reusable API.
+  - [x] Integrate the guard into `pm.sh`, Full SDC and Wave Execute before any model invocation.
+  - [x] Remove command construction by concatenation in the visual and headless flows.
+  - [x] Cover shell characters, multiline, paths with spaces and bypass attempts.
 
-- [x] Task 2 — Corrigir ownership do lifecycle e loop de QA (AC: 3, 4, 5)
-  - [x] Alinhar source of truth, skills e projeções para QA concluir `InReview -> Done` e PO validar/priorizar drafts.
-  - [x] Implementar transições condicionais review→close e review→fixes→review.
-  - [x] Persistir/incrementar automaticamente `qgIterations` e bloquear após 3 ciclos.
-  - [x] Adicionar testes unitários e de integração das transições e do limite.
+- [x] Task 2 — Fix lifecycle ownership and the QA loop (AC: 3, 4, 5)
+  - [x] Align source of truth, skills and projections so QA closes `InReview -> Done` and the PO validates/prioritizes drafts.
+  - [x] Implement the conditional transitions review→close and review→fixes→review.
+  - [x] Persist/increment `qgIterations` automatically and block after 3 cycles.
+  - [x] Add unit and integration tests for the transitions and the limit.
 
-- [x] Task 3 — Formalizar ownership dos checkpoints (AC: 6)
-  - [x] Criar ADR para `.aexos/sdc`, `.aexos/waves` e `SessionState` com fonte de verdade e recuperação.
-  - [x] Atualizar a documentação da hierarquia de orquestração para referenciar o ADR.
-  - [x] Garantir por código ou teste que checkpoints operacionais não assumem autoridade sobre o lifecycle.
+- [x] Task 3 — Formalize checkpoint ownership (AC: 6)
+  - [x] Create an ADR for `.aexos/sdc`, `.aexos/waves` and `SessionState` with source of truth and recovery.
+  - [x] Update the orchestration hierarchy documentation to reference the ADR.
+  - [x] Guarantee by code or test that operational checkpoints do not assume authority over the lifecycle.
 
-- [x] Task 4 — Completar cobertura de integração e contratos públicos (AC: 7, 9)
-  - [x] Testar os comandos CLI completos com filesystem temporário isolado.
-  - [x] Testar `pm.sh` com modelo fake e inputs hostis, verificando argv e exit code.
-  - [x] Adicionar JSDoc aos exports públicos afetados e checagem automatizada correspondente.
+- [x] Task 4 — Complete integration coverage and public contracts (AC: 7, 9)
+  - [x] Test the complete CLI commands with an isolated temporary filesystem.
+  - [x] Test `pm.sh` with a fake model and hostile inputs, checking argv and exit code.
+  - [x] Add JSDoc to the affected public exports and the corresponding automated check.
 
-- [x] Task 5 — Completar o harness Wave 0 (AC: 10, 11)
-  - [x] Implementar as três comparações pairwise e buckets 3-way semanticamente corretos.
-  - [x] Incluir classificação por wave e hits do port denylist no relatório.
-  - [x] Implementar `--require-external` e saída determinística/ordenada por padrão.
-  - [x] Tornar timestamp opt-in e adicionar fixtures/testes de determinismo e strict mode.
+- [x] Task 5 — Complete the Wave 0 harness (AC: 10, 11)
+  - [x] Implement the three pairwise comparisons and semantically correct 3-way buckets.
+  - [x] Include the per-wave classification and port denylist hits in the report.
+  - [x] Implement `--require-external` and deterministic/sorted output by default.
+  - [x] Make the timestamp opt-in and add fixtures/tests for determinism and strict mode.
 
-- [x] Task 6 — Endurecer e integrar o port denylist (AC: 12, 13)
-  - [x] Adicionar cobertura de `.grok`, `workspace` genérico e secrets/credenciais.
-  - [x] Definir allowlist mínima para documentação e testes legítimos.
-  - [x] Integrar o scanner ao pre-push e ao CI, com alteração executada/revisada por DevOps.
-  - [x] Adicionar testes positivos, negativos e de mensagens acionáveis.
+- [x] Task 6 — Harden and integrate the port denylist (AC: 12, 13)
+  - [x] Add coverage for `.grok`, generic `workspace` and secrets/credentials.
+  - [x] Define a minimal allowlist for legitimate documentation and tests.
+  - [x] Integrate the scanner into pre-push and CI, with the change executed/reviewed by DevOps.
+  - [x] Add positive, negative and actionable-message tests.
 
-- [x] Task 7 — Auditar lifecycle e sincronizar projeções (AC: 8)
-  - [x] Auditar source of truth, regras e skills projetadas para Claude, Codex, Gemini e Grok.
-  - [x] Registrar evidências e corrigir divergências sem alterar indevidamente status concluídos.
-  - [x] Executar sync e validações de paridade/integration aplicáveis.
+- [x] Task 7 — Audit the lifecycle and synchronize the projections (AC: 8)
+  - [x] Audit the source of truth, rules and skills projected for Claude, Codex, Gemini and Grok.
+  - [x] Record evidence and correct divergences without improperly altering completed statuses.
+  - [x] Run the applicable sync and parity/integration validations.
 
-- [x] Task 8 — Estabilizar a suite e fechar quality gates (AC: 14, 15)
-  - [x] Isolar temporários e impedir mutação persistente de fixtures/configuração.
-  - [x] Eliminar open handles e corrigir as falhas SYNAPSE A1 reproduzidas pela suite completa.
-  - [x] Executar testes focados e a suite completa em execuções consecutivas.
-  - [x] Executar lint, typecheck, sync/paridade e port denylist; registrar os resultados.
+- [x] Task 8 — Stabilize the suite and close the quality gates (AC: 14, 15)
+  - [x] Isolate temporaries and prevent persistent mutation of fixtures/configuration.
+  - [x] Eliminate open handles and fix the SYNAPSE A1 failures reproduced by the full suite.
+  - [x] Run the focused tests and the full suite in consecutive runs.
+  - [x] Run lint, typecheck, sync/parity and port denylist; record the results.
 
-- [x] Task 9 — Eliminar side effects visuais da suite local (AC: 16)
-  - [x] Fazer `AEXOS_INLINE_MODE`, `AEXOS_NO_VISUAL_TERMINAL` e test runners degradarem fail-safe para inline.
-  - [x] Substituir o teste de validação que chamava `spawnAgent` pela seam pura `validateArgs`.
-  - [x] Reproduzir com `osascript` interceptado e comprovar zero tentativas nas duas suítes do spawner.
+- [x] Task 9 — Eliminate visual side effects from the local suite (AC: 16)
+  - [x] Make `AEXOS_INLINE_MODE`, `AEXOS_NO_VISUAL_TERMINAL` and the test runners degrade fail-safe to inline.
+  - [x] Replace the validation test that called `spawnAgent` with the pure `validateArgs` seam.
+  - [x] Reproduce with `osascript` intercepted and prove zero attempts in both spawner suites.
 
 ## Dev Notes
 
-- Esta story remedia exclusivamente os achados da revisão do Core Super Update; não amplia escopo funcional do epic.
-- A Constitution, as regras canônicas de lifecycle e a hierarquia de orquestração são as fontes de verdade.
-- Checkpoints `.aexos/sdc` e `.aexos/waves` são estado operacional; a decisão arquitetural deve tornar explícito se são adaptadores, caches ou artefatos recuperáveis, sem competir com `SessionState`.
-- Alterações de CI/pre-push devem ser executadas ou aprovadas pelo agente DevOps conforme a matriz de autoridade.
-- Testes de shell devem usar executável fake e diretórios temporários; não invocar provedores externos.
+- This story remediates exclusively the findings of the Core Super Update review; it does not extend the epic's functional scope.
+- The Constitution, the canonical lifecycle rules and the orchestration hierarchy are the sources of truth.
+- The `.aexos/sdc` and `.aexos/waves` checkpoints are operational state; the architectural decision must make explicit whether they are adapters, caches or recoverable artifacts, without competing with `SessionState`.
+- CI/pre-push changes must be executed or approved by the DevOps agent according to the authority matrix.
+- Shell tests must use a fake executable and temporary directories; do not invoke external providers.
 
 ## Testing
 
-- Unitários: governança de dispatch, lifecycle transitions, contador de iterações, buckets 3-way, determinismo, strict mode e denylist.
-- Integração: comandos CLI reais e `pm.sh` com modelo fake, incluindo inputs hostis.
-- Regressão: duas execuções consecutivas da suite completa, sem resíduos ou open handles.
-- Gates: `npm run lint`, `npm run typecheck`, `npm test`, sync/paridade e port denylist aplicáveis.
+- Unit: dispatch governance, lifecycle transitions, iteration counter, 3-way buckets, determinism, strict mode and denylist.
+- Integration: real CLI commands and `pm.sh` with a fake model, including hostile inputs.
+- Regression: two consecutive runs of the full suite, with no residue or open handles.
+- Gates: `npm run lint`, `npm run typecheck`, `npm test`, applicable sync/parity and port denylist.
 
 ## CodeRabbit Integration
 
 ### Specialized Agent Review
 
-- Security review para shell injection, prompt scan, budget e story binding.
-- Architecture review para ADR e ownership de estado.
-- QA review para lifecycle, re-review e estabilidade da suite.
-- DevOps review para CI e pre-push.
+- Security review for shell injection, prompt scan, budget and story binding.
+- Architecture review for the ADR and state ownership.
+- QA review for lifecycle, re-review and suite stability.
+- DevOps review for CI and pre-push.
 
 ### Quality Gate Focus
 
-- Nenhuma entrada controlada pelo usuário alcança avaliação de shell.
-- Nenhum auto-dispatch ocorre sem os três guards obrigatórios.
-- Nenhum caminho de FAIL alcança close sem novo review aprovado.
-- Relatórios Wave 0 são reproduzíveis byte a byte por padrão.
-- Denylist bloqueia ports e secrets sem falsos negativos nos novos roots.
+- No user-controlled input reaches shell evaluation.
+- No auto-dispatch occurs without the three mandatory guards.
+- No FAIL path reaches close without a new approved review.
+- Wave 0 reports are byte-for-byte reproducible by default.
+- The denylist blocks ports and secrets with no false negatives in the new roots.
 
 ## Change Log
 
 | Date       | Version | Description                                                                             | Author      |
 | ---------- | ------- | --------------------------------------------------------------------------------------- | ----------- |
-| 2026-07-09 | Draft   | Story criada a partir dos achados consolidados da revisão do Core Super Update.         | Chronos (@sm) |
+| 2026-07-09 | Draft   | Story created from the consolidated findings of the Core Super Update review.            | Chronos (@sm) |
 | 2026-07-09 | 0.1.0   | Validated GO (9/10) — Status: Draft → Ready.                                            | Themis (@po)   |
-| 2026-07-09 | 0.2.0   | Desenvolvimento iniciado — Status: Ready → InProgress.                                  | Vulcan (@dev)  |
-| 2026-07-09 | 0.3.0   | Remediação e quality gates concluídos — Status: InProgress → InReview.                  | Vulcan (@dev)  |
-| 2026-07-10 | 0.4.0   | Blockers da revisão QA corrigidos; story permanece InReview para novo verdict.          | Vulcan (@dev)  |
+| 2026-07-09 | 0.2.0   | Development started — Status: Ready → InProgress.                                       | Vulcan (@dev)  |
+| 2026-07-09 | 0.3.0   | Remediation and quality gates finished — Status: InProgress → InReview.                 | Vulcan (@dev)  |
+| 2026-07-10 | 0.4.0   | QA review blockers fixed; story stays InReview for a new verdict.                       | Vulcan (@dev)  |
 | 2026-07-10 | 0.4.1   | QA Gate PASS — Status: InReview → Done.                                                 | Argus (@qa) |
-| 2026-07-10 | 0.4.2   | QA re-review PASS após refinamentos finais; Status Done preservado.                     | Argus (@qa) |
-| 2026-07-10 | 0.4.3   | CodeRabbit pre-PR identificou hardenings adicionais — Status: Done → InProgress.        | Vulcan (@dev)  |
-| 2026-07-10 | 0.5.0   | Hardening fail-closed, waiver e proveniência concluído — Status: InProgress → InReview. | Vulcan (@dev)  |
-| 2026-07-10 | 0.5.1   | QA re-review final PASS — Status: InReview → Done.                                     | Argus (@qa) |
-| 2026-07-10 | 0.5.2   | CodeRabbit pós-fix identificou gate órfão e ajustes documentais — Status: Done → InProgress. | Vulcan (@dev) |
-| 2026-07-10 | 0.6.0   | Backstop de gate órfão e ajustes finais concluídos — Status: InProgress → InReview. | Vulcan (@dev) |
-| 2026-07-10 | 0.6.1   | QA re-review pós-fix PASS — Status: InReview → Done. | Argus (@qa) |
-| 2026-07-10 | 0.6.2   | Preview Vercel falhou por autodetecção do novo script build — Status: Done → InProgress. | Vulcan (@dev) |
-| 2026-07-10 | 0.7.0   | Saída estática mínima e configuração Vercel concluídas — Status: InProgress → InReview. | Vulcan (@dev) |
-| 2026-07-10 | 0.7.1   | QA re-review Vercel PASS — Status: InReview → Done. | Argus (@qa) |
-| 2026-07-10 | 0.8.0   | Reaberta após repro macOS: teste de validação abriu Terminal.app 4× por execução; guard test/inline e seam sem side effect em implementação. | Vulcan (@dev) |
-| 2026-07-10 | 0.8.1   | QA independente PASS após hardening CI/Docker — Status: InProgress → Done. | Argus (@qa) |
-| 2026-07-10 | 0.8.2   | Comentários do PR #802 triados — Status: Done → InProgress. | Vulcan (@dev) |
-| 2026-07-10 | 0.9.0   | Correções CodeRabbit e gates focados concluídos — Status: InProgress → InReview. | Vulcan (@dev) |
-| 2026-07-10 | 0.9.1   | QA gate FAIL — três blockers MAJOR reproduzidos; Status: InReview → InProgress. | Argus (@qa) |
-| 2026-07-10 | 0.9.2   | Blockers JSDoc e denylist corrigidos — Status: InProgress → InReview. | Vulcan (@dev) |
-| 2026-07-10 | 0.9.3   | QA re-review FAIL — três blockers MAJOR residuais; Status: InReview → InProgress. | Argus (@qa) |
-| 2026-07-10 | 0.9.4   | Scanner global de credenciais concluído — Status: InProgress → InReview. | Vulcan (@dev) |
-| 2026-07-10 | 0.9.5   | QA final PASS — scanner validado; Status: InReview → Done. | Argus (@qa) |
-| 2026-07-10 | 0.9.6   | Follow-up CodeRabbit: modo interactive protegido, teste CI desacoplado da ordem e evidência sanitizada; Status Done preservado. | Vulcan (@dev) |
-| 2026-07-10 | 0.9.7   | QA follow-up PASS no snapshot commitado; Status Done preservado. | Argus (@qa) |
-| 2026-07-10 | 0.9.8   | Preflight antecipado para antes de qualquer execução inline/spawn em SOT, Claude e Grok; Status Done preservado. | Vulcan (@dev) |
-| 2026-07-10 | 0.9.9   | QA preflight-order PASS no snapshot commitado; Status Done preservado. | Argus (@qa) |
-| 2026-07-10 | 0.9.10  | CI fix: auditoria validada por contagens estáveis, sem acoplamento à redação; Status Done preservado. | Vulcan (@dev) |
-| 2026-07-10 | 0.9.11  | QA CI-fix PASS no snapshot commitado; Status Done preservado. | Argus (@qa) |
-| 2026-07-10 | 0.9.12  | Falha na verificação da remediação agora interrompe o loop antes do re-review; alegação de desempenho qualificada. | Vulcan (@dev) |
-| 2026-07-10 | 0.9.13  | QA do loop de remediação PASS no snapshot commitado; Status Done preservado. | Argus (@qa) |
+| 2026-07-10 | 0.4.2   | QA re-review PASS after the final refinements; Done status preserved.                   | Argus (@qa) |
+| 2026-07-10 | 0.4.3   | CodeRabbit pre-PR identified additional hardenings — Status: Done → InProgress.         | Vulcan (@dev)  |
+| 2026-07-10 | 0.5.0   | Fail-closed hardening, waiver and provenance finished — Status: InProgress → InReview.  | Vulcan (@dev)  |
+| 2026-07-10 | 0.5.1   | Final QA re-review PASS — Status: InReview → Done.                                      | Argus (@qa) |
+| 2026-07-10 | 0.5.2   | CodeRabbit post-fix identified an orphan gate and documentation adjustments — Status: Done → InProgress. | Vulcan (@dev) |
+| 2026-07-10 | 0.6.0   | Orphan gate backstop and final adjustments finished — Status: InProgress → InReview. | Vulcan (@dev) |
+| 2026-07-10 | 0.6.1   | Post-fix QA re-review PASS — Status: InReview → Done. | Argus (@qa) |
+| 2026-07-10 | 0.6.2   | Vercel preview failed due to autodetection of the new build script — Status: Done → InProgress. | Vulcan (@dev) |
+| 2026-07-10 | 0.7.0   | Minimal static output and Vercel configuration finished — Status: InProgress → InReview. | Vulcan (@dev) |
+| 2026-07-10 | 0.7.1   | Vercel QA re-review PASS — Status: InReview → Done. | Argus (@qa) |
+| 2026-07-10 | 0.8.0   | Reopened after the macOS repro: the validation test opened Terminal.app 4× per run; test/inline guard and a seam without side effects in the implementation. | Vulcan (@dev) |
+| 2026-07-10 | 0.8.1   | Independent QA PASS after CI/Docker hardening — Status: InProgress → Done. | Argus (@qa) |
+| 2026-07-10 | 0.8.2   | PR #802 comments triaged — Status: Done → InProgress. | Vulcan (@dev) |
+| 2026-07-10 | 0.9.0   | CodeRabbit fixes and focused gates finished — Status: InProgress → InReview. | Vulcan (@dev) |
+| 2026-07-10 | 0.9.1   | QA gate FAIL — three MAJOR blockers reproduced; Status: InReview → InProgress. | Argus (@qa) |
+| 2026-07-10 | 0.9.2   | JSDoc and denylist blockers fixed — Status: InProgress → InReview. | Vulcan (@dev) |
+| 2026-07-10 | 0.9.3   | QA re-review FAIL — three residual MAJOR blockers; Status: InReview → InProgress. | Argus (@qa) |
+| 2026-07-10 | 0.9.4   | Global credential scanner finished — Status: InProgress → InReview. | Vulcan (@dev) |
+| 2026-07-10 | 0.9.5   | Final QA PASS — scanner validated; Status: InReview → Done. | Argus (@qa) |
+| 2026-07-10 | 0.9.6   | CodeRabbit follow-up: interactive mode protected, CI test decoupled from ordering and evidence sanitized; Done status preserved. | Vulcan (@dev) |
+| 2026-07-10 | 0.9.7   | QA follow-up PASS on the committed snapshot; Done status preserved. | Argus (@qa) |
+| 2026-07-10 | 0.9.8   | Preflight moved ahead of any inline/spawn execution in SOT, Claude and Grok; Done status preserved. | Vulcan (@dev) |
+| 2026-07-10 | 0.9.9   | QA preflight-order PASS on the committed snapshot; Done status preserved. | Argus (@qa) |
+| 2026-07-10 | 0.9.10  | CI fix: audit validated by stable counts, without coupling to the wording; Done status preserved. | Vulcan (@dev) |
+| 2026-07-10 | 0.9.11  | QA CI-fix PASS on the committed snapshot; Done status preserved. | Argus (@qa) |
+| 2026-07-10 | 0.9.12  | A failure in the remediation verification now stops the loop before the re-review; performance claim qualified. | Vulcan (@dev) |
+| 2026-07-10 | 0.9.13  | QA of the remediation loop PASS on the committed snapshot; Done status preserved. | Argus (@qa) |
 
 ## Dev Agent Record
 
@@ -159,39 +159,39 @@ GPT-5 Codex
 
 ### Debug Log References
 
-- Atualização da base: merge de `origin/main` em `feat/core-super-update-epic`, commit `d0efd87c` (o upstream anterior da feature havia sido removido após o merge do PR).
-- Testes focados finais: 4 suites/26 testes para lifecycle, denylist, harness e fechamento administrativo; demais testes focados incorporados à suite completa.
-- Regressão final: duas execuções consecutivas de `npm test -- --runInBand --silent`, ambas com 376 suites/8.945 testes aprovados e sem processo Jest residual.
-- Gates finais: `npm run build`, `npm run lint`, `npm run typecheck`, `npm run validate:manifest`, `npm run validate:registry-determinism`, `npm run validate:port-denylist`, `npm run sync:ide:check`, `npm run validate:parity`, validações Claude/Codex e `git diff --check` com exit code 0.
-- CodeRabbit: as rodadas de desenvolvimento e pre-PR foram triadas; os findings válidos foram corrigidos, incluindo leitura fail-closed do diff 3-way, ausência de árvore, localização canônica de gates, autorização de WAIVED, isolamento de proveniência, rollback de gate falho e recusa de gate órfão sem marcador de verdict na story. Novo verdict QA pendente.
-- O script legado opcional `validate:structure` permanece indisponível porque o módulo referenciado por `package.json` não existe no baseline; não integra os quality gates obrigatórios desta story.
-- PR #802: 16 findings CodeRabbit triados; 14 válidos corrigidos por Dev, imports absolutos classificados como falso positivo por ausência de alias CommonJS em runtime e heading duplicado encaminhado à autoridade QA.
-- Regressão pós-review: 6 suites/179 testes focados PASS, incluindo Full SDC/close-story, denylist, SYNAPSE, `pm.sh` e o hardening Terminal Spawner preservado.
-- Gates pós-review: lint, typecheck, port denylist, `git diff --check`, Grok sync, IDE sync 109/109, paridade, Claude integration, manifesto e registry determinístico PASS.
-- Regressão pós-QA 0.9.1: 4 suites/148 testes focados PASS; suite integral PASS com 376 suites/8.994 testes e 151 skipped.
-- Gates pós-QA 0.9.1: lint sem erros, typecheck, port denylist (1.262 arquivos/0 hits), manifesto, registry determinístico e `git diff --check` PASS.
-- Regressão pós-QA 0.9.3: 2 suites/80 testes focados PASS; suite integral PASS com 376 suites/9.004 testes e 151 skipped.
-- Gates pós-QA 0.9.3: lint sem erros, typecheck, port denylist (1.262 arquivos/0 hits), manifesto, registry determinístico e `git diff --check` PASS.
+- Base update: merge of `origin/main` into `feat/core-super-update-epic`, commit `d0efd87c` (the feature's previous upstream had been removed after the PR was merged).
+- Final focused tests: 4 suites/26 tests for lifecycle, denylist, harness and administrative closure; the remaining focused tests were folded into the full suite.
+- Final regression: two consecutive runs of `npm test -- --runInBand --silent`, both with 376 suites/8,945 tests passing and no leftover Jest process.
+- Final gates: `npm run build`, `npm run lint`, `npm run typecheck`, `npm run validate:manifest`, `npm run validate:registry-determinism`, `npm run validate:port-denylist`, `npm run sync:ide:check`, `npm run validate:parity`, Claude/Codex validations and `git diff --check` with exit code 0.
+- CodeRabbit: the development and pre-PR rounds were triaged; the valid findings were fixed, including fail-closed reading of the 3-way diff, missing tree, canonical gate location, WAIVED authorization, provenance isolation, rollback of a failed gate and refusal of an orphan gate without a verdict marker in the story. A new QA verdict is pending.
+- The optional legacy `validate:structure` script remains unavailable because the module referenced by `package.json` does not exist in the baseline; it is not part of this story's mandatory quality gates.
+- PR #802: 16 CodeRabbit findings triaged; 14 valid ones fixed by Dev, absolute imports classified as a false positive due to the absence of a CommonJS alias at runtime, and the duplicate heading referred to QA authority.
+- Post-review regression: 6 suites/179 focused tests PASS, including Full SDC/close-story, denylist, SYNAPSE, `pm.sh` and the preserved Terminal Spawner hardening.
+- Post-review gates: lint, typecheck, port denylist, `git diff --check`, Grok sync, IDE sync 109/109, parity, Claude integration, manifest and deterministic registry PASS.
+- Post-QA 0.9.1 regression: 4 suites/148 focused tests PASS; full suite PASS with 376 suites/8,994 tests and 151 skipped.
+- Post-QA 0.9.1 gates: lint with no errors, typecheck, port denylist (1,262 files/0 hits), manifest, deterministic registry and `git diff --check` PASS.
+- Post-QA 0.9.3 regression: 2 suites/80 focused tests PASS; full suite PASS with 376 suites/9,004 tests and 151 skipped.
+- Post-QA 0.9.3 gates: lint with no errors, typecheck, port denylist (1,262 files/0 hits), manifest, deterministic registry and `git diff --check` PASS.
 
 ### Completion Notes List
 
-- Auto-dispatch centralizado com budget explícito, story binding e varredura de prompt/contexto; shell visual/headless usa argumentos literais sem avaliação de entrada do usuário.
-- Lifecycle corrigido para autoridade de QA, loop FAIL→fixes→re-review, contador persistido e circuit breaker após três iterações; fechamento PO tornou-se administrativo, revision-bound, idempotente e recuperável.
-- QA provenance agora é obrigatória e vinculada à revisão; `Done` ou checkpoint sem verdict aprovado, reviewer e reviewed revision não conclui SDC/wave.
-- ADR formaliza `SessionState`/story como fontes canônicas e checkpoints `.aexos` como journals recuperáveis sem autoridade de lifecycle.
-- Harness Wave 0 agora executa os três pares, buckets 3-way, waves, denylist, strict mode e saída determinística com rótulos específicos por par.
-- Denylist ampliada para `.grok`, workspace, secrets/credenciais e integrada a CI/pre-push; allowlist reduzida sem mascarar credenciais.
-- Timers/open handles e flutuações SYNAPSE A1 eliminados; manifesto, registry e projeções regenerados/validados.
-- `npm run build` foi definido como o publish safety gate real do pacote e passou com 2.140 arquivos validados.
-- `npm run lint` final ficou verde com um único warning em `tests/integration/wizard-debug.temp.test.js`, artefato não rastreado preexistente e preservado fora do escopo.
-- O incidente macOS não era telemetria: `tests/core/terminal-spawner.test.js` executava quatro spawns visuais para validar apenas IDs. Guard de test runner + seam pura reduziram o repro interceptado de 4 para 0 janelas.
-- Full SDC agora trata review FAIL antes do halt genérico e executa preflight sobre payload exato/quoted; close-story permanece administrativo e aceita chave idempotente vinculada a digest.
-- SYNAPSE usa o clock injetado em todos os caminhos de `totalEnd`; o denylist cobre credenciais sem aspas em `.env`/YAML sem confundir referências JavaScript.
-- Projeções Claude/Grok, checkout CI, diagrama de autoridade, auditoria de contagem, resumo QA LOW e nota audit-only do Memory Bridge foram alinhados aos contratos canônicos.
-- `validateArgs` possui contrato JSDoc público completo e cobertura obrigatória em `public-api-jsdoc.test.js`.
-- O denylist separa assignments de credencial de literais: aceita chaves JSON/YAML quoted e valores quoted/unquoted, com boundaries que rejeitam `process.env`, variáveis, getters e templates.
-- O scanner de credenciais percorre globalmente todas as assignments da linha, não consome a próxima chave e continua após referências dinâmicas; literais com espaços/`!@:%` e chaves plain/quoted são cobertos por regressão.
-- Nenhum push foi executado.
+- Auto-dispatch centralized with an explicit budget, story binding and prompt/context scan; the visual/headless shell uses literal arguments with no evaluation of user input.
+- Lifecycle corrected for QA authority, the FAIL→fixes→re-review loop, a persisted counter and a circuit breaker after three iterations; PO closure became administrative, revision-bound, idempotent and recoverable.
+- QA provenance is now mandatory and bound to the revision; `Done` or a checkpoint without an approved verdict, reviewer and reviewed revision does not close the SDC/wave.
+- The ADR formalizes `SessionState`/story as the canonical sources and the `.aexos` checkpoints as recoverable journals with no lifecycle authority.
+- The Wave 0 harness now runs the three pairs, 3-way buckets, waves, denylist, strict mode and deterministic output with pair-specific labels.
+- The denylist was extended to `.grok`, workspace, secrets/credentials and integrated into CI/pre-push; the allowlist was reduced without masking credentials.
+- Timers/open handles and SYNAPSE A1 flakiness eliminated; manifest, registry and projections regenerated/validated.
+- `npm run build` was defined as the package's real publish safety gate and passed with 2,140 files validated.
+- The final `npm run lint` came out green with a single warning in `tests/integration/wizard-debug.temp.test.js`, a pre-existing untracked artifact preserved outside the scope.
+- The macOS incident was not telemetry: `tests/core/terminal-spawner.test.js` ran four visual spawns just to validate IDs. A test runner guard + a pure seam reduced the intercepted repro from 4 to 0 windows.
+- Full SDC now handles a review FAIL before the generic halt and runs preflight over the exact/quoted payload; close-story remains administrative and accepts an idempotent key bound to a digest.
+- SYNAPSE uses the injected clock on every `totalEnd` path; the denylist covers unquoted credentials in `.env`/YAML without confusing them with JavaScript references.
+- The Claude/Grok projections, CI checkout, authority diagram, count audit, LOW QA summary and the Memory Bridge audit-only note were aligned with the canonical contracts.
+- `validateArgs` has a complete public JSDoc contract and mandatory coverage in `public-api-jsdoc.test.js`.
+- The denylist separates credential assignments from literals: it accepts quoted JSON/YAML keys and quoted/unquoted values, with boundaries that reject `process.env`, variables, getters and templates.
+- The credential scanner walks globally through every assignment on the line, does not consume the next key and continues past dynamic references; literals with spaces/`!@:%` and plain/quoted keys are covered by regression.
+- No push was performed.
 
 ### File List
 
@@ -287,51 +287,51 @@ GPT-5 Codex
 
 **Reviewed Revision:** working-tree-files-sha256:9d997b871f91445b8d4d98a3a5fc3958da289553422b6e162ce29ae44015e6c0
 
-Digest determinístico de `HEAD d0efd87c99dc6bd0f141cba10eaf64a507bd5d87` e do conteúdo dos 77 arquivos de implementação/documentação listados na story, excluindo os dois registros QA-owned alterados pelo próprio gate (esta story e `LIFECYCLE-AUDIT.md`).
+Deterministic digest of `HEAD d0efd87c99dc6bd0f141cba10eaf64a507bd5d87` and of the content of the 77 implementation/documentation files listed in the story, excluding the two QA-owned records changed by the gate itself (this story and `LIFECYCLE-AUDIT.md`).
 
 ### Code Quality Assessment
 
-Implementação aderente aos 15 ACs. A revisão encontrou um blocker residual no preflight SDC com story relativa; o Dev normalizou o binding para caminho absoluto e adicionou regressão cobrindo caminhos absoluto e relativo. O snapshot corrigido não apresenta issue bloqueante ou dívida técnica que impeça o merge.
+The implementation complies with the 15 ACs. The review found one residual blocker in the SDC preflight with a relative story; Dev normalized the binding to an absolute path and added regression covering absolute and relative paths. The corrected snapshot presents no blocking issue or technical debt that would prevent the merge.
 
 ### Requirements Traceability
 
-- AC 1–2: governança e literalidade do dispatch cobertas por testes unitários, CLI, `pm.sh` com modelo fake e inspeção do terminal spawner.
-- AC 3–5: ownership QA/PO, FAIL→fixes→re-review, persistência do contador e circuit breaker cobertos por lifecycle unitário e integração CLI completa.
-- AC 6: ADR, documentação de orquestração e regressão de checkpoint forjado confirmam que journals `.aexos` não têm autoridade canônica.
-- AC 7–9: integrações CLI/shell, auditoria de lifecycle e contratos JSDoc verificados.
-- AC 10–13: três pares, buckets, waves, determinismo/strict e denylist local+CI/pre-push cobertos e verdes.
-- AC 14–15: duas suites integrais consecutivas e todos os quality gates obrigatórios passaram.
+- AC 1–2: dispatch governance and literalness covered by unit tests, CLI, `pm.sh` with a fake model and inspection of the terminal spawner.
+- AC 3–5: QA/PO ownership, FAIL→fixes→re-review, counter persistence and circuit breaker covered by lifecycle unit tests and complete CLI integration.
+- AC 6: the ADR, orchestration documentation and forged-checkpoint regression confirm that `.aexos` journals have no canonical authority.
+- AC 7–9: CLI/shell integrations, lifecycle audit and JSDoc contracts verified.
+- AC 10–13: three pairs, buckets, waves, determinism/strict and local+CI/pre-push denylist covered and green.
+- AC 14–15: two consecutive full suites and every mandatory quality gate passed.
 
 ### Compliance Check
 
-- Coding Standards: ✓ lint sem erros; único warning em artefato untracked preexistente fora do escopo.
-- Project Structure: ✓ ADR, SOT e projeções nos locais canônicos.
-- Testing Strategy: ✓ unitários, integração real sem rede e regressão integral consecutiva.
-- Constitution: ✓ CLI First, Agent Authority, Story-Driven Development, Quality First e Model Governance.
-- All ACs Met: ✓ AC 1–15 rastreados e aprovados.
+- Coding Standards: ✓ lint with no errors; the single warning is in a pre-existing untracked artifact outside the scope.
+- Project Structure: ✓ ADR, SOT and projections in the canonical locations.
+- Testing Strategy: ✓ unit, real integration without network, and consecutive full regression.
+- Constitution: ✓ CLI First, Agent Authority, Story-Driven Development, Quality First and Model Governance.
+- All ACs Met: ✓ AC 1–15 traced and approved.
 
 ### Initial Review Evidence
 
-- Testes focados no snapshot final: PASS, 11 suites/98 testes.
-- Suite completa: PASS em duas execuções consecutivas, 376 suites/8.945 testes por execução, sem processo Jest residual.
-- `npm run build`, `npm run lint`, `npm run typecheck`, manifesto/registry, port denylist, sync IDE, paridade, integrações Claude/Codex e `git diff --check`: PASS.
-- CodeRabbit: duas rodadas delimitadas; todos os achados verificados e remediados, sem CRITICAL/HIGH pendente.
+- Focused tests on the final snapshot: PASS, 11 suites/98 tests.
+- Full suite: PASS across two consecutive runs, 376 suites/8,945 tests per run, no leftover Jest process.
+- `npm run build`, `npm run lint`, `npm run typecheck`, manifest/registry, port denylist, IDE sync, parity, Claude/Codex integrations and `git diff --check`: PASS.
+- CodeRabbit: two scoped rounds; every finding verified and remediated, with no CRITICAL/HIGH pending.
 
 ### NFR Validation
 
-- Security: PASS — budget, story binding, intent scan e argv literal bloqueiam dispatch inseguro antes do modelo.
-- Reliability: PASS — estado atômico, loop limitado, timers limpos e suite consecutiva estável.
-- Performance: PASS — sem regressão observada; timers de timeout são liberados após conclusão.
-- Maintainability: PASS — contratos públicos documentados, ADR explícito e projeções sincronizadas.
+- Security: PASS — budget, story binding, intent scan and literal argv block an unsafe dispatch before the model.
+- Reliability: PASS — atomic state, bounded loop, clean timers and a stable consecutive suite.
+- Performance: PASS — no regression observed; timeout timers are released after completion.
+- Maintainability: PASS — public contracts documented, an explicit ADR and synchronized projections.
 
 ### Refactoring Performed
 
-Nenhum refactor executado por QA. A correção do blocker residual foi realizada por Dev e revalidada no snapshot final.
+No refactor was performed by QA. The residual blocker was fixed by Dev and re-validated on the final snapshot.
 
 ### Files Modified During Review
 
-- `docs/framework/epics/core-super-update/STORY-CORE-SU.R1-REVIEW-REMEDIATION.md` (QA Results, Status e Change Log).
-- `docs/framework/epics/core-super-update/LIFECYCLE-AUDIT.md` (finalização do audit status vinculada a este verdict).
+- `docs/framework/epics/core-super-update/STORY-CORE-SU.R1-REVIEW-REMEDIATION.md` (QA Results, Status and Change Log).
+- `docs/framework/epics/core-super-update/LIFECYCLE-AUDIT.md` (audit status finalization bound to this verdict).
 
 ### Gate Status
 
@@ -349,19 +349,19 @@ PASS: InReview → Done.
 
 **Reviewed Revision:** working-tree-files-sha256:7b296a02063c0e8389d0827c153c9b0e416445d44e6b3741958aa1dd94844489
 
-Digest determinístico de `HEAD d0efd87c99dc6bd0f141cba10eaf64a507bd5d87` e do conteúdo dos 77 arquivos de implementação/documentação da File List, em ordem lexical, excluindo os dois registros QA-owned (esta story e `LIFECYCLE-AUDIT.md`).
+Deterministic digest of `HEAD d0efd87c99dc6bd0f141cba10eaf64a507bd5d87` and of the content of the 77 implementation/documentation files in the File List, in lexical order, excluding the two QA-owned records (this story and `LIFECYCLE-AUDIT.md`).
 
 ### Re-review Assessment
 
-Os quatro refinamentos finais estão corretos e cobertos: o fallback de gate vincula pelo campo `story`/`storyId` exato, ordena candidatos e rejeita múltiplos matches; falhas de `readdir`/`readFile` retornam evidência estruturada e bloqueiam o fluxo; o contrato `qa-review-story` exige persistência atômica, re-leitura e verificação fail-closed antes do handoff; e Wave reutiliza `resolveQaEvidence`, sem confiar em checkpoint operacional como autoridade de lifecycle. O export público `extractQaVerdict` permanece preservado.
+The four final refinements are correct and covered: the gate fallback binds by the exact `story`/`storyId` field, sorts candidates and rejects multiple matches; `readdir`/`readFile` failures return structured evidence and block the flow; the `qa-review-story` contract requires atomic persistence, a re-read and a fail-closed check before the handoff; and Wave reuses `resolveQaEvidence`, without trusting an operational checkpoint as lifecycle authority. The public export `extractQaVerdict` remains preserved.
 
 ### Re-review Evidence
 
-- `npx jest tests/unit/sdc/phase-verify.test.js tests/unit/sdc/wave-c-integration.test.js tests/unit/sdc/wave-run.test.js tests/unit/public-api-jsdoc.test.js --runInBand`: PASS, 4 suites/62 testes.
-- ESLint focado nos módulos e testes revisados: PASS.
+- `npx jest tests/unit/sdc/phase-verify.test.js tests/unit/sdc/wave-c-integration.test.js tests/unit/sdc/wave-run.test.js tests/unit/public-api-jsdoc.test.js --runInBand`: PASS, 4 suites/62 tests.
+- ESLint focused on the reviewed modules and tests: PASS.
 - `npm run typecheck`: PASS.
 - `git diff --check`: PASS.
-- Evidência herdada do snapshot final: manifesto, registry e port denylist PASS.
+- Evidence inherited from the final snapshot: manifest, registry and port denylist PASS.
 
 ### Re-review Gate Status
 
@@ -369,7 +369,7 @@ Gate: PASS. Quality score: 100/100. Top issues: none.
 
 ### Re-review Lifecycle
 
-Status `Done` preservado; nenhuma nova transição necessária.
+`Done` status preserved; no new transition required.
 
 ### Re-review Date: 2026-07-10 (final pre-PR)
 
@@ -377,20 +377,20 @@ Status `Done` preservado; nenhuma nova transição necessária.
 
 **Reviewed Revision:** working-tree-files-sha256:f21e9e9f7981e64c4ed646eee0a40127c77ec54e97d82d897a879f955f5b9fa9
 
-Digest determinístico de `HEAD d0efd87c99dc6bd0f141cba10eaf64a507bd5d87` e do conteúdo dos 77 arquivos de implementação/documentação da File List, em ordem lexical, excluindo os dois registros QA-owned (esta story e `LIFECYCLE-AUDIT.md`).
+Deterministic digest of `HEAD d0efd87c99dc6bd0f141cba10eaf64a507bd5d87` and of the content of the 77 implementation/documentation files in the File List, in lexical order, excluding the two QA-owned records (this story and `LIFECYCLE-AUDIT.md`).
 
 ### Final Re-review Assessment
 
-Os sete findings da revisão pre-PR foram validados integralmente. O contrato canônico continua aceitando evidência QA inline completa ou gate externo, portanto o short-circuit para QA Results revision-bound é correto. O workflow de review exige remoção obrigatória, verificação de ausência e bloqueio do handoff quando o cleanup de um gate falho não puder ser confirmado. O harness 3-way falha fechado com diagnóstico de árvore/path em erros de indexação ou denylist e, com árvore ausente, marca a classificação como indisponível sem buckets ou candidatos derivados. O resolver usa `qa.qaLocation` do `core-config.yaml`; WAIVED só é aprovado com `active`, `reason` e `approver`; e reviewer/revision ficam limitados à entrada ou documento YAML selecionado. Wave e close consomem a mesma evidência autorizada.
+The seven findings from the pre-PR review were fully validated. The canonical contract still accepts complete inline QA evidence or an external gate, so the short-circuit for revision-bound QA Results is correct. The review workflow requires mandatory removal, an absence check and blocking of the handoff when the cleanup of a failed gate cannot be confirmed. The 3-way harness fails closed with a tree/path diagnostic on indexing or denylist errors and, when the tree is missing, marks the classification as unavailable with no derived buckets or candidates. The resolver uses `qa.qaLocation` from `core-config.yaml`; WAIVED is only approved with `active`, `reason` and `approver`; and reviewer/revision are limited to the entry or selected YAML document. Wave and close consume the same authorized evidence.
 
 ### Final Re-review Evidence
 
-- Regressão independente: `npx jest tests/unit/framework-3way-diff.test.js tests/unit/sdc/phase-verify.test.js tests/unit/sdc/wave-c-integration.test.js tests/unit/sdc/wave-run.test.js tests/unit/lifecycle-close-contract.test.js tests/unit/public-api-jsdoc.test.js --runInBand`: PASS, 6 suites/78 testes.
-- Probe contratual isolado dos sete hardenings: PASS, 7/7; probe adicional de leitura denylist com árvore/path: PASS.
-- Suite completa do snapshot: PASS, 376 suites/8.956 testes (151 skipped).
-- `npm run lint`: PASS, sem erros; único warning no artefato untracked preexistente `wizard-debug.temp.test.js`.
-- `npm run typecheck`, manifesto, registry, port denylist, sync IDE, paridade e `git diff --check`: PASS.
-- File List: 79/79 artefatos existentes e todos os arquivos modificados do escopo cobertos; dois untracked preexistentes permanecem fora do escopo.
+- Independent regression: `npx jest tests/unit/framework-3way-diff.test.js tests/unit/sdc/phase-verify.test.js tests/unit/sdc/wave-c-integration.test.js tests/unit/sdc/wave-run.test.js tests/unit/lifecycle-close-contract.test.js tests/unit/public-api-jsdoc.test.js --runInBand`: PASS, 6 suites/78 tests.
+- Isolated contract probe of the seven hardenings: PASS, 7/7; additional denylist read probe with tree/path: PASS.
+- Full suite on the snapshot: PASS, 376 suites/8,956 tests (151 skipped).
+- `npm run lint`: PASS, no errors; the single warning is in the pre-existing untracked artifact `wizard-debug.temp.test.js`.
+- `npm run typecheck`, manifest, registry, port denylist, IDE sync, parity and `git diff --check`: PASS.
+- File List: 79/79 artifacts present and every modified file in scope covered; two pre-existing untracked files remain outside the scope.
 
 ### Final Re-review Gate Status
 
@@ -408,21 +408,21 @@ PASS: InReview → Done.
 
 **Reviewed Revision:** commit:a1a43dc895655adfbee6c6634e31242dc1887ff1
 
-Snapshot de implementação commitado: `3f231b04`, complementado pelo commit mecânico `a1a43dc895655adfbee6c6634e31242dc1887ff1` com registry e manifesto sincronizados.
+Committed implementation snapshot: `3f231b04`, complemented by the mechanical commit `a1a43dc895655adfbee6c6634e31242dc1887ff1` with the registry and manifest synchronized.
 
 ### Post-fix Assessment
 
-Os quatro ajustes pós-fix estão corretos. `resolveQaEvidence` recusa um gate externo completo quando a story não contém marcador/verdict QA, mantendo o fallback somente quando a própria story referencia um verdict. O contrato JSDoc de `classifyThreeWay` está associado ao export correto e descreve seu retorno real. O relatório usa `leftLabel` também no heading, preservando `OSS ↔ peer` e `hub ↔ enterprise`. O handoff separa findings ordinários (`*apply-qa-fixes`) de um `QA_FIX_REQUEST.md` estruturado externo (`*fix-qa-issues`). Nenhum blocker ou concern residual foi identificado.
+The four post-fix adjustments are correct. `resolveQaEvidence` refuses a complete external gate when the story contains no QA marker/verdict, keeping the fallback only when the story itself references a verdict. The JSDoc contract of `classifyThreeWay` is attached to the correct export and describes its real return value. The report also uses `leftLabel` in the heading, preserving `OSS ↔ peer` and `hub ↔ enterprise`. The handoff separates ordinary findings (`*apply-qa-fixes`) from a structured external `QA_FIX_REQUEST.md` (`*fix-qa-issues`). No residual blocker or concern was identified.
 
 ### Post-fix Evidence
 
-- Regressão independente: 6 suites/79 testes, PASS.
-- Regressão consolidada do snapshot fornecida por Dev: 6 suites/117 testes, PASS.
-- Probe isolado dos quatro contratos: PASS, 4/4, incluindo gate órfão bloqueado e fallback marcado aprovado.
-- `npm run lint`: PASS, sem erros; único warning em artefato untracked preexistente.
-- `npm run typecheck`, syntax checks e `git diff --check`: PASS.
-- Manifesto, registry e port denylist do snapshot: PASS; suite integral anterior: 376 suites/8.956 testes, PASS, com rerun final delegado ao gate DevOps pre-PR.
-- File List: 79/79 artefatos existentes e todos os arquivos modificados do escopo cobertos.
+- Independent regression: 6 suites/79 tests, PASS.
+- Consolidated snapshot regression provided by Dev: 6 suites/117 tests, PASS.
+- Isolated probe of the four contracts: PASS, 4/4, including a blocked orphan gate and a fallback marked as approved.
+- `npm run lint`: PASS, no errors; the single warning is in a pre-existing untracked artifact.
+- `npm run typecheck`, syntax checks and `git diff --check`: PASS.
+- Snapshot manifest, registry and port denylist: PASS; previous full suite: 376 suites/8,956 tests, PASS, with the final rerun delegated to the DevOps pre-PR gate.
+- File List: 79/79 artifacts present and every modified file in scope covered.
 
 ### Post-fix Gate Status
 
@@ -440,20 +440,20 @@ PASS: InReview → Done.
 
 **Reviewed Revision:** commit:cb93f8f72d0fa29ca2345adbad972ff1755a45d6
 
-Snapshot Vercel commitado em `cb93f8f72d0fa29ca2345adbad972ff1755a45d6`, contendo configuração, output estático e artefatos gerados validados.
+Vercel snapshot committed in `cb93f8f72d0fa29ca2345adbad972ff1755a45d6`, containing the configuration, static output and validated generated artifacts.
 
 ### Vercel Fix Assessment
 
-A configuração é mínima e segura: `vercel.json` desativa autodetecção de framework e declara `public` como output; `public/index.html` contém apenas apresentação pública e link oficial do repositório, sem paths locais, secrets ou metadados internos. `.vercel` e `.env*.local` estão ignorados pelo Git, e artefatos `.vercel` estão fora do lint. O build local da Vercel executou o publish safety gate e materializou `.vercel/output/static/index.html` com sucesso. Nenhum blocker ou concern residual foi identificado.
+The configuration is minimal and safe: `vercel.json` disables framework autodetection and declares `public` as the output; `public/index.html` contains only public presentation and the official repository link, with no local paths, secrets or internal metadata. `.vercel` and `.env*.local` are ignored by Git, and `.vercel` artifacts are outside the lint scope. The local Vercel build ran the publish safety gate and materialized `.vercel/output/static/index.html` successfully. No residual blocker or concern was identified.
 
 ### Vercel Fix Evidence
 
-- `npx vercel build --scope sinkra-cyryx --yes`: PASS; Vercel CLI 50.1.6, `npm run build` PASS e output estático gerado.
-- Probe de JSON, output HTML e ignores Git: PASS; `.vercel/output/config.json` versão 3 e static `index.html` inspecionados.
-- Suite completa do snapshot: PASS, 376 suites/8.957 testes.
-- `npm run build`, `npm run lint`, `npm run typecheck`, port denylist e `git diff --check`: PASS; lint sem erros e com um warning no temp untracked preexistente.
-- Após regeneração IDS: manifesto e registry determinístico PASS, 844 entidades.
-- File List: 81/81 artefatos existentes e todos os arquivos modificados do escopo cobertos.
+- `npx vercel build --scope sinkra-cyryx --yes`: PASS; Vercel CLI 50.1.6, `npm run build` PASS and static output generated.
+- JSON, HTML output and Git ignores probe: PASS; `.vercel/output/config.json` version 3 and the static `index.html` inspected.
+- Full suite on the snapshot: PASS, 376 suites/8,957 tests.
+- `npm run build`, `npm run lint`, `npm run typecheck`, port denylist and `git diff --check`: PASS; lint with no errors and one warning in the pre-existing untracked temp file.
+- After IDS regeneration: manifest and deterministic registry PASS, 844 entities.
+- File List: 81/81 artifacts present and every modified file in scope covered.
 
 ### Vercel Fix Gate Status
 
@@ -471,17 +471,17 @@ PASS: InReview → Done.
 
 ### Root Cause
 
-O incidente não era telemetria. Um teste de formatos válidos chamava `spawnAgent` quatro vezes; no macOS, o runner local era classificado como terminal nativo e cada chamada abria Terminal.app antes de o comando filho receber `AEXOS_INLINE_MODE=true`.
+The incident was not telemetry. A valid-formats test called `spawnAgent` four times; on macOS the local runner was classified as a native terminal and each call opened Terminal.app before the child command received `AEXOS_INLINE_MODE=true`.
 
 ### macOS Terminal Flood Evidence
 
-- Repro com `osascript` interceptado: 4 tentativas visuais antes da correção e 0 depois.
-- Regressão focada final: 2 suites/78 testes, PASS; 0 chamadas ao `osascript`.
-- Suite completa: 376 suites/8.960 testes, PASS; 0 chamadas ao `osascript`.
-- `npm run lint`: PASS sem erros; único warning no artefato untracked preexistente `wizard-debug.temp.test.js`.
-- `npm run typecheck` e `git diff --check`: PASS.
-- Guard do binário AEXOS Cockpit: painel `dev-telemetry` ausente do build padrão e presente apenas no build explícito da feature; PASS nas duas direções.
-- Revisão independente após hardening dos testes para CI/Docker: PASS, nenhum finding restante.
+- Repro with `osascript` intercepted: 4 visual attempts before the fix and 0 afterwards.
+- Final focused regression: 2 suites/78 tests, PASS; 0 calls to `osascript`.
+- Full suite: 376 suites/8,960 tests, PASS; 0 calls to `osascript`.
+- `npm run lint`: PASS with no errors; the single warning is in the pre-existing untracked artifact `wizard-debug.temp.test.js`.
+- `npm run typecheck` and `git diff --check`: PASS.
+- AEXOS Cockpit binary guard: the `dev-telemetry` panel is absent from the default build and present only in the explicit feature build; PASS in both directions.
+- Independent review after hardening the tests for CI/Docker: PASS, no findings remaining.
 
 ### macOS Terminal Flood Gate Status
 
@@ -503,64 +503,64 @@ closure of the current revision. The current verdict below is FAIL.
 
 **Reviewed Revision:** working-tree-files-sha256:ac0eb8545fd14fed89902a8aab971765b45d685d48bd09b6f9b1e486044fba1f
 
-Digest determinístico de `HEAD c5409921a416a0445f48f5828855af115423643c`
-e dos 81 arquivos de implementação/documentação da File List, em ordem
-lexical, excluindo os dois registros QA-owned (esta story e
-`LIFECYCLE-AUDIT.md`). Cada registro inclui path e bytes do arquivo, separados
-por NUL.
+Deterministic digest of `HEAD c5409921a416a0445f48f5828855af115423643c`
+and of the 81 implementation/documentation files in the File List, in lexical
+order, excluding the two QA-owned records (this story and
+`LIFECYCLE-AUDIT.md`). Each record includes the file's path and bytes, separated
+by NUL.
 
 #### Assessment
 
-Os comentários anteriores do PR foram corrigidos corretamente: Full SDC trata
-review FAIL antes do halt genérico; close-story aceita chave de digest e mantém
-escritas administrativas; `pm.sh` propaga `AEXOS_PROJECT_ROOT`; payloads
-Claude/Grok são quoted, exatos e não podem ser enriquecidos após preflight;
-diagrama, audit counts, clock SYNAPSE, checkout CI, resumo LOW e nota audit-only
-do Memory Bridge estão alinhados. A sugestão de imports absolutos é falso
-positivo: a Constitution classifica a regra como SHOULD, permite relativos no
-mesmo módulo e o runtime CommonJS não configura alias.
+The previous PR comments were fixed correctly: Full SDC handles a
+review FAIL before the generic halt; close-story accepts a digest key and keeps
+administrative writes; `pm.sh` propagates `AEXOS_PROJECT_ROOT`; the Claude/Grok
+payloads are quoted, exact and cannot be enriched after preflight;
+the diagram, audit counts, SYNAPSE clock, CI checkout, LOW summary and the Memory
+Bridge audit-only note are aligned. The absolute imports suggestion is a false
+positive: the Constitution classifies the rule as SHOULD, allows relative imports within
+the same module, and the CommonJS runtime does not configure an alias.
 
-O snapshot, porém, mantém três blockers MAJOR reproduzíveis:
+The snapshot, however, still holds three reproducible MAJOR blockers:
 
-1. `validateArgs` passou a integrar o export público de
-   `terminal-spawner.js`, mas seu JSDoc não declara retorno/formatos aceitos e o
-   contrato não está coberto por `tests/unit/public-api-jsdoc.test.js`.
-2. O denylist não detecta a fixture positiva JSON com chave quoted e valor
-   sintético longo.
-3. O mesmo regex classifica referências de ambiente como segredo literal,
-   incluindo acessos por `process.env` em JSON/YAML, assignment e export.
+1. `validateArgs` became part of the public export of
+   `terminal-spawner.js`, but its JSDoc does not declare the return value/accepted formats and the
+   contract is not covered by `tests/unit/public-api-jsdoc.test.js`.
+2. The denylist does not detect the positive JSON fixture with a quoted key and a long
+   synthetic value.
+3. The same regex classifies environment references as a literal secret,
+   including `process.env` accesses in JSON/YAML, assignment and export.
 
 #### Evidence
 
-- CodeRabbit uncommitted: 4 findings MAJOR. O finding QA-owned de lifecycle foi
-  corrigido nesta revisão; os três findings técnicos acima foram confirmados.
-- Probe contratual isolado: 3/3 regressões reproduzidas.
-- Regressão focada existente: PASS, 5 suites/173 testes. O resultado demonstra
-  ausência de quebra nos testes atuais, mas também confirma lacunas de
-  regressão porque os probes falham fora da suite.
-- Headings Markdown da seção QA: sem duplicatas após converter provenance em
-  metadata bold e tornar headings de evidência únicos.
-- Suite integral e gates finais não foram usados para aprovação porque blockers
-  MAJOR já acionaram o fail-fast do gate; devem ser executados após os fixes.
+- CodeRabbit uncommitted: 4 MAJOR findings. The QA-owned lifecycle finding was
+  fixed in this revision; the three technical findings above were confirmed.
+- Isolated contract probe: 3/3 regressions reproduced.
+- Existing focused regression: PASS, 5 suites/173 tests. The result demonstrates
+  that the current tests do not break, but it also confirms
+  regression gaps because the probes fail outside the suite.
+- Markdown headings of the QA section: no duplicates after converting the provenance into
+  bold metadata and making the evidence headings unique.
+- The full suite and final gates were not used for approval because MAJOR
+  blockers had already triggered the gate's fail-fast; they must be run after the fixes.
 
 #### Required Fix Request
 
-- Documentar `validateArgs(agent, task)` com `@param`, retorno `void`, formatos
-  aceitos e erros; adicionar o export à matriz de public API JSDoc.
-- Aceitar chaves opcionais quoted no padrão de credenciais e cobrir JSON/YAML.
-- Excluir referências `process.env`, expansões/variáveis equivalentes e getters
-  do valor literal, preservando detecção de secrets quoted e unquoted; adicionar
-  testes positivos e negativos para assignment, export, JSON e YAML.
-- Rodar CodeRabbit novamente e repetir testes focados, suite integral, lint,
-  typecheck, denylist, sync/paridade, manifesto/registry e diff-check.
+- Document `validateArgs(agent, task)` with `@param`, a `void` return, accepted
+  formats and errors; add the export to the public API JSDoc matrix.
+- Accept optional quoted keys in the credential pattern and cover JSON/YAML.
+- Exclude `process.env` references, equivalent expansions/variables and getters
+  from the literal value, while preserving detection of quoted and unquoted secrets; add
+  positive and negative tests for assignment, export, JSON and YAML.
+- Run CodeRabbit again and repeat the focused tests, full suite, lint,
+  typecheck, denylist, sync/parity, manifest/registry and diff-check.
 
 #### PR Comment NFR Validation
 
-- Security: FAIL — false negative de segredo JSON e falsos positivos de
-  referências de ambiente tornam o gate denylist impreciso.
-- Reliability: CONCERNS — o novo export público não tem contrato automatizado.
-- Performance: PASS — nenhuma regressão identificada.
-- Maintainability: CONCERNS — cobertura do contrato público incompleta.
+- Security: FAIL — a JSON secret false negative and false positives from
+  environment references make the denylist gate imprecise.
+- Reliability: CONCERNS — the new public export has no automated contract.
+- Performance: PASS — no regression identified.
+- Maintainability: CONCERNS — public contract coverage is incomplete.
 
 #### PR Comment Gate Status
 
@@ -578,65 +578,64 @@ FAIL: InReview → InProgress.
 
 **Reviewed Revision:** working-tree-files-sha256:c3a5fba8980f5f32f0c1363c25b8470e9d2cda4c670e3584d4f6fcc3bd1e4b93
 
-Digest determinístico de `HEAD c5409921a416a0445f48f5828855af115423643c`
-e dos 81 arquivos de implementação/documentação da File List, em ordem
-lexical, excluindo os dois registros QA-owned (esta story e
-`LIFECYCLE-AUDIT.md`), com path e bytes separados por NUL.
+Deterministic digest of `HEAD c5409921a416a0445f48f5828855af115423643c`
+and of the 81 implementation/documentation files in the File List, in lexical
+order, excluding the two QA-owned records (this story and
+`LIFECYCLE-AUDIT.md`), with path and bytes separated by NUL.
 
 #### Denylist Re-review Assessment
 
-Os três blockers da revisão anterior foram abordados: `validateArgs` possui
-contrato JSDoc completo e está no gate de public API; chaves quoted JSON/YAML
-são reconhecidas; e 18 formas de referências dinâmicas (`process.env`, `$VAR`,
-variáveis, getters, calls e templates) produziram zero falsos positivos nos
-probes independentes. A regressão focada passou com 4 suites/148 testes.
+The three blockers from the previous review were addressed: `validateArgs` has a
+complete JSDoc contract and is in the public API gate; quoted JSON/YAML keys
+are recognized; and 18 forms of dynamic reference (`process.env`, `$VAR`,
+variables, getters, calls and templates) produced zero false positives in the
+independent probes. The focused regression passed with 4 suites/148 tests.
 
-O gate permanece FAIL por três gaps residuais de detecção de secrets reais:
+The gate remains FAIL because of three residual gaps in detecting real secrets:
 
-1. `looksLikeUnquotedVariable()` trata qualquer valor camelCase como variável,
-   inclusive literals de alta entropia com dígitos. Assim, a fixture positiva
-   de export com valor camelCase e dígitos escapa em `.env`.
-2. `hasHardcodedCredential()` avalia somente a primeira assignment da linha.
-   Na fixture JSON multi-assignment, a primeira referência dinâmica impede que
-   o segundo literal sintético seja inspecionado.
-3. A gramática de valor não aceita punctuation/espaços comuns em secrets.
-   As fixtures quoted com espaços/pontuação e unquoted com pontuação não são
-   detectadas.
+1. `looksLikeUnquotedVariable()` treats any camelCase value as a variable,
+   including high-entropy literals with digits. As a result, the positive export fixture
+   with a camelCase value and digits escapes in `.env`.
+2. `hasHardcodedCredential()` evaluates only the first assignment on the line.
+   In the multi-assignment JSON fixture, the first dynamic reference prevents
+   the second synthetic literal from being inspected.
+3. The value grammar does not accept punctuation/spaces that are common in secrets.
+   The quoted fixtures with spaces/punctuation and the unquoted ones with punctuation are not
+   detected.
 
 #### Denylist Re-review Evidence
 
-- Probe independente do contrato público e referências: JSDoc/export PASS;
-  formatos de `validateArgs` PASS; 18/18 referências dinâmicas não sinalizadas.
-- Probe independente de literals: 4 casos reais acima reproduzidos como false
+- Independent probe of the public contract and references: JSDoc/export PASS;
+  `validateArgs` formats PASS; 18/18 dynamic references not flagged.
+- Independent probe of literals: the 4 real cases above reproduced as false
   negatives.
-- Regressão focada: PASS, 4 suites/148 testes.
-- Evidência Dev do snapshot: suite integral PASS, 376 suites/8.994 testes;
-  lint 0 erros (1 warning no temp untracked), typecheck, denylist 1.262/0,
-  manifesto, registry 844 e diff-check PASS.
-- CodeRabbit uncommitted: 2 MAJOR válidos confirmando multi-assignment e
-  gramática estreita; 1 MINOR sobre camelCase das chaves é falso positivo,
-  porque o regex case-insensitive aceita `apiKey` e `accessToken`.
+- Focused regression: PASS, 4 suites/148 tests.
+- Dev evidence from the snapshot: full suite PASS, 376 suites/8,994 tests;
+  lint 0 errors (1 warning in the untracked temp file), typecheck, denylist 1,262/0,
+  manifest, registry 844 and diff-check PASS.
+- CodeRabbit uncommitted: 2 valid MAJOR confirming multi-assignment and a
+  narrow grammar; 1 MINOR about camelCase keys is a false positive,
+  because the case-insensitive regex accepts `apiKey` and `accessToken`.
 
 #### Denylist Fix Request
 
-- Diferenciar referências de código de literals por contexto/path; não usar
-  aparência camelCase/underscore como dispensa global para `.env`, JSON ou YAML.
-- Parsear todas as assignments credential-like de uma linha com spans de valor
-  delimitados, sem `rawValue` greedy, e aprovar se qualquer literal for secreto.
-- Para quoted values, consumir até a quote correspondente e aceitar punctuation
-  e espaços; para unquoted values, usar gramática non-whitespace com delimiters
-  explícitos. Preservar exclusões de referências dinâmicas.
-- Adicionar regressões para secret camelCase de alta entropia, JSON com primeira
-  referência e segundo literal, punctuation/espaços quoted e punctuation
-  unquoted; rerodar CodeRabbit e todos os gates finais.
+- Distinguish code references from literals by context/path; do not use
+  camelCase/underscore appearance as a global waiver for `.env`, JSON or YAML.
+- Parse every credential-like assignment on a line with delimited value spans,
+  without a greedy `rawValue`, and flag it if any literal is a secret.
+- For quoted values, consume up to the matching quote and accept punctuation
+  and spaces; for unquoted values, use a non-whitespace grammar with explicit
+  delimiters. Preserve the exclusions for dynamic references.
+- Add regressions for a high-entropy camelCase secret, JSON with a first
+  reference and a second literal, quoted punctuation/spaces and unquoted
+  punctuation; re-run CodeRabbit and all the final gates.
 
 #### Re-review NFR Validation
 
-- Security: FAIL — false negatives permitem secrets reais no port denylist.
-- Reliability: CONCERNS — parsing encerra após a primeira assignment.
-- Performance: PASS — nenhuma regressão observada.
-- Maintainability: CONCERNS — heurística mistura sintaxe de código e formatos de
-  configuração.
+- Security: FAIL — false negatives allow real secrets past the port denylist.
+- Reliability: CONCERNS — parsing stops after the first assignment.
+- Maintainability: CONCERNS — the heuristic mixes code syntax with configuration
+  formats.
 
 #### Denylist Re-review Gate Status
 
@@ -654,58 +653,58 @@ FAIL: InReview → InProgress.
 
 **Reviewed Revision:** commit:2d91da9694e6cf9bd2b9fa8b2755ff27c97ac3ac
 
-Snapshot final commitado em `2d91da9694e6cf9bd2b9fa8b2755ff27c97ac3ac`:
-implementação em `d23a8d23dfc05e83891a50c52a14f9d966179008`, complementada
-pelo commit mecânico de registry e manifesto, ambos validados.
+Final snapshot committed in `2d91da9694e6cf9bd2b9fa8b2755ff27c97ac3ac`:
+implementation in `d23a8d23dfc05e83891a50c52a14f9d966179008`, complemented
+by the mechanical registry and manifest commit, both validated.
 
 #### Scanner Closure Assessment
 
-O scanner global elimina os três blockers do ciclo anterior. Parsing percorre
-todas as assignments da linha; valores quoted aceitam caracteres ASCII
-imprimíveis e espaços até a quote correspondente; valores unquoted respeitam
-delimiters; e a distinção entre código e arquivos de configuração preserva
-referências dinâmicas sem dispensar literals reais. `validateArgs` continua com
-JSDoc completo e cobertura no gate de public API. Nenhum blocker residual foi
-identificado nos contratos revisados.
+The global scanner eliminates the three blockers from the previous cycle. Parsing walks
+through every assignment on the line; quoted values accept printable ASCII
+characters and spaces up to the matching quote; unquoted values respect
+delimiters; and the distinction between code and configuration files preserves
+dynamic references without waiving real literals. `validateArgs` still has
+complete JSDoc and coverage in the public API gate. No residual blocker was
+identified in the reviewed contracts.
 
 #### Scanner Closure Evidence
 
-- Probes independentes positivos: 4/4 detectados — export camelCase+dígitos;
-  segundo literal após `${PASSWORD}`; quoted com espaços/`!@:%`; unquoted com
+- Positive independent probes: 4/4 detected — camelCase+digits export;
+  second literal after `${PASSWORD}`; quoted with spaces/`!@:%`; unquoted with
   `!@:%`.
-- Probes independentes negativos: 16/16 ignorados — `$VAR`, `${VAR}`,
-  `process.env`, duas referências, variáveis simples/snake, properties, bracket
-  access, getters, calls conhecidas/desconhecidas, templates e interpolações.
-- Regressão focada independente: PASS, 2 suites/80 testes.
-- Gate denylist independente: PASS, 1.262 arquivos e zero hits.
-- ESLint focado e `npm run typecheck`: PASS.
-- Evidência Dev do mesmo snapshot: suite integral PASS, 376 suites/9.004
-  testes; lint, typecheck, denylist, manifesto, registry 844 e diff-check PASS.
+- Negative independent probes: 16/16 ignored — `$VAR`, `${VAR}`,
+  `process.env`, two references, simple/snake variables, properties, bracket
+  access, getters, known/unknown calls, templates and interpolations.
+- Independent focused regression: PASS, 2 suites/80 tests.
+- Independent denylist gate: PASS, 1,262 files and zero hits.
+- Focused ESLint and `npm run typecheck`: PASS.
+- Dev evidence from the same snapshot: full suite PASS, 376 suites/9,004
+  tests; lint, typecheck, denylist, manifest, registry 844 and diff-check PASS.
 
 #### Automation Caveat
 
-O CodeRabbit local foi executado no diff uncommitted, mas a revisão integral
-permaneceu cerca de dez minutos em `summarizing` sem produzir verdict ou
-findings. A tentativa proporcional subsequente para
-`.aexos-core/core/security` foi recusada pelo limite gratuito OSS, com reset
-estimado em 17 minutos. Essa indisponibilidade não é registrada como aprovação
-automatizada. Este PASS exige novo review CodeRabbit remoto após o push e antes
-do merge; qualquer MAJOR válido reabre o gate.
+Local CodeRabbit was run on the uncommitted diff, but the full review
+stayed in `summarizing` for about ten minutes without producing a verdict or
+findings. The subsequent proportional attempt for
+`.aexos-core/core/security` was refused by the OSS free tier limit, with an estimated
+reset in 17 minutes. That unavailability is not recorded as automated
+approval. This PASS requires a new remote CodeRabbit review after the push and before
+the merge; any valid MAJOR reopens the gate.
 
 #### Scanner Closure NFR
 
-- Security: PASS — literals reais e referências dinâmicas foram discriminados
-  nos vetores obrigatórios.
-- Reliability: PASS — múltiplas assignments são percorridas de forma estável.
-- Performance: PASS — scanner linear por linha, sem regressão observada.
-- Maintainability: PASS — parsing foi separado em tokens, boundaries e decisão
-  contextual testável.
+- Security: PASS — real literals and dynamic references were discriminated
+  across the mandatory vectors.
+- Reliability: PASS — multiple assignments are walked through stably.
+- Performance: PASS — linear per-line scanner, with no regression observed.
+- Maintainability: PASS — parsing was split into tokens, boundaries and a testable
+  contextual decision.
 
 #### Scanner Closure Gate
 
 Gate: PASS. Quality score: 100/100. Top issues: none.
 
-Condition: novo review CodeRabbit remoto obrigatório após push e antes do merge.
+Condition: a new remote CodeRabbit review is mandatory after the push and before the merge.
 
 #### Scanner Closure Lifecycle
 
@@ -719,50 +718,50 @@ PASS: InReview → Done.
 
 **Reviewed Revision:** commit:0dd29cd7e2a41f32cf94b61adf3d4b2091bb8bc4
 
-Snapshot final commitado em `0dd29cd7e2a41f32cf94b61adf3d4b2091bb8bc4`:
-implementação em `1612ce6d`, complementada pelo commit mecânico do registry e
-manifesto.
+Final snapshot committed in `0dd29cd7e2a41f32cf94b61adf3d4b2091bb8bc4`:
+implementation in `1612ce6d`, complemented by the mechanical registry and
+manifest commit.
 
 #### Interactive Remediation Assessment
 
-Os cinco findings do review incremental foram confirmados e corrigidos. O
-Full SDC agora pausa em modo interactive antes de qualquer alteração e só
-executa `apply-qa-fixes` em YOLO ou após aprovação explícita. Source of truth,
-Claude e Grok mantêm o mesmo contrato. O teste do checkout CI encontra a
-próxima fronteira real de job, sem depender da posição de `lint`. Os exemplos
-históricos de scanner foram preservados semanticamente sem literals com formato
-de credencial na documentação versionada.
+The five findings from the incremental review were confirmed and fixed. Full
+SDC now pauses in interactive mode before any change and only
+runs `apply-qa-fixes` in YOLO or after explicit approval. The source of truth,
+Claude and Grok keep the same contract. The CI checkout test finds the
+next real job boundary, without depending on the position of `lint`. The
+historical scanner examples were preserved semantically without literals shaped like
+credentials in the versioned documentation.
 
 #### Interactive Remediation Evidence
 
-- Regressão focada: PASS, 2 suites/56 testes.
-- Suite integral: PASS, 376 suites/9.007 testes; 151 testes ignorados.
-- `npm run lint`: PASS, zero erros; um warning somente no temporário untracked
-  preexistente.
-- `npm run typecheck`, `npm run build` e `npm run validate:port-denylist`: PASS.
-- Claude sync/integration, IDE strict sync, Grok dry-run e paridade: PASS.
-- Manifesto e registry determinístico: PASS, 844 entidades.
+- Focused regression: PASS, 2 suites/56 tests.
+- Full suite: PASS, 376 suites/9,007 tests; 151 tests skipped.
+- `npm run lint`: PASS, zero errors; one warning only in the pre-existing untracked
+  temp file.
+- `npm run typecheck`, `npm run build` and `npm run validate:port-denylist`: PASS.
+- Claude sync/integration, IDE strict sync, Grok dry-run and parity: PASS.
+- Manifest and deterministic registry: PASS, 844 entities.
 - `git diff --check`: PASS.
-- CodeRabbit local iniciou o review, mas permaneceu em `summarizing` sem
-  findings; o review remoto pós-push permanece obrigatório.
+- Local CodeRabbit started the review but stayed in `summarizing` with no
+  findings; the post-push remote review remains mandatory.
 
 #### Interactive Remediation NFR
 
-- Security: PASS — documentação sem literals credential-shaped.
-- Reliability: PASS — modo interactive não inicia correções sem consentimento.
-- Maintainability: PASS — projeções sincronizadas e teste CI independente da
-  ordem dos jobs.
-- Performance: PASS — apenas contratos e testes estáticos foram alterados.
+- Security: PASS — documentation with no credential-shaped literals.
+- Reliability: PASS — interactive mode does not start fixes without consent.
+- Maintainability: PASS — projections synchronized and the CI test independent of
+  job ordering.
+- Performance: PASS — only contracts and static tests were changed.
 
 #### Interactive Remediation Gate
 
 Gate: PASS. Quality score: 100/100. Top issues: none.
 
-Condition: novo review CodeRabbit remoto obrigatório após push e antes do merge.
+Condition: a new remote CodeRabbit review is mandatory after the push and before the merge.
 
 #### Interactive Remediation Lifecycle
 
-PASS follow-up: Status Done preservado.
+PASS follow-up: Done status preserved.
 
 ### PR #802 Preflight Ordering Follow-up — Gate PASS
 
@@ -772,44 +771,44 @@ PASS follow-up: Status Done preservado.
 
 **Reviewed Revision:** commit:e4b2ec21708b78d6f16e224754239a858371c34e
 
-Snapshot final commitado em `e4b2ec21708b78d6f16e224754239a858371c34e`:
-implementação em `528d817b`, complementada pelo commit mecânico do registry e
-manifesto.
+Final snapshot committed in `e4b2ec21708b78d6f16e224754239a858371c34e`:
+implementation in `528d817b`, complemented by the mechanical registry and
+manifest commit.
 
 #### Preflight Ordering Assessment
 
-Os três findings MAJOR fora do diff tinham a mesma causa e foram confirmados.
-O loop agora separa leitura de SOT e execução: carrega sem executar, materializa
-o payload exato, exige preflight aprovado e somente então executa inline ou
-despacha child/model. O contrato é idêntico no SOT e nas projeções Claude/Grok.
+The three MAJOR findings outside the diff had the same cause and were confirmed.
+The loop now separates reading the SOT from execution: it loads without executing, materializes
+the exact payload, requires an approved preflight and only then runs inline or
+dispatches a child/model. The contract is identical in the SOT and in the Claude/Grok projections.
 
 #### Preflight Ordering Evidence
 
-- Regressão focada: PASS, 1 suite/21 testes.
-- Suite integral: PASS, 376 suites/9.010 testes; 151 testes ignorados.
-- `npm run lint`: PASS, zero erros; um warning somente no temporário untracked
-  preexistente.
-- `npm run typecheck`, `npm run build` e `npm run validate:port-denylist`: PASS.
-- IDE strict sync, Grok dry-run e paridade: PASS.
-- Manifesto e registry determinístico: PASS, 844 entidades.
+- Focused regression: PASS, 1 suite/21 tests.
+- Full suite: PASS, 376 suites/9,010 tests; 151 tests skipped.
+- `npm run lint`: PASS, zero errors; one warning only in the pre-existing untracked
+  temp file.
+- `npm run typecheck`, `npm run build` and `npm run validate:port-denylist`: PASS.
+- IDE strict sync, Grok dry-run and parity: PASS.
+- Manifest and deterministic registry: PASS, 844 entities.
 - `git diff --check`: PASS.
 
 #### Preflight Ordering NFR
 
-- Security: PASS — nenhuma fase executa antes do gate de preflight.
-- Reliability: PASS — falha de preflight interrompe o ciclo antes de side effects.
-- Maintainability: PASS — ordem explícita e protegida por regressão nas três projeções.
-- Desempenho: PASS — o preflight obrigatório adiciona overhead de processo/I/O à orquestração; nenhuma regressão significativa no runtime do produto foi observada.
+- Security: PASS — no phase runs before the preflight gate.
+- Reliability: PASS — a preflight failure interrupts the cycle before side effects.
+- Maintainability: PASS — explicit ordering, protected by regression across the three projections.
+- Performance: PASS — the mandatory preflight adds process/I/O overhead to the orchestration; no significant regression in the product runtime was observed.
 
 #### Preflight Ordering Gate
 
 Gate: PASS. Quality score: 100/100. Top issues: none.
 
-Condition: novo review CodeRabbit remoto obrigatório após push e antes do merge.
+Condition: a new remote CodeRabbit review is mandatory after the push and before the merge.
 
 #### Preflight Ordering Lifecycle
 
-PASS follow-up: Status Done preservado.
+PASS follow-up: Done status preserved.
 
 ### PR #802 CI Audit Contract Follow-up — Gate PASS
 
@@ -819,35 +818,35 @@ PASS follow-up: Status Done preservado.
 
 **Reviewed Revision:** commit:920ca1f8e6c58b97b5ac3d84577e5c0d10633683
 
-Snapshot final commitado em `920ca1f8e6c58b97b5ac3d84577e5c0d10633683`:
-correção de teste em `d2f7c650`, complementada pelo commit mecânico do registry
-e manifesto.
+Final snapshot committed in `920ca1f8e6c58b97b5ac3d84577e5c0d10633683`:
+test fix in `d2f7c650`, complemented by the mechanical registry and manifest
+commit.
 
 #### CI Audit Contract Assessment
 
-A falha do Jest no Node 24 foi reproduzida a partir do log do Actions. A causa
-era um assertion textual obsoleto após a compactação do audit, não diferença de
-runtime. O teste agora protege as contagens auditáveis 8.957, 8.960 e 9.010 sem
-acoplar o contrato à redação em inglês. Os jobs dos demais Nodes foram
-cancelados pelo fail-fast e não representam falhas independentes.
+The Jest failure on Node 24 was reproduced from the Actions log. The cause
+was a stale textual assertion after the audit was compacted, not a runtime
+difference. The test now protects the auditable counts 8,957, 8,960 and 9,010 without
+coupling the contract to the English wording. The jobs for the other Node versions were
+cancelled by the fail-fast and do not represent independent failures.
 
 #### CI Audit Contract Evidence
 
-- Regressão focada: PASS, 1 suite/21 testes.
-- Suite integral: PASS, 376 suites/9.010 testes; 151 testes ignorados.
-- `npm run lint`: PASS, zero erros; um warning somente no temporário untracked.
-- `npm run typecheck`, manifesto, registry determinístico e `git diff --check`: PASS.
-- Root cause confirmado no job `Jest Tests (Node 24)` do run `29107314252`.
+- Focused regression: PASS, 1 suite/21 tests.
+- Full suite: PASS, 376 suites/9,010 tests; 151 tests skipped.
+- `npm run lint`: PASS, zero errors; one warning only in the untracked temp file.
+- `npm run typecheck`, manifest, deterministic registry and `git diff --check`: PASS.
+- Root cause confirmed in the `Jest Tests (Node 24)` job of run `29107314252`.
 
 #### CI Audit Contract Gate
 
 Gate: PASS. Quality score: 100/100. Top issues: none.
 
-Condition: CI e CodeRabbit remotos devem concluir novamente após o push.
+Condition: remote CI and CodeRabbit must complete again after the push.
 
 #### CI Audit Contract Lifecycle
 
-PASS follow-up: Status Done preservado.
+PASS follow-up: Done status preserved.
 
 ### PR #802 QA Remediation Verification Follow-up — Gate PASS
 
@@ -857,34 +856,34 @@ PASS follow-up: Status Done preservado.
 
 **Reviewed Revision:** commit:49e28cd4b818f922d01572235f8b2369bcb254e3
 
-Snapshot final commitado em `49e28cd4b818f922d01572235f8b2369bcb254e3`:
-correção do contrato em `f683d13a`, complementada pelo commit mecânico do
-registry e manifesto.
+Final snapshot committed in `49e28cd4b818f922d01572235f8b2369bcb254e3`:
+contract fix in `f683d13a`, complemented by the mechanical registry and
+manifest commit.
 
 #### QA Remediation Verification Assessment
 
-Os dois findings do review incremental foram confirmados. O Full SDC agora
-interrompe e escala quando `apply_qa_fixes --mark` falha, sem retornar ao review
-nem incrementar `qgIterations`; somente a verificação aprovada segue para o
-re-review. SOT, Claude e Grok permanecem sincronizados e protegidos por regressão.
-A avaliação de desempenho registra o overhead de processo/I/O do preflight e
-limita a conclusão à ausência de regressão significativa no runtime do produto.
+The two findings from the incremental review were confirmed. Full SDC now
+halts and escalates when `apply_qa_fixes --mark` fails, without returning to the review
+or incrementing `qgIterations`; only an approved verification proceeds to the
+re-review. SOT, Claude and Grok stay synchronized and protected by regression.
+The performance assessment records the preflight's process/I/O overhead and
+limits the conclusion to the absence of a significant regression in the product runtime.
 
 #### QA Remediation Verification Evidence
 
-- Regressão focada: PASS, 1 suite/24 testes.
-- Suite integral: PASS, 376 suites/9.013 testes; 151 testes ignorados.
-- `npm run build`: PASS, 2.140 arquivos e dependências validados.
-- `npm run lint`: PASS, zero erros; um warning somente no temporário untracked.
-- `npm run typecheck`, port denylist, sync IDE 109/109, paridade, manifesto,
-  registry determinístico e `git diff --check`: PASS.
+- Focused regression: PASS, 1 suite/24 tests.
+- Full suite: PASS, 376 suites/9,013 tests; 151 tests skipped.
+- `npm run build`: PASS, 2,140 files and dependencies validated.
+- `npm run lint`: PASS, zero errors; one warning only in the untracked temp file.
+- `npm run typecheck`, port denylist, IDE sync 109/109, parity, manifest,
+  deterministic registry and `git diff --check`: PASS.
 
 #### QA Remediation Verification Gate
 
 Gate: PASS. Quality score: 100/100. Top issues: none.
 
-Condition: CI, CodeRabbit e review humano devem concluir novamente após o push.
+Condition: CI, CodeRabbit and human review must complete again after the push.
 
 #### QA Remediation Verification Lifecycle
 
-PASS follow-up: Status Done preservado.
+PASS follow-up: Done status preserved.

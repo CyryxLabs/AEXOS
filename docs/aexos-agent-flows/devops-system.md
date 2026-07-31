@@ -1,61 +1,61 @@
-# Sistema DevOps - Guia Completo do Agente @devops
+# DevOps System - Complete Guide to the @devops Agent
 
-> **Agente:** Polaris (Operator)
-> **Versão:** 2.0.0
-> **Última Atualização:** 2026-02-04
+> **Agent:** Polaris (Operator)
+> **Version:** 2.0.0
+> **Last Updated:** 2026-02-04
 
-## Índice
+## Table of Contents
 
-1. [Visão Geral](#visao-geral)
-2. [Lista Completa de Arquivos](#lista-completa-de-arquivos)
-3. [Flowchart: Sistema Completo](#flowchart-sistema-completo)
-4. [Mapeamento de Comandos para Tasks](#mapeamento-de-comandos-para-tasks)
-5. [Integracoes entre Agentes](#integracoes-entre-agentes)
-6. [Configuracao](#configuracao)
+1. [Overview](#overview)
+2. [Complete File List](#complete-file-list)
+3. [Flowchart: Complete System](#flowchart-complete-system)
+4. [Command to Task Mapping](#command-to-task-mapping)
+5. [Integrations Between Agents](#integrations-between-agents)
+6. [Configuration](#configuration)
 7. [Best Practices](#best-practices)
 8. [Troubleshooting](#troubleshooting)
-9. [Referencias](#referencias)
-10. [Resumo](#resumo)
+9. [References](#references)
+10. [Summary](#summary)
 
 ---
 
-## Visão Geral
+## Overview
 
-O agente `@devops` (Polaris) e o especialista em infraestrutura e operacoes do framework AEXOS. Ele e responsavel por:
+The `@devops` (Polaris) agent is the infrastructure and operations specialist of the AEXOS framework. It is responsible for:
 
-- **Governanca MCP**: Gerenciamento exclusivo de servidores MCP (Model Context Protocol)
-- **CI/CD**: Configuracao e manutencao de pipelines de integracao e entrega continua
-- **Releases**: Gerenciamento de versoes e publicacao de releases
-- **Repositorios**: Manutencao, limpeza e qualidade de codigo
-- **Seguranca**: Auditorias e varreduras de seguranca
-- **Ambientes**: Bootstrap de novos projetos e configuracao de ambientes
+- **MCP Governance**: Exclusive management of MCP (Model Context Protocol) servers
+- **CI/CD**: Configuration and maintenance of continuous integration and delivery pipelines
+- **Releases**: Version management and release publishing
+- **Repositories**: Maintenance, cleanup and code quality
+- **Security**: Security audits and scans
+- **Environments**: Bootstrap of new projects and environment configuration
 
 ### Persona
 
 ```yaml
-Nome: Gage
-Papel: Operator
-Especializacao: DevOps, Infraestrutura, CI/CD, MCP
-Filosofia: "Automatize tudo que pode ser automatizado"
+Name: Polaris
+Role: Operator
+Specialization: DevOps, Infrastructure, CI/CD, MCP
+Philosophy: "Automate everything that can be automated"
 ```
 
-### Regra Critica
+### Critical Rule
 
-**IMPORTANTE:** Toda operacao de infraestrutura MCP e gerenciada EXCLUSIVAMENTE pelo agente DevOps. Outros agentes (Dev, Architect, etc.) sao consumidores de MCP, não administradores.
+**IMPORTANT:** Every MCP infrastructure operation is managed EXCLUSIVELY by the DevOps agent. Other agents (Dev, Architect, etc.) are MCP consumers, not administrators.
 
 ---
 
-## Lista Completa de Arquivos
+## Complete File List
 
-### Arquivo do Agente
+### Agent File
 
-| Arquivo | Caminho | Descrição |
+| File | Path | Description |
 |---------|---------|-----------|
-| Definição do Agente | `.aexos-core/development/agents/devops.md` | Persona, comandos e comportamentos |
+| Agent Definition | `.aexos-core/development/agents/devops.md` | Persona, commands and behaviors |
 
-### Arquivos de Tasks
+### Task Files
 
-| Task | Caminho | Comando |
+| Task | Path | Command |
 |------|---------|---------|
 | Pre-Push Quality Gate | `.aexos-core/development/tasks/github-devops-pre-push-quality-gate.md` | `*push` |
 | Version Management | `.aexos-core/development/tasks/github-devops-version-management.md` | `*version-check` |
@@ -70,22 +70,22 @@ Filosofia: "Automatize tudo que pode ser automatizado"
 | Security Audit | `.aexos-core/development/tasks/security-audit.md` | `*security-audit` |
 | Security Scan | `.aexos-core/development/tasks/security-scan.md` | `*security-scan` |
 
-### Arquivos de Configuracao e Regras
+### Configuration and Rules Files
 
-| Arquivo | Caminho | Propósito |
+| File | Path | Purpose |
 |---------|---------|-----------|
-| Regras MCP | `.claude/rules/mcp-usage.md` | Governanca e uso de MCPs |
-| Regras N8N | `.claude/rules/n8n-operations.md` | Operacoes em infraestrutura N8N |
+| MCP Rules | `.claude/rules/mcp-usage.md` | MCP governance and usage |
+| N8N Rules | `.claude/rules/n8n-operations.md` | Operations on N8N infrastructure |
 
 ---
 
-## Flowchart: Sistema Completo
+## Flowchart: Complete System
 
-### Arquitetura Geral do DevOps
+### General DevOps Architecture
 
 ```mermaid
 flowchart TB
-    subgraph "Agente DevOps (Polaris)"
+    subgraph "DevOps Agent (Polaris)"
         A[/"@devops"/]
     end
 
@@ -125,197 +125,197 @@ flowchart TB
     A --> ENV1
 ```
 
-### Fluxo de Pre-Push Quality Gate
+### Pre-Push Quality Gate Flow
 
 ```mermaid
 flowchart TD
-    START[/"*push"/] --> LINT["Executar Linting"]
-    LINT --> LINT_OK{Passou?}
-    LINT_OK -->|Sim| TEST["Executar Testes"]
-    LINT_OK -->|Nao| FIX_LINT["Corrigir Erros de Lint"]
+    START[/"*push"/] --> LINT["Run Linting"]
+    LINT --> LINT_OK{Passed?}
+    LINT_OK -->|Yes| TEST["Run Tests"]
+    LINT_OK -->|No| FIX_LINT["Fix Lint Errors"]
     FIX_LINT --> LINT
 
-    TEST --> TEST_OK{Passou?}
-    TEST_OK -->|Sim| TYPE["Verificar Types"]
-    TEST_OK -->|Nao| FIX_TEST["Corrigir Testes"]
+    TEST --> TEST_OK{Passed?}
+    TEST_OK -->|Yes| TYPE["Check Types"]
+    TEST_OK -->|No| FIX_TEST["Fix Tests"]
     FIX_TEST --> TEST
 
-    TYPE --> TYPE_OK{Passou?}
-    TYPE_OK -->|Sim| BUILD["Build de Verificacao"]
-    TYPE_OK -->|Nao| FIX_TYPE["Corrigir Types"]
+    TYPE --> TYPE_OK{Passed?}
+    TYPE_OK -->|Yes| BUILD["Verification Build"]
+    TYPE_OK -->|No| FIX_TYPE["Fix Types"]
     FIX_TYPE --> TYPE
 
-    BUILD --> BUILD_OK{Passou?}
-    BUILD_OK -->|Sim| PUSH["git push"]
-    BUILD_OK -->|Nao| FIX_BUILD["Corrigir Build"]
+    BUILD --> BUILD_OK{Passed?}
+    BUILD_OK -->|Yes| PUSH["git push"]
+    BUILD_OK -->|No| FIX_BUILD["Fix Build"]
     FIX_BUILD --> BUILD
 
-    PUSH --> SUCCESS[/"Push Concluido"/]
+    PUSH --> SUCCESS[/"Push Complete"/]
 ```
 
-### Fluxo de Release Management
+### Release Management Flow
 
 ```mermaid
 flowchart TD
-    START[/"*release"/] --> ANALYZE["Analisar Commits"]
-    ANALYZE --> BUMP["Determinar Version Bump"]
+    START[/"*release"/] --> ANALYZE["Analyze Commits"]
+    ANALYZE --> BUMP["Determine Version Bump"]
 
     BUMP --> MAJOR{Major?}
-    MAJOR -->|Sim| V_MAJOR["X.0.0"]
-    MAJOR -->|Nao| MINOR{Minor?}
-    MINOR -->|Sim| V_MINOR["x.Y.0"]
-    MINOR -->|Nao| V_PATCH["x.y.Z"]
+    MAJOR -->|Yes| V_MAJOR["X.0.0"]
+    MAJOR -->|No| MINOR{Minor?}
+    MINOR -->|Yes| V_MINOR["x.Y.0"]
+    MINOR -->|No| V_PATCH["x.y.Z"]
 
-    V_MAJOR & V_MINOR & V_PATCH --> CHANGELOG["Gerar CHANGELOG"]
-    CHANGELOG --> TAG["Criar Git Tag"]
-    TAG --> RELEASE["Criar GitHub Release"]
-    RELEASE --> NOTIFY["Notificar Time"]
-    NOTIFY --> END[/"Release Publicado"/]
+    V_MAJOR & V_MINOR & V_PATCH --> CHANGELOG["Generate CHANGELOG"]
+    CHANGELOG --> TAG["Create Git Tag"]
+    TAG --> RELEASE["Create GitHub Release"]
+    RELEASE --> NOTIFY["Notify Team"]
+    NOTIFY --> END[/"Release Published"/]
 ```
 
-### Fluxo de Governanca MCP
+### MCP Governance Flow
 
 ```mermaid
 flowchart TD
-    subgraph "Busca e Selecao"
-        SEARCH[/"*search-mcp"/] --> CATALOG["Consultar Catalogo"]
-        CATALOG --> FILTER["Filtrar por Categoria"]
-        FILTER --> SELECT["Selecionar MCP"]
+    subgraph "Search and Selection"
+        SEARCH[/"*search-mcp"/] --> CATALOG["Query Catalog"]
+        CATALOG --> FILTER["Filter by Category"]
+        FILTER --> SELECT["Select MCP"]
     end
 
-    subgraph "Instalacao"
+    subgraph "Installation"
         SELECT --> ADD[/"*add-mcp"/]
-        ADD --> SCOPE{"Escopo?"}
+        ADD --> SCOPE{"Scope?"}
         SCOPE -->|user| GLOBAL["~/.claude.json"]
         SCOPE -->|project| PROJECT[".mcp.json"]
         SCOPE -->|local| LOCAL["settings.local.json"]
     end
 
-    subgraph "Configuracao Docker"
+    subgraph "Docker Configuration"
         ADD --> DOCKER{Docker MCP?}
-        DOCKER -->|Sim| SETUP[/"*setup-mcp-docker"/]
+        DOCKER -->|Yes| SETUP[/"*setup-mcp-docker"/]
         SETUP --> TOOLKIT["Docker MCP Toolkit"]
-        TOOLKIT --> SECRETS["Configurar Secrets"]
+        TOOLKIT --> SECRETS["Configure Secrets"]
     end
 
-    GLOBAL & PROJECT & LOCAL --> VALIDATE["Validar Instalacao"]
+    GLOBAL & PROJECT & LOCAL --> VALIDATE["Validate Installation"]
     SECRETS --> VALIDATE
-    VALIDATE --> READY[/"MCP Pronto"/]
+    VALIDATE --> READY[/"MCP Ready"/]
 ```
 
-### Fluxo de CI/CD Configuration
+### CI/CD Configuration Flow
 
 ```mermaid
 flowchart TD
-    START[/"*ci-cd"/] --> DETECT["Detectar Plataforma"]
+    START[/"*ci-cd"/] --> DETECT["Detect Platform"]
 
-    DETECT --> PLATFORM{Plataforma?}
+    DETECT --> PLATFORM{Platform?}
     PLATFORM -->|GitHub| GHA["GitHub Actions"]
     PLATFORM -->|GitLab| GLC["GitLab CI"]
     PLATFORM -->|CircleCI| CCI["CircleCI"]
 
-    GHA --> CONFIG_GHA["Gerar .github/workflows/"]
-    GLC --> CONFIG_GLC["Gerar .gitlab-ci.yml"]
-    CCI --> CONFIG_CCI["Gerar .circleci/config.yml"]
+    GHA --> CONFIG_GHA["Generate .github/workflows/"]
+    GLC --> CONFIG_GLC["Generate .gitlab-ci.yml"]
+    CCI --> CONFIG_CCI["Generate .circleci/config.yml"]
 
-    CONFIG_GHA & CONFIG_GLC & CONFIG_CCI --> STAGES["Configurar Stages"]
+    CONFIG_GHA & CONFIG_GLC & CONFIG_CCI --> STAGES["Configure Stages"]
 
     STAGES --> LINT_STAGE["Stage: Lint"]
     STAGES --> TEST_STAGE["Stage: Test"]
     STAGES --> BUILD_STAGE["Stage: Build"]
     STAGES --> DEPLOY_STAGE["Stage: Deploy"]
 
-    LINT_STAGE & TEST_STAGE & BUILD_STAGE & DEPLOY_STAGE --> CODERABBIT["Integrar CodeRabbit"]
-    CODERABBIT --> COMMIT["Commitar Configuracao"]
-    COMMIT --> END[/"CI/CD Configurado"/]
+    LINT_STAGE & TEST_STAGE & BUILD_STAGE & DEPLOY_STAGE --> CODERABBIT["Integrate CodeRabbit"]
+    CODERABBIT --> COMMIT["Commit Configuration"]
+    COMMIT --> END[/"CI/CD Configured"/]
 ```
 
-### Fluxo de Environment Bootstrap
+### Environment Bootstrap Flow
 
 ```mermaid
 flowchart TD
-    START[/"*environment-bootstrap"/] --> ELICIT["Coletar Informacoes"]
+    START[/"*environment-bootstrap"/] --> ELICIT["Gather Information"]
 
-    ELICIT --> Q1["Nome do Projeto?"]
-    Q1 --> Q2["Stack Tecnologica?"]
-    Q2 --> Q3["Tipo de Projeto?"]
+    ELICIT --> Q1["Project Name?"]
+    Q1 --> Q2["Technology Stack?"]
+    Q2 --> Q3["Project Type?"]
 
-    Q3 --> INSTALL["Instalar CLI Tools"]
+    Q3 --> INSTALL["Install CLI Tools"]
     INSTALL --> CLI1["Node.js/npm"]
     INSTALL --> CLI2["GitHub CLI"]
     INSTALL --> CLI3["Docker"]
 
-    CLI1 & CLI2 & CLI3 --> GIT_SETUP["Configurar Git"]
-    GIT_SETUP --> REPO["Criar Repositorio"]
-    REPO --> STRUCTURE["Criar Estrutura"]
+    CLI1 & CLI2 & CLI3 --> GIT_SETUP["Configure Git"]
+    GIT_SETUP --> REPO["Create Repository"]
+    REPO --> STRUCTURE["Create Structure"]
 
     STRUCTURE --> DIR1["apps/"]
     STRUCTURE --> DIR2["packages/"]
     STRUCTURE --> DIR3["docs/"]
     STRUCTURE --> DIR4[".aexos-core/"]
 
-    DIR1 & DIR2 & DIR3 & DIR4 --> TEMPLATES["Aplicar Templates"]
-    TEMPLATES --> DEPS["Instalar Dependencias"]
-    DEPS --> VALIDATE["Validar Setup"]
-    VALIDATE --> END[/"Ambiente Pronto"/]
+    DIR1 & DIR2 & DIR3 & DIR4 --> TEMPLATES["Apply Templates"]
+    TEMPLATES --> DEPS["Install Dependencies"]
+    DEPS --> VALIDATE["Validate Setup"]
+    VALIDATE --> END[/"Environment Ready"/]
 ```
 
 ---
 
-## Mapeamento de Comandos para Tasks
+## Command to Task Mapping
 
-### Comandos MCP
+### MCP Commands
 
-| Comando | Task | Descrição | Modo |
+| Command | Task | Description | Mode |
 |---------|------|-----------|------|
-| `*search-mcp` | search-mcp.md | Buscar MCPs no catalogo | Interactive |
-| `*add-mcp` | add-mcp.md | Instalar servidor MCP | Interactive |
-| `*list-mcps` | (inline) | Listar MCPs habilitados | YOLO |
-| `*remove-mcp` | (inline) | Remover servidor MCP | Interactive |
-| `*setup-mcp-docker` | setup-mcp-docker.md | Configurar Docker MCP Toolkit | Interactive |
+| `*search-mcp` | search-mcp.md | Search MCPs in the catalog | Interactive |
+| `*add-mcp` | add-mcp.md | Install an MCP server | Interactive |
+| `*list-mcps` | (inline) | List enabled MCPs | YOLO |
+| `*remove-mcp` | (inline) | Remove an MCP server | Interactive |
+| `*setup-mcp-docker` | setup-mcp-docker.md | Configure the Docker MCP Toolkit | Interactive |
 
-### Comandos Git/GitHub
+### Git/GitHub Commands
 
-| Comando | Task | Descrição | Modo |
+| Command | Task | Description | Mode |
 |---------|------|-----------|------|
-| `*push` | github-devops-pre-push-quality-gate.md | Quality gate antes do push | Interactive |
-| `*setup-github` | setup-github.md | Configurar repositorio GitHub | Interactive |
-| `*cleanup` | github-devops-repository-cleanup.md | Limpar branches e arquivos | Interactive |
+| `*push` | github-devops-pre-push-quality-gate.md | Quality gate before push | Interactive |
+| `*setup-github` | setup-github.md | Configure the GitHub repository | Interactive |
+| `*cleanup` | github-devops-repository-cleanup.md | Clean up branches and files | Interactive |
 
-### Comandos CI/CD e Releases
+### CI/CD and Release Commands
 
-| Comando | Task | Descrição | Modo |
+| Command | Task | Description | Mode |
 |---------|------|-----------|------|
-| `*ci-cd` | ci-cd-configuration.md | Configurar pipeline CI/CD | Interactive |
-| `*release` | release-management.md | Criar release com changelog | Interactive |
-| `*version-check` | github-devops-version-management.md | Analisar e sugerir versao | YOLO |
+| `*ci-cd` | ci-cd-configuration.md | Configure the CI/CD pipeline | Interactive |
+| `*release` | release-management.md | Create a release with changelog | Interactive |
+| `*version-check` | github-devops-version-management.md | Analyze and suggest a version | YOLO |
 
-### Comandos de Seguranca
+### Security Commands
 
-| Comando | Task | Descrição | Modo |
+| Command | Task | Description | Mode |
 |---------|------|-----------|------|
-| `*security-scan` | security-scan.md | Varredura de vulnerabilidades | Interactive |
-| `*security-audit` | security-audit.md | Auditoria completa de seguranca | Interactive |
+| `*security-scan` | security-scan.md | Vulnerability scan | Interactive |
+| `*security-audit` | security-audit.md | Full security audit | Interactive |
 
-### Comandos de Ambiente
+### Environment Commands
 
-| Comando | Task | Descrição | Modo |
+| Command | Task | Description | Mode |
 |---------|------|-----------|------|
-| `*environment-bootstrap` | environment-bootstrap.md | Bootstrap de novo projeto | Interactive |
-| `*pro-access-grant` | devops-pro-access-grant.md | Conceder/restaurar acesso AEXOS Pro com validacao de API e installer | Interactive |
-| `*pro-check-access` | devops-pro-check-access.md | Consultar entitlement e existencia de conta | Interactive |
-| `*pro-request-reset` | devops-pro-request-reset.md | Disparar email de reset de senha | Interactive |
-| `*pro-resend-verification` | devops-pro-resend-verification.md | Reenviar verificacao de email | Interactive |
-| `*pro-reset-password` | devops-pro-reset-password.md | Trocar senha administrativamente e validar login | Interactive |
-| `*pro-validate-login` | devops-pro-validate-login.md | Validar login e emissao de token | Interactive |
-| `*pro-verify-status` | devops-pro-verify-status.md | Consultar estado de verificacao do email | Interactive |
-| `*pro-activate` | devops-pro-activate.md | Validar/restaurar ativacao Pro diretamente | Interactive |
+| `*environment-bootstrap` | environment-bootstrap.md | Bootstrap of a new project | Interactive |
+| `*pro-access-grant` | devops-pro-access-grant.md | Grant/restore AEXOS Pro access with API and installer validation | Interactive |
+| `*pro-check-access` | devops-pro-check-access.md | Query entitlement and account existence | Interactive |
+| `*pro-request-reset` | devops-pro-request-reset.md | Trigger the password reset email | Interactive |
+| `*pro-resend-verification` | devops-pro-resend-verification.md | Resend email verification | Interactive |
+| `*pro-reset-password` | devops-pro-reset-password.md | Change the password administratively and validate login | Interactive |
+| `*pro-validate-login` | devops-pro-validate-login.md | Validate login and token issuance | Interactive |
+| `*pro-verify-status` | devops-pro-verify-status.md | Query the email verification state | Interactive |
+| `*pro-activate` | devops-pro-activate.md | Validate/restore Pro activation directly | Interactive |
 
 ---
 
-## Integracoes entre Agentes
+## Integrations Between Agents
 
-### Diagrama de Integracoes
+### Integrations Diagram
 
 ```mermaid
 flowchart LR
@@ -323,55 +323,55 @@ flowchart LR
         DEVOPS["@devops"]
     end
 
-    subgraph "Desenvolvimento"
+    subgraph "Development"
         DEV["@dev"]
         QA["@qa"]
     end
 
-    subgraph "Gestao"
+    subgraph "Management"
         PM["@pm"]
         PO["@po"]
         SM["@sm"]
     end
 
-    subgraph "Arquitetura"
+    subgraph "Architecture"
         ARCH["@architect"]
     end
 
-    DEV -->|"Solicita MCP"| DEVOPS
-    DEV -->|"Dispara *push"| DEVOPS
-    QA -->|"Solicita security scan"| DEVOPS
-    PM -->|"Solicita release"| DEVOPS
-    ARCH -->|"Define CI/CD"| DEVOPS
-    DEVOPS -->|"Notifica deploy"| SM
-    DEVOPS -->|"Reporta vulnerabilidades"| PO
+    DEV -->|"Requests MCP"| DEVOPS
+    DEV -->|"Triggers *push"| DEVOPS
+    QA -->|"Requests security scan"| DEVOPS
+    PM -->|"Requests release"| DEVOPS
+    ARCH -->|"Defines CI/CD"| DEVOPS
+    DEVOPS -->|"Notifies deploy"| SM
+    DEVOPS -->|"Reports vulnerabilities"| PO
 ```
 
-### Matriz de Responsabilidades
+### Responsibility Matrix
 
-| Operacao | DevOps | Dev | QA | Architect | PM |
+| Operation | DevOps | Dev | QA | Architect | PM |
 |----------|--------|-----|----|-----------|----|
-| Gerenciar MCPs | **Owner** | Consumer | Consumer | Consumer | - |
+| Manage MCPs | **Owner** | Consumer | Consumer | Consumer | - |
 | CI/CD Config | **Owner** | Reviewer | - | Approver | - |
 | Releases | **Owner** | - | Validator | - | Requester |
 | Security Scan | **Owner** | - | **Co-Owner** | - | - |
 | Repository Setup | **Owner** | - | - | Reviewer | - |
 | Environment Bootstrap | **Owner** | Requester | - | - | - |
 
-### Fluxo de Delegacao
+### Delegation Flow
 
-1. **Dev precisa de MCP**: `@dev` -> `@devops *add-mcp`
-2. **QA precisa de security**: `@qa` -> `@devops *security-scan`
-3. **PM solicita release**: `@pm` -> `@devops *release`
-4. **Architect define pipeline**: `@architect` -> `@devops *ci-cd`
+1. **Dev needs an MCP**: `@dev` -> `@devops *add-mcp`
+2. **QA needs security**: `@qa` -> `@devops *security-scan`
+3. **PM requests a release**: `@pm` -> `@devops *release`
+4. **Architect defines the pipeline**: `@architect` -> `@devops *ci-cd`
 
 ---
 
-## Configuracao
+## Configuration
 
-### Configuracao Global de MCPs
+### Global MCP Configuration
 
-Arquivo: `~/.claude.json`
+File: `~/.claude.json`
 
 ```json
 {
@@ -392,9 +392,9 @@ Arquivo: `~/.claude.json`
 }
 ```
 
-### Configuracao de Projeto
+### Project Configuration
 
-Arquivo: `.mcp.json`
+File: `.mcp.json`
 
 ```json
 {
@@ -407,23 +407,23 @@ Arquivo: `.mcp.json`
 }
 ```
 
-### Configuracao Docker MCP
+### Docker MCP Configuration
 
-Arquivo: `~/.docker/mcp/catalogs/docker-mcp.yaml`
+File: `~/.docker/mcp/catalogs/docker-mcp.yaml`
 
 ```yaml
 exa:
   env:
     - name: EXA_API_KEY
-      value: 'sua-chave-aqui'
+      value: 'your-key-here'
 
 apify:
   env:
     - name: APIFY_TOKEN
-      value: 'seu-token-aqui'
+      value: 'your-token-here'
 ```
 
-### Variaveis de Ambiente
+### Environment Variables
 
 ```bash
 # GitHub
@@ -440,21 +440,21 @@ MCP_DEBUG=true
 
 ## Best Practices
 
-### Governanca MCP
+### MCP Governance
 
-1. **Principio do Menor Privilegio**
-   - Use escopo `local` para MCPs de teste
-   - Use escopo `project` para MCPs compartilhados
-   - Use escopo `user` apenas para ferramentas pessoais
+1. **Principle of Least Privilege**
+   - Use the `local` scope for test MCPs
+   - Use the `project` scope for shared MCPs
+   - Use the `user` scope only for personal tools
 
-2. **Documentacao**
-   - Documente todo MCP adicionado ao projeto
-   - Mantenha README atualizado com MCPs necessarios
+2. **Documentation**
+   - Document every MCP added to the project
+   - Keep the README up to date with the required MCPs
 
-3. **Seguranca**
-   - Nunca commite API keys em `.mcp.json`
-   - Use variaveis de ambiente para credenciais
-   - Rotacione tokens regularmente
+3. **Security**
+   - Never commit API keys in `.mcp.json`
+   - Use environment variables for credentials
+   - Rotate tokens regularly
 
 ### CI/CD
 
@@ -464,163 +464,163 @@ MCP_DEBUG=true
    ```
 
 2. **Quality Gates**
-   - Exija 80%+ de cobertura de testes
-   - Falhe o build em erros de lint
-   - Integre CodeRabbit para code review automatico
+   - Require 80%+ test coverage
+   - Fail the build on lint errors
+   - Integrate CodeRabbit for automatic code review
 
 3. **Releases**
    - Use semantic versioning (SemVer)
-   - Gere CHANGELOG automaticamente
-   - Crie tags assinadas
+   - Generate the CHANGELOG automatically
+   - Create signed tags
 
-### Repositorios
+### Repositories
 
-1. **Limpeza Regular**
-   - Execute `*cleanup` mensalmente
-   - Remova branches merged >30 dias
-   - Limpe arquivos temporarios
+1. **Regular Cleanup**
+   - Run `*cleanup` monthly
+   - Remove branches merged >30 days ago
+   - Clean up temporary files
 
 2. **Branch Protection**
-   - Proteja `main` e `develop`
-   - Exija reviews antes de merge
-   - Habilite status checks
+   - Protect `main` and `develop`
+   - Require reviews before merge
+   - Enable status checks
 
-### Seguranca
+### Security
 
-1. **Scans Regulares**
-   - Execute `*security-scan` semanalmente
-   - Audite dependencias com `npm audit`
-   - Verifique secrets expostos
+1. **Regular Scans**
+   - Run `*security-scan` weekly
+   - Audit dependencies with `npm audit`
+   - Check for exposed secrets
 
-2. **Resposta a Vulnerabilidades**
-   - Priorize CVEs criticos
-   - Documente remediacoes
-   - Notifique stakeholders
+2. **Vulnerability Response**
+   - Prioritize critical CVEs
+   - Document remediations
+   - Notify stakeholders
 
 ---
 
 ## Troubleshooting
 
-### Problemas com MCP
+### MCP Problems
 
-#### MCP não conecta
+#### MCP does not connect
 
 ```bash
-# Verificar status
+# Check status
 claude mcp list
 
-# Verificar logs (se disponivel)
+# Check logs (if available)
 tail -f ~/.claude/logs/mcp*.log
 
-# Testar servidor manualmente
+# Test the server manually
 npx -y @package/mcp-server
 ```
 
-#### Docker MCP sem ferramentas
+#### Docker MCP without tools
 
-**Sintoma:** `docker mcp tools ls` mostra "(N prompts)" ao inves de "(N tools)"
+**Symptom:** `docker mcp tools ls` shows "(N prompts)" instead of "(N tools)"
 
-**Causa:** Bug no Docker MCP Toolkit com secrets
+**Cause:** Bug in the Docker MCP Toolkit with secrets
 
-**Solucao:**
-1. Edite `~/.docker/mcp/catalogs/docker-mcp.yaml`
-2. Substitua template por valores hardcoded
-3. Reinicie o container MCP
+**Solution:**
+1. Edit `~/.docker/mcp/catalogs/docker-mcp.yaml`
+2. Replace the template with hardcoded values
+3. Restart the MCP container
 
-### Problemas com CI/CD
+### CI/CD Problems
 
-#### Pipeline falha sem motivo claro
+#### Pipeline fails with no clear reason
 
 ```bash
-# Verificar logs localmente
+# Check logs locally
 npm run lint
 npm run test
 npm run build
 
-# Verificar configuracao
+# Check the configuration
 cat .github/workflows/ci.yml
 ```
 
-#### CodeRabbit não comenta
+#### CodeRabbit does not comment
 
-1. Verifique se o app esta instalado no repositorio
-2. Verifique permissoes do GitHub App
-3. Verifique arquivo `.coderabbit.yaml`
+1. Check whether the app is installed on the repository
+2. Check the GitHub App permissions
+3. Check the `.coderabbit.yaml` file
 
-### Problemas com Releases
+### Release Problems
 
-#### Tag ja existe
+#### Tag already exists
 
 ```bash
-# Verificar tags existentes
+# Check existing tags
 git tag -l
 
-# Deletar tag local e remota (se necessario)
+# Delete the local and remote tag (if needed)
 git tag -d v1.0.0
 git push origin :refs/tags/v1.0.0
 ```
 
-#### CHANGELOG não gerado
+#### CHANGELOG not generated
 
-1. Verifique formato dos commits (Conventional Commits)
-2. Verifique se ha commits desde ultima release
-3. Execute manualmente: `npx conventional-changelog`
+1. Check the commit format (Conventional Commits)
+2. Check whether there are commits since the last release
+3. Run it manually: `npx conventional-changelog`
 
-### Problemas com Security Scan
+### Security Scan Problems
 
-#### npm audit falha
+#### npm audit fails
 
 ```bash
-# Forcar resolucao
+# Force resolution
 npm audit fix --force
 
-# Ignorar vulnerabilidade especifica (com cuidado)
+# Ignore a specific vulnerability (with care)
 npm audit --ignore-advisories=ADVISORY_ID
 ```
 
 ---
 
-## Referencias
+## References
 
-### Documentacao AEXOS
+### AEXOS Documentation
 
-- [Regras de Uso MCP](../../.claude/rules/mcp-usage.md)
-- [Operacoes N8N](../../.claude/rules/n8n-operations.md)
-- [Estrutura de Documentacao](../../.claude/rules/documentation-structure.md)
+- [MCP Usage Rules](../../.claude/rules/mcp-usage.md)
+- [N8N Operations](../../.claude/rules/n8n-operations.md)
+- [Documentation Structure](../../.claude/rules/documentation-structure.md)
 
-### Documentacao Externa
+### External Documentation
 
 - [GitHub Actions](https://docs.github.com/en/actions)
 - [Conventional Commits](https://www.conventionalcommits.org/)
 - [Semantic Versioning](https://semver.org/)
 - [Docker MCP Toolkit](https://docs.docker.com/mcp/)
 
-### Tasks Relacionadas
+### Related Tasks
 
-| Task | Descrição |
+| Task | Description |
 |------|-----------|
-| [Pre-Push Quality Gate](.aexos-core/development/tasks/github-devops-pre-push-quality-gate.md) | Validacao antes do push |
-| [Version Management](.aexos-core/development/tasks/github-devops-version-management.md) | Gerenciamento de versoes |
-| [CI/CD Configuration](.aexos-core/development/tasks/ci-cd-configuration.md) | Configuracao de pipelines |
-| [Release Management](.aexos-core/development/tasks/release-management.md) | Gerenciamento de releases |
-| [Environment Bootstrap](.aexos-core/development/tasks/environment-bootstrap.md) | Bootstrap de ambientes |
+| [Pre-Push Quality Gate](.aexos-core/development/tasks/github-devops-pre-push-quality-gate.md) | Validation before push |
+| [Version Management](.aexos-core/development/tasks/github-devops-version-management.md) | Version management |
+| [CI/CD Configuration](.aexos-core/development/tasks/ci-cd-configuration.md) | Pipeline configuration |
+| [Release Management](.aexos-core/development/tasks/release-management.md) | Release management |
+| [Environment Bootstrap](.aexos-core/development/tasks/environment-bootstrap.md) | Environment bootstrap |
 
 ---
 
-## Resumo
+## Summary
 
-| Aspecto | Detalhes |
+| Aspect | Details |
 |---------|----------|
-| **Agente** | Polaris (Operator) |
-| **Ativacao** | `@devops` |
-| **Total de Comandos** | 14 |
-| **Total de Tasks** | 12 |
-| **Areas de Atuacao** | MCP, CI/CD, Releases, Security, Repositories |
-| **Regra Principal** | Governanca exclusiva de infraestrutura MCP |
-| **Modo Padrao** | Interactive |
-| **Versao** | 2.0.0 |
+| **Agent** | Polaris (Operator) |
+| **Activation** | `@devops` |
+| **Total Commands** | 14 |
+| **Total Tasks** | 12 |
+| **Areas of Operation** | MCP, CI/CD, Releases, Security, Repositories |
+| **Main Rule** | Exclusive governance of MCP infrastructure |
+| **Default Mode** | Interactive |
+| **Version** | 2.0.0 |
 
-### Comandos Rapidos
+### Quick Commands
 
 ```bash
 # MCP
@@ -636,7 +636,7 @@ npm audit --ignore-advisories=ADVISORY_ID
 @devops *pro-check-access costa.wanderl@gmail.com
 @devops *pro-request-reset costa.wanderl@gmail.com
 @devops *pro-resend-verification costa.wanderl@gmail.com
-@devops *pro-reset-password costa.wanderl@gmail.com NovaSenhaForte2026!
+@devops *pro-reset-password costa.wanderl@gmail.com StrongNewPassword2026!
 @devops *pro-validate-login costa.wanderl@gmail.com CyryxPro2026!
 @devops *pro-verify-status ACCESS_TOKEN
 @devops *pro-activate ACCESS_TOKEN
@@ -651,5 +651,5 @@ npm audit --ignore-advisories=ADVISORY_ID
 
 ---
 
-*Documento gerado pelo Sistema AEXOS - 2026-02-04*
-*Mantido por: @devops*
+*Document generated by the AEXOS System - 2026-02-04*
+*Maintained by: @devops*

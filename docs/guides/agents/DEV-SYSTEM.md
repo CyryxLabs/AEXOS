@@ -1,108 +1,108 @@
-# Sistema do Agente @dev
+# @dev Agent System
 
-> **Versao:** 1.0.0
-> **Criado:** 2026-02-04
+> **Version:** 1.0.0
+> **Created:** 2026-02-04
 > **Owner:** @dev (Vulcan - The Builder)
-> **Status:** Documentacao Oficial
+> **Status:** Official Documentation
 
 ---
 
-## Visao Geral
+## Overview
 
-O agente **@dev (Vulcan)** e o Full Stack Developer do AEXOS, responsavel pela implementacao de stories, debugging, refactoring e aplicacao das melhores praticas de desenvolvimento. Este agente atua como um **Builder** que implementa stories de forma precisa, atualiza somente as secoes autorizadas dos arquivos de story e mantem testes abrangentes.
+The **@dev (Vulcan)** agent is the AEXOS Full Stack Developer, responsible for story implementation, debugging, refactoring and applying development best practices. This agent acts as a **Builder** that implements stories precisely, updates only the authorized sections of story files and maintains comprehensive tests.
 
-### Caracteristicas Principais
+### Main Characteristics
 
-| Caracteristica | Descricao |
+| Characteristic | Description |
 |----------------|-----------|
-| **Persona** | Dex - The Builder |
-| **Arquetipo** | Builder / Aquario |
-| **Tom** | Pragmatico, conciso, orientado a solucoes |
-| **Foco** | Implementacao de stories, testes, qualidade de codigo |
-| **Fechamento** | "-- Dex, sempre construindo" |
+| **Persona** | Vulcan - The Builder |
+| **Archetype** | Builder / Aquarius |
+| **Tone** | Pragmatic, concise, solution-oriented |
+| **Focus** | Story implementation, tests, code quality |
+| **Sign-off** | "-- Vulcan, always building" |
 
-### Vocabulario Caracteristico
+### Characteristic Vocabulary
 
-- Construir
-- Implementar
-- Refatorar
-- Resolver
-- Otimizar
-- Debugar
-- Testar
+- Build
+- Implement
+- Refactor
+- Solve
+- Optimize
+- Debug
+- Test
 
 ---
 
-## Lista Completa de Arquivos
+## Complete File List
 
-### Arquivos Core de Tasks do @dev
+### @dev Core Task Files
 
-| Arquivo | Comando | Proposito |
+| File | Command | Purpose |
 |---------|---------|-----------|
-| `.aexos-core/development/tasks/dev-develop-story.md` | `*develop {story-id}` | Task principal - desenvolve story completa com modos YOLO/Interactive/Pre-flight |
-| `.aexos-core/development/tasks/dev-improve-code-quality.md` | `*improve-code-quality <path>` | Melhora qualidade do codigo (formatting, linting, modern-syntax) |
-| `.aexos-core/development/tasks/dev-optimize-performance.md` | `*optimize-performance <path>` | Analisa e otimiza performance do codigo |
-| `.aexos-core/development/tasks/dev-suggest-refactoring.md` | `*suggest-refactoring <path>` | Sugere oportunidades de refactoring automatizado |
-| `.aexos-core/development/tasks/dev-backlog-debt.md` | `*backlog-debt` | Registra divida tecnica no backlog |
-| `.aexos-core/development/tasks/apply-qa-fixes.md` | `*apply-qa-fixes` | Aplica correcoes baseadas em feedback de QA |
-| `.aexos-core/development/tasks/execute-checklist.md` | `*execute-checklist` | Valida documentacao usando checklists |
-| `.aexos-core/development/tasks/validate-next-story.md` | `*validate-story-draft` | Valida qualidade e completude de stories |
-| `.aexos-core/development/tasks/sync-documentation.md` | `*sync-documentation` | Sincroniza documentacao com mudancas de codigo |
-| `.aexos-core/development/tasks/po-manage-story-backlog.md` | (usado internamente) | Gerencia backlog de stories |
+| `.aexos-core/development/tasks/dev-develop-story.md` | `*develop {story-id}` | Main task - develops a complete story with YOLO/Interactive/Pre-flight modes |
+| `.aexos-core/development/tasks/dev-improve-code-quality.md` | `*improve-code-quality <path>` | Improves code quality (formatting, linting, modern-syntax) |
+| `.aexos-core/development/tasks/dev-optimize-performance.md` | `*optimize-performance <path>` | Analyzes and optimizes code performance |
+| `.aexos-core/development/tasks/dev-suggest-refactoring.md` | `*suggest-refactoring <path>` | Suggests automated refactoring opportunities |
+| `.aexos-core/development/tasks/dev-backlog-debt.md` | `*backlog-debt` | Records technical debt in the backlog |
+| `.aexos-core/development/tasks/apply-qa-fixes.md` | `*apply-qa-fixes` | Applies fixes based on QA feedback |
+| `.aexos-core/development/tasks/execute-checklist.md` | `*execute-checklist` | Validates documentation using checklists |
+| `.aexos-core/development/tasks/validate-next-story.md` | `*validate-story-draft` | Validates story quality and completeness |
+| `.aexos-core/development/tasks/sync-documentation.md` | `*sync-documentation` | Synchronizes documentation with code changes |
+| `.aexos-core/development/tasks/po-manage-story-backlog.md` | (used internally) | Manages the story backlog |
 
-### Arquivos de Definicao do Agente
+### Agent Definition Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/agents/dev.md` | Definicao core do agente @dev (persona, comandos, workflows) |
-| `.claude/commands/AEXOS/agents/dev.md` | Comando Claude Code para ativar @dev |
+| `.aexos-core/development/agents/dev.md` | Core definition of the @dev agent (persona, commands, workflows) |
+| `.claude/commands/AEXOS/agents/dev.md` | Claude Code command to activate @dev |
 
-### Arquivos de Checklists Usados pelo @dev
+### Checklist Files Used by @dev
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/product/checklists/story-dod-checklist.md` | Definition of Done para stories |
-| `.aexos-core/product/checklists/pre-push-checklist.md` | Checklist antes de push |
-| `.aexos-core/product/checklists/change-checklist.md` | Validacao de mudancas |
+| `.aexos-core/product/checklists/story-dod-checklist.md` | Definition of Done for stories |
+| `.aexos-core/product/checklists/pre-push-checklist.md` | Checklist before push |
+| `.aexos-core/product/checklists/change-checklist.md` | Change validation |
 
-### Arquivos Relacionados de Outros Agentes
+### Related Files From Other Agents
 
-| Arquivo | Agente | Proposito |
+| File | Agent | Purpose |
 |---------|--------|-----------|
-| `.aexos-core/development/tasks/qa-backlog-add-followup.md` | @qa | QA adiciona follow-ups ao backlog |
-| `.aexos-core/development/tasks/qa-review-story.md` | @qa | QA revisa implementacao do @dev |
-| `.aexos-core/development/tasks/github-devops-pre-push-quality-gate.md` | @github-devops | Quality gate antes de push |
-| `.aexos-core/development/tasks/sm-create-next-story.md` | @sm | Scrum Master cria stories para @dev |
+| `.aexos-core/development/tasks/qa-backlog-add-followup.md` | @qa | QA adds follow-ups to the backlog |
+| `.aexos-core/development/tasks/qa-review-story.md` | @qa | QA reviews the @dev implementation |
+| `.aexos-core/development/tasks/github-devops-pre-push-quality-gate.md` | @github-devops | Quality gate before push |
+| `.aexos-core/development/tasks/sm-create-next-story.md` | @sm | Scrum Master creates stories for @dev |
 
-### Arquivos de Workflows que Usam @dev
+### Workflow Files That Use @dev
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/workflows/brownfield-fullstack.yaml` | Workflow full-stack brownfield |
-| `.aexos-core/development/workflows/brownfield-service.yaml` | Workflow de servico brownfield |
-| `.aexos-core/development/workflows/brownfield-ui.yaml` | Workflow UI brownfield |
-| `.aexos-core/development/workflows/greenfield-fullstack.yaml` | Workflow full-stack greenfield |
-| `.aexos-core/development/workflows/greenfield-service.yaml` | Workflow de servico greenfield |
-| `.aexos-core/development/workflows/greenfield-ui.yaml` | Workflow UI greenfield |
+| `.aexos-core/development/workflows/brownfield-fullstack.yaml` | Brownfield full-stack workflow |
+| `.aexos-core/development/workflows/brownfield-service.yaml` | Brownfield service workflow |
+| `.aexos-core/development/workflows/brownfield-ui.yaml` | Brownfield UI workflow |
+| `.aexos-core/development/workflows/greenfield-fullstack.yaml` | Greenfield full-stack workflow |
+| `.aexos-core/development/workflows/greenfield-service.yaml` | Greenfield service workflow |
+| `.aexos-core/development/workflows/greenfield-ui.yaml` | Greenfield UI workflow |
 
 ---
 
-## Flowchart: Sistema Completo do @dev
+## Flowchart: Complete @dev System
 
 ```mermaid
 flowchart TB
-    subgraph ACTIVATION["ATIVACAO DO AGENTE"]
+    subgraph ACTIVATION["AGENT ACTIVATION"]
         A["@dev"] --> B["Greeting Builder<br/>(greeting-builder.js)"]
-        B --> C["Carrega devLoadAlwaysFiles"]
-        C --> D["Exibe Quick Commands"]
-        D --> E["HALT - Aguarda Usuario"]
+        B --> C["Loads devLoadAlwaysFiles"]
+        C --> D["Displays Quick Commands"]
+        D --> E["HALT - Waits for User"]
     end
 
-    subgraph DEVELOPMENT["CICLO DE DESENVOLVIMENTO"]
-        E --> F{"Comando Recebido"}
+    subgraph DEVELOPMENT["DEVELOPMENT CYCLE"]
+        E --> F{"Command Received"}
 
         F -->|"*develop {id}"| G["dev-develop-story.md"]
-        F -->|"*run-tests"| H["Executa Testes"]
+        F -->|"*run-tests"| H["Runs Tests"]
         F -->|"*apply-qa-fixes"| I["apply-qa-fixes.md"]
         F -->|"*backlog-debt"| J["dev-backlog-debt.md"]
         F -->|"*improve-code-quality"| K["dev-improve-code-quality.md"]
@@ -111,41 +111,41 @@ flowchart TB
     end
 
     subgraph DEVELOP_STORY["TASK: develop-story"]
-        G --> N{"Modo de Execucao?"}
+        G --> N{"Execution Mode?"}
 
-        N -->|"YOLO"| O["Modo Autonomo<br/>(0-1 prompts)"]
-        N -->|"Interactive"| P["Modo Interativo<br/>(5-10 prompts)"]
-        N -->|"Pre-flight"| Q["Planejamento<br/>Upfront"]
+        N -->|"YOLO"| O["Autonomous Mode<br/>(0-1 prompts)"]
+        N -->|"Interactive"| P["Interactive Mode<br/>(5-10 prompts)"]
+        N -->|"Pre-flight"| Q["Upfront<br/>Planning"]
 
-        O --> R["Implementar Tasks"]
+        O --> R["Implement Tasks"]
         P --> R
         Q --> R
 
-        R --> S["Escrever Testes"]
-        S --> T["Executar Validacoes"]
-        T --> U{"Todos Passam?"}
+        R --> S["Write Tests"]
+        S --> T["Run Validations"]
+        T --> U{"All Pass?"}
 
-        U -->|"Sim"| V["Marcar [x] Task"]
-        U -->|"Nao"| W["Corrigir Issues"]
+        U -->|"Yes"| V["Mark [x] Task"]
+        U -->|"No"| W["Fix Issues"]
         W --> T
 
-        V --> X["Atualizar File List"]
-        X --> Y{"Mais Tasks?"}
+        V --> X["Update File List"]
+        X --> Y{"More Tasks?"}
 
-        Y -->|"Sim"| R
-        Y -->|"Nao"| Z["CodeRabbit Self-Healing"]
+        Y -->|"Yes"| R
+        Y -->|"No"| Z["CodeRabbit Self-Healing"]
     end
 
-    subgraph COMPLETION["FINALIZACAO"]
+    subgraph COMPLETION["COMPLETION"]
         Z --> AA{"CRITICAL Issues?"}
-        AA -->|"Sim"| AB["Auto-fix<br/>(max 2 iteracoes)"]
+        AA -->|"Yes"| AB["Auto-fix<br/>(max 2 iterations)"]
         AB --> AA
-        AA -->|"Nao"| AC["Execute story-dod-checklist"]
+        AA -->|"No"| AC["Execute story-dod-checklist"]
         AC --> AD["Set Status:<br/>Ready for Review"]
         AD --> AE["HALT"]
     end
 
-    subgraph COLLABORATION["COLABORACAO"]
+    subgraph COLLABORATION["COLLABORATION"]
         AE --> AF["@github-devops<br/>(git push, PR)"]
         AE --> AG["@qa<br/>(Review)"]
         AG -->|"Issues"| I
@@ -158,7 +158,7 @@ flowchart TB
     style COLLABORATION fill:#fce4ec
 ```
 
-### Diagrama de Modos de Execucao
+### Execution Modes Diagram
 
 ```mermaid
 stateDiagram-v2
@@ -221,29 +221,29 @@ stateDiagram-v2
     Validation --> [*]: Ready for Review
 ```
 
-### Fluxo de CodeRabbit Self-Healing
+### CodeRabbit Self-Healing Flow
 
 ```mermaid
 flowchart TB
     subgraph SELF_HEALING["CODERABBIT SELF-HEALING (Story 6.3.3)"]
-        A["Tasks Completas"] --> B["Iniciar Self-Healing Loop"]
+        A["Tasks Complete"] --> B["Start Self-Healing Loop"]
         B --> C["iteration = 0<br/>max = 2"]
 
-        C --> D["Executar CodeRabbit CLI<br/>(wsl bash -c)"]
+        C --> D["Run CodeRabbit CLI<br/>(wsl bash -c)"]
         D --> E["Parse Output"]
         E --> F{"CRITICAL Issues?"}
 
-        F -->|"Nao"| G{"HIGH Issues?"}
-        G -->|"Sim"| H["Documentar em Dev Notes"]
-        G -->|"Nao"| I["PASSED"]
+        F -->|"No"| G{"HIGH Issues?"}
+        G -->|"Yes"| H["Document in Dev Notes"]
+        G -->|"No"| I["PASSED"]
         H --> I
 
-        F -->|"Sim"| J["Auto-fix CRITICAL"]
+        F -->|"Yes"| J["Auto-fix CRITICAL"]
         J --> K["iteration++"]
         K --> L{"iteration < 2?"}
 
-        L -->|"Sim"| D
-        L -->|"Nao"| M["HALT - Manual Fix Required"]
+        L -->|"Yes"| D
+        L -->|"No"| M["HALT - Manual Fix Required"]
 
         I --> N["Proceed to DOD Checklist"]
     end
@@ -254,76 +254,76 @@ flowchart TB
 
 ---
 
-## Mapeamento de Comandos para Tasks
+## Command to Task Mapping
 
-### Comandos de Desenvolvimento
+### Development Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*develop {story-id}` | `dev-develop-story.md` | Implementa story completa |
-| `*develop {story-id} yolo` | `dev-develop-story.md` | Modo autonomo (0-1 prompts) |
-| `*develop {story-id} interactive` | `dev-develop-story.md` | Modo interativo (5-10 prompts) |
-| `*develop {story-id} preflight` | `dev-develop-story.md` | Planejamento upfront |
-| `*run-tests` | (inline) | Executa linting e testes |
+| `*develop {story-id}` | `dev-develop-story.md` | Implements a complete story |
+| `*develop {story-id} yolo` | `dev-develop-story.md` | Autonomous mode (0-1 prompts) |
+| `*develop {story-id} interactive` | `dev-develop-story.md` | Interactive mode (5-10 prompts) |
+| `*develop {story-id} preflight` | `dev-develop-story.md` | Upfront planning |
+| `*run-tests` | (inline) | Runs linting and tests |
 
-### Comandos de Qualidade
+### Quality Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*apply-qa-fixes` | `apply-qa-fixes.md` | Aplica correcoes de QA |
-| `*improve-code-quality <path>` | `dev-improve-code-quality.md` | Melhora qualidade de codigo |
-| `*optimize-performance <path>` | `dev-optimize-performance.md` | Otimiza performance |
-| `*suggest-refactoring <path>` | `dev-suggest-refactoring.md` | Sugere refactoring |
+| `*apply-qa-fixes` | `apply-qa-fixes.md` | Applies QA fixes |
+| `*improve-code-quality <path>` | `dev-improve-code-quality.md` | Improves code quality |
+| `*optimize-performance <path>` | `dev-optimize-performance.md` | Optimizes performance |
+| `*suggest-refactoring <path>` | `dev-suggest-refactoring.md` | Suggests refactoring |
 
-### Comandos de Backlog e Documentacao
+### Backlog and Documentation Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*backlog-debt` | `dev-backlog-debt.md` | Registra divida tecnica |
-| `*sync-documentation` | `sync-documentation.md` | Sincroniza documentacao |
-| `*validate-story-draft` | `validate-next-story.md` | Valida draft de story |
+| `*backlog-debt` | `dev-backlog-debt.md` | Records technical debt |
+| `*sync-documentation` | `sync-documentation.md` | Synchronizes documentation |
+| `*validate-story-draft` | `validate-next-story.md` | Validates a story draft |
 
-### Comandos de Contexto e Sessao
+### Context and Session Commands
 
-| Comando | Operacao |
+| Command | Operation |
 |---------|----------|
-| `*help` | Mostra todos os comandos disponiveis |
-| `*explain` | Explica o que acabou de fazer |
-| `*guide` | Mostra guia de uso completo |
-| `*load-full {file}` | Carrega arquivo completo (bypass summary) |
-| `*clear-cache` | Limpa cache de contexto |
-| `*session-info` | Mostra detalhes da sessao |
-| `*exit` | Sai do modo developer |
+| `*help` | Shows all available commands |
+| `*explain` | Explains what it has just done |
+| `*guide` | Shows the full usage guide |
+| `*load-full {file}` | Loads the complete file (bypass summary) |
+| `*clear-cache` | Clears the context cache |
+| `*session-info` | Shows session details |
+| `*exit` | Exits developer mode |
 
 ---
 
-## Integracoes entre Agentes
+## Integrations Between Agents
 
-### Diagrama de Colaboracao
+### Collaboration Diagram
 
 ```mermaid
 flowchart TB
-    subgraph DEV_ECOSYSTEM["ECOSSISTEMA DO @dev"]
+    subgraph DEV_ECOSYSTEM["@dev ECOSYSTEM"]
         DEV["@dev (Vulcan)"]
     end
 
-    subgraph UPSTREAM["UPSTREAM - Fornece Stories"]
+    subgraph UPSTREAM["UPSTREAM - Provides Stories"]
         SM["@sm (Chronos)<br/>Scrum Master"]
         PO["@po (Themis)<br/>Product Owner"]
     end
 
-    subgraph PEER["PEER - Colaboracao"]
+    subgraph PEER["PEER - Collaboration"]
         QA["@qa (Argus)<br/>Quality Assurance"]
     end
 
-    subgraph DOWNSTREAM["DOWNSTREAM - Recebe Output"]
+    subgraph DOWNSTREAM["DOWNSTREAM - Receives Output"]
         GHDEVOPS["@github-devops (Polaris)<br/>Git Operations"]
     end
 
-    SM -->|"Cria story<br/>*create-next-story"| DEV
-    PO -->|"Valida story<br/>*validate-story-draft"| DEV
+    SM -->|"Creates story<br/>*create-next-story"| DEV
+    PO -->|"Validates story<br/>*validate-story-draft"| DEV
 
-    DEV -->|"Implementa<br/>*develop"| QA
+    DEV -->|"Implements<br/>*develop"| QA
     QA -->|"Feedback<br/>*apply-qa-fixes"| DEV
 
     DEV -->|"Story Complete<br/>Ready for Review"| GHDEVOPS
@@ -336,31 +336,31 @@ flowchart TB
     style GHDEVOPS fill:#fff3e0
 ```
 
-### Fluxo de Colaboracao
+### Collaboration Flow
 
-| De | Para | Trigger | Acao |
+| From | To | Trigger | Action |
 |----|------|---------|------|
-| @sm | @dev | Story criada | @dev implementa story |
-| @po | @dev | Story validada | @dev pode comecar implementacao |
-| @dev | @qa | Story "Ready for Review" | @qa revisa implementacao |
-| @qa | @dev | Feedback com issues | @dev aplica correcoes (*apply-qa-fixes) |
-| @dev | @github-devops | Codigo completo | @github-devops faz push/PR |
+| @sm | @dev | Story created | @dev implements the story |
+| @po | @dev | Story validated | @dev can start implementation |
+| @dev | @qa | Story "Ready for Review" | @qa reviews the implementation |
+| @qa | @dev | Feedback with issues | @dev applies fixes (*apply-qa-fixes) |
+| @dev | @github-devops | Code complete | @github-devops does push/PR |
 
-### Restricoes de Git
+### Git Restrictions
 
-O @dev tem operacoes Git limitadas:
+@dev has limited Git operations:
 
-**Operacoes PERMITIDAS:**
+**ALLOWED Operations:**
 - `git add` - Stage files
-- `git commit` - Commit local
-- `git status` - Check estado
-- `git diff` - Review mudancas
-- `git log` - Ver historico
+- `git commit` - Local commit
+- `git status` - Check state
+- `git diff` - Review changes
+- `git log` - View history
 - `git branch` - List/create branches
 - `git checkout` - Switch branches
-- `git merge` - Merge local
+- `git merge` - Local merge
 
-**Operacoes BLOQUEADAS (somente @github-devops):**
+**BLOCKED Operations (@github-devops only):**
 - `git push`
 - `git push --force`
 - `gh pr create`
@@ -368,22 +368,22 @@ O @dev tem operacoes Git limitadas:
 
 ---
 
-## Configuracao
+## Configuration
 
-### Arquivos de Configuracao Relevantes
+### Relevant Configuration Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/core-config.yaml` | Configuracao central (devStoryLocation, coderabbit, etc.) |
-| `.aexos-core/development/scripts/greeting-builder.js` | Constroi greeting adaptativo |
-| `.aexos-core/scripts/decision-recorder.js` | Logging de decisoes (YOLO mode) |
+| `.aexos-core/core-config.yaml` | Central configuration (devStoryLocation, coderabbit, etc.) |
+| `.aexos-core/development/scripts/greeting-builder.js` | Builds the adaptive greeting |
+| `.aexos-core/scripts/decision-recorder.js` | Decision logging (YOLO mode) |
 
 ### devLoadAlwaysFiles
 
-Arquivos carregados automaticamente na ativacao do @dev (definidos em core-config.yaml):
-- Padroes de codigo do projeto
-- Estrutura de diretorios
-- Convencoes de nomenclatura
+Files loaded automatically on @dev activation (defined in core-config.yaml):
+- Project code standards
+- Directory structure
+- Naming conventions
 
 ### CodeRabbit Integration
 
@@ -424,33 +424,33 @@ decision_logging:
 
 ## Best Practices
 
-### Quando Usar o @dev
+### When to Use @dev
 
-**USE @dev para:**
-- Implementar stories aprovadas
-- Aplicar correcoes de QA
-- Refatorar codigo existente
-- Otimizar performance
-- Registrar divida tecnica
-- Executar e validar testes
+**USE @dev to:**
+- Implement approved stories
+- Apply QA fixes
+- Refactor existing code
+- Optimize performance
+- Record technical debt
+- Run and validate tests
 
-**NAO USE @dev para:**
-- Criar stories (use @sm)
-- Push para remote (use @github-devops)
-- Validar arquitetura (use @architect)
-- Gerenciar backlog (use @po)
+**DO NOT USE @dev to:**
+- Create stories (use @sm)
+- Push to remote (use @github-devops)
+- Validate architecture (use @architect)
+- Manage the backlog (use @po)
 
-### Modos de Execucao
+### Execution Modes
 
-| Modo | Quando Usar | Prompts |
+| Mode | When to Use | Prompts |
 |------|-------------|---------|
-| **YOLO** | Tasks simples, deterministicas | 0-1 |
-| **Interactive** | Aprendizado, decisoes complexas | 5-10 |
-| **Pre-flight** | Requisitos ambiguos, trabalho critico | Todos upfront |
+| **YOLO** | Simple, deterministic tasks | 0-1 |
+| **Interactive** | Learning, complex decisions | 5-10 |
+| **Pre-flight** | Ambiguous requirements, critical work | All upfront |
 
-### Atualizacao de Story Files
+### Story File Updates
 
-**SOMENTE estas secoes podem ser editadas pelo @dev:**
+**ONLY these sections may be edited by @dev:**
 - Task/Subtask checkboxes
 - Dev Agent Record section
 - Agent Model Used
@@ -460,75 +460,75 @@ decision_logging:
 - Change Log
 - Status
 
-**NUNCA editar:**
+**NEVER edit:**
 - Story description
 - Acceptance Criteria
-- Dev Notes (somente adicionar, nao modificar)
-- Testing sections (estrutura)
+- Dev Notes (only add, do not modify)
+- Testing sections (structure)
 
-### Ciclo de Desenvolvimento
+### Development Cycle
 
-1. **Leia task completa** antes de implementar
-2. **Implemente incrementalmente** (task por task)
-3. **Escreva testes** para cada task
-4. **Execute validacoes** antes de marcar [x]
-5. **Atualize File List** apos cada arquivo criado/modificado
-6. **Execute CodeRabbit** antes de finalizar
-7. **Execute DOD Checklist** no final
-8. **Set status** para "Ready for Review"
+1. **Read the complete task** before implementing
+2. **Implement incrementally** (task by task)
+3. **Write tests** for each task
+4. **Run validations** before marking [x]
+5. **Update the File List** after each file created/modified
+6. **Run CodeRabbit** before finalizing
+7. **Run the DOD Checklist** at the end
+8. **Set the status** to "Ready for Review"
 
 ---
 
 ## Troubleshooting
 
-### Story nao encontrada
+### Story not found
 
 ```
-Erro: Story file not found at docs/stories/{story-id}.md
+Error: Story file not found at docs/stories/{story-id}.md
 ```
 
-**Solucao:**
-1. Verificar se story-id esta correto
-2. Checar se story existe em `docs/stories/`
-3. Usar caminho completo se necessario
+**Solution:**
+1. Check that the story-id is correct
+2. Check whether the story exists in `docs/stories/`
+3. Use the full path if needed
 
-### CodeRabbit nao encontrado
-
-```
-Erro: coderabbit: command not found
-```
-
-**Solucao:**
-1. Verificar instalacao WSL: `wsl bash -c '~/.local/bin/coderabbit --version'`
-2. Verificar path em `wsl_config.installation_path`
-3. Re-instalar CodeRabbit se necessario
-
-### Testes falhando
+### CodeRabbit not found
 
 ```
-Erro: Tests failed - cannot mark task as complete
+Error: coderabbit: command not found
 ```
 
-**Solucao:**
-1. Analisar output de erros
-2. Corrigir issues identificados
-3. Re-executar testes
-4. Somente marcar [x] quando todos passarem
+**Solution:**
+1. Check the WSL installation: `wsl bash -c '~/.local/bin/coderabbit --version'`
+2. Check the path in `wsl_config.installation_path`
+3. Reinstall CodeRabbit if needed
+
+### Tests failing
+
+```
+Error: Tests failed - cannot mark task as complete
+```
+
+**Solution:**
+1. Analyze the error output
+2. Fix the identified issues
+3. Re-run the tests
+4. Only mark [x] when all of them pass
 
 ### Blocking conditions
 
-O @dev deve **HALT** e perguntar ao usuario quando:
-- Dependencias nao aprovadas sao necessarias
-- Requisitos ambiguos apos checar story
-- 3 falhas consecutivas tentando implementar/corrigir
-- Configuracao faltando
-- Testes de regressao falhando
+@dev must **HALT** and ask the user when:
+- Unapproved dependencies are required
+- Requirements are ambiguous after checking the story
+- 3 consecutive failures trying to implement/fix
+- Configuration is missing
+- Regression tests are failing
 
 ---
 
-## Referencias
+## References
 
-### Tasks do @dev
+### @dev Tasks
 - [dev-develop-story.md](.aexos-core/development/tasks/dev-develop-story.md)
 - [dev-improve-code-quality.md](.aexos-core/development/tasks/dev-improve-code-quality.md)
 - [dev-optimize-performance.md](.aexos-core/development/tasks/dev-optimize-performance.md)
@@ -540,40 +540,40 @@ O @dev deve **HALT** e perguntar ao usuario quando:
 - [story-dod-checklist.md](.aexos-core/product/checklists/story-dod-checklist.md)
 - [pre-push-checklist.md](.aexos-core/product/checklists/pre-push-checklist.md)
 
-### Agente
+### Agent
 - [dev.md](.aexos-core/development/agents/dev.md)
 
 ### Workflows
 - [brownfield-fullstack.yaml](.aexos-core/development/workflows/brownfield-fullstack.yaml)
 - [greenfield-fullstack.yaml](.aexos-core/development/workflows/greenfield-fullstack.yaml)
 
-### Relacionados
+### Related
 - [BACKLOG-MANAGEMENT-SYSTEM.md](../BACKLOG-MANAGEMENT-SYSTEM.md)
 
 ---
 
-## Resumo
+## Summary
 
-| Aspecto | Detalhes |
+| Aspect | Details |
 |---------|----------|
-| **Total de Arquivos Core** | 10 task files + 1 agent definition |
-| **Comandos Principais** | 15 comandos (*develop, *run-tests, *apply-qa-fixes, etc.) |
-| **Modos de Execucao** | 3 (YOLO, Interactive, Pre-flight) |
-| **Checklists Usados** | 3 (story-dod, pre-push, change) |
-| **Workflows Integrados** | 6 (brownfield + greenfield variants) |
-| **Agentes Colaboradores** | 4 (@sm, @po, @qa, @github-devops) |
-| **Operacoes Git Permitidas** | 8 (add, commit, status, diff, log, branch, checkout, merge) |
-| **Operacoes Git Bloqueadas** | 4 (push, push --force, gh pr create, gh pr merge) |
-| **CodeRabbit Self-Healing** | Light mode (max 2 iteracoes, CRITICAL only) |
+| **Total Core Files** | 10 task files + 1 agent definition |
+| **Main Commands** | 15 commands (*develop, *run-tests, *apply-qa-fixes, etc.) |
+| **Execution Modes** | 3 (YOLO, Interactive, Pre-flight) |
+| **Checklists Used** | 3 (story-dod, pre-push, change) |
+| **Integrated Workflows** | 6 (brownfield + greenfield variants) |
+| **Collaborating Agents** | 4 (@sm, @po, @qa, @github-devops) |
+| **Allowed Git Operations** | 8 (add, commit, status, diff, log, branch, checkout, merge) |
+| **Blocked Git Operations** | 4 (push, push --force, gh pr create, gh pr merge) |
+| **CodeRabbit Self-Healing** | Light mode (max 2 iterations, CRITICAL only) |
 
 ---
 
 ## Changelog
 
-| Data | Autor | Descricao |
+| Date | Author | Description |
 |------|-------|-----------|
-| 2026-02-04 | @dev | Documento inicial criado |
+| 2026-02-04 | @dev | Initial document created |
 
 ---
 
-*-- Dex, sempre construindo*
+*-- Vulcan, always building*

@@ -1,213 +1,213 @@
 # Workflow: Pro Access Grant
 
-**Versao:** 1.0
-**Tipo:** Operations
-**Autor:** Dex + validated with live AEXOS Pro flow
-**Data de Criacao:** 2026-04-20
+**Version:** 1.0
+**Type:** Operations
+**Author:** Vulcan + validated with live AEXOS Pro flow
+**Creation Date:** 2026-04-20
 **Tags:** pro, support, devops, supabase, vercel, installer
 
 ---
 
-## Visao Geral
+## Overview
 
-O workflow **Pro Access Grant** padroniza a concessao ou restauracao de acesso ao AEXOS Pro para um usuario final, cobrindo:
+The **Pro Access Grant** workflow standardizes granting or restoring AEXOS Pro access for an end user, covering:
 
-- preflight de entitlement e conta
-- concessao de buyer
-- criacao ou ajuste da conta no Supabase Auth
-- validacao direta da API
-- validacao final pelo instalador guiado
+- entitlement and account preflight
+- buyer grant
+- creating or adjusting the account in Supabase Auth
+- direct API validation
+- final validation through the guided installer
 
-### Objetivo
+### Objective
 
-Permitir que `@devops` execute o suporte de acesso Pro sempre do mesmo jeito, com evidencias objetivas e sem rediscovering manual.
+Allow `@devops` to run Pro access support the same way every time, with objective evidence and without manual rediscovering.
 
-### Quando usar
+### When to use
 
-- usuario pediu criacao de acesso Pro
-- usuario pediu reset de senha do Pro
-- usuario reportou que comprou mas `check-email` nao reconhece
-- usuario ja tem conta mas a ativacao nao conclui
+- user requested Pro access creation
+- user requested a Pro password reset
+- user reported having purchased but `check-email` does not recognize it
+- user already has an account but activation does not complete
 
-### Quando nao usar
+### When not to use
 
-- bug de produto fora do fluxo de licenciamento
-- pedido de licenca key legada sem auth por email
+- product bug outside the licensing flow
+- legacy license key request without email auth
 
 ---
 
-## Fluxo Principal
+## Main Flow
 
 ```mermaid
 flowchart TD
-    START([Solicitacao de acesso Pro]) --> PREFLIGHT[1. Preflight check-email]
-    PREFLIGHT --> DECISION{isBuyer e hasAccount?}
+    START([Pro access request]) --> PREFLIGHT[1. Preflight check-email]
+    PREFLIGHT --> DECISION{isBuyer and hasAccount?}
 
-    DECISION -->|Nao buyer| BUYER[2. Grant buyer em public.buyers]
+    DECISION -->|Not a buyer| BUYER[2. Grant buyer in public.buyers]
     BUYER --> ACCOUNT
 
-    DECISION -->|Buyer sem conta| ACCOUNT[3. Criar ou ajustar auth user]
-    DECISION -->|Buyer com conta| VERIFY
+    DECISION -->|Buyer without account| ACCOUNT[3. Create or adjust auth user]
+    DECISION -->|Buyer with account| VERIFY
 
-    ACCOUNT --> CACHE[4. Seed buyer_validations se necessario]
-    CACHE --> VERIFY[5. Validar login e verify-status]
-    VERIFY --> ACTIVATE[6. Validar activate-pro]
-    ACTIVATE --> INSTALL[7. Rodar instalacao guiada]
-    INSTALL --> DONE([Acesso pronto e validado])
+    ACCOUNT --> CACHE[4. Seed buyer_validations if needed]
+    CACHE --> VERIFY[5. Validate login and verify-status]
+    VERIFY --> ACTIVATE[6. Validate activate-pro]
+    ACTIVATE --> INSTALL[7. Run guided installation]
+    INSTALL --> DONE([Access ready and validated])
 
-    ACTIVATE -->|Falha de contrato| FIXCLIENT[Atualizar caller para accessToken no body]
+    ACTIVATE -->|Contract failure| FIXCLIENT[Update caller to accessToken in body]
     FIXCLIENT --> ACTIVATE
 
-    VERIFY -->|Email nao verificado| CONFIRM[Confirmar email no Supabase Auth]
+    VERIFY -->|Email not verified| CONFIRM[Confirm email in Supabase Auth]
     CONFIRM --> VERIFY
 ```
 
 ---
 
-## Steps Detalhados
+## Detailed Steps
 
 ### Step 1: Preflight
 
-| Campo | Valor |
+| Field | Value |
 |-------|-------|
 | **ID** | `preflight` |
-| **Agente** | `@devops` |
-| **Acao** | Executar `POST /api/v1/auth/check-email` |
+| **Agent** | `@devops` |
+| **Action** | Run `POST /api/v1/auth/check-email` |
 
-#### Saida esperada
+#### Expected output
 
 - `isBuyer=true|false`
 - `hasAccount=true|false`
 
-#### Decisao
+#### Decision
 
-- se `isBuyer=false`: ir para `grant-buyer`
-- se `hasAccount=false`: ir para `create-account`
-- se ambos `true`: ir para `api-verify`
+- if `isBuyer=false`: go to `grant-buyer`
+- if `hasAccount=false`: go to `create-account`
+- if both are `true`: go to `api-verify`
 
 ### Step 2: Grant Buyer
 
-| Campo | Valor |
+| Field | Value |
 |-------|-------|
 | **ID** | `grant-buyer` |
-| **Agente** | `@devops` |
-| **Acao** | Upsert em `public.buyers` |
+| **Agent** | `@devops` |
+| **Action** | Upsert into `public.buyers` |
 
-#### Regras
+#### Rules
 
-- email sempre em lowercase
+- email always in lowercase
 - `is_active=true`
 - `source='manual_support'`
 
 ### Step 3: Create Account
 
-| Campo | Valor |
+| Field | Value |
 |-------|-------|
 | **ID** | `create-account` |
-| **Agente** | `@devops` |
-| **Acao** | Criar ou ajustar usuario no Supabase Auth |
+| **Agent** | `@devops` |
+| **Action** | Create or adjust the user in Supabase Auth |
 
-#### Regras
+#### Rules
 
-- definir a senha solicitada pelo suporte
-- marcar email como confirmado
-- nao criar usuario duplicado
+- set the password requested by support
+- mark the email as confirmed
+- do not create a duplicate user
 
 ### Step 4: Seed Local Fallback
 
-| Campo | Valor |
+| Field | Value |
 |-------|-------|
 | **ID** | `seed-local-fallback` |
-| **Agente** | `@devops` |
-| **Acao** | Upsert em `public.buyer_validations` |
+| **Agent** | `@devops` |
+| **Action** | Upsert into `public.buyer_validations` |
 
-#### Quando executar
+#### When to run
 
-- buyer RPC instavel
-- grant muito recente ainda nao refletido no preflight
+- unstable buyer RPC
+- grant too recent, not yet reflected in the preflight
 
 ### Step 5: API Verify
 
-| Campo | Valor |
+| Field | Value |
 |-------|-------|
 | **ID** | `api-verify` |
-| **Agente** | `@devops` |
-| **Acao** | Validar `login` e `verify-status` |
+| **Agent** | `@devops` |
+| **Action** | Validate `login` and `verify-status` |
 
 #### Pass criteria
 
-- `login` retorna `accessToken`
-- `verify-status` retorna `emailVerified=true`
+- `login` returns `accessToken`
+- `verify-status` returns `emailVerified=true`
 
 ### Step 6: Activate Pro
 
-| Campo | Valor |
+| Field | Value |
 |-------|-------|
 | **ID** | `activate-pro` |
-| **Agente** | `@devops` |
-| **Acao** | Validar `POST /api/v1/auth/activate-pro` |
+| **Agent** | `@devops` |
+| **Action** | Validate `POST /api/v1/auth/activate-pro` |
 
 #### Pass criteria
 
-- `201` com `licenseKey` no primeiro grant
-- ou `200` com restauracao idempotente em reinstalacao
+- `201` with `licenseKey` on the first grant
+- or `200` with idempotent restoration on reinstall
 
 ### Step 7: Guided Install Validation
 
-| Campo | Valor |
+| Field | Value |
 |-------|-------|
 | **ID** | `guided-install-validation` |
-| **Agente** | `@devops` |
-| **Acao** | Rodar instalador guiado como usuario |
+| **Agent** | `@devops` |
+| **Action** | Run the guided installer as the user |
 
-#### Validacao obrigatoria
+#### Mandatory validation
 
-- path source checkout
-- path tarball empacotado
+- source checkout path
+- packaged tarball path
 
 #### Pass criteria
 
-- Pro instalado
-- verificacao final do installer em verde
-- `.claude/skills`, `.claude/commands` e `.codex/skills` presentes
+- Pro installed
+- installer final verification green
+- `.claude/skills`, `.claude/commands` and `.codex/skills` present
 
 ---
 
-## Entradas
+## Inputs
 
 - `target_email`
 - `target_password`
 - `reset_password` (boolean)
-- `run_guided_validation` (boolean, default: `true` quando houve mudanca de codigo)
+- `run_guided_validation` (boolean, default: `true` when there was a code change)
 
 ---
 
-## Saidas
+## Outputs
 
-- entitlement confirmado
-- conta criada ou atualizada
-- email confirmado
-- Pro ativado ou restaurado
-- evidencias de API e installer
+- entitlement confirmed
+- account created or updated
+- email confirmed
+- Pro activated or restored
+- API and installer evidence
 
 ---
 
 ## Preconditions
 
-- acesso ao projeto Supabase `evvvnarpwcdybxdvcwjh`
-- acesso ao projeto Vercel `aexos-license-server`
-- operador sabe se o pedido inclui criacao de senha ou apenas restauracao
+- access to the Supabase project `evvvnarpwcdybxdvcwjh`
+- access to the Vercel project `aexos-license-server`
+- operator knows whether the request includes password creation or restoration only
 
 ---
 
 ## Acceptance Criteria
 
-- `check-email` termina com `isBuyer=true` e `hasAccount=true`
-- `login` retorna token valido
-- `verify-status` retorna email verificado
-- `activate-pro` retorna sucesso
-- instalacao guiada passa no source path e no tarball path quando houver mudanca de codigo
-- suporte fecha o caso com evidencias sem expor token ou license key completos
+- `check-email` ends with `isBuyer=true` and `hasAccount=true`
+- `login` returns a valid token
+- `verify-status` returns email verified
+- `activate-pro` returns success
+- guided installation passes on the source path and on the tarball path when there is a code change
+- support closes the case with evidence without exposing full tokens or license keys
 
 ---
 

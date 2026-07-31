@@ -230,7 +230,7 @@ flowchart TD
 
         PM --> |prd.md| UX
 
-        subgraph UX["@ux-expert: Uma"]
+        subgraph UX["@ux-expert: Iris"]
             U1[Pesquisa de Usuario Opcional]
             U2[Criar Front-End Spec]
             U3{Gerar prompt v0?}
@@ -448,7 +448,7 @@ stateDiagram-v2
 | Polaris | @devops | ⚡ | Operator | Bootstrap de ambiente, push Git, releases, CI/CD |
 | Sirius | @analyst | 🔍 | Decoder | Pesquisa de mercado, brainstorming, project brief |
 | Janus | @pm | 📋 | Strategist | PRD, estrategia de produto, epics |
-| Uma | @ux-expert | 🎨 | Empathizer | Specs de frontend, UX, design systems |
+| Iris | @ux-expert | 🎨 | Empathizer | Specs de frontend, UX, design systems |
 | Vega | @architect | 🏛️ | Visionary | Arquitetura full-stack, decisoes tecnicas |
 | Themis | @po | 🎯 | Balancer | Validacao de artefatos, backlog, fragmentacao |
 | Chronos | @sm | 🌊 | Facilitator | Criacao de stories, sprint planning |
@@ -462,7 +462,7 @@ graph LR
     subgraph Planejamento
         ANALYST[🔍 Sirius<br>@analyst]
         PM[📋 Janus<br>@pm]
-        UX[🎨 Uma<br>@ux-expert]
+        UX[🎨 Iris<br>@ux-expert]
         ARCH[🏛️ Vega<br>@architect]
     end
 

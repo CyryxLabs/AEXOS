@@ -645,9 +645,6 @@ projects and `false` for framework contributors.
 | [Security](docs/security.md) | Reporting and hardening |
 | [CHANGELOG](CHANGELOG.md) | Release history |
 
-Long-form CLI and installer reference: [README.en.md](README.en.md).
-Documentation is also available in [Português](docs/pt/), [Español](docs/es/) and [中文](docs/zh/).
-
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Note Article II:

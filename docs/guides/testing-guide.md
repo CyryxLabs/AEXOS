@@ -1,7 +1,5 @@
 # AEXOS (Cyryx) Testing Guide
 
-> **EN** | [PT](../pt/guides/testing-guide.md) | [ES](../es/guides/testing-guide.md)
-
 ---
 
 > Comprehensive guide to the testing strategy, tools, and best practices for AEXOS (Cyryx).

@@ -1,7 +1,5 @@
 # Getting Started with AEXOS (Cyryx)
 
-> **EN** | [PT](./pt/getting-started.md) | [ES](./es/getting-started.md)
-
 ---
 
 Welcome to AEXOS. This guide is optimized for first-value in 10 minutes.
@@ -149,7 +147,7 @@ AEXOS agents are activated through your IDE. Once activated, agents respond to c
 | `@pm` | Bob | PRDs, strategy, roadmap |
 | `@po` | Themis | Backlog, story validation, prioritization |
 | `@sm` | Chronos | Story creation, sprint planning |
-| `@analyst` | Alex | Research, competitive analysis |
+| `@analyst` | Sirius | Research, competitive analysis |
 | `@data-engineer` | Ceres | Database design, migrations |
 | `@ux-design-expert` | Iris | UI/UX design, accessibility |
 | `@devops` | Polaris | Git operations, CI/CD, deployments |

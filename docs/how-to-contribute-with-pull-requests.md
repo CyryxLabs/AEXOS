@@ -1,158 +1,154 @@
-# Como Contribuir com Pull Requests
+# How to Contribute with Pull Requests
 
-> 🌐 **EN** | [PT](./pt/how-to-contribute-with-pull-requests.md) | [ES](./es/how-to-contribute-with-pull-requests.md)
+**New to GitHub and pull requests?** This guide will walk you through the basics step by step.
 
----
+## What Is a Pull Request?
 
-**Novo no GitHub e em pull requests?** Este guia irá orientá-lo através dos conceitos básicos passo a passo.
+A pull request (PR) is how you propose changes to a project on GitHub. Think of it as saying "Here are some changes I would like to make - please review them and consider adding them to the main project."
 
-## O Que é um Pull Request?
+## Before You Start
 
-Um pull request (PR) é como você propõe mudanças para um projeto no GitHub. Pense nisso como dizer "Aqui estão algumas mudanças que eu gostaria de fazer - por favor, revise e considere adicioná-las ao projeto principal."
+⚠️ **Important**: Please keep your contributions small and focused! We prefer many small, clear changes over a single massive one.
 
-## Antes de Começar
+All contributions - issues, pull requests and documentation - must be written in English.
 
-⚠️ **Importante**: Por favor, mantenha suas contribuições pequenas e focadas! Preferimos muitas mudanças pequenas e claras ao invés de uma única mudança massiva.
+**Required before submitting PRs:**
 
-**Obrigatório antes de submeter PRs:**
+- **For bug fixes**: Open an issue using the [bug report template](https://github.com/CyryxLabs/AEXOS/issues/new?template=bug_report.md)
+- **For new features**:
+  1. Discuss it on Discord in the [#general-dev channel](https://discord.gg/gk8jAdXWmj)
+  2. Open an issue using the [feature request template](https://github.com/CyryxLabs/AEXOS/issues/new?template=feature_request.md)
+- **For large changes**: Always open an issue first to discuss alignment
 
-- **Para correções de bugs**: Crie uma issue usando o [template de bug report](https://github.com/CyryxLabs/AEXOS/issues/new?template=bug_report.md)
-- **Para novas features**:
-  1. Discuta no Discord no [canal #general-dev](https://discord.gg/gk8jAdXWmj)
-  2. Crie uma issue usando o [template de feature request](https://github.com/CyryxLabs/AEXOS/issues/new?template=feature_request.md)
-- **Para mudanças grandes**: Sempre abra uma issue primeiro para discutir o alinhamento
+## Step-by-Step Guide
 
-## Guia Passo a Passo
+### 1. Fork the Repository
 
-### 1. Fazer Fork do Repositório
+1. Go to the [AEXOS repository](https://github.com/CyryxLabs/AEXOS)
+2. Click the "Fork" button in the top right corner
+3. This creates your own copy of the project
 
-1. Vá para o [repositório AEXOS](https://github.com/CyryxLabs/AEXOS)
-2. Clique no botão "Fork" no canto superior direito
-3. Isso cria sua própria cópia do projeto
-
-### 2. Clonar Seu Fork
+### 2. Clone Your Fork
 
 ```bash
-# Substitua SEU-USUARIO pelo seu nome de usuário real do GitHub
-git clone https://github.com/SEU-USUARIO/AEXOS.git
+# Replace YOUR-USERNAME with your actual GitHub username
+git clone https://github.com/YOUR-USERNAME/AEXOS.git
 cd AEXOS
 ```
 
-### 3. Criar uma Nova Branch
+### 3. Create a New Branch
 
-**Nunca trabalhe diretamente na branch `main`!** Sempre crie uma nova branch para suas mudanças:
+**Never work directly on the `main` branch!** Always create a new branch for your changes:
 
 ```bash
-# Criar e mudar para uma nova branch
+# Create and switch to a new branch
 git checkout -b fix/typo-in-readme
-# ou
+# or
 git checkout -b feature/add-new-agent
 ```
 
-**Dicas de nomenclatura de branches:**
+**Branch naming tips:**
 
-- `fix/descricao` - para correções de bugs
-- `feature/descricao` - para novas funcionalidades
-- `docs/descricao` - para mudanças na documentação
+- `fix/description` - for bug fixes
+- `feature/description` - for new functionality
+- `docs/description` - for documentation changes
 
-### 4. Fazer Suas Mudanças
+### 4. Make Your Changes
 
-- Edite os arquivos que você deseja alterar
-- Mantenha as mudanças pequenas e focadas em uma coisa
-- Teste suas mudanças se possível
+- Edit the files you want to change
+- Keep the changes small and focused on one thing
+- Test your changes if possible
 
-### 5. Fazer Commit das Suas Mudanças
+### 5. Commit Your Changes
 
 ```bash
-# Adicionar suas mudanças
+# Stage your changes
 git add .
 
-# Commit com uma mensagem clara
-git commit -m "Corrigir erro de digitação no README.md"
+# Commit with a clear message
+git commit -m "Fix typo in README.md"
 ```
 
-**Boas mensagens de commit:**
+**Good commit messages:**
 
-- "Corrigir erro de digitação nas instruções de instalação"
-- "Adicionar exemplo de uso de novo agente"
-- "Atualizar link quebrado na documentação"
+- "Fix typo in the installation instructions"
+- "Add usage example for a new agent"
+- "Update broken link in the documentation"
 
-**Más mensagens de commit:**
+**Bad commit messages:**
 
-- "coisas"
-- "mudanças"
-- "atualizar"
+- "stuff"
+- "changes"
+- "update"
 
-### 6. Fazer Push para Seu Fork
+### 6. Push to Your Fork
 
 ```bash
-# Fazer push da sua branch para seu fork
+# Push your branch to your fork
 git push origin fix/typo-in-readme
 ```
 
-### 7. Criar o Pull Request
+### 7. Create the Pull Request
 
-1. Vá para seu fork no GitHub
-2. Você verá um botão verde "Compare & pull request" - clique nele
-3. Selecione a branch de destino correta:
-   - **Branch `next`** para a maioria das contribuições (features, docs, melhorias)
-   - **Branch `main`** apenas para correções críticas
-4. Preencha a descrição do PR usando o template em CONTRIBUTING.md:
-   - **O Quê**: 1-2 frases descrevendo o que mudou
-   - **Por Quê**: 1-2 frases explicando o motivo
-   - **Como**: 2-3 bullets sobre a implementação
-   - **Testes**: Como você testou
-5. Referencie o número da issue relacionada (ex: "Fixes #123")
+1. Go to your fork on GitHub
+2. You will see a green "Compare & pull request" button - click it
+3. Make sure the target branch is `main`
+4. Fill in the PR description using the template in CONTRIBUTING.md:
+   - **What**: 1-2 sentences describing what changed
+   - **Why**: 1-2 sentences explaining the reason
+   - **How**: 2-3 bullets about the implementation
+   - **Testing**: How you tested it
+5. Reference the related issue number (e.g. "Fixes #123")
 
-### 8. Aguardar Revisão
+### 8. Wait for Review
 
-- Um mantenedor irá revisar seu PR
-- Eles podem pedir mudanças
-- Seja paciente e responsivo ao feedback
+- A maintainer will review your PR
+- They may request changes
+- Be patient and responsive to feedback
 
-## O Que Torna um Pull Request Bom?
+## What Makes a Good Pull Request?
 
-✅ **PRs Bons:**
+✅ **Good PRs:**
 
-- Mudam uma coisa por vez
-- Têm títulos claros e descritivos
-- Explicam o quê e por quê na descrição
-- Incluem apenas os arquivos que precisam mudar
+- Change one thing at a time
+- Have clear, descriptive titles
+- Explain the what and the why in the description
+- Include only the files that need to change
 
-❌ **Evite:**
+❌ **Avoid:**
 
-- Mudar a formatação de arquivos inteiros
-- Múltiplas mudanças não relacionadas em um PR
-- Copiar seu projeto/repositório inteiro no PR
-- Mudanças sem explicação
+- Reformatting entire files
+- Multiple unrelated changes in one PR
+- Copying your whole project/repository into the PR
+- Changes without an explanation
 
-## Erros Comuns a Evitar
+## Common Mistakes to Avoid
 
-1. **Não reformate arquivos inteiros** - mude apenas o que é necessário
-2. **Não inclua mudanças não relacionadas** - foque em uma correção/feature por PR
-3. **Não cole código em issues** - crie um PR apropriado ao invés disso
-4. **Não submeta seu projeto inteiro** - contribua com melhorias específicas
+1. **Do not reformat entire files** - change only what is necessary
+2. **Do not include unrelated changes** - focus on one fix/feature per PR
+3. **Do not paste code into issues** - open a proper PR instead
+4. **Do not submit your entire project** - contribute specific improvements
 
-## Precisa de Ajuda?
+## Need Help?
 
-- 🐛 Reporte bugs usando o [template de bug report](https://github.com/CyryxLabs/AEXOS/issues/new?template=bug_report.md)
-- 💡 Sugira features usando o [template de feature request](https://github.com/CyryxLabs/AEXOS/issues/new?template=feature_request.md)
-- 📖 Leia as [Diretrizes de Contribuição](../CONTRIBUTING.md) completas
+- 🐛 Report bugs using the [bug report template](https://github.com/CyryxLabs/AEXOS/issues/new?template=bug_report.md)
+- 💡 Suggest features using the [feature request template](https://github.com/CyryxLabs/AEXOS/issues/new?template=feature_request.md)
+- 📖 Read the full [Contributing Guidelines](../CONTRIBUTING.md)
 
-## Exemplo: PRs Bons vs Ruins
+## Example: Good vs Bad PRs
 
-### 😀 Exemplo de PR Bom
+### 😀 Good PR Example
 
-**Título**: "Corrigir link quebrado para guia de instalação"
-**Mudanças**: Um arquivo, uma linha alterada
-**Descrição**: "O link no README.md estava apontando para o arquivo errado. Atualizado para apontar para o guia de instalação correto."
+**Title**: "Fix broken link to installation guide"
+**Changes**: One file, one line changed
+**Description**: "The link in README.md was pointing to the wrong file. Updated it to point to the correct installation guide."
 
-### 😞 Exemplo de PR Ruim
+### 😞 Bad PR Example
 
-**Título**: "Atualizações"
-**Mudanças**: 50 arquivos, codebase inteira reformatada
-**Descrição**: "Fiz algumas melhorias"
+**Title**: "Updates"
+**Changes**: 50 files, entire codebase reformatted
+**Description**: "Made some improvements"
 
 ---
 
-**Lembre-se**: Estamos aqui para ajudar! Não tenha medo de fazer perguntas. Todo especialista já foi iniciante um dia.
+**Remember**: We are here to help! Do not be afraid to ask questions. Every expert was a beginner once.

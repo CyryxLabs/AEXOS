@@ -1,31 +1,29 @@
-# AEXOS Agent Flows - Documentação Detalhada dos Agentes
-
-> 🌐 **PT** | [EN](../en/aexos-agent-flows/README.md) | [ES](../es/aexos-agent-flows/README.md) | [ZH](../zh/aexos-agent-flows/README.md)
+# AEXOS Agent Flows - Detailed Agent Documentation
 
 ---
 
-**Versão:** 1.0.0
-**Última Atualização:** 2026-02-05
-**Status:** Documentação Oficial
+**Version:** 1.0.0
+**Last Updated:** 2026-02-05
+**Status:** Official Documentation
 
 ---
 
-## Visão Geral
+## Overview
 
-Esta pasta contém a documentação detalhada de todos os agentes do AEXOS, incluindo:
+This folder contains the detailed documentation for all AEXOS agents, including:
 
-- **Sistema completo** de cada agente
-- **Flowcharts Mermaid** de operações
-- **Mapeamento de comandos** para tasks
-- **Integrações** entre agentes
-- **Workflows** que envolvem cada agente
-- **Best practices** e troubleshooting
+- **Complete system** of each agent
+- **Mermaid flowcharts** of operations
+- **Command mapping** to tasks
+- **Integrations** between agents
+- **Workflows** that involve each agent
+- **Best practices** and troubleshooting
 
 ---
 
-## Agentes Documentados
+## Documented Agents
 
-| Agente | Persona | Arquétipo | Documento |
+| Agent | Persona | Archetype | Document |
 |--------|---------|-----------|-----------|
 | **@aexos-master** | Zeus | Orchestrator | [aexos-master-system.md](./aexos-master-system.md) |
 | **@analyst** | Sirius | Researcher | [analyst-system.md](./analyst-system.md) |
@@ -41,83 +39,83 @@ Esta pasta contém a documentação detalhada de todos os agentes do AEXOS, incl
 
 ---
 
-## Estrutura de Cada Documento
+## Structure of Each Document
 
-Cada documento de agente segue esta estrutura padrão:
+Each agent document follows this standard structure:
 
 ```
-1. Visão Geral
-   - Responsabilidades principais
-   - Princípios core
+1. Overview
+   - Main responsibilities
+   - Core principles
 
-2. Lista Completa de Arquivos
-   - Tasks core
-   - Definição do agente
+2. Complete File List
+   - Core tasks
+   - Agent definition
    - Templates
    - Checklists
-   - Arquivos relacionados
+   - Related files
 
-3. Flowchart do Sistema
-   - Diagrama Mermaid completo
-   - Fluxo de operações
+3. System Flowchart
+   - Complete Mermaid diagram
+   - Operation flow
 
-4. Mapeamento de Comandos
-   - Comandos → Tasks
-   - Parâmetros e opções
+4. Command Mapping
+   - Commands → Tasks
+   - Parameters and options
 
-5. Workflows Relacionados
-   - Workflows que usam o agente
-   - Papel do agente em cada workflow
+5. Related Workflows
+   - Workflows that use the agent
+   - The agent's role in each workflow
 
-6. Integrações entre Agentes
-   - De quem recebe inputs
-   - Para quem entrega outputs
-   - Colaborações
+6. Integrations between Agents
+   - Who it receives inputs from
+   - Who it delivers outputs to
+   - Collaborations
 
-7. Configuração
-   - Arquivos de configuração
-   - Tools disponíveis
-   - Restrições
+7. Configuration
+   - Configuration files
+   - Available tools
+   - Restrictions
 
 8. Best Practices
-   - Quando usar
-   - O que evitar
+   - When to use
+   - What to avoid
 
 9. Troubleshooting
-   - Problemas comuns
-   - Soluções
+   - Common problems
+   - Solutions
 
 10. Changelog
-    - Histórico de versões
+    - Version history
 ```
 
 ---
 
-## Diagrama de Relacionamento entre Agentes
+## Agent Relationship Diagram
 
 ```mermaid
 flowchart TB
-    subgraph ORCHESTRATION["Orquestração"]
+    subgraph ORCHESTRATION["Orchestration"]
         MASTER["@aexos-master\n(Zeus)"]
     end
 
-    subgraph DISCOVERY["Descoberta & Planejamento"]
+    subgraph DISCOVERY["Discovery & Planning"]
         ANALYST["@analyst\n(Sirius)"]
         PM["@pm\n(Janus)"]
     end
 
-    subgraph DESIGN["Design & Arquitetura"]
+    subgraph DESIGN["Design & Architecture"]
         ARCHITECT["@architect\n(Vega)"]
         UX["@ux-design-expert\n(Iris)"]
         DATA["@data-engineer\n(Ceres)"]
     end
 
-    subgraph MANAGEMENT["Gestão"]
+    subgraph MANAGEMENT["Management"]
         PO["@po\n(Themis)"]
         SM["@sm\n(Chronos)"]
     end
 
-    subgraph EXECUTION["Execução"]
+    subgraph EXECUTION["Execution"]
         DEV["@dev\n(Vulcan)"]
         QA["@qa\n(Argus)"]
         DEVOPS["@devops\n(Polaris)"]
@@ -142,49 +140,48 @@ flowchart TB
 
 ---
 
-## Como Usar Esta Documentação
+## How to Use This Documentation
 
-### Para Entender um Agente
+### To Understand an Agent
 
-1. Acesse o documento do agente desejado
-2. Leia a **Visão Geral** para entender o papel
-3. Consulte os **Comandos** para saber o que pode fazer
-4. Veja os **Workflows** para entender o contexto
+1. Open the document for the agent you want
+2. Read the **Overview** to understand the role
+3. Check the **Commands** to know what it can do
+4. Look at the **Workflows** to understand the context
 
-### Para Debugar Problemas
+### To Debug Problems
 
-1. Vá direto à seção **Troubleshooting**
-2. Consulte os **Flowcharts** para entender o fluxo
-3. Verifique as **Integrações** para dependências
+1. Go straight to the **Troubleshooting** section
+2. Check the **Flowcharts** to understand the flow
+3. Review the **Integrations** for dependencies
 
-### Para Estender o Sistema
+### To Extend the System
 
-1. Analise a **Lista de Arquivos** para saber o que modificar
-2. Siga os **Best Practices** para manter consistência
-3. Atualize o **Changelog** após mudanças
+1. Review the **File List** to know what to modify
+2. Follow the **Best Practices** to keep consistency
+3. Update the **Changelog** after changes
 
 ---
 
-## Relacionamento com Outras Documentações
+## Relationship with Other Documentation
 
-| Documentação | Localização | Propósito |
+| Documentation | Location | Purpose |
 |--------------|-------------|-----------|
-| Meta-Agent Commands | [docs/meta-agent-commands.md](../meta-agent-commands.md) | Referência rápida |
-| Workflows Guide | [docs/guides/workflows-guide.md](../guides/workflows-guide.md) | Guia de workflows |
-| AEXOS Workflows | [docs/aexos-workflows/](../aexos-workflows/) | Detalhamento de workflows |
-| Architecture | [docs/architecture/](../architecture/) | Arquitetura técnica |
+| Meta-Agent Commands | [docs/meta-agent-commands.md](../meta-agent-commands.md) | Quick reference |
+| Workflows Guide | [docs/guides/workflows-guide.md](../guides/workflows-guide.md) | Workflows guide |
+| AEXOS Workflows | [docs/aexos-workflows/](../aexos-workflows/) | Workflow details |
+| Architecture | [docs/architecture/](../architecture/) | Technical architecture |
 
 ---
 
-## Contribuindo
+## Contributing
 
-Para adicionar ou atualizar documentação de agentes:
+To add or update agent documentation:
 
-1. Siga a estrutura padrão descrita acima
-2. Inclua diagramas Mermaid atualizados
-3. Mantenha o changelog atualizado
-4. Crie traduções em EN, ES e ZH
+1. Follow the standard structure described above
+2. Include up-to-date Mermaid diagrams
+3. Keep the changelog up to date
 
 ---
 
-*AEXOS Agent Flows Documentation v1.0 - Documentação detalhada do sistema de agentes*
+*AEXOS Agent Flows Documentation v1.0 - Detailed documentation of the agent system*

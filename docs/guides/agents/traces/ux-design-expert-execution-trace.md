@@ -44,7 +44,7 @@ sequenceDiagram
 
     par Parallel loading
         GG->>ACL: loader.loadComplete(coreConfig)
-        ACL-->>GG: { agent: { name: 'Uma', icon: '🎨' }, commands: [...25], ... }
+        ACL-->>GG: { agent: { name: 'Iris', icon: '🎨' }, commands: [...25], ... }
         GG->>SCL: new SessionContextLoader().loadContext('ux-design-expert')
         SCL-->>GG: { sessionType: 'new', previousAgent, lastCommands, ... }
         GG->>PSL: loadProjectStatus()
@@ -911,7 +911,7 @@ graph TD
 - Token definitions and design system configurations
 - Component implementations with TypeScript + tests
 
-**Collaborates with @analyst (Alex):**
+**Collaborates with @analyst (Sirius):**
 - User research planning and execution
 - Data analysis for design decisions
 

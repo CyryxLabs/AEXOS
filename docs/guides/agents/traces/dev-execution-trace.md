@@ -39,7 +39,7 @@ sequenceDiagram
     CC->>DMd: Load agent file (STEP 1)
     CC->>DMd: Adopt persona (STEP 2)
     CC->>ACL: loadAgentDefinition('dev')
-    ACL-->>CC: { agent: { name: 'Dex', icon: '💻' }, commands: [...36], ... }
+    ACL-->>CC: { agent: { name: 'Vulcan', icon: '💻' }, commands: [...36], ... }
 
     CC->>GB: new GreetingBuilder()
     Note over GB: Loads ContextDetector, GitConfigDetector,<br/>WorkflowNavigator, GreetingPreferenceManager,<br/>core-config.yaml

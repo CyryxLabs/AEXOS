@@ -1,138 +1,138 @@
-# Sistema do Agente @architect
+# @architect Agent System
 
-> **Versao:** 1.0.0
-> **Criado:** 2026-02-04
+> **Version:** 1.0.0
+> **Created:** 2026-02-04
 > **Owner:** @architect (Vega - Visionary)
-> **Status:** Documentacao Oficial
+> **Status:** Official Documentation
 
 ---
 
-## Visao Geral
+## Overview
 
-O agente **@architect** (Vega) e o **Holistic System Architect & Full-Stack Technical Leader** do AEXOS. Este agente e responsavel por:
+The **@architect** agent (Vega) is the **Holistic System Architect & Full-Stack Technical Leader** of AEXOS. This agent is responsible for:
 
-- **Arquitetura de sistemas completos** (microservices, monolith, serverless, hybrid)
-- **Selecao de stack tecnologico** (frameworks, linguagens, plataformas)
-- **Planejamento de infraestrutura** (deployment, scaling, monitoring, CDN)
-- **Design de APIs** (REST, GraphQL, tRPC, WebSocket)
-- **Arquitetura de seguranca** (authentication, authorization, encryption)
-- **Arquitetura frontend** (state management, routing, performance)
-- **Arquitetura backend** (service boundaries, event flows, caching)
+- **Complete system architecture** (microservices, monolith, serverless, hybrid)
+- **Technology stack selection** (frameworks, languages, platforms)
+- **Infrastructure planning** (deployment, scaling, monitoring, CDN)
+- **API design** (REST, GraphQL, tRPC, WebSocket)
+- **Security architecture** (authentication, authorization, encryption)
+- **Frontend architecture** (state management, routing, performance)
+- **Backend architecture** (service boundaries, event flows, caching)
 - **Cross-cutting concerns** (logging, monitoring, error handling)
-- **Padroes de integracao** (event-driven, messaging, webhooks)
-- **Otimizacao de performance** (em todas as camadas)
+- **Integration patterns** (event-driven, messaging, webhooks)
+- **Performance optimization** (across every layer)
 
-### Principios Core
+### Core Principles
 
-1. **Holistic System Thinking** - Visualizar cada componente como parte de um sistema maior
-2. **User Experience Drives Architecture** - Comecar com jornadas do usuario e trabalhar de tras para frente
-3. **Pragmatic Technology Selection** - Escolher tecnologia "boring" onde possivel, "exciting" onde necessario
-4. **Progressive Complexity** - Projetar sistemas simples no inicio mas escalaveis
-5. **Cross-Stack Performance Focus** - Otimizar holisticamente em todas as camadas
-6. **Developer Experience as First-Class Concern** - Habilitar produtividade do desenvolvedor
-7. **Security at Every Layer** - Implementar defesa em profundidade
-8. **Data-Centric Design** - Deixar requisitos de dados guiar a arquitetura
-9. **Cost-Conscious Engineering** - Balancear ideais tecnicos com realidade financeira
-10. **Living Architecture** - Projetar para mudanca e adaptacao
+1. **Holistic System Thinking** - View every component as part of a larger system
+2. **User Experience Drives Architecture** - Start with user journeys and work backward
+3. **Pragmatic Technology Selection** - Choose "boring" technology where possible, "exciting" where necessary
+4. **Progressive Complexity** - Design systems that are simple up front yet scalable
+5. **Cross-Stack Performance Focus** - Optimize holistically across every layer
+6. **Developer Experience as First-Class Concern** - Enable developer productivity
+7. **Security at Every Layer** - Implement defense in depth
+8. **Data-Centric Design** - Let data requirements drive the architecture
+9. **Cost-Conscious Engineering** - Balance technical ideals against financial reality
+10. **Living Architecture** - Design for change and adaptation
 
 ---
 
-## Lista Completa de Arquivos
+## Complete File List
 
-### Arquivos Core de Tasks do @architect
+### @architect Core Task Files
 
-| Arquivo | Comando | Proposito |
+| File | Command | Purpose |
 |---------|---------|-----------|
-| `.aexos-core/development/tasks/architect-analyze-impact.md` | `*analyze-impact` | Analisa impacto de modificacoes em componentes do framework |
-| `.aexos-core/development/tasks/document-project.md` | `*document-project` | Gera documentacao brownfield de projeto existente |
-| `.aexos-core/development/tasks/create-doc.md` | `*create-doc` | Cria documentos a partir de templates YAML |
-| `.aexos-core/development/tasks/collaborative-edit.md` | `*collaborative-edit` | Gerencia sessoes de edicao colaborativa |
-| `.aexos-core/development/tasks/create-deep-research-prompt.md` | `*research` | Gera prompts de pesquisa profunda |
-| `.aexos-core/development/tasks/execute-checklist.md` | `*execute-checklist` | Executa checklists de validacao |
-| `.aexos-core/development/tasks/spec-assess-complexity.md` | `*assess-complexity` | Avalia complexidade de stories (Spec Pipeline) |
+| `.aexos-core/development/tasks/architect-analyze-impact.md` | `*analyze-impact` | Analyzes the impact of modifications to framework components |
+| `.aexos-core/development/tasks/document-project.md` | `*document-project` | Generates brownfield documentation for an existing project |
+| `.aexos-core/development/tasks/create-doc.md` | `*create-doc` | Creates documents from YAML templates |
+| `.aexos-core/development/tasks/collaborative-edit.md` | `*collaborative-edit` | Manages collaborative editing sessions |
+| `.aexos-core/development/tasks/create-deep-research-prompt.md` | `*research` | Generates deep research prompts |
+| `.aexos-core/development/tasks/execute-checklist.md` | `*execute-checklist` | Runs validation checklists |
+| `.aexos-core/development/tasks/spec-assess-complexity.md` | `*assess-complexity` | Assesses story complexity (Spec Pipeline) |
 
-### Arquivos de Definicao do Agente
+### Agent Definition Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/agents/architect.md` | Definicao core do agente Architect |
-| `.claude/commands/AEXOS/agents/architect.md` | Comando Claude Code para ativar @architect |
+| `.aexos-core/development/agents/architect.md` | Core definition of the Architect agent |
+| `.claude/commands/AEXOS/agents/architect.md` | Claude Code command that activates @architect |
 
-### Arquivos de Templates do @architect
+### @architect Template Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/product/templates/architecture-tmpl.yaml` | Template para arquitetura backend |
-| `.aexos-core/product/templates/front-end-architecture-tmpl.yaml` | Template para arquitetura frontend |
-| `.aexos-core/product/templates/fullstack-architecture-tmpl.yaml` | Template para arquitetura fullstack |
-| `.aexos-core/product/templates/brownfield-architecture-tmpl.yaml` | Template para projetos brownfield |
+| `.aexos-core/product/templates/architecture-tmpl.yaml` | Template for backend architecture |
+| `.aexos-core/product/templates/front-end-architecture-tmpl.yaml` | Template for frontend architecture |
+| `.aexos-core/product/templates/fullstack-architecture-tmpl.yaml` | Template for fullstack architecture |
+| `.aexos-core/product/templates/brownfield-architecture-tmpl.yaml` | Template for brownfield projects |
 
-### Arquivos de Dados de Suporte
+### Supporting Data Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/data/technical-preferences.md` | Preferencias tecnicas padrao do AEXOS |
+| `.aexos-core/development/data/technical-preferences.md` | Default AEXOS technical preferences |
 
-### Arquivos Relacionados de Outros Agentes
+### Related Files from Other Agents
 
-| Arquivo | Agente | Proposito |
+| File | Agent | Purpose |
 |---------|--------|-----------|
-| `.aexos-core/development/tasks/spec-gather-requirements.md` | @pm | Coleta requisitos que alimentam arquitetura |
-| `.aexos-core/development/tasks/spec-research-dependencies.md` | @analyst | Pesquisa dependencias para arquitetura |
-| `.aexos-core/development/tasks/spec-critique.md` | @qa | Valida specs que impactam arquitetura |
-| `.aexos-core/development/tasks/plan-create-implementation.md` | @architect | Cria plano de implementacao pos-spec |
-| `.aexos-core/development/agents/db-sage.md` | @db-sage | Colabora em arquitetura de dados |
-| `.aexos-core/development/agents/ux-design-expert.md` | @ux-design-expert | Colabora em arquitetura frontend |
-| `.aexos-core/development/agents/devops.md` | @devops | Colabora em infraestrutura |
+| `.aexos-core/development/tasks/spec-gather-requirements.md` | @pm | Gathers requirements that feed the architecture |
+| `.aexos-core/development/tasks/spec-research-dependencies.md` | @analyst | Researches dependencies for the architecture |
+| `.aexos-core/development/tasks/spec-critique.md` | @qa | Validates specs that impact the architecture |
+| `.aexos-core/development/tasks/plan-create-implementation.md` | @architect | Creates the post-spec implementation plan |
+| `.aexos-core/development/agents/db-sage.md` | @db-sage | Collaborates on data architecture |
+| `.aexos-core/development/agents/ux-design-expert.md` | @ux-design-expert | Collaborates on frontend architecture |
+| `.aexos-core/development/agents/devops.md` | @devops | Collaborates on infrastructure |
 
 ---
 
-## Flowchart: Sistema Completo do @architect
+## Flowchart: Complete @architect System
 
 ```mermaid
 flowchart TB
-    subgraph INPUTS["ENTRADAS"]
-        PRD["PRD\n(do @pm)"]
-        FRONTEND_SPEC["Front-end Spec\n(do @ux-design-expert)"]
-        REQUIREMENTS["Requirements\n(do usuario/stakeholder)"]
-        EXISTING_PROJECT["Projeto Existente\n(brownfield)"]
+    subgraph INPUTS["INPUTS"]
+        PRD["PRD\n(from @pm)"]
+        FRONTEND_SPEC["Front-end Spec\n(from @ux-design-expert)"]
+        REQUIREMENTS["Requirements\n(from user/stakeholder)"]
+        EXISTING_PROJECT["Existing Project\n(brownfield)"]
     end
 
     subgraph ARCHITECT_CORE["@architect (Vega) - Core Operations"]
         direction TB
 
-        subgraph DESIGN["Design de Arquitetura"]
+        subgraph DESIGN["Architecture Design"]
             FULLSTACK["*create-full-stack-architecture"]
             BACKEND["*create-backend-architecture"]
             FRONTEND["*create-front-end-architecture"]
             BROWNFIELD["*create-brownfield-architecture"]
         end
 
-        subgraph ANALYSIS["Analise & Impacto"]
+        subgraph ANALYSIS["Analysis & Impact"]
             IMPACT["*analyze-impact"]
             COMPLEXITY["*assess-complexity"]
             RESEARCH["*research"]
         end
 
-        subgraph DOCS["Documentacao"]
+        subgraph DOCS["Documentation"]
             DOC_PROJECT["*document-project"]
             CREATE_DOC["*create-doc"]
             CHECKLIST["*execute-checklist"]
         end
     end
 
-    subgraph OUTPUTS["SAIDAS"]
+    subgraph OUTPUTS["OUTPUTS"]
         ARCH_DOC["Architecture Document\n(.md)"]
         IMPACT_REPORT["Impact Report\n(.json/.html)"]
         COMPLEXITY_JSON["Complexity Assessment\n(.json)"]
         PROJECT_DOCS["Project Documentation"]
     end
 
-    subgraph COLLABORATION["COLABORACAO"]
+    subgraph COLLABORATION["COLLABORATION"]
         DB_SAGE["@db-sage\n(Schema Design)"]
         UX_EXPERT["@ux-design-expert\n(UI Architecture)"]
-        DEV["@dev\n(Implementacao)"]
-        DEVOPS["@devops\n(Infraestrutura)"]
+        DEV["@dev\n(Implementation)"]
+        DEVOPS["@devops\n(Infrastructure)"]
     end
 
     PRD --> FULLSTACK
@@ -167,7 +167,7 @@ flowchart TB
     style COLLABORATION fill:#f3e5f5
 ```
 
-### Diagrama: Fluxo de Criacao de Arquitetura
+### Diagram: Architecture Creation Flow
 
 ```mermaid
 sequenceDiagram
@@ -179,11 +179,11 @@ sequenceDiagram
     participant Dev as @dev
     participant DevOps as @devops
 
-    User->>PM: Requisitos do Projeto
+    User->>PM: Project Requirements
     PM->>PM: *create-prd
     PM-->>Arch: prd.md
 
-    opt Se Frontend Envolvido
+    opt If Frontend Involved
         PM-->>UX: prd.md
         UX->>UX: *create-front-end-spec
         UX-->>Arch: front-end-spec.md
@@ -191,70 +191,70 @@ sequenceDiagram
 
     Arch->>Arch: *create-full-stack-architecture
 
-    opt Se Data-Heavy
-        Arch->>DB: Requisitos de Schema
+    opt If Data-Heavy
+        Arch->>DB: Schema Requirements
         DB-->>Arch: Schema Recommendations
     end
 
     Arch-->>PM: fullstack-architecture.md
 
-    opt Se PRD precisa mudancas
+    opt If the PRD needs changes
         PM->>PM: Update prd.md
     end
 
     Arch-->>Dev: Architecture Handoff
     Arch-->>DevOps: Infrastructure Specs
 
-    Note over Arch,Dev: Dev implementa seguindo arquitetura
+    Note over Arch,Dev: Dev implements following the architecture
 ```
 
 ---
 
-## Mapeamento de Comandos para Tasks
+## Command to Task Mapping
 
-### Comandos de Design de Arquitetura
+### Architecture Design Commands
 
-| Comando | Task File / Template | Operacao |
+| Command | Task File / Template | Operation |
 |---------|---------------------|----------|
-| `*create-full-stack-architecture` | `create-doc.md` + `fullstack-architecture-tmpl.yaml` | Cria arquitetura fullstack completa |
-| `*create-backend-architecture` | `create-doc.md` + `architecture-tmpl.yaml` | Cria arquitetura backend |
-| `*create-front-end-architecture` | `create-doc.md` + `front-end-architecture-tmpl.yaml` | Cria arquitetura frontend |
-| `*create-brownfield-architecture` | `create-doc.md` + `brownfield-architecture-tmpl.yaml` | Arquitetura para projetos existentes |
+| `*create-full-stack-architecture` | `create-doc.md` + `fullstack-architecture-tmpl.yaml` | Creates a complete fullstack architecture |
+| `*create-backend-architecture` | `create-doc.md` + `architecture-tmpl.yaml` | Creates a backend architecture |
+| `*create-front-end-architecture` | `create-doc.md` + `front-end-architecture-tmpl.yaml` | Creates a frontend architecture |
+| `*create-brownfield-architecture` | `create-doc.md` + `brownfield-architecture-tmpl.yaml` | Architecture for existing projects |
 
-### Comandos de Analise
+### Analysis Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*analyze-impact` | `architect-analyze-impact.md` | Analisa impacto de modificacoes |
-| `*assess-complexity` | `spec-assess-complexity.md` | Avalia complexidade (5 dimensoes) |
-| `*research` | `create-deep-research-prompt.md` | Gera prompt de pesquisa |
+| `*analyze-impact` | `architect-analyze-impact.md` | Analyzes the impact of modifications |
+| `*assess-complexity` | `spec-assess-complexity.md` | Assesses complexity (5 dimensions) |
+| `*research` | `create-deep-research-prompt.md` | Generates a research prompt |
 
-### Comandos de Documentacao
+### Documentation Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*document-project` | `document-project.md` | Documenta projeto existente |
-| `*execute-checklist` | `execute-checklist.md` | Executa checklist de arquitetura |
-| `*doc-out` | N/A (built-in) | Outputa documento completo |
-| `*shard-prd` | N/A (built-in) | Fragmenta PRD em partes |
+| `*document-project` | `document-project.md` | Documents an existing project |
+| `*execute-checklist` | `execute-checklist.md` | Runs the architecture checklist |
+| `*doc-out` | N/A (built-in) | Outputs the complete document |
+| `*shard-prd` | N/A (built-in) | Shards the PRD into parts |
 
-### Comandos Utilitarios
+### Utility Commands
 
-| Comando | Operacao |
+| Command | Operation |
 |---------|----------|
-| `*help` | Mostra todos os comandos disponiveis |
-| `*session-info` | Mostra detalhes da sessao atual |
-| `*guide` | Mostra guia de uso do agente |
-| `*yolo` | Toggle para pular confirmacoes |
-| `*exit` | Sai do modo architect |
+| `*help` | Shows every available command |
+| `*session-info` | Shows details of the current session |
+| `*guide` | Shows the agent usage guide |
+| `*yolo` | Toggle to skip confirmations |
+| `*exit` | Exits architect mode |
 
 ---
 
-## Workflows que Envolvem @architect
+## Workflows Involving @architect
 
 ### 1. Greenfield Fullstack Workflow
 
-**Arquivo:** `.aexos-core/development/workflows/greenfield-fullstack.yaml`
+**File:** `.aexos-core/development/workflows/greenfield-fullstack.yaml`
 
 ```mermaid
 flowchart LR
@@ -269,39 +269,39 @@ flowchart LR
     style D fill:#e3f2fd,stroke:#1976d2
 ```
 
-**Papel do @architect:**
-- Recebe PRD e front-end-spec
-- Cria fullstack-architecture.md
-- Pode sugerir mudancas no PRD
-- Entrega arquitetura para validacao do PO
+**@architect's Role:**
+- Receives the PRD and the front-end-spec
+- Creates fullstack-architecture.md
+- May suggest changes to the PRD
+- Hands the architecture over for PO validation
 
 ### 2. Brownfield Fullstack Workflow
 
-**Arquivo:** `.aexos-core/development/workflows/brownfield-fullstack.yaml`
+**File:** `.aexos-core/development/workflows/brownfield-fullstack.yaml`
 
 ```mermaid
 flowchart LR
     A[analyst] --> B{Docs OK?}
-    B -->|Nao| C["@architect"]
+    B -->|No| C["@architect"]
     C -->|"document-project"| D[pm]
-    B -->|Sim| D
+    B -->|Yes| D
     D --> E{Arch needed?}
-    E -->|Sim| F["@architect"]
+    E -->|Yes| F["@architect"]
     F -->|"architecture.md"| G[po]
-    E -->|Nao| G
+    E -->|No| G
 
     style C fill:#e3f2fd,stroke:#1976d2
     style F fill:#e3f2fd,stroke:#1976d2
 ```
 
-**Papel do @architect:**
-- Analisa projeto existente com `*document-project`
-- Cria brownfield-architecture.md se necessario
-- Identifica technical debt e constraints
+**@architect's Role:**
+- Analyzes the existing project with `*document-project`
+- Creates brownfield-architecture.md when needed
+- Identifies technical debt and constraints
 
 ### 3. Spec Pipeline Workflow
 
-**Arquivo:** `.aexos-core/development/workflows/spec-pipeline.yaml`
+**File:** `.aexos-core/development/workflows/spec-pipeline.yaml`
 
 ```mermaid
 flowchart LR
@@ -315,43 +315,43 @@ flowchart LR
     style F fill:#e3f2fd,stroke:#1976d2
 ```
 
-**Papel do @architect:**
-- **Phase 2 (Assess):** Avalia complexidade usando 5 dimensoes
-- **Phase 6 (Plan):** Cria plano de implementacao pos-aprovacao
+**@architect's Role:**
+- **Phase 2 (Assess):** Assesses complexity using 5 dimensions
+- **Phase 6 (Plan):** Creates the implementation plan once approved
 
 ### 4. QA Loop (Escalation)
 
-**Arquivo:** `.aexos-core/development/workflows/qa-loop.yaml`
+**File:** `.aexos-core/development/workflows/qa-loop.yaml`
 
-**Papel do @architect:**
-- Recebe escalacoes de specs BLOCKED pelo QA
-- Resolve issues arquiteturais criticos
+**@architect's Role:**
+- Receives escalations for specs marked BLOCKED by QA
+- Resolves critical architectural issues
 
 ---
 
-## Integracoes entre Agentes
+## Integrations Between Agents
 
-### Diagrama de Colaboracao
+### Collaboration Diagram
 
 ```mermaid
 flowchart TB
-    subgraph RECEIVES_FROM["RECEBE INPUTS DE"]
-        PM["@pm (Janus)\n- PRD\n- Requisitos de negocio"]
+    subgraph RECEIVES_FROM["RECEIVES INPUTS FROM"]
+        PM["@pm (Janus)\n- PRD\n- Business requirements"]
         UX["@ux-design-expert (Iris)\n- Front-end Spec\n- UI Patterns"]
         ANALYST["@analyst (Sirius)\n- Research Results\n- Technical Findings"]
     end
 
     ARCHITECT["@architect\n(Vega)"]
 
-    subgraph DELEGATES_TO["DELEGA PARA"]
+    subgraph DELEGATES_TO["DELEGATES TO"]
         DB["@db-sage (Ceres)\n- Schema Design\n- Query Optimization\n- RLS Policies"]
         DEVOPS["@devops (Polaris)\n- Git Push\n- PR Creation\n- CI/CD"]
     end
 
-    subgraph DELIVERS_TO["ENTREGA PARA"]
-        DEV["@dev\n- Arquitetura para implementar"]
-        PO["@po (Themis)\n- Validacao de artifacts"]
-        SM["@sm (Chronos)\n- Stories para sprint"]
+    subgraph DELIVERS_TO["DELIVERS TO"]
+        DEV["@dev\n- Architecture to implement"]
+        PO["@po (Themis)\n- Artifact validation"]
+        SM["@sm (Chronos)\n- Stories for the sprint"]
     end
 
     PM --> ARCHITECT
@@ -371,58 +371,58 @@ flowchart TB
     style DELIVERS_TO fill:#fce4ec
 ```
 
-### Boundaries de Responsabilidade
+### Responsibility Boundaries
 
-| Responsabilidade | @architect FAZ | @architect DELEGA |
+| Responsibility | @architect DOES | @architect DELEGATES |
 |------------------|----------------|-------------------|
-| **Database** | Selecao de tecnologia, integracao | Schema design, query optimization -> @db-sage |
+| **Database** | Technology selection, integration | Schema design, query optimization -> @db-sage |
 | **Git Operations** | `git status`, `git log`, `git diff` | `git push`, `gh pr create` -> @devops |
-| **Frontend** | Arquitetura de estado, routing | UX/UI design -> @ux-design-expert |
-| **Code** | Patterns, estrutura | Implementacao -> @dev |
-| **Research** | Decisoes tecnologicas | Market research -> @analyst |
+| **Frontend** | State architecture, routing | UX/UI design -> @ux-design-expert |
+| **Code** | Patterns, structure | Implementation -> @dev |
+| **Research** | Technology decisions | Market research -> @analyst |
 
-### Padrao de Colaboracao com @db-sage
+### Collaboration Pattern with @db-sage
 
 ```yaml
 collaboration_pattern:
-  - question: "Qual banco de dados usar?"
+  - question: "Which database should we use?"
     answer_by: "@architect"
-    perspective: "Sistema como um todo"
+    perspective: "The system as a whole"
 
-  - question: "Como projetar o schema?"
+  - question: "How should the schema be designed?"
     answer_by: "@db-sage"
     handoff: true
 
-  - question: "Como otimizar queries?"
+  - question: "How do we optimize queries?"
     answer_by: "@db-sage"
     handoff: true
 
-  - question: "Como integrar data layer?"
+  - question: "How do we integrate the data layer?"
     answer_by: "@architect designs"
     provides: "@db-sage provides schema"
 ```
 
 ---
 
-## Analise de Impacto (*analyze-impact)
+## Impact Analysis (*analyze-impact)
 
-### Fluxo de Analise
+### Analysis Flow
 
 ```mermaid
 flowchart TB
-    subgraph INPUT["ENTRADA"]
-        TYPE["Tipo de Modificacao\n(modify/deprecate/remove/refactor)"]
-        PATH["Caminho do Componente"]
-        OPTS["Opcoes\n(depth/tests/risk-threshold)"]
+    subgraph INPUT["INPUT"]
+        TYPE["Modification Type\n(modify/deprecate/remove/refactor)"]
+        PATH["Component Path"]
+        OPTS["Options\n(depth/tests/risk-threshold)"]
     end
 
-    subgraph ANALYSIS["ANALISE"]
+    subgraph ANALYSIS["ANALYSIS"]
         DEP["Dependency Impact\nAnalyzer"]
         PROP["Change Propagation\nPredictor"]
         RISK["Modification Risk\nAssessment"]
     end
 
-    subgraph OUTPUT["SAIDA"]
+    subgraph OUTPUT["OUTPUT"]
         REPORT["Impact Report"]
         VISUAL["Visual Representation\n(ASCII/HTML)"]
         APPROVAL["High-Risk Approval\nWorkflow"]
@@ -443,45 +443,45 @@ flowchart TB
     style OUTPUT fill:#e8f5e9
 ```
 
-### Opcoes de Comando
+### Command Options
 
 ```bash
-# Analise basica
+# Basic analysis
 *analyze-impact modify .aexos-core/agents/weather-agent.md
 
-# Analise profunda com testes
+# Deep analysis with tests
 *analyze-impact modify .aexos-core/agents/weather-agent.md --depth deep --include-tests
 
-# Deprecacao com output visual
+# Deprecation with visual output
 *analyze-impact deprecate .aexos-core/scripts/old-helper.js --output-format visual --save-report reports/deprecation.html
 
-# Refatoracao com threshold de risco
+# Refactoring with a risk threshold
 *analyze-impact refactor .aexos-core/tasks/process-data.md --depth shallow --risk-threshold medium
 ```
 
-### Niveis de Risco
+### Risk Levels
 
-| Nivel | Cor | Acao | Exemplos |
+| Level | Color | Action | Examples |
 |-------|-----|------|----------|
-| **LOW** | Verde | Note para refatoracao futura | Estilo, otimizacoes menores |
-| **MEDIUM** | Amarelo | Documentar como tech debt | API inconsistente, missing error handling |
-| **HIGH** | Vermelho | Discussao arquitetural imediata | N+1 queries, memory leaks |
-| **CRITICAL** | Vermelho Bold | Bloquear aprovacao | Hardcoded credentials, SQL injection |
+| **LOW** | Green | Note for future refactoring | Style, minor optimizations |
+| **MEDIUM** | Yellow | Document as tech debt | Inconsistent API, missing error handling |
+| **HIGH** | Red | Immediate architectural discussion | N+1 queries, memory leaks |
+| **CRITICAL** | Bold Red | Block approval | Hardcoded credentials, SQL injection |
 
 ---
 
-## Avaliacao de Complexidade (*assess-complexity)
+## Complexity Assessment (*assess-complexity)
 
-### As 5 Dimensoes
+### The 5 Dimensions
 
 ```mermaid
 graph TD
-    subgraph DIMENSIONS["5 DIMENSOES DE COMPLEXIDADE"]
-        SCOPE["SCOPE\nQuantos arquivos afetados?\n1-5: 1-2 arquivos a 20+"]
-        INTEG["INTEGRATION\nQuantas integracoes externas?\n1-5: Nenhuma a orquestracao"]
-        INFRA["INFRASTRUCTURE\nMudancas de infra?\n1-5: Nenhuma a novo servidor"]
-        KNOW["KNOWLEDGE\nConhecimento necessario?\n1-5: Padroes existentes a dominio desconhecido"]
-        RISK["RISK\nRisco de impacto?\n1-5: Baixo a critico"]
+    subgraph DIMENSIONS["5 COMPLEXITY DIMENSIONS"]
+        SCOPE["SCOPE\nHow many files affected?\n1-5: 1-2 files to 20+"]
+        INTEG["INTEGRATION\nHow many external integrations?\n1-5: None to orchestration"]
+        INFRA["INFRASTRUCTURE\nInfra changes?\n1-5: None to a new server"]
+        KNOW["KNOWLEDGE\nKnowledge required?\n1-5: Existing patterns to unknown domain"]
+        RISK["RISK\nImpact risk?\n1-5: Low to critical"]
     end
 
     SCOPE --> TOTAL
@@ -492,16 +492,16 @@ graph TD
 
     TOTAL["TOTAL SCORE\n(5-25)"]
 
-    TOTAL --> SIMPLE["SIMPLE\nScore <= 8\n< 1 dia"]
-    TOTAL --> STANDARD["STANDARD\nScore 9-15\n1-3 dias"]
-    TOTAL --> COMPLEX["COMPLEX\nScore >= 16\n3+ dias"]
+    TOTAL --> SIMPLE["SIMPLE\nScore <= 8\n< 1 day"]
+    TOTAL --> STANDARD["STANDARD\nScore 9-15\n1-3 days"]
+    TOTAL --> COMPLEX["COMPLEX\nScore >= 16\n3+ days"]
 
     style SIMPLE fill:#c8e6c9
     style STANDARD fill:#fff9c4
     style COMPLEX fill:#ffcdd2
 ```
 
-### Output da Avaliacao
+### Assessment Output
 
 ```json
 {
@@ -511,9 +511,9 @@ graph TD
   "dimensions": {
     "scope": { "score": 3, "notes": "auth module, login page, user service" },
     "integration": { "score": 3, "notes": "Google OAuth API" },
-    "infrastructure": { "score": 2, "notes": "env vars para OAuth" },
-    "knowledge": { "score": 2, "notes": "OAuth pattern existe no codebase" },
-    "risk": { "score": 3, "notes": "afeta todos usuarios" }
+    "infrastructure": { "score": 2, "notes": "env vars for OAuth" },
+    "knowledge": { "score": 2, "notes": "OAuth pattern already exists in the codebase" },
+    "risk": { "score": 3, "notes": "affects all users" }
   },
   "pipelinePhases": ["gather", "assess", "research", "spec", "critique", "plan"]
 }
@@ -521,28 +521,28 @@ graph TD
 
 ---
 
-## Configuracao
+## Configuration
 
-### Arquivos de Configuracao Relevantes
+### Relevant Configuration Files
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/core-config.yaml` | Configuracao central do framework |
-| `.aexos/project-registry.yaml` | Registro de projetos |
-| `technical-preferences.md` | Preferencias tecnicas (stack, patterns) |
+| `.aexos-core/core-config.yaml` | Central framework configuration |
+| `.aexos/project-registry.yaml` | Project registry |
+| `technical-preferences.md` | Technical preferences (stack, patterns) |
 
-### Tools Disponiveis para @architect
+### Tools Available to @architect
 
-| Tool | Proposito | Restricoes |
+| Tool | Purpose | Restrictions |
 |------|-----------|------------|
-| `exa` | Pesquisa de tecnologias e best practices | - |
-| `context7` | Documentacao de bibliotecas | - |
+| `exa` | Research on technologies and best practices | - |
+| `context7` | Library documentation | - |
 | `git` | Read-only: status, log, diff | **NO PUSH** |
-| `supabase-cli` | Arquitetura de database high-level | Schema design -> @db-sage |
-| `railway-cli` | Planejamento de infraestrutura | - |
-| `coderabbit` | Code review para patterns e seguranca | - |
+| `supabase-cli` | High-level database architecture | Schema design -> @db-sage |
+| `railway-cli` | Infrastructure planning | - |
+| `coderabbit` | Code review for patterns and security | - |
 
-### Restricoes de Git
+### Git Restrictions
 
 ```yaml
 git_restrictions:
@@ -557,38 +557,38 @@ git_restrictions:
     - git push --force
     - gh pr create
 
-  redirect_message: "Para operacoes git push, ative @github-devops"
+  redirect_message: "For git push operations, activate @github-devops"
 ```
 
 ---
 
 ## CodeRabbit Integration
 
-### Quando Usar
+### When to Use
 
-- Revisando mudancas de arquitetura em multiplas camadas
-- Validando design patterns de API
-- Review de arquitetura de seguranca
-- Revisao de otimizacao de performance
-- Validacao de padroes de integracao
-- Review de codigo de infraestrutura
+- Reviewing architecture changes across multiple layers
+- Validating API design patterns
+- Security architecture review
+- Performance optimization review
+- Integration pattern validation
+- Infrastructure code review
 
 ### Severity Handling
 
-| Severity | Acao | Foco |
+| Severity | Action | Focus |
 |----------|------|------|
-| **CRITICAL** | Bloquear aprovacao | Vulnerabilidades de seguranca, riscos de integridade |
-| **HIGH** | Flag para discussao | Bottlenecks de performance, anti-patterns |
-| **MEDIUM** | Documentar como tech debt | Maintainability, design patterns |
-| **LOW** | Nota para refatoracao | Consistencia de estilo |
+| **CRITICAL** | Block approval | Security vulnerabilities, integrity risks |
+| **HIGH** | Flag for discussion | Performance bottlenecks, anti-patterns |
+| **MEDIUM** | Document as tech debt | Maintainability, design patterns |
+| **LOW** | Note for refactoring | Style consistency |
 
-### Comando de Execucao
+### Execution Command
 
 ```bash
-# Para trabalho em progresso
+# For work in progress
 wsl bash -c 'cd /mnt/c/... && ~/.local/bin/coderabbit --prompt-only -t uncommitted'
 
-# Para feature branches
+# For feature branches
 wsl bash -c 'cd /mnt/c/... && ~/.local/bin/coderabbit --prompt-only --base main'
 ```
 
@@ -596,87 +596,87 @@ wsl bash -c 'cd /mnt/c/... && ~/.local/bin/coderabbit --prompt-only --base main'
 
 ## Best Practices
 
-### Ao Projetar Arquitetura
+### When Designing Architecture
 
-1. **Comece pelo Usuario** - User journeys guiam decisoes arquiteturais
-2. **Documente Trade-offs** - Registre o que foi escolhido e por que
-3. **Considere Evolucao** - Design para mudanca, nao perfeicao
-4. **Valide Assumptions** - Use `*research` para tecnologias desconhecidas
-5. **Colabore Cedo** - Envolva @db-sage e @ux-design-expert antes de finalizar
+1. **Start with the User** - User journeys drive architectural decisions
+2. **Document Trade-offs** - Record what was chosen and why
+3. **Consider Evolution** - Design for change, not perfection
+4. **Validate Assumptions** - Use `*research` for unfamiliar technologies
+5. **Collaborate Early** - Involve @db-sage and @ux-design-expert before finalizing
 
-### Ao Analisar Impacto
+### When Analyzing Impact
 
-1. **Use Depth Apropriado** - `shallow` para quick checks, `deep` para mudancas criticas
-2. **Inclua Testes** - Use `--include-tests` para mudancas de API
-3. **Documente Decisoes** - Salve reports com `--save-report`
-4. **Respeite Risk Thresholds** - Nao ignore HIGH/CRITICAL
+1. **Use the Appropriate Depth** - `shallow` for quick checks, `deep` for critical changes
+2. **Include Tests** - Use `--include-tests` for API changes
+3. **Document Decisions** - Save reports with `--save-report`
+4. **Respect Risk Thresholds** - Do not ignore HIGH/CRITICAL
 
-### Ao Documentar Projetos
+### When Documenting Projects
 
-1. **Seja Honesto** - Documente technical debt, nao idealize
-2. **Referencia Arquivos** - Use paths reais, nao duplique conteudo
-3. **Foque no PRD** - Se existe PRD, documente areas relevantes
-4. **Capture Gotchas** - Workarounds e tribal knowledge sao valiosos
+1. **Be Honest** - Document technical debt, do not idealize
+2. **Reference Files** - Use real paths, do not duplicate content
+3. **Focus on the PRD** - If a PRD exists, document the relevant areas
+4. **Capture Gotchas** - Workarounds and tribal knowledge are valuable
 
 ---
 
 ## Troubleshooting
 
-### Problema: Analise de impacto muito lenta
+### Problem: Impact analysis is too slow
 
-**Causa:** Depth `deep` em codebase grande
+**Cause:** `deep` depth on a large codebase
 
-**Solucao:**
-- Use `--depth shallow` para quick checks
-- Use `--exclude-external` para focar em codigo interno
-- Quebre analise por modulo
+**Solution:**
+- Use `--depth shallow` for quick checks
+- Use `--exclude-external` to focus on internal code
+- Break the analysis up by module
 
-### Problema: Template de arquitetura nao encontrado
+### Problem: Architecture template not found
 
-**Causa:** Template nao existe no path especificado
+**Cause:** The template does not exist at the specified path
 
-**Solucao:**
-1. Verificar `.aexos-core/product/templates/`
-2. Usar `*create-doc` sem template e escolher da lista
-3. Criar template customizado se necessario
+**Solution:**
+1. Check `.aexos-core/product/templates/`
+2. Use `*create-doc` without a template and pick from the list
+3. Create a custom template if needed
 
-### Problema: Conflito de responsabilidade com @db-sage
+### Problem: Responsibility conflict with @db-sage
 
-**Causa:** Duvida sobre quem faz o que
+**Cause:** Uncertainty about who does what
 
-**Solucao:**
+**Solution:**
 ```
-- "Qual database?" -> @architect
-- "Como modelar schema?" -> @db-sage
-- "Como integrar data layer?" -> @architect projeta, @db-sage implementa schema
+- "Which database?" -> @architect
+- "How do we model the schema?" -> @db-sage
+- "How do we integrate the data layer?" -> @architect designs, @db-sage implements the schema
 ```
 
-### Problema: CodeRabbit timeout
+### Problem: CodeRabbit timeout
 
-**Causa:** Review demora 7-30 minutos
+**Cause:** The review takes 7-30 minutes
 
-**Solucao:**
-- Use timeout de 15 minutos (900000ms)
-- Se timeout persistir, review ainda esta processando
-- Verifique status com `coderabbit auth status` em WSL
+**Solution:**
+- Use a 15-minute timeout (900000ms)
+- If the timeout persists, the review is still processing
+- Check the status with `coderabbit auth status` in WSL
 
-### Problema: Nao consigo fazer git push
+### Problem: I cannot run git push
 
-**Causa:** @architect e read-only para git push
+**Cause:** @architect is read-only for git push
 
-**Solucao:**
+**Solution:**
 ```
-Ative @github-devops para operacoes de push:
-1. *exit (sair do @architect)
+Activate @github-devops for push operations:
+1. *exit (leave @architect)
 2. @github-devops
-3. Fazer push/PR
+3. Perform the push/PR
 ```
 
 ---
 
-## Referencias
+## References
 
-### Tasks Core
+### Core Tasks
 
 - [architect-analyze-impact.md](.aexos-core/development/tasks/architect-analyze-impact.md)
 - [document-project.md](.aexos-core/development/tasks/document-project.md)
@@ -684,52 +684,52 @@ Ative @github-devops para operacoes de push:
 - [execute-checklist.md](.aexos-core/development/tasks/execute-checklist.md)
 - [spec-assess-complexity.md](.aexos-core/development/tasks/spec-assess-complexity.md)
 
-### Templates de Arquitetura
+### Architecture Templates
 
 - [fullstack-architecture-tmpl.yaml](.aexos-core/product/templates/fullstack-architecture-tmpl.yaml)
 - [architecture-tmpl.yaml](.aexos-core/product/templates/architecture-tmpl.yaml)
 - [front-end-architecture-tmpl.yaml](.aexos-core/product/templates/front-end-architecture-tmpl.yaml)
 - [brownfield-architecture-tmpl.yaml](.aexos-core/product/templates/brownfield-architecture-tmpl.yaml)
 
-### Workflows Relacionados
+### Related Workflows
 
 - [greenfield-fullstack.yaml](.aexos-core/development/workflows/greenfield-fullstack.yaml)
 - [brownfield-fullstack.yaml](.aexos-core/development/workflows/brownfield-fullstack.yaml)
 - [spec-pipeline.yaml](.aexos-core/development/workflows/spec-pipeline.yaml)
 
-### Agentes Colaboradores
+### Collaborating Agents
 
-- [@db-sage](.aexos-core/development/agents/db-sage.md) - Arquitetura de dados
-- [@ux-design-expert](.aexos-core/development/agents/ux-design-expert.md) - Arquitetura frontend
-- [@pm](.aexos-core/development/agents/pm.md) - Requisitos e PRD
-- [@devops](.aexos-core/development/agents/devops.md) - Git push e infraestrutura
+- [@db-sage](.aexos-core/development/agents/db-sage.md) - Data architecture
+- [@ux-design-expert](.aexos-core/development/agents/ux-design-expert.md) - Frontend architecture
+- [@pm](.aexos-core/development/agents/pm.md) - Requirements and PRD
+- [@devops](.aexos-core/development/agents/devops.md) - Git push and infrastructure
 
 ---
 
-## Resumo
+## Summary
 
-| Aspecto | Detalhes |
+| Aspect | Details |
 |---------|----------|
-| **Nome do Agente** | Vega (Visionary) |
+| **Agent Name** | Vega (Visionary) |
 | **ID** | @architect |
-| **Total de Tasks Core** | 7 task files |
-| **Templates de Arquitetura** | 4 (fullstack, backend, frontend, brownfield) |
-| **Comandos de Design** | 4 (`*create-*-architecture`) |
-| **Comandos de Analise** | 3 (`*analyze-impact`, `*assess-complexity`, `*research`) |
-| **Comandos de Docs** | 3 (`*document-project`, `*execute-checklist`, `*create-doc`) |
-| **Workflows Envolvidos** | 4 (greenfield-fullstack, brownfield-fullstack, spec-pipeline, qa-loop) |
-| **Agentes que Colaboram** | 5 (@pm, @ux-design-expert, @db-sage, @devops, @analyst) |
-| **Restricoes de Git** | Read-only (push -> @devops) |
-| **Tools Externos** | 6 (exa, context7, git, supabase-cli, railway-cli, coderabbit) |
+| **Total Core Tasks** | 7 task files |
+| **Architecture Templates** | 4 (fullstack, backend, frontend, brownfield) |
+| **Design Commands** | 4 (`*create-*-architecture`) |
+| **Analysis Commands** | 3 (`*analyze-impact`, `*assess-complexity`, `*research`) |
+| **Docs Commands** | 3 (`*document-project`, `*execute-checklist`, `*create-doc`) |
+| **Workflows Involved** | 4 (greenfield-fullstack, brownfield-fullstack, spec-pipeline, qa-loop) |
+| **Collaborating Agents** | 5 (@pm, @ux-design-expert, @db-sage, @devops, @analyst) |
+| **Git Restrictions** | Read-only (push -> @devops) |
+| **External Tools** | 6 (exa, context7, git, supabase-cli, railway-cli, coderabbit) |
 
 ---
 
 ## Changelog
 
-| Data | Autor | Descricao |
+| Date | Author | Description |
 |------|-------|-----------|
-| 2026-02-04 | @architect | Documento inicial criado |
+| 2026-02-04 | @architect | Initial document created |
 
 ---
 
-*-- Aria, arquitetando o futuro*
+*-- Vega, architecting the future*

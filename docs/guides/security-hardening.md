@@ -1,7 +1,5 @@
 # AEXOS Security Hardening Guide
 
-> **EN** | [PT](../pt/guides/security-hardening.md) | [ES](../es/guides/security-hardening.md)
-
 ---
 
 > Complete guide to hardening security for AEXOS (Cyryx) deployments - from development to production.

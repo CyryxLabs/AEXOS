@@ -1,7 +1,5 @@
 # AEXOS Framework Documentation
 
-> 🌐 **EN** | [PT](../pt/framework/README.md) | [ES](../es/framework/README.md)
-
 **Status:** Official Framework Standards
 **Created:** 2025-01-16 (Story 6.1.2.6)
 **Migration Target:** Q2 2026 → `CyryxLabs/AEXOS` repository

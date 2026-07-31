@@ -41,7 +41,7 @@ sequenceDiagram
     CC->>AMd: Load agent file (STEP 1)
     CC->>AMd: Adopt persona (STEP 2)
     CC->>ACL: loadAgentDefinition('aexos-master')
-    ACL-->>CC: { agent: { name: 'Orion', icon: '👑' }, commands: [...33], ... }
+    ACL-->>CC: { agent: { name: 'Zeus', icon: '👑' }, commands: [...33], ... }
 
     CC->>GB: new GreetingBuilder()
     Note over GB: Loads ContextDetector, GitConfigDetector,<br/>WorkflowNavigator, GreetingPreferenceManager,<br/>core-config.yaml

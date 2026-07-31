@@ -1,7 +1,5 @@
 # Quality Gates Dashboard Guide
 
-> **EN** | [PT](../pt/guides/quality-dashboard.md) | [ES](../es/guides/quality-dashboard.md)
-
 ---
 
 > Visual dashboard for monitoring quality metrics across all 3 layers.

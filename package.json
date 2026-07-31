@@ -35,10 +35,6 @@
     "docs/aexos-workflows/",
     "docs/aexos-agent-flows/",
     "docs/framework/",
-    "docs/en/",
-    "docs/es/",
-    "docs/pt/",
-    "docs/zh/",
     "docs/*.md",
     "README.md",
     "LICENSE"

@@ -1,88 +1,88 @@
-# Workflow Brownfield UI/Frontend Enhancement
+# Brownfield UI/Frontend Enhancement Workflow
 
 > **ID:** `brownfield-ui`
-> **Tipo:** Brownfield (projeto existente)
-> **Versão:** 1.0
-> **Última Atualização:** 2026-02-04
+> **Type:** Brownfield (existing project)
+> **Version:** 1.0
+> **Last Updated:** 2026-02-04
 
-## Sumário
+## Table of Contents
 
-- [Visão Geral](#visao-geral)
-- [Diagrama do Workflow](#diagrama-do-workflow)
-- [Steps Detalhados](#steps-detalhados)
-- [Agentes Participantes](#agentes-participantes)
-- [Tasks Executadas](#tasks-executadas)
-- [Pré-requisitos](#pre-requisitos)
-- [Entradas e Saidas](#entradas-e-saidas)
-- [Pontos de Decisão](#pontos-de-decisao)
+- [Overview](#overview)
+- [Workflow Diagram](#workflow-diagram)
+- [Detailed Steps](#detailed-steps)
+- [Participating Agents](#participating-agents)
+- [Tasks Executed](#tasks-executed)
+- [Prerequisites](#prerequisites)
+- [Inputs and Outputs](#inputs-and-outputs)
+- [Decision Points](#decision-points)
 - [Troubleshooting](#troubleshooting)
-- [Referências](#referencias)
+- [References](#references)
 
 ---
 
-## Visão Geral
+## Overview
 
-O **Brownfield UI/Frontend Enhancement Workflow** é um fluxo de trabalho estruturado para aprimorar aplicações frontend existentes. Ele abrange desde a análise inicial do sistema legado até a implementação completa de novas funcionalidades, modernização de componentes ou atualização do design.
+The **Brownfield UI/Frontend Enhancement Workflow** is a structured workflow for enhancing existing frontend applications. It spans everything from the initial analysis of the legacy system to the full implementation of new features, component modernization, or design updates.
 
-### Casos de Uso
+### Use Cases
 
-| Tipo de Projeto | Descrição |
+| Project Type | Description |
 |-----------------|-----------|
-| **UI Modernization** | Atualização de interfaces legadas para padrões modernos |
-| **Framework Migration** | Migração entre frameworks (ex: jQuery para React) |
-| **Design Refresh** | Atualização visual seguindo novos padrões de design |
-| **Frontend Enhancement** | Adição de novas funcionalidades ao frontend existente |
+| **UI Modernization** | Updating legacy interfaces to modern standards |
+| **Framework Migration** | Migration between frameworks (e.g., jQuery to React) |
+| **Design Refresh** | Visual update following new design standards |
+| **Frontend Enhancement** | Adding new features to the existing frontend |
 
-### Benefícios
+### Benefits
 
-- Análise estruturada do sistema existente antes de modificações
-- Integração segura com código legado
-- Validação de qualidade em cada etapa
-- Documentação completa de decisões arquiteturais
+- Structured analysis of the existing system before any modification
+- Safe integration with legacy code
+- Quality validation at every stage
+- Complete documentation of architectural decisions
 
 ---
 
-## Diagrama do Workflow
+## Workflow Diagram
 
-### Diagrama Principal de Fluxo
+### Main Flow Diagram
 
 ```mermaid
 graph TD
-    subgraph "Fase 1: Análise e Planejamento"
-        A[Inicio: UI Enhancement] --> B[architect: Análise UI Existente]
-        B --> C[pm: Criar PRD Brownfield]
-        C --> D[ux-expert: Especificação Frontend]
-        D --> E[architect: Arquitetura Brownfield]
+    subgraph "Phase 1: Analysis and Planning"
+        A[Start: UI Enhancement] --> B[architect: Existing UI Analysis]
+        B --> C[pm: Create Brownfield PRD]
+        C --> D[ux-expert: Frontend Specification]
+        D --> E[architect: Brownfield Architecture]
     end
 
-    subgraph "Fase 2: Validação"
-        E --> F[po: Validar com po-master-checklist]
-        F --> G{PO encontrou problemas?}
-        G -->|Sim| H[Retornar ao agente para correções]
+    subgraph "Phase 2: Validation"
+        E --> F[po: Validate with po-master-checklist]
+        F --> G{PO found issues?}
+        G -->|Yes| H[Return to the agent for fixes]
         H --> F
-        G -->|Não| I[po: Fragmentar documentos]
+        G -->|No| I[po: Shard documents]
     end
 
-    subgraph "Fase 3: Ciclo de Desenvolvimento"
-        I --> J[sm: Criar story]
-        J --> K{Revisar story draft?}
-        K -->|Sim| L[analyst/pm: Revisar e aprovar story]
-        K -->|Não| M[dev: Implementar story]
+    subgraph "Phase 3: Development Cycle"
+        I --> J[sm: Create story]
+        J --> K{Review story draft?}
+        K -->|Yes| L[analyst/pm: Review and approve story]
+        K -->|No| M[dev: Implement story]
         L --> M
-        M --> N{Revisao QA?}
-        N -->|Sim| O[qa: Revisar implementacao]
-        N -->|Não| P{Mais stories?}
-        O --> Q{QA encontrou issues?}
-        Q -->|Sim| R[dev: Corrigir feedback QA]
-        Q -->|Não| P
+        M --> N{QA Review?}
+        N -->|Yes| O[qa: Review implementation]
+        N -->|No| P{More stories?}
+        O --> Q{QA found issues?}
+        Q -->|Yes| R[dev: Fix QA feedback]
+        Q -->|No| P
         R --> O
-        P -->|Sim| J
-        P -->|Não| S{Retrospectiva do Epic?}
+        P -->|Yes| J
+        P -->|No| S{Epic Retrospective?}
     end
 
-    subgraph "Fase 4: Finalização"
-        S -->|Sim| T[po: Retrospectiva do Epic]
-        S -->|Não| U[Projeto Completo]
+    subgraph "Phase 4: Finalization"
+        S -->|Yes| T[po: Epic Retrospective]
+        S -->|No| U[Project Complete]
         T --> U
     end
 
@@ -98,16 +98,16 @@ graph TD
     style T fill:#F0E68C,stroke:#BDB76B
 ```
 
-### Legenda de Cores
+### Color Legend
 
-| Cor | Significado |
+| Color | Meaning |
 |-----|-------------|
-| Verde Claro | Conclusão do workflow |
-| Azul Claro | Steps de execução principal |
-| Laranja Claro | Criação de artefatos de documentação |
-| Amarelo Claro | Steps opcionais de revisão |
+| Light Green | Workflow completion |
+| Light Blue | Main execution steps |
+| Light Orange | Documentation artifact creation |
+| Light Yellow | Optional review steps |
 
-### Diagrama de Ciclo de Desenvolvimento
+### Development Cycle Diagram
 
 ```mermaid
 sequenceDiagram
@@ -116,346 +116,346 @@ sequenceDiagram
     participant QA as @qa (Argus)
     participant PO as @po (Themis)
 
-    loop Para cada Story do Epic
-        SM->>SM: Criar story a partir dos docs fragmentados
-        SM->>DEV: Entregar story para implementação
-        DEV->>DEV: Implementar tasks da story
-        DEV->>DEV: Escrever testes
-        DEV->>DEV: Marcar story como "Ready for Review"
+    loop For each Story in the Epic
+        SM->>SM: Create story from the sharded docs
+        SM->>DEV: Hand off story for implementation
+        DEV->>DEV: Implement the story tasks
+        DEV->>DEV: Write tests
+        DEV->>DEV: Mark story as "Ready for Review"
 
-        alt QA Review Habilitada
-            DEV->>QA: Solicitar revisao
-            QA->>QA: Executar review-story
+        alt QA Review Enabled
+            DEV->>QA: Request review
+            QA->>QA: Run review-story
 
-            alt Issues Encontradas
-                QA->>DEV: Retornar para correções
-                DEV->>DEV: Aplicar fixes
-                DEV->>QA: Reenviar para revisão
+            alt Issues Found
+                QA->>DEV: Return for fixes
+                DEV->>DEV: Apply fixes
+                DEV->>QA: Resubmit for review
             end
 
-            QA->>PO: Story aprovada
-        else Sem QA Review
-            DEV->>PO: Story pronta
+            QA->>PO: Story approved
+        else No QA Review
+            DEV->>PO: Story ready
         end
     end
 
-    PO->>PO: Epic completo - Retrospectiva opcional
+    PO->>PO: Epic complete - optional retrospective
 ```
 
-### Diagrama de Estados da Story
+### Story State Diagram
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Draft: SM cria story
-    Draft --> Approved: PM/Analyst revisa (opcional)
-    Draft --> InProgress: Dev inicia implementação
-    Approved --> InProgress: Dev inicia implementação
-    InProgress --> ReadyForReview: Dev completa tasks
-    ReadyForReview --> Review: QA inicia revisao
-    Review --> InProgress: QA encontra issues
-    Review --> Done: QA aprova
-    ReadyForReview --> Done: Sem QA review
-    Done --> [*]: Story finalizada
+    [*] --> Draft: SM creates story
+    Draft --> Approved: PM/Analyst reviews (optional)
+    Draft --> InProgress: Dev starts implementation
+    Approved --> InProgress: Dev starts implementation
+    InProgress --> ReadyForReview: Dev completes tasks
+    ReadyForReview --> Review: QA starts review
+    Review --> InProgress: QA finds issues
+    Review --> Done: QA approves
+    ReadyForReview --> Done: No QA review
+    Done --> [*]: Story finalized
 ```
 
 ---
 
-## Steps Detalhados
+## Detailed Steps
 
-### Step 1: Análise UI Existente
+### Step 1: Existing UI Analysis
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Agente** | @architect (Vega) |
-| **Ação** | Analisar projeto existente usando task `document-project` |
-| **Artefatos Criados** | Múltiplos documentos conforme template document-project |
-| **Input** | Aplicação frontend existente, feedback de usuários, dados de analytics |
-| **Output** | Documentação do projeto com áreas de melhoria identificadas |
+| **Agent** | @architect (Vega) |
+| **Action** | Analyze the existing project using the `document-project` task |
+| **Artifacts Created** | Multiple documents as defined by the document-project template |
+| **Input** | Existing frontend application, user feedback, analytics data |
+| **Output** | Project documentation with identified improvement areas |
 
-**Observações:**
-- Revisar a aplicação frontend existente
-- Analisar feedback de usuários e dados de uso
-- Identificar áreas de melhoria e modernização
-- Documentar a arquitetura atual
+**Notes:**
+- Review the existing frontend application
+- Analyze user feedback and usage data
+- Identify areas for improvement and modernization
+- Document the current architecture
 
 ---
 
-### Step 2: Criar PRD Brownfield
+### Step 2: Create Brownfield PRD
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Agente** | @pm (Janus) |
-| **Ação** | Criar PRD focado em enhancement de UI |
+| **Agent** | @pm (Janus) |
+| **Action** | Create a PRD focused on UI enhancement |
 | **Template** | `brownfield-prd-tmpl` |
-| **Artefatos Criados** | `prd.md` |
-| **Requer** | Análise UI existente (Step 1) |
-| **Output** | Documento PRD completo com estratégia de integração |
+| **Artifacts Created** | `prd.md` |
+| **Requires** | Existing UI analysis (Step 1) |
+| **Output** | Complete PRD document with an integration strategy |
 
-**Observações:**
-- Criar PRD abrangente focado em enhancement de UI
-- Incluir análise do sistema existente
-- IMPORTANTE: Salvar o arquivo final `prd.md` na pasta `docs/` do projeto
+**Notes:**
+- Create a comprehensive PRD focused on UI enhancement
+- Include the analysis of the existing system
+- IMPORTANT: Save the final `prd.md` file in the project's `docs/` folder
 
 ---
 
-### Step 3: Especificação Frontend
+### Step 3: Frontend Specification
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Agente** | @ux-expert (Iris) |
-| **Ação** | Criar especificação UI/UX integrada com padrões existentes |
+| **Agent** | @ux-expert (Iris) |
+| **Action** | Create a UI/UX specification integrated with existing patterns |
 | **Template** | `front-end-spec-tmpl` |
-| **Artefatos Criados** | `front-end-spec.md` |
-| **Requer** | `prd.md` (Step 2) |
-| **Output** | Especificação de UI/UX detalhada |
+| **Artifacts Created** | `front-end-spec.md` |
+| **Requires** | `prd.md` (Step 2) |
+| **Output** | Detailed UI/UX specification |
 
-**Observações:**
-- Criar especificação UI/UX que integra com padrões de design existentes
-- Considerar design tokens já utilizados
-- IMPORTANTE: Salvar o arquivo final `front-end-spec.md` na pasta `docs/` do projeto
+**Notes:**
+- Create a UI/UX specification that integrates with existing design patterns
+- Take into account the design tokens already in use
+- IMPORTANT: Save the final `front-end-spec.md` file in the project's `docs/` folder
 
 ---
 
-### Step 4: Arquitetura Brownfield
+### Step 4: Brownfield Architecture
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Agente** | @architect (Vega) |
-| **Ação** | Criar arquitetura frontend com estratégia de integração |
+| **Agent** | @architect (Vega) |
+| **Action** | Create the frontend architecture with an integration strategy |
 | **Template** | `brownfield-architecture-tmpl` |
-| **Artefatos Criados** | `architecture.md` |
-| **Requer** | `prd.md`, `front-end-spec.md` (Steps 2 e 3) |
-| **Output** | Documento de arquitetura com plano de migração |
+| **Artifacts Created** | `architecture.md` |
+| **Requires** | `prd.md`, `front-end-spec.md` (Steps 2 and 3) |
+| **Output** | Architecture document with a migration plan |
 
-**Observações:**
-- Criar arquitetura frontend com estratégia de integração de componentes
-- Incluir planejamento de migração
-- Definir como novos componentes interagem com o sistema existente
-- IMPORTANTE: Salvar o arquivo final `architecture.md` na pasta `docs/` do projeto
+**Notes:**
+- Create the frontend architecture with a component integration strategy
+- Include migration planning
+- Define how new components interact with the existing system
+- IMPORTANT: Save the final `architecture.md` file in the project's `docs/` folder
 
 ---
 
-### Step 5: Validação PO
+### Step 5: PO Validation
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Agente** | @po (Themis) |
-| **Acao** | Validar todos os artefatos |
+| **Agent** | @po (Themis) |
+| **Action** | Validate all artifacts |
 | **Checklist** | `po-master-checklist` |
-| **Artefatos Validados** | Todos os artefatos criados |
-| **Output** | Decisão de aprovação ou lista de correções |
+| **Artifacts Validated** | All created artifacts |
+| **Output** | Approval decision or a list of fixes |
 
-**Observações:**
-- Validar todos os documentos para segurança de integração UI
-- Verificar consistência de design
-- Pode requerer atualizações em qualquer documento
+**Notes:**
+- Validate all documents for UI integration safety
+- Check design consistency
+- May require updates to any document
 
 ---
 
-### Step 6: Correções (Condicional)
+### Step 6: Fixes (Conditional)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Agente** | Variado (conforme problema encontrado) |
-| **Condição** | `po_checklist_issues` - PO encontrou problemas |
-| **Ação** | Corrigir documentos sinalizados |
-| **Output** | Documentos atualizados re-exportados para `docs/` |
+| **Agent** | Varies (depending on the issue found) |
+| **Condition** | `po_checklist_issues` - PO found issues |
+| **Action** | Fix the flagged documents |
+| **Output** | Updated documents re-exported to `docs/` |
 
-**Observacoes:**
-- Se PO encontrar problemas, retornar ao agente relevante
-- Corrigir e re-exportar documentos atualizados
+**Notes:**
+- If the PO finds issues, return to the relevant agent
+- Fix and re-export the updated documents
 
 ---
 
-### Step 7: Fragmentação de Documentos
+### Step 7: Document Sharding
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Agente** | @po (Themis) |
-| **Ação** | Fragmentar documentos para desenvolvimento IDE |
-| **Artefatos Criados** | `sharded_docs` (pastas `docs/prd/` e `docs/architecture/`) |
-| **Requer** | Todos os artefatos na pasta do projeto |
-| **Output** | Conteúdo fragmentado pronto para consumo por agentes |
+| **Agent** | @po (Themis) |
+| **Action** | Shard the documents for IDE development |
+| **Artifacts Created** | `sharded_docs` (`docs/prd/` and `docs/architecture/` folders) |
+| **Requires** | All artifacts in the project folder |
+| **Output** | Sharded content ready for agent consumption |
 
-**Métodos de Execução:**
-- **Opção A:** Usar agente PO para fragmentar: `@po` depois solicitar "shard docs/prd.md"
-- **Opção B:** Manual: Arrastar task `shard-doc` + `docs/prd.md` para o chat
+**Execution Methods:**
+- **Option A:** Use the PO agent to shard: `@po` then request "shard docs/prd.md"
+- **Option B:** Manual: Drag the `shard-doc` task + `docs/prd.md` into the chat
 
 ---
 
-### Step 8: Criação de Stories (Ciclo)
+### Step 8: Story Creation (Cycle)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Agente** | @sm (Chronos) |
-| **Ação** | Criar stories a partir dos documentos fragmentados |
-| **Artefatos Criados** | `story.md` (para cada epic) |
-| **Requer** | `sharded_docs` (Step 7) |
-| **Repete** | Para cada epic do PRD |
-| **Output** | Stories em status "Draft" |
+| **Agent** | @sm (Chronos) |
+| **Action** | Create stories from the sharded documents |
+| **Artifacts Created** | `story.md` (for each epic) |
+| **Requires** | `sharded_docs` (Step 7) |
+| **Repeats** | For each epic in the PRD |
+| **Output** | Stories in "Draft" status |
 
-**Processo:**
-1. Ativar SM Agent em novo chat: `@sm`
-2. Executar comando: `*draft`
-3. SM cria próxima story a partir dos docs fragmentados
-4. Story inicia em status "Draft"
+**Process:**
+1. Activate the SM Agent in a new chat: `@sm`
+2. Run the command: `*draft`
+3. SM creates the next story from the sharded docs
+4. The story starts in "Draft" status
 
 ---
 
-### Step 9: Revisão de Story Draft (Opcional)
+### Step 9: Story Draft Review (Optional)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Agente** | @analyst (Sirius) ou @pm (Janus) |
-| **Ação** | Revisar e aprovar story draft |
-| **Condição** | `user_wants_story_review` - Usuário deseja revisão |
-| **Opcional** | Sim |
-| **Output** | Story atualizada com status "Draft" -> "Approved" |
+| **Agent** | @analyst (Sirius) or @pm (Janus) |
+| **Action** | Review and approve the story draft |
+| **Condition** | `user_wants_story_review` - The user wants a review |
+| **Optional** | Yes |
+| **Output** | Story updated with status "Draft" -> "Approved" |
 
-**Observações:**
-- Task `story-review` em desenvolvimento
-- Revisar completude e alinhamento da story
-- Atualizar status da story
+**Notes:**
+- The `story-review` task is under development
+- Review the story's completeness and alignment
+- Update the story status
 
 ---
 
-### Step 10: Implementação da Story
+### Step 10: Story Implementation
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Agente** | @dev (Vulcan) |
-| **Ação** | Implementar story aprovada |
-| **Artefatos Criados** | Arquivos de implementação |
-| **Requer** | `story.md` aprovada |
-| **Output** | Código implementado, File List atualizada, status "Review" |
+| **Agent** | @dev (Vulcan) |
+| **Action** | Implement the approved story |
+| **Artifacts Created** | Implementation files |
+| **Requires** | Approved `story.md` |
+| **Output** | Implemented code, updated File List, "Review" status |
 
-**Processo:**
-1. Ativar Dev Agent em novo chat: `@dev`
-2. Executar comando: `*develop {story-id}`
-3. Implementar story conforme tasks
-4. Atualizar File List com todas as mudanças
-5. Marcar story como "Review" ao completar
+**Process:**
+1. Activate the Dev Agent in a new chat: `@dev`
+2. Run the command: `*develop {story-id}`
+3. Implement the story according to its tasks
+4. Update the File List with every change
+5. Mark the story as "Review" once complete
 
 ---
 
-### Step 11: Revisão QA (Opcional)
+### Step 11: QA Review (Optional)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Agente** | @qa (Argus) |
-| **Ação** | Revisar implementação como senior dev |
-| **Artefatos Atualizados** | Arquivos de implementacao |
-| **Requer** | Arquivos implementados |
-| **Opcional** | Sim |
-| **Output** | Fixes aplicados ou checklist de items pendentes |
+| **Agent** | @qa (Argus) |
+| **Action** | Review the implementation as a senior dev |
+| **Artifacts Updated** | Implementation files |
+| **Requires** | Implemented files |
+| **Optional** | Yes |
+| **Output** | Fixes applied or a checklist of pending items |
 
-**Processo:**
-1. Ativar QA Agent em novo chat: `@qa`
-2. Executar comando: `*review {story-id}`
-3. Revisão senior dev com capacidade de refatoração
-4. Corrigir issues pequenas diretamente
-5. Deixar checklist para items restantes
-6. Atualizar status da story (Review -> Done ou permanece Review)
+**Process:**
+1. Activate the QA Agent in a new chat: `@qa`
+2. Run the command: `*review {story-id}`
+3. Senior dev review with refactoring authority
+4. Fix small issues directly
+5. Leave a checklist for the remaining items
+6. Update the story status (Review -> Done, or it stays in Review)
 
 ---
 
-### Step 12: Correções de Feedback QA (Condicional)
+### Step 12: QA Feedback Fixes (Conditional)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Agente** | @dev (Vulcan) |
-| **Condição** | `qa_left_unchecked_items` - QA deixou items pendentes |
-| **Ação** | Endereçamento de feedback do QA |
-| **Output** | Items corrigidos, retorno ao QA para aprovação final |
+| **Agent** | @dev (Vulcan) |
+| **Condition** | `qa_left_unchecked_items` - QA left pending items |
+| **Action** | Address the QA feedback |
+| **Output** | Items fixed, returned to QA for final approval |
 
 ---
 
-### Step 13: Ciclo de Desenvolvimento
+### Step 13: Development Cycle
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Ação** | Repetir ciclo SM -> Dev -> QA |
-| **Repete** | Para todas as stories do PRD |
-| **Condição de Saída** | Todas as stories do PRD completas |
+| **Action** | Repeat the SM -> Dev -> QA cycle |
+| **Repeats** | For every story in the PRD |
+| **Exit Condition** | All stories in the PRD completed |
 
 ---
 
-### Step 14: Retrospectiva do Epic (Opcional)
+### Step 14: Epic Retrospective (Optional)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Agente** | @po (Themis) |
-| **Condição** | `epic_complete` - Epic finalizado |
-| **Opcional** | Sim |
-| **Artefatos Criados** | `epic-retrospective.md` |
-| **Output** | Documentacao de learnings e melhorias |
+| **Agent** | @po (Themis) |
+| **Condition** | `epic_complete` - Epic finished |
+| **Optional** | Yes |
+| **Artifacts Created** | `epic-retrospective.md` |
+| **Output** | Documentation of learnings and improvements |
 
-**Observações:**
-- Task `epic-retrospective` em desenvolvimento
-- Validar que epic foi completado corretamente
-- Documentar aprendizados e melhorias
+**Notes:**
+- The `epic-retrospective` task is under development
+- Validate that the epic was completed correctly
+- Document learnings and improvements
 
 ---
 
-### Step 15: Projeto Completo
+### Step 15: Project Complete
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Ação** | Finalização do workflow |
-| **Status** | Todas as stories implementadas e revisadas |
-| **Output** | Fase de desenvolvimento do projeto completa |
+| **Action** | Workflow finalization |
+| **Status** | All stories implemented and reviewed |
+| **Output** | Project development phase complete |
 
 ---
 
-## Agentes Participantes
+## Participating Agents
 
-### Tabela de Agentes
+### Agent Table
 
-| Icone | ID | Nome | Titulo | Papel no Workflow |
+| Icon | ID | Name | Title | Role in the Workflow |
 |-------|-----|------|--------|-------------------|
-| @architect | architect | Vega | Holistic System Architect | Análise inicial e arquitetura brownfield |
-| @pm | pm | Janus | Product Manager | Criação do PRD brownfield |
-| @ux-expert | ux-design-expert | Iris | UX/UI Designer | Especificação frontend |
-| @po | po | Themis | Product Owner | Validação, fragmentação, retrospectiva |
-| @sm | sm | Chronos | Scrum Master | Criação de stories |
-| @analyst | analyst | Sirius | Business Analyst | Revisão de stories (opcional) |
-| @dev | dev | Vulcan | Full Stack Developer | Implementação |
-| @qa | qa | Argus | Test Architect | Revisão de qualidade (opcional) |
+| @architect | architect | Vega | Holistic System Architect | Initial analysis and brownfield architecture |
+| @pm | pm | Janus | Product Manager | Brownfield PRD creation |
+| @ux-expert | ux-design-expert | Iris | UX/UI Designer | Frontend specification |
+| @po | po | Themis | Product Owner | Validation, sharding, retrospective |
+| @sm | sm | Chronos | Scrum Master | Story creation |
+| @analyst | analyst | Sirius | Business Analyst | Story review (optional) |
+| @dev | dev | Vulcan | Full Stack Developer | Implementation |
+| @qa | qa | Argus | Test Architect | Quality review (optional) |
 
-### Diagrama de Colaboracao entre Agentes
+### Agent Collaboration Diagram
 
 ```mermaid
 graph LR
-    subgraph "Fase de Planejamento"
+    subgraph "Planning Phase"
         ARCH[architect<br/>Vega]
         PM[pm<br/>Janus]
-        UX[ux-expert<br/>Uma]
+        UX[ux-expert<br/>Iris]
     end
 
-    subgraph "Fase de Validação"
+    subgraph "Validation Phase"
         PO[po<br/>Themis]
         ANALYST[analyst<br/>Sirius]
     end
 
-    subgraph "Fase de Desenvolvimento"
+    subgraph "Development Phase"
         SM[sm<br/>Chronos]
         DEV[dev<br/>Vulcan]
         QA[qa<br/>Argus]
     end
 
-    ARCH -->|docs projeto| PM
+    ARCH -->|project docs| PM
     PM -->|prd.md| UX
     UX -->|front-end-spec.md| ARCH
     ARCH -->|architecture.md| PO
 
     PO -->|sharded_docs| SM
-    PO -->|revisão story| ANALYST
-    ANALYST -->|story aprovada| SM
+    PO -->|story review| ANALYST
+    ANALYST -->|approved story| SM
 
     SM -->|story.md| DEV
-    DEV -->|implementação| QA
+    DEV -->|implementation| QA
     QA -->|feedback| DEV
-    QA -->|aprovado| PO
+    QA -->|approved| PO
 
     style ARCH fill:#E6E6FA
     style PM fill:#FFB6C1
@@ -469,41 +469,41 @@ graph LR
 
 ---
 
-## Tasks Executadas
+## Tasks Executed
 
-### Tasks por Step
+### Tasks by Step
 
-| Step | Task | Agente | Descrição |
+| Step | Task | Agent | Description |
 |------|------|--------|-----------|
-| 1 | `document-project.md` | architect | Documentar projeto existente |
-| 2 | `create-doc.md` + `brownfield-prd-tmpl` | pm | Criar PRD brownfield |
-| 3 | `create-doc.md` + `front-end-spec-tmpl` | ux-expert | Criar especificacao frontend |
-| 4 | `create-doc.md` + `brownfield-architecture-tmpl` | architect | Criar arquitetura brownfield |
-| 5 | `execute-checklist.md` + `po-master-checklist` | po | Validar artefatos |
-| 7 | `shard-doc.md` | po | Fragmentar documentos |
-| 8 | `create-next-story.md` | sm | Criar stories |
-| 10 | `dev-develop-story.md` | dev | Implementar story |
-| 11 | `review-story.md` | qa | Revisar implementacao |
-| 12 | `apply-qa-fixes.md` | dev | Aplicar correcoes QA |
+| 1 | `document-project.md` | architect | Document the existing project |
+| 2 | `create-doc.md` + `brownfield-prd-tmpl` | pm | Create the brownfield PRD |
+| 3 | `create-doc.md` + `front-end-spec-tmpl` | ux-expert | Create the frontend specification |
+| 4 | `create-doc.md` + `brownfield-architecture-tmpl` | architect | Create the brownfield architecture |
+| 5 | `execute-checklist.md` + `po-master-checklist` | po | Validate the artifacts |
+| 7 | `shard-doc.md` | po | Shard the documents |
+| 8 | `create-next-story.md` | sm | Create stories |
+| 10 | `dev-develop-story.md` | dev | Implement the story |
+| 11 | `review-story.md` | qa | Review the implementation |
+| 12 | `apply-qa-fixes.md` | dev | Apply QA fixes |
 
-### Tasks Relacionadas
+### Related Tasks
 
 ```mermaid
 graph TB
-    subgraph "Tasks de Documentação"
+    subgraph "Documentation Tasks"
         T1[document-project.md]
         T2[create-doc.md]
         T3[shard-doc.md]
     end
 
-    subgraph "Tasks de Story"
+    subgraph "Story Tasks"
         T4[create-next-story.md]
         T5[dev-develop-story.md]
         T6[review-story.md]
         T7[apply-qa-fixes.md]
     end
 
-    subgraph "Tasks de Validação"
+    subgraph "Validation Tasks"
         T8[execute-checklist.md]
         T9[correct-course.md]
     end
@@ -520,67 +520,67 @@ graph TB
 
 ---
 
-## Pré-requisitos
+## Prerequisites
 
-### Requisitos Técnicos
+### Technical Requirements
 
-| Requisito | Descrição | Verificação |
+| Requirement | Description | Verification |
 |-----------|-----------|-------------|
-| **Aplicação Existente** | Frontend ativo para análise | Codebase acessível |
-| **Templates AEXOS** | Templates instalados | Verificar `.aexos-core/development/templates/` |
-| **Agentes Configurados** | Todos os agentes do workflow | Verificar `.aexos-core/development/agents/` |
-| **Git Configurado** | Controle de versao | `git status` funcional |
-| **Node.js** | Runtime para scripts | `node --version` >= 18 |
+| **Existing Application** | Live frontend to analyze | Accessible codebase |
+| **AEXOS Templates** | Templates installed | Check `.aexos-core/development/templates/` |
+| **Agents Configured** | All agents used by the workflow | Check `.aexos-core/development/agents/` |
+| **Git Configured** | Version control | `git status` working |
+| **Node.js** | Runtime for scripts | `node --version` >= 18 |
 
-### Requisitos de Documentação
+### Documentation Requirements
 
-| Documento | Localização | Necessário Para |
+| Document | Location | Required For |
 |-----------|-------------|-----------------|
-| Templates de PRD | `.aexos-core/development/templates/brownfield-prd-tmpl.yaml` | Step 2 |
-| Template Frontend | `.aexos-core/development/templates/front-end-spec-tmpl.yaml` | Step 3 |
-| Template Arquitetura | `.aexos-core/development/templates/brownfield-architecture-tmpl.yaml` | Step 4 |
-| Checklist PO | `.aexos-core/development/checklists/po-master-checklist.md` | Step 5 |
-| Template Story | `.aexos-core/development/templates/story-tmpl.yaml` | Step 8 |
+| PRD Template | `.aexos-core/development/templates/brownfield-prd-tmpl.yaml` | Step 2 |
+| Frontend Template | `.aexos-core/development/templates/front-end-spec-tmpl.yaml` | Step 3 |
+| Architecture Template | `.aexos-core/development/templates/brownfield-architecture-tmpl.yaml` | Step 4 |
+| PO Checklist | `.aexos-core/development/checklists/po-master-checklist.md` | Step 5 |
+| Story Template | `.aexos-core/development/templates/story-tmpl.yaml` | Step 8 |
 
-### Dados de Entrada Recomendados
+### Recommended Input Data
 
-- Feedback de usuários da aplicação atual
-- Dados de analytics (uso de features, tempo em página, etc.)
-- Documentação técnica existente (se disponível)
-- Design system ou style guide atual
-- Requisitos de negócio para melhorias
+- User feedback on the current application
+- Analytics data (feature usage, time on page, etc.)
+- Existing technical documentation (if available)
+- Current design system or style guide
+- Business requirements for the improvements
 
 ---
 
-## Entradas e Saidas
+## Inputs and Outputs
 
-### Matriz de Entradas/Saidas por Step
+### Input/Output Matrix by Step
 
 ```mermaid
 flowchart LR
-    subgraph "Entradas"
-        I1[Aplicacao Existente]
-        I2[Feedback Usuarios]
+    subgraph "Inputs"
+        I1[Existing Application]
+        I2[User Feedback]
         I3[Analytics]
-        I4[Requisitos Negocios]
+        I4[Business Requirements]
     end
 
-    subgraph "Processamento"
-        P1[Analise UI]
+    subgraph "Processing"
+        P1[UI Analysis]
         P2[PRD]
-        P3[Spec Frontend]
-        P4[Arquitetura]
+        P3[Frontend Spec]
+        P4[Architecture]
         P5[Stories]
-        P6[Implementacao]
+        P6[Implementation]
     end
 
-    subgraph "Saidas"
+    subgraph "Outputs"
         O1[docs/project-docs/]
         O2[docs/prd.md]
         O3[docs/front-end-spec.md]
         O4[docs/architecture.md]
         O5[docs/stories/]
-        O6[src/ codigo]
+        O6[src/ code]
     end
 
     I1 --> P1
@@ -601,51 +601,51 @@ flowchart LR
     P6 --> O6
 ```
 
-### Artefatos Finais
+### Final Artifacts
 
-| Artefato | Localização | Descrição |
+| Artifact | Location | Description |
 |----------|-------------|-----------|
-| Documentação do Projeto | `docs/project-docs/` | Análise do sistema existente |
-| PRD Brownfield | `docs/prd.md` | Requisitos do produto |
-| Especificação Frontend | `docs/front-end-spec.md` | Especificação UI/UX |
-| Arquitetura | `docs/architecture.md` | Arquitetura do sistema |
-| PRD Fragmentado | `docs/prd/` | Documentos fragmentados |
-| Arquitetura Fragmentada | `docs/architecture/` | Arquitetura fragmentada |
+| Project Documentation | `docs/project-docs/` | Analysis of the existing system |
+| Brownfield PRD | `docs/prd.md` | Product requirements |
+| Frontend Specification | `docs/front-end-spec.md` | UI/UX specification |
+| Architecture | `docs/architecture.md` | System architecture |
+| Sharded PRD | `docs/prd/` | Sharded documents |
+| Sharded Architecture | `docs/architecture/` | Sharded architecture |
 | Stories | `docs/stories/epic-{N}/` | User stories |
-| Código Implementado | `src/` | Código fonte |
-| Retrospectiva | `docs/epic-retrospective.md` | Learnings (opcional) |
+| Implemented Code | `src/` | Source code |
+| Retrospective | `docs/epic-retrospective.md` | Learnings (optional) |
 
 ---
 
-## Pontos de Decisão
+## Decision Points
 
-### Diagrama de Decisões
+### Decision Diagram
 
 ```mermaid
 flowchart TD
-    D1{PO encontrou problemas?}
-    D1 -->|Sim| A1[Retornar ao agente relevante]
-    D1 -->|Não| A2[Prosseguir para fragmentação]
+    D1{PO found issues?}
+    D1 -->|Yes| A1[Return to the relevant agent]
+    D1 -->|No| A2[Proceed to sharding]
 
-    D2{Revisar story draft?}
-    D2 -->|Sim| A3[Analyst/PM revisa story]
-    D2 -->|Não| A4[Dev inicia implementação]
+    D2{Review story draft?}
+    D2 -->|Yes| A3[Analyst/PM reviews the story]
+    D2 -->|No| A4[Dev starts implementation]
 
-    D3{Revisao QA?}
-    D3 -->|Sim| A5[QA revisa implementacao]
-    D3 -->|Não| A6[Verificar mais stories]
+    D3{QA Review?}
+    D3 -->|Yes| A5[QA reviews the implementation]
+    D3 -->|No| A6[Check for more stories]
 
-    D4{QA encontrou issues?}
-    D4 -->|Sim| A7[Dev corrige feedback]
-    D4 -->|Não| A8[Verificar mais stories]
+    D4{QA found issues?}
+    D4 -->|Yes| A7[Dev fixes the feedback]
+    D4 -->|No| A8[Check for more stories]
 
-    D5{Mais stories?}
-    D5 -->|Sim| A9[Criar próxima story]
-    D5 -->|Não| A10[Verificar retrospectiva]
+    D5{More stories?}
+    D5 -->|Yes| A9[Create the next story]
+    D5 -->|No| A10[Check the retrospective]
 
     D6{Epic retrospective?}
-    D6 -->|Sim| A11[PO executa retrospectiva]
-    D6 -->|Não| A12[Projeto completo]
+    D6 -->|Yes| A11[PO runs the retrospective]
+    D6 -->|No| A12[Project complete]
 
     style D1 fill:#FFE4B5
     style D2 fill:#FFE4B5
@@ -655,142 +655,142 @@ flowchart TD
     style D6 fill:#FFE4B5
 ```
 
-### Descrição dos Pontos de Decisão
+### Decision Point Descriptions
 
-| Ponto | Condição | Caminho Sim | Caminho Não |
+| Point | Condition | Yes Path | No Path |
 |-------|----------|-------------|-------------|
-| **D1** | `po_checklist_issues` | Corrigir documentos | Fragmentar documentos |
-| **D2** | `user_wants_story_review` | Revisao por Analyst/PM | Direto para Dev |
-| **D3** | Configuração do projeto | Revisão QA completa | Skip para próxima story |
-| **D4** | `qa_left_unchecked_items` | Dev corrige issues | Marcar story como Done |
-| **D5** | Stories restantes no PRD | Criar próxima story | Verificar retrospectiva |
-| **D6** | `epic_complete` e desejado | Executar retrospectiva | Finalizar projeto |
+| **D1** | `po_checklist_issues` | Fix the documents | Shard the documents |
+| **D2** | `user_wants_story_review` | Review by Analyst/PM | Straight to Dev |
+| **D3** | Project configuration | Full QA review | Skip to the next story |
+| **D4** | `qa_left_unchecked_items` | Dev fixes the issues | Mark the story as Done |
+| **D5** | Stories remaining in the PRD | Create the next story | Check the retrospective |
+| **D6** | `epic_complete` and desired | Run the retrospective | Close out the project |
 
-### Critérios de Decisão
+### Decision Criteria
 
-#### Quando Usar Revisão de Story (D2)
-- Stories complexas com múltiplas dependências
-- Primeira story de um novo epic
-- Stories com impacto em múltiplos sistemas
-- Requisitos de negócio ambíguos
+#### When to Use Story Review (D2)
+- Complex stories with multiple dependencies
+- First story of a new epic
+- Stories that impact multiple systems
+- Ambiguous business requirements
 
-#### Quando Usar Revisão QA (D3)
-- Mudanças em componentes críticos
-- Alterações de segurança ou performance
-- Código que interage com sistemas externos
-- Primeira implementação de novos patterns
+#### When to Use QA Review (D3)
+- Changes to critical components
+- Security or performance changes
+- Code that interacts with external systems
+- First implementation of new patterns
 
-#### Quando Fazer Retrospectiva (D6)
-- Epic levou mais tempo que planejado
-- Houve muitos ciclos de correção
-- Novos patterns foram estabelecidos
-- Aprendizados importantes para compartilhar
+#### When to Run a Retrospective (D6)
+- The epic took longer than planned
+- There were many fix cycles
+- New patterns were established
+- Important learnings to share
 
 ---
 
 ## Troubleshooting
 
-### Problemas Comuns e Soluções
+### Common Problems and Solutions
 
-#### Problema: Agente não reconhece comandos
+#### Problem: Agent does not recognize commands
 
-**Sintomas:**
-- Agente não responde a comandos com prefixo `*`
-- Mensagens de erro sobre comandos desconhecidos
+**Symptoms:**
+- The agent does not respond to commands with the `*` prefix
+- Error messages about unknown commands
 
-**Solução:**
-1. Verificar se o agente foi ativado corretamente com `@{agent-id}`
-2. Confirmar que o comando existe para o agente (consultar `*help`)
-3. Verificar ortografia do comando
+**Solution:**
+1. Check that the agent was activated correctly with `@{agent-id}`
+2. Confirm the command exists for that agent (check `*help`)
+3. Check the command spelling
 
 ```bash
-# Exemplo de ativacao correta
+# Example of a correct activation
 @pm
 *create-brownfield-prd
 ```
 
 ---
 
-#### Problema: Templates não encontrados
+#### Problem: Templates not found
 
-**Sintomas:**
-- Erro ao criar documentos
-- Mensagem sobre template inexistente
+**Symptoms:**
+- Error when creating documents
+- Message about a nonexistent template
 
-**Solução:**
-1. Verificar se templates existem:
+**Solution:**
+1. Check that the templates exist:
 ```bash
 ls .aexos-core/development/templates/
 ```
 
-2. Verificar nome correto do template no workflow
-3. Se necessario, reinstalar templates do AEXOS core
+2. Check that the template name in the workflow is correct
+3. If necessary, reinstall the AEXOS core templates
 
 ---
 
-#### Problema: Validação PO falha repetidamente
+#### Problem: PO validation fails repeatedly
 
-**Sintomas:**
-- Ciclo infinito entre validacao e correcoes
-- Documentos nunca são aprovados
+**Symptoms:**
+- Endless loop between validation and fixes
+- Documents are never approved
 
-**Solução:**
-1. Revisar criterios do `po-master-checklist`
-2. Verificar se todos os requisitos foram compreendidos
-3. Considerar simplificar escopo se necessário
-4. Consultar PO sobre critérios específicos
-
----
-
-#### Problema: Story muito grande para implementação
-
-**Sintomas:**
-- Dev demora muito para completar
-- Muitas tasks na story
-- Feedback de escopo muito amplo
-
-**Solução:**
-1. Voltar ao SM para fragmentar story em stories menores
-2. Usar comando `*shard-doc` para quebrar PRD
-3. Revisar granularidade do epic
+**Solution:**
+1. Review the `po-master-checklist` criteria
+2. Check that all requirements were understood
+3. Consider reducing the scope if necessary
+4. Consult the PO about specific criteria
 
 ---
 
-#### Problema: QA encontra muitos issues
+#### Problem: Story too large to implement
 
-**Sintomas:**
-- Ciclos repetidos entre Dev e QA
-- Lista crescente de issues
+**Symptoms:**
+- Dev takes too long to finish
+- Too many tasks in the story
+- Feedback that the scope is too broad
 
-**Solução:**
-1. Verificar se Dev está seguindo padrões de código
-2. Rodar linting antes de submeter para QA
-3. Verificar testes unitários passando
-4. Considerar pair programming para issues recorrentes
+**Solution:**
+1. Go back to the SM to split the story into smaller stories
+2. Use the `*shard-doc` command to break up the PRD
+3. Review the epic granularity
 
 ---
 
-#### Problema: Fragmentação de documentos não funciona
+#### Problem: QA finds too many issues
 
-**Sintomas:**
-- Erro ao executar shard-doc
-- Pastas não criadas
+**Symptoms:**
+- Repeated cycles between Dev and QA
+- Growing list of issues
 
-**Solução:**
-1. Verificar se documentos foram salvos na pasta `docs/`
-2. Confirmar permissões de escrita
-3. Executar manualmente:
+**Solution:**
+1. Check that Dev is following the code standards
+2. Run linting before submitting to QA
+3. Check that unit tests pass
+4. Consider pair programming for recurring issues
+
+---
+
+#### Problem: Document sharding does not work
+
+**Symptoms:**
+- Error when running shard-doc
+- Folders not created
+
+**Solution:**
+1. Check that the documents were saved in the `docs/` folder
+2. Confirm write permissions
+3. Run it manually:
 ```bash
 @po
-# Solicitar fragmentação específica
+# Request a specific shard
 "shard docs/prd.md"
 ```
 
 ---
 
-### Logs e Diagnósticos
+### Logs and Diagnostics
 
-#### Verificar Status do Projeto
+#### Check Project Status
 
 ```bash
 # Via AEXOS
@@ -801,44 +801,44 @@ ls .aexos-core/development/templates/
 git status
 ```
 
-#### Verificar Histórico de Agentes
+#### Check Agent History
 
 ```bash
 @{agent}
 *session-info
 ```
 
-#### Localizar Artefatos
+#### Locate Artifacts
 
 ```bash
-# Documentos
+# Documents
 ls docs/
 
 # Stories
 ls docs/stories/
 
-# Arquitetura
+# Architecture
 ls docs/architecture/
 ```
 
 ---
 
-## Referências
+## References
 
-### Documentação Relacionada
+### Related Documentation
 
-| Documento | Localização | Descrição |
+| Document | Location | Description |
 |-----------|-------------|-----------|
-| AEXOS Knowledge Base | `.aexos-core/data/aexos-kb.md` | Base de conhecimento AEXOS |
-| IDE Development Workflow | `.aexos-core/data/aexos-kb.md#IDE Development Workflow` | Workflow de desenvolvimento IDE |
-| Brownfield PRD Template | `.aexos-core/development/templates/brownfield-prd-tmpl.yaml` | Template PRD brownfield |
-| Frontend Spec Template | `.aexos-core/development/templates/front-end-spec-tmpl.yaml` | Template especificacao frontend |
-| Brownfield Architecture Template | `.aexos-core/development/templates/brownfield-architecture-tmpl.yaml` | Template arquitetura brownfield |
-| PO Master Checklist | `.aexos-core/development/checklists/po-master-checklist.md` | Checklist de validacao PO |
+| AEXOS Knowledge Base | `.aexos-core/data/aexos-kb.md` | AEXOS knowledge base |
+| IDE Development Workflow | `.aexos-core/data/aexos-kb.md#IDE Development Workflow` | IDE development workflow |
+| Brownfield PRD Template | `.aexos-core/development/templates/brownfield-prd-tmpl.yaml` | Brownfield PRD template |
+| Frontend Spec Template | `.aexos-core/development/templates/front-end-spec-tmpl.yaml` | Frontend specification template |
+| Brownfield Architecture Template | `.aexos-core/development/templates/brownfield-architecture-tmpl.yaml` | Brownfield architecture template |
+| PO Master Checklist | `.aexos-core/development/checklists/po-master-checklist.md` | PO validation checklist |
 
-### Agentes
+### Agents
 
-| Agente | Arquivo | Documentação |
+| Agent | File | Documentation |
 |--------|---------|--------------|
 | @architect | `.aexos-core/development/agents/architect.md` | Vega - Holistic System Architect |
 | @pm | `.aexos-core/development/agents/pm.md` | Janus - Product Manager |
@@ -851,9 +851,9 @@ ls docs/architecture/
 
 ### Handoff Prompts
 
-Os seguintes prompts são usados para transições entre agentes:
+The following prompts are used for transitions between agents:
 
-| Transição | Prompt |
+| Transition | Prompt |
 |-----------|--------|
 | Analyst -> PM | "UI analysis complete. Create comprehensive PRD with UI integration strategy." |
 | PM -> UX | "PRD ready. Save it as docs/prd.md, then create the UI/UX specification." |
@@ -864,28 +864,28 @@ Os seguintes prompts são usados para transições entre agentes:
 
 ---
 
-## Quando Usar Este Workflow
+## When to Use This Workflow
 
-### Indicadores para Uso
+### Usage Indicators
 
-- Enhancement de UI requer stories coordenadas
-- Mudanças no design system são necessárias
-- Novos patterns de componentes são requeridos
-- Pesquisa e teste de usuários são necessários
-- Múltiplos membros da equipe trabalharão em mudanças relacionadas
+- The UI enhancement requires coordinated stories
+- Design system changes are needed
+- New component patterns are required
+- User research and testing are needed
+- Multiple team members will work on related changes
 
-### Alternativas
+### Alternatives
 
-| Cenário | Workflow Recomendado |
+| Scenario | Recommended Workflow |
 |---------|---------------------|
-| Projeto novo (greenfield) | `greenfield-ui` |
-| Bug fix simples | Workflow ad-hoc com @dev |
-| Mudança isolada | Story única sem workflow completo |
-| Migração de backend | `brownfield-backend` |
+| New project (greenfield) | `greenfield-ui` |
+| Simple bug fix | Ad-hoc workflow with @dev |
+| Isolated change | Single story without the full workflow |
+| Backend migration | `brownfield-backend` |
 | Full stack | `brownfield-fullstack` |
 
 ---
 
-*Documentacao gerada automaticamente a partir de `.aexos-core/development/workflows/brownfield-ui.yaml`*
+*Documentation generated automatically from `.aexos-core/development/workflows/brownfield-ui.yaml`*
 
-*Última atualização: 2026-02-04*
+*Last updated: 2026-02-04*

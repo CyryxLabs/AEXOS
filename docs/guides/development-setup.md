@@ -1,7 +1,5 @@
 # Development Setup Guide
 
-> **EN** | [PT](../pt/guides/development-setup.md) | [ES](../es/guides/development-setup.md)
-
 ---
 
 Complete guide for developers who want to contribute to the AEXOS (Cyryx) project.

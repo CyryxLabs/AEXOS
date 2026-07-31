@@ -43,7 +43,7 @@ An actionable engineering and product blueprint for evolving **AEXOS / MAAX Stud
 - **Concept:** Local web-based control panel launched via `aexos studio`.
 - **Features:**
   - **Live SSE Event Timeline:** Real-time visual monitoring of active agent swarms.
-  - **Atlas Graph Visualizer:** Interactive 3D/2D node visualizer for codebase dependencies and rules.
+  - **Sirius Graph Visualizer:** Interactive 3D/2D node visualizer for codebase dependencies and rules.
   - **Human-in-the-Loop Gateway:** One-click approval interface for risky file changes or budget thresholds.
 
 ---
@@ -79,4 +79,4 @@ An actionable engineering and product blueprint for evolving **AEXOS / MAAX Stud
 |---|---|---|
 | **Phase 1 (Immediate)** | Universal Protocol & MCP Daemon | `cyryxd` daemon, expanded MCP tools, GitHub Action `CyryxLabs/aexos-action` |
 | **Phase 2 (Mid-Term)** | Self-Healing & Parallel Worktrees | Autopsy loop, `git worktree` parallel runner, dynamic MoE cost router |
-| **Phase 3 (Long-Term)** | Cyryx Hub & Studio GUI | Squad Marketplace (`aexos squad publish`), 3D Atlas Graph UI, Cryptographic Ledger |
+| **Phase 3 (Long-Term)** | Cyryx Hub & Studio GUI | Squad Marketplace (`aexos squad publish`), 3D Sirius Graph UI, Cryptographic Ledger |

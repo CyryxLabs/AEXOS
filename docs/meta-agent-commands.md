@@ -1,7 +1,5 @@
 # Meta-Agent Commands Reference
 
-> 🌐 **EN** | [PT](./pt/meta-agent-commands.md) | [ES](./es/meta-agent-commands.md)
-
 ---
 
 Complete reference guide for all AEXOS (Cyryx) meta-agent commands.

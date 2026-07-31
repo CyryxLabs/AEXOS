@@ -1,7 +1,5 @@
 # Uninstallation Guide
 
-> 🌐 **EN** | [PT](./pt/uninstallation.md) | [ES](./es/uninstallation.md)
-
 ---
 
 This guide provides comprehensive instructions for uninstalling AEXOS (Cyryx) from your system.

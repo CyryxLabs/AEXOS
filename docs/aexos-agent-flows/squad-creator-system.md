@@ -1,115 +1,115 @@
-# Sistema de Criacao e Gerenciamento de Squads AEXOS
+# AEXOS Squad Creation and Management System
 
-> **Versão:** 1.0.0
-> **Criado:** 2026-02-04
+> **Version:** 1.0.0
+> **Created:** 2026-02-04
 > **Owner:** @squad-creator (Arkantos)
-> **Status:** Documentação Oficial
+> **Status:** Official Documentation
 
 ---
 
-## Visão Geral
+## Overview
 
-O **Squad Creator** (Arkantos) e o agente especializado do AEXOS para criação, validação, publicacao e gerenciamento de squads. Squads sao pacotes modulares de agentes, tasks, workflows e recursos que podem ser reutilizados entre projetos.
+The **Squad Creator** (Arkantos) is the AEXOS agent specialized in creating, validating, publishing and managing squads. Squads are modular packages of agents, tasks, workflows and resources that can be reused across projects.
 
-Este sistema implementa a **arquitetura task-first** do AEXOS, onde tasks sao o ponto de entrada principal para execucao, e agentes orquestram essas tasks.
+This system implements the AEXOS **task-first architecture**, where tasks are the main entry point for execution and agents orchestrate those tasks.
 
-### Propósitos do Sistema
+### System Purposes
 
-- **Criar squads** seguindo padroes e estrutura do AEXOS
-- **Validar squads** contra JSON Schema e especificacoes de task
-- **Listar squads** locais do projeto
-- **Distribuir squads** em 3 niveis (Local, aexos-squads, AEXOS API)
-- **Migrar squads** para formato v2 com orquestracao e skills
-- **Analisar e estender** squads existentes
+- **Create squads** following AEXOS standards and structure
+- **Validate squads** against the JSON Schema and task specifications
+- **List squads** local to the project
+- **Distribute squads** across 3 levels (Local, aexos-squads, AEXOS API)
+- **Migrate squads** to the v2 format with orchestration and skills
+- **Analyze and extend** existing squads
 
-### Principios Fundamentais
+### Fundamental Principles
 
-1. **Task-First Architecture**: Tasks sao o ponto de entrada, agentes orquestram
-2. **Validacao Obrigatoria**: Sempre validar antes de distribuir
-3. **JSON Schema**: Manifests validados contra schema
-4. **3 Niveis de Distribuicao**: Local, Publico (aexos-squads), Marketplace (AEXOS API)
-5. **Integracao com aexos-core**: Squads trabalham em sinergia com o framework
-
----
-
-## Lista Completa de Arquivos
-
-### Arquivos Core de Definição do Agente
-
-| Arquivo | Propósito |
-|---------|-----------|
-| `.aexos-core/development/agents/squad-creator.md` | Definição core do agente Squad Creator |
-| `.claude/commands/AEXOS/agents/squad-creator.md` | Comando Claude Code para ativar @squad-creator |
-
-### Arquivos de Tasks do @squad-creator
-
-| Arquivo | Comando | Propósito | Status |
-|---------|---------|-----------|--------|
-| `.aexos-core/development/tasks/squad-creator-create.md` | `*create-squad` | Cria novo squad com estrutura completa | Ativo |
-| `.aexos-core/development/tasks/squad-creator-design.md` | `*design-squad` | Analisa documentacao e gera blueprint | Ativo |
-| `.aexos-core/development/tasks/squad-creator-validate.md` | `*validate-squad` | Valida squad contra schema e padroes | Ativo |
-| `.aexos-core/development/tasks/squad-creator-list.md` | `*list-squads` | Lista squads locais | Ativo |
-| `.aexos-core/development/tasks/squad-creator-analyze.md` | `*analyze-squad` | Analisa estrutura e sugere melhorias | Ativo |
-| `.aexos-core/development/tasks/squad-creator-extend.md` | `*extend-squad` | Estende squad com novos componentes | Ativo |
-| `.aexos-core/development/tasks/squad-creator-migrate.md` | `*migrate-to-v2` | Migra squad para formato v2 | Ativo |
-| `.aexos-core/development/tasks/squad-generate-skills.md` | `*generate-skills` | Gera skills de conhecimento do squad | Ativo |
-| `.aexos-core/development/tasks/squad-generate-workflow.md` | `*generate-workflow` | Gera workflow de orquestracao YAML | Ativo |
-| `.aexos-core/development/tasks/squad-creator-download.md` | `*download-squad` | Baixa squad do repositorio publico | Placeholder (Sprint 8) |
-| `.aexos-core/development/tasks/squad-creator-publish.md` | `*publish-squad` | Publica squad no aexos-squads | Placeholder (Sprint 8) |
-| `.aexos-core/development/tasks/squad-creator-sync-aexos.md` | `*sync-squad-cyryx` | Sincroniza squad com AEXOS API | Placeholder (Sprint 8) |
-
-### Arquivos de Tasks Relacionadas
-
-| Arquivo | Comando | Propósito |
-|---------|---------|-----------|
-| `.aexos-core/development/tasks/create-agent.md` | `*create-agent` | Cria definicao de agente individual |
-| `.aexos-core/development/tasks/create-task.md` | `*create-task` | Cria arquivo de task individual |
-| `.aexos-core/development/tasks/create-workflow.md` | `*create-workflow` | Cria workflow de orquestracao |
-
-### Scripts de Suporte
-
-| Arquivo | Classe/Funcao | Propósito |
-|---------|---------------|-----------|
-| `.aexos-core/development/scripts/squad/squad-generator.js` | `SquadGenerator` | Gera estrutura de squad completa |
-| `.aexos-core/development/scripts/squad/squad-validator.js` | `SquadValidator` | Valida squad contra schema e padroes |
-| `.aexos-core/development/scripts/squad/squad-loader.js` | `SquadLoader` | Carrega e resolve squads |
-| `.aexos-core/development/scripts/squad/squad-designer.js` | `SquadDesigner` | Analisa docs e gera blueprints |
-| `.aexos-core/development/scripts/squad/squad-analyzer.js` | `SquadAnalyzer` | Analisa estrutura de squads |
-| `.aexos-core/development/scripts/squad/squad-extender.js` | `SquadExtender` | Estende squads existentes |
-| `.aexos-core/development/scripts/squad/squad-migrator.js` | `SquadMigrator` | Migra squads para v2 |
-| `.aexos-core/development/scripts/squad/squad-downloader.js` | `SquadDownloader` | Baixa squads do repositorio |
-| `.aexos-core/development/scripts/squad/squad-publisher.js` | `SquadPublisher` | Publica squads |
-
-### Schemas JSON
-
-| Arquivo | Propósito |
-|---------|-----------|
-| `.aexos-core/schemas/squad-schema.json` | Schema de validação do squad.yaml |
-| `.aexos-core/schemas/squad-design-schema.json` | Schema de validação de blueprints |
-
-### Arquivos de Output (Squads Gerados)
-
-| Diretorio | Propósito |
-|-----------|-----------|
-| `./squads/{squad-name}/` | Diretorio raiz do squad |
-| `./squads/{squad-name}/squad.yaml` | Manifest do squad (obrigatorio) |
-| `./squads/{squad-name}/README.md` | Documentação do squad |
-| `./squads/{squad-name}/agents/` | Definicoes de agentes |
-| `./squads/{squad-name}/tasks/` | Definicoes de tasks |
-| `./squads/{squad-name}/workflows/` | Workflows de orquestracao |
-| `./squads/{squad-name}/config/` | Arquivos de configuracao |
-| `./squads/.designs/` | Blueprints gerados pelo *design-squad |
+1. **Task-First Architecture**: Tasks are the entry point, agents orchestrate
+2. **Mandatory Validation**: Always validate before distributing
+3. **JSON Schema**: Manifests validated against a schema
+4. **3 Distribution Levels**: Local, Public (aexos-squads), Marketplace (AEXOS API)
+5. **Integration with aexos-core**: Squads work in synergy with the framework
 
 ---
 
-## Flowchart: Sistema Completo de Gerenciamento de Squads
+## Complete File List
+
+### Core Agent Definition Files
+
+| File | Purpose |
+|------|---------|
+| `.aexos-core/development/agents/squad-creator.md` | Core definition of the Squad Creator agent |
+| `.claude/commands/AEXOS/agents/squad-creator.md` | Claude Code command to activate @squad-creator |
+
+### @squad-creator Task Files
+
+| File | Command | Purpose | Status |
+|------|---------|---------|--------|
+| `.aexos-core/development/tasks/squad-creator-create.md` | `*create-squad` | Creates a new squad with the complete structure | Active |
+| `.aexos-core/development/tasks/squad-creator-design.md` | `*design-squad` | Analyzes documentation and generates a blueprint | Active |
+| `.aexos-core/development/tasks/squad-creator-validate.md` | `*validate-squad` | Validates a squad against the schema and standards | Active |
+| `.aexos-core/development/tasks/squad-creator-list.md` | `*list-squads` | Lists local squads | Active |
+| `.aexos-core/development/tasks/squad-creator-analyze.md` | `*analyze-squad` | Analyzes the structure and suggests improvements | Active |
+| `.aexos-core/development/tasks/squad-creator-extend.md` | `*extend-squad` | Extends a squad with new components | Active |
+| `.aexos-core/development/tasks/squad-creator-migrate.md` | `*migrate-to-v2` | Migrates a squad to the v2 format | Active |
+| `.aexos-core/development/tasks/squad-generate-skills.md` | `*generate-skills` | Generates skills from the squad's knowledge | Active |
+| `.aexos-core/development/tasks/squad-generate-workflow.md` | `*generate-workflow` | Generates a YAML orchestration workflow | Active |
+| `.aexos-core/development/tasks/squad-creator-download.md` | `*download-squad` | Downloads a squad from the public repository | Placeholder (Sprint 8) |
+| `.aexos-core/development/tasks/squad-creator-publish.md` | `*publish-squad` | Publishes a squad to aexos-squads | Placeholder (Sprint 8) |
+| `.aexos-core/development/tasks/squad-creator-sync-aexos.md` | `*sync-squad-cyryx` | Syncs a squad with the AEXOS API | Placeholder (Sprint 8) |
+
+### Related Task Files
+
+| File | Command | Purpose |
+|------|---------|---------|
+| `.aexos-core/development/tasks/create-agent.md` | `*create-agent` | Creates an individual agent definition |
+| `.aexos-core/development/tasks/create-task.md` | `*create-task` | Creates an individual task file |
+| `.aexos-core/development/tasks/create-workflow.md` | `*create-workflow` | Creates an orchestration workflow |
+
+### Supporting Scripts
+
+| File | Class/Function | Purpose |
+|------|----------------|---------|
+| `.aexos-core/development/scripts/squad/squad-generator.js` | `SquadGenerator` | Generates the complete squad structure |
+| `.aexos-core/development/scripts/squad/squad-validator.js` | `SquadValidator` | Validates a squad against the schema and standards |
+| `.aexos-core/development/scripts/squad/squad-loader.js` | `SquadLoader` | Loads and resolves squads |
+| `.aexos-core/development/scripts/squad/squad-designer.js` | `SquadDesigner` | Analyzes docs and generates blueprints |
+| `.aexos-core/development/scripts/squad/squad-analyzer.js` | `SquadAnalyzer` | Analyzes squad structure |
+| `.aexos-core/development/scripts/squad/squad-extender.js` | `SquadExtender` | Extends existing squads |
+| `.aexos-core/development/scripts/squad/squad-migrator.js` | `SquadMigrator` | Migrates squads to v2 |
+| `.aexos-core/development/scripts/squad/squad-downloader.js` | `SquadDownloader` | Downloads squads from the repository |
+| `.aexos-core/development/scripts/squad/squad-publisher.js` | `SquadPublisher` | Publishes squads |
+
+### JSON Schemas
+
+| File | Purpose |
+|------|---------|
+| `.aexos-core/schemas/squad-schema.json` | Validation schema for squad.yaml |
+| `.aexos-core/schemas/squad-design-schema.json` | Validation schema for blueprints |
+
+### Output Files (Generated Squads)
+
+| Directory | Purpose |
+|-----------|---------|
+| `./squads/{squad-name}/` | Root directory of the squad |
+| `./squads/{squad-name}/squad.yaml` | Squad manifest (required) |
+| `./squads/{squad-name}/README.md` | Squad documentation |
+| `./squads/{squad-name}/agents/` | Agent definitions |
+| `./squads/{squad-name}/tasks/` | Task definitions |
+| `./squads/{squad-name}/workflows/` | Orchestration workflows |
+| `./squads/{squad-name}/config/` | Configuration files |
+| `./squads/.designs/` | Blueprints generated by *design-squad |
+
+---
+
+## Flowchart: Complete Squad Management System
 
 ```mermaid
 flowchart TB
-    subgraph INPUTS["📥 ENTRADAS"]
-        DOCS["📄 Documentação<br/>(PRD, specs)"]
-        USER["👤 Usuario<br/>(comandos)"]
-        EXISTING["📦 Squad Existente<br/>(validação/extensao)"]
+    subgraph INPUTS["📥 INPUTS"]
+        DOCS["📄 Documentation<br/>(PRD, specs)"]
+        USER["👤 User<br/>(commands)"]
+        EXISTING["📦 Existing Squad<br/>(validation/extension)"]
     end
 
     DOCS -->|"*design-squad"| BLUEPRINT
@@ -149,9 +149,9 @@ flowchart TB
     TASK_FMT --> RESULT
     AGENT_FMT --> RESULT
 
-    subgraph RESULT["📊 RESULTADO"]
-        VALID["✅ VALID<br/>(ou com warnings)"]
-        INVALID["❌ INVALID<br/>(erros encontrados)"]
+    subgraph RESULT["📊 RESULT"]
+        VALID["✅ VALID<br/>(or with warnings)"]
+        INVALID["❌ INVALID<br/>(errors found)"]
     end
 
     subgraph DISTRIBUTE["🚀 DISTRIBUTION"]
@@ -176,7 +176,7 @@ flowchart TB
 
 ---
 
-## Flowchart: Criacao de Squad com Templates v1 vs v2
+## Flowchart: Squad Creation with v1 vs v2 Templates
 
 ```mermaid
 flowchart TB
@@ -218,7 +218,7 @@ flowchart TB
 
 ---
 
-## Flowchart: Fluxo de Design com Blueprint
+## Flowchart: Design Flow with Blueprint
 
 ```mermaid
 flowchart TB
@@ -268,18 +268,18 @@ flowchart TB
 
 ---
 
-## Flowchart: Pipeline de Validacao
+## Flowchart: Validation Pipeline
 
 ```mermaid
 flowchart TB
     START["*validate-squad {name}"]
 
-    START --> RESOLVE["1️⃣ Resolve Squad Path<br/>./squads/{name}/ ou path completo"]
+    START --> RESOLVE["1️⃣ Resolve Squad Path<br/>./squads/{name}/ or full path"]
 
     RESOLVE --> MANIFEST["2️⃣ Manifest Validation"]
 
     subgraph MANIFEST["📜 MANIFEST CHECK"]
-        FIND["Find manifest<br/>squad.yaml ou config.yaml"]
+        FIND["Find manifest<br/>squad.yaml or config.yaml"]
         PARSE["Parse YAML"]
         SCHEMA["Validate vs JSON Schema<br/>• name (kebab-case)<br/>• version (semver)<br/>• components"]
     end
@@ -322,64 +322,64 @@ flowchart TB
 
 ---
 
-## Mapeamento de Comandos para Tasks
+## Command-to-Task Mapping
 
-### Comandos de Gerenciamento de Squads
+### Squad Management Commands
 
-| Comando | Task File | Operacao |
-|---------|-----------|----------|
-| `*create-squad` | `squad-creator-create.md` | CREATE squad com estrutura completa |
-| `*create-squad --from-design` | `squad-creator-create.md` | CREATE squad a partir de blueprint |
-| `*design-squad` | `squad-creator-design.md` | DESIGN squad via analise de docs |
-| `*validate-squad` | `squad-creator-validate.md` | VALIDATE squad contra schema |
-| `*list-squads` | `squad-creator-list.md` | LIST squads locais |
-| `*analyze-squad` | `squad-creator-analyze.md` | ANALYZE estrutura e sugerir melhorias |
-| `*extend-squad` | `squad-creator-extend.md` | EXTEND squad com novos componentes |
+| Command | Task File | Operation |
+|---------|-----------|-----------|
+| `*create-squad` | `squad-creator-create.md` | CREATE a squad with the complete structure |
+| `*create-squad --from-design` | `squad-creator-create.md` | CREATE a squad from a blueprint |
+| `*design-squad` | `squad-creator-design.md` | DESIGN a squad through doc analysis |
+| `*validate-squad` | `squad-creator-validate.md` | VALIDATE a squad against the schema |
+| `*list-squads` | `squad-creator-list.md` | LIST local squads |
+| `*analyze-squad` | `squad-creator-analyze.md` | ANALYZE the structure and suggest improvements |
+| `*extend-squad` | `squad-creator-extend.md` | EXTEND a squad with new components |
 
-### Comandos de Orquestracao e Skills (v2)
+### Orchestration and Skills Commands (v2)
 
-| Comando | Task File | Operacao |
-|---------|-----------|----------|
-| `*generate-skills` | `squad-generate-skills.md` | GENERATE skills do conhecimento do squad |
-| `*generate-workflow` | `squad-generate-workflow.md` | GENERATE workflow YAML de orquestracao |
-| `*migrate-to-v2` | `squad-creator-migrate.md` | MIGRATE squad para formato v2 |
+| Command | Task File | Operation |
+|---------|-----------|-----------|
+| `*generate-skills` | `squad-generate-skills.md` | GENERATE skills from the squad's knowledge |
+| `*generate-workflow` | `squad-generate-workflow.md` | GENERATE a YAML orchestration workflow |
+| `*migrate-to-v2` | `squad-creator-migrate.md` | MIGRATE a squad to the v2 format |
 
-### Comandos de Distribuicao (Sprint 8 - Placeholders)
+### Distribution Commands (Sprint 8 - Placeholders)
 
-| Comando | Task File | Operacao |
-|---------|-----------|----------|
-| `*download-squad` | `squad-creator-download.md` | DOWNLOAD squad do aexos-squads |
-| `*publish-squad` | `squad-creator-publish.md` | PUBLISH squad para aexos-squads |
-| `*sync-squad-cyryx` | `squad-creator-sync-aexos.md` | SYNC squad para AEXOS API |
+| Command | Task File | Operation |
+|---------|-----------|-----------|
+| `*download-squad` | `squad-creator-download.md` | DOWNLOAD a squad from aexos-squads |
+| `*publish-squad` | `squad-creator-publish.md` | PUBLISH a squad to aexos-squads |
+| `*sync-squad-cyryx` | `squad-creator-sync-aexos.md` | SYNC a squad to the AEXOS API |
 
-### Comandos de Componentes Individuais
+### Individual Component Commands
 
-| Comando | Task File | Operacao |
-|---------|-----------|----------|
-| `*create-agent` | `create-agent.md` | CREATE definicao de agente |
-| `*create-task` | `create-task.md` | CREATE arquivo de task |
-| `*create-workflow` | `create-workflow.md` | CREATE workflow de orquestracao |
+| Command | Task File | Operation |
+|---------|-----------|-----------|
+| `*create-agent` | `create-agent.md` | CREATE an agent definition |
+| `*create-task` | `create-task.md` | CREATE a task file |
+| `*create-workflow` | `create-workflow.md` | CREATE an orchestration workflow |
 
 ---
 
-## Estrutura de Squad Gerado
+## Structure of a Generated Squad
 
-### v2 (Padrao - Com Orquestracao)
+### v2 (Default - With Orchestration)
 
 ```text
 ./squads/{squad-name}/
 ├── squad.yaml                    # Manifest v2 (orchestration + skills)
-├── README.md                     # Documentação
+├── README.md                     # Documentation
 ├── config/
-│   ├── coding-standards.md      # Padroes de codigo
-│   ├── tech-stack.md            # Stack tecnologico
-│   └── source-tree.md           # Estrutura documentada
+│   ├── coding-standards.md      # Coding standards
+│   ├── tech-stack.md            # Technology stack
+│   └── source-tree.md           # Documented structure
 ├── agents/
-│   └── example-agent.md         # Agente com skill_dispatch
+│   └── example-agent.md         # Agent with skill_dispatch
 ├── tasks/
-│   └── example-task.md          # Task seguindo TASK-FORMAT-V1
+│   └── example-task.md          # Task following TASK-FORMAT-V1
 ├── workflows/
-│   └── main-workflow.yaml       # Workflow com phases (v2)
+│   └── main-workflow.yaml       # Workflow with phases (v2)
 ├── checklists/
 │   └── .gitkeep
 ├── templates/
@@ -396,7 +396,7 @@ flowchart TB
 
 ```text
 ./squads/{squad-name}/
-├── squad.yaml                    # Manifest v1 (basico)
+├── squad.yaml                    # Manifest v1 (basic)
 ├── README.md
 ├── config/
 │   ├── coding-standards.md
@@ -407,7 +407,7 @@ flowchart TB
 ├── tasks/
 │   └── example-agent-task.md
 ├── workflows/
-│   └── .gitkeep                 # Vazio (sem orquestracao)
+│   └── .gitkeep                 # Empty (no orchestration)
 ├── checklists/
 │   └── .gitkeep
 ├── templates/
@@ -422,7 +422,7 @@ flowchart TB
 
 ---
 
-## Diagrama de Colaboracao entre Agentes
+## Agent Collaboration Diagram
 
 ```mermaid
 flowchart LR
@@ -435,13 +435,13 @@ flowchart LR
     end
 
     subgraph DEV["💻 @dev (Vulcan)"]
-        DEV_IMPL["Implementa funcionalidade"]
-        DEV_CODE["Escreve codigo de squad"]
+        DEV_IMPL["Implements functionality"]
+        DEV_CODE["Writes squad code"]
     end
 
     subgraph QA["🔍 @qa (Argus)"]
-        QA_REVIEW["Review de codigo"]
-        QA_TEST["Testa squad"]
+        QA_REVIEW["Code review"]
+        QA_TEST["Tests the squad"]
     end
 
     subgraph DEVOPS["⚙️ @devops (Polaris)"]
@@ -449,10 +449,10 @@ flowchart LR
         DEVOPS_DEPLOY["Deployment"]
     end
 
-    SQUAD_CREATOR -->|"Estrutura criada"| DEV
-    DEV -->|"Codigo pronto"| QA
-    QA -->|"Aprovado"| DEVOPS
-    SQUAD_CREATOR -->|"Validacao pre-publish"| DEVOPS
+    SQUAD_CREATOR -->|"Structure created"| DEV
+    DEV -->|"Code ready"| QA
+    QA -->|"Approved"| DEVOPS
+    SQUAD_CREATOR -->|"Pre-publish validation"| DEVOPS
 
     SQUADS[("📦 ./squads/")]
     AEXOS_SQUADS[("🌐 aexos-squads")]
@@ -472,50 +472,50 @@ flowchart LR
 
 ---
 
-## Templates Disponiveis
+## Available Templates
 
-| Template | Descrição | Componentes |
-|----------|-----------|-------------|
-| `basic` | Estrutura minima | 1 agent, 1 task |
-| `etl` | Processamento de dados | 2 agents (extractor, transformer), 3 tasks, scripts |
-| `agent-only` | Apenas agentes | 2 agents (primary, helper), sem tasks |
-| `custom` | Via blueprint | Definido pelo design |
+| Template | Description | Components |
+|----------|-------------|------------|
+| `basic` | Minimal structure | 1 agent, 1 task |
+| `etl` | Data processing | 2 agents (extractor, transformer), 3 tasks, scripts |
+| `agent-only` | Agents only | 2 agents (primary, helper), no tasks |
+| `custom` | Via blueprint | Defined by the design |
 
-## Versoes de Template
+## Template Versions
 
-| Versao | Descrição | Features |
-|--------|-----------|----------|
-| `v2` | **Padrao** - Orquestracao completa | squad.yaml v2, workflow.yaml, skill_dispatch em agents |
-| `v1` | Estrutura legacy | squad.yaml basico, sem orquestracao/skills |
+| Version | Description | Features |
+|---------|-------------|----------|
+| `v2` | **Default** - Full orchestration | squad.yaml v2, workflow.yaml, skill_dispatch in agents |
+| `v1` | Legacy structure | Basic squad.yaml, no orchestration/skills |
 
 ---
 
-## JSON Schema do squad.yaml
+## squad.yaml JSON Schema
 
-### Campos Obrigatorios
+### Required Fields
 
 ```yaml
-name: string          # kebab-case, 2-50 caracteres
+name: string          # kebab-case, 2-50 characters
 version: string       # semver (1.0.0)
 ```
 
-### Campos Opcionais
+### Optional Fields
 
 ```yaml
 short-title: string   # max 100 chars
 description: string   # max 500 chars
 author: string
 license: MIT | Apache-2.0 | ISC | GPL-3.0 | UNLICENSED
-slashPrefix: string   # prefixo para comandos
-tags: string[]        # keywords para descoberta
+slashPrefix: string   # prefix for commands
+tags: string[]        # keywords for discovery
 
 cyryx:
-  minVersion: string  # versao minima do AEXOS
+  minVersion: string  # minimum AEXOS version
   type: squad
 
 components:
-  tasks: string[]     # arquivos de tasks
-  agents: string[]    # arquivos de agents
+  tasks: string[]     # task files
+  agents: string[]    # agent files
   workflows: string[]
   checklists: string[]
   templates: string[]
@@ -536,42 +536,42 @@ dependencies:
 
 ---
 
-## Codigos de Erro de Validacao
+## Validation Error Codes
 
-| Codigo | Severidade | Descrição |
-|--------|------------|-----------|
-| `MANIFEST_NOT_FOUND` | Error | squad.yaml ou config.yaml não encontrado |
-| `YAML_PARSE_ERROR` | Error | Sintaxe YAML invalida |
-| `SCHEMA_ERROR` | Error | Manifest não corresponde ao JSON Schema |
-| `FILE_NOT_FOUND` | Error | Arquivo referenciado não existe |
-| `DEPRECATED_MANIFEST` | Warning | Usando config.yaml ao inves de squad.yaml |
-| `MISSING_DIRECTORY` | Warning | Diretorio esperado não encontrado |
-| `NO_TASKS` | Warning | Nenhum arquivo de task em tasks/ |
-| `TASK_MISSING_FIELD` | Warning | Task sem campo recomendado |
-| `AGENT_INVALID_FORMAT` | Warning | Arquivo de agente pode não seguir formato |
-| `INVALID_NAMING` | Warning | Nome do arquivo não e kebab-case |
+| Code | Severity | Description |
+|------|----------|-------------|
+| `MANIFEST_NOT_FOUND` | Error | squad.yaml or config.yaml not found |
+| `YAML_PARSE_ERROR` | Error | Invalid YAML syntax |
+| `SCHEMA_ERROR` | Error | The manifest does not match the JSON Schema |
+| `FILE_NOT_FOUND` | Error | A referenced file does not exist |
+| `DEPRECATED_MANIFEST` | Warning | Using config.yaml instead of squad.yaml |
+| `MISSING_DIRECTORY` | Warning | Expected directory not found |
+| `NO_TASKS` | Warning | No task file in tasks/ |
+| `TASK_MISSING_FIELD` | Warning | Task missing a recommended field |
+| `AGENT_INVALID_FORMAT` | Warning | The agent file may not follow the format |
+| `INVALID_NAMING` | Warning | The file name is not kebab-case |
 
 ---
 
-## Niveis de Distribuicao
+## Distribution Levels
 
 ```mermaid
 flowchart LR
-    subgraph LOCAL["📂 Nivel 1: Local"]
+    subgraph LOCAL["📂 Level 1: Local"]
         L_PATH["./squads/"]
-        L_DESC["Privado, projeto-especifico"]
+        L_DESC["Private, project-specific"]
         L_CMD["*create-squad"]
     end
 
-    subgraph PUBLIC["🌐 Nivel 2: Publico"]
+    subgraph PUBLIC["🌐 Level 2: Public"]
         P_REPO["github.com/CyryxLabs/aexos-squads"]
-        P_DESC["Squads da comunidade (gratuitos)"]
+        P_DESC["Community squads (free)"]
         P_CMD["*publish-squad"]
     end
 
-    subgraph MARKET["💰 Nivel 3: Marketplace"]
+    subgraph MARKET["💰 Level 3: Marketplace"]
         M_API["api.cyryx.dev/squads"]
-        M_DESC["Squads premium via AEXOS API"]
+        M_DESC["Premium squads via the AEXOS API"]
         M_CMD["*sync-squad-cyryx"]
     end
 
@@ -587,79 +587,79 @@ flowchart LR
 
 ## Best Practices
 
-### Criacao de Squads
+### Squad Creation
 
-1. **Sempre comece com design** - Use `*design-squad` para projetos complexos
-2. **Siga task-first** - Tasks sao o ponto de entrada principal
-3. **Use v2 por padrao** - Suporte a orquestracao e skills
-4. **Valide antes de distribuir** - `*validate-squad` obrigatorio
-5. **Documente bem** - README.md e comentarios em YAML
+1. **Always start with a design** - Use `*design-squad` for complex projects
+2. **Follow task-first** - Tasks are the main entry point
+3. **Use v2 by default** - Support for orchestration and skills
+4. **Validate before distributing** - `*validate-squad` is mandatory
+5. **Document well** - README.md and comments in the YAML
 
-### Organizacao de Componentes
+### Component Organization
 
-1. **Naming**: Sempre use kebab-case
-2. **Tasks**: Inclua todos campos obrigatorios do TASK-FORMAT-V1
-3. **Agents**: Use YAML frontmatter com `agent:` block
-4. **Config**: Especifique modo de heranca (extend/override/none)
+1. **Naming**: Always use kebab-case
+2. **Tasks**: Include every required field from TASK-FORMAT-V1
+3. **Agents**: Use YAML frontmatter with an `agent:` block
+4. **Config**: Specify the inheritance mode (extend/override/none)
 
-### Validacao
+### Validation
 
-1. **Pre-commit**: Execute `*validate-squad` antes de commits
-2. **CI/CD**: Integre validação no pipeline
-3. **Strict mode**: Use `--strict` para tratar warnings como erros
-4. **Correcao**: Enderece warnings para melhor qualidade
+1. **Pre-commit**: Run `*validate-squad` before commits
+2. **CI/CD**: Integrate validation into the pipeline
+3. **Strict mode**: Use `--strict` to treat warnings as errors
+4. **Fixes**: Address warnings for better quality
 
-### Distribuicao
+### Distribution
 
-1. **Teste localmente** - Valide e use antes de publicar
-2. **Documentação** - README completo e descricao clara
-3. **Versionamento** - Use semver corretamente
-4. **Licenca** - Especifique licenca apropriada
+1. **Test locally** - Validate and use it before publishing
+2. **Documentation** - Complete README and a clear description
+3. **Versioning** - Use semver correctly
+4. **License** - Specify an appropriate license
 
 ---
 
 ## Troubleshooting
 
-### Squad não aparece em *list-squads
+### The squad does not show up in *list-squads
 
-- Verificar se diretorio existe em `./squads/`
-- Checar se `squad.yaml` ou `config.yaml` existe
-- Validar YAML syntax do manifest
+- Check whether the directory exists in `./squads/`
+- Check whether `squad.yaml` or `config.yaml` exists
+- Validate the manifest's YAML syntax
 
-### Validacao falha com SCHEMA_ERROR
+### Validation fails with SCHEMA_ERROR
 
-- Checar campo `name` (deve ser kebab-case)
-- Checar campo `version` (deve ser semver: 1.0.0)
-- Usar YAML linter para verificar sintaxe
+- Check the `name` field (it must be kebab-case)
+- Check the `version` field (it must be semver: 1.0.0)
+- Use a YAML linter to check the syntax
 
-### Validacao falha com FILE_NOT_FOUND
+### Validation fails with FILE_NOT_FOUND
 
-- Verificar arquivos listados em `components`
-- Checar paths relativos (relativo ao diretorio do squad)
-- Criar arquivos faltantes ou remover da lista
+- Check the files listed under `components`
+- Check the relative paths (relative to the squad directory)
+- Create the missing files or remove them from the list
 
-### Task reporta TASK_MISSING_FIELD
+### The task reports TASK_MISSING_FIELD
 
-- Adicionar campos obrigatorios:
+- Add the required fields:
   - `task:`, `responsavel:`, `responsavel_type:`
   - `atomic_layer:`, `Entrada:`, `Saida:`, `Checklist:`
-- Seguir formato TASK-FORMAT-SPECIFICATION-V1
+- Follow the TASK-FORMAT-SPECIFICATION-V1 format
 
-### Blueprint falha em gerar
+### The blueprint fails to generate
 
-- Fornecer documentacao mais detalhada
-- Usar `--verbose` para ver analise
-- Usar `--domain` para dar contexto
+- Provide more detailed documentation
+- Use `--verbose` to see the analysis
+- Use `--domain` to give context
 
-### *create-squad --from-design falha
+### *create-squad --from-design fails
 
-- Verificar se blueprint existe no path especificado
-- Validar YAML syntax do blueprint
-- Checar se todos campos requeridos estao presentes
+- Check whether the blueprint exists at the specified path
+- Validate the blueprint's YAML syntax
+- Check whether every required field is present
 
 ---
 
-## Referencias
+## References
 
 - [Task: squad-creator-create.md](.aexos-core/development/tasks/squad-creator-create.md)
 - [Task: squad-creator-validate.md](.aexos-core/development/tasks/squad-creator-validate.md)
@@ -672,27 +672,27 @@ flowchart LR
 
 ---
 
-## Resumo
+## Summary
 
-| Aspecto | Detalhes |
-|---------|----------|
-| **Total de Tasks Core** | 12 task files |
-| **Tasks Ativas** | 9 (create, design, validate, list, analyze, extend, migrate, generate-skills, generate-workflow) |
-| **Tasks Placeholder** | 3 (download, publish, sync-aexos) |
-| **Scripts de Suporte** | 9 scripts em squad/ |
+| Aspect | Details |
+|--------|---------|
+| **Total Core Tasks** | 12 task files |
+| **Active Tasks** | 9 (create, design, validate, list, analyze, extend, migrate, generate-skills, generate-workflow) |
+| **Placeholder Tasks** | 3 (download, publish, sync-aexos) |
+| **Supporting Scripts** | 9 scripts in squad/ |
 | **Schemas** | 2 (squad-schema, squad-design-schema) |
 | **Templates** | 3 (basic, etl, agent-only) |
-| **Versoes Template** | 2 (v1 legacy, v2 orchestration) |
-| **Niveis Distribuicao** | 3 (Local, aexos-squads, AEXOS API) |
+| **Template Versions** | 2 (v1 legacy, v2 orchestration) |
+| **Distribution Levels** | 3 (Local, aexos-squads, AEXOS API) |
 
 ---
 
 ## Changelog
 
-| Data | Autor | Descrição |
-|------|-------|-----------|
-| 2026-02-04 | @squad-creator | Documento inicial criado com 7 diagramas Mermaid |
+| Date | Author | Description |
+|------|--------|-------------|
+| 2026-02-04 | @squad-creator | Initial document created with 7 Mermaid diagrams |
 
 ---
 
-*-- Craft, sempre estruturando*
+*-- Arkantos, always structuring*

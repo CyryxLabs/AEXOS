@@ -4,23 +4,23 @@
 
 ### Goals
 
-- Fornecer visualização interativa do dependency graph do code-intel no terminal
-- Permitir inspeção de blast radius, entity relationships e métricas de cache/latency via CLI
-- Manter alinhamento com Artigo I da Constitution (CLI First) — zero dependência de UI web
-- Tornar dados internos do code-intel visíveis ao usuário (hoje fluem apenas internamente para agentes)
-- Suportar múltiplos formatos de output (ASCII, DOT, Mermaid, JSON) para integração com ferramentas externas
+- Provide interactive visualization of the code-intel dependency graph in the terminal
+- Enable inspection of blast radius, entity relationships and cache/latency metrics via CLI
+- Stay aligned with Article I of the Constitution (CLI First) — zero dependency on a web UI
+- Make code-intel internal data visible to the user (today it flows only internally to agents)
+- Support multiple output formats (ASCII, DOT, Mermaid, JSON) for integration with external tools
 
 ### Background Context
 
-O Epic NOGIC (Code Intelligence) construiu um módulo completo de inteligência de código com 8 capabilities primitivas, 5 compostas e 6 helpers por agente — totalizando 275 testes passando. Contudo, toda essa inteligência é consumida internamente pelos agentes e **não há nenhuma forma de visualizar os grafos, métricas ou relacionamentos no terminal**. Os dados existem (dependency graph, blast radius, entity stats, cache metrics, latency) mas são invisíveis ao usuário.
+The NOGIC Epic (Code Intelligence) built a complete code intelligence module with 8 primitive capabilities, 5 composed ones and 6 helpers per agent — totaling 275 passing tests. However, all of that intelligence is consumed internally by the agents and **there is no way at all to visualize the graphs, metrics or relationships in the terminal**. The data exists (dependency graph, blast radius, entity stats, cache metrics, latency) but is invisible to the user.
 
-Este PRD define um CLI Graph Dashboard que expõe essa riqueza de dados de forma interativa no terminal, usando bibliotecas TUI maduras como `blessed-contrib` para widgets ricos (tree, sparkline, charts, gauges).
+This PRD defines a CLI Graph Dashboard that exposes this wealth of data interactively in the terminal, using mature TUI libraries such as `blessed-contrib` for rich widgets (tree, sparkline, charts, gauges).
 
 ### Change Log
 
 | Date | Version | Description | Author |
 |------|---------|-------------|--------|
-| 2026-02-21 | 1.0 | Initial PRD draft baseado em deep research | Janus (@pm) |
+| 2026-02-21 | 1.0 | Initial PRD draft based on deep research | Janus (@pm) |
 
 ---
 
@@ -28,25 +28,25 @@ Este PRD define um CLI Graph Dashboard que expõe essa riqueza de dados de forma
 
 ### Functional
 
-- **FR1:** O sistema deve renderizar o dependency graph como uma árvore interativa com expand/collapse no terminal (`analyzeDependencies` → tree widget)
-- **FR2:** O sistema deve exibir blast radius visual para qualquer arquivo selecionado (`assessImpact` → gauge/risk display)
-- **FR3:** O sistema deve mostrar métricas de cache (hits/misses) como sparklines em tempo real (`client.getMetrics()` → sparkline widget)
-- **FR4:** O sistema deve plotar latency das capabilities como line chart (`client._latencyLog` → line chart)
-- **FR5:** O sistema deve exibir estatísticas de entidades do entity-registry (total, categorias, última atualização) como tabela (`registry-loader` → table widget)
-- **FR6:** O sistema deve mostrar status do provider code-intel (ativo/inativo, circuit breaker state, failures, uptime) (`isCodeIntelAvailable` + CB → status widget)
-- **FR7:** O sistema deve suportar output em múltiplos formatos: ASCII (padrão), DOT (Graphviz), Mermaid (docs), JSON (processamento programático)
-- **FR8:** O sistema deve suportar modo `--watch` para atualização em tempo real do dashboard
-- **FR9:** O sistema deve funcionar como CLI command (`aexos graph`) com sub-comandos: `--deps`, `--blast <file>`, `--stats`, `--watch`
-- **FR10:** O sistema deve fornecer fallback para dados estáticos do entity-registry quando o Code Graph MCP estiver offline
+- **FR1:** The system must render the dependency graph as an interactive tree with expand/collapse in the terminal (`analyzeDependencies` → tree widget)
+- **FR2:** The system must display a visual blast radius for any selected file (`assessImpact` → gauge/risk display)
+- **FR3:** The system must show cache metrics (hits/misses) as real-time sparklines (`client.getMetrics()` → sparkline widget)
+- **FR4:** The system must plot capability latency as a line chart (`client._latencyLog` → line chart)
+- **FR5:** The system must display entity statistics from the entity-registry (total, categories, last update) as a table (`registry-loader` → table widget)
+- **FR6:** The system must show code-intel provider status (active/inactive, circuit breaker state, failures, uptime) (`isCodeIntelAvailable` + CB → status widget)
+- **FR7:** The system must support output in multiple formats: ASCII (default), DOT (Graphviz), Mermaid (docs), JSON (programmatic processing)
+- **FR8:** The system must support `--watch` mode for real-time dashboard updates
+- **FR9:** The system must work as a CLI command (`aexos graph`) with sub-commands: `--deps`, `--blast <file>`, `--stats`, `--watch`
+- **FR10:** The system must provide a fallback to static entity-registry data when the Code Graph MCP is offline
 
 ### Non Functional
 
-- **NFR1:** O dashboard deve iniciar em menos de 2 segundos
-- **NFR2:** Updates em modo `--watch` devem ocorrer a cada 5 segundos sem impacto perceptível de performance
-- **NFR3:** O sistema deve funcionar em Windows Terminal, PowerShell, e terminais Unix (bash/zsh) — cross-platform
-- **NFR4:** O sistema deve funcionar over SSH sem degradação significativa
-- **NFR5:** Dependências novas devem ser mínimas e mantidas ativamente (blessed/neo-blessed, blessed-contrib, asciichart)
-- **NFR6:** O sistema deve degradar graciosamente se o terminal não suportar Unicode box-drawing characters
+- **NFR1:** The dashboard must start in under 2 seconds
+- **NFR2:** Updates in `--watch` mode must occur every 5 seconds with no perceptible performance impact
+- **NFR3:** The system must work on Windows Terminal, PowerShell, and Unix terminals (bash/zsh) — cross-platform
+- **NFR4:** The system must work over SSH without significant degradation
+- **NFR5:** New dependencies must be minimal and actively maintained (blessed/neo-blessed, blessed-contrib, asciichart)
+- **NFR6:** The system must degrade gracefully if the terminal does not support Unicode box-drawing characters
 
 ---
 
@@ -54,24 +54,24 @@ Este PRD define um CLI Graph Dashboard que expõe essa riqueza de dados de forma
 
 ### Repository Structure: Monorepo
 
-O CLI Graph Dashboard será adicionado ao monorepo existente `aexos-core`, como um novo módulo em `.aexos-core/core/graph-dashboard/` com entrypoint em `bin/aexos-graph.js`.
+The CLI Graph Dashboard will be added to the existing `aexos-core` monorepo, as a new module in `.aexos-core/core/graph-dashboard/` with an entrypoint at `bin/aexos-graph.js`.
 
 ### Service Architecture
 
-Módulo standalone dentro do monorepo que consome dados do `code-intel` module existente e do `entity-registry`. Sem serviços externos — tudo local no terminal.
+A standalone module inside the monorepo that consumes data from the existing `code-intel` module and from the `entity-registry`. No external services — everything local in the terminal.
 
 ### Testing Requirements
 
-Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integration tests para o dashboard completo com dados mock.
+Unit + Integration tests. Unit tests for each widget/data-source adapter. Integration tests for the complete dashboard with mock data.
 
 ### Additional Technical Assumptions and Requests
 
-- **TUI Framework:** `blessed` (ou `neo-blessed` fork) + `blessed-contrib` — widgets nativos para tree, charts, sparklines, gauges
-- **ASCII Charts (MVP):** `asciichart` — zero deps, line charts em ASCII puro para o MVP sem blessed
-- **DAG Layout (V2+):** `d3-dag` — algoritmos Sugiyama/Zherebko para computar layout de grafos complexos
-- **Node.js:** Mínimo v18+ (já requisito do projeto)
-- **Fallback Strategy:** Se `blessed` se tornar unmaintained, migrar para `neo-blessed` fork ou `Ink` (React-based TUI)
-- **Data Sources:** Reutilizar 100% dos dados já disponíveis no code-intel module (analyzeDependencies, assessImpact, getMetrics, isCodeIntelAvailable) e entity-registry.yaml
+- **TUI Framework:** `blessed` (or the `neo-blessed` fork) + `blessed-contrib` — native widgets for tree, charts, sparklines, gauges
+- **ASCII Charts (MVP):** `asciichart` — zero deps, pure ASCII line charts for the MVP without blessed
+- **DAG Layout (V2+):** `d3-dag` — Sugiyama/Zherebko algorithms to compute layout for complex graphs
+- **Node.js:** Minimum v18+ (already a project requirement)
+- **Fallback Strategy:** If `blessed` becomes unmaintained, migrate to the `neo-blessed` fork or `Ink` (React-based TUI)
+- **Data Sources:** Reuse 100% of the data already available in the code-intel module (analyzeDependencies, assessImpact, getMetrics, isCodeIntelAvailable) and entity-registry.yaml
 
 ---
 
@@ -79,23 +79,23 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 ### Epic 1: MVP — ASCII Text Output (`aexos graph`)
 
-**Goal:** Entregar visualização básica do dependency graph e entity stats como output ASCII no terminal, sem dependências TUI pesadas.
+**Goal:** Deliver basic visualization of the dependency graph and entity stats as ASCII output in the terminal, without heavy TUI dependencies.
 
 ### Epic 2: Interactive TUI Dashboard (blessed-contrib)
 
-**Goal:** Dashboard interativo multi-painel com tree widget, charts, sparklines e gauges usando blessed-contrib.
+**Goal:** Interactive multi-panel dashboard with tree widget, charts, sparklines and gauges using blessed-contrib.
 
 ### Epic 3: Real-time & Advanced Visualization
 
-**Goal:** Modo watch para updates em tempo real, blast radius visual, latency charts, e múltiplos formatos de output (DOT, Mermaid).
+**Goal:** Watch mode for real-time updates, visual blast radius, latency charts, and multiple output formats (DOT, Mermaid).
 
 ---
 
 ## Epic 1: MVP — ASCII Text Output
 
-**Goal:** Estabelecer o CLI command `aexos graph` com output ASCII do dependency graph e entity stats. Entrega valor imediato com zero dependências TUI pesadas — apenas `asciichart` para line charts simples. Este é o fundamento sobre o qual os epics seguintes construirão.
+**Goal:** Establish the `aexos graph` CLI command with ASCII output of the dependency graph and entity stats. Delivers immediate value with zero heavy TUI dependencies — only `asciichart` for simple line charts. This is the foundation the following epics will build on.
 
-### Story 1.1: CLI Entrypoint e Dependency Tree ASCII
+### Story 1.1: CLI Entrypoint and ASCII Dependency Tree
 
 **As a** developer using AEXOS,
 **I want** to run `aexos graph --deps` in the terminal,
@@ -103,14 +103,14 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 #### Acceptance Criteria
 
-1. Comando `npx github:CyryxLabs/AEXOS graph` existe e é executável
-2. Flag `--deps` renderiza dependency tree como texto indentado com box-drawing characters (`├─`, `└─`, `│`)
-3. Dados vêm de `analyzeDependencies()` do code-intel module
-4. Fallback para entity-registry.yaml quando Code Graph MCP está offline
-5. Output é válido para pipe (`aexos graph --deps | grep helper`)
-6. Testes unitários cobrem: tree rendering, fallback data, empty graph
+1. The `npx github:CyryxLabs/AEXOS graph` command exists and is executable
+2. The `--deps` flag renders the dependency tree as indented text with box-drawing characters (`├─`, `└─`, `│`)
+3. Data comes from `analyzeDependencies()` in the code-intel module
+4. Fallback to entity-registry.yaml when the Code Graph MCP is offline
+5. Output is valid for piping (`aexos graph --deps | grep helper`)
+6. Unit tests cover: tree rendering, fallback data, empty graph
 
-### Story 1.2: Entity Stats e Cache Metrics ASCII
+### Story 1.2: ASCII Entity Stats and Cache Metrics
 
 **As a** developer using AEXOS,
 **I want** to run `aexos graph --stats` to see entity statistics and cache metrics,
@@ -118,14 +118,14 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 #### Acceptance Criteria
 
-1. Flag `--stats` exibe tabela formatada com: total entidades, categorias, última atualização
-2. Inclui cache hit/miss ratio como percentagem e ASCII sparkline (via `asciichart`)
-3. Inclui latency últimas N operações como ASCII line chart
-4. Dados vêm de `registry-loader` + `client.getMetrics()` + `client._latencyLog`
-5. Funciona sem Code Graph MCP (usa entity-registry.yaml como fallback)
-6. Testes unitários cobrem: stats formatting, sparkline rendering, missing data handling
+1. The `--stats` flag displays a formatted table with: total entities, categories, last update
+2. Includes cache hit/miss ratio as a percentage and an ASCII sparkline (via `asciichart`)
+3. Includes latency of the last N operations as an ASCII line chart
+4. Data comes from `registry-loader` + `client.getMetrics()` + `client._latencyLog`
+5. Works without the Code Graph MCP (uses entity-registry.yaml as fallback)
+6. Unit tests cover: stats formatting, sparkline rendering, missing data handling
 
-### Story 1.3: Provider Status e Output Formats
+### Story 1.3: Provider Status and Output Formats
 
 **As a** developer using AEXOS,
 **I want** to see provider status and export graph data in different formats,
@@ -133,20 +133,20 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 #### Acceptance Criteria
 
-1. Sem flags adicionais, `aexos graph` mostra summary view (dependency tree + stats + provider status)
-2. Provider status mostra: Code Graph MCP (ACTIVE/OFFLINE), Circuit Breaker state, failure count
-3. Flag `--format=json` output JSON estruturado do dependency graph
-4. Flag `--format=dot` output formato DOT para Graphviz
-5. Flag `--format=mermaid` output formato Mermaid para documentação
-6. Testes unitários cobrem: cada formato de output, provider status rendering
+1. With no additional flags, `aexos graph` shows a summary view (dependency tree + stats + provider status)
+2. Provider status shows: Code Graph MCP (ACTIVE/OFFLINE), Circuit Breaker state, failure count
+3. The `--format=json` flag outputs structured JSON of the dependency graph
+4. The `--format=dot` flag outputs DOT format for Graphviz
+5. The `--format=mermaid` flag outputs Mermaid format for documentation
+6. Unit tests cover: each output format, provider status rendering
 
 ---
 
 ## Epic 2: Interactive TUI Dashboard (blessed-contrib)
 
-**Goal:** Construir dashboard interativo multi-painel usando `blessed-contrib` que combina tree widget (dependency graph), charts (latency, cache), e status indicators num único ecrã terminal. Navegação por teclado e mouse.
+**Goal:** Build an interactive multi-panel dashboard using `blessed-contrib` that combines a tree widget (dependency graph), charts (latency, cache), and status indicators on a single terminal screen. Keyboard and mouse navigation.
 
-### Story 2.1: Dashboard Layout e Dependency Tree Widget
+### Story 2.1: Dashboard Layout and Dependency Tree Widget
 
 **As a** developer using AEXOS,
 **I want** an interactive dashboard with a dependency tree I can expand/collapse,
@@ -154,14 +154,14 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 #### Acceptance Criteria
 
-1. `aexos graph --interactive` abre dashboard blessed-contrib fullscreen
-2. Grid layout com áreas definidas: tree (esquerda), stats (direita-topo), charts (direita-baixo)
-3. Tree widget renderiza dependency graph com expand/collapse via Enter
-4. Navegação por teclado (arrows, Enter, q para sair)
-5. Screen resize é responsivo (adapta layout)
-6. Testes unitários cobrem: layout rendering, tree data transformation, keyboard events
+1. `aexos graph --interactive` opens a fullscreen blessed-contrib dashboard
+2. Grid layout with defined areas: tree (left), stats (top-right), charts (bottom-right)
+3. The tree widget renders the dependency graph with expand/collapse via Enter
+4. Keyboard navigation (arrows, Enter, q to quit)
+5. Screen resize is responsive (layout adapts)
+6. Unit tests cover: layout rendering, tree data transformation, keyboard events
 
-### Story 2.2: Métricas e Status Widgets
+### Story 2.2: Metrics and Status Widgets
 
 **As a** developer using AEXOS,
 **I want** to see cache metrics, latency charts and provider status in the dashboard,
@@ -169,12 +169,12 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 #### Acceptance Criteria
 
-1. Sparkline widget mostra cache hit rate em tempo real
-2. Line chart widget mostra latency das últimas N operações
-3. Status widget mostra provider status (ACTIVE/OFFLINE) com cor (verde/vermelho)
-4. Gauge widget mostra blast radius quando um nó é selecionado no tree
-5. Todos os widgets atualizam ao navegar no tree (selecionar entity → atualiza blast radius)
-6. Testes unitários cobrem: widget data binding, update cycle, error states
+1. The sparkline widget shows the cache hit rate in real time
+2. The line chart widget shows the latency of the last N operations
+3. The status widget shows provider status (ACTIVE/OFFLINE) with color (green/red)
+4. The gauge widget shows blast radius when a node is selected in the tree
+5. All widgets update as you navigate the tree (select entity → updates blast radius)
+6. Unit tests cover: widget data binding, update cycle, error states
 
 ### Story 2.3: Data Source Adapters
 
@@ -184,20 +184,20 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 #### Acceptance Criteria
 
-1. `code-intel-source.js` adapter transforma output de analyzeDependencies → tree widget format
-2. `registry-source.js` adapter transforma entity-registry.yaml → table/stats format
-3. Adapters implementam caching local (5s TTL) para evitar queries repetidas
-4. Adapters degradam graciosamente quando provider offline (mostram dados cached ou estáticos)
-5. Adapters expõem interface uniforme: `getData()`, `getLastUpdate()`, `isStale()`
-6. Testes unitários cobrem: data transformation, caching, graceful degradation, stale detection
+1. The `code-intel-source.js` adapter transforms analyzeDependencies output → tree widget format
+2. The `registry-source.js` adapter transforms entity-registry.yaml → table/stats format
+3. Adapters implement local caching (5s TTL) to avoid repeated queries
+4. Adapters degrade gracefully when the provider is offline (show cached or static data)
+5. Adapters expose a uniform interface: `getData()`, `getLastUpdate()`, `isStale()`
+6. Unit tests cover: data transformation, caching, graceful degradation, stale detection
 
 ---
 
 ## Epic 3: Real-time & Advanced Visualization
 
-**Goal:** Adicionar modo watch para updates automáticos, blast radius interativo para qualquer arquivo, e comandos de agente (`*graph`) para integração no workflow dos agentes AEXOS.
+**Goal:** Add watch mode for automatic updates, interactive blast radius for any file, and agent commands (`*graph`) for integration into the AEXOS agents' workflow.
 
-### Story 3.1: Watch Mode e Auto-refresh
+### Story 3.1: Watch Mode and Auto-refresh
 
 **As a** developer using AEXOS,
 **I want** the dashboard to auto-refresh every N seconds,
@@ -205,14 +205,14 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 #### Acceptance Criteria
 
-1. Flag `--watch` ativa auto-refresh a cada 5 segundos (configurável via `--interval`)
-2. Apenas widgets com dados alterados são re-renderizados (diff-based update)
-3. Status bar mostra countdown para próximo refresh
-4. `Ctrl+R` força refresh manual imediato
-5. `Ctrl+C` ou `q` para sair cleanly
-6. Testes unitários cobrem: refresh cycle, diff detection, graceful shutdown
+1. The `--watch` flag enables auto-refresh every 5 seconds (configurable via `--interval`)
+2. Only widgets whose data changed are re-rendered (diff-based update)
+3. The status bar shows a countdown to the next refresh
+4. `Ctrl+R` forces an immediate manual refresh
+5. `Ctrl+C` or `q` to exit cleanly
+6. Unit tests cover: refresh cycle, diff detection, graceful shutdown
 
-### Story 3.2: Blast Radius Interativo
+### Story 3.2: Interactive Blast Radius
 
 **As a** developer using AEXOS,
 **I want** to select any file and see its blast radius visually,
@@ -220,12 +220,12 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 #### Acceptance Criteria
 
-1. `aexos graph --blast <file>` mostra blast radius de um arquivo específico
-2. No dashboard interativo, selecionar nó no tree mostra blast radius no painel direito
-3. Blast radius inclui: direct consumers, indirect affected, risk level (gauge)
-4. Risk levels: LOW (0-3 affected), MEDIUM (4-8), HIGH (9+) com cores
-5. Dados vêm de `assessImpact()` do code-intel enricher
-6. Testes unitários cobrem: blast radius calculation display, risk levels, file not found handling
+1. `aexos graph --blast <file>` shows the blast radius of a specific file
+2. In the interactive dashboard, selecting a node in the tree shows the blast radius in the right panel
+3. Blast radius includes: direct consumers, indirect affected, risk level (gauge)
+4. Risk levels: LOW (0-3 affected), MEDIUM (4-8), HIGH (9+) with colors
+5. Data comes from `assessImpact()` in the code-intel enricher
+6. Unit tests cover: blast radius calculation display, risk levels, file not found handling
 
 ### Story 3.3: Agent Commands Integration
 
@@ -235,27 +235,27 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 #### Acceptance Criteria
 
-1. `*graph deps` no contexto de qualquer agente mostra dependency tree ASCII inline
-2. `*graph blast <file>` mostra blast radius inline
-3. `*graph stats` mostra entity stats inline
-4. Output é formatado para contexto de chat (sem TUI, apenas texto formatado)
-5. Comandos delegam para o módulo graph-dashboard internamente
-6. Testes unitários cobrem: command parsing, inline rendering, agent context integration
+1. `*graph deps` in the context of any agent shows the ASCII dependency tree inline
+2. `*graph blast <file>` shows the blast radius inline
+3. `*graph stats` shows entity stats inline
+4. Output is formatted for chat context (no TUI, only formatted text)
+5. Commands delegate to the graph-dashboard module internally
+6. Unit tests cover: command parsing, inline rendering, agent context integration
 
 ---
 
 ## Checklist Results Report
 
-> PRD gerado em YOLO mode baseado em deep research completo (`docs/research/2026-02-21-cli-graph-dashboard/`). Research cobriu 5 sub-queries com 16+ sources analisadas.
+> PRD generated in YOLO mode based on complete deep research (`docs/research/2026-02-21-cli-graph-dashboard/`). The research covered 5 sub-queries with 16+ sources analyzed.
 
-**Validações aplicadas:**
-- [x] Goals claros e alinhados com Constitution (CLI First)
-- [x] Requirements rastreáveis (FR1-FR10, NFR1-NFR6)
-- [x] Epics sequenciais (MVP → Interactive → Advanced)
-- [x] Stories com acceptance criteria testáveis
-- [x] Technical assumptions documentadas com rationale
-- [x] Dependências de dados mapeadas (code-intel module existente)
-- [x] Riscos documentados no research (blessed maintenance, Windows compatibility, MCP offline)
+**Validations applied:**
+- [x] Clear goals aligned with the Constitution (CLI First)
+- [x] Traceable requirements (FR1-FR10, NFR1-NFR6)
+- [x] Sequential epics (MVP → Interactive → Advanced)
+- [x] Stories with testable acceptance criteria
+- [x] Technical assumptions documented with rationale
+- [x] Data dependencies mapped (existing code-intel module)
+- [x] Risks documented in the research (blessed maintenance, Windows compatibility, MCP offline)
 
 ---
 
@@ -263,12 +263,12 @@ Unit + Integration tests. Unit tests para cada widget/data-source adapter. Integ
 
 ### UX Expert Prompt
 
-> N/A — Este é um CLI-only product (terminal TUI). Não há UI web. O design visual é definido pelo blessed-contrib grid layout documentado no research (`docs/research/2026-02-21-cli-graph-dashboard/03-recommendations.md`).
+> N/A — This is a CLI-only product (terminal TUI). There is no web UI. The visual design is defined by the blessed-contrib grid layout documented in the research (`docs/research/2026-02-21-cli-graph-dashboard/03-recommendations.md`).
 
 ### Architect Prompt
 
-> @architect — Crie a arquitetura técnica detalhada para o CLI Graph Dashboard usando este PRD como input. Foco em: (1) estrutura de módulos dentro de `.aexos-core/core/graph-dashboard/`, (2) data source adapters para code-intel e entity-registry, (3) widget composition pattern com blessed-contrib, (4) CLI command routing via `bin/aexos-graph.js`, (5) fallback strategy quando Code Graph MCP está offline. Reference: `docs/research/2026-02-21-cli-graph-dashboard/03-recommendations.md` para stack recomendado.
+> @architect — Create the detailed technical architecture for the CLI Graph Dashboard using this PRD as input. Focus on: (1) module structure inside `.aexos-core/core/graph-dashboard/`, (2) data source adapters for code-intel and entity-registry, (3) widget composition pattern with blessed-contrib, (4) CLI command routing via `bin/aexos-graph.js`, (5) fallback strategy when the Code Graph MCP is offline. Reference: `docs/research/2026-02-21-cli-graph-dashboard/03-recommendations.md` for the recommended stack.
 
 ---
 
-*— Janus, planejando o futuro 📊*
+*— Janus, planning the future 📊*

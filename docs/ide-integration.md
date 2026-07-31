@@ -468,8 +468,8 @@ npm run sync:ide:cursor
 
 ## Related Documentation
 
-- [Claude Code Guide](./pt/platforms/claude-code.md)
-- [Cursor Guide](./pt/platforms/cursor.md)
+- Claude Code Guide
+- Cursor Guide
 - [Agent Selection Guide](./guides/agent-selection-guide.md)
 - [MCP Global Setup](./guides/mcp-global-setup.md)
 

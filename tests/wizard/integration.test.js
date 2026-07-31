@@ -236,7 +236,6 @@ describe('Wizard Integration - Story 1.7', () => {
   describe('User Profile Selection (Story 10.2)', () => {
     it('should include userProfile in wizard answers', async () => {
       inquirer.prompt
-        .mockResolvedValueOnce({ language: 'en' })
         .mockResolvedValueOnce({ userProfile: 'advanced' })
         .mockResolvedValueOnce({
           projectType: 'greenfield',
@@ -252,7 +251,6 @@ describe('Wizard Integration - Story 1.7', () => {
 
     it('should pass userProfile to configureEnvironment', async () => {
       inquirer.prompt
-        .mockResolvedValueOnce({ language: 'en' })
         .mockResolvedValueOnce({ userProfile: 'bob' })
         .mockResolvedValueOnce({
           projectType: 'greenfield',
@@ -276,7 +274,6 @@ describe('Wizard Integration - Story 1.7', () => {
 
       // Only 2 prompts needed: language + remaining questions (no user profile prompt)
       inquirer.prompt
-        .mockResolvedValueOnce({ language: 'en' })
         .mockResolvedValueOnce({
           projectType: 'greenfield',
           selectedIDEs: ['vscode'],
@@ -298,7 +295,6 @@ describe('Wizard Integration - Story 1.7', () => {
 
       // Need all 3 prompts since user_profile doesn't exist
       inquirer.prompt
-        .mockResolvedValueOnce({ language: 'en' })
         .mockResolvedValueOnce({ userProfile: 'advanced' })
         .mockResolvedValueOnce({
           projectType: 'greenfield',
@@ -318,7 +314,6 @@ describe('Wizard Integration - Story 1.7', () => {
 
       // Need all 3 prompts since user_profile is invalid
       inquirer.prompt
-        .mockResolvedValueOnce({ language: 'en' })
         .mockResolvedValueOnce({ userProfile: 'advanced' })
         .mockResolvedValueOnce({
           projectType: 'greenfield',
@@ -363,9 +358,9 @@ describe('Wizard Integration - Story 1.7', () => {
           packageManager: 'npm',
         });
 
-      // Mock prompt sequence: 1) language, 2) user profile (Story 10.2), 3) project type + IDEs + tech preset, 4) retryDeps
+      // Mock prompt sequence: 1) user profile, 2) project type + IDEs + tech preset, 3) retryDeps
+      // The wizard no longer asks for a language — AEXOS is English-only.
       inquirer.prompt
-        .mockResolvedValueOnce({ language: 'en' })
         .mockResolvedValueOnce({ userProfile: 'advanced' }) // Story 10.2: User Profile
         .mockResolvedValueOnce({
           projectType: 'greenfield',
@@ -389,9 +384,9 @@ describe('Wizard Integration - Story 1.7', () => {
         solution: 'Check your internet connection',
       });
 
-      // Mock prompt sequence: 1) language, 2) user profile (Story 10.2), 3) project type + IDEs + tech preset, 4) retryDeps
+      // Mock prompt sequence: 1) user profile, 2) project type + IDEs + tech preset, 3) retryDeps
+      // The wizard no longer asks for a language — AEXOS is English-only.
       inquirer.prompt
-        .mockResolvedValueOnce({ language: 'en' })
         .mockResolvedValueOnce({ userProfile: 'advanced' }) // Story 10.2: User Profile
         .mockResolvedValueOnce({
           projectType: 'greenfield',
@@ -460,7 +455,6 @@ describe('Wizard Integration - Story 1.7', () => {
 
       // Mock prompt sequence: 1) language, 2) user profile (Story 10.2), 3) project type + IDEs + tech preset, 4) continueWithoutEnv
       inquirer.prompt
-        .mockResolvedValueOnce({ language: 'en' })
         .mockResolvedValueOnce({ userProfile: 'advanced' }) // Story 10.2: User Profile
         .mockResolvedValueOnce({
           projectType: 'greenfield',

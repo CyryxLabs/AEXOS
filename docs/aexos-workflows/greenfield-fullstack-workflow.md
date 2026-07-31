@@ -1,99 +1,99 @@
-# Workflow Greenfield Full-Stack
+# Greenfield Full-Stack Workflow
 
-**Versão:** 1.0.0
-**Tipo:** Greenfield
-**Última Atualização:** 2026-02-04
-**Arquivo Fonte:** `.aexos-core/development/workflows/greenfield-fullstack.yaml`
+**Version:** 1.0.0
+**Type:** Greenfield
+**Last Updated:** 2026-02-04
+**Source File:** `.aexos-core/development/workflows/greenfield-fullstack.yaml`
 
 ---
 
-## Visão Geral
+## Overview
 
-O **Greenfield Full-Stack Workflow** e o fluxo de trabalho principal do AEXOS para construcao de aplicacoes full-stack desde o conceito ate o desenvolvimento. Este workflow suporta tanto planejamento abrangente para projetos complexos quanto prototipagem rapida para projetos simples.
+The **Greenfield Full-Stack Workflow** is the main AEXOS workflow for building full-stack applications from concept through development. This workflow supports both comprehensive planning for complex projects and rapid prototyping for simple projects.
 
-### Tipos de Projeto Suportados
+### Supported Project Types
 
-| Tipo | Descricao |
+| Type | Description |
 |------|-----------|
-| `web-app` | Aplicacoes web modernas |
+| `web-app` | Modern web applications |
 | `saas` | Software as a Service |
-| `enterprise-app` | Aplicacoes corporativas |
-| `prototype` | Prototipos e POCs |
+| `enterprise-app` | Enterprise applications |
+| `prototype` | Prototypes and POCs |
 | `mvp` | Minimum Viable Products |
 
-### Quando Usar Este Workflow
+### When to Use This Workflow
 
-- Construcao de aplicacoes prontas para producao
-- Projetos com multiplos membros na equipe
-- Requisitos de funcionalidades complexas
-- Necessidade de documentacao abrangente
-- Expectativa de manutencao de longo prazo
-- Aplicacoes corporativas ou voltadas para clientes
+- Building production-ready applications
+- Projects with multiple team members
+- Complex feature requirements
+- Need for comprehensive documentation
+- Long-term maintenance expectations
+- Enterprise or customer-facing applications
 
 ---
 
-## Diagrama Geral do Workflow
+## Overall Workflow Diagram
 
 ```mermaid
 flowchart TB
-    subgraph PHASE0["FASE 0: Bootstrap do Ambiente"]
-        A[Inicio: Projeto Greenfield] --> A1{Ambiente pronto?}
-        A1 -->|Nao| A2["@devops: *environment-bootstrap"]
-        A2 --> A3[CLIs instaladas + Repositorio GitHub criado]
-        A1 -->|Sim| A3
+    subgraph PHASE0["PHASE 0: Environment Bootstrap"]
+        A[Start: Greenfield Project] --> A1{Environment ready?}
+        A1 -->|No| A2["@devops: *environment-bootstrap"]
+        A2 --> A3[CLIs installed + GitHub repository created]
+        A1 -->|Yes| A3
     end
 
-    subgraph PHASE1["FASE 1: Descoberta e Planejamento"]
+    subgraph PHASE1["PHASE 1: Discovery and Planning"]
         A3 --> B["@analyst: project-brief.md"]
         B --> C["@pm: prd.md"]
         C --> D["@ux-expert: front-end-spec.md"]
-        D --> D2{Gerar prompt v0?}
-        D2 -->|Sim| D3["@ux-expert: criar prompt v0"]
-        D2 -->|Nao| E["@architect: fullstack-architecture.md"]
-        D3 --> D4[Usuario: gerar UI no v0/Lovable]
+        D --> D2{Generate v0 prompt?}
+        D2 -->|Yes| D3["@ux-expert: create v0 prompt"]
+        D2 -->|No| E["@architect: fullstack-architecture.md"]
+        D3 --> D4[User: generate UI in v0/Lovable]
         D4 --> E
-        E --> F{Arquitetura sugere mudancas no PRD?}
-        F -->|Sim| G["@pm: atualizar prd.md"]
-        F -->|Nao| H["@po: validar todos os artefatos"]
+        E --> F{Architecture suggests PRD changes?}
+        F -->|Yes| G["@pm: update prd.md"]
+        F -->|No| H["@po: validate all artifacts"]
         G --> H
-        H --> I{PO encontrou problemas?}
-        I -->|Sim| J[Retornar ao agente relevante para correcoes]
-        I -->|Nao| K_GATE[Fase 1 Completa]
+        H --> I{PO found issues?}
+        I -->|Yes| J[Return to the relevant agent for fixes]
+        I -->|No| K_GATE[Phase 1 Complete]
         J --> H
     end
 
-    subgraph PHASE2["FASE 2: Fragmentacao de Documentos"]
-        K_GATE --> K["@po: fragmentar documentos"]
-        K --> K1[Cria: source-tree, tech-stack, coding-standards]
+    subgraph PHASE2["PHASE 2: Document Sharding"]
+        K_GATE --> K["@po: shard documents"]
+        K --> K1[Creates: source-tree, tech-stack, coding-standards]
     end
 
-    subgraph PHASE3["FASE 3: Ciclo de Desenvolvimento"]
-        K1 --> L["@sm: criar story"]
-        L --> M{Revisar story draft?}
-        M -->|Sim| N["@analyst/@pm: revisar e aprovar story"]
-        M -->|Nao| O["@dev: implementar story"]
+    subgraph PHASE3["PHASE 3: Development Cycle"]
+        K1 --> L["@sm: create story"]
+        L --> M{Review story draft?}
+        M -->|Yes| N["@analyst/@pm: review and approve story"]
+        M -->|No| O["@dev: implement story"]
         N --> O
-        O --> P{Revisao QA?}
-        P -->|Sim| Q["@qa: revisar implementacao"]
-        P -->|Nao| R{Mais stories?}
-        Q --> S{QA encontrou problemas?}
-        S -->|Sim| T["@dev: resolver feedback do QA"]
-        S -->|Nao| R
+        O --> P{QA review?}
+        P -->|Yes| Q["@qa: review implementation"]
+        P -->|No| R{More stories?}
+        Q --> S{QA found issues?}
+        S -->|Yes| T["@dev: resolve QA feedback"]
+        S -->|No| R
         T --> Q
-        R -->|Sim| L
-        R -->|Nao| U{Retrospectiva do Epic?}
-        U -->|Sim| V["@po: retrospectiva do epic"]
-        U -->|Nao| W[Projeto Completo]
+        R -->|Yes| L
+        R -->|No| U{Epic retrospective?}
+        U -->|Yes| V["@po: epic retrospective"]
+        U -->|No| W[Project Complete]
         V --> W
     end
 
-    %% Caminhos opcionais
-    B -.-> B1[Opcional: brainstorming]
-    B -.-> B2[Opcional: pesquisa de mercado]
-    D -.-> D1[Opcional: pesquisa de usuario]
-    E -.-> E1[Opcional: pesquisa tecnica]
+    %% Optional paths
+    B -.-> B1[Optional: brainstorming]
+    B -.-> B2[Optional: market research]
+    D -.-> D1[Optional: user research]
+    E -.-> E1[Optional: technical research]
 
-    %% Estilos
+    %% Styles
     style A2 fill:#FF6B6B,color:#fff
     style A3 fill:#FF6B6B,color:#fff
     style W fill:#90EE90
@@ -114,108 +114,108 @@ flowchart TB
 
 ---
 
-## Fases do Workflow
+## Workflow Phases
 
-### Legenda de Cores
+### Color Legend
 
-| Cor | Significado |
+| Color | Meaning |
 |-----|-------------|
-| Vermelho (#FF6B6B) | Bootstrap do ambiente |
-| Laranja claro (#FFE4B5) | Planejamento e documentacao |
-| Azul claro (#ADD8E6) | Desenvolvimento e fragmentacao |
-| Roxo claro (#E6E6FA) | Geracao de UI com IA |
-| Amarelo (#F0E68C) | Revisao e validacao |
-| Verde (#90EE90) | Conclusao |
+| Red (#FF6B6B) | Environment bootstrap |
+| Light orange (#FFE4B5) | Planning and documentation |
+| Light blue (#ADD8E6) | Development and sharding |
+| Light purple (#E6E6FA) | AI-powered UI generation |
+| Yellow (#F0E68C) | Review and validation |
+| Green (#90EE90) | Completion |
 
 ---
 
-## FASE 0: Bootstrap do Ambiente
+## PHASE 0: Environment Bootstrap
 
-### Objetivo
-Configurar o ambiente de desenvolvimento antes de iniciar o planejamento do projeto.
+### Goal
+Set up the development environment before starting project planning.
 
-### Diagrama Detalhado
+### Detailed Diagram
 
 ```mermaid
 flowchart TD
-    subgraph FASE0["FASE 0: Environment Bootstrap"]
-        START([Inicio]) --> CHECK{Ambiente pronto?}
+    subgraph FASE0["PHASE 0: Environment Bootstrap"]
+        START([Start]) --> CHECK{Environment ready?}
 
-        CHECK -->|Verificar| ENV_REPORT[".aexos/environment-report.json existe?"]
-        ENV_REPORT -->|Sim| SKIP[Pular bootstrap]
-        ENV_REPORT -->|Nao| BOOTSTRAP
+        CHECK -->|Check| ENV_REPORT[".aexos/environment-report.json exists?"]
+        ENV_REPORT -->|Yes| SKIP[Skip bootstrap]
+        ENV_REPORT -->|No| BOOTSTRAP
 
         subgraph BOOTSTRAP["@devops: *environment-bootstrap"]
-            B1[Detectar Sistema Operacional]
-            B2[Auditoria de CLIs]
-            B3[Instalacao Interativa]
-            B4[Autenticacao de Servicos]
-            B5[Inicializacao do Repositorio Git]
-            B6[Scaffold da Estrutura do Projeto]
-            B7[Geracao do Relatorio de Ambiente]
+            B1[Detect Operating System]
+            B2[CLI Audit]
+            B3[Interactive Installation]
+            B4[Service Authentication]
+            B5[Git Repository Initialization]
+            B6[Project Structure Scaffold]
+            B7[Environment Report Generation]
 
             B1 --> B2 --> B3 --> B4 --> B5 --> B6 --> B7
         end
 
         SKIP --> DONE
-        B7 --> DONE([Fase 0 Completa])
+        B7 --> DONE([Phase 0 Complete])
     end
 ```
 
-### Step Detalhado
+### Detailed Step
 
-| Step | Agente | Task | Entrada | Saida | Obrigatorio |
+| Step | Agent | Task | Input | Output | Required |
 |------|--------|------|---------|-------|-------------|
-| 1 | @devops (Polaris) | `environment-bootstrap.md` | `project_name`, `project_path`, `github_org` | `.aexos/config.yaml`, `.aexos/environment-report.json`, `.gitignore`, `README.md`, `package.json` | Sim |
+| 1 | @devops (Polaris) | `environment-bootstrap.md` | `project_name`, `project_path`, `github_org` | `.aexos/config.yaml`, `.aexos/environment-report.json`, `.gitignore`, `README.md`, `package.json` | Yes |
 
-### Artefatos Criados
+### Artifacts Created
 
-| Arquivo | Descricao |
+| File | Description |
 |---------|-----------|
-| `.aexos/config.yaml` | Configuracao do projeto AEXOS |
-| `.aexos/environment-report.json` | Relatorio completo do ambiente |
-| `.gitignore` | Regras de ignore do Git |
-| `README.md` | Documentacao inicial do projeto |
-| `package.json` | Configuracao NPM |
+| `.aexos/config.yaml` | AEXOS project configuration |
+| `.aexos/environment-report.json` | Complete environment report |
+| `.gitignore` | Git ignore rules |
+| `README.md` | Initial project documentation |
+| `package.json` | NPM configuration |
 
-### CLIs Verificadas/Instaladas
+### CLIs Verified/Installed
 
-| Categoria | Ferramenta | Obrigatoria |
+| Category | Tool | Required |
 |-----------|------------|-------------|
-| Essencial | git | Sim |
-| Essencial | gh (GitHub CLI) | Sim |
-| Essencial | node | Sim |
-| Essencial | npm | Sim |
-| Infraestrutura | supabase | Recomendada |
-| Infraestrutura | railway | Opcional |
-| Infraestrutura | docker | Recomendada |
-| Qualidade | coderabbit | Recomendada |
-| Opcional | pnpm | Opcional |
-| Opcional | bun | Opcional |
+| Essential | git | Yes |
+| Essential | gh (GitHub CLI) | Yes |
+| Essential | node | Yes |
+| Essential | npm | Yes |
+| Infrastructure | supabase | Recommended |
+| Infrastructure | railway | Optional |
+| Infrastructure | docker | Recommended |
+| Quality | coderabbit | Recommended |
+| Optional | pnpm | Optional |
+| Optional | bun | Optional |
 
-### Condicoes de Pulo
+### Skip Conditions
 
-- Pular apenas se o projeto ja tiver `.aexos/environment-report.json`
-- Re-executar ao trocar de maquina ou quando novos membros entrarem no projeto
+- Skip only if the project already has `.aexos/environment-report.json`
+- Re-run when switching machines or when new members join the project
 
 ---
 
-## FASE 1: Descoberta e Planejamento
+## PHASE 1: Discovery and Planning
 
-### Objetivo
-Criar todos os artefatos de planejamento: project brief, PRD, especificacoes e arquitetura.
+### Goal
+Create all planning artifacts: project brief, PRD, specifications, and architecture.
 
-### Diagrama Detalhado
+### Detailed Diagram
 
 ```mermaid
 flowchart TD
-    subgraph FASE1["FASE 1: Discovery & Planning"]
-        ENV_DONE([Bootstrap Completo]) --> ANALYST
+    subgraph FASE1["PHASE 1: Discovery & Planning"]
+        ENV_DONE([Bootstrap Complete]) --> ANALYST
 
         subgraph ANALYST["@analyst: Sirius"]
-            A1[Brainstorming Opcional]
-            A2[Pesquisa de Mercado Opcional]
-            A3[Criar Project Brief]
+            A1[Optional Brainstorming]
+            A2[Optional Market Research]
+            A3[Create Project Brief]
             A1 -.-> A3
             A2 -.-> A3
         end
@@ -223,255 +223,255 @@ flowchart TD
         ANALYST --> |project-brief.md| PM
 
         subgraph PM["@pm: Janus"]
-            P1[Revisar Project Brief]
-            P2[Criar PRD usando prd-tmpl]
+            P1[Review Project Brief]
+            P2[Create PRD using prd-tmpl]
             P1 --> P2
         end
 
         PM --> |prd.md| UX
 
-        subgraph UX["@ux-expert: Uma"]
-            U1[Pesquisa de Usuario Opcional]
-            U2[Criar Front-End Spec]
-            U3{Gerar prompt v0?}
-            U4[Criar prompt para v0/Lovable]
+        subgraph UX["@ux-expert: Iris"]
+            U1[Optional User Research]
+            U2[Create Front-End Spec]
+            U3{Generate v0 prompt?}
+            U4[Create prompt for v0/Lovable]
             U1 -.-> U2
             U2 --> U3
-            U3 -->|Sim| U4
+            U3 -->|Yes| U4
         end
 
         UX --> |front-end-spec.md| ARCH
 
         subgraph ARCH["@architect: Vega"]
-            AR1[Pesquisa Tecnica Opcional]
-            AR2[Criar Fullstack Architecture]
-            AR3{Sugere mudancas no PRD?}
+            AR1[Optional Technical Research]
+            AR2[Create Fullstack Architecture]
+            AR3{Suggests PRD changes?}
             AR1 -.-> AR2
             AR2 --> AR3
         end
 
-        AR3 -->|Sim| PM_UPDATE["@pm: Atualizar PRD"]
-        AR3 -->|Nao| PO
+        AR3 -->|Yes| PM_UPDATE["@pm: Update PRD"]
+        AR3 -->|No| PO
         PM_UPDATE --> PO
 
         subgraph PO["@po: Themis"]
-            PO1[Executar po-master-checklist]
-            PO2{Encontrou problemas?}
+            PO1[Run po-master-checklist]
+            PO2{Found issues?}
             PO1 --> PO2
         end
 
-        PO2 -->|Sim| FIX[Retornar ao agente relevante]
+        PO2 -->|Yes| FIX[Return to the relevant agent]
         FIX --> PO
-        PO2 -->|Nao| DONE([Fase 1 Completa])
+        PO2 -->|No| DONE([Phase 1 Complete])
     end
 ```
 
-### Steps Detalhados
+### Detailed Steps
 
-| Step | Agente | Task/Template | Entrada | Saida | Obrigatorio |
+| Step | Agent | Task/Template | Input | Output | Required |
 |------|--------|---------------|---------|-------|-------------|
-| 1 | @analyst (Sirius) | `project-brief-tmpl.yaml` | Requisitos do usuario, pesquisa | `project-brief.md` | Sim |
-| 2 | @pm (Janus) | `prd-tmpl.yaml` | `project-brief.md` | `prd.md` | Sim |
-| 3 | @ux-expert (Iris) | `front-end-spec-tmpl.yaml` | `prd.md` | `front-end-spec.md` | Sim |
-| 4 | @ux-expert (Iris) | `generate-ai-frontend-prompt.md` | `front-end-spec.md` | Prompt para v0/Lovable | Opcional |
-| 5 | @architect (Vega) | `fullstack-architecture-tmpl.yaml` | `prd.md`, `front-end-spec.md` | `fullstack-architecture.md` | Sim |
-| 6 | @pm (Janus) | Atualizacao | `fullstack-architecture.md` | `prd.md` atualizado | Condicional |
-| 7 | @po (Themis) | `po-master-checklist.md` | Todos os artefatos | Validacao | Sim |
+| 1 | @analyst (Sirius) | `project-brief-tmpl.yaml` | User requirements, research | `project-brief.md` | Yes |
+| 2 | @pm (Janus) | `prd-tmpl.yaml` | `project-brief.md` | `prd.md` | Yes |
+| 3 | @ux-expert (Iris) | `front-end-spec-tmpl.yaml` | `prd.md` | `front-end-spec.md` | Yes |
+| 4 | @ux-expert (Iris) | `generate-ai-frontend-prompt.md` | `front-end-spec.md` | Prompt for v0/Lovable | Optional |
+| 5 | @architect (Vega) | `fullstack-architecture-tmpl.yaml` | `prd.md`, `front-end-spec.md` | `fullstack-architecture.md` | Yes |
+| 6 | @pm (Janus) | Update | `fullstack-architecture.md` | Updated `prd.md` | Conditional |
+| 7 | @po (Themis) | `po-master-checklist.md` | All artifacts | Validation | Yes |
 
-### Artefatos Criados
+### Artifacts Created
 
-| Documento | Responsavel | Localizacao |
+| Document | Owner | Location |
 |-----------|-------------|-------------|
 | Project Brief | @analyst | `docs/project-brief.md` |
 | PRD | @pm | `docs/prd.md` |
 | Front-End Spec | @ux-expert | `docs/front-end-spec.md` |
 | Fullstack Architecture | @architect | `docs/fullstack-architecture.md` |
 
-### Steps Opcionais
+### Optional Steps
 
-| Step | Agente | Descricao |
+| Step | Agent | Description |
 |------|--------|-----------|
-| Brainstorming | @analyst | Sessao de ideacao estruturada |
-| Pesquisa de Mercado | @analyst | Analise de mercado e competidores |
-| Pesquisa de Usuario | @ux-expert | Entrevistas e analise de necessidades |
-| Pesquisa Tecnica | @architect | Investigacao de tecnologias |
+| Brainstorming | @analyst | Structured ideation session |
+| Market Research | @analyst | Market and competitor analysis |
+| User Research | @ux-expert | Interviews and needs analysis |
+| Technical Research | @architect | Technology investigation |
 
 ---
 
-## FASE 2: Fragmentacao de Documentos
+## PHASE 2: Document Sharding
 
-### Objetivo
-Dividir o PRD e a arquitetura em partes prontas para desenvolvimento.
+### Goal
+Split the PRD and the architecture into development-ready parts.
 
-### Diagrama Detalhado
+### Detailed Diagram
 
 ```mermaid
 flowchart TD
-    subgraph FASE2["FASE 2: Document Sharding"]
-        PHASE1_DONE([Fase 1 Completa]) --> SHARD
+    subgraph FASE2["PHASE 2: Document Sharding"]
+        PHASE1_DONE([Phase 1 Complete]) --> SHARD
 
-        subgraph SHARD["@po: Fragmentar Documentos"]
-            S1[Carregar docs/prd.md]
-            S2[Identificar secoes nivel 2]
-            S3[Extrair cada secao]
-            S4[Ajustar niveis de heading]
-            S5[Criar arquivos individuais]
-            S6[Gerar index.md]
+        subgraph SHARD["@po: Shard Documents"]
+            S1[Load docs/prd.md]
+            S2[Identify level 2 sections]
+            S3[Extract each section]
+            S4[Adjust heading levels]
+            S5[Create individual files]
+            S6[Generate index.md]
 
             S1 --> S2 --> S3 --> S4 --> S5 --> S6
         end
 
         SHARD --> OUTPUT
 
-        subgraph OUTPUT["Artefatos Gerados"]
+        subgraph OUTPUT["Generated Artifacts"]
             O1[docs/prd/index.md]
-            O2[docs/prd/*.md - secoes]
+            O2[docs/prd/*.md - sections]
             O3[docs/architecture/source-tree.md]
             O4[docs/architecture/tech-stack.md]
             O5[docs/architecture/coding-standards.md]
         end
 
-        OUTPUT --> DONE([Fase 2 Completa])
+        OUTPUT --> DONE([Phase 2 Complete])
     end
 ```
 
-### Step Detalhado
+### Detailed Step
 
-| Step | Agente | Task | Entrada | Saida | Obrigatorio |
+| Step | Agent | Task | Input | Output | Required |
 |------|--------|------|---------|-------|-------------|
-| 1 | @po (Themis) | `shard-doc.md` | `docs/prd.md` | Pasta `docs/prd/` com arquivos fragmentados | Sim |
+| 1 | @po (Themis) | `shard-doc.md` | `docs/prd.md` | `docs/prd/` folder with sharded files | Yes |
 
-### Metodo de Fragmentacao
+### Sharding Method
 
-1. **Automatico (Recomendado)**: Usar `md-tree explode {input} {output}`
-2. **Manual**: Dividir por secoes de nivel 2 (##)
+1. **Automatic (Recommended)**: Use `md-tree explode {input} {output}`
+2. **Manual**: Split by level 2 (##) sections
 
-### Artefatos Criados
+### Artifacts Created
 
-| Arquivo | Descricao |
+| File | Description |
 |---------|-----------|
-| `docs/prd/index.md` | Indice com links para todas as secoes |
-| `docs/prd/*.md` | Secoes individuais do PRD |
-| `docs/architecture/source-tree.md` | Estrutura de diretorios do projeto |
-| `docs/architecture/tech-stack.md` | Stack tecnologica |
-| `docs/architecture/coding-standards.md` | Padroes de codigo |
+| `docs/prd/index.md` | Index with links to all sections |
+| `docs/prd/*.md` | Individual PRD sections |
+| `docs/architecture/source-tree.md` | Project directory structure |
+| `docs/architecture/tech-stack.md` | Technology stack |
+| `docs/architecture/coding-standards.md` | Coding standards |
 
 ---
 
-## FASE 3: Ciclo de Desenvolvimento
+## PHASE 3: Development Cycle
 
-### Objetivo
-Implementacao iterativa de stories com revisao de QA.
+### Goal
+Iterative story implementation with QA review.
 
-### Diagrama Detalhado
+### Detailed Diagram
 
 ```mermaid
 flowchart TD
-    subgraph FASE3["FASE 3: Development Cycle"]
-        PHASE2_DONE([Fase 2 Completa]) --> STORY_LOOP
+    subgraph FASE3["PHASE 3: Development Cycle"]
+        PHASE2_DONE([Phase 2 Complete]) --> STORY_LOOP
 
-        subgraph STORY_LOOP["Loop de Stories"]
+        subgraph STORY_LOOP["Story Loop"]
             SM["@sm: *draft"]
-            REVIEW_Q{Revisar draft?}
-            REVIEW["@analyst/@pm: Revisar story"]
+            REVIEW_Q{Review draft?}
+            REVIEW["@analyst/@pm: Review story"]
             DEV["@dev: *develop"]
-            QA_Q{Revisao QA?}
+            QA_Q{QA review?}
             QA["@qa: *review"]
-            QA_ISSUES{Problemas encontrados?}
+            QA_ISSUES{Issues found?}
             FIX["@dev: *apply-qa-fixes"]
-            MORE_Q{Mais stories?}
+            MORE_Q{More stories?}
 
             SM --> REVIEW_Q
-            REVIEW_Q -->|Sim| REVIEW
-            REVIEW_Q -->|Nao| DEV
+            REVIEW_Q -->|Yes| REVIEW
+            REVIEW_Q -->|No| DEV
             REVIEW --> DEV
             DEV --> QA_Q
-            QA_Q -->|Sim| QA
-            QA_Q -->|Nao| MORE_Q
+            QA_Q -->|Yes| QA
+            QA_Q -->|No| MORE_Q
             QA --> QA_ISSUES
-            QA_ISSUES -->|Sim| FIX
-            QA_ISSUES -->|Nao| MORE_Q
+            QA_ISSUES -->|Yes| FIX
+            QA_ISSUES -->|No| MORE_Q
             FIX --> QA
-            MORE_Q -->|Sim| SM
+            MORE_Q -->|Yes| SM
         end
 
-        MORE_Q -->|Nao| RETRO_Q{Retrospectiva?}
-        RETRO_Q -->|Sim| RETRO["@po: Retrospectiva do Epic"]
-        RETRO_Q -->|Nao| DONE
-        RETRO --> DONE([Projeto Completo])
+        MORE_Q -->|No| RETRO_Q{Retrospective?}
+        RETRO_Q -->|Yes| RETRO["@po: Epic Retrospective"]
+        RETRO_Q -->|No| DONE
+        RETRO --> DONE([Project Complete])
     end
 ```
 
-### Steps Detalhados
+### Detailed Steps
 
-| Step | Agente | Task | Entrada | Saida | Obrigatorio |
+| Step | Agent | Task | Input | Output | Required |
 |------|--------|------|---------|-------|-------------|
-| 1 | @sm (Chronos) | `sm-create-next-story.md` | Docs fragmentados | `{epic}.{story}.story.md` | Sim |
-| 2 | @analyst/@pm | Revisao | Story draft | Story aprovada | Opcional |
-| 3 | @dev (Vulcan) | `dev-develop-story.md` | Story aprovada | Implementacao | Sim |
-| 4 | @qa (Argus) | `qa-review-story.md` | Implementacao | Feedback de QA | Opcional |
-| 5 | @dev (Vulcan) | `apply-qa-fixes.md` | Feedback de QA | Correcoes aplicadas | Condicional |
-| 6 | @po (Themis) | Retrospectiva | Epic completo | Retrospectiva | Opcional |
+| 1 | @sm (Chronos) | `sm-create-next-story.md` | Sharded docs | `{epic}.{story}.story.md` | Yes |
+| 2 | @analyst/@pm | Review | Story draft | Approved story | Optional |
+| 3 | @dev (Vulcan) | `dev-develop-story.md` | Approved story | Implementation | Yes |
+| 4 | @qa (Argus) | `qa-review-story.md` | Implementation | QA feedback | Optional |
+| 5 | @dev (Vulcan) | `apply-qa-fixes.md` | QA feedback | Applied fixes | Conditional |
+| 6 | @po (Themis) | Retrospective | Completed epic | Retrospective | Optional |
 
-### Ciclo de Story
+### Story Cycle
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Draft: @sm cria story
-    Draft --> Approved: Revisao opcional
-    Draft --> InProgress: Dev aceita
-    Approved --> InProgress: Dev inicia
-    InProgress --> Review: Dev completa
-    Review --> InProgress: QA encontra problemas
-    Review --> Done: QA aprova
+    [*] --> Draft: @sm creates story
+    Draft --> Approved: Optional review
+    Draft --> InProgress: Dev accepts
+    Approved --> InProgress: Dev starts
+    InProgress --> Review: Dev completes
+    Review --> InProgress: QA finds issues
+    Review --> Done: QA approves
     Done --> [*]
 ```
 
-### Status de Story
+### Story Status
 
-| Status | Descricao | Proximo Passo |
+| Status | Description | Next Step |
 |--------|-----------|---------------|
-| Draft | Story criada pelo SM | Revisao ou desenvolvimento |
-| Approved | Story revisada e aprovada | Desenvolvimento |
-| In Progress | Em desenvolvimento | Revisao de QA |
-| Review | Aguardando revisao | QA ou correcoes |
-| Done | Completa e aprovada | Proxima story |
+| Draft | Story created by the SM | Review or development |
+| Approved | Story reviewed and approved | Development |
+| In Progress | Under development | QA review |
+| Review | Awaiting review | QA or fixes |
+| Done | Complete and approved | Next story |
 
 ---
 
-## Agentes Participantes
+## Participating Agents
 
-### Tabela de Agentes
+### Agent Table
 
-| Agente | ID | Icone | Arquetipo | Responsabilidades |
+| Agent | ID | Icon | Archetype | Responsibilities |
 |--------|----|----|-----------|-------------------|
-| Polaris | @devops | ⚡ | Operator | Bootstrap de ambiente, push Git, releases, CI/CD |
-| Sirius | @analyst | 🔍 | Decoder | Pesquisa de mercado, brainstorming, project brief |
-| Janus | @pm | 📋 | Strategist | PRD, estrategia de produto, epics |
-| Uma | @ux-expert | 🎨 | Empathizer | Specs de frontend, UX, design systems |
-| Vega | @architect | 🏛️ | Visionary | Arquitetura full-stack, decisoes tecnicas |
-| Themis | @po | 🎯 | Balancer | Validacao de artefatos, backlog, fragmentacao |
-| Chronos | @sm | 🌊 | Facilitator | Criacao de stories, sprint planning |
-| Vulcan | @dev | 💻 | Builder | Implementacao de codigo, testes |
-| Argus | @qa | ✅ | Guardian | Revisao de qualidade, testes, gates |
+| Polaris | @devops | ⚡ | Operator | Environment bootstrap, Git push, releases, CI/CD |
+| Sirius | @analyst | 🔍 | Decoder | Market research, brainstorming, project brief |
+| Janus | @pm | 📋 | Strategist | PRD, product strategy, epics |
+| Iris | @ux-expert | 🎨 | Empathizer | Frontend specs, UX, design systems |
+| Vega | @architect | 🏛️ | Visionary | Full-stack architecture, technical decisions |
+| Themis | @po | 🎯 | Balancer | Artifact validation, backlog, sharding |
+| Chronos | @sm | 🌊 | Facilitator | Story creation, sprint planning |
+| Vulcan | @dev | 💻 | Builder | Code implementation, tests |
+| Argus | @qa | ✅ | Guardian | Quality review, tests, gates |
 
-### Diagrama de Interacao entre Agentes
+### Agent Interaction Diagram
 
 ```mermaid
 graph LR
-    subgraph Planejamento
+    subgraph Planning
         ANALYST[🔍 Sirius<br>@analyst]
         PM[📋 Janus<br>@pm]
-        UX[🎨 Uma<br>@ux-expert]
+        UX[🎨 Iris<br>@ux-expert]
         ARCH[🏛️ Vega<br>@architect]
     end
 
-    subgraph Governanca
+    subgraph Governance
         PO[🎯 Themis<br>@po]
         SM[🌊 Chronos<br>@sm]
     end
 
-    subgraph Execucao
+    subgraph Execution
         DEV[💻 Vulcan<br>@dev]
         QA[✅ Argus<br>@qa]
         DEVOPS[⚡ Polaris<br>@devops]
@@ -480,25 +480,25 @@ graph LR
     ANALYST -->|project-brief| PM
     PM -->|prd| UX
     UX -->|front-end-spec| ARCH
-    ARCH -->|arquitetura| PO
+    ARCH -->|architecture| PO
     PO -->|stories| SM
     SM -->|story| DEV
-    DEV -->|implementacao| QA
+    DEV -->|implementation| QA
     QA -->|feedback| DEV
-    DEV -->|pronto| DEVOPS
+    DEV -->|ready| DEVOPS
 
-    PM -.->|atualiza PRD| ARCH
-    PO -.->|valida| PM
-    PO -.->|valida| ARCH
+    PM -.->|updates PRD| ARCH
+    PO -.->|validates| PM
+    PO -.->|validates| ARCH
 ```
 
 ---
 
-## Tasks Executadas
+## Executed Tasks
 
-### Lista Completa de Tasks
+### Complete Task List
 
-| Fase | Task | Agente | Arquivo |
+| Phase | Task | Agent | File |
 |------|------|--------|---------|
 | 0 | Environment Bootstrap | @devops | `environment-bootstrap.md` |
 | 1 | Create Document | @analyst, @pm, @ux-expert, @architect | `create-doc.md` |
@@ -512,31 +512,31 @@ graph LR
 | 3 | Review Story | @qa | `qa-review-story.md` |
 | 3 | Apply QA Fixes | @dev | `apply-qa-fixes.md` |
 
-### Templates Utilizados
+### Templates Used
 
-| Template | Agente | Propósito |
+| Template | Agent | Purpose |
 |----------|--------|-----------|
-| `project-brief-tmpl.yaml` | @analyst | Estrutura do project brief |
-| `prd-tmpl.yaml` | @pm | Estrutura do PRD |
-| `front-end-spec-tmpl.yaml` | @ux-expert | Especificacao de frontend |
-| `fullstack-architecture-tmpl.yaml` | @architect | Arquitetura completa |
-| `story-tmpl.yaml` | @sm | Template de user story |
+| `project-brief-tmpl.yaml` | @analyst | Project brief structure |
+| `prd-tmpl.yaml` | @pm | PRD structure |
+| `front-end-spec-tmpl.yaml` | @ux-expert | Frontend specification |
+| `fullstack-architecture-tmpl.yaml` | @architect | Complete architecture |
+| `story-tmpl.yaml` | @sm | User story template |
 
-### Checklists Utilizados
+### Checklists Used
 
-| Checklist | Agente | Proposito |
+| Checklist | Agent | Purpose |
 |-----------|--------|-----------|
-| `po-master-checklist.md` | @po | Validacao de todos os artefatos |
-| `story-draft-checklist.md` | @sm | Qualidade da story draft |
+| `po-master-checklist.md` | @po | Validation of all artifacts |
+| `story-draft-checklist.md` | @sm | Story draft quality |
 | `story-dod-checklist.md` | @dev | Definition of Done |
 
 ---
 
-## Pre-requisitos
+## Prerequisites
 
-### Requisitos de Sistema
+### System Requirements
 
-| Requisito | Minimo | Recomendado |
+| Requirement | Minimum | Recommended |
 |-----------|--------|-------------|
 | Windows | 10 1809+ | 11 |
 | macOS | 12+ | 14+ |
@@ -544,18 +544,18 @@ graph LR
 | Node.js | 18.x | 20.x |
 | Git | 2.x | 2.43+ |
 
-### Ferramentas Obrigatorias
+### Required Tools
 
-| Ferramenta | Comando de Verificacao | Instalacao |
+| Tool | Verification Command | Installation |
 |------------|------------------------|------------|
-| Git | `git --version` | Nativo do sistema |
+| Git | `git --version` | Native to the system |
 | GitHub CLI | `gh --version` | `winget install GitHub.cli` |
 | Node.js | `node --version` | `winget install OpenJS.NodeJS.LTS` |
-| npm | `npm --version` | Incluido com Node.js |
+| npm | `npm --version` | Bundled with Node.js |
 
-### Autenticacoes Necessarias
+### Required Authentications
 
-| Servico | Comando de Login | Verificacao |
+| Service | Login Command | Verification |
 |---------|------------------|-------------|
 | GitHub | `gh auth login` | `gh auth status` |
 | Supabase | `supabase login` | `supabase projects list` |
@@ -563,47 +563,47 @@ graph LR
 
 ---
 
-## Entradas e Saidas
+## Inputs and Outputs
 
-### Fluxo de Dados
+### Data Flow
 
 ```mermaid
 flowchart LR
-    subgraph Entradas
-        I1[Requisitos do Usuario]
-        I2[Pesquisa de Mercado]
-        I3[Feedback de Usuarios]
+    subgraph Inputs
+        I1[User Requirements]
+        I2[Market Research]
+        I3[User Feedback]
     end
 
-    subgraph Fase0["Fase 0"]
+    subgraph Fase0["Phase 0"]
         E1[.aexos/config.yaml]
-        E2[Repositorio GitHub]
+        E2[GitHub Repository]
     end
 
-    subgraph Fase1["Fase 1"]
+    subgraph Fase1["Phase 1"]
         P1[project-brief.md]
         P2[prd.md]
         P3[front-end-spec.md]
         P4[fullstack-architecture.md]
     end
 
-    subgraph Fase2["Fase 2"]
+    subgraph Fase2["Phase 2"]
         S1[docs/prd/*.md]
         S2[source-tree.md]
         S3[tech-stack.md]
         S4[coding-standards.md]
     end
 
-    subgraph Fase3["Fase 3"]
+    subgraph Fase3["Phase 3"]
         D1[Stories .md]
-        D2[Codigo fonte]
-        D3[Testes]
+        D2[Source code]
+        D3[Tests]
     end
 
-    subgraph Saidas
-        O1[Aplicacao Completa]
-        O2[Documentacao]
-        O3[Testes Automatizados]
+    subgraph Outputs
+        O1[Complete Application]
+        O2[Documentation]
+        O3[Automated Tests]
     end
 
     I1 --> E1
@@ -633,109 +633,109 @@ flowchart LR
     D3 --> O3
 ```
 
-### Matriz de Entradas/Saidas por Fase
+### Input/Output Matrix by Phase
 
-| Fase | Entrada | Saida |
+| Phase | Input | Output |
 |------|---------|-------|
-| 0 | Nome do projeto, organizacao GitHub | Config AEXOS, repo Git, estrutura de pastas |
-| 1 | Requisitos, pesquisa | Brief, PRD, specs, arquitetura |
-| 2 | PRD, arquitetura | Documentos fragmentados, indexes |
-| 3 | Stories, docs fragmentados | Codigo, testes, aplicacao |
+| 0 | Project name, GitHub organization | AEXOS config, Git repo, folder structure |
+| 1 | Requirements, research | Brief, PRD, specs, architecture |
+| 2 | PRD, architecture | Sharded documents, indexes |
+| 3 | Stories, sharded docs | Code, tests, application |
 
 ---
 
-## Pontos de Decisao
+## Decision Points
 
-### Tabela de Decisoes
+### Decision Table
 
-| Fase | Ponto de Decisao | Opcoes | Criterio |
+| Phase | Decision Point | Options | Criterion |
 |------|------------------|--------|----------|
-| 0 | Ambiente pronto? | Pular / Executar bootstrap | Existencia de `.aexos/environment-report.json` |
-| 1 | Gerar prompt v0? | Sim / Nao | Usuario quer geracao de UI com IA |
-| 1 | Arquitetura sugere mudancas? | Atualizar PRD / Continuar | Recomendacao do arquiteto |
-| 1 | PO encontrou problemas? | Corrigir / Aprovar | Resultado do checklist |
-| 3 | Revisar story draft? | Revisar / Pular para dev | Complexidade da story |
-| 3 | Revisao QA? | Sim / Nao | Criticidade da story |
-| 3 | Mais stories? | Continuar / Finalizar | Backlog do epic |
-| 3 | Retrospectiva? | Sim / Nao | Epic completo |
+| 0 | Environment ready? | Skip / Run bootstrap | Existence of `.aexos/environment-report.json` |
+| 1 | Generate v0 prompt? | Yes / No | User wants AI-powered UI generation |
+| 1 | Does the architecture suggest changes? | Update PRD / Continue | Architect recommendation |
+| 1 | Did the PO find issues? | Fix / Approve | Checklist result |
+| 3 | Review story draft? | Review / Skip to dev | Story complexity |
+| 3 | QA review? | Yes / No | Story criticality |
+| 3 | More stories? | Continue / Finish | Epic backlog |
+| 3 | Retrospective? | Yes / No | Epic complete |
 
-### Fluxograma de Decisoes
+### Decision Flowchart
 
 ```mermaid
 flowchart TD
-    D1{Ambiente pronto?}
-    D1 -->|Verificar .aexos/environment-report.json| D1_CHECK
-    D1_CHECK -->|Existe| SKIP[Pular Fase 0]
-    D1_CHECK -->|Nao existe| RUN[Executar Bootstrap]
+    D1{Environment ready?}
+    D1 -->|Check .aexos/environment-report.json| D1_CHECK
+    D1_CHECK -->|Exists| SKIP[Skip Phase 0]
+    D1_CHECK -->|Does not exist| RUN[Run Bootstrap]
 
-    D2{Gerar prompt v0?}
-    D2 -->|Usuario quer UI gerada| D2_YES[Gerar prompt]
-    D2 -->|Nao necessario| D2_NO[Ir para arquitetura]
+    D2{Generate v0 prompt?}
+    D2 -->|User wants generated UI| D2_YES[Generate prompt]
+    D2 -->|Not needed| D2_NO[Go to architecture]
 
-    D3{Mudancas no PRD?}
-    D3 -->|Arquiteto recomenda| D3_YES[Atualizar PRD]
-    D3 -->|Nao necessario| D3_NO[Continuar validacao]
+    D3{PRD changes?}
+    D3 -->|Architect recommends| D3_YES[Update PRD]
+    D3 -->|Not needed| D3_NO[Continue validation]
 
-    D4{Problemas encontrados?}
-    D4 -->|PO encontrou issues| D4_YES[Corrigir com agente]
-    D4 -->|Tudo OK| D4_NO[Aprovar e continuar]
+    D4{Issues found?}
+    D4 -->|PO found issues| D4_YES[Fix with agent]
+    D4 -->|All OK| D4_NO[Approve and continue]
 ```
 
 ---
 
 ## Troubleshooting
 
-### Problemas Comuns
+### Common Problems
 
-#### Fase 0: Bootstrap do Ambiente
+#### Phase 0: Environment Bootstrap
 
-| Problema | Causa | Solucao |
+| Problem | Cause | Solution |
 |----------|-------|---------|
-| `winget` nao reconhecido | Windows desatualizado | Atualizar Windows ou usar `choco`/`scoop` |
-| `gh auth login` falha | Conexao ou proxy | Verificar internet, configurar proxy |
-| Permissao negada no repositorio | Token sem escopo | Re-autenticar com `--scopes repo,workflow` |
-| Docker nao inicia | Servico parado | Iniciar Docker Desktop |
+| `winget` not recognized | Outdated Windows | Update Windows or use `choco`/`scoop` |
+| `gh auth login` fails | Connection or proxy | Check internet access, configure proxy |
+| Permission denied on the repository | Token missing scope | Re-authenticate with `--scopes repo,workflow` |
+| Docker does not start | Service stopped | Start Docker Desktop |
 
-#### Fase 1: Planejamento
+#### Phase 1: Planning
 
-| Problema | Causa | Solucao |
+| Problem | Cause | Solution |
 |----------|-------|---------|
-| Template nao encontrado | Caminho incorreto | Verificar `.aexos-core/development/templates/` |
-| Conflito entre PRD e arquitetura | Requisitos divergentes | Reunir PM e Architect para alinhar |
-| Checklist falha | Artefatos incompletos | Retornar ao agente responsavel |
+| Template not found | Incorrect path | Check `.aexos-core/development/templates/` |
+| Conflict between PRD and architecture | Divergent requirements | Get PM and Architect together to align |
+| Checklist fails | Incomplete artifacts | Return to the responsible agent |
 
-#### Fase 2: Fragmentacao
+#### Phase 2: Sharding
 
-| Problema | Causa | Solucao |
+| Problem | Cause | Solution |
 |----------|-------|---------|
-| `md-tree` nao encontrado | Nao instalado | `npm install -g @kayvan/markdown-tree-parser` |
-| Secoes nao detectadas | Formato incorreto | Verificar headings `##` no documento |
-| Conteudo perdido | Code blocks com `##` | Usar metodo manual com parsing correto |
+| `md-tree` not found | Not installed | `npm install -g @kayvan/markdown-tree-parser` |
+| Sections not detected | Incorrect format | Check `##` headings in the document |
+| Content lost | Code blocks containing `##` | Use the manual method with correct parsing |
 
-#### Fase 3: Desenvolvimento
+#### Phase 3: Development
 
-| Problema | Causa | Solucao |
+| Problem | Cause | Solution |
 |----------|-------|---------|
-| Story incompleta | SM pulou campos | Executar `story-draft-checklist` |
-| Testes falhando | Codigo quebrado | @dev executar `*run-tests` |
-| QA bloqueando | Issues CRITICAL | Resolver com @dev antes de prosseguir |
-| Epic nao encontrado no ClickUp | Task nao criada | Criar Epic com tags corretas |
+| Incomplete story | SM skipped fields | Run `story-draft-checklist` |
+| Failing tests | Broken code | @dev runs `*run-tests` |
+| QA blocking | CRITICAL issues | Resolve with @dev before proceeding |
+| Epic not found in ClickUp | Task not created | Create the Epic with the correct tags |
 
-### Comandos de Diagnostico
+### Diagnostic Commands
 
 ```bash
-# Verificar ambiente
+# Check the environment
 cat .aexos/environment-report.json
 
-# Verificar CLIs
+# Check CLIs
 git --version && gh --version && node --version
 
-# Verificar autenticacao
+# Check authentication
 gh auth status
 supabase projects list
 railway whoami
 
-# Verificar estrutura do projeto
+# Check the project structure
 ls -la .aexos/
 ls -la docs/
 ```
@@ -744,38 +744,38 @@ ls -la docs/
 
 ## Handoff Prompts
 
-### Transicoes entre Fases
+### Transitions Between Phases
 
-| De | Para | Prompt de Handoff |
+| From | To | Handoff Prompt |
 |----|------|-------------------|
-| Fase 0 | Fase 1 | "Bootstrap do ambiente completo! Repo Git criado, CLIs verificadas, estrutura do projeto pronta. Inicie um novo chat com @analyst para criar o project brief." |
-| @analyst | @pm | "Project brief completo. Salve como `docs/project-brief.md` no seu projeto, depois crie o PRD." |
-| @pm | @ux-expert | "PRD pronto. Salve como `docs/prd.md` no seu projeto, depois crie a especificacao de UI/UX." |
-| @ux-expert | @architect | "Spec de UI/UX completa. Salve como `docs/front-end-spec.md` no seu projeto, depois crie a arquitetura fullstack." |
-| @architect | @po | "Arquitetura completa. Salve como `docs/fullstack-architecture.md`. Voce sugere mudancas nas stories do PRD ou precisa de novas stories?" |
-| Fase 1 | Fase 2 | "Todos os artefatos de planejamento validados. Agora fragmente documentos para desenvolvimento: @po → *shard-doc docs/prd.md" |
-| Fase 2 | Fase 3 | "Documentos fragmentados! source-tree.md, tech-stack.md, coding-standards.md criados. Inicie desenvolvimento: @sm → *draft" |
-| Conclusao | - | "Todas as stories implementadas e revisadas. Fase de desenvolvimento do projeto completa!" |
+| Phase 0 | Phase 1 | "Environment bootstrap complete! Git repo created, CLIs verified, project structure ready. Start a new chat with @analyst to create the project brief." |
+| @analyst | @pm | "Project brief complete. Save it as `docs/project-brief.md` in your project, then create the PRD." |
+| @pm | @ux-expert | "PRD ready. Save it as `docs/prd.md` in your project, then create the UI/UX specification." |
+| @ux-expert | @architect | "UI/UX spec complete. Save it as `docs/front-end-spec.md` in your project, then create the fullstack architecture." |
+| @architect | @po | "Architecture complete. Save it as `docs/fullstack-architecture.md`. Do you suggest changes to the PRD stories, or are new stories needed?" |
+| Phase 1 | Phase 2 | "All planning artifacts validated. Now shard the documents for development: @po → *shard-doc docs/prd.md" |
+| Phase 2 | Phase 3 | "Documents sharded! source-tree.md, tech-stack.md, coding-standards.md created. Start development: @sm → *draft" |
+| Completion | - | "All stories implemented and reviewed. Project development phase complete!" |
 
 ---
 
-## Referencias
+## References
 
-### Arquivos Relacionados
+### Related Files
 
-| Tipo | Arquivo | Descricao |
+| Type | File | Description |
 |------|---------|-----------|
-| Workflow | `.aexos-core/development/workflows/greenfield-fullstack.yaml` | Definicao do workflow |
-| Task | `.aexos-core/development/tasks/environment-bootstrap.md` | Bootstrap do ambiente |
-| Task | `.aexos-core/development/tasks/shard-doc.md` | Fragmentacao de documentos |
-| Task | `.aexos-core/development/tasks/sm-create-next-story.md` | Criacao de stories |
-| Agente | `.aexos-core/development/agents/*.md` | Definicoes de agentes |
-| Template | `.aexos-core/development/templates/*.yaml` | Templates de documentos |
-| Checklist | `.aexos-core/development/checklists/*.md` | Checklists de validacao |
+| Workflow | `.aexos-core/development/workflows/greenfield-fullstack.yaml` | Workflow definition |
+| Task | `.aexos-core/development/tasks/environment-bootstrap.md` | Environment bootstrap |
+| Task | `.aexos-core/development/tasks/shard-doc.md` | Document sharding |
+| Task | `.aexos-core/development/tasks/sm-create-next-story.md` | Story creation |
+| Agent | `.aexos-core/development/agents/*.md` | Agent definitions |
+| Template | `.aexos-core/development/templates/*.yaml` | Document templates |
+| Checklist | `.aexos-core/development/checklists/*.md` | Validation checklists |
 
-### Documentacao Externa
+### External Documentation
 
-| Recurso | URL |
+| Resource | URL |
 |---------|-----|
 | GitHub CLI | https://cli.github.com/manual/ |
 | Supabase CLI | https://supabase.com/docs/guides/cli |
@@ -784,13 +784,13 @@ ls -la docs/
 
 ---
 
-## Historico de Versoes
+## Version History
 
-| Versao | Data | Alteracoes |
+| Version | Date | Changes |
 |--------|------|------------|
-| 1.0.0 | 2026-02-04 | Documentacao inicial completa |
+| 1.0.0 | 2026-02-04 | Complete initial documentation |
 
 ---
 
-**Mantido por:** AEXOS Development Team
-**Ultima Revisao:** 2026-02-04
+**Maintained by:** AEXOS Development Team
+**Last Reviewed:** 2026-02-04

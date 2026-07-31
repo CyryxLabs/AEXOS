@@ -1,7 +1,5 @@
 # Linux Installation Guide for AEXOS (Cyryx)
 
-> 🌐 [EN](linux.md) | [PT](../pt/installation/linux.md) | [ES](../es/installation/linux.md)
-
 ---
 
 ## Supported Distributions
@@ -215,7 +213,6 @@ The installer automatically:
 
 2. Commands are installed to `.claude/commands/AEXOS/`
 3. Use `/agent-name` to activate agents
-
 
 3. Use `@agent-name` to activate agents
 

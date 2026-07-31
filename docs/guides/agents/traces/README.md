@@ -30,7 +30,7 @@ This directory contains comprehensive runtime execution trace documentation for 
 | @po | Themis (Balancer) | 17 | Direct | [po-execution-trace.md](./po-execution-trace.md) |
 | @pm | Janus (Strategist) | 13 | Direct | [pm-execution-trace.md](./pm-execution-trace.md) |
 | @sm | Chronos (Flow) | 6 | Direct | [sm-execution-trace.md](./sm-execution-trace.md) |
-| @analyst | Alex (Explorer) | 14 | Direct | [analyst-execution-trace.md](./analyst-execution-trace.md) |
+| @analyst | Sirius (Explorer) | 14 | Direct | [analyst-execution-trace.md](./analyst-execution-trace.md) |
 | @squad-creator | Forge (Creator) | 13 | Direct | [squad-creation-execution-trace.md](./squad-creation-execution-trace.md) |
 
 ---
@@ -90,7 +90,7 @@ graph TD
     subgraph "Specialist Layer"
         DE[@data-engineer<br/>Ceres]
         UX[@ux-design-expert<br/>Iris]
-        ANALYST[@analyst<br/>Alex]
+        ANALYST[@analyst<br/>Sirius]
         SQUAD[@squad-creator<br/>Forge]
     end
 

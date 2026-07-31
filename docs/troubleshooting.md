@@ -1,7 +1,5 @@
 # AEXOS (Cyryx) Troubleshooting Guide
 
-> 🌐 **EN** | [PT](./pt/troubleshooting.md) | [ES](./es/troubleshooting.md)
-
 ---
 
 This comprehensive guide helps you diagnose and resolve common issues with AEXOS (Cyryx).

@@ -1049,7 +1049,7 @@ Three task pairs exist with both a generic and agent-prefixed version:
 |------------------------|----------------|--------------------|-----------------------|----------------|
 | `create-next-story.md` (`createNextStory()` by Chronos) | `sm-create-next-story.md` (`smCreateNextStory()` by Chronos) | @sm → `create-next-story.md` | `story-development-cycle.yaml` → `create-next-story` | **Keep generic**, deprecate `sm-` prefix |
 | `apply-qa-fixes.md` (`applyQaFixes()` by Vulcan) | `dev-apply-qa-fixes.md` (`devApplyQaFixes()` by Vulcan) | @dev → `apply-qa-fixes.md` | `qa-loop.yaml` → `dev-apply-qa-fixes.md` | **Mismatch!** Agent def ≠ YAML. Standardize. |
-| `validate-next-story.md` (`validateNextStory()` by Quinn) | `dev-validate-next-story.md` (`devValidateNextStory()` by Vulcan) | @po/@dev → `validate-next-story.md` | (indirect) | Different tasks for different agents. Both valid. |
+| `validate-next-story.md` (`validateNextStory()` by Argus) | `dev-validate-next-story.md` (`devValidateNextStory()` by Vulcan) | @po/@dev → `validate-next-story.md` | (indirect) | Different tasks for different agents. Both valid. |
 
 ### 6.3 Naming Inconsistencies in Documentation
 

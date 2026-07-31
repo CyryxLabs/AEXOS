@@ -38,7 +38,7 @@ sequenceDiagram
     CC->>DMd: Load agent file (STEP 1)
     CC->>DMd: Adopt persona (STEP 2)
     CC->>ACL: loadAgentDefinition('devops')
-    ACL-->>CC: { agent: { name: 'Gage', icon: '⚡' }, commands: [...30], ... }
+    ACL-->>CC: { agent: { name: 'Polaris', icon: '⚡' }, commands: [...30], ... }
 
     CC->>GG: execute generate-greeting.js (CLI wrapper)
     GG->>GB: new GreetingBuilder()

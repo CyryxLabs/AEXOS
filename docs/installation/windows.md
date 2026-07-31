@@ -1,7 +1,5 @@
 # Windows Installation Guide for AEXOS (Cyryx)
 
-> 🌐 [EN](windows.md) | [PT](../pt/installation/windows.md) | [ES](../es/installation/windows.md)
-
 ---
 
 ## Supported Versions
@@ -184,7 +182,6 @@ The installer automatically:
 
 2. Commands are installed to `.claude\commands\AEXOS\`
 3. Use `/agent-name` to activate agents
-
 
 2. Run the installer
 4. Use `@agent-name` to activate agents

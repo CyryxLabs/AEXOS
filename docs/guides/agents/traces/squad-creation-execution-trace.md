@@ -35,7 +35,7 @@ sequenceDiagram
     CC->>AMd: Load agent file (STEP 1)
     CC->>AMd: Adopt persona (STEP 2)
     CC->>ACL: loadAgentDefinition('squad-creator')
-    ACL-->>CC: { agent: { name: 'Craft', icon: '🏗️' }, commands: [...13], ... }
+    ACL-->>CC: { agent: { name: 'Arkantos', icon: '🏗️' }, commands: [...13], ... }
 
     CC->>GB: new GreetingBuilder()
     Note over GB: Loads ContextDetector, GitConfigDetector,<br/>WorkflowNavigator, GreetingPreferenceManager,<br/>core-config.yaml

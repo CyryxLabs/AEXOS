@@ -1,7 +1,5 @@
 # AEXOS (Cyryx) Installation Documentation
 
-> 🌐 **EN** | [PT](../pt/installation/README.md) | [ES](../es/installation/README.md)
-
 **Version:** 2.1.0
 **Last Updated:** 2025-01-24
 

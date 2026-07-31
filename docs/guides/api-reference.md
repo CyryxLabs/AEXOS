@@ -1,7 +1,5 @@
 # AEXOS API Reference
 
-> **EN** | [PT](../pt/guides/api-reference.md) | [ES](../es/guides/api-reference.md)
-
 ---
 
 Complete API reference for AEXOS (Cyryx) - the AI-Orchestrated System for Full Stack Development.
@@ -86,7 +84,7 @@ AEXOS provides a unified API for interacting with specialized AI agents through 
 | `@analyst`       | Sirius  | Explorer     | Market research, competitive analysis    |
 | `@data-engineer` | Ceres   | Architect    | Database schema, migrations, queries     |
 | `@devops`        | Polaris   | Optimizer    | CI/CD, deployment, git operations        |
-| `@ux-expert`     | Uma    | Creator      | UI/UX design, wireframes                 |
+| `@ux-expert`     | Iris    | Creator      | UI/UX design, wireframes                 |
 | `@aexos-master`   | Zeus  | Orchestrator | Framework orchestration, meta-operations |
 
 ### Activation Behavior
@@ -665,7 +663,6 @@ alwaysApply: false
 ---
 # Agent content...
 ```
-
 
 ```
 └── agents/

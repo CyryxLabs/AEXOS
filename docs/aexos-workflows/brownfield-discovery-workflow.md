@@ -1,72 +1,72 @@
 # Workflow: Brownfield Discovery
 
 **ID:** `brownfield-discovery`
-**Versão:** 2.0
-**Tipo:** Brownfield (Projetos Existentes)
-**Duração Estimada:** 4-8 horas
-**Última Atualização:** 2026-02-04
+**Version:** 2.0
+**Type:** Brownfield (Existing Projects)
+**Estimated Duration:** 4-8 hours
+**Last Updated:** 2026-02-04
 
 ---
 
-## Visão Geral
+## Overview
 
-O **Brownfield Discovery** é um workflow multi-agente completo para avaliação de débito técnico em projetos existentes. Projetado especificamente para projetos migrando de plataformas como Lovable, v0.dev, ou codebases legados, este workflow:
+**Brownfield Discovery** is a complete multi-agent workflow for technical debt assessment in existing projects. Designed specifically for projects migrating from platforms such as Lovable, v0.dev, or legacy codebases, this workflow:
 
-- Documenta o sistema de forma abrangente
-- Identifica debitos tecnicos em todas as camadas (sistema, database, frontend)
-- Valida achados com especialistas de domínio
-- Gera relatórios executivos para stakeholders
-- Cria epics e stories prontas para desenvolvimento
+- Documents the system comprehensively
+- Identifies technical debt across every layer (system, database, frontend)
+- Validates findings with domain specialists
+- Generates executive reports for stakeholders
+- Creates epics and stories ready for development
 
-### Casos de Uso Principais
+### Primary Use Cases
 
-| Cenário | Recomendado |
+| Scenario | Recommended |
 |---------|-------------|
-| Migração de projeto Lovable/v0.dev | Sim |
-| Auditoria completa de codebase | Sim |
-| Planejamento de modernização | Sim |
-| Assessment pre-investimento | Sim |
-| Onboarding em projeto legado | Sim |
-| Due diligence técnica | Sim |
-| Novo projeto (greenfield) | Não - use workflows `greenfield-*` |
-| Enhancement isolado | Não - use `brownfield-create-story` |
+| Lovable/v0.dev project migration | Yes |
+| Full codebase audit | Yes |
+| Modernization planning | Yes |
+| Pre-investment assessment | Yes |
+| Onboarding onto a legacy project | Yes |
+| Technical due diligence | Yes |
+| New project (greenfield) | No - use the `greenfield-*` workflows |
+| Isolated enhancement | No - use `brownfield-create-story` |
 
 ---
 
-## Diagrama do Workflow
+## Workflow Diagram
 
 ```mermaid
 flowchart TD
-    subgraph FASE_1_3["FASES 1-3: Coleta de Dados"]
-        A[("Inicio: Brownfield Discovery")] --> B["@architect<br/>Documentação do Sistema"]
-        B --> C{Projeto tem<br/>banco de dados?}
-        C -->|Sim| D["@data-engineer<br/>Schema + Audit"]
-        C -->|Nao| E["@ux-design-expert<br/>Frontend Spec"]
+    subgraph FASE_1_3["PHASES 1-3: Data Collection"]
+        A[("Start: Brownfield Discovery")] --> B["@architect<br/>System Documentation"]
+        B --> C{Does the project have<br/>a database?}
+        C -->|Yes| D["@data-engineer<br/>Schema + Audit"]
+        C -->|No| E["@ux-design-expert<br/>Frontend Spec"]
         D --> E
     end
 
-    subgraph FASE_4["FASE 4: Consolidacao Inicial"]
-        E --> F["@architect<br/>Consolida DRAFT"]
+    subgraph FASE_4["PHASE 4: Initial Consolidation"]
+        E --> F["@architect<br/>Consolidates DRAFT"]
     end
 
-    subgraph FASE_5_7["FASES 5-7: Validacao dos Especialistas"]
-        F --> G["@data-engineer<br/>Valida secao DB"]
-        G --> H["@ux-design-expert<br/>Valida secao UX"]
+    subgraph FASE_5_7["PHASES 5-7: Specialist Validation"]
+        F --> G["@data-engineer<br/>Validates DB section"]
+        G --> H["@ux-design-expert<br/>Validates UX section"]
         H --> I["@qa<br/>Quality Gate Review"]
         I --> J{QA Gate?}
-        J -->|NEEDS WORK| K["Retrabalho:<br/>aplicar correcoes no DRAFT"]
+        J -->|NEEDS WORK| K["Rework:<br/>apply fixes to the DRAFT"]
         K --> F
     end
 
-    subgraph FASE_8_9["FASES 8-9: Relatorios Finais"]
-        J -->|APPROVED| L["@architect<br/>Assessment Final"]
-        L --> M["@analyst<br/>Relatorio Executivo"]
+    subgraph FASE_8_9["PHASES 8-9: Final Reports"]
+        J -->|APPROVED| L["@architect<br/>Final Assessment"]
+        L --> M["@analyst<br/>Executive Report"]
     end
 
-    subgraph FASE_10["FASE 10: Planning"]
-        M --> N["@pm<br/>Criar Epic"]
-        N --> O["@pm<br/>Criar Stories"]
-        O --> P(["Discovery Completo"])
+    subgraph FASE_10["PHASE 10: Planning"]
+        M --> N["@pm<br/>Create Epic"]
+        N --> O["@pm<br/>Create Stories"]
+        O --> P(["Discovery Complete"])
     end
 
     style A fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
@@ -87,12 +87,12 @@ flowchart TD
 
 ---
 
-## Diagrama de Sequência Detalhado
+## Detailed Sequence Diagram
 
 ```mermaid
 sequenceDiagram
     autonumber
-    participant U as Usuário
+    participant U as User
     participant AR as @architect<br/>Vega
     participant DE as @data-engineer<br/>Ceres
     participant UX as @ux-design-expert<br/>Iris
@@ -101,582 +101,582 @@ sequenceDiagram
     participant PM as @pm<br/>Janus
 
     rect rgb(255, 248, 220)
-        Note over AR,UX: FASES 1-3: Coleta de Dados (Paralelizável)
-        U->>AR: Iniciar Brownfield Discovery
+        Note over AR,UX: PHASES 1-3: Data Collection (Parallelizable)
+        U->>AR: Start Brownfield Discovery
         AR->>AR: *document-project
         AR-->>U: docs/architecture/system-architecture.md
 
-        alt Projeto tem database
-            U->>DE: Auditar banco de dados
+        alt Project has a database
+            U->>DE: Audit the database
             DE->>DE: *db-schema-audit + *security-audit
             DE-->>U: supabase/docs/SCHEMA.md + DB-AUDIT.md
         end
 
-        U->>UX: Documentar frontend
+        U->>UX: Document the frontend
         UX->>UX: *create-front-end-spec
         UX-->>U: docs/frontend/frontend-spec.md
     end
 
     rect rgb(173, 216, 230)
-        Note over AR: FASE 4: Consolidacao Inicial
-        U->>AR: Consolidar todos os achados
-        AR->>AR: Ler todos os documentos
+        Note over AR: PHASE 4: Initial Consolidation
+        U->>AR: Consolidate all the findings
+        AR->>AR: Read all the documents
         AR-->>U: docs/prd/technical-debt-DRAFT.md
     end
 
     rect rgb(240, 230, 140)
-        Note over DE,QA: FASES 5-7: Validacao dos Especialistas
-        U->>DE: Revisar seção Database
-        DE->>DE: Validar + estimar + priorizar
+        Note over DE,QA: PHASES 5-7: Specialist Validation
+        U->>DE: Review the Database section
+        DE->>DE: Validate + estimate + prioritize
         DE-->>U: docs/reviews/db-specialist-review.md
 
-        U->>UX: Revisar seção UX/Frontend
-        UX->>UX: Validar + estimar + priorizar
+        U->>UX: Review the UX/Frontend section
+        UX->>UX: Validate + estimate + prioritize
         UX-->>U: docs/reviews/ux-specialist-review.md
 
         U->>QA: Quality Gate Review
-        QA->>QA: Verificar gaps + riscos + dependências
+        QA->>QA: Check gaps + risks + dependencies
 
         alt QA Gate APPROVED
             QA-->>U: docs/reviews/qa-review.md (APPROVED)
         else QA Gate NEEDS WORK
             QA-->>U: docs/reviews/qa-review.md (NEEDS WORK)
-            Note over AR: Retorna para FASE 4
+            Note over AR: Returns to PHASE 4
         end
     end
 
     rect rgb(221, 160, 221)
-        Note over AR,PM: FASES 8-10: Finalização
-        U->>AR: Criar assessment final
-        AR->>AR: Incorporar todos os reviews
+        Note over AR,PM: PHASES 8-10: Finalization
+        U->>AR: Create the final assessment
+        AR->>AR: Incorporate all the reviews
         AR-->>U: docs/prd/technical-debt-assessment.md
 
-        U->>AN: Criar relatório executivo
-        AN->>AN: Calcular custos + ROI
+        U->>AN: Create the executive report
+        AN->>AN: Calculate costs + ROI
         AN-->>U: docs/reports/TECHNICAL-DEBT-REPORT.md
 
-        U->>PM: Criar epic e stories
+        U->>PM: Create epic and stories
         PM->>PM: *brownfield-create-epic
-        PM->>PM: *brownfield-create-story (repetição)
+        PM->>PM: *brownfield-create-story (repeatable)
         PM-->>U: docs/stories/epic-technical-debt.md + stories
     end
 
-    Note over U,PM: Discovery Completo!
+    Note over U,PM: Discovery Complete!
 ```
 
 ---
 
-## Steps Detalhados
+## Detailed Steps
 
-### FASE 1: Coleta - Sistema
+### PHASE 1: Collection - System
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `system_documentation` |
-| **Fase** | 1 |
-| **Nome da Fase** | Coleta: Sistema |
-| **Agente** | `@architect` (Vega) |
-| **Ação** | `*document-project` |
-| **Elicitação** | Sim |
-| **Duração Estimada** | 30-60 min |
+| **Phase** | 1 |
+| **Phase Name** | Collection: System |
+| **Agent** | `@architect` (Vega) |
+| **Action** | `*document-project` |
+| **Elicitation** | Yes |
+| **Estimated Duration** | 30-60 min |
 | **Output** | `docs/architecture/system-architecture.md` |
 
-**O que o agente analisa:**
-- Stack tecnológico (React, Vite, Tailwind, etc.)
-- Estrutura de pastas e componentes
-- Dependências e versões
-- Padrões de código existentes
-- Pontos de integração
-- Configurações (env, build, deploy)
+**What the agent analyzes:**
+- Technology stack (React, Vite, Tailwind, etc.)
+- Folder and component structure
+- Dependencies and versions
+- Existing code patterns
+- Integration points
+- Configuration (env, build, deploy)
 
-**Débitos identificados (nível sistema):**
-- Dependências desatualizadas
-- Código duplicado
-- Falta de testes
-- Configurações hardcoded
-- Acoplamento excessivo
+**Debt identified (system level):**
+- Outdated dependencies
+- Duplicated code
+- Lack of tests
+- Hardcoded configuration
+- Excessive coupling
 
 ---
 
-### FASE 2: Coleta - Database
+### PHASE 2: Collection - Database
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `database_documentation` |
-| **Fase** | 2 |
-| **Nome da Fase** | Coleta: Database |
-| **Agente** | `@data-engineer` (Ceres - Sage) |
-| **Acao** | `*db-schema-audit` + `*security-audit` |
-| **Condição** | `project_has_database` |
-| **Elicitação** | Sim |
-| **Duração Estimada** | 20-40 min |
+| **Phase** | 2 |
+| **Phase Name** | Collection: Database |
+| **Agent** | `@data-engineer` (Ceres - Sage) |
+| **Action** | `*db-schema-audit` + `*security-audit` |
+| **Condition** | `project_has_database` |
+| **Elicitation** | Yes |
+| **Estimated Duration** | 20-40 min |
 | **Outputs** | `supabase/docs/SCHEMA.md`, `supabase/docs/DB-AUDIT.md` |
 
-**O que o agente analisa:**
-- Schema completo (tabelas, colunas, tipos)
-- Relacionamentos e foreign keys
-- Índices existentes e faltantes
-- RLS policies (cobertura e qualidade)
-- Views e functions
-- Performance (queries lentas conhecidas)
+**What the agent analyzes:**
+- Complete schema (tables, columns, types)
+- Relationships and foreign keys
+- Existing and missing indexes
+- RLS policies (coverage and quality)
+- Views and functions
+- Performance (known slow queries)
 
-**Débitos identificados (nível dados):**
-- Tabelas sem RLS
-- Índices faltantes
-- Normalização inadequada
-- Constraints ausentes
-- Migrations não versionadas
-- Dados órfãos
+**Debt identified (data level):**
+- Tables without RLS
+- Missing indexes
+- Inadequate normalization
+- Absent constraints
+- Unversioned migrations
+- Orphaned data
 
 ---
 
-### FASE 3: Coleta - Frontend/UX
+### PHASE 3: Collection - Frontend/UX
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `frontend_documentation` |
-| **Fase** | 3 |
-| **Nome da Fase** | Coleta: Frontend/UX |
-| **Agente** | `@ux-design-expert` (Iris - Empathizer) |
-| **Acao** | `*create-front-end-spec` |
-| **Elicitação** | Sim |
-| **Duração Estimada** | 30-45 min |
+| **Phase** | 3 |
+| **Phase Name** | Collection: Frontend/UX |
+| **Agent** | `@ux-design-expert` (Iris - Empathizer) |
+| **Action** | `*create-front-end-spec` |
+| **Elicitation** | Yes |
+| **Estimated Duration** | 30-45 min |
 | **Output** | `docs/frontend/frontend-spec.md` |
 
-**O que o agente analisa:**
-- Componentes UI existentes
-- Design system/tokens utilizados
-- Padroes de layout
-- Fluxos de usuário
-- Responsividade
-- Acessibilidade (a11y)
-- Consistencia visual
-- Performance percebida
+**What the agent analyzes:**
+- Existing UI components
+- Design system/tokens in use
+- Layout patterns
+- User flows
+- Responsiveness
+- Accessibility (a11y)
+- Visual consistency
+- Perceived performance
 
-**Débitos identificados (nível UX/UI):**
-- Inconsistências visuais
-- Componentes duplicados
-- Falta de design system
-- Problemas de acessibilidade
-- Mobile não otimizado
-- Estados de loading/error faltando
-- Feedback de usuário ausente
+**Debt identified (UX/UI level):**
+- Visual inconsistencies
+- Duplicated components
+- Lack of a design system
+- Accessibility issues
+- Mobile not optimized
+- Missing loading/error states
+- Missing user feedback
 
 ---
 
-### FASE 4: Consolidação Inicial
+### PHASE 4: Initial Consolidation
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `initial_consolidation` |
-| **Fase** | 4 |
-| **Nome da Fase** | Consolidação Inicial |
-| **Agente** | `@architect` (Vega) |
-| **Ação** | `consolidate_findings_draft` (workflow-action) |
-| **Elicitação** | Sim |
-| **Duração Estimada** | 30-45 min |
+| **Phase** | 4 |
+| **Phase Name** | Initial Consolidation |
+| **Agent** | `@architect` (Vega) |
+| **Action** | `consolidate_findings_draft` (workflow-action) |
+| **Elicitation** | Yes |
+| **Estimated Duration** | 30-45 min |
 | **Output** | `docs/prd/technical-debt-DRAFT.md` |
 
-**Requer como entrada:**
+**Required as input:**
 - `docs/architecture/system-architecture.md`
-- `supabase/docs/SCHEMA.md` (se existir)
-- `supabase/docs/DB-AUDIT.md` (se existir)
+- `supabase/docs/SCHEMA.md` (if it exists)
+- `supabase/docs/DB-AUDIT.md` (if it exists)
 - `docs/frontend/frontend-spec.md`
 
-**Estrutura do DRAFT gerado:**
+**Structure of the generated DRAFT:**
 
 ```markdown
 # Technical Debt Assessment - DRAFT
-## Para Revisão dos Especialistas
+## For Specialist Review
 
-### 1. Debitos de Sistema
-[Lista do system-architecture.md]
+### 1. System Debt
+[List from system-architecture.md]
 
-### 2. Debitos de Database
-[Lista do DB-AUDIT.md]
-PENDENTE: Revisão do @data-engineer
+### 2. Database Debt
+[List from DB-AUDIT.md]
+PENDING: @data-engineer review
 
-### 3. Debitos de Frontend/UX
-[Lista do frontend-spec.md]
-PENDENTE: Revisão do @ux-design-expert
+### 3. Frontend/UX Debt
+[List from frontend-spec.md]
+PENDING: @ux-design-expert review
 
-### 4. Matriz Preliminar
-| ID | Débito | Área | Impacto | Esforço | Prioridade |
+### 4. Preliminary Matrix
+| ID | Debt | Area | Impact | Effort | Priority |
 |----|--------|------|---------|---------|------------|
 
-### 5. Perguntas para Especialistas
-- @data-engineer: [perguntas sobre DB]
-- @ux-design-expert: [perguntas sobre UX]
+### 5. Questions for the Specialists
+- @data-engineer: [questions about the DB]
+- @ux-design-expert: [questions about UX]
 ```
 
 ---
 
-### FASE 5: Validação - Database
+### PHASE 5: Validation - Database
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `database_specialist_review` |
-| **Fase** | 5 |
-| **Nome da Fase** | Validação: Database |
-| **Agente** | `@data-engineer` (Ceres) |
-| **Ação** | `review_and_validate` (workflow-action) |
-| **Elicitação** | Sim |
-| **Duração Estimada** | 20-30 min |
+| **Phase** | 5 |
+| **Phase Name** | Validation: Database |
+| **Agent** | `@data-engineer` (Ceres) |
+| **Action** | `review_and_validate` (workflow-action) |
+| **Elicitation** | Yes |
+| **Estimated Duration** | 20-30 min |
 | **Output** | `docs/reviews/db-specialist-review.md` |
 
-**Responsabilidades do Especialista:**
+**Specialist responsibilities:**
 
-1. **VALIDAR débitos identificados**
-   - Confirma se são realmente problemas
-   - Ajusta severidade se necessário
-   - Adiciona débitos não identificados
+1. **VALIDATE the identified debt**
+   - Confirms whether the items are real problems
+   - Adjusts severity if necessary
+   - Adds debt that was not identified
 
-2. **ESTIMAR CUSTOS**
-   - Horas para resolver cada débito
-   - Complexidade (simples/médio/complexo)
-   - Dependências técnicas
+2. **ESTIMATE COSTS**
+   - Hours to resolve each debt item
+   - Complexity (simple/medium/complex)
+   - Technical dependencies
 
-3. **PRIORIZAR (perspectiva DB)**
-   - Risco de segurança
-   - Impacto em performance
-   - Dívida de manutenção
+3. **PRIORITIZE (DB perspective)**
+   - Security risk
+   - Performance impact
+   - Maintenance debt
 
-4. **RESPONDER PERGUNTAS**
-   - Responde perguntas do @architect
-   - Esclarece pontos técnicos
+4. **ANSWER QUESTIONS**
+   - Answers questions from @architect
+   - Clarifies technical points
 
 ---
 
-### FASE 6: Validação - UX/Frontend
+### PHASE 6: Validation - UX/Frontend
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `ux_specialist_review` |
-| **Fase** | 6 |
-| **Nome da Fase** | Validação: UX/Frontend |
-| **Agente** | `@ux-design-expert` (Iris) |
-| **Ação** | `review_and_validate` (workflow-action) |
-| **Elicitação** | Sim |
-| **Duração Estimada** | 20-30 min |
+| **Phase** | 6 |
+| **Phase Name** | Validation: UX/Frontend |
+| **Agent** | `@ux-design-expert` (Iris) |
+| **Action** | `review_and_validate` (workflow-action) |
+| **Elicitation** | Yes |
+| **Estimated Duration** | 20-30 min |
 | **Output** | `docs/reviews/ux-specialist-review.md` |
 
-**Responsabilidades do Especialista:**
+**Specialist responsibilities:**
 
-1. **VALIDAR débitos identificados**
-   - Confirma se afetam UX
-   - Ajusta severidade se necessário
-   - Adiciona débitos não identificados
+1. **VALIDATE the identified debt**
+   - Confirms whether the items affect UX
+   - Adjusts severity if necessary
+   - Adds debt that was not identified
 
-2. **ESTIMAR CUSTOS**
-   - Horas para resolver cada débito
-   - Impacto visual vs funcional
-   - Necessidade de design review
+2. **ESTIMATE COSTS**
+   - Hours to resolve each debt item
+   - Visual vs functional impact
+   - Need for a design review
 
-3. **PRIORIZAR (perspectiva UX)**
-   - Impacto na experiência do usuário
-   - Problemas de acessibilidade
-   - Consistência visual
+3. **PRIORITIZE (UX perspective)**
+   - Impact on the user experience
+   - Accessibility issues
+   - Visual consistency
 
-4. **RESPONDER PERGUNTAS**
-   - Responde perguntas do @architect
-   - Sugere soluções de design
+4. **ANSWER QUESTIONS**
+   - Answers questions from @architect
+   - Suggests design solutions
 
 ---
 
-### FASE 7: Validação - QA Review
+### PHASE 7: Validation - QA Review
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `qa_general_review` |
-| **Fase** | 7 |
-| **Nome da Fase** | Validação: QA Review |
-| **Agente** | `@qa` (Argus - Guardian) |
-| **Ação** | `review_assessment` (workflow-action) |
-| **Elicitação** | Sim |
-| **Duração Estimada** | 30-45 min |
+| **Phase** | 7 |
+| **Phase Name** | Validation: QA Review |
+| **Agent** | `@qa` (Argus - Guardian) |
+| **Action** | `review_assessment` (workflow-action) |
+| **Elicitation** | Yes |
+| **Estimated Duration** | 30-45 min |
 | **Output** | `docs/reviews/qa-review.md` |
 
-**Responsabilidades do QA:**
+**QA responsibilities:**
 
-1. **IDENTIFICAR GAPS**
-   - Débitos não cobertos
-   - Áreas não analisadas
-   - Riscos cruzados
+1. **IDENTIFY GAPS**
+   - Debt not covered
+   - Areas not analyzed
+   - Cross-cutting risks
 
-2. **AVALIAR RISCOS**
-   - Riscos de segurança
-   - Riscos de regressão
-   - Riscos de integração
+2. **ASSESS RISKS**
+   - Security risks
+   - Regression risks
+   - Integration risks
 
-3. **VALIDAR DEPENDÊNCIAS**
-   - Ordem de resolução faz sentido?
-   - Dependências entre débitos
-   - Bloqueios potenciais
+3. **VALIDATE DEPENDENCIES**
+   - Does the resolution order make sense?
+   - Dependencies between debt items
+   - Potential blockers
 
-4. **SUGERIR TESTES**
-   - Testes necessários pós-resolução
-   - Critérios de aceite para débitos
-   - Métricas de qualidade
+4. **SUGGEST TESTS**
+   - Tests required after resolution
+   - Acceptance criteria for debt items
+   - Quality metrics
 
 5. **QUALITY GATE**
-   - O assessment está completo?
-   - Pode seguir para planning?
-   - **Decisão:** `APPROVED` | `NEEDS WORK`
+   - Is the assessment complete?
+   - Can it move on to planning?
+   - **Decision:** `APPROVED` | `NEEDS WORK`
 
 ---
 
-### FASE 8: Assessment Final
+### PHASE 8: Final Assessment
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `final_assessment` |
-| **Fase** | 8 |
-| **Nome da Fase** | Assessment Final |
-| **Agente** | `@architect` (Vega) |
-| **Ação** | `finalize_assessment` (workflow-action) |
-| **Condição** | `qa_review_approved` |
-| **Elicitação** | Sim |
-| **Duração Estimada** | 30-45 min |
+| **Phase** | 8 |
+| **Phase Name** | Final Assessment |
+| **Agent** | `@architect` (Vega) |
+| **Action** | `finalize_assessment` (workflow-action) |
+| **Condition** | `qa_review_approved` |
+| **Elicitation** | Yes |
+| **Estimated Duration** | 30-45 min |
 | **Output** | `docs/prd/technical-debt-assessment.md` |
 
-**Consolidação Final inclui:**
-1. Incorpora ajustes do @data-engineer
-2. Incorpora ajustes do @ux-design-expert
-3. Endereca gaps do @qa
-4. Recalcula prioridades com inputs dos especialistas
-5. Define ordem final de resolução
+**Final consolidation includes:**
+1. Incorporates adjustments from @data-engineer
+2. Incorporates adjustments from @ux-design-expert
+3. Addresses gaps raised by @qa
+4. Recalculates priorities with specialist input
+5. Defines the final resolution order
 
-**Estrutura do documento final:**
+**Structure of the final document:**
 
 ```markdown
 # Technical Debt Assessment - FINAL
 
 ## Executive Summary
-- Total de débitos: X
-- Críticos: Y | Altos: Z | Médios: W
-- Esforco total estimado: XXX horas
+- Total debts: X
+- Critical: Y | High: Z | Medium: W
+- Total estimated effort: XXX hours
 
-## Inventário Completo de Débitos
+## Complete Debt Inventory
 
-### Sistema (validado por @architect)
-| ID | Débito | Severidade | Horas | Prioridade |
+### System (validated by @architect)
+| ID | Debt | Severity | Hours | Priority |
 
-### Database (validado por @data-engineer)
-| ID | Débito | Severidade | Horas | Prioridade |
+### Database (validated by @data-engineer)
+| ID | Debt | Severity | Hours | Priority |
 
-### Frontend/UX (validado por @ux-design-expert)
-| ID | Débito | Severidade | Horas | Prioridade |
+### Frontend/UX (validated by @ux-design-expert)
+| ID | Debt | Severity | Hours | Priority |
 
-## Matriz de Priorização Final
+## Final Prioritization Matrix
 
-## Plano de Resolução
+## Resolution Plan
 
-## Riscos e Mitigações
+## Risks and Mitigations
 
-## Critérios de Sucesso
+## Success Criteria
 ```
 
 ---
 
-### FASE 9: Relatório Executivo
+### PHASE 9: Executive Report
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `executive_awareness_report` |
-| **Fase** | 9 |
-| **Nome da Fase** | Relatório Executivo |
-| **Agente** | `@analyst` (Sirius - Decoder) |
-| **Ação** | `create_awareness_report` (workflow-action) |
-| **Elicitação** | Sim |
-| **Duração Estimada** | 30-45 min |
+| **Phase** | 9 |
+| **Phase Name** | Executive Report |
+| **Agent** | `@analyst` (Sirius - Decoder) |
+| **Action** | `create_awareness_report` (workflow-action) |
+| **Elicitation** | Yes |
+| **Estimated Duration** | 30-45 min |
 | **Output** | `docs/reports/TECHNICAL-DEBT-REPORT.md` |
 
-**Objetivo:** Documento para stakeholders entenderem o CUSTO e IMPACTO dos débitos técnicos identificados.
+**Goal:** A document for stakeholders to understand the COST and IMPACT of the identified technical debt.
 
-**Estrutura do relatório:**
+**Report structure:**
 
 ```markdown
-# Relatório de Débito Técnico
-**Projeto:** [nome]
-**Data:** [data]
+# Technical Debt Report
+**Project:** [name]
+**Date:** [date]
 
-## Executive Summary (1 página)
-### Situação Atual
-### Números Chave
-| Métrica | Valor |
+## Executive Summary (1 page)
+### Current Situation
+### Key Numbers
+| Metric | Value |
 |---------|-------|
-| Total de Débitos | X |
-| Débitos Críticos | Y |
-| Esforco Total | Z horas |
-| Custo Estimado | R$ XX.XXX |
+| Total Debts | X |
+| Critical Debts | Y |
+| Total Effort | Z hours |
+| Estimated Cost | R$ XX.XXX |
 
-## Análise de Custos
-### Custo de RESOLVER
-### Custo de NÃO RESOLVER (Risco Acumulado)
+## Cost Analysis
+### Cost of RESOLVING
+### Cost of NOT RESOLVING (Accumulated Risk)
 
-## Impacto no Negócio
+## Business Impact
 ### Performance
-### Segurança
-### Experiência do Usuário
-### Manutenibilidade
+### Security
+### User Experience
+### Maintainability
 
-## Timeline Recomendado
-### Fase 1: Quick Wins (1-2 semanas)
-### Fase 2: Fundação (2-4 semanas)
-### Fase 3: Otimização (4-6 semanas)
+## Recommended Timeline
+### Phase 1: Quick Wins (1-2 weeks)
+### Phase 2: Foundation (2-4 weeks)
+### Phase 3: Optimization (4-6 weeks)
 
-## ROI da Resolução
+## ROI of the Resolution
 
-## Proximos Passos
+## Next Steps
 ```
 
 ---
 
-### FASE 10: Planning (Epic + Stories)
+### PHASE 10: Planning (Epic + Stories)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `epic_creation` + `story_creation` |
-| **Fase** | 10 |
-| **Nome da Fase** | Planning |
-| **Agente** | `@pm` (Janus - Strategist) |
-| **Ações** | `*brownfield-create-epic`, `*brownfield-create-story` |
-| **Elicitação** | Sim |
-| **Duração Estimada** | 30-60 min |
+| **Phase** | 10 |
+| **Phase Name** | Planning |
+| **Agent** | `@pm` (Janus - Strategist) |
+| **Actions** | `*brownfield-create-epic`, `*brownfield-create-story` |
+| **Elicitation** | Yes |
+| **Estimated Duration** | 30-60 min |
 | **Outputs** | `docs/stories/epic-technical-debt.md`, `docs/stories/story-*.md` |
 
-**Epic inclui:**
-- Objetivo do epic
-- Escopo (quais debitos)
-- Critérios de sucesso
-- Timeline (do relatório)
-- Budget aprovado
-- Lista de stories
+**The epic includes:**
+- Epic objective
+- Scope (which debt items)
+- Success criteria
+- Timeline (from the report)
+- Approved budget
+- List of stories
 
-**Cada story inclui:**
-- Tasks claras
-- Critérios de aceite específicos
-- Testes requeridos (do QA review)
-- Estimativa validada pelos especialistas
+**Each story includes:**
+- Clear tasks
+- Specific acceptance criteria
+- Required tests (from the QA review)
+- Estimate validated by the specialists
 - Definition of Done
 
 ---
 
-## Agentes Participantes
+## Participating Agents
 
 ```mermaid
 mindmap
   root((Brownfield<br/>Discovery))
-    Coleta
-      architect["@architect<br/>Vega (Visionary)<br/>Sistema & Consolidacao"]
+    Collection
+      architect["@architect<br/>Vega (Visionary)<br/>System & Consolidation"]
       data-engineer["@data-engineer<br/>Ceres (Sage)<br/>Database"]
       ux-design-expert["@ux-design-expert<br/>Iris (Empathizer)<br/>Frontend/UX"]
-    Validacao
+    Validation
       data-engineer2["@data-engineer<br/>Review DB"]
       ux-design-expert2["@ux-design-expert<br/>Review UX"]
       qa["@qa<br/>Argus (Guardian)<br/>Quality Gate"]
-    Finalizacao
-      architect2["@architect<br/>Assessment Final"]
-      analyst["@analyst<br/>Sirius (Decoder)<br/>Relatorio Executivo"]
+    Finalization
+      architect2["@architect<br/>Final Assessment"]
+      analyst["@analyst<br/>Sirius (Decoder)<br/>Executive Report"]
       pm["@pm<br/>Janus (Strategist)<br/>Epic & Stories"]
 ```
 
-### Perfil dos Agentes
+### Agent Profiles
 
-| Agente | ID | Arquetipo | Especialidade Principal |
+| Agent | ID | Archetype | Primary Specialty |
 |--------|-----|-----------|------------------------|
-| Vega | `@architect` | Visionary | Arquitetura de sistemas, design holistico |
+| Vega | `@architect` | Visionary | Systems architecture, holistic design |
 | Ceres | `@data-engineer` | Sage | PostgreSQL, Supabase, RLS, migrations |
-| Iris | `@ux-design-expert` | Empathizer | Atomic Design, design tokens, acessibilidade |
-| Argus | `@qa` | Guardian | Quality gates, testes, rastreabilidade |
-| Sirius | `@analyst` | Decoder | Pesquisa, analise, ROI |
-| Janus | `@pm` | Strategist | PRDs, epics, priorizacao |
+| Iris | `@ux-design-expert` | Empathizer | Atomic Design, design tokens, accessibility |
+| Argus | `@qa` | Guardian | Quality gates, testing, traceability |
+| Sirius | `@analyst` | Decoder | Research, analysis, ROI |
+| Janus | `@pm` | Strategist | PRDs, epics, prioritization |
 
 ---
 
-## Tasks Executadas
+## Executed Tasks
 
-### Tasks Automatizadas (task-reference)
+### Automated Tasks (task-reference)
 
-| Task | Agente | Fase | Descricao |
+| Task | Agent | Phase | Description |
 |------|--------|------|-----------|
-| `document-project` | @architect | 1 | Documentacao completa do sistema |
-| `db-schema-audit` | @data-engineer | 2 | Auditoria de schema de banco |
-| `security-audit` | @data-engineer | 2 | Auditoria de seguranca (RLS, PII) |
-| `create-front-end-spec` | @ux-design-expert | 3 | Especificacao de frontend |
-| `brownfield-create-epic` | @pm | 10 | Criacao de epic de debito tecnico |
-| `brownfield-create-story` | @pm | 10 | Criacao de stories (repetivel) |
+| `document-project` | @architect | 1 | Complete system documentation |
+| `db-schema-audit` | @data-engineer | 2 | Database schema audit |
+| `security-audit` | @data-engineer | 2 | Security audit (RLS, PII) |
+| `create-front-end-spec` | @ux-design-expert | 3 | Frontend specification |
+| `brownfield-create-epic` | @pm | 10 | Creation of the technical debt epic |
+| `brownfield-create-story` | @pm | 10 | Story creation (repeatable) |
 
-### Acoes Manuais (workflow-action)
+### Manual Actions (workflow-action)
 
-| Acao | Agente | Fase | Descricao |
+| Action | Agent | Phase | Description |
 |------|--------|------|-----------|
-| `consolidate_findings_draft` | @architect | 4 | Consolidar DRAFT inicial |
-| `review_and_validate` | @data-engineer | 5 | Validar debitos de DB |
-| `review_and_validate` | @ux-design-expert | 6 | Validar debitos de UX |
+| `consolidate_findings_draft` | @architect | 4 | Consolidate the initial DRAFT |
+| `review_and_validate` | @data-engineer | 5 | Validate DB debt |
+| `review_and_validate` | @ux-design-expert | 6 | Validate UX debt |
 | `review_assessment` | @qa | 7 | Quality Gate review |
-| `finalize_assessment` | @architect | 8 | Assessment final |
-| `create_awareness_report` | @analyst | 9 | Relatorio executivo |
+| `finalize_assessment` | @architect | 8 | Final assessment |
+| `create_awareness_report` | @analyst | 9 | Executive report |
 
 ---
 
-## Pre-requisitos
+## Prerequisites
 
-### Ambiente
+### Environment
 
-- [ ] Acesso ao repositorio do projeto
-- [ ] Supabase CLI configurado (se houver database)
-- [ ] Credenciais de database disponíveis
-- [ ] Permissoes de leitura em todos os arquivos
+- [ ] Access to the project repository
+- [ ] Supabase CLI configured (if there is a database)
+- [ ] Database credentials available
+- [ ] Read permissions on all files
 
-### Documentacao Previa
+### Prior Documentation
 
-- [ ] Entendimento basico do proposito do projeto
-- [ ] Conhecimento de stakeholders para o relatorio
+- [ ] Basic understanding of the project's purpose
+- [ ] Knowledge of the stakeholders for the report
 
-### Ferramentas Utilizadas
+### Tools Used
 
-| Ferramenta | Agente | Proposito |
+| Tool | Agent | Purpose |
 |------------|--------|-----------|
-| `git` | @architect | Analise de repositorio |
-| `supabase-cli` | @data-engineer | Auditoria de database |
-| `psql` | @data-engineer | Queries de auditoria |
-| `coderabbit` | @qa | Review automatizado de codigo |
-| `exa` | @analyst | Pesquisa de mercado/benchmark |
+| `git` | @architect | Repository analysis |
+| `supabase-cli` | @data-engineer | Database audit |
+| `psql` | @data-engineer | Audit queries |
+| `coderabbit` | @qa | Automated code review |
+| `exa` | @analyst | Market/benchmark research |
 
 ---
 
-## Entradas e Saidas
+## Inputs and Outputs
 
-### Mapa de Artefatos
+### Artifact Map
 
 ```mermaid
 flowchart LR
-    subgraph Entradas
-        E1[Codigo Fonte]
+    subgraph Inputs
+        E1[Source Code]
         E2[Database Schema]
-        E3[UI/Componentes]
-        E4[Configuracoes]
+        E3[UI/Components]
+        E4[Configuration]
     end
 
-    subgraph FASE_1_3[Fases 1-3]
+    subgraph FASE_1_3[Phases 1-3]
         A1[system-architecture.md]
         A2[SCHEMA.md]
         A3[DB-AUDIT.md]
         A4[frontend-spec.md]
     end
 
-    subgraph FASE_4[Fase 4]
+    subgraph FASE_4[Phase 4]
         B1[technical-debt-DRAFT.md]
     end
 
-    subgraph FASE_5_7[Fases 5-7]
+    subgraph FASE_5_7[Phases 5-7]
         C1[db-specialist-review.md]
         C2[ux-specialist-review.md]
         C3[qa-review.md]
     end
 
-    subgraph FASE_8_10[Fases 8-10]
+    subgraph FASE_8_10[Phases 8-10]
         D1[technical-debt-assessment.md]
         D2[TECHNICAL-DEBT-REPORT.md]
         D3[epic-technical-debt.md]
@@ -708,53 +708,53 @@ flowchart LR
     D3 --> D4
 ```
 
-### Estrutura Final de Artefatos
+### Final Artifact Structure
 
 ```
 docs/
 ├── architecture/
-│   └── system-architecture.md         [FASE 1]
+│   └── system-architecture.md         [PHASE 1]
 ├── frontend/
-│   └── frontend-spec.md               [FASE 3]
+│   └── frontend-spec.md               [PHASE 3]
 ├── reviews/
-│   ├── db-specialist-review.md        [FASE 5]
-│   ├── ux-specialist-review.md        [FASE 6]
-│   └── qa-review.md                   [FASE 7]
+│   ├── db-specialist-review.md        [PHASE 5]
+│   ├── ux-specialist-review.md        [PHASE 6]
+│   └── qa-review.md                   [PHASE 7]
 ├── prd/
-│   ├── technical-debt-DRAFT.md        [FASE 4]
-│   └── technical-debt-assessment.md   [FASE 8]
+│   ├── technical-debt-DRAFT.md        [PHASE 4]
+│   └── technical-debt-assessment.md   [PHASE 8]
 ├── reports/
-│   └── TECHNICAL-DEBT-REPORT.md       [FASE 9] ← Stakeholders
+│   └── TECHNICAL-DEBT-REPORT.md       [PHASE 9] ← Stakeholders
 └── stories/
-    ├── epic-technical-debt.md         [FASE 10]
+    ├── epic-technical-debt.md         [PHASE 10]
     ├── story-1.1-*.md
     └── story-1.2-*.md
 
 supabase/
 └── docs/
-    ├── SCHEMA.md                      [FASE 2]
-    └── DB-AUDIT.md                    [FASE 2]
+    ├── SCHEMA.md                      [PHASE 2]
+    └── DB-AUDIT.md                    [PHASE 2]
 ```
 
 ---
 
-## Pontos de Decisao
+## Decision Points
 
-### Decision Point 1: Projeto tem Database?
+### Decision Point 1: Does the Project Have a Database?
 
 ```mermaid
 flowchart TD
-    Q1{Projeto tem<br/>banco de dados?}
-    Q1 -->|Sim| A1[Executar FASE 2:<br/>@data-engineer audita DB]
-    Q1 -->|Nao| A2[Pular FASE 2:<br/>Ir direto para FASE 3]
-    A1 --> B[FASE 3: Frontend]
+    Q1{Does the project have<br/>a database?}
+    Q1 -->|Yes| A1[Run PHASE 2:<br/>@data-engineer audits the DB]
+    Q1 -->|No| A2[Skip PHASE 2:<br/>Go straight to PHASE 3]
+    A1 --> B[PHASE 3: Frontend]
     A2 --> B
 ```
 
-**Criterios:**
-- Existe pasta `supabase/` ou similar?
-- Ha arquivos de migration?
-- Projeto usa Supabase, PostgreSQL, ou outro DB?
+**Criteria:**
+- Is there a `supabase/` folder or similar?
+- Are there migration files?
+- Does the project use Supabase, PostgreSQL, or another DB?
 
 ---
 
@@ -763,116 +763,116 @@ flowchart TD
 ```mermaid
 flowchart TD
     Q2{QA Gate Status?}
-    Q2 -->|APPROVED| A3[Prosseguir para FASE 8:<br/>Assessment Final]
-    Q2 -->|NEEDS WORK| A4[Retornar para FASE 4:<br/>Retrabalhar DRAFT]
-    A4 --> A5[Incorporar feedback do QA]
-    A5 --> A6[Resubmeter para validacao]
+    Q2 -->|APPROVED| A3[Proceed to PHASE 8:<br/>Final Assessment]
+    Q2 -->|NEEDS WORK| A4[Return to PHASE 4:<br/>Rework the DRAFT]
+    A4 --> A5[Incorporate the QA feedback]
+    A5 --> A6[Resubmit for validation]
     A6 --> Q2
 ```
 
-**Criterios para APPROVED:**
-- Todos os debitos validados por especialistas
-- Nenhum gap critico identificado
-- Dependencias fazem sentido
-- Riscos estao mapeados
+**Criteria for APPROVED:**
+- All debt validated by the specialists
+- No critical gap identified
+- Dependencies make sense
+- Risks are mapped
 
-**Criterios para NEEDS WORK:**
-- Gaps nao enderecados
-- Debitos faltando validacao
-- Riscos cruzados nao mitigados
-- Dependencias inconsistentes
+**Criteria for NEEDS WORK:**
+- Gaps not addressed
+- Debt missing validation
+- Cross-cutting risks not mitigated
+- Inconsistent dependencies
 
 ---
 
-### Decision Point 3: Escopo Crescente
+### Decision Point 3: Growing Scope
 
 ```mermaid
 flowchart TD
-    Q3{Escopo do Epic}
-    Q3 -->|1-3 Stories| A7[Usar brownfield-create-epic<br/>Workflow simples]
-    Q3 -->|4+ Stories| A8[Considerar PRD completo<br/>Workflow extenso]
-    Q3 -->|Arquitetura nova| A9[Usar greenfield workflow]
+    Q3{Epic Scope}
+    Q3 -->|1-3 Stories| A7[Use brownfield-create-epic<br/>Simple workflow]
+    Q3 -->|4+ Stories| A8[Consider a full PRD<br/>Extensive workflow]
+    Q3 -->|New architecture| A9[Use the greenfield workflow]
 ```
 
 ---
 
 ## Troubleshooting
 
-### Problema: Fase 2 falha por falta de acesso ao DB
+### Issue: Phase 2 fails due to lack of DB access
 
-**Sintoma:** `psql: connection refused` ou credenciais invalidas
+**Symptom:** `psql: connection refused` or invalid credentials
 
-**Solucoes:**
-1. Verificar `SUPABASE_DB_URL` no ambiente
-2. Testar conexao manualmente: `psql "$SUPABASE_DB_URL" -c "SELECT 1"`
-3. Confirmar permissoes de rede (VPN, firewall)
-4. Se impossivel acessar, pular FASE 2 e documentar como debito
-
----
-
-### Problema: Assessment muito grande
-
-**Sintoma:** DRAFT com mais de 50 debitos identificados
-
-**Solucoes:**
-1. Priorizar debitos por severidade (CRITICAL > HIGH > MEDIUM)
-2. Agrupar debitos similares em categorias
-3. Considerar multiplos epics por area (DB, Frontend, Infra)
-4. Focar nos top 10-15 debitos para o primeiro ciclo
+**Solutions:**
+1. Check `SUPABASE_DB_URL` in the environment
+2. Test the connection manually: `psql "$SUPABASE_DB_URL" -c "SELECT 1"`
+3. Confirm network permissions (VPN, firewall)
+4. If access is impossible, skip PHASE 2 and document it as debt
 
 ---
 
-### Problema: Especialistas discordam
+### Issue: Assessment too large
 
-**Sintoma:** @data-engineer e @ux-design-expert tem prioridades conflitantes
+**Symptom:** DRAFT with more than 50 identified debt items
 
-**Solucoes:**
-1. @architect atua como mediador
-2. Usar framework de priorizacao objetivo (RICE, ICE)
-3. Considerar impacto cruzado (DB lento afeta UX)
-4. Documentar trade-offs no assessment final
-
----
-
-### Problema: QA Gate em loop infinito
-
-**Sintoma:** NEEDS WORK repetido multiplas vezes
-
-**Solucoes:**
-1. Revisar criterios de aprovacao com @qa
-2. Focar em enderacar gaps especificos (nao todos)
-3. Considerar aprovar com condicoes documentadas
-4. Escalar para stakeholder se bloqueado
+**Solutions:**
+1. Prioritize debt by severity (CRITICAL > HIGH > MEDIUM)
+2. Group similar debt into categories
+3. Consider multiple epics per area (DB, Frontend, Infra)
+4. Focus on the top 10-15 debt items for the first cycle
 
 ---
 
-### Problema: Relatorio executivo nao ressoa com stakeholders
+### Issue: Specialists disagree
 
-**Sintoma:** Feedback de que o relatorio e muito tecnico
+**Symptom:** @data-engineer and @ux-design-expert have conflicting priorities
 
-**Solucoes:**
-1. Usar linguagem de negocio, nao tecnica
-2. Focar em custos em R$ (nao horas)
-3. Incluir analogias e comparacoes
-4. Adicionar graficos visuais de impacto
+**Solutions:**
+1. @architect acts as the mediator
+2. Use an objective prioritization framework (RICE, ICE)
+3. Consider cross-cutting impact (a slow DB affects UX)
+4. Document the trade-offs in the final assessment
 
 ---
 
-## Referencias
+### Issue: QA Gate in an infinite loop
 
-### Arquivos do Workflow
+**Symptom:** NEEDS WORK repeated multiple times
 
-| Arquivo | Localizacao |
+**Solutions:**
+1. Review the approval criteria with @qa
+2. Focus on addressing specific gaps (not all of them)
+3. Consider approving with documented conditions
+4. Escalate to the stakeholder if blocked
+
+---
+
+### Issue: Executive report does not resonate with stakeholders
+
+**Symptom:** Feedback that the report is too technical
+
+**Solutions:**
+1. Use business language, not technical language
+2. Focus on costs in R$ (not hours)
+3. Include analogies and comparisons
+4. Add visual impact charts
+
+---
+
+## References
+
+### Workflow Files
+
+| File | Location |
 |---------|-------------|
-| Definicao do Workflow | `.aexos-core/development/workflows/brownfield-discovery.yaml` |
+| Workflow Definition | `.aexos-core/development/workflows/brownfield-discovery.yaml` |
 | Task: brownfield-create-epic | `.aexos-core/development/tasks/brownfield-create-epic.md` |
 | Task: brownfield-create-story | `.aexos-core/development/tasks/brownfield-create-story.md` |
 | Task: db-schema-audit | `.aexos-core/development/tasks/db-schema-audit.md` |
 | Task: security-audit | `.aexos-core/development/tasks/security-audit.md` |
 
-### Agentes
+### Agents
 
-| Agente | Localizacao |
+| Agent | Location |
 |--------|-------------|
 | @architect | `.aexos-core/development/agents/architect.md` |
 | @data-engineer | `.aexos-core/development/agents/data-engineer.md` |
@@ -881,41 +881,41 @@ flowchart TD
 | @analyst | `.aexos-core/development/agents/analyst.md` |
 | @pm | `.aexos-core/development/agents/pm.md` |
 
-### Documentacao Relacionada
+### Related Documentation
 
-- [ADR-025: Estrutura de Documentacao](../../architecture/ADR-025-DOCUMENTATION-STRUCTURE.md)
-- [Guia de Workflows AEXOS](../CYRYX-WORKFLOWS-GUIDE.md)
-- [Padrao de Stories](../templates/STORY-TEMPLATE.md)
+- [ADR-025: Documentation Structure](../../architecture/ADR-025-DOCUMENTATION-STRUCTURE.md)
+- [AEXOS Workflows Guide](../CYRYX-WORKFLOWS-GUIDE.md)
+- [Story Standard](../templates/STORY-TEMPLATE.md)
 
 ---
 
-## Estimativas de Tempo
+## Time Estimates
 
-| Complexidade | Tempo Minimo | Tempo Tipico | Tempo Maximo |
+| Complexity | Minimum Time | Typical Time | Maximum Time |
 |--------------|--------------|--------------|--------------|
-| Projeto simples (sem DB) | 3 horas | 4 horas | 5 horas |
-| Projeto medio | 4 horas | 5-6 horas | 7 horas |
-| Projeto complexo | 6 horas | 7-8 horas | 10+ horas |
+| Simple project (no DB) | 3 hours | 4 hours | 5 hours |
+| Medium project | 4 hours | 5-6 hours | 7 hours |
+| Complex project | 6 hours | 7-8 hours | 10+ hours |
 
-**Fatores que aumentam tempo:**
-- Database grande com muitas tabelas
-- Frontend com muitos componentes
-- Multiplas integracoes externas
-- QA Gate com retrabalho
-- Stakeholders com muitas perguntas
-
----
-
-## Proximos Passos Apos Discovery
-
-1. **Apresentar** `TECHNICAL-DEBT-REPORT.md` para stakeholders
-2. **Obter aprovacao** de budget
-3. **Priorizar** stories no backlog
-4. **Iniciar desenvolvimento**: `@dev` implementa `story-1.1`
-5. **Monitorar progresso** via ClickUp/GitHub
+**Factors that increase the time:**
+- Large database with many tables
+- Frontend with many components
+- Multiple external integrations
+- QA Gate with rework
+- Stakeholders with many questions
 
 ---
 
-*Documentacao gerada em: 2026-02-04*
+## Next Steps After Discovery
+
+1. **Present** `TECHNICAL-DEBT-REPORT.md` to the stakeholders
+2. **Obtain approval** for the budget
+3. **Prioritize** the stories in the backlog
+4. **Start development**: `@dev` implements `story-1.1`
+5. **Monitor progress** via ClickUp/GitHub
+
+---
+
+*Documentation generated on: 2026-02-04*
 *Workflow Version: 2.0*
-*Mantido por: @devops*
+*Maintained by: @devops*

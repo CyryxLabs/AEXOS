@@ -1,46 +1,46 @@
-# Como acessar o AEXOS Pro
+# How to access AEXOS Pro
 
-O AEXOS Pro e as squads Pro ficam disponíveis apenas para usuários com entitlement ativo. O acesso normal é feito por autenticação de email e senha; a chave `PRO-XXXX-XXXX-XXXX-XXXX` continua existindo como caminho legado.
+AEXOS Pro and the Pro squads are available only to users with an active entitlement. Normal access is done through email and password authentication; the `PRO-XXXX-XXXX-XXXX-XXXX` key still exists as a legacy path.
 
-## Quem tem acesso
+## Who has access
 
-- Membros elegíveis do AEXOS Cohort Advanced.
-- Usuários que já foram cadastrados como compradores/beneficiários Pro.
-- Contas cujo email foi reconhecido pelo serviço de licença Pro.
+- Eligible members of the AEXOS Cohort Advanced.
+- Users already registered as Pro buyers/beneficiaries.
+- Accounts whose email was recognized by the Pro license service.
 
-Se o instalador responder que não encontrou acesso para o email, o problema é de entitlement ou conta, não de npm. Nesse caso, peça validação de acesso ao suporte/DevOps.
+If the installer replies that it did not find access for the email, the problem is with the entitlement or the account, not with npm. In that case, ask support/DevOps for access validation.
 
-## Instalar e ativar
+## Install and activate
 
-No projeto onde você quer usar o Pro:
+In the project where you want to use Pro:
 
 ```bash
 npx github:CyryxLabs/AEXOS pro setup
 ```
 
-O setup guiado oferece dois caminhos:
+The guided setup offers two paths:
 
-- Email e senha: caminho recomendado.
-- License key: caminho legado para chaves `PRO-...`.
+- Email and password: the recommended path.
+- License key: legacy path for `PRO-...` keys.
 
-Em automação/CI, use variáveis de ambiente:
+In automation/CI, use environment variables:
 
 ```bash
-export AEXOS_PRO_EMAIL="seu-email@exemplo.com"
-export AEXOS_PRO_PASSWORD="sua-senha"
+export AEXOS_PRO_EMAIL="your-email@example.com"
+export AEXOS_PRO_PASSWORD="your-password"
 npx github:CyryxLabs/AEXOS pro setup
 ```
 
-Ou, para chave legada:
+Or, for a legacy key:
 
 ```bash
 export AEXOS_PRO_KEY="PRO-XXXX-XXXX-XXXX-XXXX"
 npx github:CyryxLabs/AEXOS pro setup
 ```
 
-## Verificar o acesso
+## Verify access
 
-Depois de instalar:
+After installing:
 
 ```bash
 npx github:CyryxLabs/AEXOS pro status
@@ -48,40 +48,40 @@ npx github:CyryxLabs/AEXOS pro features
 npx github:CyryxLabs/AEXOS pro validate
 ```
 
-Esses comandos verificam a licença, listam recursos Pro disponíveis e forçam uma revalidação online quando necessário.
+These commands check the license, list the available Pro features and force an online revalidation when needed.
 
-## Squads Pro
+## Pro Squads
 
-As squads Pro são entregues pelo pacote Pro privado e sincronizadas pelo instalador para as superfícies locais suportadas pelo AEXOS. Depois da instalação, use os comandos de status/features acima para confirmar que o pacote Pro foi encontrado e ativado.
+The Pro squads are delivered by the private Pro package and synchronized by the installer to the local surfaces supported by AEXOS. After installation, use the status/features commands above to confirm that the Pro package was found and activated.
 
-Se as squads não aparecerem depois de uma instalação bem-sucedida, rode:
+If the squads do not show up after a successful installation, run:
 
 ```bash
 npx github:CyryxLabs/AEXOS pro update
 npm run sync:ide
 ```
 
-## Recuperação de acesso
+## Access recovery
 
-Para recuperar senha ou licença:
+To recover a password or license:
 
 ```bash
 npx -y @aexos-squads/aexos-pro-cli@latest recover
 ```
 
-Se o email comprado não for reconhecido, ou se a conta existir mas a ativação falhar, o fluxo operacional correto é acionar `@devops` com um destes comandos:
+If the purchased email is not recognized, or if the account exists but activation fails, the correct operational flow is to engage `@devops` with one of these commands:
 
-- `*pro-check-access` para consultar entitlement e conta.
-- `*pro-request-reset` para disparar reset de senha.
-- `*pro-resend-verification` para reenviar verificação de email.
-- `*pro-access-grant` para conceder ou restaurar acesso com validação de API e installer.
+- `*pro-check-access` to look up entitlement and account.
+- `*pro-request-reset` to trigger a password reset.
+- `*pro-resend-verification` to resend email verification.
+- `*pro-access-grant` to grant or restore access with API and installer validation.
 
-## Erros comuns
+## Common errors
 
-- `No AEXOS Pro access found for this email.`: o email ainda não tem entitlement Pro ou foi digitado diferente do cadastro.
-- `AEXOS Pro is not installed.`: rode `npx github:CyryxLabs/AEXOS pro setup` antes de status/validate.
-- `Invalid key format`: a chave legada precisa seguir o formato `PRO-XXXX-XXXX-XXXX-XXXX`.
-- Falha em CI sem prompt interativo: defina `AEXOS_PRO_EMAIL` + `AEXOS_PRO_PASSWORD` ou `AEXOS_PRO_KEY`.
-- `Pro activation failed: Installed Pro artifact did not create node_modules/@aexos-squads/pro.`: bug em versões `5.2.5` e anteriores — corrigido a partir de `@aexos-squads/core@5.2.6`. Atualize com `npx github:CyryxLabs/AEXOS install`. Se persistir, veja [installation-troubleshooting.md → Issue 10](installation-troubleshooting.md#issue-10-pro-activation-failed-installed-pro-artifact-did-not-create-node_modulesaexos-squadspro) para o kit de recuperação completo.
+- `No AEXOS Pro access found for this email.`: the email does not have a Pro entitlement yet, or it was typed differently from the registration.
+- `AEXOS Pro is not installed.`: run `npx github:CyryxLabs/AEXOS pro setup` before status/validate.
+- `Invalid key format`: the legacy key must follow the `PRO-XXXX-XXXX-XXXX-XXXX` format.
+- Failure in CI without an interactive prompt: set `AEXOS_PRO_EMAIL` + `AEXOS_PRO_PASSWORD` or `AEXOS_PRO_KEY`.
+- `Pro activation failed: Installed Pro artifact did not create node_modules/@aexos-squads/pro.`: bug in versions `5.2.5` and earlier — fixed as of `@aexos-squads/core@5.2.6`. Update with `npx github:CyryxLabs/AEXOS install`. If it persists, see [installation-troubleshooting.md → Issue 10](installation-troubleshooting.md#issue-10-pro-activation-failed-installed-pro-artifact-did-not-create-node_modulesaexos-squadspro) for the complete recovery kit.
 
-Nunca compartilhe senha, token ou license key completa em issues públicas. Para suporte, envie apenas o email e o sintoma.
+Never share a password, token or full license key in public issues. For support, send only the email and the symptom.

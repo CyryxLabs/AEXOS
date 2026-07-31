@@ -580,7 +580,7 @@ sequenceDiagram
 |--------|------|-------|---------------------|
 | `@analyst` | Sirius | Business Analyst | `*create-project-brief`, `*brainstorm`, `*research` |
 | `@pm` | Janus | Product Manager | `*create-prd`, `*shard-prd`, `*create-epic` |
-| `@ux-expert` | Uma | UX/UI Designer | `*create-front-end-spec`, `*generate-ui-prompt`, `*wireframe` |
+| `@ux-expert` | Iris | UX/UI Designer | `*create-front-end-spec`, `*generate-ui-prompt`, `*wireframe` |
 | `@architect` | Vega | System Architect | `*create-front-end-architecture`, `*document-project` |
 | `@po` | Themis | Product Owner | `*execute-checklist-po`, `*shard-doc`, `*validate-story-draft` |
 | `@sm` | Chronos | Scrum Master | `*draft`, `*story-checklist` |
@@ -593,7 +593,7 @@ sequenceDiagram
 graph LR
     subgraph "Planejamento"
         AN[Sirius<br/>@analyst] --> PM[Janus<br/>@pm]
-        PM --> UX[Uma<br/>@ux-expert]
+        PM --> UX[Iris<br/>@ux-expert]
         UX --> AR[Vega<br/>@architect]
     end
 

@@ -101,7 +101,7 @@ and re-sequenced where they assumed a runtime that does not exist.
 | Dynamic MoE cost router / "Margin Governor" (Phase 2) | **Partially kept** — routing authority already exists in Article XII-B. The published routing table is stale (Claude 3.7, GPT-o3-mini, DeepSeek-R1) and is refreshed by AEX-0.7. The 60% cost-reduction claim is unsubstantiated and should not be published until measured |
 | Cryptographic Mission Ledger (Phase 2) | **Kept** → Wave 3. The SOC2/ISO27001 story is real, but an append-only ledger of fake successes is worse than none |
 | Squad Marketplace `cyryx squad publish` (Phase 3) | **Reduced** → AEX-2.3 delivers the registry and compatibility enforcement. The hosted marketplace (`api.cyryx.dev`) stays deferred; no demand signal, and `.gitignore` currently makes squads private-by-default |
-| 3D Atlas Graph UI / MAAX Studio GUI (Phase 3) | **Deferred** — Constitution Article I |
+| 3D Sirius Graph UI / MAAX Studio GUI (Phase 3) | **Deferred** — Constitution Article I |
 | Policy-as-Code gates (OPA) | **Superseded** by AEX-1.4 — the constitution already *is* policy-as-code; it just is not on the executing path |
 | *(absent from legacy roadmap)* | **Added:** completing the rebrand (AEX-2.4) and restoring enforcement integrity (Wave 0) |
 
@@ -111,7 +111,7 @@ and re-sequenced where they assumed a runtime that does not exist.
 
 | Item | Rationale |
 |---|---|
-| MAAX Studio GUI, 3D Atlas graph | Article I — UI is tertiary, never a requirement |
+| MAAX Studio GUI, 3D Sirius graph | Article I — UI is tertiary, never a requirement |
 | Hosted squad marketplace API | Depends on AEX-2.3; no demand signal |
 | SYNAPSE L3–L7 re-enable | Requires its own ADR repeating the NOG-17 audit |
 | "DNA Mental™" / mind-clone | Proprietary; outside the OSS artifact |

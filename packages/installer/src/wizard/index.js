@@ -13,7 +13,6 @@ const fse = require('fs-extra');
 const { execSync } = require('child_process');
 const { colors } = require('../utils/aexos-colors');
 const {
-  getLanguageQuestion,
   getUserProfileQuestion,
   getProjectTypeQuestion,
   getIDEQuestions,
@@ -325,19 +324,16 @@ async function runWizard(options = {}) {
       };
     } else {
       // Interactive mode
-      // Phase 1: Language selection (must be first to apply i18n)
-      // Story ACT-12: Check idempotency via Claude Code settings.json
-      let languageAnswer;
-      const existingLanguage = await getExistingLanguage();
-
-      if (existingLanguage) {
-        // Idempotent: Use existing language, don't re-ask
-        console.log(`\n✓ ${t('languageSkipped') || 'Language already configured'}: ${existingLanguage}\n`);
-        languageAnswer = { language: existingLanguage };
-      } else {
-        languageAnswer = await inquirer.prompt([getLanguageQuestion()]);
-      }
-      setLanguage(languageAnswer.language);
+      //
+      // The wizard used to open by asking for a language and carried Portuguese
+      // and Spanish string tables. AEXOS is English-only, so there is nothing
+      // to choose: asking would offer a setting that changes nothing.
+      //
+      // An existing preference in Claude Code's settings.json is still read and
+      // left alone — that field is the editor's, not ours, and a user who set
+      // their editor to Portuguese did not ask us to change it.
+      const languageAnswer = { language: 'en' };
+      setLanguage('en');
 
       // Phase 1.5: User Profile selection (Story 10.2 - Epic 10)
       // Check for idempotency - if user_profile already exists, skip question

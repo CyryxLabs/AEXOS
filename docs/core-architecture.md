@@ -1,7 +1,5 @@
 # AEXOS Method: Core Architecture
 
-> 🌐 **EN** | [PT](./pt/core-architecture.md) | [ES](./es/core-architecture.md)
-
 ---
 
 ## 1. Overview

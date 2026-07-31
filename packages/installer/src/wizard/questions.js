@@ -9,21 +9,7 @@
 
 const { colors } = require('../utils/aexos-colors');
 const { createInquirerValidator, validateProjectType } = require('./validators');
-const { t, getLanguageChoices, setLanguage: _setLanguage } = require('./i18n');
-
-/**
- * Get language selection question (first question)
- * @returns {Object} Inquirer question object
- */
-function getLanguageQuestion() {
-  return {
-    type: 'list',
-    name: 'language',
-    message: '🌐 Language:',
-    choices: getLanguageChoices(),
-    default: 'en',
-  };
-}
+const { t, setLanguage: _setLanguage } = require('./i18n');
 
 /**
  * Get user profile question (Story 10.2 - Epic 10: User Profile System)
@@ -292,10 +278,6 @@ function getTechPresetQuestion() {
  */
 function buildQuestionSequence(_context = {}) {
   const questions = [];
-
-  // Language selection (first question)
-  questions.push(getLanguageQuestion());
-
   // Story 1.2: Foundation (project type only)
   questions.push(getProjectTypeQuestion());
 
@@ -345,7 +327,6 @@ function getQuestionById(questionId) {
 }
 
 module.exports = {
-  getLanguageQuestion,
   getUserProfileQuestion,
   getProjectTypeQuestion,
   getIDEQuestions,

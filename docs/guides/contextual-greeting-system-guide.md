@@ -1,68 +1,66 @@
-# Guia do Sistema de Greeting Contextual
-
-> **EN** | [PT](../pt/guides/contextual-greeting-system-guide.md) | [ES](../es/guides/contextual-greeting-system-guide.md)
+# Contextual Greeting System Guide
 
 ---
 
 **Story:** 6.1.2.5 - Contextual Agent Load System
-**Status:** Componentes Implementados, Integração Pendente
-**Data:** 2025-01-15
+**Status:** Components Implemented, Integration Pending
+**Date:** 2025-01-15
 
 ---
 
-## 📖 Visão Geral
+## 📖 Overview
 
-O Sistema de Greeting Contextual é uma melhoria de UX que torna os greetings dos agentes AEXOS inteligentes e adaptativos, mostrando informações e comandos relevantes baseados no contexto da sessão.
+The Contextual Greeting System is a UX improvement that makes AEXOS agent greetings intelligent and adaptive, showing relevant information and commands based on the session context.
 
-## 🎯 O Que Foi Implementado
+## 🎯 What Has Been Implemented
 
-### ✅ Componentes Core (Story 6.1.2.5)
+### ✅ Core Components (Story 6.1.2.5)
 
 1. **ContextDetector** (`.aexos-core/core/session/context-detector.js`)
-   - Detecta tipo de sessão: `new`, `existing`, ou `workflow`
-   - Abordagem híbrida: histórico de conversação (preferido) + arquivo de sessão (fallback)
-   - TTL de 1 hora para sessões inativas
+   - Detects session type: `new`, `existing`, or `workflow`
+   - Hybrid approach: conversation history (preferred) + session file (fallback)
+   - 1-hour TTL for inactive sessions
 
 2. **GitConfigDetector** (`.aexos-core/infrastructure/scripts/git-config-detector.js`)
-   - Detecta configuração do git do projeto
-   - Cache com TTL de 5 minutos
-   - Timeout protection de 1000ms
+   - Detects the project's git configuration
+   - Cache with a 5-minute TTL
+   - 1000ms timeout protection
 
 3. **GreetingBuilder** (`.aexos-core/development/scripts/greeting-builder.js`)
-   - Monta greetings contextuais baseados no tipo de sessão
-   - Filtra comandos por visibilidade (full/quick/key)
-   - Timeout de 150ms com fallback gracioso
+   - Assembles contextual greetings based on the session type
+   - Filters commands by visibility (full/quick/key)
+   - 150ms timeout with graceful fallback
 
 4. **WorkflowNavigator** (`.aexos-core/development/scripts/workflow-navigator.js`)
-   - Detecta estado do workflow atual
-   - Sugere próximos comandos baseado no estado
-   - Pre-popula comandos com contexto (story path, branch)
+   - Detects the state of the current workflow
+   - Suggests next commands based on the state
+   - Pre-populates commands with context (story path, branch)
 
 5. **Workflow Patterns** (`.aexos-core/data/workflow-patterns.yaml`)
-   - 10 workflows comuns definidos
-   - Transições de estado com sugestões de próximos passos
-   - Padrões validados contra uso real do projeto
+   - 10 common workflows defined
+   - State transitions with next-step suggestions
+   - Patterns validated against real project usage
 
-### ⏳ Pendente (Story Futura - 6.1.4 ou 6.1.6)
+### ⏳ Pending (Future Story - 6.1.4 or 6.1.6)
 
-**Integração com Processo de Ativação:**
-- Interceptar ativação do agente (quando você digita `@dev`, `@po`, etc.)
-- Chamar GreetingBuilder automaticamente
-- Injetar greeting contextual no lugar do greeting padrão
+**Integration with the Activation Process:**
+- Intercept agent activation (when you type `@dev`, `@po`, etc.)
+- Call GreetingBuilder automatically
+- Inject the contextual greeting in place of the default greeting
 
-## 📊 Tipos de Sessão
+## 📊 Session Types
 
-### 1. New Session (Sessão Nova)
+### 1. New Session
 
-**Quando:** Primeira interação ou após 1 hora de inatividade
+**When:** First interaction or after 1 hour of inactivity
 
-**Características:**
-- Apresentação completa (greeting archetypal)
-- Descrição do papel do agente
-- Status do projeto (se git configurado)
-- Comandos completos (até 12 comandos com visibility=full)
+**Characteristics:**
+- Full introduction (archetypal greeting)
+- Description of the agent's role
+- Project status (if git is configured)
+- Full command list (up to 12 commands with visibility=full)
 
-**Exemplo:**
+**Example:**
 ```
 💻 Vulcan (Builder) ready. Let's build something solid!
 
@@ -79,20 +77,20 @@ O Sistema de Greeting Contextual é uma melhoria de UX que torna os greetings do
    - `*review-code`: Review code changes
    - `*run-tests`: Execute test suite
    - `*build`: Build for production
-   ... (até 12 comandos)
+   ... (up to 12 commands)
 ```
 
-### 2. Existing Session (Sessão Existente)
+### 2. Existing Session
 
-**Quando:** Continuando trabalho na mesma sessão
+**When:** Continuing work within the same session
 
-**Características:**
-- Apresentação resumida (greeting named)
-- Status do projeto
-- Contexto atual (última ação)
-- Comandos rápidos (6-8 comandos com visibility=quick)
+**Characteristics:**
+- Condensed introduction (named greeting)
+- Project status
+- Current context (last action)
+- Quick commands (6-8 commands with visibility=quick)
 
-**Exemplo:**
+**Example:**
 ```
 💻 Vulcan (Builder) ready.
 
@@ -108,21 +106,21 @@ O Sistema de Greeting Contextual é uma melhoria de UX que torna os greetings do
    - `*review-code`: Review code
    - `*run-tests`: Run tests
    - `*qa-gate`: Run quality gate
-   ... (6-8 comandos mais usados)
+   ... (6-8 most used commands)
 ```
 
-### 3. Workflow Session (Sessão em Workflow)
+### 3. Workflow Session
 
-**Quando:** No meio de um workflow ativo (ex: após validar story)
+**When:** In the middle of an active workflow (e.g. after validating a story)
 
-**Características:**
-- Apresentação mínima (greeting minimal)
-- Status condensado do projeto
-- Contexto do workflow (working on X)
-- **Sugestões de próximos passos** (NEW!)
-- Comandos chave (3-5 comandos com visibility=key)
+**Characteristics:**
+- Minimal introduction (minimal greeting)
+- Condensed project status
+- Workflow context (working on X)
+- **Next-step suggestions** (NEW!)
+- Key commands (3-5 commands with visibility=key)
 
-**Exemplo:**
+**Example:**
 ```
 ⚖️ Themis ready.
 
@@ -144,55 +142,55 @@ O Sistema de Greeting Contextual é uma melhoria de UX que torna os greetings do
 
 ## 🏗️ Command Visibility System
 
-### Metadados de Comandos
+### Command Metadata
 
-Cada comando agora tem um atributo `visibility` que controla quando ele aparece:
+Every command now has a `visibility` attribute that controls when it appears:
 
 ```yaml
 commands:
   - name: help
-    visibility: [full, quick, key]  # Sempre visível
+    visibility: [full, quick, key]  # Always visible
     description: "Show all available commands"
 
   - name: develop
-    visibility: [full, quick, key]  # Comando principal
+    visibility: [full, quick, key]  # Primary command
     description: "Implement story tasks"
 
   - name: review-code
-    visibility: [full, quick]  # Usado frequentemente, mas não crítico
+    visibility: [full, quick]  # Frequently used, but not critical
     description: "Review code changes"
 
   - name: build
-    visibility: [full]  # Menos usado, só em new session
+    visibility: [full]  # Less used, only in new session
     description: "Build for production"
 
   - name: qa-gate
-    visibility: [key]  # Crítico em workflows, mas não sempre necessário
+    visibility: [key]  # Critical in workflows, but not always needed
     description: "Run quality gate"
 ```
 
-### Guidelines de Categorização
+### Categorization Guidelines
 
-**`full` (12 comandos)** - New Session
-- Todos os comandos disponíveis
-- Mostra capacidades completas do agente
-- Ideal para descoberta
+**`full` (12 commands)** - New Session
+- All available commands
+- Shows the agent's full capabilities
+- Ideal for discovery
 
-**`quick` (6-8 comandos)** - Existing Session
-- Comandos usados frequentemente
-- Focado em produtividade
-- Remove comandos raramente usados
+**`quick` (6-8 commands)** - Existing Session
+- Frequently used commands
+- Focused on productivity
+- Removes rarely used commands
 
-**`key` (3-5 comandos)** - Workflow Session
-- Comandos críticos para o workflow atual
-- Mínimo de distração
-- Máxima eficiência
+**`key` (3-5 commands)** - Workflow Session
+- Commands critical to the current workflow
+- Minimum distraction
+- Maximum efficiency
 
 ## 🔄 Workflow Navigation
 
-### Workflows Definidos
+### Defined Workflows
 
-**10 workflows comuns:**
+**10 common workflows:**
 
 1. **story_development** - Validate → Develop → QA → Deploy
 2. **epic_creation** - Create epic → Create stories → Validate
@@ -205,14 +203,14 @@ commands:
 9. **ux_workflow** - Design → Implement → Validate
 10. **research_workflow** - Brainstorm → Analyze → Document
 
-### Transições de Estado
+### State Transitions
 
-Cada workflow define transições entre estados com:
-- **Trigger:** Comando que completa com sucesso
-- **Greeting Message:** Mensagem contextual
-- **Next Steps:** Sugestões de próximos comandos com args pré-populados
+Each workflow defines transitions between states with:
+- **Trigger:** Command that completes successfully
+- **Greeting Message:** Contextual message
+- **Next Steps:** Suggestions for next commands with pre-populated args
 
-**Exemplo (Story Development):**
+**Example (Story Development):**
 
 ```yaml
 story_development:
@@ -232,21 +230,21 @@ story_development:
           description: "Plan everything upfront, then execute"
 ```
 
-## 🧪 Como Testar Agora
+## 🧪 How to Test It Today
 
-### Opção 1: Script de Teste Automático
+### Option 1: Automated Test Script
 
 ```bash
 node .aexos-core/development/scripts/test-greeting-system.js
 ```
 
-Este script testa os 4 cenários:
+This script tests the 4 scenarios:
 1. New session greeting (Dev)
 2. Existing session greeting (Dev)
 3. Workflow session greeting (PO)
 4. Simple greeting fallback
 
-### Opção 2: Teste Manual via Node REPL
+### Option 2: Manual Test via Node REPL
 
 ```javascript
 const GreetingBuilder = require('./.aexos-core/development/scripts/greeting-builder');
@@ -254,7 +252,7 @@ const builder = new GreetingBuilder();
 
 // Mock agent
 const mockAgent = {
-  name: 'Dex',
+  name: 'Vulcan',
   icon: '💻',
   persona_profile: {
     greeting_levels: {
@@ -272,50 +270,50 @@ builder.buildGreeting(mockAgent, { conversationHistory: [] })
   .then(greeting => console.log(greeting));
 ```
 
-### Opção 3: Aguardar Integração Completa
+### Option 3: Wait for Full Integration
 
-Quando a integração com o processo de ativação estiver implementada (Story 6.1.4/6.1.6), o sistema funcionará automaticamente ao ativar qualquer agente:
+Once the integration with the activation process is implemented (Story 6.1.4/6.1.6), the system will work automatically when activating any agent:
 
 ```
-@dev              → Greeting contextual automático
-@po               → Greeting contextual automático
-@qa               → Greeting contextual automático
+@dev              → Automatic contextual greeting
+@po               → Automatic contextual greeting
+@qa               → Automatic contextual greeting
 ```
 
-## 📁 Arquivos Relacionados
+## 📁 Related Files
 
-### Scripts Core
-- `.aexos-core/core/session/context-detector.js` - Detecção de tipo de sessão
-- `.aexos-core/infrastructure/scripts/git-config-detector.js` - Detecção de git config
-- `.aexos-core/development/scripts/greeting-builder.js` - Montagem do greeting
-- `.aexos-core/development/scripts/workflow-navigator.js` - Navegação de workflow
-- `.aexos-core/development/scripts/agent-exit-hooks.js` - Hooks de saída (para persistência)
+### Core Scripts
+- `.aexos-core/core/session/context-detector.js` - Session type detection
+- `.aexos-core/infrastructure/scripts/git-config-detector.js` - Git config detection
+- `.aexos-core/development/scripts/greeting-builder.js` - Greeting assembly
+- `.aexos-core/development/scripts/workflow-navigator.js` - Workflow navigation
+- `.aexos-core/development/scripts/agent-exit-hooks.js` - Exit hooks (for persistence)
 
 ### Data Files
-- `.aexos-core/data/workflow-patterns.yaml` - Definições de workflows
+- `.aexos-core/data/workflow-patterns.yaml` - Workflow definitions
 
 ### Tests
-- `tests/unit/context-detector.test.js` - 23 testes
-- `tests/unit/git-config-detector.test.js` - 19 testes
-- `tests/unit/greeting-builder.test.js` - 23 testes
+- `tests/unit/context-detector.test.js` - 23 tests
+- `tests/unit/git-config-detector.test.js` - 19 tests
+- `tests/unit/greeting-builder.test.js` - 23 tests
 - `tests/integration/performance.test.js` - Performance validation
 
 ### Configuration
-- `.aexos-core/core-config.yaml` - Configuração global (git + agentIdentity sections)
+- `.aexos-core/core-config.yaml` - Global configuration (git + agentIdentity sections)
 
 ### Agents (Updated)
 - `.aexos-core/agents/dev.md` - ✅ Command visibility metadata
 - `.aexos-core/agents/po.md` - ✅ Command visibility metadata
 - `.aexos-core/agents/*.md` - ⏳ Remaining 9 agents (pending update)
 
-## 🎯 Próximos Passos
+## 🎯 Next Steps
 
 ### Immediate (Fix Test Issues)
 1. Fix test configuration issues (1-2 hours)
 2. Run full test suite
 3. Execute performance tests
 
-### Short-term (Story 6.1.4 ou 6.1.6)
+### Short-term (Story 6.1.4 or 6.1.6)
 1. Implement integration with agent activation process
 2. Update remaining 9 agents with command visibility metadata
 3. Test with real agent activations
@@ -349,33 +347,33 @@ Quando a integração com o processo de ativação estiver implementada (Story 6
 ## 🛡️ Backwards Compatibility
 
 **100% Backwards Compatible:**
-- Agents sem metadata de visibilidade mostram todos os comandos (max 12)
-- Fallback gracioso para simple greeting em qualquer erro
-- Zero breaking changes no processo de ativação
-- Migração gradual (Phase 1: dev/po → Phase 2: remaining 9)
+- Agents without visibility metadata show all commands (max 12)
+- Graceful fallback to a simple greeting on any error
+- Zero breaking changes to the activation process
+- Gradual migration (Phase 1: dev/po → Phase 2: remaining 9)
 
 ## ❓ FAQ
 
-**Q: Por que o greeting não está contextual quando ativo um agente agora?**
-A: A integração com o processo de ativação ainda não foi implementada. Os componentes existem mas não são chamados automaticamente ainda.
+**Q: Why is the greeting not contextual when I activate an agent right now?**
+A: The integration with the activation process has not been implemented yet. The components exist but are not called automatically yet.
 
-**Q: Quando a integração será feita?**
-A: Em uma story futura (provavelmente 6.1.4 ou 6.1.6). Depende do sistema de configuração de agentes.
+**Q: When will the integration be done?**
+A: In a future story (probably 6.1.4 or 6.1.6). It depends on the agent configuration system.
 
-**Q: Como posso testar agora?**
-A: Use o script de teste: `node .aexos-core/development/scripts/test-greeting-system.js`
+**Q: How can I test it today?**
+A: Use the test script: `node .aexos-core/development/scripts/test-greeting-system.js`
 
-**Q: O que acontece se um agente não tiver metadata de visibilidade?**
-A: Fallback: mostra todos os comandos (max 12). Não quebra nada.
+**Q: What happens if an agent has no visibility metadata?**
+A: Fallback: it shows all commands (max 12). Nothing breaks.
 
-**Q: Como adiciono metadata de visibilidade nos meus comandos?**
-A: Veja a seção "Command Visibility System" acima e os exemplos nos agents dev.md e po.md.
+**Q: How do I add visibility metadata to my commands?**
+A: See the "Command Visibility System" section above and the examples in the dev.md and po.md agents.
 
-**Q: Posso desabilitar o greeting contextual?**
-A: Sim, via config: `core-config.yaml` → `agentIdentity.greeting.contextDetection: false`
+**Q: Can I disable the contextual greeting?**
+A: Yes, via config: `core-config.yaml` → `agentIdentity.greeting.contextDetection: false`
 
 ---
 
-**Documento Atualizado:** 2025-01-15
-**Autor:** Argus (QA) + Vulcan (Dev)
+**Document Updated:** 2025-01-15
+**Author:** Argus (QA) + Vulcan (Dev)
 **Story:** 6.1.2.5 - Contextual Agent Load System

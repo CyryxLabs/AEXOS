@@ -213,7 +213,7 @@ Agent permission mode system (explore/ask/auto).
 | `quality-gate-manager.js` | Main orchestrator for 3-layer pipeline | layer1-precommit, layer2-pr-automation, layer3-human-review, human-review-orchestrator, notification-manager | CLI qa/run, qa/status, tests/ | No |
 | `base-layer.js` | Abstract base class for layers | None | layer1, layer2, layer3 | No |
 | `layer1-precommit.js` | Layer 1: lint, test, typecheck | base-layer.js | quality-gate-manager.js, tests/ | No |
-| `layer2-pr-automation.js` | Layer 2: CodeRabbit + Quinn automation | base-layer.js | quality-gate-manager.js, tests/ | No |
+| `layer2-pr-automation.js` | Layer 2: CodeRabbit + Argus automation | base-layer.js | quality-gate-manager.js, tests/ | No |
 | `layer3-human-review.js` | Layer 3: Strategic human review + checklists | base-layer.js, checklist-generator.js | quality-gate-manager.js, tests/ | No |
 | `checklist-generator.js` | Generates strategic review checklists | None | layer3-human-review.js, tests/ | No |
 | `human-review-orchestrator.js` | Story 3.5: Full orchestration of 3-layer flow | focus-area-recommender.js, notification-manager.js | quality-gate-manager.js, tests/ | No |

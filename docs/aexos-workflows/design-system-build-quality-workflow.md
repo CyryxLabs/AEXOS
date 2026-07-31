@@ -1,36 +1,36 @@
 # Design System Build Quality Pipeline
 
 **Workflow ID:** `design-system-build-quality`
-**Versão:** 1.0.0
-**Tipo:** Brownfield
+**Version:** 1.0.0
+**Type:** Brownfield
 **Status:** Production Ready
 
 ---
 
-## Visão Geral
+## Overview
 
-O **Design System Build Quality Pipeline** é um workflow pós-migração para Design Systems. Ele encadeia sequencialmente as etapas de build, documentação, auditoria de acessibilidade e cálculo de ROI para garantir qualidade e mensurar valor entregue.
+The **Design System Build Quality Pipeline** is a post-migration workflow for Design Systems. It sequentially chains the build, documentation, accessibility audit and ROI calculation steps to ensure quality and measure the value delivered.
 
-### Propósito
+### Purpose
 
-Este pipeline garante que após a migração ou criação de um Design System:
+This pipeline ensures that, after the migration or creation of a Design System:
 
-1. **Componentes compilam corretamente** - Build de tokens e componentes atômicos
-2. **Documentação está completa** - Pattern Library com exemplos e guias
-3. **Acessibilidade é validada** - Conformidade WCAG 2.1 AA
-4. **ROI é mensurado** - Métricas de economia e valor entregue
+1. **Components compile correctly** - Build of tokens and atomic components
+2. **Documentation is complete** - Pattern Library with examples and guides
+3. **Accessibility is validated** - WCAG 2.1 AA compliance
+4. **ROI is measured** - Savings metrics and value delivered
 
-### Quando Usar
+### When to Use
 
-| Cenário | Recomendação |
+| Scenario | Recommendation |
 |---------|--------------|
-| Após migração de Design System | Fortemente recomendado |
-| Release de nova versão do Pattern Library | Obrigatório |
-| Auditoria periódica de qualidade | Recomendado (trimestral) |
-| Validação pré-produção de componentes | Obrigatório |
-| Geração de métricas para stakeholders | Conforme necessidade |
+| After a Design System migration | Strongly recommended |
+| Release of a new Pattern Library version | Mandatory |
+| Periodic quality audit | Recommended (quarterly) |
+| Pre-production component validation | Mandatory |
+| Generating metrics for stakeholders | As needed |
 
-### Tipos de Projeto Suportados
+### Supported Project Types
 
 - `design-system`
 - `component-library`
@@ -39,22 +39,22 @@ Este pipeline garante que após a migração ou criação de um Design System:
 
 ---
 
-## Diagrama do Workflow
+## Workflow Diagram
 
-### Fluxo Principal
+### Main Flow
 
 ```mermaid
 flowchart TD
-    subgraph INICIO["🚀 INICIO"]
+    subgraph INICIO["🚀 START"]
         A[Start: Design System Quality Pipeline]
     end
 
-    subgraph PHASE1["📦 FASE 1: Build & Compile"]
-        B[ux-design-expert:<br/>Build componentes atomicos]
-        B1[Compila tokens de design]
-        B2[Gera componentes atomicos]
-        B3[Valida estrutura e nomenclatura]
-        B4[Verifica dependencias]
+    subgraph PHASE1["📦 PHASE 1: Build & Compile"]
+        B[ux-design-expert:<br/>Build atomic components]
+        B1[Compiles design tokens]
+        B2[Generates atomic components]
+        B3[Validates structure and naming]
+        B4[Checks dependencies]
 
         B --> B1
         B1 --> B2
@@ -62,17 +62,17 @@ flowchart TD
         B3 --> B4
     end
 
-    subgraph DECISION1["❓ Decisão Build"]
+    subgraph DECISION1["❓ Build Decision"]
         C{Build OK?}
-        E[🔴 Corrigir erros de build]
+        E[🔴 Fix build errors]
     end
 
-    subgraph PHASE2["📚 FASE 2: Documentation"]
-        D[ux-design-expert:<br/>Gerar documentacao Pattern Library]
-        D1[Documenta props e variantes]
-        D2[Cria exemplos de uso]
-        D3[Gera guia de estilo]
-        D4[Atualiza changelog]
+    subgraph PHASE2["📚 PHASE 2: Documentation"]
+        D[ux-design-expert:<br/>Generate Pattern Library documentation]
+        D1[Documents props and variants]
+        D2[Creates usage examples]
+        D3[Generates the style guide]
+        D4[Updates the changelog]
 
         D --> D1
         D1 --> D2
@@ -80,18 +80,18 @@ flowchart TD
         D3 --> D4
     end
 
-    subgraph DECISION2["❓ Decisão Docs"]
-        F{Docs completas?}
-        H[🔴 Completar documentação]
+    subgraph DECISION2["❓ Docs Decision"]
+        F{Docs complete?}
+        H[🔴 Complete the documentation]
     end
 
-    subgraph PHASE3["♿ FASE 3: Quality Assurance"]
-        G[ux-design-expert:<br/>Auditoria a11y WCAG AA]
-        G1[Verifica contraste de cores]
-        G2[Valida navegacao por teclado]
-        G3[Checa atributos ARIA]
-        G4[Testa com screen readers]
-        G5[Verifica focus states]
+    subgraph PHASE3["♿ PHASE 3: Quality Assurance"]
+        G[ux-design-expert:<br/>WCAG AA a11y audit]
+        G1[Checks color contrast]
+        G2[Validates keyboard navigation]
+        G3[Checks ARIA attributes]
+        G4[Tests with screen readers]
+        G5[Checks focus states]
 
         G --> G1
         G1 --> G2
@@ -100,18 +100,18 @@ flowchart TD
         G4 --> G5
     end
 
-    subgraph DECISION3["❓ Decisão A11y"]
-        I{A11y aprovado?}
-        K[🔴 Remediar violações]
+    subgraph DECISION3["❓ A11y Decision"]
+        I{A11y approved?}
+        K[🔴 Remediate violations]
     end
 
-    subgraph PHASE4["💰 FASE 4: ROI Analysis"]
-        J[ux-design-expert:<br/>Calcular ROI e savings]
-        J1[Tempo dev economizado]
-        J2[Redução de inconsistências]
-        J3[Velocidade de entrega]
-        J4[Custo manutenção reduzido]
-        J5[Métricas de reuso]
+    subgraph PHASE4["💰 PHASE 4: ROI Analysis"]
+        J[ux-design-expert:<br/>Calculate ROI and savings]
+        J1[Dev time saved]
+        J2[Reduction in inconsistencies]
+        J3[Delivery speed]
+        J4[Reduced maintenance cost]
+        J5[Reuse metrics]
 
         J --> J1
         J1 --> J2
@@ -120,12 +120,12 @@ flowchart TD
         J4 --> J5
     end
 
-    subgraph FIM["✅ FIM"]
-        L[Pipeline Completo]
+    subgraph FIM["✅ END"]
+        L[Pipeline Complete]
         L1[📊 Build report + bundle]
         L2[📖 Pattern Library docs]
-        L3[♿ Relatório WCAG AA]
-        L4[💵 Dashboard de ROI]
+        L3[♿ WCAG AA report]
+        L4[💵 ROI dashboard]
 
         L --> L1
         L --> L2
@@ -135,18 +135,18 @@ flowchart TD
 
     A --> B
     B4 --> C
-    C -->|Sim| D
-    C -->|Não| E
+    C -->|Yes| D
+    C -->|No| E
     E --> B
 
     D4 --> F
-    F -->|Sim| G
-    F -->|Não| H
+    F -->|Yes| G
+    F -->|No| H
     H --> D
 
     G5 --> I
-    I -->|Sim| J
-    I -->|Não| K
+    I -->|Yes| J
+    I -->|No| K
     K --> G
 
     J5 --> L
@@ -162,7 +162,7 @@ flowchart TD
     style K fill:#FFB6C1,stroke:#DC143C,stroke-width:2px
 ```
 
-### Visão Simplificada
+### Simplified View
 
 ```mermaid
 graph LR
@@ -172,18 +172,18 @@ graph LR
         A11Y --> ROI["💰 ROI"]
     end
 
-    START((Início)) --> BUILD
-    ROI --> FINISH((Fim))
+    START((Start)) --> BUILD
+    ROI --> FINISH((End))
 
     style START fill:#87CEEB
     style FINISH fill:#90EE90
 ```
 
-#### Fluxo de Dependências
+#### Dependency Flow
 
 ```mermaid
 graph TD
-    subgraph Outputs["Artefatos Gerados"]
+    subgraph Outputs["Generated Artifacts"]
         O1[build_report]
         O2[compiled_tokens]
         O3[component_bundle]
@@ -210,229 +210,229 @@ graph TD
 
 ---
 
-## Steps Detalhados
+## Detailed Steps
 
 ### Step 1: Build Atomic Components
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **ID** | `build` |
-| **Fase** | 1 - Build & Compile |
-| **Agente** | `ux-design-expert` (Iris) |
-| **Ação** | Build de componentes atômicos |
-| **Dependências** | Nenhuma (step inicial) |
+| **Phase** | 1 - Build & Compile |
+| **Agent** | `ux-design-expert` (Iris) |
+| **Action** | Build of atomic components |
+| **Dependencies** | None (initial step) |
 
-#### Descrição
+#### Description
 
-Executa o build dos componentes do Design System, compilando tokens e gerando os componentes atômicos.
+Runs the build of the Design System components, compiling tokens and generating the atomic components.
 
-#### Atividades Executadas
+#### Activities Performed
 
-1. **Compila tokens de design** - cores, tipografia, espaçamentos
-2. **Gera componentes atômicos** - buttons, inputs, cards, etc.
-3. **Valida estrutura de arquivos e nomenclatura**
-4. **Verifica dependências e imports**
+1. **Compiles design tokens** - colors, typography, spacing
+2. **Generates atomic components** - buttons, inputs, cards, etc.
+3. **Validates file structure and naming**
+4. **Checks dependencies and imports**
 
-#### Criterios de Sucesso
+#### Success Criteria
 
-- [ ] Build completo sem erros
-- [ ] Todos os tokens compilados
-- [ ] Componentes exportados corretamente
+- [ ] Build completes without errors
+- [ ] All tokens compiled
+- [ ] Components exported correctly
 
 #### Outputs
 
-| Artefato | Descrição |
+| Artifact | Description |
 |----------|-----------|
-| `build_report` | Relatório do processo de build |
-| `compiled_tokens` | Tokens de design compilados (CSS/JS) |
-| `component_bundle` | Bundle de componentes prontos |
+| `build_report` | Report of the build process |
+| `compiled_tokens` | Compiled design tokens (CSS/JS) |
+| `component_bundle` | Bundle of ready components |
 
 ---
 
 ### Step 2: Generate Documentation
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **ID** | `document` |
-| **Fase** | 2 - Documentation |
-| **Agente** | `ux-design-expert` (Iris) |
-| **Ação** | Gerar documentação do Pattern Library |
-| **Dependências** | `build` (Step 1) |
+| **Phase** | 2 - Documentation |
+| **Agent** | `ux-design-expert` (Iris) |
+| **Action** | Generate the Pattern Library documentation |
+| **Dependencies** | `build` (Step 1) |
 
-#### Descrição
+#### Description
 
-Gera documentação completa do Pattern Library, incluindo API de componentes, exemplos e guias de estilo.
+Generates complete Pattern Library documentation, including the component API, examples and style guides.
 
-#### Atividades Executadas
+#### Activities Performed
 
-1. **Documenta cada componente** com props e variantes
-2. **Cria exemplos de uso** e code snippets
-3. **Gera guia de estilo visual**
-4. **Atualiza changelog de componentes**
+1. **Documents each component** with props and variants
+2. **Creates usage examples** and code snippets
+3. **Generates a visual style guide**
+4. **Updates the component changelog**
 
-#### Criterios de Sucesso
+#### Success Criteria
 
-- [ ] Todos os componentes documentados
-- [ ] Exemplos de código funcionais
-- [ ] Guia de estilo atualizado
+- [ ] All components documented
+- [ ] Working code examples
+- [ ] Style guide updated
 
 #### Outputs
 
-| Artefato | Descrição |
+| Artifact | Description |
 |----------|-----------|
-| `pattern_library_docs` | Documentação completa do Pattern Library |
-| `component_api_reference` | Referência de API dos componentes |
-| `style_guide` | Guia de estilo visual |
+| `pattern_library_docs` | Complete Pattern Library documentation |
+| `component_api_reference` | Component API reference |
+| `style_guide` | Visual style guide |
 
 ---
 
 ### Step 3: Accessibility Audit
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **ID** | `a11y-check` |
-| **Fase** | 3 - Quality Assurance |
-| **Agente** | `ux-design-expert` (Iris) |
-| **Ação** | Auditoria de acessibilidade (WCAG AA) |
-| **Dependências** | `document` (Step 2) |
+| **Phase** | 3 - Quality Assurance |
+| **Agent** | `ux-design-expert` (Iris) |
+| **Action** | Accessibility audit (WCAG AA) |
+| **Dependencies** | `document` (Step 2) |
 
-#### Descrição
+#### Description
 
-Executa auditoria de acessibilidade conforme WCAG 2.1 AA, validando contraste, navegação e compatibilidade com tecnologias assistivas.
+Runs an accessibility audit against WCAG 2.1 AA, validating contrast, navigation and compatibility with assistive technologies.
 
-#### Atividades Executadas
+#### Activities Performed
 
-1. **Verifica contraste de cores** - 4.5:1 texto, 3:1 UI
-2. **Valida navegação por teclado**
-3. **Checa atributos ARIA e roles**
-4. **Testa com screen readers**
-5. **Verifica focus states e indicadores visuais**
+1. **Checks color contrast** - 4.5:1 text, 3:1 UI
+2. **Validates keyboard navigation**
+3. **Checks ARIA attributes and roles**
+4. **Tests with screen readers**
+5. **Checks focus states and visual indicators**
 
-#### Criterios de Sucesso
+#### Success Criteria
 
-- [ ] Contraste de cores aprovado
-- [ ] Navegacao por teclado funcional
-- [ ] ARIA labels corretos
-- [ ] Zero violacoes criticas WCAG AA
+- [ ] Color contrast approved
+- [ ] Keyboard navigation functional
+- [ ] Correct ARIA labels
+- [ ] Zero critical WCAG AA violations
 
 #### Outputs
 
-| Artefato | Descrição |
+| Artifact | Description |
 |----------|-----------|
-| `a11y_audit_report` | Relatorio completo da auditoria |
-| `violations_list` | Lista de violacoes encontradas |
-| `remediation_plan` | Plano de remediacao para violacoes |
+| `a11y_audit_report` | Complete audit report |
+| `violations_list` | List of violations found |
+| `remediation_plan` | Remediation plan for the violations |
 
 ---
 
 ### Step 4: Calculate ROI
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **ID** | `calculate-roi` |
-| **Fase** | 4 - ROI Analysis |
-| **Agente** | `ux-design-expert` (Iris) |
-| **Acao** | Calculo de ROI e savings |
-| **Dependencias** | `a11y-check` (Step 3) |
+| **Phase** | 4 - ROI Analysis |
+| **Agent** | `ux-design-expert` (Iris) |
+| **Action** | ROI and savings calculation |
+| **Dependencies** | `a11y-check` (Step 3) |
 
-#### Descricao
+#### Description
 
-Calcula o retorno sobre investimento do Design System, mensurando economia de tempo, reducao de inconsistencias e metricas de reuso.
+Calculates the return on investment of the Design System, measuring time savings, reduction in inconsistencies and reuse metrics.
 
-#### Metricas Calculadas
+#### Metrics Calculated
 
-1. **Tempo economizado** em desenvolvimento (horas/mes)
-2. **Reducao de inconsistencias visuais** (%)
-3. **Velocidade de entrega de features** (tempo medio)
-4. **Custo de manutencao reduzido** ($)
-5. **Taxa de reuso de componentes** (%)
+1. **Time saved** in development (hours/month)
+2. **Reduction in visual inconsistencies** (%)
+3. **Feature delivery speed** (average time)
+4. **Reduced maintenance cost** ($)
+5. **Component reuse rate** (%)
 
-#### Criterios de Sucesso
+#### Success Criteria
 
-- [ ] Horas dev economizadas/mes calculadas
-- [ ] % de reuso de componentes medido
-- [ ] Tempo medio para nova feature calculado
-- [ ] Reducao de bugs visuais quantificada
+- [ ] Dev hours saved/month calculated
+- [ ] % of component reuse measured
+- [ ] Average time for a new feature calculated
+- [ ] Reduction in visual bugs quantified
 
 #### Outputs
 
-| Artefato | Descrição |
+| Artifact | Description |
 |----------|-----------|
-| `roi_report` | Relatorio de ROI completo |
-| `savings_metrics` | Metricas de economia detalhadas |
-| `adoption_dashboard` | Dashboard de adocao do Design System |
+| `roi_report` | Complete ROI report |
+| `savings_metrics` | Detailed savings metrics |
+| `adoption_dashboard` | Design System adoption dashboard |
 
 ---
 
-## Agentes Participantes
+## Participating Agents
 
 ### ux-design-expert (Iris)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Nome** | Uma |
+| **Name** | Iris |
 | **Role** | UX/UI Designer & Design System Architect |
 | **Icon** | 🎨 |
-| **Arquetipo** | Empathizer |
+| **Archetype** | Empathizer |
 
-#### Filosofia Hibrida
+#### Hybrid Philosophy
 
-Uma combina duas abordagens complementares:
+Iris combines two complementary approaches:
 
-**Sally's UX Principles (Fase de Research):**
-- User-centric: decisoes baseadas em necessidades reais
-- Empathetic discovery: pesquisa profunda de usuarios
-- Iterative simplicity: comecar simples, refinar com feedback
-- Delight in details: micro-interacoes criam experiencias memoraveis
+**Sally's UX Principles (Research phase):**
+- User-centric: decisions based on real needs
+- Empathetic discovery: deep user research
+- Iterative simplicity: start simple, refine with feedback
+- Delight in details: micro-interactions create memorable experiences
 
-**Brad Frost's System Principles (Fases de Build & Scale):**
-- Metric-driven: numeros sobre opinioes
-- Visual shock therapy: mostrar o caos com dados reais
-- Intelligent consolidation: clustering algoritmico de padroes
-- ROI-focused: calcular economia, provar valor
-- Zero hardcoded values: todo styling vem de tokens
+**Brad Frost's System Principles (Build & Scale phases):**
+- Metric-driven: numbers over opinions
+- Visual shock therapy: show the chaos with real data
+- Intelligent consolidation: algorithmic clustering of patterns
+- ROI-focused: calculate savings, prove value
+- Zero hardcoded values: all styling comes from tokens
 - Atomic Design: Atoms → Molecules → Organisms → Templates → Pages
-- WCAG AA minimum: acessibilidade built-in
+- WCAG AA minimum: accessibility built in
 
-#### Comandos Relevantes para Este Workflow
+#### Commands Relevant to This Workflow
 
-| Comando | Descricao | Fase |
+| Command | Description | Phase |
 |---------|-----------|------|
-| `*build {component}` | Build de componente atomico | 4 |
-| `*document` | Gerar documentacao Pattern Library | 5 |
-| `*a11y-check` | Auditoria WCAG AA/AAA | 5 |
-| `*calculate-roi` | Calcular ROI e economia | 5 |
+| `*build {component}` | Build of an atomic component | 4 |
+| `*document` | Generate Pattern Library documentation | 5 |
+| `*a11y-check` | WCAG AA/AAA audit | 5 |
+| `*calculate-roi` | Calculate ROI and savings | 5 |
 
 ---
 
-## Tasks Executadas
+## Tasks Executed
 
-### Mapeamento de Tasks por Step
+### Task Mapping by Step
 
-| Step | Task File | Descricao |
+| Step | Task File | Description |
 |------|-----------|-----------|
-| Build | `build-component.md` | Build de componentes atomicos |
-| Documentation | `generate-documentation.md` | Geracao de Pattern Library |
-| A11y Audit | `accessibility-wcag-checklist.md` | Checklist WCAG 2.1 AA |
-| ROI | `calculate-roi.md` | Calculo de ROI e metricas |
+| Build | `build-component.md` | Build of atomic components |
+| Documentation | `generate-documentation.md` | Pattern Library generation |
+| A11y Audit | `accessibility-wcag-checklist.md` | WCAG 2.1 AA checklist |
+| ROI | `calculate-roi.md` | ROI and metrics calculation |
 
-### Diagrama de Dependencias de Tasks
+### Task Dependency Diagram
 
 ```mermaid
 graph TD
-    subgraph Phase1["Fase 1: Build"]
+    subgraph Phase1["Phase 1: Build"]
         T1[build-component.md]
     end
 
-    subgraph Phase2["Fase 2: Documentation"]
+    subgraph Phase2["Phase 2: Documentation"]
         T2[generate-documentation.md]
     end
 
-    subgraph Phase3["Fase 3: Quality"]
+    subgraph Phase3["Phase 3: Quality"]
         T3[accessibility-wcag-checklist.md]
     end
 
-    subgraph Phase4["Fase 4: ROI"]
+    subgraph Phase4["Phase 4: ROI"]
         T4[calculate-roi.md]
     end
 
@@ -441,45 +441,45 @@ graph TD
 
 ---
 
-## Pre-requisitos
+## Prerequisites
 
-### Requisitos Tecnicos
+### Technical Requirements
 
-| Requisito | Descricao |
+| Requirement | Description |
 |-----------|-----------|
-| Design System existente | Componentes ja migrados/criados |
-| Estrutura de tokens | `tokens.yaml` ou equivalente configurado |
-| Ambiente de build | Node.js 18+, npm/yarn/pnpm |
-| Ferramentas de teste | Jest, Testing Library (recomendado) |
+| Existing Design System | Components already migrated/created |
+| Token structure | `tokens.yaml` or equivalent configured |
+| Build environment | Node.js 18+, npm/yarn/pnpm |
+| Testing tools | Jest, Testing Library (recommended) |
 
-### Requisitos de Projeto
+### Project Requirements
 
-- [ ] Migracao de Design System concluida (ou v1 criada)
-- [ ] Tokens de design extraidos e organizados
-- [ ] Componentes atomicos definidos (atoms, molecules, organisms)
-- [ ] Estrutura de pastas seguindo Atomic Design
+- [ ] Design System migration completed (or v1 created)
+- [ ] Design tokens extracted and organized
+- [ ] Atomic components defined (atoms, molecules, organisms)
+- [ ] Folder structure following Atomic Design
 
-### Requisitos de Time
+### Team Requirements
 
-- [ ] Conhecimento de Atomic Design methodology
-- [ ] Familiaridade com WCAG 2.1 guidelines
-- [ ] Acesso ao repositorio de Design System
+- [ ] Knowledge of the Atomic Design methodology
+- [ ] Familiarity with the WCAG 2.1 guidelines
+- [ ] Access to the Design System repository
 
 ---
 
-## Entradas e Saidas
+## Inputs and Outputs
 
-### Entradas do Pipeline
+### Pipeline Inputs
 
-| Entrada | Tipo | Descricao |
+| Input | Type | Description |
 |---------|------|-----------|
-| Design tokens source | `tokens.yaml` | Definicoes de cores, tipografia, espacamentos |
-| Component source files | `*.tsx`, `*.css` | Codigo fonte dos componentes |
-| Existing documentation | `*.md` | Documentacao existente (se houver) |
+| Design tokens source | `tokens.yaml` | Definitions of colors, typography, spacing |
+| Component source files | `*.tsx`, `*.css` | Component source code |
+| Existing documentation | `*.md` | Existing documentation (if any) |
 
-### Saidas do Pipeline
+### Pipeline Outputs
 
-#### Fase 1: Build & Compile
+#### Phase 1: Build & Compile
 
 ```
 outputs/design-system/
@@ -493,7 +493,7 @@ outputs/design-system/
     └── components.d.ts
 ```
 
-#### Fase 2: Documentation
+#### Phase 2: Documentation
 
 ```
 outputs/design-system/
@@ -510,7 +510,7 @@ outputs/design-system/
 └── changelog.md
 ```
 
-#### Fase 3: Quality Assurance
+#### Phase 3: Quality Assurance
 
 ```
 outputs/design-system/
@@ -520,7 +520,7 @@ outputs/design-system/
 │   └── remediation-plan.md
 ```
 
-#### Fase 4: ROI Analysis
+#### Phase 4: ROI Analysis
 
 ```
 outputs/design-system/
@@ -532,118 +532,118 @@ outputs/design-system/
 
 ---
 
-## Pontos de Decisao
+## Decision Points
 
-### Decisao 1: Build OK?
+### Decision 1: Build OK?
 
 ```mermaid
 graph TD
-    BUILD[Build Completo] --> CHECK{Erros?}
-    CHECK -->|Sim| FIX[Corrigir Erros]
-    CHECK -->|Nao| PROCEED[Prosseguir para Docs]
+    BUILD[Build Complete] --> CHECK{Errors?}
+    CHECK -->|Yes| FIX[Fix Errors]
+    CHECK -->|No| PROCEED[Proceed to Docs]
     FIX --> BUILD
 ```
 
-**Criterios de Passagem:**
-- Zero erros de compilacao
-- Todos os tokens validos
-- Exports funcionando
+**Pass Criteria:**
+- Zero compilation errors
+- All tokens valid
+- Exports working
 
-**Acoes em Caso de Falha:**
-1. Revisar logs de build
-2. Corrigir erros de sintaxe/import
-3. Validar estrutura de tokens
-4. Re-executar build
+**Actions on Failure:**
+1. Review the build logs
+2. Fix syntax/import errors
+3. Validate the token structure
+4. Re-run the build
 
 ---
 
-### Decisao 2: Documentacao Completa?
+### Decision 2: Documentation Complete?
 
 ```mermaid
 graph TD
-    DOCS[Docs Geradas] --> CHECK{Completas?}
-    CHECK -->|Sim| PROCEED[Prosseguir para A11y]
-    CHECK -->|Nao| COMPLETE[Completar Docs]
+    DOCS[Docs Generated] --> CHECK{Complete?}
+    CHECK -->|Yes| PROCEED[Proceed to A11y]
+    CHECK -->|No| COMPLETE[Complete the Docs]
     COMPLETE --> DOCS
 ```
 
-**Criterios de Passagem:**
-- 100% dos componentes documentados
-- Exemplos de codigo funcionais
-- Guia de estilo atualizado
+**Pass Criteria:**
+- 100% of components documented
+- Working code examples
+- Style guide updated
 
-**Acoes em Caso de Falha:**
-1. Identificar componentes sem documentacao
-2. Adicionar props e exemplos faltantes
-3. Atualizar changelog
-4. Re-gerar documentacao
+**Actions on Failure:**
+1. Identify components without documentation
+2. Add missing props and examples
+3. Update the changelog
+4. Re-generate the documentation
 
 ---
 
-### Decisao 3: Acessibilidade Aprovada?
+### Decision 3: Accessibility Approved?
 
 ```mermaid
 graph TD
-    A11Y[Auditoria A11y] --> CHECK{Aprovado?}
-    CHECK -->|Sim| PROCEED[Prosseguir para ROI]
-    CHECK -->|Nao| FIX[Remediar Violacoes]
+    A11Y[A11y Audit] --> CHECK{Approved?}
+    CHECK -->|Yes| PROCEED[Proceed to ROI]
+    CHECK -->|No| FIX[Remediate Violations]
     FIX --> A11Y
 ```
 
-**Criterios de Passagem:**
-- Zero violacoes criticas (Level A)
-- Zero violacoes serias (Level AA)
-- Navegacao por teclado 100% funcional
+**Pass Criteria:**
+- Zero critical violations (Level A)
+- Zero serious violations (Level AA)
+- Keyboard navigation 100% functional
 
-**Acoes em Caso de Falha:**
-1. Revisar `violations_list`
-2. Seguir `remediation_plan`
-3. Corrigir problemas de contraste
-4. Adicionar ARIA labels faltantes
-5. Re-executar auditoria
+**Actions on Failure:**
+1. Review `violations_list`
+2. Follow the `remediation_plan`
+3. Fix contrast problems
+4. Add missing ARIA labels
+5. Re-run the audit
 
 ---
 
-## Modos de Execucao
+## Execution Modes
 
-O workflow suporta tres modos de execucao:
+The workflow supports three execution modes:
 
-### Modo YOLO (Autonomo)
+### YOLO Mode (Autonomous)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Prompts** | 0-1 |
-| **Interacao** | Minima |
-| **Uso** | Pipelines CI/CD, execucao automatizada |
+| **Interaction** | Minimal |
+| **Use** | CI/CD pipelines, automated execution |
 
 ```bash
-# Execucao autonoma
+# Autonomous execution
 *workflow design-system-build-quality --mode yolo
 ```
 
-### Modo Interactive (Padrao)
+### Interactive Mode (Default)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Prompts** | 5-10 |
-| **Interacao** | Checkpoints de decisao |
-| **Uso** | Desenvolvimento normal, feedback educacional |
+| **Interaction** | Decision checkpoints |
+| **Use** | Normal development, educational feedback |
 
 ```bash
-# Execucao interativa (padrao)
+# Interactive execution (default)
 *workflow design-system-build-quality
 ```
 
-### Modo Preflight (Planejamento)
+### Preflight Mode (Planning)
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Prompts** | 10-15 |
-| **Interacao** | Planejamento completo antes da execucao |
-| **Uso** | Primeira execucao, analise de impacto |
+| **Interaction** | Full planning before execution |
+| **Use** | First run, impact analysis |
 
 ```bash
-# Execucao com planejamento completo
+# Execution with full planning
 *workflow design-system-build-quality --mode preflight
 ```
 
@@ -651,173 +651,173 @@ O workflow suporta tres modos de execucao:
 
 ## Troubleshooting
 
-### Problema: Build Falha com Erros de Token
+### Problem: Build Fails with Token Errors
 
-**Sintomas:**
-- Erro "Token not found"
-- Cores ou espacamentos nao compilam
+**Symptoms:**
+- "Token not found" error
+- Colors or spacing do not compile
 
-**Solucao:**
+**Solution:**
 ```bash
-# 1. Verificar estrutura de tokens
+# 1. Check the token structure
 cat tokens.yaml
 
-# 2. Validar sintaxe YAML
+# 2. Validate the YAML syntax
 npm run lint:tokens
 
-# 3. Verificar referencias cruzadas
+# 3. Check the cross-references
 grep -r "var(--" src/
 ```
 
 ---
 
-### Problema: Documentacao Incompleta
+### Problem: Incomplete Documentation
 
-**Sintomas:**
-- Componentes sem exemplos
-- Props nao documentadas
+**Symptoms:**
+- Components without examples
+- Undocumented props
 
-**Solucao:**
+**Solution:**
 ```bash
-# 1. Listar componentes sem docs
+# 1. List components without docs
 *audit --check-docs
 
-# 2. Gerar stubs de documentacao
+# 2. Generate documentation stubs
 *document --generate-stubs
 
-# 3. Completar manualmente e re-executar
+# 3. Complete them manually and re-run
 *document
 ```
 
 ---
 
-### Problema: Violacoes de Acessibilidade
+### Problem: Accessibility Violations
 
-**Sintomas:**
-- Falhas de contraste
-- ARIA labels ausentes
+**Symptoms:**
+- Contrast failures
+- Missing ARIA labels
 
-**Solucao:**
+**Solution:**
 ```bash
-# 1. Revisar relatorio detalhado
+# 1. Review the detailed report
 cat outputs/design-system/a11y/violations.json
 
-# 2. Usar ferramenta de contraste
-# Recomendado: WebAIM Contrast Checker
+# 2. Use a contrast tool
+# Recommended: WebAIM Contrast Checker
 
-# 3. Adicionar ARIA labels
-# Seguir remediation-plan.md
+# 3. Add ARIA labels
+# Follow remediation-plan.md
 
-# 4. Re-executar auditoria
+# 4. Re-run the audit
 *a11y-check
 ```
 
 ---
 
-### Problema: ROI Nao Calculado Corretamente
+### Problem: ROI Not Calculated Correctly
 
-**Sintomas:**
-- Metricas zeradas
-- Dados historicos ausentes
+**Symptoms:**
+- Metrics at zero
+- Missing historical data
 
-**Solucao:**
+**Solution:**
 ```bash
-# 1. Verificar dados de entrada
+# 1. Check the input data
 cat .state.yaml
 
-# 2. Fornecer baseline manual
+# 2. Provide a manual baseline
 *calculate-roi --baseline "manual"
 
-# 3. Usar estimativas de mercado
-# Brad Frost sugere: 30-50% economia em desenvolvimento
+# 3. Use market estimates
+# Brad Frost suggests: 30-50% savings in development
 ```
 
 ---
 
 ## Handoff Prompts
 
-### Apos Build Completo
+### After Build Complete
 
 ```
-Build de componentes concluido com sucesso.
-Tokens compilados: {{token_count}}
-Componentes gerados: {{component_count}}
-Prosseguindo para documentacao...
+Component build completed successfully.
+Tokens compiled: {{token_count}}
+Components generated: {{component_count}}
+Proceeding to documentation...
 ```
 
-### Apos Documentacao
+### After Documentation
 
 ```
-Documentacao do Pattern Library gerada.
-Componentes documentados: {{documented_count}}
-Exemplos criados: {{example_count}}
-Iniciando auditoria de acessibilidade...
+Pattern Library documentation generated.
+Components documented: {{documented_count}}
+Examples created: {{example_count}}
+Starting the accessibility audit...
 ```
 
-### Apos Auditoria A11y
+### After A11y Audit
 
 ```
-Auditoria de acessibilidade WCAG AA concluida.
+WCAG AA accessibility audit completed.
 Status: {{pass/fail}}
-Violacoes criticas: {{critical_count}}
-Violacoes menores: {{minor_count}}
-{{if pass}}: Prosseguindo para calculo de ROI.
-{{if fail}}: Revisar remediation_plan antes de continuar.
+Critical violations: {{critical_count}}
+Minor violations: {{minor_count}}
+{{if pass}}: Proceeding to the ROI calculation.
+{{if fail}}: Review remediation_plan before continuing.
 ```
 
-### Pipeline Completo
+### Pipeline Complete
 
 ```
-Pipeline de qualidade finalizado!
+Quality pipeline finished!
 
-Resumo:
+Summary:
 - Build: {{build_status}}
-- Documentacao: {{docs_status}}
-- Acessibilidade: {{a11y_status}}
-- ROI calculado: {{roi_value}}
+- Documentation: {{docs_status}}
+- Accessibility: {{a11y_status}}
+- ROI calculated: {{roi_value}}
 
-Artefatos disponiveis em outputs/design-system/
+Artifacts available in outputs/design-system/
 ```
 
 ---
 
-## Referencias
+## References
 
-### Documentacao Interna
+### Internal Documentation
 
-| Documento | Caminho |
+| Document | Path |
 |-----------|---------|
-| Definicao do Workflow | `.aexos-core/development/workflows/design-system-build-quality.yaml` |
-| Agente UX-Design Expert | `.aexos-core/development/agents/ux-design-expert.md` |
+| Workflow Definition | `.aexos-core/development/workflows/design-system-build-quality.yaml` |
+| UX-Design Expert Agent | `.aexos-core/development/agents/ux-design-expert.md` |
 | Task: Build Component | `.aexos-core/development/tasks/build-component.md` |
 | Task: Generate Documentation | `.aexos-core/development/tasks/generate-documentation.md` |
 | Checklist: WCAG A11y | `.aexos-core/development/checklists/accessibility-wcag-checklist.md` |
 | Task: Calculate ROI | `.aexos-core/development/tasks/calculate-roi.md` |
 
-### Referencias Externas
+### External References
 
-| Recurso | Link |
+| Resource | Link |
 |---------|------|
 | Atomic Design (Brad Frost) | https://atomicdesign.bradfrost.com/ |
 | WCAG 2.1 Guidelines | https://www.w3.org/WAI/WCAG21/quickref/ |
 | Design Tokens W3C | https://design-tokens.github.io/community-group/format/ |
 | WebAIM Contrast Checker | https://webaim.org/resources/contrastchecker/ |
 
-### Workflows Relacionados
+### Related Workflows
 
-| Workflow | Descricao |
+| Workflow | Description |
 |----------|-----------|
-| `brownfield-migration` | Migracao de Design System existente |
-| `greenfield-design-system` | Criacao de Design System do zero |
-| `component-library-setup` | Setup inicial de biblioteca de componentes |
+| `brownfield-migration` | Migration of an existing Design System |
+| `greenfield-design-system` | Creation of a Design System from scratch |
+| `component-library-setup` | Initial setup of a component library |
 
 ---
 
-## Historico de Versoes
+## Version History
 
-| Versao | Data | Autor | Mudancas |
+| Version | Date | Author | Changes |
 |--------|------|-------|----------|
-| 1.0.0 | 2025-01-30 | Zeus (AEXOS Master) | Versao inicial do workflow |
+| 1.0.0 | 2025-01-30 | Zeus (AEXOS Master) | Initial version of the workflow |
 
 ---
 
@@ -841,5 +841,5 @@ tags:
 
 ---
 
-*Documentacao gerada por Technical Documentation Specialist*
+*Documentation generated by Technical Documentation Specialist*
 *AEXOS-FULLSTACK Framework v2.2*

@@ -1,101 +1,101 @@
-# Sistema do Agente Product Manager (PM) - AEXOS
+# Product Manager (PM) Agent System - AEXOS
 
-> **Versao:** 1.0.0
-> **Criado:** 2026-02-04
+> **Version:** 1.0.0
+> **Created:** 2026-02-04
 > **Owner:** @pm (Janus)
-> **Status:** Documentacao Oficial
+> **Status:** Official Documentation
 
 ---
 
-## Visao Geral
+## Overview
 
-Este documento descreve o sistema completo do agente Product Manager (PM) do AEXOS, incluindo todos os arquivos envolvidos, fluxos de trabalho, comandos disponiveis e integracoes entre agentes.
+This document describes the complete system of the AEXOS Product Manager (PM) agent, including all files involved, workflows, available commands and integrations between agents.
 
-O agente PM e projetado para:
-- Criar e gerenciar Product Requirements Documents (PRDs) para projetos greenfield e brownfield
-- Definir e estruturar epics com planejamento de qualidade integrado
-- Conduzir pesquisa estrategica e analise de mercado
-- Corrigir desvios de curso durante o desenvolvimento
-- Fragmentar documentos grandes em partes gerenciaveis
-- Colaborar com outros agentes para garantir alinhamento estrategico
+The PM agent is designed to:
+- Create and manage Product Requirements Documents (PRDs) for greenfield and brownfield projects
+- Define and structure epics with integrated quality planning
+- Conduct strategic research and market analysis
+- Correct course deviations during development
+- Shard large documents into manageable parts
+- Collaborate with other agents to ensure strategic alignment
 
-### Persona: Morgan - O Estrategista
+### Persona: Janus - The Strategist
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Nome** | Morgan |
+| **Name** | Janus |
 | **ID** | pm |
-| **Titulo** | Product Manager |
-| **Icone** | :clipboard: |
-| **Arquetipo** | Strategist |
-| **Signo** | Capricornio |
-| **Tom** | Estrategico |
-| **Assinatura** | "-- Morgan, planejando o futuro :bar_chart:" |
+| **Title** | Product Manager |
+| **Icon** | :clipboard: |
+| **Archetype** | Strategist |
+| **Sign** | Capricorn |
+| **Tone** | Strategic |
+| **Signature** | "-- Janus, planning the future :bar_chart:" |
 
 ---
 
-## Lista Completa de Arquivos
+## Complete File List
 
-### Arquivo de Definicao do Agente
+### Agent Definition File
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/agents/pm.md` | Definicao core do agente PM |
-| `.claude/commands/AEXOS/agents/pm.md` | Comando Claude Code para ativar @pm |
+| `.aexos-core/development/agents/pm.md` | Core definition of the PM agent |
+| `.claude/commands/AEXOS/agents/pm.md` | Claude Code command to activate @pm |
 
-### Tasks do @pm
+### @pm Tasks
 
-| Arquivo | Comando | Proposito |
+| File | Command | Purpose |
 |---------|---------|-----------|
-| `.aexos-core/development/tasks/create-doc.md` | `*create-prd` | Cria documentos a partir de templates YAML |
-| `.aexos-core/development/tasks/correct-course.md` | `*correct-course` | Analisa e corrige desvios de projeto |
-| `.aexos-core/development/tasks/create-deep-research-prompt.md` | `*research` | Gera prompts de pesquisa profunda |
-| `.aexos-core/development/tasks/brownfield-create-epic.md` | `*create-epic` | Cria epics para projetos brownfield |
-| `.aexos-core/development/tasks/brownfield-create-story.md` | `*create-story` | Cria stories para brownfield |
-| `.aexos-core/development/tasks/execute-checklist.md` | `*checklist` | Executa validacao de checklists |
-| `.aexos-core/development/tasks/shard-doc.md` | `*shard-prd` | Fragmenta documentos grandes |
+| `.aexos-core/development/tasks/create-doc.md` | `*create-prd` | Creates documents from YAML templates |
+| `.aexos-core/development/tasks/correct-course.md` | `*correct-course` | Analyzes and corrects project deviations |
+| `.aexos-core/development/tasks/create-deep-research-prompt.md` | `*research` | Generates deep research prompts |
+| `.aexos-core/development/tasks/brownfield-create-epic.md` | `*create-epic` | Creates epics for brownfield projects |
+| `.aexos-core/development/tasks/brownfield-create-story.md` | `*create-story` | Creates stories for brownfield |
+| `.aexos-core/development/tasks/execute-checklist.md` | `*checklist` | Runs checklist validation |
+| `.aexos-core/development/tasks/shard-doc.md` | `*shard-prd` | Shards large documents |
 
-### Templates do @pm
+### @pm Templates
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/product/templates/prd-tmpl.yaml` | Template PRD para projetos greenfield |
-| `.aexos-core/product/templates/brownfield-prd-tmpl.yaml` | Template PRD para projetos brownfield |
+| `.aexos-core/product/templates/prd-tmpl.yaml` | PRD template for greenfield projects |
+| `.aexos-core/product/templates/brownfield-prd-tmpl.yaml` | PRD template for brownfield projects |
 
-### Checklists do @pm
+### @pm Checklists
 
-| Arquivo | Proposito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/product/checklists/pm-checklist.md` | Checklist de validacao de PRD |
-| `.aexos-core/product/checklists/change-checklist.md` | Checklist para navegacao de mudancas |
+| `.aexos-core/product/checklists/pm-checklist.md` | PRD validation checklist |
+| `.aexos-core/product/checklists/change-checklist.md` | Checklist for change navigation |
 
-### Workflows que Utilizam o @pm
+### Workflows That Use @pm
 
-| Arquivo | Fase | Proposito |
+| File | Phase | Purpose |
 |---------|------|-----------|
-| `.aexos-core/development/workflows/brownfield-discovery.yaml` | Fase 10 | Criacao de epics e stories pos-discovery |
+| `.aexos-core/development/workflows/brownfield-discovery.yaml` | Phase 10 | Creation of epics and stories post-discovery |
 
 ---
 
-## Flowchart: Sistema Completo do PM
+## Flowchart: Complete PM System
 
 ```mermaid
 flowchart TB
-    subgraph INPUTS["📥 ENTRADAS"]
+    subgraph INPUTS["📥 INPUTS"]
         BRIEF["📋 Project Brief"]
-        RESEARCH["🔍 Pesquisa de Mercado"]
+        RESEARCH["🔍 Market Research"]
         BRAINSTORM["💡 Brainstorming"]
-        EXISTING["🏗️ Projeto Existente<br/>(Brownfield)"]
+        EXISTING["🏗️ Existing Project<br/>(Brownfield)"]
     end
 
     subgraph PM_CORE["📋 @pm (Janus) - CORE"]
-        CREATE_PRD["*create-prd<br/>Criar PRD Greenfield"]
-        CREATE_BF_PRD["*create-brownfield-prd<br/>Criar PRD Brownfield"]
-        CREATE_EPIC["*create-epic<br/>Criar Epic"]
-        CREATE_STORY["*create-story<br/>Criar Story"]
-        RESEARCH_CMD["*research<br/>Pesquisa Profunda"]
-        CORRECT["*correct-course<br/>Corrigir Desvios"]
-        SHARD["*shard-prd<br/>Fragmentar Documento"]
+        CREATE_PRD["*create-prd<br/>Create Greenfield PRD"]
+        CREATE_BF_PRD["*create-brownfield-prd<br/>Create Brownfield PRD"]
+        CREATE_EPIC["*create-epic<br/>Create Epic"]
+        CREATE_STORY["*create-story<br/>Create Story"]
+        RESEARCH_CMD["*research<br/>Deep Research"]
+        CORRECT["*correct-course<br/>Correct Deviations"]
+        SHARD["*shard-prd<br/>Shard Document"]
     end
 
     subgraph TEMPLATES["📄 TEMPLATES"]
@@ -108,7 +108,7 @@ flowchart TB
         CHANGE_CHECK["change-checklist.md"]
     end
 
-    subgraph OUTPUTS["📤 SAÍDAS"]
+    subgraph OUTPUTS["📤 OUTPUTS"]
         PRD["docs/prd.md"]
         EPICS["docs/stories/epic-*.md"]
         STORIES["docs/stories/STORY-*.md"]
@@ -142,30 +142,30 @@ flowchart TB
     style OUTPUTS fill:#e8f5e9
 ```
 
-### Diagrama de Fluxo PRD Greenfield
+### Greenfield PRD Flow Diagram
 
 ```mermaid
 flowchart TD
-    START[Iniciar *create-prd] --> CHECK_BRIEF{Project Brief<br/>disponível?}
+    START[Start *create-prd] --> CHECK_BRIEF{Project Brief<br/>available?}
 
-    CHECK_BRIEF -->|Sim| LOAD_BRIEF[Carregar Brief]
-    CHECK_BRIEF -->|Não| RECOMMEND[Recomendar criar Brief<br/>ou coletar informações]
+    CHECK_BRIEF -->|Yes| LOAD_BRIEF[Load Brief]
+    CHECK_BRIEF -->|No| RECOMMEND[Recommend creating a Brief<br/>or gathering information]
 
     LOAD_BRIEF --> GOALS[1. Goals and Context]
     RECOMMEND --> GOALS
 
     GOALS --> REQUIREMENTS[2. Requirements<br/>FR + NFR]
-    REQUIREMENTS --> UI_GOALS{PRD tem<br/>requisitos UI/UX?}
+    REQUIREMENTS --> UI_GOALS{Does the PRD have<br/>UI/UX requirements?}
 
-    UI_GOALS -->|Sim| UI_SECTION[3. UI Design Goals]
-    UI_GOALS -->|Não| TECH
+    UI_GOALS -->|Yes| UI_SECTION[3. UI Design Goals]
+    UI_GOALS -->|No| TECH
     UI_SECTION --> TECH[4. Technical Assumptions]
 
-    TECH --> EPIC_LIST[5. Epic List<br/>Aprovação de estrutura]
+    TECH --> EPIC_LIST[5. Epic List<br/>Structure approval]
     EPIC_LIST --> EPIC_DETAILS[6. Epic Details<br/>Stories + ACs]
 
-    EPIC_DETAILS --> CHECKLIST[7. Executar pm-checklist]
-    CHECKLIST --> NEXT_STEPS[8. Next Steps<br/>Prompts para @architect e @ux-expert]
+    EPIC_DETAILS --> CHECKLIST[7. Run pm-checklist]
+    CHECKLIST --> NEXT_STEPS[8. Next Steps<br/>Prompts for @architect and @ux-expert]
 
     NEXT_STEPS --> OUTPUT[📄 docs/prd.md]
 
@@ -174,19 +174,19 @@ flowchart TD
     style CHECKLIST fill:#fff9c4
 ```
 
-### Diagrama de Fluxo PRD Brownfield
+### Brownfield PRD Flow Diagram
 
 ```mermaid
 flowchart TD
-    START[Iniciar *create-brownfield-prd] --> ASSESS{Avaliar Complexidade<br/>da Enhancement}
+    START[Start *create-brownfield-prd] --> ASSESS{Assess Enhancement<br/>Complexity}
 
-    ASSESS -->|Simples<br/>1-2 sessões| RECOMMEND_SIMPLE["Recomendar:<br/>*create-epic ou<br/>*create-story"]
-    ASSESS -->|Significativo<br/>Múltiplas stories| CONTINUE[Continuar PRD Brownfield]
+    ASSESS -->|Simple<br/>1-2 sessions| RECOMMEND_SIMPLE["Recommend:<br/>*create-epic or<br/>*create-story"]
+    ASSESS -->|Significant<br/>Multiple stories| CONTINUE[Continue Brownfield PRD]
 
-    CONTINUE --> CHECK_DOC{document-project<br/>foi executado?}
+    CONTINUE --> CHECK_DOC{Has document-project<br/>been run?}
 
-    CHECK_DOC -->|Sim| LOAD_DOC[Carregar análise existente]
-    CHECK_DOC -->|Não| ANALYZE[Analisar projeto<br/>ou recomendar document-project]
+    CHECK_DOC -->|Yes| LOAD_DOC[Load existing analysis]
+    CHECK_DOC -->|No| ANALYZE[Analyze the project<br/>or recommend document-project]
 
     LOAD_DOC --> OVERVIEW[1. Existing Project Overview]
     ANALYZE --> OVERVIEW
@@ -194,13 +194,13 @@ flowchart TD
     OVERVIEW --> SCOPE[2. Enhancement Scope Definition]
     SCOPE --> REQUIREMENTS[3. Requirements<br/>FR + NFR + CR]
 
-    REQUIREMENTS --> UI{Enhancement<br/>inclui UI?}
-    UI -->|Sim| UI_ENHANCE[4. UI Enhancement Goals]
-    UI -->|Não| TECH
+    REQUIREMENTS --> UI{Does the enhancement<br/>include UI?}
+    UI -->|Yes| UI_ENHANCE[4. UI Enhancement Goals]
+    UI -->|No| TECH
     UI_ENHANCE --> TECH[5. Technical Constraints]
 
     TECH --> EPIC_STRUCT[6. Epic Structure]
-    EPIC_STRUCT --> STORIES[7. Stories com<br/>Integration Verification]
+    EPIC_STRUCT --> STORIES[7. Stories with<br/>Integration Verification]
 
     STORIES --> OUTPUT[📄 docs/prd.md<br/>Brownfield]
 
@@ -211,122 +211,122 @@ flowchart TD
 
 ---
 
-## Diagrama de Ciclo de Vida do PRD
+## PRD Lifecycle Diagram
 
 ```mermaid
 stateDiagram-v2
-    [*] --> BRIEF: Project Brief criado
+    [*] --> BRIEF: Project Brief created
 
-    BRIEF --> DRAFT: *create-prd iniciado
-    DRAFT --> REVIEW: Seções completadas
+    BRIEF --> DRAFT: *create-prd started
+    DRAFT --> REVIEW: Sections completed
 
     REVIEW --> APPROVED: pm-checklist PASS
     REVIEW --> REVISION: pm-checklist FAIL
-    REVISION --> DRAFT: Correções aplicadas
+    REVISION --> DRAFT: Corrections applied
 
-    APPROVED --> SHARDED: *shard-prd executado
-    SHARDED --> ARCHITECT: Handoff para @architect
+    APPROVED --> SHARDED: *shard-prd executed
+    SHARDED --> ARCHITECT: Handoff to @architect
 
-    ARCHITECT --> ACTIVE: Desenvolvimento iniciado
-    ACTIVE --> CHANGE: Desvio detectado
+    ARCHITECT --> ACTIVE: Development started
+    ACTIVE --> CHANGE: Deviation detected
     CHANGE --> COURSE_CORRECT: *correct-course
-    COURSE_CORRECT --> ACTIVE: Proposta aprovada
+    COURSE_CORRECT --> ACTIVE: Proposal approved
 
-    ACTIVE --> COMPLETED: MVP entregue
+    ACTIVE --> COMPLETED: MVP delivered
 
-    note right of DRAFT: 📝 Em elaboração
-    note right of REVIEW: 🔍 Validando checklist
-    note right of APPROVED: ✅ Pronto para arquitetura
-    note right of SHARDED: 📚 Documentos fragmentados
-    note right of ACTIVE: 🚧 Em desenvolvimento
-    note right of COMPLETED: ✅ MVP entregue
+    note right of DRAFT: 📝 In progress
+    note right of REVIEW: 🔍 Validating checklist
+    note right of APPROVED: ✅ Ready for architecture
+    note right of SHARDED: 📚 Sharded documents
+    note right of ACTIVE: 🚧 In development
+    note right of COMPLETED: ✅ MVP delivered
 ```
 
 ---
 
-## Mapeamento de Comandos para Tasks
+## Command to Task Mapping
 
-### Comandos de Criacao de Documentos
+### Document Creation Commands
 
-| Comando | Task File | Template | Descricao |
+| Command | Task File | Template | Description |
 |---------|-----------|----------|-----------|
-| `*create-prd` | `create-doc.md` | `prd-tmpl.yaml` | Cria PRD para projeto greenfield |
-| `*create-brownfield-prd` | `create-doc.md` | `brownfield-prd-tmpl.yaml` | Cria PRD para projeto brownfield |
-| `*shard-prd` | `shard-doc.md` | N/A | Fragmenta PRD em arquivos menores |
-| `*doc-out` | `create-doc.md` | N/A | Gera documento completo |
+| `*create-prd` | `create-doc.md` | `prd-tmpl.yaml` | Creates a PRD for a greenfield project |
+| `*create-brownfield-prd` | `create-doc.md` | `brownfield-prd-tmpl.yaml` | Creates a PRD for a brownfield project |
+| `*shard-prd` | `shard-doc.md` | N/A | Shards the PRD into smaller files |
+| `*doc-out` | `create-doc.md` | N/A | Generates the complete document |
 
-### Comandos de Planejamento Estrategico
+### Strategic Planning Commands
 
-| Comando | Task File | Descricao |
+| Command | Task File | Description |
 |---------|-----------|-----------|
-| `*create-epic` | `brownfield-create-epic.md` | Cria epic para enhancement brownfield |
-| `*create-story` | `brownfield-create-story.md` | Cria story isolada para brownfield |
-| `*research {topic}` | `create-deep-research-prompt.md` | Gera prompt de pesquisa profunda |
-| `*correct-course` | `correct-course.md` | Navega mudancas e desvios |
+| `*create-epic` | `brownfield-create-epic.md` | Creates an epic for a brownfield enhancement |
+| `*create-story` | `brownfield-create-story.md` | Creates a standalone story for brownfield |
+| `*research {topic}` | `create-deep-research-prompt.md` | Generates a deep research prompt |
+| `*correct-course` | `correct-course.md` | Navigates changes and deviations |
 
-### Comandos Utilitarios
+### Utility Commands
 
-| Comando | Descricao |
+| Command | Description |
 |---------|-----------|
-| `*help` | Mostra todos os comandos disponiveis |
-| `*session-info` | Mostra detalhes da sessao atual |
-| `*guide` | Guia de uso completo do agente |
-| `*yolo` | Alterna modo de confirmacao |
-| `*exit` | Sai do modo PM |
+| `*help` | Shows all available commands |
+| `*session-info` | Shows current session details |
+| `*guide` | Complete agent usage guide |
+| `*yolo` | Toggles confirmation mode |
+| `*exit` | Exits PM mode |
 
 ---
 
-## Detalhes das Tasks
+## Task Details
 
 ### Task: create-doc.md (PRD Creation)
 
-**Proposito:** Criar documentos de requisitos de produto usando templates YAML interativos.
+**Purpose:** Create product requirements documents using interactive YAML templates.
 
-**Modos de Execucao:**
-1. **YOLO Mode** - Autonomo, minima interacao (0-1 prompts)
-2. **Interactive Mode** [PADRAO] - Checkpoints de decisao (5-10 prompts)
-3. **Pre-Flight Planning** - Planejamento completo upfront
+**Execution Modes:**
+1. **YOLO Mode** - Autonomous, minimal interaction (0-1 prompts)
+2. **Interactive Mode** [DEFAULT] - Decision checkpoints (5-10 prompts)
+3. **Pre-Flight Planning** - Complete upfront planning
 
-**Fluxo de Processamento:**
+**Processing Flow:**
 
 ```mermaid
 flowchart LR
     A[Parse YAML Template] --> B[Set Preferences]
     B --> C[Process Sections]
     C --> D{elicit: true?}
-    D -->|Sim| E[Apresentar Opcoes 1-9<br/>AGUARDAR resposta]
-    D -->|Não| F[Continuar]
+    D -->|Yes| E[Present Options 1-9<br/>WAIT for response]
+    D -->|No| F[Continue]
     E --> F
-    F --> G[Salvar Arquivo]
-    G --> H{Mais secoes?}
-    H -->|Sim| C
-    H -->|Não| I[Documento Completo]
+    F --> G[Save File]
+    G --> H{More sections?}
+    H -->|Yes| C
+    H -->|No| I[Document Complete]
 ```
 
-**Formato de Elicitacao Obrigatorio:**
-- Opcao 1: Sempre "Proceed to next section"
-- Opcoes 2-9: Metodos de elicitacao do `data/elicitation-methods`
-- Termina com: "Select 1-9 or just type your question/feedback:"
+**Mandatory Elicitation Format:**
+- Option 1: Always "Proceed to next section"
+- Options 2-9: Elicitation methods from `data/elicitation-methods`
+- Ends with: "Select 1-9 or just type your question/feedback:"
 
 ---
 
 ### Task: brownfield-create-epic.md
 
-**Proposito:** Criar epics focados para enhancements brownfield menores (1-3 stories).
+**Purpose:** Create focused epics for smaller brownfield enhancements (1-3 stories).
 
-**Quando Usar:**
-- Enhancement completavel em 1-3 stories
-- Sem mudancas arquiteturais significativas
-- Segue padroes existentes do projeto
-- Complexidade de integracao minima
+**When to Use:**
+- Enhancement completable in 1-3 stories
+- No significant architectural changes
+- Follows existing project patterns
+- Minimal integration complexity
 
-**Estrutura do Epic:**
+**Epic Structure:**
 
 ```markdown
 ## Epic: {{Enhancement Name}} - Brownfield Enhancement
 
 ### Epic Goal
-{{1-2 sentencas descrevendo objetivo e valor}}
+{{1-2 sentences describing the objective and value}}
 
 ### Epic Description
 **Existing System Context:**
@@ -339,7 +339,7 @@ flowchart LR
 - How it integrates
 - Success criteria
 
-### Stories (com Quality Planning)
+### Stories (with Quality Planning)
 1. **Story 1: {{Title}}**
    - Description
    - **Predicted Agents**: @dev, @db-sage, etc.
@@ -351,51 +351,51 @@ flowchart LR
 - Rollback Plan
 ```
 
-**Guia de Atribuicao de Agentes:**
+**Agent Assignment Guide:**
 
-| Tipo de Mudanca | Agentes Preditos |
+| Change Type | Predicted Agents |
 |-----------------|------------------|
 | Database Changes | @dev, @db-sage |
 | API/Backend Changes | @dev, @architect |
 | Frontend/UI Changes | @dev, @ux-expert |
 | Deployment/Infrastructure | @dev, @github-devops |
-| Security Features | @dev (foco OWASP) |
+| Security Features | @dev (OWASP focus) |
 
 ---
 
 ### Task: create-deep-research-prompt.md
 
-**Proposito:** Gerar prompts de pesquisa estruturados para analise profunda.
+**Purpose:** Generate structured research prompts for deep analysis.
 
-**Tipos de Pesquisa Disponiveis:**
+**Available Research Types:**
 
-| # | Tipo | Descricao |
+| # | Type | Description |
 |---|------|-----------|
-| 1 | Product Validation Research | Validar hipoteses e market fit |
-| 2 | Market Opportunity Research | Analisar tamanho e potencial de mercado |
+| 1 | Product Validation Research | Validate hypotheses and market fit |
+| 2 | Market Opportunity Research | Analyze market size and potential |
 | 3 | User & Customer Research | Personas, jobs-to-be-done, pain points |
-| 4 | Competitive Intelligence Research | Analise de concorrentes |
-| 5 | Technology & Innovation Research | Tendencias tecnologicas |
-| 6 | Industry & Ecosystem Research | Value chains e ecossistema |
-| 7 | Strategic Options Research | Avaliar direcoes estrategicas |
-| 8 | Risk & Feasibility Research | Identificar e avaliar riscos |
-| 9 | Custom Research Focus | Pesquisa personalizada |
+| 4 | Competitive Intelligence Research | Competitor analysis |
+| 5 | Technology & Innovation Research | Technology trends |
+| 6 | Industry & Ecosystem Research | Value chains and ecosystem |
+| 7 | Strategic Options Research | Evaluate strategic directions |
+| 8 | Risk & Feasibility Research | Identify and assess risks |
+| 9 | Custom Research Focus | Customized research |
 
-**Estrutura do Research Prompt:**
+**Research Prompt Structure:**
 
 ```markdown
 ## Research Objective
-[Declaracao clara do objetivo]
+[Clear statement of the objective]
 
 ## Background Context
-[Contexto do brief, brainstorming, ou inputs]
+[Context from the brief, brainstorming, or inputs]
 
 ## Research Questions
 ### Primary Questions (Must Answer)
-1. [Pergunta especifica e acionavel]
+1. [Specific and actionable question]
 
 ### Secondary Questions (Nice to Have)
-1. [Pergunta de suporte]
+1. [Supporting question]
 
 ## Research Methodology
 ### Information Sources
@@ -408,24 +408,24 @@ flowchart LR
 ### Supporting Materials
 
 ## Success Criteria
-[Como avaliar se a pesquisa atingiu objetivos]
+[How to evaluate whether the research met its objectives]
 ```
 
 ---
 
 ### Task: correct-course.md
 
-**Proposito:** Navegar mudancas significativas durante o desenvolvimento usando o `change-checklist.md`.
+**Purpose:** Navigate significant changes during development using `change-checklist.md`.
 
-**Fluxo de Correcao de Curso:**
+**Course Correction Flow:**
 
 ```mermaid
 flowchart TD
-    TRIGGER[Mudanca Detectada] --> SETUP[1. Setup Inicial<br/>Modo de Interacao]
-    SETUP --> CHECKLIST[2. Executar Checklist<br/>Secoes 1-4]
-    CHECKLIST --> DRAFT[3. Rascunhar Mudancas<br/>Propostas]
-    DRAFT --> PROPOSAL[4. Gerar Sprint<br/>Change Proposal]
-    PROPOSAL --> FINALIZE[5. Finalizar e<br/>Determinar Proximos Passos]
+    TRIGGER[Change Detected] --> SETUP[1. Initial Setup<br/>Interaction Mode]
+    SETUP --> CHECKLIST[2. Run Checklist<br/>Sections 1-4]
+    CHECKLIST --> DRAFT[3. Draft Proposed<br/>Changes]
+    DRAFT --> PROPOSAL[4. Generate Sprint<br/>Change Proposal]
+    PROPOSAL --> FINALIZE[5. Finalize and<br/>Determine Next Steps]
 
     subgraph PROPOSAL_CONTENT["Sprint Change Proposal"]
         ISSUE[Issue Summary]
@@ -437,12 +437,12 @@ flowchart TD
         HANDOFF[Agent Handoff Plan]
     end
 
-    FINALIZE --> HANDOFF_DECISION{Natureza das<br/>Mudancas?}
-    HANDOFF_DECISION -->|Implementavel| IMPLEMENT[Implementar via<br/>@po/@sm]
-    HANDOFF_DECISION -->|Requer Replan| ESCALATE[Escalar para<br/>@pm/@architect]
+    FINALIZE --> HANDOFF_DECISION{Nature of the<br/>Changes?}
+    HANDOFF_DECISION -->|Implementable| IMPLEMENT[Implement via<br/>@po/@sm]
+    HANDOFF_DECISION -->|Requires Replan| ESCALATE[Escalate to<br/>@pm/@architect]
 ```
 
-**Secoes do Change Checklist:**
+**Change Checklist Sections:**
 1. Understand the Trigger & Context
 2. Epic Impact Assessment
 3. Artifact Conflict & Impact Analysis
@@ -452,44 +452,44 @@ flowchart TD
 
 ---
 
-## Integracoes entre Agentes
+## Integrations Between Agents
 
-### Diagrama de Colaboracao
+### Collaboration Diagram
 
 ```mermaid
 flowchart TB
     subgraph PM_BOX["📋 @pm (Janus) - Product Manager"]
-        PM_DESC["Cria PRDs, epics, pesquisa estrategica<br/>Corrige desvios de curso"]
-        PM_CMDS["Comandos:<br/>*create-prd, *create-epic<br/>*research, *correct-course"]
+        PM_DESC["Creates PRDs, epics, strategic research<br/>Corrects course deviations"]
+        PM_CMDS["Commands:<br/>*create-prd, *create-epic<br/>*research, *correct-course"]
     end
 
     subgraph PO_BOX["🎯 @po (Themis) - Product Owner"]
-        PO_DESC["Gerencia backlog, valida stories<br/>Prioriza trabalho"]
-        PO_CMDS["Comandos:<br/>*backlog-*, *sync-story<br/>*validate-story-draft"]
+        PO_DESC["Manages backlog, validates stories<br/>Prioritizes work"]
+        PO_CMDS["Commands:<br/>*backlog-*, *sync-story<br/>*validate-story-draft"]
     end
 
     subgraph SM_BOX["🌊 @sm (Chronos) - Scrum Master"]
-        SM_DESC["Cria stories detalhadas<br/>Coordena sprints"]
-        SM_CMDS["Comandos:<br/>*create-next-story<br/>Sprint planning"]
+        SM_DESC["Creates detailed stories<br/>Coordinates sprints"]
+        SM_CMDS["Commands:<br/>*create-next-story<br/>Sprint planning"]
     end
 
     subgraph ARCHITECT_BOX["🏗️ @architect (Vega) - Architect"]
-        ARCH_DESC["Design de arquitetura<br/>Decisoes tecnicas"]
-        ARCH_CMDS["Comandos:<br/>*create-architecture<br/>*document-project"]
+        ARCH_DESC["Architecture design<br/>Technical decisions"]
+        ARCH_CMDS["Commands:<br/>*create-architecture<br/>*document-project"]
     end
 
     subgraph ANALYST_BOX["🔍 @analyst (Sirius) - Analyst"]
-        ANALYST_DESC["Pesquisa de mercado<br/>Insights e dados"]
-        ANALYST_CMDS["Comandos:<br/>*brainstorm<br/>*analyze"]
+        ANALYST_DESC["Market research<br/>Insights and data"]
+        ANALYST_CMDS["Commands:<br/>*brainstorm<br/>*analyze"]
     end
 
-    PM_BOX -->|"PRD aprovado<br/>Handoff para arquitetura"| ARCHITECT_BOX
-    PM_BOX -->|"Epic criado<br/>Delega criacao de stories"| SM_BOX
-    PM_BOX -->|"Recebe insights"| ANALYST_BOX
-    PM_BOX -->|"Fornece direcao<br/>estrategica"| PO_BOX
+    PM_BOX -->|"PRD approved<br/>Handoff to architecture"| ARCHITECT_BOX
+    PM_BOX -->|"Epic created<br/>Delegates story creation"| SM_BOX
+    PM_BOX -->|"Receives insights"| ANALYST_BOX
+    PM_BOX -->|"Provides strategic<br/>direction"| PO_BOX
 
-    PO_BOX -->|"Valida stories<br/>Prioriza backlog"| SM_BOX
-    ANALYST_BOX -->|"Fornece pesquisa<br/>para PRD"| PM_BOX
+    PO_BOX -->|"Validates stories<br/>Prioritizes backlog"| SM_BOX
+    ANALYST_BOX -->|"Provides research<br/>for the PRD"| PM_BOX
 
     style PM_BOX fill:#e3f2fd
     style PO_BOX fill:#fff3e0
@@ -498,22 +498,22 @@ flowchart TB
     style ANALYST_BOX fill:#f3e5f5
 ```
 
-### Matriz de Handoffs
+### Handoff Matrix
 
-| De | Para | Gatilho | Artefato |
+| From | To | Trigger | Artifact |
 |----|------|---------|----------|
-| @pm | @architect | PRD aprovado | `docs/prd.md` + Architect Prompt |
-| @pm | @ux-expert | PRD com UI | `docs/prd.md` + UX Expert Prompt |
-| @pm | @sm | Epic criado | Epic doc + Story Manager Handoff |
-| @pm | @po | PRD para validacao | PRD Draft |
-| @analyst | @pm | Pesquisa completa | Research findings |
-| @pm | @pm (self) | Desvio detectado | Sprint Change Proposal |
+| @pm | @architect | PRD approved | `docs/prd.md` + Architect Prompt |
+| @pm | @ux-expert | PRD with UI | `docs/prd.md` + UX Expert Prompt |
+| @pm | @sm | Epic created | Epic doc + Story Manager Handoff |
+| @pm | @po | PRD for validation | PRD Draft |
+| @analyst | @pm | Research complete | Research findings |
+| @pm | @pm (self) | Deviation detected | Sprint Change Proposal |
 
-### Fluxo de Workflow Brownfield Discovery
+### Brownfield Discovery Workflow Flow
 
 ```mermaid
 flowchart LR
-    subgraph PHASE_1_9["FASES 1-9: Discovery & Assessment"]
+    subgraph PHASE_1_9["PHASES 1-9: Discovery & Assessment"]
         ARCH["@architect"]
         DATA["@data-engineer"]
         UX["@ux-design-expert"]
@@ -521,16 +521,16 @@ flowchart LR
         ANALYST["@analyst"]
     end
 
-    subgraph PHASE_10["FASE 10: Planning"]
+    subgraph PHASE_10["PHASE 10: Planning"]
         PM["@pm"]
         EPIC["*brownfield-create-epic"]
         STORY["*brownfield-create-story"]
     end
 
-    PHASE_1_9 -->|"Assessment completo<br/>docs/prd/technical-debt-assessment.md"| PM
+    PHASE_1_9 -->|"Assessment complete<br/>docs/prd/technical-debt-assessment.md"| PM
     PM --> EPIC
     EPIC --> STORY
-    STORY -->|"Stories prontas<br/>docs/stories/story-*.md"| DEV["@dev"]
+    STORY -->|"Stories ready<br/>docs/stories/story-*.md"| DEV["@dev"]
 
     style PM fill:#e3f2fd
     style EPIC fill:#fff9c4
@@ -539,43 +539,43 @@ flowchart LR
 
 ---
 
-## Estrutura dos Templates
+## Template Structure
 
-### Template PRD Greenfield (prd-tmpl.yaml)
+### Greenfield PRD Template (prd-tmpl.yaml)
 
-| Secao | ID | Elicit | Descricao |
+| Section | ID | Elicit | Description |
 |-------|----|----|-----------|
-| Goals and Background | goals-context | Nao | Objetivos e contexto do projeto |
-| Requirements | requirements | **Sim** | FR + NFR |
-| UI Design Goals | ui-goals | **Sim** | Visao UX/UI (condicional) |
-| Technical Assumptions | technical-assumptions | **Sim** | Decisoes tecnicas |
-| Epic List | epic-list | **Sim** | Lista de epics para aprovacao |
-| Epic Details | epic-details | **Sim** | Stories e ACs detalhados |
-| Checklist Results | checklist-results | Nao | Resultados do pm-checklist |
-| Next Steps | next-steps | Nao | Prompts para proximos agentes |
+| Goals and Background | goals-context | No | Project objectives and context |
+| Requirements | requirements | **Yes** | FR + NFR |
+| UI Design Goals | ui-goals | **Yes** | UX/UI vision (conditional) |
+| Technical Assumptions | technical-assumptions | **Yes** | Technical decisions |
+| Epic List | epic-list | **Yes** | List of epics for approval |
+| Epic Details | epic-details | **Yes** | Detailed stories and ACs |
+| Checklist Results | checklist-results | No | pm-checklist results |
+| Next Steps | next-steps | No | Prompts for the next agents |
 
-### Template PRD Brownfield (brownfield-prd-tmpl.yaml)
+### Brownfield PRD Template (brownfield-prd-tmpl.yaml)
 
-| Secao | ID | Elicit | Descricao |
+| Section | ID | Elicit | Description |
 |-------|----|----|-----------|
-| Intro Analysis | intro-analysis | Nao | Analise do projeto existente |
-| Requirements | requirements | **Sim** | FR + NFR + CR (Compatibility) |
-| UI Enhancement Goals | ui-enhancement-goals | Nao | Integracao com UI existente |
-| Technical Constraints | technical-constraints | Nao | Restricoes e integracao |
-| Epic Structure | epic-structure | **Sim** | Estrutura do epic |
-| Epic Details | epic-details | **Sim** | Stories com Integration Verification |
+| Intro Analysis | intro-analysis | No | Analysis of the existing project |
+| Requirements | requirements | **Yes** | FR + NFR + CR (Compatibility) |
+| UI Enhancement Goals | ui-enhancement-goals | No | Integration with the existing UI |
+| Technical Constraints | technical-constraints | No | Constraints and integration |
+| Epic Structure | epic-structure | **Yes** | Epic structure |
+| Epic Details | epic-details | **Yes** | Stories with Integration Verification |
 
 ---
 
-## Checklists Detalhados
+## Detailed Checklists
 
 ### PM Checklist (pm-checklist.md)
 
-**9 Categorias de Validacao:**
+**9 Validation Categories:**
 
-| # | Categoria | Foco |
+| # | Category | Focus |
 |---|-----------|------|
-| 1 | Problem Definition & Context | Problema, goals, user research |
+| 1 | Problem Definition & Context | Problem, goals, user research |
 | 2 | MVP Scope Definition | Core functionality, boundaries, validation |
 | 3 | User Experience Requirements | Journeys, usability, UI |
 | 4 | Functional Requirements | Features, quality, user stories |
@@ -585,109 +585,109 @@ flowchart LR
 | 8 | Cross-Functional Requirements | Data, integration, operations |
 | 9 | Clarity & Communication | Documentation, stakeholder alignment |
 
-**Status de Categoria:**
-- **PASS**: 90%+ completo
-- **PARTIAL**: 60-89% completo
-- **FAIL**: <60% completo
+**Category Status:**
+- **PASS**: 90%+ complete
+- **PARTIAL**: 60-89% complete
+- **FAIL**: <60% complete
 
-**Decisao Final:**
-- **READY FOR ARCHITECT**: PRD completo e estruturado
-- **NEEDS REFINEMENT**: Requer trabalho adicional
+**Final Decision:**
+- **READY FOR ARCHITECT**: PRD complete and structured
+- **NEEDS REFINEMENT**: Requires additional work
 
 ### Change Checklist (change-checklist.md)
 
-**6 Secoes de Navegacao:**
+**6 Navigation Sections:**
 
-| # | Secao | Proposito |
+| # | Section | Purpose |
 |---|-------|-----------|
-| 1 | Understand Trigger & Context | Identificar issue e impacto inicial |
-| 2 | Epic Impact Assessment | Analisar impacto em epics atuais e futuros |
-| 3 | Artifact Conflict Analysis | Revisar PRD, Architecture, Frontend Spec |
-| 4 | Path Forward Evaluation | Avaliar opcoes (ajuste, rollback, re-scope) |
-| 5 | Sprint Change Proposal | Componentes da proposta |
-| 6 | Final Review & Handoff | Aprovacao e proximos passos |
+| 1 | Understand Trigger & Context | Identify the issue and initial impact |
+| 2 | Epic Impact Assessment | Analyze impact on current and future epics |
+| 3 | Artifact Conflict Analysis | Review PRD, Architecture, Frontend Spec |
+| 4 | Path Forward Evaluation | Evaluate options (adjust, rollback, re-scope) |
+| 5 | Sprint Change Proposal | Proposal components |
+| 6 | Final Review & Handoff | Approval and next steps |
 
 ---
 
 ## Best Practices
 
-### Criacao de PRD
+### PRD Creation
 
-1. **Sempre comece com Project Brief** - O brief fornece fundacao essencial
-2. **Use modo Interactive** - Para PRDs complexos, a elicitacao e crucial
-3. **Valide com checklist** - Execute pm-checklist antes de handoff
-4. **Fragmente documentos grandes** - Use `*shard-prd` para manutenibilidade
-5. **Documente decisoes** - Rationale para escolhas tecnicas e de escopo
+1. **Always start with a Project Brief** - The brief provides an essential foundation
+2. **Use Interactive mode** - For complex PRDs, elicitation is crucial
+3. **Validate with the checklist** - Run pm-checklist before handoff
+4. **Shard large documents** - Use `*shard-prd` for maintainability
+5. **Document decisions** - Rationale for technical and scope choices
 
-### Criacao de Epics Brownfield
+### Brownfield Epic Creation
 
-1. **Avalie escopo primeiro** - Se > 3 stories, considere PRD completo
-2. **Analise projeto existente** - Entenda padroes antes de propor mudancas
-3. **Planeje quality gates** - Inclua validacao apropriada para cada story
-4. **Identifique agents especializados** - Atribua experts conforme tipo de mudanca
-5. **Inclua rollback plan** - Sempre tenha estrategia de reversao
+1. **Assess scope first** - If > 3 stories, consider a complete PRD
+2. **Analyze the existing project** - Understand the patterns before proposing changes
+3. **Plan quality gates** - Include appropriate validation for each story
+4. **Identify specialized agents** - Assign experts according to the type of change
+5. **Include a rollback plan** - Always have a reversal strategy
 
-### Correcao de Curso
+### Course Correction
 
-1. **Nao pule para solucoes** - Entenda completamente o problema primeiro
-2. **Avalie impacto em cascata** - Mudancas ripple through do projeto
-3. **Documente trade-offs** - Seja honesto sobre custos e beneficios
-4. **Obtenha aprovacao explicita** - Nunca assuma concordancia implicita
-5. **Defina criterios de sucesso** - Como saberemos se a mudanca funcionou?
+1. **Do not jump to solutions** - Understand the problem completely first
+2. **Assess cascading impact** - Changes ripple through the project
+3. **Document trade-offs** - Be honest about costs and benefits
+4. **Obtain explicit approval** - Never assume implicit agreement
+5. **Define success criteria** - How will we know the change worked?
 
 ---
 
 ## Troubleshooting
 
-### PRD nao passa no checklist
+### PRD does not pass the checklist
 
-**Causas Comuns:**
-- Problema nao claramente definido
-- MVP muito grande ou muito pequeno
-- Requisitos ambiguos
+**Common Causes:**
+- Problem not clearly defined
+- MVP too large or too small
+- Ambiguous requirements
 
-**Solucao:**
-- Revise categorias com FAIL
-- Refine requisitos especificos
-- Valide escopo com stakeholders
+**Solution:**
+- Review the categories marked FAIL
+- Refine specific requirements
+- Validate scope with stakeholders
 
-### Epic muito complexo
+### Epic too complex
 
-**Causas Comuns:**
-- Tentando fazer muito em um epic
-- Mudancas arquiteturais necessarias
+**Common Causes:**
+- Trying to do too much in one epic
+- Architectural changes required
 
-**Solucao:**
-- Divida em multiplos epics
-- Considere PRD brownfield completo
-- Consulte @architect para decisoes tecnicas
+**Solution:**
+- Split into multiple epics
+- Consider a complete brownfield PRD
+- Consult @architect for technical decisions
 
-### Mudanca detectada durante desenvolvimento
+### Change detected during development
 
-**Causas Comuns:**
-- Requisito descoberto tarde
-- Limitacao tecnica encontrada
-- Pivot baseado em feedback
+**Common Causes:**
+- Requirement discovered late
+- Technical limitation encountered
+- Pivot based on feedback
 
-**Solucao:**
-- Execute `*correct-course`
-- Siga change-checklist
-- Documente proposta e obtenha aprovacao
+**Solution:**
+- Run `*correct-course`
+- Follow the change-checklist
+- Document the proposal and obtain approval
 
-### Template nao encontrado
+### Template not found
 
-**Causas Comuns:**
-- Caminho incorreto
-- Template renomeado
+**Common Causes:**
+- Incorrect path
+- Template renamed
 
-**Solucao:**
-- Verifique `.aexos-core/product/templates/`
-- Liste templates disponiveis com create-doc
-- Atualize referencia no agente se necessario
+**Solution:**
+- Check `.aexos-core/product/templates/`
+- List available templates with create-doc
+- Update the reference in the agent if needed
 
 ---
 
-## Referencias
+## References
 
 - [Agent Definition: pm.md](.aexos-core/development/agents/pm.md)
 - [Task: create-doc.md](.aexos-core/development/tasks/create-doc.md)
@@ -701,27 +701,27 @@ flowchart LR
 
 ---
 
-## Resumo
+## Summary
 
-| Aspecto | Detalhes |
+| Aspect | Details |
 |---------|----------|
-| **Total de Tasks** | 7 task files |
-| **Templates** | 2 (PRD greenfield + brownfield) |
+| **Total Tasks** | 7 task files |
+| **Templates** | 2 (greenfield + brownfield PRD) |
 | **Checklists** | 2 (PM validation + Change navigation) |
-| **Workflows** | 1 (Brownfield Discovery - Fase 10) |
-| **Comandos Principais** | 7 (`*create-prd`, `*create-epic`, `*research`, etc.) |
-| **Agentes Colaboradores** | @po, @sm, @architect, @analyst, @ux-expert |
-| **Handoff Principal** | PM -> Architect (PRD aprovado) |
+| **Workflows** | 1 (Brownfield Discovery - Phase 10) |
+| **Main Commands** | 7 (`*create-prd`, `*create-epic`, `*research`, etc.) |
+| **Collaborating Agents** | @po, @sm, @architect, @analyst, @ux-expert |
+| **Main Handoff** | PM -> Architect (approved PRD) |
 
 ---
 
 ## Changelog
 
-| Data | Autor | Descricao |
+| Date | Author | Description |
 |------|-------|-----------|
-| 2026-02-04 | Technical Doc Specialist | Documento inicial criado |
-| 2026-02-04 | Technical Doc Specialist | Adicionados diagramas Mermaid (6 flowcharts + 1 stateDiagram) |
+| 2026-02-04 | Technical Doc Specialist | Initial document created |
+| 2026-02-04 | Technical Doc Specialist | Added Mermaid diagrams (6 flowcharts + 1 stateDiagram) |
 
 ---
 
-*-- Morgan, planejando o futuro :bar_chart:*
+*-- Janus, planning the future :bar_chart:*

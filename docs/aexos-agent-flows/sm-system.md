@@ -1,122 +1,122 @@
-# Sistema do Agente @sm
+# @sm Agent System
 
-> **Versão:** 1.0.0
-> **Criado:** 2026-02-04
+> **Version:** 1.0.0
+> **Created:** 2026-02-04
 > **Owner:** @sm (Chronos - Facilitator)
-> **Status:** Documentação Oficial
+> **Status:** Official Documentation
 
 ---
 
-## Visão Geral
+## Overview
 
-O agente **@sm (Chronos)** e o Scrum Master tecnico do AEXOS, especializado em preparacao de stories e facilitacao de processos ageis. Seu papel principal e criar stories detalhadas e acionaveis que agentes desenvolvedores possam implementar com minima necessidade de pesquisa adicional.
+The **@sm (Chronos)** agent is the technical Scrum Master of AEXOS, specialized in story preparation and agile process facilitation. Its main role is to create detailed, actionable stories that developer agents can implement with minimal need for additional research.
 
-**Responsabilidades Principais:**
-- Criacao e refinamento de user stories
-- Gerenciamento de epics e breakdown de requisitos
-- Facilitacao de sprint planning
-- Orientacao sobre processos ageis
-- Preparacao de handoffs para desenvolvedores
-- Gerenciamento de branches locais durante desenvolvimento
+**Main Responsibilities:**
+- User story creation and refinement
+- Epic management and requirements breakdown
+- Sprint planning facilitation
+- Guidance on agile processes
+- Preparation of handoffs for developers
+- Local branch management during development
 
-**Arquetipo:** Facilitator (Pisces)
-**Tom de Comunicacao:** Empatico, colaborativo, fluido
-**Vocabulario-Chave:** adaptar, pivotar, ajustar, simplificar, conectar, fluir, remover
+**Archetype:** Facilitator (Pisces)
+**Communication Tone:** Empathetic, collaborative, fluid
+**Key Vocabulary:** adapt, pivot, adjust, simplify, connect, flow, remove
 
 ---
 
-## Lista Completa de Arquivos
+## Complete File List
 
-### Arquivos Core de Tasks do @sm
+### @sm Core Task Files
 
-| Arquivo | Comando | Propósito |
+| File | Command | Purpose |
 |---------|---------|-----------|
-| `.aexos-core/development/tasks/sm-create-next-story.md` | `*draft` | Task principal para criar proxima story do backlog |
-| `.aexos-core/development/tasks/create-next-story.md` | `*draft` | Versao completa da task de criação de story |
-| `.aexos-core/development/tasks/execute-checklist.md` | `*story-checklist` | Executa checklist de validação de story draft |
-| `.aexos-core/development/tasks/correct-course.md` | `*correct-course` | Analisa e corrige desvios de processo |
-| `.aexos-core/development/tasks/collaborative-edit.md` | - | Edicao colaborativa de documentos |
-| `.aexos-core/development/tasks/init-project-status.md` | - | Inicializacao de status do projeto |
+| `.aexos-core/development/tasks/sm-create-next-story.md` | `*draft` | Main task to create the next story from the backlog |
+| `.aexos-core/development/tasks/create-next-story.md` | `*draft` | Full version of the story creation task |
+| `.aexos-core/development/tasks/execute-checklist.md` | `*story-checklist` | Runs the story draft validation checklist |
+| `.aexos-core/development/tasks/correct-course.md` | `*correct-course` | Analyzes and corrects process deviations |
+| `.aexos-core/development/tasks/collaborative-edit.md` | - | Collaborative document editing |
+| `.aexos-core/development/tasks/init-project-status.md` | - | Project status initialization |
 
-### Arquivos de Definição do Agente
+### Agent Definition Files
 
-| Arquivo | Propósito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/agents/sm.md` | Definição core do agente SM |
-| `.claude/commands/AEXOS/agents/sm.md` | Comando Claude Code para ativar @sm |
-| `.cursor/rules/sm.md` | Regras para Cursor IDE |
-| `.cursor/rules/sm.mdc` | Regras compiladas para Cursor |
+| `.aexos-core/development/agents/sm.md` | Core definition of the SM agent |
+| `.claude/commands/AEXOS/agents/sm.md` | Claude Code command to activate @sm |
+| `.cursor/rules/sm.md` | Rules for Cursor IDE |
+| `.cursor/rules/sm.mdc` | Compiled rules for Cursor |
 
-### Arquivos de Checklists Utilizados
+### Checklist Files Used
 
-| Arquivo | Propósito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/product/checklists/story-draft-checklist.md` | Valida qualidade e completude de story drafts |
-| `.aexos-core/product/checklists/story-dod-checklist.md` | Definition of Done para stories |
-| `.aexos-core/product/checklists/change-checklist.md` | Navegacao de mudancas e correcao de curso |
-| `.aexos-core/product/checklists/po-master-checklist.md` | Checklist mestre usado em validação |
+| `.aexos-core/product/checklists/story-draft-checklist.md` | Validates the quality and completeness of story drafts |
+| `.aexos-core/product/checklists/story-dod-checklist.md` | Definition of Done for stories |
+| `.aexos-core/product/checklists/change-checklist.md` | Change navigation and course correction |
+| `.aexos-core/product/checklists/po-master-checklist.md` | Master checklist used in validation |
 
-### Arquivos Relacionados de Outros Agentes
+### Related Files From Other Agents
 
-| Arquivo | Agente | Propósito |
+| File | Agent | Purpose |
 |---------|--------|-----------|
-| `.aexos-core/development/agents/po.md` | @po | Coordena com @sm em backlog e sprint planning |
-| `.aexos-core/development/agents/dev.md` | @dev | Recebe stories do @sm para implementacao |
-| `.aexos-core/development/agents/pm.md` | @pm | Cria epics que @sm quebra em stories |
-| `.aexos-core/development/agents/devops.md` | @github-devops | Recebe stories completas para push/PR |
-| `.aexos-core/development/agents/qa.md` | @qa | Coordena em risk profiling |
+| `.aexos-core/development/agents/po.md` | @po | Coordinates with @sm on backlog and sprint planning |
+| `.aexos-core/development/agents/dev.md` | @dev | Receives stories from @sm for implementation |
+| `.aexos-core/development/agents/pm.md` | @pm | Creates epics that @sm breaks down into stories |
+| `.aexos-core/development/agents/devops.md` | @github-devops | Receives completed stories for push/PR |
+| `.aexos-core/development/agents/qa.md` | @qa | Coordinates on risk profiling |
 
-### Arquivos de Workflows que Utilizam @sm
+### Workflow Files That Use @sm
 
-| Arquivo | Propósito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/workflows/story-development-cycle.yaml` | Ciclo completo de desenvolvimento de stories |
-| `.aexos-core/development/workflows/greenfield-fullstack.yaml` | Workflow greenfield full-stack |
-| `.aexos-core/development/workflows/greenfield-service.yaml` | Workflow greenfield service |
-| `.aexos-core/development/workflows/greenfield-ui.yaml` | Workflow greenfield UI |
-| `.aexos-core/development/workflows/brownfield-fullstack.yaml` | Workflow brownfield full-stack |
-| `.aexos-core/development/workflows/brownfield-service.yaml` | Workflow brownfield service |
-| `.aexos-core/development/workflows/brownfield-ui.yaml` | Workflow brownfield UI |
+| `.aexos-core/development/workflows/story-development-cycle.yaml` | Full story development cycle |
+| `.aexos-core/development/workflows/greenfield-fullstack.yaml` | Greenfield full-stack workflow |
+| `.aexos-core/development/workflows/greenfield-service.yaml` | Greenfield service workflow |
+| `.aexos-core/development/workflows/greenfield-ui.yaml` | Greenfield UI workflow |
+| `.aexos-core/development/workflows/brownfield-fullstack.yaml` | Brownfield full-stack workflow |
+| `.aexos-core/development/workflows/brownfield-service.yaml` | Brownfield service workflow |
+| `.aexos-core/development/workflows/brownfield-ui.yaml` | Brownfield UI workflow |
 
-### Arquivos de Configuracao
+### Configuration Files
 
-| Arquivo | Propósito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/core-config.yaml` | Configuracao central (devStoryLocation, etc.) |
-| `.aexos-core/development/scripts/unified-activation-pipeline.js` | Pipeline de saudacao inteligente |
-| `.aexos-core/development/scripts/agent-assignment-resolver.js` | Resolucao de assignment de agentes |
+| `.aexos-core/core-config.yaml` | Central configuration (devStoryLocation, etc.) |
+| `.aexos-core/development/scripts/unified-activation-pipeline.js` | Smart greeting pipeline |
+| `.aexos-core/development/scripts/agent-assignment-resolver.js` | Agent assignment resolution |
 
 ---
 
-## Flowchart: Sistema Completo do @sm
+## Flowchart: Complete @sm System
 
 ```mermaid
 flowchart TB
     subgraph INPUTS["📥 INPUTS"]
         PRD["📄 PRD/Epic<br/>(from @pm)"]
-        BACKLOG["📋 Backlog Priorizado<br/>(from @po)"]
-        ARCH["🏗️ Arquitetura<br/>(docs/architecture/)"]
+        BACKLOG["📋 Prioritized Backlog<br/>(from @po)"]
+        ARCH["🏗️ Architecture<br/>(docs/architecture/)"]
     end
 
     subgraph SM_AGENT["🌊 @sm (Chronos) - Scrum Master"]
         direction TB
 
-        subgraph COMMANDS["Comandos Disponiveis"]
-            DRAFT["*draft<br/>Criar proxima story"]
-            CHECKLIST["*story-checklist<br/>Validar story draft"]
-            CORRECT["*correct-course<br/>Corrigir desvios"]
-            GUIDE["*guide<br/>Guia de uso"]
-            HELP["*help<br/>Listar comandos"]
+        subgraph COMMANDS["Available Commands"]
+            DRAFT["*draft<br/>Create next story"]
+            CHECKLIST["*story-checklist<br/>Validate story draft"]
+            CORRECT["*correct-course<br/>Correct deviations"]
+            GUIDE["*guide<br/>Usage guide"]
+            HELP["*help<br/>List commands"]
         end
 
-        subgraph PROCESS["Processo de Criacao"]
-            LOAD_CONFIG["1. Carregar core-config.yaml"]
-            IDENTIFY_STORY["2. Identificar proxima story"]
-            GATHER_REQS["3. Coletar requisitos"]
-            GATHER_ARCH["4. Contexto de arquitetura"]
-            VERIFY_STRUCTURE["5. Verificar alinhamento"]
-            POPULATE["6. Popular template"]
-            VALIDATE["7. Executar checklist"]
+        subgraph PROCESS["Creation Process"]
+            LOAD_CONFIG["1. Load core-config.yaml"]
+            IDENTIFY_STORY["2. Identify next story"]
+            GATHER_REQS["3. Gather requirements"]
+            GATHER_ARCH["4. Architecture context"]
+            VERIFY_STRUCTURE["5. Verify alignment"]
+            POPULATE["6. Populate template"]
+            VALIDATE["7. Run checklist"]
         end
     end
 
@@ -133,26 +133,26 @@ flowchart TB
     POPULATE --> VALIDATE
 
     VALIDATE --> STORY_FILE["📄 docs/stories/epic-X/<br/>STORY-X.Y.md"]
-    VALIDATE --> CLICKUP["🔗 ClickUp Task<br/>(sync automatico)"]
+    VALIDATE --> CLICKUP["🔗 ClickUp Task<br/>(automatic sync)"]
 
     subgraph OUTPUTS["📤 OUTPUTS"]
         STORY_FILE
         CLICKUP
-        HANDOFF["🎯 Handoff para @dev"]
+        HANDOFF["🎯 Handoff to @dev"]
     end
 
     STORY_FILE --> HANDOFF
     CLICKUP --> HANDOFF
 
-    subgraph COLLABORATION["👥 COLABORACAO"]
-        DEV_AGENT["@dev (Vulcan)<br/>Recebe stories"]
-        PO_AGENT["@po (Themis)<br/>Valida stories"]
-        DEVOPS_AGENT["@github-devops (Polaris)<br/>Push/PR apos conclusao"]
+    subgraph COLLABORATION["👥 COLLABORATION"]
+        DEV_AGENT["@dev (Vulcan)<br/>Receives stories"]
+        PO_AGENT["@po (Themis)<br/>Validates stories"]
+        DEVOPS_AGENT["@github-devops (Polaris)<br/>Push/PR after completion"]
     end
 
     HANDOFF --> DEV_AGENT
     STORY_FILE --> PO_AGENT
-    DEV_AGENT -->|"Story completa"| DEVOPS_AGENT
+    DEV_AGENT -->|"Story complete"| DEVOPS_AGENT
 
     style SM_AGENT fill:#e3f2fd
     style INPUTS fill:#fff3e0
@@ -162,28 +162,28 @@ flowchart TB
     style PROCESS fill:#c5cae9
 ```
 
-### Diagrama do Ciclo de Desenvolvimento de Stories
+### Story Development Cycle Diagram
 
 ```mermaid
 flowchart TD
-    A[Start: Story Development Cycle] --> B["@sm: Criar proxima story<br/>*draft"]
-    B --> C["@po: Validar story - 10 checks<br/>*validate-story-draft"]
+    A[Start: Story Development Cycle] --> B["@sm: Create next story<br/>*draft"]
+    B --> C["@po: Validate story - 10 checks<br/>*validate-story-draft"]
 
-    C --> D{Validacao OK?}
-    D -->|Nao| E[Feedback para SM]
+    C --> D{Validation OK?}
+    D -->|No| E[Feedback to SM]
     E --> B
-    D -->|Sim| F["@dev: Implementar story<br/>*develop"]
+    D -->|Yes| F["@dev: Implement story<br/>*develop"]
 
     F --> G["@qa: Review + Quality Gate<br/>*review-story"]
 
     G --> H{Quality Gate OK?}
-    H -->|Nao| I[Feedback para Dev]
+    H -->|No| I[Feedback to Dev]
     I --> F
-    H -->|Sim| J[Story Done!]
+    H -->|Yes| J[Story Done!]
 
-    J --> K{Mais stories?}
-    K -->|Sim| B
-    K -->|Nao| L[Ciclo Completo]
+    J --> K{More stories?}
+    K -->|Yes| B
+    K -->|No| L[Cycle Complete]
 
     style L fill:#90EE90
     style J fill:#90EE90
@@ -195,25 +195,25 @@ flowchart TD
     style I fill:#FFB6C1
 ```
 
-### Diagrama de Gerenciamento de Branches
+### Branch Management Diagram
 
 ```mermaid
 flowchart LR
-    subgraph SM_SCOPE["🌊 @sm - Escopo Local"]
+    subgraph SM_SCOPE["🌊 @sm - Local Scope"]
         CREATE_BRANCH["git checkout -b<br/>feature/X.Y-story-name"]
-        LIST_BRANCH["git branch<br/>Listar branches"]
-        SWITCH_BRANCH["git checkout<br/>Trocar branch"]
-        DELETE_LOCAL["git branch -d<br/>Deletar local"]
-        MERGE_LOCAL["git merge<br/>Merge local"]
+        LIST_BRANCH["git branch<br/>List branches"]
+        SWITCH_BRANCH["git checkout<br/>Switch branch"]
+        DELETE_LOCAL["git branch -d<br/>Delete local"]
+        MERGE_LOCAL["git merge<br/>Local merge"]
     end
 
-    subgraph DEVOPS_SCOPE["⚙️ @github-devops - Escopo Remoto"]
-        PUSH["git push<br/>Enviar para origin"]
-        CREATE_PR["gh pr create<br/>Criar Pull Request"]
-        DELETE_REMOTE["git push origin --delete<br/>Deletar branch remoto"]
+    subgraph DEVOPS_SCOPE["⚙️ @github-devops - Remote Scope"]
+        PUSH["git push<br/>Send to origin"]
+        CREATE_PR["gh pr create<br/>Create Pull Request"]
+        DELETE_REMOTE["git push origin --delete<br/>Delete remote branch"]
     end
 
-    SM_SCOPE -->|"Story completa<br/>Notificar"| DEVOPS_SCOPE
+    SM_SCOPE -->|"Story complete<br/>Notify"| DEVOPS_SCOPE
 
     style SM_SCOPE fill:#e3f2fd
     style DEVOPS_SCOPE fill:#fff3e0
@@ -221,50 +221,50 @@ flowchart LR
 
 ---
 
-## Mapeamento de Comandos para Tasks
+## Command to Task Mapping
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*draft` | `sm-create-next-story.md` / `create-next-story.md` | Cria proxima story do backlog |
-| `*story-checklist` | `execute-checklist.md` | Executa `story-draft-checklist.md` |
-| `*correct-course` | `correct-course.md` | Analisa e corrige desvios de processo |
-| `*help` | (built-in) | Mostra comandos disponiveis |
-| `*guide` | (built-in) | Mostra guia de uso do agente |
-| `*session-info` | (built-in) | Mostra detalhes da sessao atual |
-| `*exit` | (built-in) | Sai do modo Scrum Master |
+| `*draft` | `sm-create-next-story.md` / `create-next-story.md` | Creates the next story from the backlog |
+| `*story-checklist` | `execute-checklist.md` | Runs `story-draft-checklist.md` |
+| `*correct-course` | `correct-course.md` | Analyzes and corrects process deviations |
+| `*help` | (built-in) | Shows available commands |
+| `*guide` | (built-in) | Shows the agent usage guide |
+| `*session-info` | (built-in) | Shows current session details |
+| `*exit` | (built-in) | Exits Scrum Master mode |
 
 ---
 
-## Integracoes entre Agentes
+## Integrations Between Agents
 
-### Fluxo de Integracao
+### Integration Flow
 
 ```mermaid
 flowchart TB
-    subgraph UPSTREAM["⬆️ UPSTREAM - Fornece para @sm"]
-        PM_UP["@pm (Janus)<br/>Cria estrutura de epics"]
-        PO_UP["@po (Themis)<br/>Prioriza backlog"]
-        ANALYST_UP["@analyst (Sage)<br/>Pesquisa e insights"]
+    subgraph UPSTREAM["⬆️ UPSTREAM - Provides to @sm"]
+        PM_UP["@pm (Janus)<br/>Creates epic structure"]
+        PO_UP["@po (Themis)<br/>Prioritizes backlog"]
+        ANALYST_UP["@analyst (Sage)<br/>Research and insights"]
     end
 
     SM_CENTRAL["🌊 @sm (Chronos)<br/>Scrum Master"]
 
-    subgraph DOWNSTREAM["⬇️ DOWNSTREAM - Recebe de @sm"]
-        DEV_DOWN["@dev (Vulcan)<br/>Implementa stories"]
-        PO_DOWN["@po (Themis)<br/>Valida stories"]
+    subgraph DOWNSTREAM["⬇️ DOWNSTREAM - Receives from @sm"]
+        DEV_DOWN["@dev (Vulcan)<br/>Implements stories"]
+        PO_DOWN["@po (Themis)<br/>Validates stories"]
         QA_DOWN["@qa (Argus)<br/>Risk profiling"]
     end
 
-    subgraph LATERAL["↔️ LATERAL - Coordena com @sm"]
+    subgraph LATERAL["↔️ LATERAL - Coordinates with @sm"]
         DEVOPS_LAT["@github-devops (Polaris)<br/>Push/PR workflow"]
     end
 
     PM_UP -->|"Epic structure"| SM_CENTRAL
-    PO_UP -->|"Backlog priorizado"| SM_CENTRAL
-    ANALYST_UP -->|"Insights tecnicos"| SM_CENTRAL
+    PO_UP -->|"Prioritized backlog"| SM_CENTRAL
+    ANALYST_UP -->|"Technical insights"| SM_CENTRAL
 
-    SM_CENTRAL -->|"Stories prontas"| DEV_DOWN
-    SM_CENTRAL -->|"Stories para validação"| PO_DOWN
+    SM_CENTRAL -->|"Ready stories"| DEV_DOWN
+    SM_CENTRAL -->|"Stories for validation"| PO_DOWN
     SM_CENTRAL -->|"Request risk profiling"| QA_DOWN
 
     SM_CENTRAL <-->|"Sprint workflow"| DEVOPS_LAT
@@ -275,48 +275,48 @@ flowchart TB
     style LATERAL fill:#fce4ec
 ```
 
-### Matriz de Colaboracao
+### Collaboration Matrix
 
-| Agente | Relacionamento | Acao |
+| Agent | Relationship | Action |
 |--------|----------------|------|
-| **@pm (Janus)** | Recebe de | Epic structure, PRD shardado |
-| **@po (Themis)** | Coordena com | Backlog prioritization, sprint planning |
-| **@dev (Vulcan)** | Entrega para | Stories prontas para implementacao |
-| **@qa (Argus)** | Solicita | Risk profiling para stories |
-| **@github-devops (Polaris)** | Delega para | Push branches, criar PRs |
-| **@analyst (Sage)** | Consulta | Pesquisa e insights tecnicos |
+| **@pm (Janus)** | Receives from | Epic structure, sharded PRD |
+| **@po (Themis)** | Coordinates with | Backlog prioritization, sprint planning |
+| **@dev (Vulcan)** | Delivers to | Stories ready for implementation |
+| **@qa (Argus)** | Requests | Risk profiling for stories |
+| **@github-devops (Polaris)** | Delegates to | Push branches, create PRs |
+| **@analyst (Sage)** | Consults | Research and technical insights |
 
-### Delegacao para @github-devops
+### Delegation to @github-devops
 
-O @sm gerencia APENAS operacoes locais de Git. Para operacoes remotas, **sempre** delegar para @github-devops:
+@sm manages ONLY local Git operations. For remote operations, **always** delegate to @github-devops:
 
-**Operacoes Permitidas para @sm:**
-- `git checkout -b feature/X.Y-story-name` - Criar branch local
-- `git branch` - Listar branches
-- `git branch -d branch-name` - Deletar branch local
-- `git checkout branch-name` - Trocar de branch
-- `git merge branch-name` - Merge local
+**Operations Allowed for @sm:**
+- `git checkout -b feature/X.Y-story-name` - Create local branch
+- `git branch` - List branches
+- `git branch -d branch-name` - Delete local branch
+- `git checkout branch-name` - Switch branch
+- `git merge branch-name` - Local merge
 
-**Operacoes Bloqueadas (usar @github-devops):**
-- `git push` - Enviar para remoto
-- `git push origin --delete` - Deletar branch remoto
-- `gh pr create` - Criar Pull Request
+**Blocked Operations (use @github-devops):**
+- `git push` - Send to remote
+- `git push origin --delete` - Delete remote branch
+- `gh pr create` - Create Pull Request
 
 ---
 
-## Configuracao
+## Configuration
 
-### core-config.yaml (Chaves Relevantes)
+### core-config.yaml (Relevant Keys)
 
 ```yaml
-# Localizacao de stories
+# Story location
 devStoryLocation: docs/stories
 
-# PRD Shardado ou Monolitico
+# Sharded or Monolithic PRD
 prdSharded: true
 prdShardedLocation: docs/prd/epics
 
-# Arquitetura
+# Architecture
 architectureVersion: v4
 architectureSharded: true
 architectureShardedLocation: docs/architecture
@@ -326,10 +326,10 @@ qaLocation: docs/qa
 
 # CodeRabbit Integration
 coderabbit_integration:
-  enabled: true  # Controla se @sm popula secao CodeRabbit nas stories
+  enabled: true  # Controls whether @sm populates the CodeRabbit section in stories
 ```
 
-### Dependencies do Agente
+### Agent Dependencies
 
 ```yaml
 dependencies:
@@ -351,48 +351,48 @@ dependencies:
 
 ## Best Practices
 
-### Criacao de Stories
+### Story Creation
 
-1. **Sempre comece do PRD/Epic** - Nao invente requisitos
-2. **Inclua referencias com citacoes** - `[Source: architecture/tech-stack.md#database]`
-3. **Popule Dev Notes completamente** - Contexto tecnico extraido da arquitetura
-4. **Execute checklist apos criação** - `*story-checklist` valida qualidade
-5. **Nao assuma informacoes** - Se não encontrar, declare "No specific guidance found"
+1. **Always start from the PRD/Epic** - Do not invent requirements
+2. **Include references with citations** - `[Source: architecture/tech-stack.md#database]`
+3. **Populate Dev Notes completely** - Technical context extracted from the architecture
+4. **Run the checklist after creation** - `*story-checklist` validates quality
+5. **Do not assume information** - If you cannot find it, state "No specific guidance found"
 
-### Gerenciamento de Branches
+### Branch Management
 
-1. **Use naming convention** - `feature/X.Y-story-name` (X.Y = epic.story)
-2. **Crie branch ao iniciar story** - Isola desenvolvimento
-3. **Nao tente push** - Sempre delegar para @github-devops
-4. **Resolva conflitos localmente** - Antes de pedir push
+1. **Use the naming convention** - `feature/X.Y-story-name` (X.Y = epic.story)
+2. **Create a branch when starting the story** - Isolates development
+3. **Do not attempt to push** - Always delegate to @github-devops
+4. **Resolve conflicts locally** - Before requesting a push
 
-### Colaboracao com Outros Agentes
+### Collaboration With Other Agents
 
-1. **Respeite limites** - Nao implemente codigo, não crie PRs
-2. **Documente handoffs** - Deixe claro o que @dev precisa fazer
-3. **Coordene com @po** - Backlog prioritization antes de criar stories
-4. **Notifique @github-devops** - Quando story estiver pronta para push
+1. **Respect boundaries** - Do not implement code, do not create PRs
+2. **Document handoffs** - Make it clear what @dev needs to do
+3. **Coordinate with @po** - Backlog prioritization before creating stories
+4. **Notify @github-devops** - When the story is ready to push
 
-### Validacao de Stories
+### Story Validation
 
-1. **Execute checklist** - `*story-checklist` apos criação
-2. **Revise todos os 6 criterios** - Goal, Technical, References, Self-Containment, Testing, CodeRabbit
-3. **Corrija antes de handoff** - Stories incompletas bloqueiam @dev
-4. **Documente desvios** - Se houver conflitos entre epic e arquitetura
+1. **Run the checklist** - `*story-checklist` after creation
+2. **Review all 6 criteria** - Goal, Technical, References, Self-Containment, Testing, CodeRabbit
+3. **Fix before handoff** - Incomplete stories block @dev
+4. **Document deviations** - If there are conflicts between the epic and the architecture
 
 ---
 
 ## Troubleshooting
 
-### Story não encontrada no ClickUp
+### Story not found in ClickUp
 
-**Sintoma:** Epic verificacao falha em Step 5.1
+**Symptom:** Epic verification fails at Step 5.1
 
-**Solucao:**
-1. Verificar se Epic existe no ClickUp Backlog list
-2. Confirmar tags: `epic`, `epic-{epicNum}`
-3. Status deve ser "Planning" ou "In Progress"
-4. Criar Epic manualmente se necessario:
+**Solution:**
+1. Check whether the Epic exists in the ClickUp Backlog list
+2. Confirm tags: `epic`, `epic-{epicNum}`
+3. Status must be "Planning" or "In Progress"
+4. Create the Epic manually if needed:
    ```
    Name: 'Epic {epicNum}: {Epic Title}'
    List: Backlog
@@ -400,50 +400,50 @@ dependencies:
    Status: Planning
    ```
 
-### core-config.yaml não encontrado
+### core-config.yaml not found
 
-**Sintoma:** Task halts com mensagem de arquivo não encontrado
+**Symptom:** Task halts with a file-not-found message
 
-**Solucao:**
-1. Copiar de `GITHUB aexos-core/core-config.yaml`
-2. Ou executar AEXOS installer: `npm run cyryx:install`
-3. Configurar `devStoryLocation`, `prdSharded`, etc.
+**Solution:**
+1. Copy from `GITHUB aexos-core/core-config.yaml`
+2. Or run the AEXOS installer: `npm run cyryx:install`
+3. Configure `devStoryLocation`, `prdSharded`, etc.
 
-### Checklist retorna FAIL em multiplas categorias
+### Checklist returns FAIL in multiple categories
 
-**Sintoma:** Story draft com varios problemas de validação
+**Symptom:** Story draft with several validation problems
 
-**Solucao:**
-1. Revisar arquivos de arquitetura referenciados
-2. Verificar se PRD/Epic esta completo
-3. Usar file fallback strategy para arquivos alternativos
-4. Adicionar notas em Dev Notes sobre gaps
+**Solution:**
+1. Review the referenced architecture files
+2. Check whether the PRD/Epic is complete
+3. Use the file fallback strategy for alternative files
+4. Add notes in Dev Notes about the gaps
 
-### Branch local não sincronizado
+### Local branch out of sync
 
-**Sintoma:** Merge conflicts ao tentar integrar
+**Symptom:** Merge conflicts when trying to integrate
 
-**Solucao:**
-1. Fazer `git fetch origin` para atualizar referencias
-2. Merge branch base localmente: `git merge main`
-3. Resolver conflitos antes de pedir push para @github-devops
+**Solution:**
+1. Run `git fetch origin` to update references
+2. Merge the base branch locally: `git merge main`
+3. Resolve conflicts before requesting a push from @github-devops
 
-### CodeRabbit section não aparece na story
+### CodeRabbit section does not appear in the story
 
-**Sintoma:** Story criada sem secao de integracao CodeRabbit
+**Symptom:** Story created without the CodeRabbit integration section
 
-**Causa:** `coderabbit_integration.enabled: false` em core-config.yaml
+**Cause:** `coderabbit_integration.enabled: false` in core-config.yaml
 
-**Solucao:**
-1. Verificar `core-config.yaml`
-2. Se intencional, story tera notice de skip
-3. Para habilitar, set `coderabbit_integration.enabled: true`
+**Solution:**
+1. Check `core-config.yaml`
+2. If intentional, the story will have a skip notice
+3. To enable, set `coderabbit_integration.enabled: true`
 
 ---
 
-## Referencias
+## References
 
-### Arquivos do Agente
+### Agent Files
 - [Agent: sm.md](.aexos-core/development/agents/sm.md)
 - [Task: create-next-story.md](.aexos-core/development/tasks/create-next-story.md)
 - [Task: execute-checklist.md](.aexos-core/development/tasks/execute-checklist.md)
@@ -459,37 +459,37 @@ dependencies:
 - [Workflow: greenfield-fullstack.yaml](.aexos-core/development/workflows/greenfield-fullstack.yaml)
 - [Workflow: brownfield-fullstack.yaml](.aexos-core/development/workflows/brownfield-fullstack.yaml)
 
-### Configuracao
+### Configuration
 - [Core Config](../.aexos-core/core-config.yaml)
 
-### Documentação Relacionada
+### Related Documentation
 - [Backlog Management System](../BACKLOG-MANAGEMENT-SYSTEM.md)
 
 ---
 
-## Resumo
+## Summary
 
-| Aspecto | Detalhes |
+| Aspect | Details |
 |---------|----------|
-| **Agente** | @sm (Chronos) - Scrum Master |
-| **Arquetipo** | Facilitator (Pisces) |
-| **Total de Task Files** | 6 tasks core |
-| **Comandos Disponiveis** | 7 (`*draft`, `*story-checklist`, `*correct-course`, `*help`, `*guide`, `*session-info`, `*exit`) |
-| **Checklists Utilizados** | 4 checklists |
-| **Workflows que Usam @sm** | 7 workflows |
-| **Ferramentas** | git (local), clickup, context7 |
-| **Colabora com** | @pm, @po, @dev, @qa, @github-devops, @analyst |
-| **Delega para** | @github-devops (operacoes remotas) |
-| **Responsabilidade Principal** | Criacao de stories detalhadas e acionaveis |
+| **Agent** | @sm (Chronos) - Scrum Master |
+| **Archetype** | Facilitator (Pisces) |
+| **Total Task Files** | 6 core tasks |
+| **Available Commands** | 7 (`*draft`, `*story-checklist`, `*correct-course`, `*help`, `*guide`, `*session-info`, `*exit`) |
+| **Checklists Used** | 4 checklists |
+| **Workflows Using @sm** | 7 workflows |
+| **Tools** | git (local), clickup, context7 |
+| **Collaborates With** | @pm, @po, @dev, @qa, @github-devops, @analyst |
+| **Delegates To** | @github-devops (remote operations) |
+| **Main Responsibility** | Creation of detailed, actionable stories |
 
 ---
 
 ## Changelog
 
-| Data | Autor | Descrição |
+| Date | Author | Description |
 |------|-------|-----------|
-| 2026-02-04 | @dev | Documento inicial criado |
+| 2026-02-04 | @dev | Initial document created |
 
 ---
 
-*-- River, removendo obstaculos*
+*-- Chronos, removing obstacles*

@@ -1,80 +1,80 @@
-# Sistema do Agente @data-engineer
+# @data-engineer Agent System
 
-> **Versão:** 1.0.0
-> **Criado:** 2026-02-04
+> **Version:** 1.0.0
+> **Created:** 2026-02-04
 > **Owner:** @data-engineer (Ceres - The Sage)
-> **Status:** Documentação Oficial
+> **Status:** Official Documentation
 
 ---
 
-## Visão Geral
+## Overview
 
-O agente **@data-engineer (Ceres)** e o Database Architect & Operations Engineer do AEXOS, responsavel pelo design de schemas, migracoes, seguranca (RLS), otimizacao de performance e operacoes de DBA. Este agente atua como um **Sage** que modela dominios de negocio, implementa migracoes seguras com snapshots e rollback, e garante integridade e seguranca dos dados.
+The **@data-engineer (Ceres)** agent is the Database Architect & Operations Engineer of AEXOS, responsible for schema design, migrations, security (RLS), performance optimization and DBA operations. This agent acts as a **Sage** who models business domains, implements safe migrations with snapshots and rollback, and guarantees data integrity and security.
 
-### Caracteristicas Principais
+### Main Characteristics
 
-| Caracteristica | Descrição |
+| Characteristic | Description |
 |----------------|-----------|
-| **Persona** | Dara - The Sage |
-| **Arquetipo** | Sage / Gemini |
-| **Tom** | Tecnico, preciso, metodico, consciente de seguranca |
-| **Foco** | Design de schema, migracoes, RLS, performance, operacoes DBA |
-| **Fechamento** | "-- Dara, arquitetando dados" |
+| **Persona** | Ceres - The Sage |
+| **Archetype** | Sage / Gemini |
+| **Tone** | Technical, precise, methodical, security-conscious |
+| **Focus** | Schema design, migrations, RLS, performance, DBA operations |
+| **Closing** | "-- Ceres, architecting data" |
 
-### Principios Criticos de Database
+### Critical Database Principles
 
-- **Corretude antes de velocidade** - Acertar primeiro, otimizar depois
-- **Tudo versionado e reversivel** - Snapshots + scripts de rollback
-- **Seguranca por padrao** - RLS, constraints, triggers para consistencia
-- **Idempotencia em todo lugar** - Seguro executar operacoes multiplas vezes
-- **Design orientado a dominio** - Entender negocio antes de modelar dados
-- **Access pattern first** - Design baseado em como dados serao consultados
-- **Defesa em profundidade** - RLS + defaults + check constraints + triggers
-- **Observabilidade integrada** - Logs, metricas, explain plans
-- **Zero-downtime como objetivo** - Planejar migracoes cuidadosamente
+- **Correctness before speed** - Get it right first, optimize later
+- **Everything versioned and reversible** - Snapshots + rollback scripts
+- **Secure by default** - RLS, constraints, triggers for consistency
+- **Idempotency everywhere** - Safe to run operations multiple times
+- **Domain-driven design** - Understand the business before modeling the data
+- **Access pattern first** - Design based on how the data will be queried
+- **Defense in depth** - RLS + defaults + check constraints + triggers
+- **Built-in observability** - Logs, metrics, explain plans
+- **Zero-downtime as the goal** - Plan migrations carefully
 
-### Vocabulario Caracteristico
+### Characteristic Vocabulary
 
-- Consultar
-- Modelar
-- Armazenar
-- Configurar
-- Normalizar
-- Indexar
-- Migrar
+- Query
+- Model
+- Store
+- Configure
+- Normalize
+- Index
+- Migrate
 
 ---
 
-## Lista Completa de Arquivos
+## Complete File List
 
-### Arquivos Core de Tasks do @data-engineer
+### @data-engineer Core Task Files
 
-| Arquivo | Comando | Propósito |
+| File | Command | Purpose |
 |---------|---------|-----------|
-| `.aexos-core/development/tasks/db-domain-modeling.md` | `*model-domain` | Sessao interativa de modelagem de dominio |
-| `.aexos-core/development/tasks/setup-database.md` | `*setup-database [type]` | Setup de projeto de database (Supabase, PostgreSQL, MongoDB, MySQL, SQLite) |
-| `.aexos-core/development/tasks/db-bootstrap.md` | `*bootstrap` | Cria estrutura padrao de projeto Supabase |
-| `.aexos-core/development/tasks/db-env-check.md` | `*env-check` | Valida variaveis de ambiente do database |
-| `.aexos-core/development/tasks/db-apply-migration.md` | `*apply-migration {path}` | Aplica migracao com snapshot e lock advisory |
-| `.aexos-core/development/tasks/db-dry-run.md` | `*dry-run {path}` | Testa migracao sem commit |
-| `.aexos-core/development/tasks/db-seed.md` | `*seed {path}` | Aplica seed data (idempotent) |
-| `.aexos-core/development/tasks/db-snapshot.md` | `*snapshot {label}` | Cria snapshot do schema |
-| `.aexos-core/development/tasks/db-rollback.md` | `*rollback {snapshot_or_file}` | Restaura snapshot ou executa rollback |
-| `.aexos-core/development/tasks/db-smoke-test.md` | `*smoke-test {version}` | Testes abrangentes de database |
-| `.aexos-core/development/tasks/security-audit.md` | `*security-audit {scope}` | Auditoria de seguranca (rls, schema, full) |
-| `.aexos-core/development/tasks/analyze-performance.md` | `*analyze-performance {type}` | Analise de performance (query, hotpaths, interactive) |
-| `.aexos-core/development/tasks/db-policy-apply.md` | `*policy-apply {table} {mode}` | Instala politica RLS (KISS ou granular) |
-| `.aexos-core/development/tasks/test-as-user.md` | `*test-as-user {user_id}` | Emula usuario para testar RLS |
-| `.aexos-core/development/tasks/db-verify-order.md` | `*verify-order {path}` | Valida ordenacao DDL para dependencias |
-| `.aexos-core/development/tasks/db-load-csv.md` | `*load-csv {table} {file}` | Carregador seguro de CSV (staging->merge) |
-| `.aexos-core/development/tasks/db-run-sql.md` | `*run-sql {file_or_inline}` | Executa SQL raw com transacao |
-| `.aexos-core/development/tasks/create-deep-research-prompt.md` | `*research {topic}` | Gera prompt de pesquisa profunda |
-| `.aexos-core/development/tasks/execute-checklist.md` | `*execute-checklist {checklist}` | Executa checklist DBA |
-| `.aexos-core/development/tasks/create-doc.md` | `*doc-out` | Output de documento completo |
+| `.aexos-core/development/tasks/db-domain-modeling.md` | `*model-domain` | Interactive domain modeling session |
+| `.aexos-core/development/tasks/setup-database.md` | `*setup-database [type]` | Database project setup (Supabase, PostgreSQL, MongoDB, MySQL, SQLite) |
+| `.aexos-core/development/tasks/db-bootstrap.md` | `*bootstrap` | Creates the standard Supabase project structure |
+| `.aexos-core/development/tasks/db-env-check.md` | `*env-check` | Validates the database environment variables |
+| `.aexos-core/development/tasks/db-apply-migration.md` | `*apply-migration {path}` | Applies a migration with snapshot and advisory lock |
+| `.aexos-core/development/tasks/db-dry-run.md` | `*dry-run {path}` | Tests a migration without committing |
+| `.aexos-core/development/tasks/db-seed.md` | `*seed {path}` | Applies seed data (idempotent) |
+| `.aexos-core/development/tasks/db-snapshot.md` | `*snapshot {label}` | Creates a schema snapshot |
+| `.aexos-core/development/tasks/db-rollback.md` | `*rollback {snapshot_or_file}` | Restores a snapshot or runs a rollback |
+| `.aexos-core/development/tasks/db-smoke-test.md` | `*smoke-test {version}` | Comprehensive database tests |
+| `.aexos-core/development/tasks/security-audit.md` | `*security-audit {scope}` | Security audit (rls, schema, full) |
+| `.aexos-core/development/tasks/analyze-performance.md` | `*analyze-performance {type}` | Performance analysis (query, hotpaths, interactive) |
+| `.aexos-core/development/tasks/db-policy-apply.md` | `*policy-apply {table} {mode}` | Installs an RLS policy (KISS or granular) |
+| `.aexos-core/development/tasks/test-as-user.md` | `*test-as-user {user_id}` | Emulates a user to test RLS |
+| `.aexos-core/development/tasks/db-verify-order.md` | `*verify-order {path}` | Validates DDL ordering for dependencies |
+| `.aexos-core/development/tasks/db-load-csv.md` | `*load-csv {table} {file}` | Safe CSV loader (staging->merge) |
+| `.aexos-core/development/tasks/db-run-sql.md` | `*run-sql {file_or_inline}` | Runs raw SQL within a transaction |
+| `.aexos-core/development/tasks/create-deep-research-prompt.md` | `*research {topic}` | Generates a deep research prompt |
+| `.aexos-core/development/tasks/execute-checklist.md` | `*execute-checklist {checklist}` | Runs a DBA checklist |
+| `.aexos-core/development/tasks/create-doc.md` | `*doc-out` | Outputs the complete document |
 
-### Tasks Depreciadas (Backward Compatibility v2.0->v3.0)
+### Deprecated Tasks (Backward Compatibility v2.0->v3.0)
 
-| Task Antiga | Nova Task | Migracao |
+| Old Task | New Task | Migration |
 |-------------|-----------|----------|
 | `db-rls-audit.md` | `security-audit.md` | `*security-audit rls` |
 | `schema-audit.md` | `security-audit.md` | `*security-audit schema` |
@@ -84,78 +84,78 @@ O agente **@data-engineer (Ceres)** e o Database Architect & Operations Engineer
 | `db-impersonate.md` | `test-as-user.md` | `*test-as-user {user_id}` |
 | `db-supabase-setup.md` | `setup-database.md` | `*setup-database supabase` |
 
-### Arquivos de Definição do Agente
+### Agent Definition Files
 
-| Arquivo | Propósito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/agents/data-engineer.md` | Definição core do agente @data-engineer (persona, comandos, workflows) |
-| `.claude/commands/AEXOS/agents/data-engineer.md` | Comando Claude Code para ativar @data-engineer |
+| `.aexos-core/development/agents/data-engineer.md` | Core definition of the @data-engineer agent (persona, commands, workflows) |
+| `.claude/commands/AEXOS/agents/data-engineer.md` | Claude Code command to activate @data-engineer |
 
-### Arquivos de Templates SQL
+### SQL Template Files
 
-| Arquivo | Propósito |
+| File | Purpose |
 |---------|-----------|
-| `schema-design-tmpl.yaml` | Template de documentacao de schema |
-| `rls-policies-tmpl.yaml` | Template de politicas RLS |
-| `migration-plan-tmpl.yaml` | Template de plano de migracao |
-| `index-strategy-tmpl.yaml` | Template de estrategia de indices |
-| `tmpl-migration-script.sql` | Template de script de migracao |
-| `tmpl-rollback-script.sql` | Template de script de rollback |
-| `tmpl-smoke-test.sql` | Template de smoke test |
-| `tmpl-rls-kiss-policy.sql` | Template de politica RLS KISS |
-| `tmpl-rls-granular-policies.sql` | Template de politicas RLS granulares |
-| `tmpl-staging-copy-merge.sql` | Template de staging para CSV |
-| `tmpl-seed-data.sql` | Template de seed data |
-| `tmpl-comment-on-examples.sql` | Exemplos de COMMENT ON |
+| `schema-design-tmpl.yaml` | Schema documentation template |
+| `rls-policies-tmpl.yaml` | RLS policies template |
+| `migration-plan-tmpl.yaml` | Migration plan template |
+| `index-strategy-tmpl.yaml` | Index strategy template |
+| `tmpl-migration-script.sql` | Migration script template |
+| `tmpl-rollback-script.sql` | Rollback script template |
+| `tmpl-smoke-test.sql` | Smoke test template |
+| `tmpl-rls-kiss-policy.sql` | KISS RLS policy template |
+| `tmpl-rls-granular-policies.sql` | Granular RLS policies template |
+| `tmpl-staging-copy-merge.sql` | Staging template for CSV |
+| `tmpl-seed-data.sql` | Seed data template |
+| `tmpl-comment-on-examples.sql` | COMMENT ON examples |
 
-### Arquivos de Checklists
+### Checklist Files
 
-| Arquivo | Propósito |
+| File | Purpose |
 |---------|-----------|
-| `dba-predeploy-checklist.md` | Checklist pre-deploy DBA |
-| `dba-rollback-checklist.md` | Checklist de rollback |
-| `database-design-checklist.md` | Checklist de design de database |
+| `dba-predeploy-checklist.md` | DBA pre-deploy checklist |
+| `dba-rollback-checklist.md` | Rollback checklist |
+| `database-design-checklist.md` | Database design checklist |
 
-### Arquivos de Data/Conhecimento
+### Data/Knowledge Files
 
-| Arquivo | Propósito |
+| File | Purpose |
 |---------|-----------|
-| `database-best-practices.md` | Melhores praticas de database |
-| `supabase-patterns.md` | Padroes Supabase |
-| `postgres-tuning-guide.md` | Guia de tuning PostgreSQL |
-| `rls-security-patterns.md` | Padroes de seguranca RLS |
-| `migration-safety-guide.md` | Guia de seguranca de migracao |
+| `database-best-practices.md` | Database best practices |
+| `supabase-patterns.md` | Supabase patterns |
+| `postgres-tuning-guide.md` | PostgreSQL tuning guide |
+| `rls-security-patterns.md` | RLS security patterns |
+| `migration-safety-guide.md` | Migration safety guide |
 
-### Workflows que Usam @data-engineer
+### Workflows That Use @data-engineer
 
-| Arquivo | Propósito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/workflows/brownfield-discovery.yaml` | Workflow de discovery brownfield (Fase 2 e 5) |
+| `.aexos-core/development/workflows/brownfield-discovery.yaml` | Brownfield discovery workflow (Phases 2 and 5) |
 
 ---
 
-## Flowchart: Sistema Completo do @data-engineer
+## Flowchart: Complete @data-engineer System
 
 ```mermaid
 flowchart TB
-    subgraph ACTIVATION["ATIVACAO DO AGENTE"]
+    subgraph ACTIVATION["AGENT ACTIVATION"]
         A["@data-engineer"] --> B["ActivationRuntime -> UnifiedActivationPipeline"]
-        B --> C["Exibe Greeting Sage"]
+        B --> C["Displays Sage Greeting"]
         C --> D["Quick Commands"]
-        D --> E["HALT - Aguarda Usuario"]
+        D --> E["HALT - Waits for the User"]
     end
 
-    subgraph COMMANDS["CATEGORIAS DE COMANDOS"]
-        E --> F{"Comando Recebido"}
+    subgraph COMMANDS["COMMAND CATEGORIES"]
+        E --> F{"Command Received"}
 
-        F -->|"Arquitetura"| G["Design Commands"]
-        F -->|"Operacoes"| H["DBA Commands"]
-        F -->|"Seguranca"| I["Security Commands"]
+        F -->|"Architecture"| G["Design Commands"]
+        F -->|"Operations"| H["DBA Commands"]
+        F -->|"Security"| I["Security Commands"]
         F -->|"Performance"| J["Performance Commands"]
-        F -->|"Dados"| K["Data Commands"]
+        F -->|"Data"| K["Data Commands"]
     end
 
-    subgraph DESIGN["DESIGN & ARQUITETURA"]
+    subgraph DESIGN["DESIGN & ARCHITECTURE"]
         G --> G1["*create-schema"]
         G --> G2["*create-rls-policies"]
         G --> G3["*model-domain"]
@@ -163,7 +163,7 @@ flowchart TB
         G --> G5["*create-migration-plan"]
     end
 
-    subgraph DBA["OPERACOES DBA"]
+    subgraph DBA["DBA OPERATIONS"]
         H --> H1["*setup-database"]
         H --> H2["*bootstrap"]
         H --> H3["*apply-migration"]
@@ -174,7 +174,7 @@ flowchart TB
         H --> H8["*seed"]
     end
 
-    subgraph SECURITY["SEGURANCA"]
+    subgraph SECURITY["SECURITY"]
         I --> I1["*security-audit"]
         I --> I2["*policy-apply"]
         I --> I3["*test-as-user"]
@@ -187,7 +187,7 @@ flowchart TB
         J --> J3["*analyze-performance interactive"]
     end
 
-    subgraph DATA["OPERACOES DE DADOS"]
+    subgraph DATA["DATA OPERATIONS"]
         K --> K1["*load-csv"]
         K --> K2["*run-sql"]
     end
@@ -201,30 +201,30 @@ flowchart TB
     style DATA fill:#f1f8e9
 ```
 
-### Diagrama do Ciclo de Migracao
+### Migration Cycle Diagram
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Design: Novo Requisito
+    [*] --> Design: New Requirement
 
     state Design {
-        D1: Entender Dominio
-        D2: Modelar Entidades
-        D3: Definir Relacionamentos
-        D4: Criar Schema SQL
+        D1: Understand the Domain
+        D2: Model the Entities
+        D3: Define Relationships
+        D4: Create the SQL Schema
 
         D1 --> D2
         D2 --> D3
         D3 --> D4
     }
 
-    Design --> PreMigration: Schema Pronto
+    Design --> PreMigration: Schema Ready
 
     state PreMigration {
         P1: *snapshot pre_migration
         P2: *verify-order migration.sql
         P3: *dry-run migration.sql
-        P4: Validar Output
+        P4: Validate Output
 
         P1 --> P2
         P2 --> P3
@@ -246,50 +246,50 @@ stateDiagram-v2
         M4 --> M5
     }
 
-    Migration --> PostMigration: Aplicado
+    Migration --> PostMigration: Applied
 
     state PostMigration {
         PM1: *smoke-test
         PM2: *security-audit
         PM3: *analyze-performance
-        PM4: Validar RLS
+        PM4: Validate RLS
 
         PM1 --> PM2
         PM2 --> PM3
         PM3 --> PM4
     }
 
-    PostMigration --> [*]: Completo
+    PostMigration --> [*]: Complete
 
-    Migration --> Rollback: Falha
-    PostMigration --> Rollback: Issues Criticos
+    Migration --> Rollback: Failure
+    PostMigration --> Rollback: Critical Issues
 
     state Rollback {
         R1: *rollback snapshot
-        R2: Verificar Estado
-        R3: Investigar Causa
+        R2: Check the State
+        R3: Investigate the Cause
     }
 
-    Rollback --> Design: Fix e Retry
+    Rollback --> Design: Fix and Retry
 ```
 
-### Fluxo de Security Audit
+### Security Audit Flow
 
 ```mermaid
 flowchart TB
     subgraph AUDIT["SECURITY AUDIT (*security-audit)"]
-        A["Selecionar Escopo"] --> B{"Tipo?"}
+        A["Select Scope"] --> B{"Type?"}
 
         B -->|"rls"| C["RLS Audit Only"]
         B -->|"schema"| D["Schema Audit Only"]
         B -->|"full"| E["RLS + Schema + Best Practices"]
 
         subgraph RLS_AUDIT["RLS AUDIT"]
-            C --> C1["Listar Tabelas"]
-            C1 --> C2["Verificar RLS Enabled"]
-            C2 --> C3["Listar Policies"]
-            C3 --> C4["Coverage por Comando"]
-            C4 --> C5["Tabelas Sem RLS"]
+            C --> C1["List Tables"]
+            C1 --> C2["Check RLS Enabled"]
+            C2 --> C3["List Policies"]
+            C3 --> C4["Coverage per Command"]
+            C4 --> C5["Tables Without RLS"]
         end
 
         subgraph SCHEMA_AUDIT["SCHEMA AUDIT"]
@@ -297,7 +297,7 @@ flowchart TB
             D1 --> D2["NOT NULL Constraints"]
             D2 --> D3["Foreign Keys"]
             D3 --> D4["Audit Timestamps"]
-            D4 --> D5["Indices em FKs"]
+            D4 --> D5["Indexes on FKs"]
         end
 
         subgraph FULL_AUDIT["FULL AUDIT"]
@@ -307,16 +307,16 @@ flowchart TB
             E3 --> E4["Permissions Check"]
         end
 
-        C5 --> F["Gerar Relatorio"]
+        C5 --> F["Generate Report"]
         D5 --> F
         E4 --> F
 
-        F --> G{"Issues Criticos?"}
-        G -->|"Sim"| H["Recomendar Fixes"]
-        G -->|"Nao"| I["Schema Seguro"]
+        F --> G{"Critical Issues?"}
+        G -->|"Yes"| H["Recommend Fixes"]
+        G -->|"No"| I["Schema Secure"]
 
-        H --> J["*policy-apply para RLS"]
-        H --> K["ALTER TABLE para Constraints"]
+        H --> J["*policy-apply for RLS"]
+        H --> K["ALTER TABLE for Constraints"]
     end
 
     style C fill:#e1f5fe
@@ -326,46 +326,46 @@ flowchart TB
     style H fill:#ffcdd2
 ```
 
-### Fluxo de Snapshot e Rollback
+### Snapshot and Rollback Flow
 
 ```mermaid
 flowchart TB
-    subgraph SNAPSHOT["SISTEMA DE SNAPSHOTS"]
+    subgraph SNAPSHOT["SNAPSHOT SYSTEM"]
         direction TB
 
-        A["*snapshot {label}"] --> B["Criar Diretorio<br/>supabase/snapshots/"]
+        A["*snapshot {label}"] --> B["Create Directory<br/>supabase/snapshots/"]
         B --> C["pg_dump --schema-only"]
-        C --> D["Gerar Metadata"]
-        D --> E["Verificar Conteudo"]
-        E --> F["Snapshot Criado"]
+        C --> D["Generate Metadata"]
+        D --> E["Verify Content"]
+        E --> F["Snapshot Created"]
 
         F --> G["supabase/snapshots/<br/>{TS}_{label}.sql"]
         F --> H["supabase/snapshots/<br/>{TS}_{label}.meta"]
     end
 
-    subgraph MIGRATION["MIGRACAO COM AUTO-SNAPSHOT"]
-        I["*apply-migration"] --> J["Pre-Snapshot Automatico"]
+    subgraph MIGRATION["MIGRATION WITH AUTO-SNAPSHOT"]
+        I["*apply-migration"] --> J["Automatic Pre-Snapshot"]
         J --> K["Advisory Lock"]
         K --> L["Execute Migration"]
-        L --> M{"Sucesso?"}
+        L --> M{"Success?"}
 
-        M -->|"Sim"| N["Post-Snapshot"]
-        M -->|"Nao"| O["Transaction Rollback"]
+        M -->|"Yes"| N["Post-Snapshot"]
+        M -->|"No"| O["Transaction Rollback"]
 
-        N --> P["Gerar Diff"]
+        N --> P["Generate Diff"]
         P --> Q["Release Lock"]
     end
 
-    subgraph ROLLBACK["SISTEMA DE ROLLBACK"]
-        R["*rollback {target}"] --> S["Confirmar ROLLBACK"]
+    subgraph ROLLBACK["ROLLBACK SYSTEM"]
+        R["*rollback {target}"] --> S["Confirm ROLLBACK"]
         S --> T["Emergency Snapshot"]
-        T --> U["Validar Target"]
+        T --> U["Validate Target"]
         U --> V["Advisory Lock"]
         V --> W["Execute Restore"]
 
-        W --> X{"Sucesso?"}
-        X -->|"Sim"| Y["Post-Rollback Validation"]
-        X -->|"Nao"| Z["Restore Emergency"]
+        W --> X{"Success?"}
+        X -->|"Yes"| Y["Post-Rollback Validation"]
+        X -->|"No"| Z["Restore Emergency"]
 
         Y --> AA["Release Lock"]
         Z --> AA
@@ -383,94 +383,94 @@ flowchart TB
 
 ---
 
-## Mapeamento de Comandos para Tasks
+## Command to Task Mapping
 
-### Comandos de Arquitetura e Design
+### Architecture and Design Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*create-schema` | (inline) | Design de schema de database |
-| `*create-rls-policies` | (inline) | Design de politicas RLS |
-| `*create-migration-plan` | (inline) | Cria estrategia de migracao |
-| `*design-indexes` | (inline) | Design de estrategia de indices |
-| `*model-domain` | `db-domain-modeling.md` | Sessao interativa de modelagem |
+| `*create-schema` | (inline) | Database schema design |
+| `*create-rls-policies` | (inline) | RLS policy design |
+| `*create-migration-plan` | (inline) | Creates a migration strategy |
+| `*design-indexes` | (inline) | Index strategy design |
+| `*model-domain` | `db-domain-modeling.md` | Interactive modeling session |
 
-### Comandos de Operacoes DBA
+### DBA Operations Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*setup-database [type]` | `setup-database.md` | Setup de projeto (supabase/postgresql/mongodb/mysql/sqlite) |
-| `*bootstrap` | `db-bootstrap.md` | Scaffold de estrutura Supabase |
-| `*env-check` | `db-env-check.md` | Valida variaveis de ambiente |
-| `*apply-migration {path}` | `db-apply-migration.md` | Aplica migracao com snapshot de seguranca |
-| `*dry-run {path}` | `db-dry-run.md` | Testa migracao sem commit |
-| `*seed {path}` | `db-seed.md` | Aplica seed data idempotente |
-| `*snapshot {label}` | `db-snapshot.md` | Cria snapshot de schema |
-| `*rollback {target}` | `db-rollback.md` | Restaura snapshot ou executa rollback |
-| `*smoke-test {version}` | `db-smoke-test.md` | Testes de validação |
+| `*setup-database [type]` | `setup-database.md` | Project setup (supabase/postgresql/mongodb/mysql/sqlite) |
+| `*bootstrap` | `db-bootstrap.md` | Scaffolds the Supabase structure |
+| `*env-check` | `db-env-check.md` | Validates environment variables |
+| `*apply-migration {path}` | `db-apply-migration.md` | Applies a migration with a safety snapshot |
+| `*dry-run {path}` | `db-dry-run.md` | Tests a migration without committing |
+| `*seed {path}` | `db-seed.md` | Applies idempotent seed data |
+| `*snapshot {label}` | `db-snapshot.md` | Creates a schema snapshot |
+| `*rollback {target}` | `db-rollback.md` | Restores a snapshot or runs a rollback |
+| `*smoke-test {version}` | `db-smoke-test.md` | Validation tests |
 
-### Comandos de Seguranca e Performance (Consolidados - Story 6.1.2.3)
+### Security and Performance Commands (Consolidated - Story 6.1.2.3)
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*security-audit rls` | `security-audit.md` | Auditoria de cobertura RLS |
-| `*security-audit schema` | `security-audit.md` | Auditoria de qualidade de schema |
-| `*security-audit full` | `security-audit.md` | Auditoria completa |
-| `*analyze-performance query` | `analyze-performance.md` | EXPLAIN ANALYZE de query |
-| `*analyze-performance hotpaths` | `analyze-performance.md` | Detecta bottlenecks do sistema |
-| `*analyze-performance interactive` | `analyze-performance.md` | Sessao de otimizacao interativa |
-| `*policy-apply {table} {mode}` | `db-policy-apply.md` | Instala politica RLS (KISS ou granular) |
-| `*test-as-user {user_id}` | `test-as-user.md` | Emula usuario para testar RLS |
-| `*verify-order {path}` | `db-verify-order.md` | Valida ordenacao DDL |
+| `*security-audit rls` | `security-audit.md` | RLS coverage audit |
+| `*security-audit schema` | `security-audit.md` | Schema quality audit |
+| `*security-audit full` | `security-audit.md` | Full audit |
+| `*analyze-performance query` | `analyze-performance.md` | EXPLAIN ANALYZE of a query |
+| `*analyze-performance hotpaths` | `analyze-performance.md` | Detects system bottlenecks |
+| `*analyze-performance interactive` | `analyze-performance.md` | Interactive optimization session |
+| `*policy-apply {table} {mode}` | `db-policy-apply.md` | Installs an RLS policy (KISS or granular) |
+| `*test-as-user {user_id}` | `test-as-user.md` | Emulates a user to test RLS |
+| `*verify-order {path}` | `db-verify-order.md` | Validates DDL ordering |
 
-### Comandos de Operacoes de Dados
+### Data Operations Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*load-csv {table} {file}` | `db-load-csv.md` | Carregador seguro de CSV |
-| `*run-sql {file_or_inline}` | `db-run-sql.md` | Executa SQL com transacao |
+| `*load-csv {table} {file}` | `db-load-csv.md` | Safe CSV loader |
+| `*run-sql {file_or_inline}` | `db-run-sql.md` | Runs SQL within a transaction |
 
-### Comandos de Contexto e Sessao
+### Context and Session Commands
 
-| Comando | Operacao |
+| Command | Operation |
 |---------|----------|
-| `*help` | Mostra todos os comandos disponiveis |
-| `*guide` | Mostra guia de uso completo |
-| `*yolo` | Toggle de confirmacao (skip/require) |
-| `*exit` | Sai do modo data-engineer |
-| `*doc-out` | Output de documento completo |
-| `*execute-checklist {checklist}` | Executa checklist DBA |
-| `*research {topic}` | Gera prompt de pesquisa profunda |
+| `*help` | Shows all available commands |
+| `*guide` | Shows the complete usage guide |
+| `*yolo` | Confirmation toggle (skip/require) |
+| `*exit` | Exits data-engineer mode |
+| `*doc-out` | Outputs the complete document |
+| `*execute-checklist {checklist}` | Runs a DBA checklist |
+| `*research {topic}` | Generates a deep research prompt |
 
 ---
 
-## Integracoes entre Agentes
+## Integrations between Agents
 
-### Diagrama de Colaboracao
+### Collaboration Diagram
 
 ```mermaid
 flowchart TB
-    subgraph DATA_ECOSYSTEM["ECOSSISTEMA DO @data-engineer"]
+    subgraph DATA_ECOSYSTEM["@data-engineer ECOSYSTEM"]
         DATA["@data-engineer (Ceres)"]
     end
 
-    subgraph UPSTREAM["UPSTREAM - Fornece Requisitos"]
+    subgraph UPSTREAM["UPSTREAM - Provides Requirements"]
         ARCH["@architect (Vega)<br/>System Architecture"]
     end
 
-    subgraph DOWNSTREAM["DOWNSTREAM - Recebe Schema"]
+    subgraph DOWNSTREAM["DOWNSTREAM - Receives the Schema"]
         DEV["@dev (Vulcan)<br/>Developer"]
     end
 
-    subgraph COLLABORATION["COLABORACAO EM DISCOVERY"]
+    subgraph COLLABORATION["COLLABORATION IN DISCOVERY"]
         QA["@qa (Argus)<br/>Quality Gate"]
     end
 
-    ARCH -->|"Requisitos de Arquitetura<br/>Gate 2 Decision"| DATA
+    ARCH -->|"Architecture Requirements<br/>Gate 2 Decision"| DATA
     DATA -->|"Schema Design<br/>Migrations<br/>RLS Policies"| DEV
 
-    DATA -->|"DB Audit<br/>Fase 2 brownfield-discovery"| QA
-    QA -->|"Validacao<br/>Fase 7"| DATA
+    DATA -->|"DB Audit<br/>Phase 2 brownfield-discovery"| QA
+    QA -->|"Validation<br/>Phase 7"| DATA
 
     style DATA fill:#e8f5e9
     style ARCH fill:#e3f2fd
@@ -478,45 +478,45 @@ flowchart TB
     style QA fill:#fce4ec
 ```
 
-### Fluxo de Colaboracao
+### Collaboration Flow
 
-| De | Para | Trigger | Acao |
+| From | To | Trigger | Action |
 |----|------|---------|------|
-| @architect | @data-engineer | Gate 2 Decision | @data-engineer recebe requisitos de schema |
-| @data-engineer | @dev | Schema pronto | @dev implementa data layer |
-| @data-engineer | @qa | brownfield-discovery Fase 2 | @data-engineer documenta schema e debitos |
-| @qa | @data-engineer | Fase 5 validation | @qa valida e @data-engineer ajusta |
+| @architect | @data-engineer | Gate 2 Decision | @data-engineer receives the schema requirements |
+| @data-engineer | @dev | Schema ready | @dev implements the data layer |
+| @data-engineer | @qa | brownfield-discovery Phase 2 | @data-engineer documents the schema and debts |
+| @qa | @data-engineer | Phase 5 validation | @qa validates and @data-engineer adjusts |
 
-### Delegacao do @architect (Gate 2 Decision)
+### Delegation from @architect (Gate 2 Decision)
 
-O @architect delega para @data-engineer:
+@architect delegates to @data-engineer:
 - Database schema design
 - Query optimization
 - RLS policies design
 - Index strategy
 - Migration planning
 
-### Quando Usar Outro Agente
+### When to Use Another Agent
 
-| Tarefa | Agente | Motivo |
+| Task | Agent | Reason |
 |--------|--------|--------|
-| System architecture | @architect | Padroes de app-level, design de API |
-| Application code | @dev | Implementacao de repository pattern, DAL |
-| Frontend design | @ux-design-expert | Design de UI/UX |
+| System architecture | @architect | App-level patterns, API design |
+| Application code | @dev | Repository pattern and DAL implementation |
+| Frontend design | @ux-design-expert | UI/UX design |
 | Git operations | @github-devops | Push, PR, deploy |
 
 ---
 
 ## Workflow: Brownfield Discovery
 
-O @data-engineer participa do workflow `brownfield-discovery.yaml` em duas fases criticas:
+@data-engineer participates in the `brownfield-discovery.yaml` workflow in two critical phases:
 
-### Fase 2: Coleta de Database
+### Phase 2: Database Collection
 
 ```yaml
 step: database_documentation
 phase: 2
-phase_name: "Coleta: Database"
+phase_name: "Collection: Database"
 agent: data-engineer
 action: db-schema-audit
 creates:
@@ -525,71 +525,71 @@ creates:
 duration_estimate: "20-40 min"
 ```
 
-**Analises realizadas:**
-- Schema completo (tabelas, colunas, tipos)
-- Relacionamentos e foreign keys
-- Indices existentes e faltantes
-- RLS policies (cobertura e qualidade)
-- Views e functions
-- Performance (queries lentas conhecidas)
+**Analyses performed:**
+- Complete schema (tables, columns, types)
+- Relationships and foreign keys
+- Existing and missing indexes
+- RLS policies (coverage and quality)
+- Views and functions
+- Performance (known slow queries)
 
-**Debitos identificados (nivel dados):**
-- Tabelas sem RLS
-- Indices faltantes
-- Normalizacao inadequada
-- Constraints ausentes
-- Migrations não versionadas
-- Dados orfaos
+**Debts identified (data level):**
+- Tables without RLS
+- Missing indexes
+- Inadequate normalization
+- Absent constraints
+- Unversioned migrations
+- Orphan data
 
-### Fase 5: Validacao Database
+### Phase 5: Database Validation
 
 ```yaml
 step: database_specialist_review
 phase: 5
-phase_name: "Validacao: Database"
+phase_name: "Validation: Database"
 agent: data-engineer
 action: review_and_validate
 creates: docs/reviews/db-specialist-review.md
 duration_estimate: "20-30 min"
 ```
 
-**Responsabilidades:**
-1. Validar debitos identificados
-2. Estimar custos (horas)
-3. Priorizar (perspectiva DB)
-4. Responder perguntas do @architect
+**Responsibilities:**
+1. Validate the identified debts
+2. Estimate costs (hours)
+3. Prioritize (DB perspective)
+4. Answer the @architect's questions
 
 ---
 
-## Configuracao
+## Configuration
 
-### Variaveis de Ambiente Necessarias
+### Required Environment Variables
 
 ```bash
 # Supabase Database Connection
 SUPABASE_DB_URL="postgresql://postgres.[PASSWORD]@[PROJECT-REF].supabase.co:6543/postgres?sslmode=require"
 
-# Para backups/analise (conexao direta)
+# For backups/analysis (direct connection)
 # SUPABASE_DB_URL="postgresql://postgres.[PASSWORD]@[PROJECT-REF].supabase.co:5432/postgres"
 ```
 
-### Estrutura de Diretorio Padrao (Supabase)
+### Standard Directory Structure (Supabase)
 
 ```
 supabase/
-├── migrations/      # Arquivos de migracao
+├── migrations/      # Migration files
 │   └── README.md
 ├── seeds/           # Seed data
 │   └── README.md
 ├── tests/           # Smoke tests
 │   └── README.md
-├── rollback/        # Scripts de rollback
+├── rollback/        # Rollback scripts
 │   └── README.md
 ├── snapshots/       # Schema snapshots
-├── docs/            # Documentação
+├── docs/            # Documentation
 │   ├── SCHEMA.md
 │   └── migration-log.md
-├── config.toml      # Configuracao local
+├── config.toml      # Local configuration
 └── .gitignore
 ```
 
@@ -625,62 +625,62 @@ coderabbit_integration:
 
 ## Best Practices
 
-### Quando Usar o @data-engineer
+### When to Use @data-engineer
 
-**USE @data-engineer para:**
-- Design de schema de database
-- Modelagem de dominio
-- Migracoes e versionamento
-- Politicas RLS e seguranca
-- Otimizacao de queries e performance
-- Operacoes DBA (backup, restore, smoke-test)
-- Auditoria de seguranca e qualidade
+**USE @data-engineer for:**
+- Database schema design
+- Domain modeling
+- Migrations and versioning
+- RLS policies and security
+- Query and performance optimization
+- DBA operations (backup, restore, smoke-test)
+- Security and quality auditing
 
-**NAO USE @data-engineer para:**
+**DO NOT USE @data-engineer for:**
 - System architecture (use @architect)
-- Codigo de aplicacao (use @dev)
+- Application code (use @dev)
 - Git operations (use @github-devops)
 - Frontend/UI (use @ux-design-expert)
 
-### Workflow de Migracao Segura
+### Safe Migration Workflow
 
 ```bash
-# 1. Antes de qualquer migracao
+# 1. Before any migration
 *snapshot pre_migration
 
-# 2. Testar migracao
+# 2. Test the migration
 *dry-run path/to/migration.sql
 
-# 3. Aplicar migracao
+# 3. Apply the migration
 *apply-migration path/to/migration.sql
 
-# 4. Validar resultado
+# 4. Validate the result
 *smoke-test
 *security-audit rls
 
-# 5. Se problemas
+# 5. If there are problems
 *rollback supabase/snapshots/{TS}_pre_migration.sql
 ```
 
-### Padrao de Tabela
+### Table Standard
 
-Toda tabela deve ter como baseline:
+Every table must have as a baseline:
 - `id` (UUID PRIMARY KEY)
 - `created_at` (TIMESTAMPTZ)
 - `updated_at` (TIMESTAMPTZ)
-- Foreign keys para relacionamentos
-- RLS enabled por padrao
-- Indices em FKs e colunas de query frequente
+- Foreign keys for relationships
+- RLS enabled by default
+- Indexes on FKs and frequently queried columns
 
-### Seguranca
+### Security
 
-- Nunca expor secrets - redact passwords/tokens automaticamente
-- Preferir conexao Pooler (porta 6543) com SSL
-- Quando não ha Auth layer, avisar que `auth.uid()` retorna NULL
-- RLS deve ser validado com casos positivos/negativos
-- Service role key bypassa RLS - usar com extremo cuidado
-- Sempre usar transacoes para operacoes multi-statement
-- Validar input do usuario antes de construir SQL dinamico
+- Never expose secrets - redact passwords/tokens automatically
+- Prefer the Pooler connection (port 6543) with SSL
+- When there is no Auth layer, warn that `auth.uid()` returns NULL
+- RLS must be validated with positive/negative cases
+- The service role key bypasses RLS - use with extreme care
+- Always use transactions for multi-statement operations
+- Validate user input before building dynamic SQL
 
 ---
 
@@ -689,64 +689,64 @@ Toda tabela deve ter como baseline:
 ### Database connection failed
 
 ```
-Erro: pg_dump: error: connection failed
+Error: pg_dump: error: connection failed
 ```
 
-**Solucao:**
-1. Verificar SUPABASE_DB_URL: `*env-check`
-2. Checar formato da connection string
-3. Verificar SSL mode
-4. Testar conexao manual: `psql "$SUPABASE_DB_URL"`
+**Solution:**
+1. Check SUPABASE_DB_URL: `*env-check`
+2. Check the connection string format
+3. Check the SSL mode
+4. Test the connection manually: `psql "$SUPABASE_DB_URL"`
 
 ### Migration failed mid-execution
 
-**Situacao:** `*apply-migration` falhou no meio
+**Situation:** `*apply-migration` failed midway
 
-**Acao:** PostgreSQL ja fez rollback da transacao automaticamente
+**Action:** PostgreSQL has already rolled the transaction back automatically
 
-**Proximos passos:**
-1. Fix no arquivo de migracao
-2. `*dry-run` para testar
-3. `*apply-migration` novamente
+**Next steps:**
+1. Fix the migration file
+2. `*dry-run` to test
+3. `*apply-migration` again
 
 ### Lock already held
 
 ```
-Erro: Another migration is running
+Error: Another migration is running
 ```
 
-**Solucao:**
-1. Aguardar conclusao da outra migracao
-2. Verificar locks travados:
+**Solution:**
+1. Wait for the other migration to finish
+2. Check for stuck locks:
    ```sql
    SELECT * FROM pg_locks WHERE locktype = 'advisory';
    ```
-3. Se necessario, cancelar lock manualmente
+3. If needed, cancel the lock manually
 
 ### Snapshot file is empty
 
-**Problema:** Nenhum objeto de schema ou conexao falhou
+**Problem:** No schema objects or the connection failed
 
-**Solucao:**
-1. Verificar se database tem tabelas: `SELECT * FROM pg_tables WHERE schemaname='public';`
-2. Checar compatibilidade de versao do pg_dump
-3. Verificar conectividade de rede
+**Solution:**
+1. Check whether the database has tables: `SELECT * FROM pg_tables WHERE schemaname='public';`
+2. Check pg_dump version compatibility
+3. Check network connectivity
 
 ### RLS policies not working
 
-**Sintomas:** Usuarios veem dados que não deveriam
+**Symptoms:** Users see data they should not see
 
-**Solucao:**
-1. Verificar se RLS esta enabled: `*security-audit rls`
-2. Testar como usuario especifico: `*test-as-user {user_id}`
-3. Verificar se ha policy com USING clause correta
-4. Checar se auth.uid() esta retornando valor esperado
+**Solution:**
+1. Check whether RLS is enabled: `*security-audit rls`
+2. Test as a specific user: `*test-as-user {user_id}`
+3. Check whether there is a policy with the correct USING clause
+4. Check whether auth.uid() is returning the expected value
 
 ---
 
-## Referencias
+## References
 
-### Tasks do @data-engineer
+### @data-engineer Tasks
 
 - [db-domain-modeling.md](.aexos-core/development/tasks/db-domain-modeling.md)
 - [setup-database.md](.aexos-core/development/tasks/setup-database.md)
@@ -757,7 +757,7 @@ Erro: Another migration is running
 - [db-rollback.md](.aexos-core/development/tasks/db-rollback.md)
 - [db-bootstrap.md](.aexos-core/development/tasks/db-bootstrap.md)
 
-### Agente
+### Agent
 
 - [data-engineer.md](.aexos-core/development/agents/data-engineer.md)
 
@@ -765,37 +765,37 @@ Erro: Another migration is running
 
 - [brownfield-discovery.yaml](.aexos-core/development/workflows/brownfield-discovery.yaml)
 
-### Relacionados
+### Related
 
 - [BACKLOG-MANAGEMENT-SYSTEM.md](../BACKLOG-MANAGEMENT-SYSTEM.md)
 - [DEV-SYSTEM.md](DEV-SYSTEM.md)
 
 ---
 
-## Resumo
+## Summary
 
-| Aspecto | Detalhes |
+| Aspect | Details |
 |---------|----------|
-| **Total de Tasks Core** | 20 task files |
-| **Comandos Principais** | 25+ comandos (*setup-database, *apply-migration, *security-audit, etc.) |
-| **Databases Suportados** | 5 (Supabase, PostgreSQL, MongoDB, MySQL, SQLite) |
-| **Tipos de Audit** | 3 (rls, schema, full) |
-| **Tipos de Performance Analysis** | 3 (query, hotpaths, interactive) |
-| **Templates SQL** | 12 templates |
-| **Checklists DBA** | 3 checklists |
-| **Data Files** | 5 arquivos de conhecimento |
-| **Workflows Integrados** | 1 (brownfield-discovery) |
-| **Agentes Colaboradores** | 3 (@architect, @dev, @qa) |
-| **Fases no brownfield-discovery** | 2 (Fase 2: Coleta, Fase 5: Validacao) |
+| **Total Core Tasks** | 20 task files |
+| **Main Commands** | 25+ commands (*setup-database, *apply-migration, *security-audit, etc.) |
+| **Supported Databases** | 5 (Supabase, PostgreSQL, MongoDB, MySQL, SQLite) |
+| **Audit Types** | 3 (rls, schema, full) |
+| **Performance Analysis Types** | 3 (query, hotpaths, interactive) |
+| **SQL Templates** | 12 templates |
+| **DBA Checklists** | 3 checklists |
+| **Data Files** | 5 knowledge files |
+| **Integrated Workflows** | 1 (brownfield-discovery) |
+| **Collaborating Agents** | 3 (@architect, @dev, @qa) |
+| **Phases in brownfield-discovery** | 2 (Phase 2: Collection, Phase 5: Validation) |
 
 ---
 
 ## Changelog
 
-| Data | Autor | Descrição |
+| Date | Author | Description |
 |------|-------|-----------|
-| 2026-02-04 | @data-engineer | Documento inicial criado |
+| 2026-02-04 | @data-engineer | Initial document created |
 
 ---
 
-*-- Dara, arquitetando dados*
+*-- Ceres, architecting data*

@@ -1,133 +1,133 @@
-# Sistema do Agente Analyst (@analyst) - AEXOS
+# Analyst Agent System (@analyst) - AEXOS
 
-> **Versão:** 1.0.0
-> **Criado:** 2026-02-04
+> **Version:** 1.0.0
+> **Created:** 2026-02-04
 > **Owner:** @analyst (Sirius)
-> **Status:** Documentação Oficial
+> **Status:** Official Documentation
 
 ---
 
-## Visão Geral
+## Overview
 
-Este documento descreve o sistema completo do agente **@analyst (Sirius)**, incluindo todos os arquivos envolvidos, fluxos de trabalho, comandos disponiveis, templates e integracoes entre agentes.
+This document describes the complete system of the **@analyst (Sirius)** agent, including all the files involved, workflows, available commands, templates and integrations between agents.
 
-O agente Analyst e projetado para:
-- Conduzir pesquisas de mercado e analises competitivas
-- Facilitar sessoes de brainstorming estruturadas
-- Criar project briefs e prompts de pesquisa profunda
-- Fornecer insights acionaveis para tomadas de decisao
-- Apoiar descoberta de projetos (brownfield documentation)
-- Gerar relatorios executivos de awareness
+The Analyst agent is designed to:
+- Conduct market research and competitive analysis
+- Facilitate structured brainstorming sessions
+- Create project briefs and deep research prompts
+- Provide actionable insights for decision-making
+- Support project discovery (brownfield documentation)
+- Generate executive awareness reports
 
 ---
 
-## Perfil do Agente
+## Agent Profile
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
-| **Nome** | Atlas |
+| **Name** | Sirius |
 | **ID** | analyst |
-| **Titulo** | Business Analyst |
-| **Icone** | :mag: |
-| **Arquetipo** | Decoder |
-| **Signo** | :scorpius: Scorpio |
-| **Tom** | Analitico, Inquisitivo, Criativo |
-| **Assinatura** | "-- Atlas, investigando a verdade :mag_right:" |
+| **Title** | Business Analyst |
+| **Icon** | :mag: |
+| **Archetype** | Decoder |
+| **Sign** | :scorpius: Scorpio |
+| **Tone** | Analytical, Inquisitive, Creative |
+| **Signature** | "-- Sirius, investigating the truth :mag_right:" |
 
-### Principios Core
+### Core Principles
 
-1. **Curiosity-Driven Inquiry** - Perguntas proativas para descobrir verdades subjacentes
-2. **Objective & Evidence-Based Analysis** - Fundamentacao em dados verificaveis
-3. **Strategic Contextualization** - Enquadramento no contexto estrategico mais amplo
-4. **Facilitate Clarity & Shared Understanding** - Articulacao precisa de necessidades
-5. **Creative Exploration & Divergent Thinking** - Ampla geracao de ideias antes de convergir
-6. **Structured & Methodical Approach** - Metodos sistematicos para abrangencia
-7. **Action-Oriented Outputs** - Entregaveis claros e acionaveis
-8. **Collaborative Partnership** - Parceria iterativa de refinamento
-9. **Maintaining a Broad Perspective** - Consciencia de tendencias de mercado
-10. **Integrity of Information** - Representacao precisa de fontes
+1. **Curiosity-Driven Inquiry** - Proactive questions to uncover underlying truths
+2. **Objective & Evidence-Based Analysis** - Grounded in verifiable data
+3. **Strategic Contextualization** - Framing within the broader strategic context
+4. **Facilitate Clarity & Shared Understanding** - Precise articulation of needs
+5. **Creative Exploration & Divergent Thinking** - Broad idea generation before converging
+6. **Structured & Methodical Approach** - Systematic methods for comprehensiveness
+7. **Action-Oriented Outputs** - Clear, actionable deliverables
+8. **Collaborative Partnership** - Iterative refinement partnership
+9. **Maintaining a Broad Perspective** - Awareness of market trends
+10. **Integrity of Information** - Accurate representation of sources
 
 ---
 
-## Lista Completa de Arquivos
+## Complete File List
 
-### Arquivos Core do Agente
+### Agent Core Files
 
-| Arquivo | Propósito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/agents/analyst.md` | Definição core do agente Analyst |
-| `.claude/commands/AEXOS/agents/analyst.md` | Comando Claude Code para ativar @analyst |
+| `.aexos-core/development/agents/analyst.md` | Core definition of the Analyst agent |
+| `.claude/commands/AEXOS/agents/analyst.md` | Claude Code command to activate @analyst |
 
-### Tasks do Analyst
+### Analyst Tasks
 
-| Arquivo | Comando | Propósito |
+| File | Command | Purpose |
 |---------|---------|-----------|
-| `.aexos-core/development/tasks/facilitate-brainstorming-session.md` | `*brainstorm {topic}` | Task principal - facilita sessoes de brainstorming estruturadas |
-| `.aexos-core/development/tasks/analyst-facilitate-brainstorming.md` | `*brainstorm {topic}` | Variante interativa da task de brainstorming |
-| `.aexos-core/development/tasks/create-deep-research-prompt.md` | `*research-prompt {topic}` | Gera prompts de pesquisa profunda para investigacao |
-| `.aexos-core/development/tasks/advanced-elicitation.md` | `*elicit` | Sessao avancada de elicitacao de requisitos |
-| `.aexos-core/development/tasks/create-doc.md` | `*doc-out` | Criacao de documentos a partir de templates YAML |
-| `.aexos-core/development/tasks/document-project.md` | `*create-project-brief` | Documentação de projetos existentes |
-| `.aexos-core/development/tasks/calculate-roi.md` | (relacionada) | Calculo de ROI e economia de custos |
+| `.aexos-core/development/tasks/facilitate-brainstorming-session.md` | `*brainstorm {topic}` | Main task - facilitates structured brainstorming sessions |
+| `.aexos-core/development/tasks/analyst-facilitate-brainstorming.md` | `*brainstorm {topic}` | Interactive variant of the brainstorming task |
+| `.aexos-core/development/tasks/create-deep-research-prompt.md` | `*research-prompt {topic}` | Generates deep research prompts for investigation |
+| `.aexos-core/development/tasks/advanced-elicitation.md` | `*elicit` | Advanced requirements elicitation session |
+| `.aexos-core/development/tasks/create-doc.md` | `*doc-out` | Document creation from YAML templates |
+| `.aexos-core/development/tasks/document-project.md` | `*create-project-brief` | Documentation of existing projects |
+| `.aexos-core/development/tasks/calculate-roi.md` | (related) | ROI and cost savings calculation |
 
-### Tasks Relacionadas de Analise
+### Related Analysis Tasks
 
-| Arquivo | Propósito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/tasks/analyze-brownfield.md` | Analise de projetos brownfield |
-| `.aexos-core/development/tasks/analyze-framework.md` | Analise de frameworks existentes |
-| `.aexos-core/development/tasks/analyze-performance.md` | Analise de performance |
-| `.aexos-core/development/tasks/analyze-project-structure.md` | Analise de estrutura de projeto |
-| `.aexos-core/development/tasks/analyze-cross-artifact.md` | Analise cross-artifact |
+| `.aexos-core/development/tasks/analyze-brownfield.md` | Brownfield project analysis |
+| `.aexos-core/development/tasks/analyze-framework.md` | Analysis of existing frameworks |
+| `.aexos-core/development/tasks/analyze-performance.md` | Performance analysis |
+| `.aexos-core/development/tasks/analyze-project-structure.md` | Project structure analysis |
+| `.aexos-core/development/tasks/analyze-cross-artifact.md` | Cross-artifact analysis |
 
-### Templates do Analyst
+### Analyst Templates
 
-| Arquivo | Propósito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/product/templates/project-brief-tmpl.yaml` | Template para Project Brief |
-| `.aexos-core/product/templates/market-research-tmpl.yaml` | Template para Pesquisa de Mercado |
-| `.aexos-core/product/templates/competitor-analysis-tmpl.yaml` | Template para Analise Competitiva |
-| `.aexos-core/product/templates/brainstorming-output-tmpl.yaml` | Template para output de sessoes de brainstorming |
+| `.aexos-core/product/templates/project-brief-tmpl.yaml` | Template for a Project Brief |
+| `.aexos-core/product/templates/market-research-tmpl.yaml` | Template for Market Research |
+| `.aexos-core/product/templates/competitor-analysis-tmpl.yaml` | Template for Competitive Analysis |
+| `.aexos-core/product/templates/brainstorming-output-tmpl.yaml` | Template for brainstorming session output |
 
-### Arquivos de Dados
+### Data Files
 
-| Arquivo | Propósito |
+| File | Purpose |
 |---------|-----------|
-| `.aexos-core/development/data/aexos-kb.md` | Knowledge base do AEXOS |
-| `.aexos-core/development/data/brainstorming-techniques.md` | Tecnicas de brainstorming disponiveis |
+| `.aexos-core/development/data/aexos-kb.md` | AEXOS knowledge base |
+| `.aexos-core/development/data/brainstorming-techniques.md` | Available brainstorming techniques |
 
-### Workflows que Usam o Analyst
+### Workflows That Use the Analyst
 
-| Arquivo | Fase | Propósito |
+| File | Phase | Purpose |
 |---------|------|-----------|
-| `.aexos-core/development/workflows/greenfield-fullstack.yaml` | Fase 1 | Discovery & Planning - cria project-brief.md |
-| `.aexos-core/development/workflows/brownfield-discovery.yaml` | Fase 9 | Relatorio Executivo de Awareness |
+| `.aexos-core/development/workflows/greenfield-fullstack.yaml` | Phase 1 | Discovery & Planning - creates project-brief.md |
+| `.aexos-core/development/workflows/brownfield-discovery.yaml` | Phase 9 | Executive Awareness Report |
 
 ---
 
-## Flowchart: Sistema Completo do Analyst
+## Flowchart: Complete Analyst System
 
 ```mermaid
 flowchart TB
-    subgraph INPUTS["INPUTS - Fontes de Informacao"]
-        USER["Usuario/Stakeholder"]
-        DOCS["Documentos Existentes"]
-        MARKET["Dados de Mercado"]
-        COMPETITORS["Dados de Competidores"]
+    subgraph INPUTS["INPUTS - Information Sources"]
+        USER["User/Stakeholder"]
+        DOCS["Existing Documents"]
+        MARKET["Market Data"]
+        COMPETITORS["Competitor Data"]
     end
 
-    USER -->|"contexto inicial"| ANALYST
-    DOCS -->|"referencia"| ANALYST
-    MARKET -->|"pesquisa EXA"| ANALYST
-    COMPETITORS -->|"analise"| ANALYST
+    USER -->|"initial context"| ANALYST
+    DOCS -->|"reference"| ANALYST
+    MARKET -->|"EXA research"| ANALYST
+    COMPETITORS -->|"analysis"| ANALYST
 
     subgraph ANALYST["@analyst (Sirius) - Business Analyst"]
-        BRAINSTORM["*brainstorm {topic}<br/>Sessao Estruturada"]
-        RESEARCH["*research-prompt {topic}<br/>Prompt de Pesquisa"]
-        MARKET_RES["*perform-market-research<br/>Pesquisa de Mercado"]
-        COMPETITOR["*create-competitor-analysis<br/>Analise Competitiva"]
+        BRAINSTORM["*brainstorm {topic}<br/>Structured Session"]
+        RESEARCH["*research-prompt {topic}<br/>Research Prompt"]
+        MARKET_RES["*perform-market-research<br/>Market Research"]
+        COMPETITOR["*create-competitor-analysis<br/>Competitive Analysis"]
         BRIEF["*create-project-brief<br/>Project Brief"]
-        ELICIT["*elicit<br/>Elicitacao Avancada"]
+        ELICIT["*elicit<br/>Advanced Elicitation"]
     end
 
     BRAINSTORM --> OUTPUT_BRAIN["brainstorming-session-results.md"]
@@ -135,9 +135,9 @@ flowchart TB
     MARKET_RES --> OUTPUT_MARKET["market-research.md"]
     COMPETITOR --> OUTPUT_COMP["competitor-analysis.md"]
     BRIEF --> OUTPUT_BRIEF["project-brief.md"]
-    ELICIT --> OUTPUT_ELICIT["Insights Refinados"]
+    ELICIT --> OUTPUT_ELICIT["Refined Insights"]
 
-    subgraph OUTPUTS["OUTPUTS - Entregaveis"]
+    subgraph OUTPUTS["OUTPUTS - Deliverables"]
         OUTPUT_BRAIN
         OUTPUT_PROMPT
         OUTPUT_MARKET
@@ -146,7 +146,7 @@ flowchart TB
         OUTPUT_ELICIT
     end
 
-    OUTPUTS --> HANDOFF["Handoff para @pm"]
+    OUTPUTS --> HANDOFF["Handoff to @pm"]
 
     style INPUTS fill:#e1f5fe
     style ANALYST fill:#fff3e0
@@ -154,89 +154,89 @@ flowchart TB
     style HANDOFF fill:#f3e5f5
 ```
 
-### Diagrama de Fluxo de Brainstorming
+### Brainstorming Flow Diagram
 
 ```mermaid
 flowchart TD
-    START["Inicio: *brainstorm {topic}"] --> SETUP["Fase 1: Setup<br/>4 perguntas de contexto"]
+    START["Start: *brainstorm {topic}"] --> SETUP["Phase 1: Setup<br/>4 context questions"]
 
-    SETUP --> Q1["1. O que estamos brainstorming?"]
-    Q1 --> Q2["2. Constraints ou parametros?"]
-    Q2 --> Q3["3. Goal: exploracao ampla ou focada?"]
-    Q3 --> Q4["4. Quer documento estruturado?"]
+    SETUP --> Q1["1. What are we brainstorming?"]
+    Q1 --> Q2["2. Constraints or parameters?"]
+    Q2 --> Q3["3. Goal: broad or focused exploration?"]
+    Q3 --> Q4["4. Do you want a structured document?"]
 
-    Q4 --> APPROACH["Fase 2: Selecao de Abordagem"]
+    Q4 --> APPROACH["Phase 2: Approach Selection"]
 
-    APPROACH --> OPT1["1. Usuario seleciona tecnicas"]
-    APPROACH --> OPT2["2. Analyst recomenda tecnicas"]
-    APPROACH --> OPT3["3. Selecao aleatoria"]
-    APPROACH --> OPT4["4. Fluxo progressivo"]
+    APPROACH --> OPT1["1. User selects techniques"]
+    APPROACH --> OPT2["2. Analyst recommends techniques"]
+    APPROACH --> OPT3["3. Random selection"]
+    APPROACH --> OPT4["4. Progressive flow"]
 
     OPT1 --> EXEC
     OPT2 --> EXEC
     OPT3 --> EXEC
     OPT4 --> EXEC
 
-    EXEC["Fase 3: Execucao Interativa"]
+    EXEC["Phase 3: Interactive Execution"]
 
-    subgraph CYCLE["Ciclo de Tecnicas"]
-        TECH["Aplicar Tecnica"]
-        ENGAGE["Engajar Usuario"]
-        CAPTURE["Capturar Ideias"]
-        NEXT{{"Continuar?"}}
+    subgraph CYCLE["Technique Cycle"]
+        TECH["Apply Technique"]
+        ENGAGE["Engage User"]
+        CAPTURE["Capture Ideas"]
+        NEXT{{"Continue?"}}
 
         TECH --> ENGAGE
         ENGAGE --> CAPTURE
         CAPTURE --> NEXT
-        NEXT -->|"Sim, mesma tecnica"| TECH
-        NEXT -->|"Trocar tecnica"| TECH
+        NEXT -->|"Yes, same technique"| TECH
+        NEXT -->|"Switch technique"| TECH
     end
 
     EXEC --> CYCLE
-    NEXT -->|"Convergir"| CONVERGE["Fase 4: Convergencia"]
+    NEXT -->|"Converge"| CONVERGE["Phase 4: Convergence"]
 
-    CONVERGE --> CAT["Categorizar Ideias"]
-    CAT --> SYNTH["Sintetizar Insights"]
-    SYNTH --> DOC["Gerar Documento"]
-    DOC --> END["Sessao Completa"]
+    CONVERGE --> CAT["Categorize Ideas"]
+    CAT --> SYNTH["Synthesize Insights"]
+    SYNTH --> DOC["Generate Document"]
+    DOC --> END["Session Complete"]
 
     style START fill:#90EE90
     style END fill:#90EE90
     style CYCLE fill:#FFE4B5
 ```
 
-### Diagrama de Estados de Sessao
+### Session State Diagram
 
 ```mermaid
 stateDiagram-v2
-    [*] --> CONTEXT_GATHERING: Ativacao
-    CONTEXT_GATHERING --> APPROACH_SELECTION: contexto coletado
-    APPROACH_SELECTION --> DIVERGENT_THINKING: abordagem definida
+    [*] --> CONTEXT_GATHERING: Activation
+    CONTEXT_GATHERING --> APPROACH_SELECTION: context collected
+    APPROACH_SELECTION --> DIVERGENT_THINKING: approach defined
 
-    DIVERGENT_THINKING --> TECHNIQUE_ACTIVE: tecnica selecionada
-    TECHNIQUE_ACTIVE --> DIVERGENT_THINKING: trocar tecnica
-    TECHNIQUE_ACTIVE --> TECHNIQUE_ACTIVE: continuar engajando
+    DIVERGENT_THINKING --> TECHNIQUE_ACTIVE: technique selected
+    TECHNIQUE_ACTIVE --> DIVERGENT_THINKING: switch technique
+    TECHNIQUE_ACTIVE --> TECHNIQUE_ACTIVE: keep engaging
 
-    DIVERGENT_THINKING --> CONVERGENT_THINKING: ideias suficientes
-    CONVERGENT_THINKING --> CATEGORIZATION: categorizar
-    CATEGORIZATION --> SYNTHESIS: sintetizar
-    SYNTHESIS --> DOCUMENTATION: documentar
-    DOCUMENTATION --> [*]: sessao completa
+    DIVERGENT_THINKING --> CONVERGENT_THINKING: enough ideas
+    CONVERGENT_THINKING --> CATEGORIZATION: categorize
+    CATEGORIZATION --> SYNTHESIS: synthesize
+    SYNTHESIS --> DOCUMENTATION: document
+    DOCUMENTATION --> [*]: session complete
 
-    note right of DIVERGENT_THINKING: Warm-up: 5-10 min<br/>Geracao: 20-30 min
-    note right of CONVERGENT_THINKING: Convergencia: 15-20 min
-    note right of SYNTHESIS: Sintese: 10-15 min
+    note right of DIVERGENT_THINKING: Warm-up: 5-10 min<br/>Generation: 20-30 min
+    note right of CONVERGENT_THINKING: Convergence: 15-20 min
+    note right of SYNTHESIS: Synthesis: 10-15 min
 ```
 
 ---
 
-## Flowchart: Integracao com Outros Agentes
+## Flowchart: Integration with Other Agents
 
 ```mermaid
 flowchart TB
-    subgraph DISCOVERY["Fase de Discovery"]
+    subgraph DISCOVERY["Discovery Phase"]
         direction TB
-        ANALYST_WORK["@analyst<br/>Pesquisa & Brainstorming"]
+        ANALYST_WORK["@analyst<br/>Research & Brainstorming"]
         PROJECT_BRIEF["project-brief.md"]
         MARKET_RESEARCH["market-research.md"]
         COMPETITOR_ANALYSIS["competitor-analysis.md"]
@@ -246,9 +246,9 @@ flowchart TB
         ANALYST_WORK --> COMPETITOR_ANALYSIS
     end
 
-    subgraph PLANNING["Fase de Planning"]
+    subgraph PLANNING["Planning Phase"]
         direction TB
-        PM_WORK["@pm (Janus)<br/>Estrategia de Produto"]
+        PM_WORK["@pm (Janus)<br/>Product Strategy"]
         PRD["prd.md"]
 
         PROJECT_BRIEF --> PM_WORK
@@ -257,18 +257,18 @@ flowchart TB
         PM_WORK --> PRD
     end
 
-    subgraph DESIGN["Fase de Design"]
+    subgraph DESIGN["Design Phase"]
         direction TB
-        UX_WORK["@ux-design-expert<br/>Especificacao Frontend"]
+        UX_WORK["@ux-design-expert<br/>Frontend Specification"]
         FRONTEND_SPEC["front-end-spec.md"]
 
         PRD --> UX_WORK
         UX_WORK --> FRONTEND_SPEC
     end
 
-    subgraph ARCHITECTURE["Fase de Arquitetura"]
+    subgraph ARCHITECTURE["Architecture Phase"]
         direction TB
-        ARCH_WORK["@architect<br/>Arquitetura Fullstack"]
+        ARCH_WORK["@architect<br/>Fullstack Architecture"]
         ARCH_DOC["fullstack-architecture.md"]
 
         PRD --> ARCH_WORK
@@ -276,9 +276,9 @@ flowchart TB
         ARCH_WORK --> ARCH_DOC
     end
 
-    subgraph VALIDATION["Fase de Validacao"]
+    subgraph VALIDATION["Validation Phase"]
         direction TB
-        PO_WORK["@po (Themis)<br/>Validacao de Artefatos"]
+        PO_WORK["@po (Themis)<br/>Artifact Validation"]
 
         PROJECT_BRIEF --> PO_WORK
         PRD --> PO_WORK
@@ -293,17 +293,17 @@ flowchart TB
     style VALIDATION fill:#f3e5f5
 ```
 
-### Fluxo em Workflow Brownfield Discovery
+### Flow in the Brownfield Discovery Workflow
 
 ```mermaid
 flowchart LR
-    subgraph PHASES["Brownfield Discovery - 10 Fases"]
-        P1["Fase 1-3<br/>Coleta de Dados"]
-        P4["Fase 4<br/>Consolidacao"]
-        P5_7["Fases 5-7<br/>Validacao"]
-        P8["Fase 8<br/>Assessment Final"]
-        P9["Fase 9<br/>@analyst<br/>Relatorio Executivo"]
-        P10["Fase 10<br/>Epic & Stories"]
+    subgraph PHASES["Brownfield Discovery - 10 Phases"]
+        P1["Phases 1-3<br/>Data Collection"]
+        P4["Phase 4<br/>Consolidation"]
+        P5_7["Phases 5-7<br/>Validation"]
+        P8["Phase 8<br/>Final Assessment"]
+        P9["Phase 9<br/>@analyst<br/>Executive Report"]
+        P10["Phase 10<br/>Epic & Stories"]
 
         P1 --> P4
         P4 --> P5_7
@@ -320,40 +320,40 @@ flowchart LR
 
 ---
 
-## Mapeamento de Comandos para Tasks
+## Command to Task Mapping
 
-### Comandos de Research & Analysis
+### Research & Analysis Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*perform-market-research` | `create-doc.md` + template | Cria relatorio de pesquisa de mercado |
-| `*create-competitor-analysis` | `create-doc.md` + template | Cria analise competitiva detalhada |
-| `*research-prompt {topic}` | `create-deep-research-prompt.md` | Gera prompt de pesquisa profunda |
+| `*perform-market-research` | `create-doc.md` + template | Creates a market research report |
+| `*create-competitor-analysis` | `create-doc.md` + template | Creates a detailed competitive analysis |
+| `*research-prompt {topic}` | `create-deep-research-prompt.md` | Generates a deep research prompt |
 
-### Comandos de Ideation & Discovery
+### Ideation & Discovery Commands
 
-| Comando | Task File | Operacao |
+| Command | Task File | Operation |
 |---------|-----------|----------|
-| `*brainstorm {topic}` | `facilitate-brainstorming-session.md` | Facilita sessao de brainstorming estruturada |
-| `*create-project-brief` | `document-project.md` | Cria project brief |
-| `*elicit` | `advanced-elicitation.md` | Sessao avancada de elicitacao |
+| `*brainstorm {topic}` | `facilitate-brainstorming-session.md` | Facilitates a structured brainstorming session |
+| `*create-project-brief` | `document-project.md` | Creates a project brief |
+| `*elicit` | `advanced-elicitation.md` | Advanced elicitation session |
 
-### Comandos Utilitarios
+### Utility Commands
 
-| Comando | Operacao |
+| Command | Operation |
 |---------|----------|
-| `*help` | Mostra todos os comandos disponiveis |
-| `*doc-out` | Output do documento completo |
-| `*session-info` | Mostra detalhes da sessao atual |
-| `*guide` | Guia de uso do agente |
-| `*yolo` | Toggle para pular confirmacoes |
-| `*exit` | Sair do modo analyst |
+| `*help` | Shows all available commands |
+| `*doc-out` | Outputs the full document |
+| `*session-info` | Shows details of the current session |
+| `*guide` | Agent usage guide |
+| `*yolo` | Toggle to skip confirmations |
+| `*exit` | Exit analyst mode |
 
 ---
 
-## Templates e Estrutura de Dados
+## Templates and Data Structure
 
-### Template de Project Brief
+### Project Brief Template
 
 ```yaml
 template:
@@ -365,7 +365,7 @@ template:
     filename: docs/brief.md
 ```
 
-**Secoes Principais:**
+**Main Sections:**
 - Executive Summary
 - Problem Statement
 - Proposed Solution
@@ -377,7 +377,7 @@ template:
 - Constraints & Assumptions
 - Risks & Open Questions
 
-### Template de Market Research
+### Market Research Template
 
 ```yaml
 template:
@@ -389,7 +389,7 @@ template:
     filename: docs/market-research.md
 ```
 
-**Secoes Principais:**
+**Main Sections:**
 - Executive Summary
 - Research Objectives & Methodology
 - Market Overview (TAM/SAM/SOM, Trends)
@@ -399,7 +399,7 @@ template:
 - Opportunity Assessment
 - Strategic Recommendations
 
-### Template de Competitor Analysis
+### Competitor Analysis Template
 
 ```yaml
 template:
@@ -411,7 +411,7 @@ template:
     filename: docs/competitor-analysis.md
 ```
 
-**Secoes Principais:**
+**Main Sections:**
 - Executive Summary
 - Analysis Scope & Methodology
 - Competitive Landscape Overview
@@ -421,7 +421,7 @@ template:
 - Strategic Recommendations
 - Monitoring & Intelligence Plan
 
-### Template de Brainstorming Output
+### Brainstorming Output Template
 
 ```yaml
 template:
@@ -433,7 +433,7 @@ template:
     filename: docs/brainstorming-session-results.md
 ```
 
-**Secoes Principais:**
+**Main Sections:**
 - Executive Summary (Topic, Techniques, Ideas Count)
 - Technique Sessions (per technique used)
 - Idea Categorization
@@ -446,44 +446,44 @@ template:
 
 ---
 
-## Processo de Pesquisa Profunda
+## Deep Research Process
 
-### Tipos de Foco de Pesquisa
+### Research Focus Types
 
-1. **Product Validation Research** - Validar hipoteses e market fit
-2. **Market Opportunity Research** - Tamanho e potencial de mercado
+1. **Product Validation Research** - Validate hypotheses and market fit
+2. **Market Opportunity Research** - Market size and potential
 3. **User & Customer Research** - Personas, JTBD, pain points
-4. **Competitive Intelligence Research** - Analise detalhada de competidores
-5. **Technology & Innovation Research** - Tendencias e avaliacoes tecnicas
-6. **Industry & Ecosystem Research** - Cadeia de valor e dinamicas
-7. **Strategic Options Research** - Avaliar direcoes estrategicas
-8. **Risk & Feasibility Research** - Identificar e avaliar riscos
-9. **Custom Research Focus** - Objetivos personalizados
+4. **Competitive Intelligence Research** - Detailed competitor analysis
+5. **Technology & Innovation Research** - Trends and technical assessments
+6. **Industry & Ecosystem Research** - Value chain and dynamics
+7. **Strategic Options Research** - Evaluate strategic directions
+8. **Risk & Feasibility Research** - Identify and assess risks
+9. **Custom Research Focus** - Custom objectives
 
-### Estrutura do Prompt de Pesquisa
+### Research Prompt Structure
 
 ```markdown
 ## Research Objective
-[Statement claro do objetivo]
+[Clear statement of the objective]
 
 ## Background Context
-[Informacoes relevantes de inputs]
+[Relevant information from inputs]
 
 ## Research Questions
 ### Primary Questions (Must Answer)
-1. [Pergunta especifica e acionavel]
+1. [Specific, actionable question]
 ...
 
 ### Secondary Questions (Nice to Have)
-1. [Pergunta de suporte]
+1. [Supporting question]
 ...
 
 ## Research Methodology
 ### Information Sources
-- [Tipos de fontes e prioridades]
+- [Source types and priorities]
 
 ### Analysis Frameworks
-- [Frameworks especificos]
+- [Specific frameworks]
 
 ## Expected Deliverables
 ### Executive Summary
@@ -492,136 +492,136 @@ template:
 - Recommended actions
 
 ## Success Criteria
-[Como avaliar se a pesquisa atingiu objetivos]
+[How to assess whether the research met its objectives]
 ```
 
 ---
 
-## Ferramentas e Integracoes
+## Tools and Integrations
 
-### Tools Disponiveis
+### Available Tools
 
-| Ferramenta | Propósito |
+| Tool | Purpose |
 |------------|-----------|
-| **exa** | Pesquisa web avancada para mercado e tecnologias |
-| **context7** | Lookup de documentacao de bibliotecas |
-| **google-workspace** | Documentação de pesquisa (Drive, Docs, Sheets) |
-| **clickup** | Captura e organizacao de ideias |
+| **exa** | Advanced web research for markets and technologies |
+| **context7** | Library documentation lookup |
+| **google-workspace** | Research documentation (Drive, Docs, Sheets) |
+| **clickup** | Idea capture and organization |
 
-### Integracoes com Outros Agentes
+### Integrations with Other Agents
 
-| Agente | Tipo de Colaboracao |
+| Agent | Type of Collaboration |
 |--------|---------------------|
-| **@pm (Janus)** | Analyst fornece pesquisa e analise para criação de PRD |
-| **@po (Themis)** | Analyst fornece insights de mercado e analise competitiva |
-| **@architect** | Analyst pode fornecer research de tecnologias |
-| **@ux-design-expert** | Analyst fornece user research para decisoes de UX |
+| **@pm (Janus)** | Analyst provides research and analysis for PRD creation |
+| **@po (Themis)** | Analyst provides market insights and competitive analysis |
+| **@architect** | Analyst can provide technology research |
+| **@ux-design-expert** | Analyst provides user research for UX decisions |
 
 ---
 
-## Modos de Execucao
+## Execution Modes
 
-### 1. YOLO Mode - Rapido e Autonomo (0-1 prompts)
-- Tomada de decisao autonoma com logging
-- Interacao minima com usuario
-- **Melhor para:** Tasks simples e deterministicas
+### 1. YOLO Mode - Fast and Autonomous (0-1 prompts)
+- Autonomous decision-making with logging
+- Minimal user interaction
+- **Best for:** Simple, deterministic tasks
 
-### 2. Interactive Mode - Balanceado e Educativo (5-10 prompts) [DEFAULT]
-- Checkpoints explicitos de decisao
-- Explicacoes educativas
-- **Melhor para:** Aprendizado, decisoes complexas
+### 2. Interactive Mode - Balanced and Educational (5-10 prompts) [DEFAULT]
+- Explicit decision checkpoints
+- Educational explanations
+- **Best for:** Learning, complex decisions
 
-### 3. Pre-Flight Planning - Planejamento Abrangente
-- Fase de analise de task (identificar ambiguidades)
-- Execucao com zero ambiguidade
-- **Melhor para:** Requisitos ambiguos, trabalho critico
+### 3. Pre-Flight Planning - Comprehensive Planning
+- Task analysis phase (identify ambiguities)
+- Zero-ambiguity execution
+- **Best for:** Ambiguous requirements, critical work
 
 ---
 
 ## Best Practices
 
-### Pesquisa de Mercado
+### Market Research
 
-1. **Defina objetivos claros** - Saiba que decisoes a pesquisa vai informar
-2. **Use multiplas fontes** - Combine fontes primarias e secundarias
-3. **Quantifique quando possivel** - TAM/SAM/SOM com calculos claros
-4. **Identifique assumptions** - Documente limitacoes e premissas
-5. **Foque em insights acionaveis** - Nao apenas dados, mas recomendacoes
+1. **Define clear objectives** - Know which decisions the research will inform
+2. **Use multiple sources** - Combine primary and secondary sources
+3. **Quantify when possible** - TAM/SAM/SOM with clear calculations
+4. **Identify assumptions** - Document limitations and premises
+5. **Focus on actionable insights** - Not just data, but recommendations
 
-### Analise Competitiva
+### Competitive Analysis
 
-1. **Priorize competidores** - Use matriz de priorizacao (market share vs threat)
-2. **Analise profunda dos Priority 1-2** - Perfis detalhados
-3. **Monitore continuamente** - Estabeleca cadencia de atualizacao
-4. **Identifique Blue Ocean** - Busque espacos de mercado não contestados
-5. **Documente fontes** - Para validação e atualizacoes futuras
+1. **Prioritize competitors** - Use a prioritization matrix (market share vs threat)
+2. **Analyze Priority 1-2 in depth** - Detailed profiles
+3. **Monitor continuously** - Establish an update cadence
+4. **Identify Blue Ocean** - Look for uncontested market spaces
+5. **Document sources** - For validation and future updates
 
-### Sessoes de Brainstorming
+### Brainstorming Sessions
 
-1. **Seja facilitador, não gerador** - Guie o usuario a gerar ideias proprias
-2. **Uma tecnica por vez** - Nao misture multiplas tecnicas
-3. **Quantidade antes de qualidade** - Alvo: 100 ideias em 60 minutos
-4. **Adie julgamento** - Geracao primeiro, avaliacao depois
-5. **Documente tudo** - Capture mesmo ideias "malucas"
-6. **Gerencie energia** - Monitore engajamento e ofereca pausas
+1. **Be a facilitator, not a generator** - Guide the user to generate their own ideas
+2. **One technique at a time** - Do not mix multiple techniques
+3. **Quantity before quality** - Target: 100 ideas in 60 minutes
+4. **Defer judgment** - Generation first, evaluation later
+5. **Document everything** - Capture even "wild" ideas
+6. **Manage energy** - Monitor engagement and offer breaks
 
-### Elicitacao Avancada
+### Advanced Elicitation
 
-1. **Contexto antes de metodo** - Analise o conteudo antes de selecionar metodos
-2. **Use formato 1-9** - Sempre apresente opcoes numeradas
-3. **Forneca rationale detalhado** - Explique trade-offs e decisoes
-4. **Aguarde resposta** - Nao proceda sem input do usuario
-5. **Seja conciso** - Foque em insights acionaveis
+1. **Context before method** - Analyze the content before selecting methods
+2. **Use the 1-9 format** - Always present numbered options
+3. **Provide detailed rationale** - Explain trade-offs and decisions
+4. **Wait for a response** - Do not proceed without user input
+5. **Be concise** - Focus on actionable insights
 
 ---
 
 ## Troubleshooting
 
-### Sessao de brainstorming estagnada
+### Stalled brainstorming session
 
-**Sintomas:** Usuario para de gerar ideias, respostas curtas
+**Symptoms:** The user stops generating ideas, short answers
 
-**Solucoes:**
-1. Verificar nivel de energia: "Como voce esta se sentindo sobre essa direcao?"
-2. Oferecer troca de tecnica: "Quer tentar uma abordagem diferente?"
-3. Usar prompts mais especificos
-4. Fazer pausa e retomar
+**Solutions:**
+1. Check the energy level: "How are you feeling about this direction?"
+2. Offer to switch techniques: "Do you want to try a different approach?"
+3. Use more specific prompts
+4. Take a break and resume
 
-### Pesquisa sem dados suficientes
+### Research without enough data
 
-**Sintomas:** EXA retorna poucos resultados, mercado de nicho
+**Symptoms:** EXA returns few results, niche market
 
-**Solucoes:**
-1. Expandir escopo de busca (termos relacionados)
-2. Usar analogias de mercados adjacentes
-3. Combinar com pesquisa primaria (entrevistas)
-4. Documentar gaps e incertezas claramente
+**Solutions:**
+1. Broaden the search scope (related terms)
+2. Use analogies from adjacent markets
+3. Combine with primary research (interviews)
+4. Document gaps and uncertainties clearly
 
-### Project brief incompleto
+### Incomplete project brief
 
-**Sintomas:** Secoes vagas, falta de especificidade
+**Symptoms:** Vague sections, lack of specificity
 
-**Solucoes:**
-1. Usar elicitacao avancada para aprofundar
-2. Pedir exemplos concretos
-3. Desafiar assumptions com cenarios
-4. Iterar em multiplas sessoes se necessario
+**Solutions:**
+1. Use advanced elicitation to go deeper
+2. Ask for concrete examples
+3. Challenge assumptions with scenarios
+4. Iterate across multiple sessions if necessary
 
-### Analise competitiva superficial
+### Shallow competitive analysis
 
-**Sintomas:** Apenas lista de competidores sem insights
+**Symptoms:** Only a list of competitors, without insights
 
-**Solucoes:**
-1. Aplicar frameworks estruturados (Porter's, SWOT)
-2. Focar em diferenciais e vulnerabilidades
-3. Incluir analise de posicionamento
-4. Gerar recomendacoes estrategicas especificas
+**Solutions:**
+1. Apply structured frameworks (Porter's, SWOT)
+2. Focus on differentiators and vulnerabilities
+3. Include positioning analysis
+4. Generate specific strategic recommendations
 
 ---
 
-## Referencias
+## References
 
-### Tasks Principais
+### Main Tasks
 
 - [Task: facilitate-brainstorming-session.md](.aexos-core/development/tasks/facilitate-brainstorming-session.md)
 - [Task: create-deep-research-prompt.md](.aexos-core/development/tasks/create-deep-research-prompt.md)
@@ -641,33 +641,33 @@ template:
 - [Workflow: greenfield-fullstack.yaml](.aexos-core/development/workflows/greenfield-fullstack.yaml)
 - [Workflow: brownfield-discovery.yaml](.aexos-core/development/workflows/brownfield-discovery.yaml)
 
-### Agente
+### Agent
 
 - [Agent: analyst.md](.aexos-core/development/agents/analyst.md)
 
 ---
 
-## Resumo
+## Summary
 
-| Aspecto | Detalhes |
+| Aspect | Details |
 |---------|----------|
-| **Total de Tasks Core** | 6 task files |
-| **Total de Templates** | 4 templates YAML |
-| **Comandos de Research** | 3 (`*perform-market-research`, `*create-competitor-analysis`, `*research-prompt`) |
-| **Comandos de Ideation** | 3 (`*brainstorm`, `*create-project-brief`, `*elicit`) |
-| **Workflows que Usam** | 2 (greenfield-fullstack, brownfield-discovery) |
-| **Agentes Consumidores** | @pm, @po, @architect, @ux-design-expert |
-| **Tools Integrados** | exa, context7, google-workspace, clickup |
-| **Modos de Execucao** | 3 (YOLO, Interactive, Pre-Flight) |
+| **Total Core Tasks** | 6 task files |
+| **Total Templates** | 4 YAML templates |
+| **Research Commands** | 3 (`*perform-market-research`, `*create-competitor-analysis`, `*research-prompt`) |
+| **Ideation Commands** | 3 (`*brainstorm`, `*create-project-brief`, `*elicit`) |
+| **Workflows That Use It** | 2 (greenfield-fullstack, brownfield-discovery) |
+| **Consuming Agents** | @pm, @po, @architect, @ux-design-expert |
+| **Integrated Tools** | exa, context7, google-workspace, clickup |
+| **Execution Modes** | 3 (YOLO, Interactive, Pre-Flight) |
 
 ---
 
 ## Changelog
 
-| Data | Autor | Descrição |
+| Date | Author | Description |
 |------|-------|-----------|
-| 2026-02-04 | @analyst | Documento inicial criado com flowcharts e mapeamentos completos |
+| 2026-02-04 | @analyst | Initial document created with complete flowcharts and mappings |
 
 ---
 
-*-- Atlas, investigando a verdade :mag_right:*
+*-- Sirius, investigating the truth :mag_right:*

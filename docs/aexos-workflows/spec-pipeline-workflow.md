@@ -1,88 +1,88 @@
-# Spec Pipeline Workflow - Documentação Completa
+# Spec Pipeline Workflow - Complete Documentation
 
-> **Versão:** 1.0
-> **Criado:** 2026-01-28
-> **Autor:** @architect (Vega)
+> **Version:** 1.0
+> **Created:** 2026-01-28
+> **Author:** @architect (Vega)
 > **Epic:** Epic 3 - Spec Pipeline
-> **Status:** Ativo
+> **Status:** Active
 
 ---
 
-## 1. Visão Geral
+## 1. Overview
 
-O **Spec Pipeline** e um workflow orquestrado que transforma requisitos informais em especificações executaveis. Ele e parte da infraestrutura **Auto-Claude ADE** (Autonomous Development Engine) e implementa um fluxo de 5 fases principais que se adaptam dinamicamente baseado na complexidade do requisito.
+The **Spec Pipeline** is an orchestrated workflow that turns informal requirements into executable specifications. It is part of the **Auto-Claude ADE** (Autonomous Development Engine) infrastructure and implements a flow of 5 main phases that adapt dynamically based on the complexity of the requirement.
 
-### 1.1 Propósito
+### 1.1 Purpose
 
-- Transformar descricoes informais de usuarios em especificações formais e estruturadas
-- Garantir qualidade e consistencia atraves de gates de validação
-- Adaptar o nivel de profundidade baseado na complexidade detectada
-- Produzir artefatos rastreavies desde requisitos ate implementação
+- Turn informal user descriptions into formal, structured specifications
+- Ensure quality and consistency through validation gates
+- Adapt the level of depth based on the detected complexity
+- Produce artifacts that are traceable from requirements through to implementation
 
-### 1.2 Principios Fundamentais
+### 1.2 Core Principles
 
-| Principio | Descrição |
+| Principle | Description |
 |-----------|-----------|
-| **No Invention** | Nenhuma informação inventada - apenas derivação dos inputs |
-| **Traceability** | Todo statement deve rastrear para um requisito ou pesquisa |
-| **Adaptive Phases** | Fases ajustadas automaticamente pela complexidade |
-| **Quality Gates** | Validacao obrigatoria antes de avancar |
+| **No Invention** | No invented information - only derivation from the inputs |
+| **Traceability** | Every statement must trace back to a requirement or research finding |
+| **Adaptive Phases** | Phases adjusted automatically by complexity |
+| **Quality Gates** | Mandatory validation before moving forward |
 
 ---
 
-## 2. Diagrama do Workflow
+## 2. Workflow Diagram
 
-### 2.1 Fluxo Principal
+### 2.1 Main Flow
 
 ```mermaid
 flowchart TB
-    subgraph TRIGGER["Gatilhos"]
+    subgraph TRIGGER["Triggers"]
         T1["*create-spec STORY-ID"]
         T2["story_created<br/>(autoSpec.enabled)"]
     end
 
     subgraph PREFLIGHT["Pre-Flight Checks"]
-        PF1["story_exists<br/>Verificar/criar diretorio"]
-        PF2["no_existing_spec<br/>Evitar sobrescrita"]
-        PF3["agents_available<br/>Verificar configuracao"]
+        PF1["story_exists<br/>Check/create the directory"]
+        PF2["no_existing_spec<br/>Avoid overwriting"]
+        PF3["agents_available<br/>Check the configuration"]
     end
 
-    subgraph PHASE1["Fase 1: Gather Requirements"]
+    subgraph PHASE1["Phase 1: Gather Requirements"]
         direction TB
         G1["@pm (Janus)"]
-        G2["Elicitação Interativa<br/>9 categorias de perguntas"]
+        G2["Interactive Elicitation<br/>9 question categories"]
         G3["requirements.json"]
         G1 --> G2 --> G3
     end
 
-    subgraph PHASE2["Fase 2: Assess Complexity"]
+    subgraph PHASE2["Phase 2: Assess Complexity"]
         direction TB
         A1["@architect (Vega)"]
-        A2["Avaliar 5 dimensoes:<br/>Scope, Integration, Infra,<br/>Knowledge, Risk"]
+        A2["Assess 5 dimensions:<br/>Scope, Integration, Infra,<br/>Knowledge, Risk"]
         A3["complexity.json<br/>SIMPLE | STANDARD | COMPLEX"]
         A1 --> A2 --> A3
     end
 
-    subgraph PHASE3["Fase 3: Research Dependencies"]
+    subgraph PHASE3["Phase 3: Research Dependencies"]
         direction TB
         R1["@analyst (Sirius)"]
-        R2["Context7 + EXA<br/>Validar dependencias"]
+        R2["Context7 + EXA<br/>Validate dependencies"]
         R3["research.json"]
         R1 --> R2 --> R3
     end
 
-    subgraph PHASE4["Fase 4: Write Specification"]
+    subgraph PHASE4["Phase 4: Write Specification"]
         direction TB
         W1["@pm (Janus)"]
-        W2["Gerar spec.md<br/>Sem invencao"]
+        W2["Generate spec.md<br/>No invention"]
         W3["spec.md"]
         W1 --> W2 --> W3
     end
 
-    subgraph PHASE5["Fase 5: Critique Specification"]
+    subgraph PHASE5["Phase 5: Critique Specification"]
         direction TB
         C1["@qa (Argus)"]
-        C2["Avaliar 5 dimensoes:<br/>Accuracy, Completeness,<br/>Consistency, Feasibility,<br/>Alignment"]
+        C2["Assess 5 dimensions:<br/>Accuracy, Completeness,<br/>Consistency, Feasibility,<br/>Alignment"]
         C3{"Verdict"}
         C4["APPROVED"]
         C5["NEEDS_REVISION"]
@@ -93,22 +93,22 @@ flowchart TB
         C3 --> C6
     end
 
-    subgraph PHASE5B["Fase 5b: Revise (COMPLEX)"]
+    subgraph PHASE5B["Phase 5b: Revise (COMPLEX)"]
         REV1["@pm (Janus)"]
-        REV2["Aplicar feedback<br/>e auto-fixes"]
+        REV2["Apply feedback<br/>and auto-fixes"]
     end
 
-    subgraph PHASE6["Fase 6: Create Plan"]
+    subgraph PHASE6["Phase 6: Create Plan"]
         direction TB
         P1["@architect (Vega)"]
-        P2["Gerar implementation.yaml<br/>Subtasks atomicas"]
+        P2["Generate implementation.yaml<br/>Atomic subtasks"]
         P3["plan.json"]
         P1 --> P2 --> P3
     end
 
-    subgraph COMPLETION["Conclusão"]
+    subgraph COMPLETION["Completion"]
         DONE["Pipeline Complete"]
-        ARTIFACTS["Artefatos Gerados"]
+        ARTIFACTS["Generated Artifacts"]
     end
 
     T1 --> PREFLIGHT
@@ -121,7 +121,7 @@ flowchart TB
     C4 --> PHASE6
     C5 --> PHASE5B
     PHASE5B --> PHASE5
-    C6 -.-> |"Escalar para @architect"| HALT["HALT"]
+    C6 -.-> |"Escalate to @architect"| HALT["HALT"]
     PHASE6 --> COMPLETION
 
     style TRIGGER fill:#e1f5fe
@@ -136,7 +136,7 @@ flowchart TB
     style COMPLETION fill:#c8e6c9
 ```
 
-### 2.2 Fluxo por Complexidade
+### 2.2 Flow by Complexity
 
 ```mermaid
 flowchart LR
@@ -157,12 +157,12 @@ flowchart LR
     style COMPLEX fill:#ffcdd2
 ```
 
-### 2.3 Diagrama de Sequência
+### 2.3 Sequence Diagram
 
 ```mermaid
 sequenceDiagram
     autonumber
-    participant U as Usuario
+    participant U as User
     participant PM as @pm (Janus)
     participant AR as @architect (Vega)
     participant AN as @analyst (Sirius)
@@ -171,111 +171,111 @@ sequenceDiagram
 
     U->>PM: *create-spec STORY-42
 
-    Note over PM: Fase 1: Gather
-    PM->>U: Perguntas de elicitacao (9 categorias)
-    U->>PM: Respostas dos requisitos
-    PM->>FS: Salvar requirements.json
+    Note over PM: Phase 1: Gather
+    PM->>U: Elicitation questions (9 categories)
+    U->>PM: Requirement answers
+    PM->>FS: Save requirements.json
 
-    Note over AR: Fase 2: Assess
-    AR->>FS: Ler requirements.json
-    AR->>AR: Avaliar 5 dimensoes de complexidade
-    AR->>FS: Salvar complexity.json
+    Note over AR: Phase 2: Assess
+    AR->>FS: Read requirements.json
+    AR->>AR: Assess 5 complexity dimensions
+    AR->>FS: Save complexity.json
 
-    alt Complexidade != SIMPLE
-        Note over AN: Fase 3: Research
-        AN->>FS: Ler requirements + complexity
-        AN->>AN: Pesquisar via Context7 + EXA
-        AN->>FS: Salvar research.json
+    alt Complexity != SIMPLE
+        Note over AN: Phase 3: Research
+        AN->>FS: Read requirements + complexity
+        AN->>AN: Research via Context7 + EXA
+        AN->>FS: Save research.json
     end
 
-    Note over PM: Fase 4: Write Spec
-    PM->>FS: Ler todos os artefatos
-    PM->>PM: Gerar spec.md (sem invencao)
-    PM->>FS: Salvar spec.md
+    Note over PM: Phase 4: Write Spec
+    PM->>FS: Read all the artifacts
+    PM->>PM: Generate spec.md (no invention)
+    PM->>FS: Save spec.md
 
-    Note over QA: Fase 5: Critique
-    QA->>FS: Ler spec + requirements
-    QA->>QA: Avaliar 5 dimensoes de qualidade
-    QA->>FS: Salvar critique.json
+    Note over QA: Phase 5: Critique
+    QA->>FS: Read spec + requirements
+    QA->>QA: Assess 5 quality dimensions
+    QA->>FS: Save critique.json
 
     alt Verdict = APPROVED
-        Note over AR: Fase 6: Plan
-        AR->>FS: Ler spec aprovado
-        AR->>AR: Gerar plano de implementação
-        AR->>FS: Salvar plan.json
+        Note over AR: Phase 6: Plan
+        AR->>FS: Read the approved spec
+        AR->>AR: Generate the implementation plan
+        AR->>FS: Save plan.json
         AR->>U: Pipeline Complete!
     else Verdict = NEEDS_REVISION
-        QA->>PM: Retornar com feedback
-        PM->>PM: Aplicar correcoes
-        PM->>QA: Submeter revisao
+        QA->>PM: Return with feedback
+        PM->>PM: Apply fixes
+        PM->>QA: Submit the revision
     else Verdict = BLOCKED
-        QA->>AR: Escalar para revisao arquitetural
+        QA->>AR: Escalate for architectural review
     end
 ```
 
 ---
 
-## 3. Steps Detalhados
+## 3. Detailed Steps
 
-### 3.1 Fase 1: Gather Requirements
+### 3.1 Phase 1: Gather Requirements
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `gather` |
 | **Phase Number** | 1 |
-| **Agente** | @pm (Janus) |
+| **Agent** | @pm (Janus) |
 | **Task** | `spec-gather-requirements.md` |
-| **Elicit** | Sim - requer interação do usuario |
+| **Elicit** | Yes - requires user interaction |
 
 #### Inputs
 
-| Input | Tipo | Obrigatório | Descrição |
+| Input | Type | Required | Description |
 |-------|------|-------------|-----------|
-| `storyId` | string | Sim | ID da story sendo especificada |
-| `source` | enum | Não | Fonte: `prd`, `user`, `existing` |
-| `prdPath` | string | Não | Caminho para PRD se source=prd |
+| `storyId` | string | Yes | ID of the story being specified |
+| `source` | enum | No | Source: `prd`, `user`, `existing` |
+| `prdPath` | string | No | Path to the PRD if source=prd |
 
 #### Outputs
 
-| Output | Localização |
+| Output | Location |
 |--------|-------------|
 | `requirements.json` | `docs/stories/{storyId}/spec/requirements.json` |
 
-#### Processo de Elicitação (9 Categorias)
+#### Elicitation Process (9 Categories)
 
 ```mermaid
 mindmap
-  root((Elicitação))
-    Funcionais
-      Q1: O que o sistema deve FAZER?
-      Follow-ups sobre usuarios e triggers
-    Restrições
-      Q2: Restrições tecnicas/negocio?
-      Tempo, integrações, stack
+  root((Elicitation))
+    Functional
+      Q1: What must the system DO?
+      Follow-ups about users and triggers
+    Constraints
+      Q2: Technical/business constraints?
+      Time, integrations, stack
     NFR
-      Q3: Requisitos nao-funcionais?
-      Performance, seguranca, escala
-    Aceite
-      Q4: Criterios de aceite?
-      Formato Given-When-Then
-    Suposições
-      Q5: Suposições assumidas?
-      Riscos se estiverem erradas
-    Dominio
-      Q6: Entidades e relacionamentos?
-      Modelo de dominio
-    Interação
-      Q7: Como usuario interage?
-      Fluxos UX, estados
+      Q3: Non-functional requirements?
+      Performance, security, scale
+    Acceptance
+      Q4: Acceptance criteria?
+      Given-When-Then format
+    Assumptions
+      Q5: Assumptions being made?
+      Risks if they are wrong
+    Domain
+      Q6: Entities and relationships?
+      Domain model
+    Interaction
+      Q7: How does the user interact?
+      UX flows, states
     Edge Cases
-      Q8: O que pode dar errado?
-      Tratamento de erros
-    Terminologia
-      Q9: Glossario do dominio?
-      Termos especificos
+      Q8: What can go wrong?
+      Error handling
+    Terminology
+      Q9: Domain glossary?
+      Specific terms
 ```
 
-#### Estrutura do Output (requirements.json)
+#### Output Structure (requirements.json)
 
 ```json
 {
@@ -287,9 +287,9 @@ mindmap
   "functional": [
     {
       "id": "FR-1",
-      "description": "Permitir login com Google OAuth",
+      "description": "Allow login with Google OAuth",
       "priority": "P0",
-      "rationale": "Principal metodo de autenticação",
+      "rationale": "Primary authentication method",
       "acceptance": ["AC-1"]
     }
   ],
@@ -306,35 +306,35 @@ mindmap
 
 ---
 
-### 3.2 Fase 2: Assess Complexity
+### 3.2 Phase 2: Assess Complexity
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `assess` |
 | **Phase Number** | 2 |
-| **Agente** | @architect (Vega) |
+| **Agent** | @architect (Vega) |
 | **Task** | `spec-assess-complexity.md` |
 | **Skip Condition** | `source === 'simple'` OR `overrideComplexity === 'SIMPLE'` |
 
 #### Inputs
 
-| Input | Tipo | Obrigatório | Descrição |
+| Input | Type | Required | Description |
 |-------|------|-------------|-----------|
-| `storyId` | string | Sim | ID da story |
-| `requirements` | file | Sim | requirements.json |
-| `overrideComplexity` | enum | Não | Override manual: SIMPLE, STANDARD, COMPLEX |
+| `storyId` | string | Yes | Story ID |
+| `requirements` | file | Yes | requirements.json |
+| `overrideComplexity` | enum | No | Manual override: SIMPLE, STANDARD, COMPLEX |
 
 #### Outputs
 
-| Output | Localização |
+| Output | Location |
 |--------|-------------|
 | `complexity.json` | `docs/stories/{storyId}/spec/complexity.json` |
 
-#### 5 Dimensões de Complexidade
+#### 5 Complexity Dimensions
 
 ```mermaid
 radar
-    title Dimensões de Complexidade (1-5)
+    title Complexity Dimensions (1-5)
     "Scope" : 3
     "Integration" : 4
     "Infrastructure" : 2
@@ -342,71 +342,71 @@ radar
     "Risk" : 3
 ```
 
-| Dimensão | Score 1 | Score 3 | Score 5 |
+| Dimension | Score 1 | Score 3 | Score 5 |
 |----------|---------|---------|---------|
-| **Scope** | 1-2 arquivos | 6-10 arquivos | 20+ arquivos |
-| **Integration** | Nenhuma externa | 1-2 APIs externas | Orquestração multipla |
-| **Infrastructure** | Nenhuma mudança | Nova dependencia | Nova infraestrutura |
-| **Knowledge** | Padroes existentes | Nova biblioteca | Dominio desconhecido |
-| **Risk** | Baixo, isolado | Medio, importante | Critico, core do sistema |
+| **Scope** | 1-2 files | 6-10 files | 20+ files |
+| **Integration** | No external ones | 1-2 external APIs | Multiple orchestration |
+| **Infrastructure** | No changes | New dependency | New infrastructure |
+| **Knowledge** | Existing patterns | New library | Unknown domain |
+| **Risk** | Low, isolated | Medium, important | Critical, system core |
 
-#### Thresholds de Classificação
+#### Classification Thresholds
 
-| Classificação | Score Total | Fases Ativadas | Tempo Estimado |
+| Classification | Total Score | Phases Enabled | Estimated Time |
 |---------------|-------------|----------------|----------------|
 | **SIMPLE** | <= 8 | gather, spec, critique | 30-60 min |
-| **STANDARD** | 9-15 | gather, assess, research, spec, critique, plan | 2-4 horas |
-| **COMPLEX** | >= 16 | + revise, critique_2 | 4-8 horas |
+| **STANDARD** | 9-15 | gather, assess, research, spec, critique, plan | 2-4 hours |
+| **COMPLEX** | >= 16 | + revise, critique_2 | 4-8 hours |
 
 ---
 
-### 3.3 Fase 3: Research Dependencies
+### 3.3 Phase 3: Research Dependencies
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `research` |
 | **Phase Number** | 3 |
-| **Agente** | @analyst (Sirius) |
+| **Agent** | @analyst (Sirius) |
 | **Task** | `spec-research-dependencies.md` |
 | **Skip Condition** | `complexity.result === 'SIMPLE'` |
 | **Tools** | Context7, EXA |
 
 #### Inputs
 
-| Input | Tipo | Obrigatório | Descrição |
+| Input | Type | Required | Description |
 |-------|------|-------------|-----------|
-| `storyId` | string | Sim | ID da story |
-| `requirements` | file | Sim | requirements.json |
-| `complexity` | file | Sim | complexity.json |
+| `storyId` | string | Yes | Story ID |
+| `requirements` | file | Yes | requirements.json |
+| `complexity` | file | Yes | complexity.json |
 
 #### Outputs
 
-| Output | Localização |
+| Output | Location |
 |--------|-------------|
 | `research.json` | `docs/stories/{storyId}/spec/research.json` |
 
-#### Fluxo de Pesquisa
+#### Research Flow
 
 ```mermaid
 flowchart LR
-    subgraph Extract["1. Extrair Alvos"]
+    subgraph Extract["1. Extract Targets"]
         E1["Libraries<br/>APIs<br/>Concepts<br/>Infrastructure"]
     end
 
-    subgraph Check["2. Verificar Codebase"]
+    subgraph Check["2. Check the Codebase"]
         C1["package.json"]
-        C2["imports existentes"]
-        C3["padroes similares"]
+        C2["existing imports"]
+        C3["similar patterns"]
     end
 
-    subgraph Research["3. Pesquisar"]
-        R1["Context7<br/>(Primario)"]
+    subgraph Research["3. Research"]
+        R1["Context7<br/>(Primary)"]
         R2["EXA<br/>(Fallback)"]
     end
 
-    subgraph Validate["4. Validar"]
+    subgraph Validate["4. Validate"]
         V1["technical-preferences.md"]
-        V2["Conflitos?<br/>Alternativas?"]
+        V2["Conflicts?<br/>Alternatives?"]
     end
 
     subgraph Output["5. Output"]
@@ -418,38 +418,38 @@ flowchart LR
     style Research fill:#e3f2fd
 ```
 
-#### Prioridade de Ferramentas
+#### Tool Priority
 
-| Ferramenta | Prioridade | Timeout | Uso |
+| Tool | Priority | Timeout | Use |
 |------------|------------|---------|-----|
-| **Context7** | 1 (primaria) | 30s | Documentação de bibliotecas |
-| **EXA** | 2 (fallback) | - | Pesquisa web geral |
-| **Codebase** | - | - | Verificar implementações existentes |
+| **Context7** | 1 (primary) | 30s | Library documentation |
+| **EXA** | 2 (fallback) | - | General web research |
+| **Codebase** | - | - | Check existing implementations |
 
 ---
 
-### 3.4 Fase 4: Write Specification
+### 3.4 Phase 4: Write Specification
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `spec` |
 | **Phase Number** | 4 |
-| **Agente** | @pm (Janus) |
+| **Agent** | @pm (Janus) |
 | **Task** | `spec-write-spec.md` |
 | **Constitutional Gate** | Article IV - No Invention |
 
 #### Inputs
 
-| Input | Tipo | Obrigatório | Descrição |
+| Input | Type | Required | Description |
 |-------|------|-------------|-----------|
-| `storyId` | string | Sim | ID da story |
-| `requirements` | file | Sim | requirements.json |
-| `complexity` | file | Não | complexity.json |
-| `research` | file | Não | research.json |
+| `storyId` | string | Yes | Story ID |
+| `requirements` | file | Yes | requirements.json |
+| `complexity` | file | No | complexity.json |
+| `research` | file | No | research.json |
 
 #### Outputs
 
-| Output | Localização |
+| Output | Location |
 |--------|-------------|
 | `spec.md` | `docs/stories/{storyId}/spec/spec.md` |
 
@@ -457,29 +457,29 @@ flowchart LR
 
 ```mermaid
 flowchart TB
-    subgraph RULE["Regra Article IV - No Invention"]
+    subgraph RULE["Article IV Rule - No Invention"]
         direction TB
-        R1["Todo statement DEVE rastrear para:"]
-        R2["FR-* (Requisito Funcional)"]
-        R3["NFR-* (Requisito Não-Funcional)"]
-        R4["CON-* (Restrição)"]
-        R5["Research finding verificado"]
+        R1["Every statement MUST trace back to:"]
+        R2["FR-* (Functional Requirement)"]
+        R3["NFR-* (Non-Functional Requirement)"]
+        R4["CON-* (Constraint)"]
+        R5["A verified research finding"]
     end
 
-    subgraph VIOLATION["Violações"]
-        V1["Adicionar features nao listadas"]
-        V2["Assumir detalhes nao pesquisados"]
-        V3["Especificar tech nao validada"]
-        V4["Criar criterios de aceite inventados"]
+    subgraph VIOLATION["Violations"]
+        V1["Adding features that are not listed"]
+        V2["Assuming details that were not researched"]
+        V3["Specifying tech that was not validated"]
+        V4["Creating invented acceptance criteria"]
     end
 
-    subgraph ACTION["Ação em Violacao"]
+    subgraph ACTION["Action on Violation"]
         A1["BLOCK"]
-        A2["Remover conteudo inventado"]
-        A3["OU adicionar a Open Questions"]
+        A2["Remove the invented content"]
+        A3["OR add it to Open Questions"]
     end
 
-    RULE --> |"Se violado"| VIOLATION
+    RULE --> |"If violated"| VIOLATION
     VIOLATION --> ACTION
 
     style RULE fill:#c8e6c9
@@ -487,7 +487,7 @@ flowchart TB
     style ACTION fill:#fff9c4
 ```
 
-#### Estrutura do spec.md
+#### spec.md Structure
 
 ```
 1. Overview
@@ -518,37 +518,37 @@ flowchart TB
 
 ---
 
-### 3.5 Fase 5: Critique Specification
+### 3.5 Phase 5: Critique Specification
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `critique` |
 | **Phase Number** | 5 |
-| **Agente** | @qa (Argus) |
+| **Agent** | @qa (Argus) |
 | **Task** | `spec-critique.md` |
 | **Gate** | Blocking (APPROVED/NEEDS_REVISION/BLOCKED) |
 
 #### Inputs
 
-| Input | Tipo | Obrigatório | Descrição |
+| Input | Type | Required | Description |
 |-------|------|-------------|-----------|
-| `storyId` | string | Sim | ID da story |
-| `spec` | file | Sim | spec.md |
-| `requirements` | file | Sim | requirements.json |
-| `complexity` | file | Não | complexity.json |
-| `research` | file | Não | research.json |
+| `storyId` | string | Yes | Story ID |
+| `spec` | file | Yes | spec.md |
+| `requirements` | file | Yes | requirements.json |
+| `complexity` | file | No | complexity.json |
+| `research` | file | No | research.json |
 
 #### Outputs
 
-| Output | Localização |
+| Output | Location |
 |--------|-------------|
 | `critique.json` | `docs/stories/{storyId}/spec/critique.json` |
 
-#### 5 Dimensões de Qualidade
+#### 5 Quality Dimensions
 
 ```mermaid
 pie showData
-    title Peso das Dimensões
+    title Dimension Weights
     "Accuracy" : 25
     "Completeness" : 25
     "Consistency" : 20
@@ -556,138 +556,138 @@ pie showData
     "Alignment" : 15
 ```
 
-| Dimensão | Peso | Verifica |
+| Dimension | Weight | Checks |
 |----------|------|----------|
-| **Accuracy** | 25% | Spec reflete requisitos corretamente? |
-| **Completeness** | 25% | Todas secoes preenchidas? Tests cobrem FRs? |
-| **Consistency** | 20% | IDs validos? Sem contradicoes? |
-| **Feasibility** | 15% | Tecnicamente possivel? Dependencias existem? |
-| **Alignment** | 15% | Alinhado com stack e padroes do projeto? |
+| **Accuracy** | 25% | Does the spec reflect the requirements correctly? |
+| **Completeness** | 25% | Are all sections filled in? Do the tests cover the FRs? |
+| **Consistency** | 20% | Are the IDs valid? Any contradictions? |
+| **Feasibility** | 15% | Is it technically possible? Do the dependencies exist? |
+| **Alignment** | 15% | Is it aligned with the project stack and patterns? |
 
-#### Lógica de Verdict
+#### Verdict Logic
 
 ```mermaid
 flowchart TB
-    START["Iniciar Avaliacao"] --> EVAL["Avaliar 5 Dimensões"]
+    START["Start the Assessment"] --> EVAL["Assess 5 Dimensions"]
 
     EVAL --> CHECK1{"HIGH severity<br/>issues?"}
-    CHECK1 -->|Sim| BLOCKED["BLOCKED"]
-    CHECK1 -->|Não| CHECK2{"Average<br/>score >= 4.0?"}
+    CHECK1 -->|Yes| BLOCKED["BLOCKED"]
+    CHECK1 -->|No| CHECK2{"Average<br/>score >= 4.0?"}
 
-    CHECK2 -->|Sim| CHECK3{"Todas dimensoes<br/>>= 3?"}
-    CHECK3 -->|Sim| APPROVED["APPROVED"]
-    CHECK3 -->|Não| NEEDS["NEEDS_REVISION"]
+    CHECK2 -->|Yes| CHECK3{"All dimensions<br/>>= 3?"}
+    CHECK3 -->|Yes| APPROVED["APPROVED"]
+    CHECK3 -->|No| NEEDS["NEEDS_REVISION"]
 
-    CHECK2 -->|Não| CHECK4{"Average<br/>score >= 3.0?"}
-    CHECK4 -->|Sim| NEEDS
-    CHECK4 -->|Não| BLOCKED
+    CHECK2 -->|No| CHECK4{"Average<br/>score >= 3.0?"}
+    CHECK4 -->|Yes| NEEDS
+    CHECK4 -->|No| BLOCKED
 
-    APPROVED --> PLAN["Ir para Fase 6: Plan"]
-    NEEDS --> REVISE["Retornar para Fase 4"]
-    BLOCKED --> HALT["HALT + Escalar @architect"]
+    APPROVED --> PLAN["Go to Phase 6: Plan"]
+    NEEDS --> REVISE["Return to Phase 4"]
+    BLOCKED --> HALT["HALT + Escalate to @architect"]
 
     style APPROVED fill:#c8e6c9
     style NEEDS fill:#fff9c4
     style BLOCKED fill:#ffcdd2
 ```
 
-| Verdict | Condição | Próxima Ação |
+| Verdict | Condition | Next Action |
 |---------|----------|--------------|
-| **APPROVED** | No HIGH issues, avg >= 4.0, all >= 3 | Ir para Plan |
-| **NEEDS_REVISION** | MEDIUM issues OR avg 3.0-3.9 | Retornar para Spec Write |
-| **BLOCKED** | HIGH issues OR avg < 3.0 OR any <= 1 | Escalar para @architect |
+| **APPROVED** | No HIGH issues, avg >= 4.0, all >= 3 | Go to Plan |
+| **NEEDS_REVISION** | MEDIUM issues OR avg 3.0-3.9 | Return to Spec Write |
+| **BLOCKED** | HIGH issues OR avg < 3.0 OR any <= 1 | Escalate to @architect |
 
 ---
 
-### 3.6 Fase 5b: Revise Specification
+### 3.6 Phase 5b: Revise Specification
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `revise` |
 | **Phase Number** | 5b |
-| **Agente** | @pm (Janus) |
+| **Agent** | @pm (Janus) |
 | **Condition** | `complexity.result === 'COMPLEX'` OR `critique.verdict === 'NEEDS_REVISION'` |
 
 #### Inputs
 
-| Input | Tipo | Obrigatório | Descrição |
+| Input | Type | Required | Description |
 |-------|------|-------------|-----------|
-| `storyId` | string | Sim | ID da story |
-| `spec` | file | Sim | spec.md atual |
-| `critique` | file | Sim | critique.json com feedback |
+| `storyId` | string | Yes | Story ID |
+| `spec` | file | Yes | Current spec.md |
+| `critique` | file | Yes | critique.json with feedback |
 
 #### Outputs
 
-| Output | Localização |
+| Output | Location |
 |--------|-------------|
 | `spec.md` (updated) | `docs/stories/{storyId}/spec/spec.md` |
 
 ---
 
-### 3.7 Fase 5c: Second Critique
+### 3.7 Phase 5c: Second Critique
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `critique_2` |
 | **Phase Number** | 5c |
-| **Agente** | @qa (Argus) |
+| **Agent** | @qa (Argus) |
 | **Task** | `spec-critique.md` |
 | **Condition** | `complexity.result === 'COMPLEX'` |
 
-> **Nota:** Segunda critica e mais leniente em issues MEDIUM se houver melhoria demonstrada.
+> **Note:** The second critique is more lenient on MEDIUM issues if demonstrable improvement is present.
 
 ---
 
-### 3.8 Fase 6: Create Implementation Plan
+### 3.8 Phase 6: Create Implementation Plan
 
-| Atributo | Valor |
+| Attribute | Value |
 |----------|-------|
 | **Step ID** | `plan` |
 | **Phase Number** | 6 |
-| **Agente** | @architect (Vega) |
+| **Agent** | @architect (Vega) |
 | **Task** | `plan-create-implementation.md` |
 | **Condition** | `critique.verdict === 'APPROVED'` |
 
 #### Inputs
 
-| Input | Tipo | Obrigatório | Descrição |
+| Input | Type | Required | Description |
 |-------|------|-------------|-----------|
-| `storyId` | string | Sim | ID da story |
-| `spec` | file | Sim | spec.md aprovado |
-| `complexity` | file | Não | complexity.json |
+| `storyId` | string | Yes | Story ID |
+| `spec` | file | Yes | Approved spec.md |
+| `complexity` | file | No | complexity.json |
 
 #### Outputs
 
-| Output | Localização |
+| Output | Location |
 |--------|-------------|
 | `plan.json` | `docs/stories/{storyId}/plan/implementation.yaml` |
 
-#### Regras de Subtasks
+#### Subtask Rules
 
-| Regra | Descrição |
+| Rule | Description |
 |-------|-----------|
-| **Single Service** | 1 servico por subtask (frontend, backend, database, infra) |
-| **File Limit** | Maximo 3 arquivos por subtask |
-| **Verification Required** | Cada subtask DEVE ter verificacao definida |
+| **Single Service** | 1 service per subtask (frontend, backend, database, infra) |
+| **File Limit** | Maximum 3 files per subtask |
+| **Verification Required** | Every subtask MUST have a defined verification |
 | **Dependency Order** | Database > Backend > Frontend > Integration |
 
 ---
 
-## 4. Agentes Participantes
+## 4. Participating Agents
 
 ```mermaid
 graph LR
-    subgraph AGENTS["Agentes do Spec Pipeline"]
+    subgraph AGENTS["Spec Pipeline Agents"]
         PM["@pm<br/>Janus<br/>Product Manager"]
         AR["@architect<br/>Vega<br/>Architect"]
         AN["@analyst<br/>Sirius<br/>Business Analyst"]
         QA["@qa<br/>Argus<br/>Test Architect"]
     end
 
-    PM --> |"Fase 1, 4, 5b"| G1["Gather<br/>Write Spec<br/>Revise"]
-    AR --> |"Fase 2, 6"| G2["Assess<br/>Plan"]
-    AN --> |"Fase 3"| G3["Research"]
-    QA --> |"Fase 5, 5c"| G4["Critique"]
+    PM --> |"Phases 1, 4, 5b"| G1["Gather<br/>Write Spec<br/>Revise"]
+    AR --> |"Phases 2, 6"| G2["Assess<br/>Plan"]
+    AN --> |"Phase 3"| G3["Research"]
+    QA --> |"Phases 5, 5c"| G4["Critique"]
 
     style PM fill:#e8f5e9
     style AR fill:#fce4ec
@@ -695,46 +695,46 @@ graph LR
     style QA fill:#fff8e1
 ```
 
-| Agente | ID | Nome | Papel no Pipeline | Fases |
+| Agent | ID | Name | Role in the Pipeline | Phases |
 |--------|-----|------|-------------------|-------|
 | @pm | pm | Janus | Product Manager | 1 (Gather), 4 (Spec), 5b (Revise) |
 | @architect | architect | Vega | System Architect | 2 (Assess), 6 (Plan) |
 | @analyst | analyst | Sirius | Business Analyst | 3 (Research) |
 | @qa | qa | Argus | Test Architect | 5 (Critique), 5c (Critique 2) |
 
-### 4.1 Perfil: @pm (Janus)
+### 4.1 Profile: @pm (Janus)
 
-- **Arquetipo:** Strategist
-- **Foco:** Coleta de requisitos, criação de especificações, documentação
-- **Principios:** User-focused, data-informed, clarity & precision
-- **Ferramentas:** Templates de PRD, elicitacao estruturada
+- **Archetype:** Strategist
+- **Focus:** Requirements gathering, specification creation, documentation
+- **Principles:** User-focused, data-informed, clarity & precision
+- **Tools:** PRD templates, structured elicitation
 
-### 4.2 Perfil: @architect (Vega)
+### 4.2 Profile: @architect (Vega)
 
-- **Arquetipo:** Visionary
-- **Foco:** Arquitetura de sistemas, avaliação tecnica, planejamento
-- **Principios:** Holistic thinking, pragmatic selection, security at every layer
-- **Ferramentas:** Context7, EXA, análise de codebase
+- **Archetype:** Visionary
+- **Focus:** Systems architecture, technical assessment, planning
+- **Principles:** Holistic thinking, pragmatic selection, security at every layer
+- **Tools:** Context7, EXA, codebase analysis
 
-### 4.3 Perfil: @analyst (Sirius)
+### 4.3 Profile: @analyst (Sirius)
 
-- **Arquetipo:** Decoder
-- **Foco:** Pesquisa, análise de mercado, validação de dependencias
-- **Principios:** Curiosity-driven, evidence-based, action-oriented
-- **Ferramentas:** EXA, Context7, Google Workspace
+- **Archetype:** Decoder
+- **Focus:** Research, market analysis, dependency validation
+- **Principles:** Curiosity-driven, evidence-based, action-oriented
+- **Tools:** EXA, Context7, Google Workspace
 
-### 4.4 Perfil: @qa (Argus)
+### 4.4 Profile: @qa (Argus)
 
-- **Arquetipo:** Guardian
-- **Foco:** Validacao de qualidade, gates de aprovacao, rastreabilidade
-- **Principios:** Requirements traceability, risk-based testing, advisory excellence
-- **Ferramentas:** CodeRabbit, Browser testing, análise de spec
+- **Archetype:** Guardian
+- **Focus:** Quality validation, approval gates, traceability
+- **Principles:** Requirements traceability, risk-based testing, advisory excellence
+- **Tools:** CodeRabbit, Browser testing, spec analysis
 
 ---
 
-## 5. Tasks Executadas
+## 5. Tasks Executed
 
-| Task | Fase | Agente | Arquivo |
+| Task | Phase | Agent | File |
 |------|------|--------|---------|
 | Gather Requirements | 1 | @pm | `.aexos-core/development/tasks/spec-gather-requirements.md` |
 | Assess Complexity | 2 | @architect | `.aexos-core/development/tasks/spec-assess-complexity.md` |
@@ -745,48 +745,48 @@ graph LR
 
 ---
 
-## 6. Pré-requisitos
+## 6. Prerequisites
 
 ### 6.1 Pre-Flight Checks
 
-| Check | Descrição | Blocking |
+| Check | Description | Blocking |
 |-------|-----------|----------|
-| `story_exists` | Diretorio da story existe ou pode ser criado | Sim |
-| `no_existing_spec` | Verificar spec existente (evitar sobrescrita) | Não (warning) |
-| `agents_available` | Agentes do pipeline estao configurados | Sim |
+| `story_exists` | The story directory exists or can be created | Yes |
+| `no_existing_spec` | Check for an existing spec (avoid overwriting) | No (warning) |
+| `agents_available` | The pipeline agents are configured | Yes |
 
-### 6.2 Configuração Necessaria
+### 6.2 Required Configuration
 
 ```yaml
 config:
   autoSpec:
-    enabled: false        # Ativar auto-spec quando story criada
-  showProgress: true      # Mostrar progresso
-  verbose: true           # Logs detalhados
-  maxRetries: 2           # Tentativas em caso de falha
-  retryDelay: 1000        # Delay entre retries (ms)
+    enabled: false        # Enable auto-spec when a story is created
+  showProgress: true      # Show progress
+  verbose: true           # Detailed logs
+  maxRetries: 2           # Attempts in case of failure
+  retryDelay: 1000        # Delay between retries (ms)
   strictGate: true        # BLOCKED halts pipeline
   outputDir: docs/stories/{storyId}/spec/
 ```
 
 ---
 
-## 7. Entradas e Saidas
+## 7. Inputs and Outputs
 
-### 7.1 Entradas do Pipeline
+### 7.1 Pipeline Inputs
 
-| Entrada | Tipo | Descrição | Fornecido Por |
+| Input | Type | Description | Provided By |
 |---------|------|-----------|---------------|
-| `storyId` | string | ID único da story | Usuario |
-| `source` | enum | `prd`, `user`, `existing` | Usuario (opcional) |
-| `prdPath` | string | Caminho para PRD existente | Usuario (opcional) |
-| `overrideComplexity` | enum | Override manual de complexidade | Usuario (opcional) |
+| `storyId` | string | Unique story ID | User |
+| `source` | enum | `prd`, `user`, `existing` | User (optional) |
+| `prdPath` | string | Path to an existing PRD | User (optional) |
+| `overrideComplexity` | enum | Manual complexity override | User (optional) |
 
-### 7.2 Saidas do Pipeline
+### 7.2 Pipeline Outputs
 
 ```mermaid
 flowchart LR
-    subgraph OUTPUT["Artefatos Gerados"]
+    subgraph OUTPUT["Generated Artifacts"]
         direction TB
         O1["requirements.json"]
         O2["complexity.json"]
@@ -796,7 +796,7 @@ flowchart LR
         O6["plan.json"]
     end
 
-    subgraph LOCATION["Localização"]
+    subgraph LOCATION["Location"]
         L["docs/stories/{storyId}/spec/"]
         LP["docs/stories/{storyId}/plan/"]
     end
@@ -809,89 +809,89 @@ flowchart LR
     O6 --> LP
 ```
 
-| Artefato | Fase | Descrição |
+| Artifact | Phase | Description |
 |----------|------|-----------|
-| `requirements.json` | 1 | Requisitos estruturados (9 categorias) |
-| `complexity.json` | 2 | Avaliacao de complexidade (5 dimensoes) |
-| `research.json` | 3 | Dependencias pesquisadas e validadas |
-| `spec.md` | 4 | Especificacao completa executavel |
-| `critique.json` | 5 | Resultado da avaliação de qualidade |
-| `plan.json` | 6 | Plano de implementação com subtasks |
+| `requirements.json` | 1 | Structured requirements (9 categories) |
+| `complexity.json` | 2 | Complexity assessment (5 dimensions) |
+| `research.json` | 3 | Researched and validated dependencies |
+| `spec.md` | 4 | Complete executable specification |
+| `critique.json` | 5 | Result of the quality assessment |
+| `plan.json` | 6 | Implementation plan with subtasks |
 
 ---
 
-## 8. Pontos de Decisão
+## 8. Decision Points
 
-### 8.1 Decisão: Pular Assess?
+### 8.1 Decision: Skip Assess?
 
 ```mermaid
 flowchart TB
     D1{"source === 'simple'<br/>OR<br/>overrideComplexity === 'SIMPLE'?"}
-    D1 -->|Sim| SKIP["Pular para Spec<br/>(assume SIMPLE)"]
-    D1 -->|Não| RUN["Executar Assess"]
+    D1 -->|Yes| SKIP["Skip to Spec<br/>(assumes SIMPLE)"]
+    D1 -->|No| RUN["Run Assess"]
 ```
 
-### 8.2 Decisão: Pular Research?
+### 8.2 Decision: Skip Research?
 
 ```mermaid
 flowchart TB
     D2{"complexity.result === 'SIMPLE'<br/>OR<br/>no external dependencies?"}
-    D2 -->|Sim| SKIP["Pular Research<br/>Gerar minimal research.json"]
-    D2 -->|Não| RUN["Executar Research"]
+    D2 -->|Yes| SKIP["Skip Research<br/>Generate a minimal research.json"]
+    D2 -->|No| RUN["Run Research"]
 ```
 
-### 8.3 Decisão: Verdict da Critique
+### 8.3 Decision: Critique Verdict
 
 ```mermaid
 flowchart TB
     START["Critique Complete"] --> C1{"HIGH issues?"}
-    C1 -->|Sim| BLOCKED["BLOCKED"]
-    C1 -->|Não| C2{"avg >= 4.0?"}
-    C2 -->|Sim| C3{"all dims >= 3?"}
-    C3 -->|Sim| APPROVED["APPROVED"]
-    C3 -->|Não| NEEDS["NEEDS_REVISION"]
-    C2 -->|Não| C4{"avg >= 3.0?"}
-    C4 -->|Sim| NEEDS
-    C4 -->|Não| BLOCKED
+    C1 -->|Yes| BLOCKED["BLOCKED"]
+    C1 -->|No| C2{"avg >= 4.0?"}
+    C2 -->|Yes| C3{"all dims >= 3?"}
+    C3 -->|Yes| APPROVED["APPROVED"]
+    C3 -->|No| NEEDS["NEEDS_REVISION"]
+    C2 -->|No| C4{"avg >= 3.0?"}
+    C4 -->|Yes| NEEDS
+    C4 -->|No| BLOCKED
 ```
 
-### 8.4 Decisão: Executar Revise?
+### 8.4 Decision: Run Revise?
 
 ```mermaid
 flowchart TB
     D4{"complexity === 'COMPLEX'<br/>OR<br/>verdict === 'NEEDS_REVISION'?"}
-    D4 -->|Sim| RUN["Executar Revise<br/>(Fase 5b)"]
-    D4 -->|Não| SKIP["Pular Revise"]
+    D4 -->|Yes| RUN["Run Revise<br/>(Phase 5b)"]
+    D4 -->|No| SKIP["Skip Revise"]
 ```
 
-### 8.5 Decisão: Segunda Critique?
+### 8.5 Decision: Second Critique?
 
 ```mermaid
 flowchart TB
     D5{"complexity === 'COMPLEX'?"}
-    D5 -->|Sim| RUN["Executar Critique 2<br/>(Fase 5c)"]
-    D5 -->|Não| SKIP["Pular Segunda Critique"]
+    D5 -->|Yes| RUN["Run Critique 2<br/>(Phase 5c)"]
+    D5 -->|No| SKIP["Skip the Second Critique"]
 ```
 
 ---
 
 ## 9. Troubleshooting
 
-### 9.1 Erros Comuns
+### 9.1 Common Errors
 
-| Erro | Causa | Solução |
+| Error | Cause | Solution |
 |------|-------|---------|
-| `missing_story_id` | Story ID nao fornecido | `*create-spec STORY-42` |
-| `phase_failed` | Fase falhou durante execucao | Verificar logs, usar `--resume` |
-| `max_iterations_reached` | Limite de revisoes atingido | Escalr para @architect |
-| `critique_blocked` | Spec bloqueado pelo QA gate | Revisar critique.json, corrigir HIGH issues |
-| `missing-requirements` | requirements.json nao encontrado | Executar fase Gather primeiro |
-| `empty-functional` | Nenhum requisito funcional | Re-executar elicitacao |
-| `context7-unavailable` | Context7 MCP nao responde | Usar EXA como fallback |
+| `missing_story_id` | Story ID not provided | `*create-spec STORY-42` |
+| `phase_failed` | A phase failed during execution | Check the logs, use `--resume` |
+| `max_iterations_reached` | Revision limit reached | Escalate to @architect |
+| `critique_blocked` | Spec blocked by the QA gate | Review critique.json, fix the HIGH issues |
+| `missing-requirements` | requirements.json not found | Run the Gather phase first |
+| `empty-functional` | No functional requirements | Re-run the elicitation |
+| `context7-unavailable` | Context7 MCP is not responding | Use EXA as a fallback |
 
-### 9.2 Como Retomar Execucao
+### 9.2 How to Resume Execution
 
-O pipeline suporta retomada atraves de checkpoints:
+The pipeline supports resuming through checkpoints:
 
 ```yaml
 resume:
@@ -906,47 +906,47 @@ resume:
     - after: critique -> critique_complete
 ```
 
-**Comando para retomar:**
+**Command to resume:**
 ```bash
 *create-spec STORY-42 --resume
 ```
 
-### 9.3 Árvore de Decisão de Erros
+### 9.3 Error Decision Tree
 
 ```mermaid
 flowchart TB
-    E["Erro no Pipeline"] --> E1{"Qual fase?"}
+    E["Pipeline Error"] --> E1{"Which phase?"}
 
-    E1 -->|Gather| G["Verificar elicitacao"]
-    G --> G1["Usuario respondeu todas perguntas?"]
-    G --> G2["requirements.json valido?"]
+    E1 -->|Gather| G["Check the elicitation"]
+    G --> G1["Did the user answer all the questions?"]
+    G --> G2["Is requirements.json valid?"]
 
-    E1 -->|Assess| A["Verificar inputs"]
-    A --> A1["requirements.json existe?"]
-    A --> A2["Formato JSON valido?"]
+    E1 -->|Assess| A["Check the inputs"]
+    A --> A1["Does requirements.json exist?"]
+    A --> A2["Is the JSON format valid?"]
 
-    E1 -->|Research| R["Verificar ferramentas"]
-    R --> R1["Context7 ativo?"]
-    R --> R2["EXA configurado?"]
+    E1 -->|Research| R["Check the tools"]
+    R --> R1["Is Context7 active?"]
+    R --> R2["Is EXA configured?"]
 
-    E1 -->|Spec| S["Verificar Constitutional Gate"]
-    S --> S1["Conteudo inventado detectado?"]
-    S --> S2["Traceability ok?"]
+    E1 -->|Spec| S["Check the Constitutional Gate"]
+    S --> S1["Was invented content detected?"]
+    S --> S2["Is traceability OK?"]
 
-    E1 -->|Critique| C["Verificar verdict"]
-    C --> C1["Issues HIGH encontrados?"]
-    C --> C2["Score medio < 3.0?"]
+    E1 -->|Critique| C["Check the verdict"]
+    C --> C1["Were HIGH issues found?"]
+    C --> C2["Is the average score < 3.0?"]
 ```
 
 ---
 
-## 10. Referências
+## 10. References
 
-### 10.1 Arquivos do Workflow
+### 10.1 Workflow Files
 
-| Arquivo | Localização |
+| File | Location |
 |---------|-------------|
-| Definicao do Workflow | `.aexos-core/development/workflows/spec-pipeline.yaml` |
+| Workflow Definition | `.aexos-core/development/workflows/spec-pipeline.yaml` |
 | Task: Gather | `.aexos-core/development/tasks/spec-gather-requirements.md` |
 | Task: Assess | `.aexos-core/development/tasks/spec-assess-complexity.md` |
 | Task: Research | `.aexos-core/development/tasks/spec-research-dependencies.md` |
@@ -954,37 +954,37 @@ flowchart TB
 | Task: Critique | `.aexos-core/development/tasks/spec-critique.md` |
 | Task: Create Plan | `.aexos-core/development/tasks/plan-create-implementation.md` |
 
-### 10.2 Agentes Relacionados
+### 10.2 Related Agents
 
-| Agente | Localização |
+| Agent | Location |
 |--------|-------------|
 | @pm (Janus) | `.aexos-core/development/agents/pm.md` |
 | @architect (Vega) | `.aexos-core/development/agents/architect.md` |
 | @analyst (Sirius) | `.aexos-core/development/agents/analyst.md` |
 | @qa (Argus) | `.aexos-core/development/agents/qa.md` |
 
-### 10.3 Documentação Relacionada
+### 10.3 Related Documentation
 
 - [Workflows YAML Guide](../workflows-yaml-guide.md)
 - [AEXOS Documentation Index](../CYRYX-DOCUMENTATION-INDEX.md)
 - [Backlog Management System](../BACKLOG-MANAGEMENT-SYSTEM.md)
 
-### 10.4 Commands Rapidos
+### 10.4 Quick Commands
 
-| Comando | Descrição | Agente |
+| Command | Description | Agent |
 |---------|-----------|--------|
-| `*create-spec STORY-ID` | Executar pipeline completo | - |
-| `*gather-requirements STORY-ID` | Apenas fase Gather | @pm |
-| `*assess-complexity STORY-ID` | Apenas fase Assess | @architect |
-| `*research-deps STORY-ID` | Apenas fase Research | @analyst |
-| `*write-spec STORY-ID` | Apenas fase Write | @pm |
-| `*critique-spec STORY-ID` | Apenas fase Critique | @qa |
+| `*create-spec STORY-ID` | Run the complete pipeline | - |
+| `*gather-requirements STORY-ID` | Gather phase only | @pm |
+| `*assess-complexity STORY-ID` | Assess phase only | @architect |
+| `*research-deps STORY-ID` | Research phase only | @analyst |
+| `*write-spec STORY-ID` | Write phase only | @pm |
+| `*critique-spec STORY-ID` | Critique phase only | @qa |
 
 ---
 
-## 11. Mensagem de Conclusão
+## 11. Completion Message
 
-Ao finalizar com sucesso, o pipeline exibe:
+On a successful finish, the pipeline displays:
 
 ```
 +==============================================================+
@@ -1014,18 +1014,18 @@ Next Steps:
 
 ```yaml
 metadata:
-  documento: SPEC-PIPELINE-WORKFLOW.md
-  versao: 1.0
-  criado: 2026-02-04
-  autor: Technical Documentation Specialist
-  baseado_em:
+  document: SPEC-PIPELINE-WORKFLOW.md
+  version: 1.0
+  created: 2026-02-04
+  author: Technical Documentation Specialist
+  based_on:
     - .aexos-core/development/workflows/spec-pipeline.yaml
     - .aexos-core/development/tasks/spec-*.md
     - .aexos-core/development/agents/*.md
   tags:
     - spec-pipeline
     - workflow
-    - documentação
+    - documentation
     - cyryx
     - auto-claude
 ```

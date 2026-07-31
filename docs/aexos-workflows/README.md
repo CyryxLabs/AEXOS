@@ -1,130 +1,128 @@
-# AEXOS Workflows - Documentação Detalhada dos Workflows
-
-> 🌐 **PT** | [EN](../en/aexos-workflows/README.md) | [ES](../es/aexos-workflows/README.md) | [ZH](../zh/aexos-workflows/README.md)
+# AEXOS Workflows - Detailed Workflow Documentation
 
 ---
 
-**Versão:** 1.0.0
-**Última Atualização:** 2026-02-05
-**Status:** Documentação Oficial
+**Version:** 1.0.0
+**Last Updated:** 2026-02-05
+**Status:** Official Documentation
 
 ---
 
-## Visão Geral
+## Overview
 
-Esta pasta contém a documentação detalhada de todos os workflows do AEXOS, incluindo:
+This folder holds the detailed documentation of every AEXOS workflow, including:
 
-- **Diagramas Mermaid** completos (flowchart, sequence, state)
-- **Steps detalhados** com inputs/outputs
-- **Agentes participantes** e seus papéis
-- **Pontos de decisão** e condições
-- **Pré-requisitos** e configurações
-- **Troubleshooting** e modos de execução
-
----
-
-## Workflows Documentados
-
-### Por Tipo de Projeto
-
-| Tipo | Workflow | Descrição | Documento |
-|------|----------|-----------|-----------|
-| **Greenfield** | Fullstack | Aplicações full-stack do zero | [greenfield-fullstack-workflow.md](./greenfield-fullstack-workflow.md) |
-| **Greenfield** | Service | Backend/API do zero | [greenfield-service-workflow.md](./greenfield-service-workflow.md) |
-| **Greenfield** | UI | Frontend do zero | [greenfield-ui-workflow.md](./greenfield-ui-workflow.md) |
-| **Brownfield** | Discovery | Análise de projeto existente | [brownfield-discovery-workflow.md](./brownfield-discovery-workflow.md) |
-| **Brownfield** | Fullstack | Evolução full-stack existente | [brownfield-fullstack-workflow.md](./brownfield-fullstack-workflow.md) |
-| **Brownfield** | Service | Evolução backend existente | [brownfield-service-workflow.md](./brownfield-service-workflow.md) |
-| **Brownfield** | UI | Evolução frontend existente | [brownfield-ui-workflow.md](./brownfield-ui-workflow.md) |
-
-### Por Processo
-
-| Processo | Workflow | Descrição | Documento |
-|----------|----------|-----------|-----------|
-| **Development** | Story Cycle | Ciclo completo de story | [story-development-cycle-workflow.md](./story-development-cycle-workflow.md) |
-| **Quality** | QA Loop | Ciclo de qualidade | [qa-loop-workflow.md](./qa-loop-workflow.md) |
-| **Spec** | Spec Pipeline | Pipeline de especificação | [spec-pipeline-workflow.md](./spec-pipeline-workflow.md) |
-| **Design** | Design System | Construção de design system | [design-system-build-quality-workflow.md](./design-system-build-quality-workflow.md) |
-| **Git** | Auto Worktree | Gestão automática de worktrees | [auto-worktree-workflow.md](./auto-worktree-workflow.md) |
-| **Operations** | Pro Access Grant | Concessao e validacao de acesso AEXOS Pro | [pro-access-grant-workflow.md](./pro-access-grant-workflow.md) |
+- Complete **Mermaid diagrams** (flowchart, sequence, state)
+- **Detailed steps** with inputs/outputs
+- **Participating agents** and their roles
+- **Decision points** and conditions
+- **Prerequisites** and configuration
+- **Troubleshooting** and execution modes
 
 ---
 
-## Estrutura de Cada Documento
+## Documented Workflows
 
-Cada documento de workflow segue esta estrutura padrão:
+### By Project Type
+
+| Type | Workflow | Description | Document |
+|------|----------|-------------|----------|
+| **Greenfield** | Fullstack | Full-stack applications from scratch | [greenfield-fullstack-workflow.md](./greenfield-fullstack-workflow.md) |
+| **Greenfield** | Service | Backend/API from scratch | [greenfield-service-workflow.md](./greenfield-service-workflow.md) |
+| **Greenfield** | UI | Frontend from scratch | [greenfield-ui-workflow.md](./greenfield-ui-workflow.md) |
+| **Brownfield** | Discovery | Analysis of an existing project | [brownfield-discovery-workflow.md](./brownfield-discovery-workflow.md) |
+| **Brownfield** | Fullstack | Evolution of an existing full-stack app | [brownfield-fullstack-workflow.md](./brownfield-fullstack-workflow.md) |
+| **Brownfield** | Service | Evolution of an existing backend | [brownfield-service-workflow.md](./brownfield-service-workflow.md) |
+| **Brownfield** | UI | Evolution of an existing frontend | [brownfield-ui-workflow.md](./brownfield-ui-workflow.md) |
+
+### By Process
+
+| Process | Workflow | Description | Document |
+|---------|----------|-------------|----------|
+| **Development** | Story Cycle | Complete story cycle | [story-development-cycle-workflow.md](./story-development-cycle-workflow.md) |
+| **Quality** | QA Loop | Quality cycle | [qa-loop-workflow.md](./qa-loop-workflow.md) |
+| **Spec** | Spec Pipeline | Specification pipeline | [spec-pipeline-workflow.md](./spec-pipeline-workflow.md) |
+| **Design** | Design System | Design system construction | [design-system-build-quality-workflow.md](./design-system-build-quality-workflow.md) |
+| **Git** | Auto Worktree | Automatic worktree management | [auto-worktree-workflow.md](./auto-worktree-workflow.md) |
+| **Operations** | Pro Access Grant | Granting and validating AEXOS Pro access | [pro-access-grant-workflow.md](./pro-access-grant-workflow.md) |
+
+---
+
+## Structure of Each Document
+
+Every workflow document follows this standard structure:
 
 ```
-1. Visão Geral
-   - Objetivo do workflow
-   - Tipos de projeto suportados
-   - Quando usar / não usar
+1. Overview
+   - Workflow objective
+   - Supported project types
+   - When to use / when not to use
 
-2. Diagrama Mermaid
-   - Flowchart principal
-   - Diagrama de estados
-   - Diagrama de sequência
+2. Mermaid Diagram
+   - Main flowchart
+   - State diagram
+   - Sequence diagram
 
-3. Steps Detalhados
-   - ID, agente, ação
-   - Inputs e outputs
-   - Critérios de sucesso
+3. Detailed Steps
+   - ID, agent, action
+   - Inputs and outputs
+   - Success criteria
    - Status transitions
 
-4. Agentes Participantes
-   - Papel de cada agente
-   - Comandos relevantes
+4. Participating Agents
+   - Role of each agent
+   - Relevant commands
 
-5. Tasks Executadas
-   - Mapa de tasks por fase
-   - Arquivos de task
+5. Tasks Executed
+   - Task map by phase
+   - Task files
 
-6. Pré-requisitos
-   - Configuração necessária
-   - Documentação prerequisita
-   - Ferramentas integradas
+6. Prerequisites
+   - Required configuration
+   - Prerequisite documentation
+   - Integrated tools
 
-7. Entradas e Saídas
-   - Inputs do workflow
-   - Outputs produzidos
+7. Inputs and Outputs
+   - Workflow inputs
+   - Outputs produced
 
-8. Pontos de Decisão
-   - Condições de branching
-   - Critérios de bloqueio
+8. Decision Points
+   - Branching conditions
+   - Blocking criteria
 
-9. Modos de Execução
-   - YOLO (autônomo)
-   - Interactive (balanceado)
-   - Pre-Flight (planejamento)
+9. Execution Modes
+   - YOLO (autonomous)
+   - Interactive (balanced)
+   - Pre-Flight (planning)
 
 10. Troubleshooting
-    - Problemas comuns
-    - Logs e diagnóstico
+    - Common problems
+    - Logs and diagnostics
 
 11. Changelog
-    - Histórico de versões
+    - Version history
 ```
 
 ---
 
-## Mapa de Workflows
+## Workflow Map
 
 ```mermaid
 flowchart TB
-    subgraph GREENFIELD["Greenfield (Novos Projetos)"]
+    subgraph GREENFIELD["Greenfield (New Projects)"]
         GF["greenfield-fullstack"]
         GS["greenfield-service"]
         GU["greenfield-ui"]
     end
 
-    subgraph BROWNFIELD["Brownfield (Projetos Existentes)"]
+    subgraph BROWNFIELD["Brownfield (Existing Projects)"]
         BD["brownfield-discovery"]
         BF["brownfield-fullstack"]
         BS["brownfield-service"]
         BU["brownfield-ui"]
     end
 
-    subgraph PROCESS["Processos"]
+    subgraph PROCESS["Processes"]
         SDC["story-development-cycle"]
         QAL["qa-loop"]
         SP["spec-pipeline"]
@@ -153,33 +151,33 @@ flowchart TB
 
 ---
 
-## Guia de Seleção de Workflow
+## Workflow Selection Guide
 
-### Novo Projeto?
+### New Project?
 
 ```mermaid
 flowchart TD
-    A{Tipo de Projeto?} --> B[Full-Stack]
-    A --> C[Apenas Backend/API]
-    A --> D[Apenas Frontend]
+    A{Project Type?} --> B[Full-Stack]
+    A --> C[Backend/API Only]
+    A --> D[Frontend Only]
 
     B --> E[greenfield-fullstack]
     C --> F[greenfield-service]
     D --> G[greenfield-ui]
 ```
 
-### Projeto Existente?
+### Existing Project?
 
 ```mermaid
 flowchart TD
-    A{Conhece o Projeto?} --> |Não| B[brownfield-discovery]
-    A --> |Sim| C{Tipo de Mudança?}
+    A{Do You Know the Project?} --> |No| B[brownfield-discovery]
+    A --> |Yes| C{Type of Change?}
 
     B --> C
 
     C --> D[Full-Stack]
-    C --> E[Apenas Backend]
-    C --> F[Apenas Frontend]
+    C --> E[Backend Only]
+    C --> F[Frontend Only]
 
     D --> G[brownfield-fullstack]
     E --> H[brownfield-service]
@@ -188,61 +186,60 @@ flowchart TD
 
 ---
 
-## Fluxo entre Workflows
+## Flow Between Workflows
 
-| De | Para | Condição |
-|----|------|----------|
-| `brownfield-discovery` | `brownfield-*` | Após análise completa |
-| `greenfield-*` | `story-development-cycle` | Para cada story |
-| `brownfield-*` | `story-development-cycle` | Para cada story |
-| `spec-pipeline` | `story-development-cycle` | Após spec aprovada |
-| `story-development-cycle` | `qa-loop` | Na fase de QA |
-
----
-
-## Como Usar Esta Documentação
-
-### Para Iniciar um Projeto
-
-1. Use o **Guia de Seleção** acima para escolher o workflow
-2. Leia a **Visão Geral** do workflow escolhido
-3. Verifique os **Pré-requisitos**
-4. Siga os **Steps** na ordem
-
-### Para Entender um Processo
-
-1. Analise os **Diagramas Mermaid**
-2. Veja os **Agentes Participantes** e seus papéis
-3. Consulte os **Pontos de Decisão**
-
-### Para Debugar Problemas
-
-1. Vá à seção **Troubleshooting**
-2. Verifique os **Logs e Diagnóstico**
-3. Consulte os **Critérios de Sucesso** de cada step
+| From | To | Condition |
+|------|----|-----------|
+| `brownfield-discovery` | `brownfield-*` | After complete analysis |
+| `greenfield-*` | `story-development-cycle` | For each story |
+| `brownfield-*` | `story-development-cycle` | For each story |
+| `spec-pipeline` | `story-development-cycle` | After spec approval |
+| `story-development-cycle` | `qa-loop` | In the QA phase |
 
 ---
 
-## Relacionamento com Outras Documentações
+## How to Use This Documentation
 
-| Documentação | Localização | Propósito |
-|--------------|-------------|-----------|
-| Workflows Guide | [docs/guides/workflows-guide.md](../guides/workflows-guide.md) | Guia geral |
-| Agent Flows | [docs/aexos-agent-flows/](../aexos-agent-flows/) | Detalhes de agentes |
-| Meta-Agent Commands | [docs/meta-agent-commands.md](../meta-agent-commands.md) | Referência rápida |
+### To Start a Project
+
+1. Use the **Selection Guide** above to choose the workflow
+2. Read the **Overview** of the chosen workflow
+3. Check the **Prerequisites**
+4. Follow the **Steps** in order
+
+### To Understand a Process
+
+1. Analyze the **Mermaid Diagrams**
+2. Review the **Participating Agents** and their roles
+3. Consult the **Decision Points**
+
+### To Debug Problems
+
+1. Go to the **Troubleshooting** section
+2. Check the **Logs and Diagnostics**
+3. Consult the **Success Criteria** of each step
 
 ---
 
-## Contribuindo
+## Relationship with Other Documentation
 
-Para adicionar ou atualizar documentação de workflows:
-
-1. Siga a estrutura padrão descrita acima
-2. Inclua diagramas Mermaid completos
-3. Documente todos os inputs/outputs
-4. Mantenha o changelog atualizado
-5. Crie traduções em EN e ES
+| Documentation | Location | Purpose |
+|---------------|----------|---------|
+| Workflows Guide | [docs/guides/workflows-guide.md](../guides/workflows-guide.md) | General guide |
+| Agent Flows | [docs/aexos-agent-flows/](../aexos-agent-flows/) | Agent details |
+| Meta-Agent Commands | [docs/meta-agent-commands.md](../meta-agent-commands.md) | Quick reference |
 
 ---
 
-*AEXOS Workflows Documentation v1.0 - Documentação detalhada dos workflows de desenvolvimento*
+## Contributing
+
+To add or update workflow documentation:
+
+1. Follow the standard structure described above
+2. Include complete Mermaid diagrams
+3. Document every input/output
+4. Keep the changelog up to date
+
+---
+
+*AEXOS Workflows Documentation v1.0 - Detailed documentation of the development workflows*

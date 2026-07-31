@@ -428,19 +428,19 @@ Todas as stories implementadas e revisadas! Fase de desenvolvimento do servico c
 ```mermaid
 graph LR
     subgraph Planejamento
-        AN[Analyst<br/>Atlas]
-        PM[PM<br/>Morgan]
-        AR[Architect<br/>Aria]
+        AN[Analyst<br/>Sirius]
+        PM[PM<br/>Janus]
+        AR[Architect<br/>Vega]
     end
 
     subgraph Validacao
-        PO[PO<br/>Pax]
+        PO[PO<br/>Themis]
     end
 
     subgraph Desenvolvimento
-        SM[SM<br/>River]
-        DEV[Dev<br/>Dex]
-        QA[QA<br/>Quinn]
+        SM[SM<br/>Chronos]
+        DEV[Dev<br/>Vulcan]
+        QA[QA<br/>Argus]
     end
 
     AN -->|project-brief| PM

@@ -52,7 +52,6 @@ Windows `ECOMPROMISED` (#773): docs + `aexos install` hint + doctor `windows-npx
 2. Open/merge PR (+ #800 chain if needed)
 3. Close GitHub #773 / #797 / #798 with PR links
 
-
 ## Tracking
 
 | Date | Event |
