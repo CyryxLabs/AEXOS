@@ -45,6 +45,10 @@ const {
   regenerateSquadRegistry,
 } = require('../installer/squad-scaffolder');
 const {
+  findLegacyInstalls,
+  removeFootprint,
+} = require('../installer/install-footprint');
+const {
   validateInstallation,
   displayValidationReport,
   provideTroubleshooting,
@@ -408,6 +412,54 @@ async function runWizard(options = {}) {
     }
 
     // Story 1.4: Install AEXOS core framework (agents, tasks, workflows, templates)
+    // An install from an earlier generation of this framework stays exactly
+    // where it is unless something removes it, and the editors keep reading it.
+    // The symptom is that the old framework's slash commands are the ones that
+    // show up, which reads as "the new install did not work".
+    try {
+      const legacy = findLegacyInstalls(process.cwd());
+      if (legacy.items.length) {
+        console.log(
+          `\n⚠️  Found a previous ${legacy.brands.join(' and ')} installation ` +
+            `(${legacy.items.length} item${legacy.items.length === 1 ? '' : 's'}).`,
+        );
+        console.log('   Your editor reads both, so its commands will appear alongside AEXOS.\n');
+        for (const item of legacy.items.slice(0, 8)) {
+          console.log(`     ${item.path}`);
+        }
+        if (legacy.items.length > 8) {
+          console.log(`     … and ${legacy.items.length - 8} more`);
+        }
+
+        // Removing another framework's files is not a decision to make on
+        // someone's behalf without asking — they may have edited them.
+        let remove = false;
+        if (nonInteractive) {
+          console.log(
+            '\n   Left in place. Remove them with: aexos uninstall --legacy\n',
+          );
+        } else {
+          ({ remove } = await inquirer.prompt([
+            {
+              type: 'confirm',
+              name: 'remove',
+              message: `Remove the previous ${legacy.brands.join('/')} installation?`,
+              default: true,
+            },
+          ]));
+        }
+
+        if (remove) {
+          const { removed, failed } = removeFootprint(process.cwd(), legacy.items);
+          console.log(`   ✓ Removed ${removed.length} item(s)`);
+          for (const f of failed) console.warn(`   ⚠️  ${f.path}: ${f.message}`);
+        }
+      }
+    } catch (error) {
+      // Never block the install on this — it is housekeeping, not a step.
+      console.warn(`\n⚠️  Could not check for a previous installation: ${error.message}`);
+    }
+
     console.log('\n📦 Installing AEXOS core framework...');
     let cyryxCoreResult = null;
     try {

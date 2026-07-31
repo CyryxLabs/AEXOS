@@ -581,18 +581,40 @@ Examples:
 
 // Uninstall AEXOS from project
 async function runUninstall(options = {}) {
-  const { force = false, keepData = false, dryRun = false, quiet = false } = options;
+  const {
+    force = false, keepData = false, dryRun = false, quiet = false,
+    legacy = false, legacyOnly = false,
+  } = options;
   const cwd = process.cwd();
 
   // Items to remove
-  const itemsToRemove = [
-    { path: '.aexos-core', description: 'Framework core' },
-    { path: 'squads', description: 'Squad definitions' },
-  ];
+  // The footprint is described in one place so uninstall removes what install
+  // wrote. It previously listed only the core, the squads and the project data
+  // — every IDE surface survived, so the slash commands outlived the uninstall
+  // and the editor kept offering agents that were no longer installed.
+  const {
+    AEXOS_FOOTPRINT,
+    findLegacyInstalls,
+  } = require('../packages/installer/src/installer/install-footprint');
 
-  // Optionally remove .aexos
-  if (!keepData) {
-    itemsToRemove.push({ path: '.aexos', description: 'Project data and settings' });
+  // --legacy-only is the migration case: clear the previous framework and
+  // leave this one installed. Without it the only way to stop the old slash
+  // commands appearing was to uninstall both and start over.
+  const itemsToRemove = legacyOnly
+    ? []
+    : AEXOS_FOOTPRINT.filter((item) => (keepData ? item.path !== '.aexos' : true)).map((item) => ({
+      path: item.path,
+      description: item.label,
+    }));
+
+  // `--legacy` also clears installs from earlier generations of this framework,
+  // which is what a project migrated from AIOX needs before its editor stops
+  // offering both.
+  if (legacy || legacyOnly) {
+    const found = findLegacyInstalls(cwd);
+    for (const item of found.items) {
+      itemsToRemove.push({ path: item.path, description: item.label });
+    }
   }
 
   // Check what exists
@@ -1007,6 +1029,8 @@ async function main() {
         keepData: uninstallArgs.includes('--keep-data'),
         dryRun: uninstallArgs.includes('--dry-run'),
         quiet: uninstallArgs.includes('--quiet'),
+        legacy: uninstallArgs.includes('--legacy'),
+        legacyOnly: uninstallArgs.includes('--legacy-only'),
       };
       await runUninstall(uninstallOptions);
       break;
