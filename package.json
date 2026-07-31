@@ -115,6 +115,8 @@
     "validate:squad-registry": "node scripts/generate-squad-registry.js --check",
     "generate:squad-manifests": "node scripts/normalize-squad-manifests.js",
     "validate:squad-manifests": "node scripts/normalize-squad-manifests.js --check",
+    "sync:squad-agents": "node scripts/sync-squad-agents.js",
+    "validate:squad-agents": "node scripts/sync-squad-agents.js --check",
     "validate:squads": "node scripts/validate-squads.js"
   },
   "dependencies": {

@@ -173,11 +173,29 @@ function buildSkillDescription(agentData) {
 
 /**
  * Get the relative Claude skill path for this agent under .claude/skills.
+ *
+ * Squad agents are namespaced by their squad. Two squads may each own a
+ * `content-lead`, so a flat layout would have them overwrite each other; the
+ * squad segment also makes the slash command read as
+ * `/AEXOS:squads:marketing:content-lead`, which says where the agent comes from.
+ *
  * @param {object} agentData - Parsed agent data
  * @returns {string} - Relative skill path
  */
 function getSkillRelativePath(agentData) {
+  if (agentData.squad) {
+    return path.posix.join('AEXOS', 'squads', agentData.squad, agentData.id, 'SKILL.md');
+  }
   return path.posix.join('AEXOS', 'agents', agentData.id, 'SKILL.md');
+}
+
+/**
+ * Get the Claude skill name for this agent. Must be unique across the project.
+ * @param {object} agentData - Parsed agent data
+ * @returns {string} - Skill name
+ */
+function getSkillName(agentData) {
+  return agentData.squad ? `aexos-${agentData.squad}-${agentData.id}` : `aexos-${agentData.id}`;
 }
 
 /**
@@ -188,7 +206,7 @@ function getSkillRelativePath(agentData) {
  */
 function transformSkill(agentData) {
   const sourcePath = getSourcePath(agentData);
-  const name = `aexos-${agentData.id}`;
+  const name = getSkillName(agentData);
   const description = buildSkillDescription(agentData);
   const sourceContent = agentData.raw ? agentData.raw.trimEnd() : generateMinimalContent(agentData).trimEnd();
 
@@ -221,6 +239,7 @@ module.exports = {
   transformSkill,
   getFilename,
   getSkillRelativePath,
+  getSkillName,
   getSourcePath,
   format: 'full-markdown-yaml',
 };

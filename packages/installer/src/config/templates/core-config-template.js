@@ -110,7 +110,7 @@ function generateCoreConfig(options = {}) {
     devStoryLocation: 'docs/stories',
 
     // Slash Command Prefix
-    slashPrefix: 'CYRYX',
+    slashPrefix: 'AEXOS',
 
     // Framework Documentation Paths
     frameworkDocsLocation: 'docs/framework',

@@ -1344,15 +1344,15 @@ async function copyExtraCommandFiles(projectRoot, _sourceRoot) {
   // Squad commands (cohort-squad/, design-system/, squad-creator-pro/, etc.)
   // are private and must NOT be copied to installed projects.
   const DISTRIBUTABLE_ENTRIES = new Set([
-    'CYRYX',       // Core agent/script commands (agents/ sub-dir excluded below)
+    'AEXOS',      // Core agent/script commands (agents/ sub-dir excluded below)
     'synapse',    // SYNAPSE context engine commands
     'greet.md',   // Greeting skill
   ]);
 
-  // Within CYRYX/, these sub-dirs are excluded (private or handled separately)
+  // Within AEXOS/, these sub-dirs are excluded (private or handled separately)
   const AEXOS_EXCLUDED = new Set([
-    'CYRYX/agents',   // Already handled by copyAgentFiles()
-    'CYRYX/stories',  // Project-specific story skills, not distributable
+    'AEXOS/agents',   // Already handled by copyAgentFiles()
+    'AEXOS/stories',  // Project-specific story skills, not distributable
   ]);
 
   await fs.ensureDir(targetDir);
@@ -1370,7 +1370,7 @@ async function copyExtraCommandFiles(projectRoot, _sourceRoot) {
         continue;
       }
 
-      // Within CYRYX/, skip excluded sub-directories
+      // Within AEXOS/, skip excluded sub-directories
       if (AEXOS_EXCLUDED.has(entryRelative) || [...AEXOS_EXCLUDED].some(ex => entryRelative.startsWith(ex + '/'))) {
         continue;
       }
