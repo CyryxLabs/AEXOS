@@ -1,0 +1,220 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# AEXOS Squad Manifest — Operations Squad
+# Conforms to .aexos-core/schemas/squad-schema.json (task-first architecture).
+# components/ is derived from disk by scripts/normalize-squad-manifests.js.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+name: ops
+version: 1.0.0
+short-title: Operations Squad
+description: >-
+  Squad de operações: confiabilidade de serviço, fluxo e restrições, melhoria contínua e resposta a
+  incidentes.
+author: Cyryx Labs LLC
+license: UNLICENSED
+slashPrefix: ops
+tags:
+  - operations
+  - reliability
+  - sre
+  - theory-of-constraints
+  - lean
+  - incident
+  - flow
+  - aexos
+cyryx:
+  minVersion: 2.1.0
+  type: squad
+components:
+  tasks:
+    - flow-find-constraint.md
+    - incident-declare.md
+    - lean-waste-walk.md
+    - ops-diagnose-and-route.md
+    - reliability-slo-design.md
+  agents:
+    - flow-lead.md
+    - incident-lead.md
+    - lean-lead.md
+    - ops-chief.md
+    - reliability-lead.md
+  workflows:
+    - wf-chronic-improvement.yaml
+    - wf-incident-response.yaml
+  checklists:
+    - authority-boundary-checklist.md
+    - constraint-evidence-checklist.md
+    - countermeasure-quality-checklist.md
+    - postmortem-quality-checklist.md
+    - slo-quality-checklist.md
+  templates:
+    - andon-policy-tmpl.md
+    - blameless-postmortem-tmpl.md
+    - constraint-analysis-tmpl.md
+    - error-budget-policy-tmpl.md
+    - incident-record-tmpl.md
+    - ops-coherence-audit-tmpl.md
+    - ops-triage-record-tmpl.md
+    - slo-specification-tmpl.md
+    - standard-work-tmpl.md
+    - subordination-rules-tmpl.md
+    - value-stream-walk-tmpl.md
+  tools: []
+  scripts: []
+config:
+  extends: extend
+dependencies:
+  node: []
+  squads: []
+squad:
+  name: ops
+  display_name: Operations Squad
+  version: 1.0.0
+  domain: Operations — Reliability, Flow and Continuous Improvement
+  description: >-
+    Squad de operações: confiabilidade de serviço, fluxo e restrições, melhoria contínua e resposta
+    a incidentes.
+  philosophy: |-
+    "Otimizar o todo, não a parte."
+    O gargalo define a capacidade do sistema; melhorar fora dele é desperdício.
+  keywords:
+    - operations
+    - reliability
+    - sre
+    - theory-of-constraints
+    - lean
+    - incident
+    - flow
+    - aexos
+  entry_agent: ops-chief
+  created_by: squad-creator
+  created_at: '2026-07-30'
+tiers:
+  tier_0:
+    name: Diagnosis & Routing
+    agents:
+      - ops-chief
+    purpose: Triar o pedido, rotear ao especialista, manter coerência
+  tier_1:
+    name: Core Practice
+    agents:
+      - reliability-lead
+      - flow-lead
+    purpose: Domínios centrais do squad
+  tier_2:
+    name: Applied & Adjacent
+    agents:
+      - lean-lead
+      - incident-lead
+    purpose: Domínios de apoio e fronteira
+agents:
+  ops-chief:
+    persona: Fulcrum
+    file: agents/ops-chief.md
+    tier: 0
+    based_on: Original (Orchestrator)
+    icon: 🔩
+    focus: Triagem, roteamento, escolha entre confiabilidade, fluxo e melhoria
+  reliability-lead:
+    persona: Keel
+    file: agents/reliability-lead.md
+    tier: 1
+    based_on: Beyer, Jones, Petoff & Murphy (Site Reliability Engineering, Google, 2016)
+    icon: 🛰️
+    focus: SLO, orçamento de erro, toil, o custo real de mais um nove
+  flow-lead:
+    persona: Throat
+    file: agents/flow-lead.md
+    tier: 1
+    based_on: Eliyahu Goldratt (The Goal / Theory of Constraints, 1984)
+    icon: 🕳️
+    focus: Identificar a restrição, subordinar tudo a ela, elevar, repetir
+  lean-lead:
+    persona: Kaizen
+    file: agents/lean-lead.md
+    tier: 2
+    based_on: Taiichi Ohno (Toyota Production System, 1978)
+    icon: 🧹
+    focus: Desperdício, just-in-time, parar a linha, os cinco porquês
+  incident-lead:
+    persona: Klaxon
+    file: agents/incident-lead.md
+    tier: 2
+    based_on: >-
+      Incident Command System + Beyer, Jones, Petoff & Murphy (Site Reliability Engineering, Google,
+      2016) + Richard I. Cook (How Complex Systems Fail) + Sidney Dekker (just culture)
+    icon: 🚨
+    focus: Comando de incidente, post-mortem sem culpa, fatores contribuintes acima de causa-raiz única
+handoffs:
+  ops-chief:
+    routes_to:
+      - reliability-lead
+      - flow-lead
+      - lean-lead
+      - incident-lead
+  reliability-lead:
+    collaborates_with:
+      - flow-lead
+      - lean-lead
+      - incident-lead
+    escalates_to:
+      - ops-chief
+  flow-lead:
+    collaborates_with:
+      - reliability-lead
+      - lean-lead
+      - incident-lead
+    escalates_to:
+      - ops-chief
+  lean-lead:
+    collaborates_with:
+      - reliability-lead
+      - flow-lead
+      - incident-lead
+    escalates_to:
+      - ops-chief
+  incident-lead:
+    collaborates_with:
+      - reliability-lead
+      - flow-lead
+      - lean-lead
+    escalates_to:
+      - ops-chief
+cross_cutting:
+  aexos_awareness:
+    description: Todos os agentes entendem a arquitetura AEXOS-core
+    context_files:
+      - .claude/CLAUDE.md
+      - .aexos-core/core-config.yaml
+      - .aexos-core/data/entity-registry.yaml
+  core_agent_boundary:
+    description: >-
+      Este squad decide e evidencia dentro do seu domínio. Não implementa, não testa e não publica —
+      isso pertence aos agentes do core.
+    defers_to:
+      '@pm': Épicos, PRD, execução de épico
+      '@po': Validação de story e backlog
+      '@sm': Criação de story (draft) — autoridade exclusiva
+      '@dev': Implementação
+      '@qa': Quality gate
+      '@devops': Release e push (autoridade exclusiva)
+  cross_squad_boundary:
+    description: >-
+      Fronteiras com outros squads. Registradas aqui, e não apenas no texto dos agentes, porque é o
+      manifesto que a camada de roteamento lê.
+    defers_to:
+      '@products:experimentation-lead': Desenho estatístico de experimento
+  attribution:
+    description: >-
+      Cada agente declara a obra que fundamenta seu método. Onde o papel se apoia numa disciplina e
+      não numa obra única, isso é dito — atribuição errada é pior que ausência de atribuição.
+    required_field: based_on
+  quality_standards:
+    min_score: 7
+    smoke_tests: 3
+    voice_dna_required: true
+    thinking_dna_required: true
+settings:
+  greeting:
+    level: archetypal
+    show_project_status: true

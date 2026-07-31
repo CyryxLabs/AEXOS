@@ -1,0 +1,263 @@
+# Loyalty Instrument Limits — what a single loyalty score can and cannot support
+# Squad: customer-success
+# Owner: advocacy-lead (Chorus)
+# Last updated: 2026-07-30
+#
+# Purpose: reference for interpreting, defending and refusing uses of a single-score loyalty
+# measurement. Each limit states its consequence and the better instrument for the decision the score
+# is being asked to carry.
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+# METHOD ATTRIBUTION — read before using this file
+# ═══════════════════════════════════════════════════════════════════════════════
+attribution:
+  primary_source: "Fred Reichheld, 'The Ultimate Question: Driving Good Profits and True Growth' (Harvard Business School Press, 2006)."
+  related_sources:
+    - "Fred Reichheld, 'The One Number You Need to Grow', Harvard Business Review (2003) — the article that introduced the approach."
+    - "Fred Reichheld with Rob Markey, 'The Ultimate Question 2.0' (2011) — revised edition developing the Net Promoter System as an operating discipline."
+    - "Fred Reichheld with Darci Darnell and Maureen Burns, 'Winning on Purpose' (Harvard Business Review Press, 2021) — later work proposing an accounting-based measure of customer-earned growth."
+  what_is_claimed: >
+    This squad applies the recommendation question on an eleven-point scale, the promoter / passive /
+    detractor classification, the net score arithmetic, the good-profits versus bad-profits
+    distinction, and the closed-loop follow-up discipline — all attributed to the sources above.
+  what_is_not_claimed: >
+    No sentence anywhere in this squad is presented as a verbatim quotation from Reichheld unless it
+    has been checked against the source. A wrong attribution is worse than no attribution.
+
+  # ---- VERIFY MARKERS: unresolved markers block publication of the claim they cover ----
+  verify_markers:
+    V1_question_wording:
+      claim: "The exact canonical wording of the recommendation question."
+      status: UNVERIFIED
+      instruction: >
+        The canonical wording varies slightly across editions and across implementations. VERIFY
+        against the edition being followed before publishing any exact question wording. Do not
+        reproduce it from memory.
+    V2_trademark:
+      claim: "Ownership and required attribution of the 'Net Promoter' and 'NPS' marks."
+      status: UNVERIFIED
+      instruction: >
+        Net Promoter and NPS are registered trademarks associated with Bain & Company, Satmetrix
+        Systems and Fred Reichheld. CONFIRM current trademark attribution requirements before any
+        external publication using the marks.
+    V3_contested_predictive_claim:
+      claim: "That this single measure predicts company growth better than alternative satisfaction and loyalty measures."
+      status: "CONTESTED — state the contested status wherever the score supports a decision"
+      instruction: >
+        The strong version of the predictive claim has been DISPUTED in the peer-reviewed marketing
+        literature, with published replications reporting weaker or inconsistent predictive
+        performance. The EXISTENCE of the debate is stated here without attributing it to a
+        particular paper. VERIFY any specific critique citation — author, journal, year, finding —
+        before naming it in an artifact. Never present the predictive claim as settled.
+    V4_winning_on_purpose_measure:
+      claim: "The name and definition of the accounting-based measure of customer-earned growth proposed in 'Winning on Purpose' (2021)."
+      status: UNVERIFIED
+      instruction: >
+        VERIFY the measure's exact name and definition against the source before citing it. It is
+        legitimate to note that the same author's later work proposes an accounting-based measure
+        rather than resting on the survey score alone — that observation does not require naming the
+        measure.
+
+  squad_conventions_not_the_source:
+    - "Sampling-error thresholds for deciding which movements may be reported at all."
+    - "Loop latency and closure rate treated as first-class metrics reported beside the score."
+    - "Reference qualification gated on realized-value confirmation from @retention-lead."
+    - "Refusal to construct commercial referral incentives, which belong to the sales squad."
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# WHAT THE INSTRUMENT MEASURES
+# ---------------------------------------------------------------------------
+what_it_measures: >
+  A stated intention to recommend, from the subset of customers who chose to respond, at one moment,
+  on an eleven-point scale. It is cheap, comparable over time WHEN the method is held constant, and
+  its main operational value is the loop it forces rather than the arithmetic of the number.
+
+core_constructs:
+  recommendation_question:
+    attribution: "Reichheld (2003 HBR article; The Ultimate Question, 2006)"
+    construct: "A single question asking how likely the respondent is to recommend, answered on an eleven-point scale from 0 to 10."
+    handling: "See V1. Do not publish an exact wording without verifying it."
+  classification:
+    attribution: "Reichheld"
+    construct: "Respondents scoring 9-10 are promoters, 7-8 passives, 0-6 detractors."
+    note: "The asymmetry of the bands is a deliberate feature of the framework, not an error."
+  net_score:
+    attribution: "Reichheld"
+    construct: "Percentage of promoters minus percentage of detractors, expressed as a number rather than a percentage."
+    caution: "Two very different distributions produce the same net score. Always report the underlying distribution."
+  good_and_bad_profits:
+    attribution: "Reichheld, The Ultimate Question (2006)"
+    construct: "Profits earned from customers who would willingly recommend are distinguished from profits extracted through lock-in, confusion or punitive terms."
+    operating_consequence: "Cancellation friction, opaque terms and auto-renewal exploitation are treated as measurable liabilities, never as retention tactics."
+  closed_loop:
+    attribution: "Net Promoter System practice developed in Reichheld's work, notably The Ultimate Question 2.0 (2011, with Rob Markey)"
+    construct: "Responses trigger structured follow-up with the customer rather than internal reporting alone."
+    operating_consequence: "Loop latency and closure rate are reported alongside the score in every wave."
+
+# ---------------------------------------------------------------------------
+# LIMITS — each with the better instrument for the decision
+# ---------------------------------------------------------------------------
+limits:
+
+  - limit: "Stated intention, not behaviour"
+    detail: "Willingness to recommend is a hypothesis about future behaviour, not an observation of it."
+    does_not_prove: "That anyone will recommend, has recommended, or will renew."
+    better_instrument: "Actual referral behaviour: referrals made, accounts acquired, and the retention and time-to-first-value of referred accounts versus base."
+
+  - limit: "Self-selected respondents"
+    detail: "The people who answer are not the base, and their composition changes between waves."
+    does_not_prove: "Anything about non-respondents, who are frequently the least engaged and the most at risk."
+    better_instrument: "Composition reported before the score every wave, plus a segment-stable comparison whenever the aggregate moves."
+
+  - limit: "Sampling error"
+    detail: "At typical sample sizes the error band is several points wide."
+    does_not_prove: "That a quarter-to-quarter movement inside the band happened at all."
+    better_instrument: "A movement threshold pre-registered before the result is seen."
+
+  - limit: "Composition sensitivity"
+    detail: "Respondent-role mix alone moves the score materially. Daily users and economic buyers answer differently and consistently."
+    does_not_prove: "That anything changed for any customer. Nothing about the product needs to change for the number to move."
+    better_instrument: "Segment-stable comparison restricted to segments present in both waves."
+
+  - limit: "Contested predictive claims — see V3"
+    detail: "The strong growth-prediction claim is disputed in the peer-reviewed marketing literature, with replications reporting weaker or inconsistent results."
+    does_not_prove: "That a movement in the score predicts a movement in growth."
+    better_instrument: "State the contested status in the same document as the number, and use measured retention, realized value, or referral behaviour for the decision itself."
+
+  - limit: "Cross-company comparison is weak"
+    detail: "Sampling method, timing, channel, transactional versus relationship framing and industry response norms differ enough that comparison is often meaningless."
+    does_not_prove: "Relative standing against a competitor's published figure."
+    better_instrument: "Your own series with a declared, frozen method."
+
+  - limit: "Gameable when incentivized"
+    detail: "When the number determines pay or an OKR, the cheapest levers are sampling and timing. None require bad faith; all feel like optimization."
+    does_not_prove: "Improvement, once a target exists. A rising incentivized score is indistinguishable from method drift."
+    better_instrument: "Target loop closure rate and median loop latency — behaviours the team fully controls and cannot fake without doing the work."
+
+  - limit: "Not a renewal-risk instrument"
+    detail: "It answers a different question from account health, and the two diverge exactly where it matters."
+    does_not_prove: "That an account will renew or churn."
+    better_instrument: "The validated health model from @retention-lead, tested backwards against a closed period."
+
+  - limit: "Pooled framings are uninterpretable"
+    detail: "Relationship and transactional waves measure different things."
+    does_not_prove: "Anything, once combined. The mixture has no referent."
+    better_instrument: "Two separate series, each with its own declared method."
+
+  - limit: "The score discards its own best output"
+    detail: "The verbatims — especially promoter verbatims — are the most reusable material the programme produces and are normally thrown away."
+    does_not_prove: "n/a — this is a limit of how the instrument is USED, not of the instrument."
+    better_instrument: "Theme extraction with counts, promoter value language handed to @retention-lead and @products."
+
+# ---------------------------------------------------------------------------
+# WRONG INSTRUMENT → RIGHT INSTRUMENT
+# ---------------------------------------------------------------------------
+decision_routing:
+  - question: "Will this account renew?"
+    wrong: "Loyalty score"
+    right: "Validated health model — @retention-lead"
+  - question: "Is value being realized?"
+    wrong: "Loyalty score"
+    right: "Instrumented outcomes — @retention-lead, on definitions from @onboarding-lead"
+  - question: "Is our growth earned rather than extracted?"
+    wrong: "Loyalty score"
+    right: "Referral behaviour and referred-cohort retention"
+  - question: "What should we fix?"
+    wrong: "Loyalty score"
+    right: "Verbatim themes with counts, aggregated across channels by @voice-lead"
+  - question: "How do we compare to competitor X?"
+    wrong: "Their published score"
+    right: "Your own series with a declared, frozen method"
+  - question: "Which accounts can be references?"
+    wrong: "Highest scores"
+    right: "Realized value confirmed by @retention-lead, adoption breadth, health stability, recorded scoped consent"
+  - question: "How do customers describe the value?"
+    wrong: "The score"
+    right: "Promoter language, de-identified, which the score alone discards"
+
+# ---------------------------------------------------------------------------
+# INTERPRETATION RULES
+# ---------------------------------------------------------------------------
+interpretation_rules:
+  - rule: "Report composition before the score"
+    reason: "It prevents an explanation forming before the sample is understood."
+  - rule: "Report the score as a range"
+    reason: "The point value implies a precision the sample does not support."
+  - rule: "Attribute movement to composition before experience"
+    reason: "Composition shifts are the most common cause of movement and the easiest to check."
+  - rule: "Provide a segment-stable comparison whenever the aggregate moves"
+    reason: "A flat aggregate can conceal two segments moving in opposite directions; a moving aggregate is often pure mix."
+  - rule: "Treat the verbatims as the finding"
+    reason: "Only the reasons can be routed, owned and acted on."
+  - rule: "Declare method drift"
+    reason: "Undeclared changes to timing, channel, wording or population make the whole series uninterpretable."
+
+# ---------------------------------------------------------------------------
+# GAMING VECTORS — name them when a target or bonus is proposed
+# ---------------------------------------------------------------------------
+gaming_vectors:
+  vectors:
+    - vector: "Survey after a success moment"
+      why_it_feels_legitimate: "It reads as choosing a sensible time to ask."
+    - vector: "Exclude a segment having a hard quarter"
+      why_it_feels_legitimate: "It reads as removing noise."
+    - vector: "Ask the champion rather than the daily user"
+      why_it_feels_legitimate: "It reads as asking the person who knows the relationship."
+    - vector: "Prompt or explain the scale before the respondent answers"
+      why_it_feels_legitimate: "It reads as reducing confusion."
+    - vector: "Increase invitation volume to favourable cohorts"
+      why_it_feels_legitimate: "It reads as improving response rates."
+  consequence: >
+    None of these require bad faith. All of them destroy the comparability that made the number worth
+    having, and they are almost undetectable once the method stops being fixed in writing.
+
+# ---------------------------------------------------------------------------
+# REFERENCE AND REFERRAL QUALIFICATION
+# ---------------------------------------------------------------------------
+reference_qualification:
+  required:
+    - "Realized value confirmed by @retention-lead — enthusiasm alone disqualifies"
+    - "Adoption beyond a single champion, or an expiry note tied to that role"
+    - "Health stable over a full measurement period"
+    - "No open escalation and no unclosed detractor loop"
+    - "Recorded consent with a defined scope, channels and expiry"
+  rationale: >
+    A high score reflects a disposition, frequently one person's. A reference is a durable public
+    claim. A reference account that churns becomes a permanent artifact of the failure, quoted back
+    in competitive deals long after the relationship ends.
+  production: "Case studies and campaigns belong to the marketing squad, never to this squad."
+referral_measurement:
+  measure: ["Referrals made", "Accounts acquired via referral", "Retention and time-to-first-value of referred accounts versus base", "Overlap between the promoter population and the population that actually refers"]
+  boundary: "Incentives, fees, rewards and commercial terms belong to the sales squad. This squad qualifies who is genuinely willing and states what the evidence supports."
+
+# ---------------------------------------------------------------------------
+# CUSTOMER DATA — binding on every use of this file
+# ---------------------------------------------------------------------------
+customer_data_rules:
+  responses_are_personal_data: "Survey responses are personal data. Store no identifier beyond what closing the loop requires."
+  verbatims: "NEVER reproduce an identified verbatim in a repository artifact. Themes travel; verbatims and identifiers stay in the survey system. Cite the response id."
+  anonymity: "If a survey was presented as anonymous it stays anonymous — no re-identification through account matching, timing correlation or any other route, and no follow-up that would reveal the respondent. The promise was part of the exchange."
+  collection_terms: "The confidentiality promise made at collection binds the entire downstream process, including analysis, aggregation, routing and loop closure."
+  loop_execution: "Loop closure happens in the authorized system that already holds the contact record, executed by the relationship owner. This squad does not contact customers directly and holds no contact data."
+  individuals: "No named individual is characterized in any artifact."
+  granularity: "Account, cohort and segment level. Individual-level detail only inside the authorized system, only where loop closure genuinely requires it."
+  special_category: "Special-category personal data is out of scope. Stop and escalate to the human owner."
+
+# ---------------------------------------------------------------------------
+# BOUNDARY
+# ---------------------------------------------------------------------------
+boundary:
+  owned_here: "The loyalty instrument, its interpretation, its closed loop, reference qualification, and referral measurement as behaviour."
+  not_owned:
+    "@customer-success:retention-lead": "Renewal risk and account health. A loyalty score is an input to health at best, never a substitute."
+    "@customer-success:onboarding-lead": "First value and activation."
+    "@customer-success:voice-lead": "The full feedback taxonomy, cross-channel aggregation and routing to product."
+    "@products:jobs-analyst": "Why customers switch, causally."
+    "@products / @pm": "Roadmap and prioritization decisions. No roadmap claim is made from this instrument."
+    "marketing squad": "Case-study production, campaign execution, publication of qualified references."
+    "sales squad": "Referral incentives, commercial terms, anything involving a negotiation."
+    "@dev / @data-engineer": "Survey tooling, response storage and loop-tracking implementation."
+    "@sm / @po / @qa": "Stories, backlog, quality gates."
+    "@devops": "Git push, PRs, MCP, CI/CD — exclusive authority, no exception."

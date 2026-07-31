@@ -1,0 +1,296 @@
+template:
+  id: product-vision-template-v1
+  name: Product Vision
+  version: 1.0
+  squad: products
+  owner: "@product-strategist"
+  output:
+    format: markdown
+    filename: docs/product/vision/product-vision.md
+    title: "Product Vision: {{product_name}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+  custom_elicitation:
+    title: "Product Vision Elicitation Actions"
+    options:
+      - "Describe the customer's day in the future state, hour by hour"
+      - "Name what becomes impossible or unnecessary if this vision is real"
+      - "Test the vision against a strong engineer: would they want in?"
+      - "Strip every superlative and re-read what is left"
+      - "Ask what would have to be true about technology for this to work"
+      - "Name the strategy this vision would survive being replaced by"
+      - "Elicit a product principle from a real past tradeoff"
+      - "Stress test: which competitor could write the same words?"
+      - "Shorten the horizon by half and see what the vision loses"
+      - "Proceed to next section"
+
+sections:
+  - id: preamble
+    instruction: |
+      This template produces the durable frame the product strategy hangs from. It is authored by
+      @product-strategist (Lodestar) and applies published method: Marty Cagan, INSPIRED, 2nd ed.
+      (2018) and Marty Cagan and Chris Jones, EMPOWERED (2020).
+
+      Before starting, establish two things:
+      1. The horizon. Three to ten years. Anything shorter is a strategy or a plan, not a vision.
+      2. Whether a vision already exists. If it does, this run is a critique, not a rewrite —
+         load it, run the three vision tests in the `vision-tests` section, and record a verdict
+         before changing a word.
+
+      Mode:
+      - Interactive — work section by section, elicit from real customer evidence and real past
+        tradeoffs
+      - YOLO — draft the whole thing for critique, then run the vision tests before anyone reads it
+
+      SCOPE BOUNDARY: this template produces a vision and its companion principles. It does not
+      produce a strategy (use product-strategy-tmpl.yaml), objectives (team-objectives-tmpl.yaml),
+      epics or PRDs (@pm), or stories (@sm).
+
+  - id: metadata
+    title: Vision Metadata
+    instruction: |
+      Fill every field. This block is what makes the vision auditable a year later, when someone
+      asks whether the strategy still descends from it.
+
+      How to fill:
+      - `horizon` — a concrete span with an end year, e.g. "2026-2033 (seven years)". A horizon
+        under three years means you are writing a plan; over ten and nobody can picture it.
+      - `status` — draft | reviewed | adopted | superseded. `adopted` requires a named adopter.
+      - `supersedes` — path to the previous vision, if any. Visions are replaced, not edited into
+        unrecognizability.
+
+      Bad answers: horizon "long term"; status "final"; owner "the product team".
+    template: |
+      - **Product:** {{product_name}}
+      - **Horizon:** {{start_year}}-{{end_year}} ({{n}} years)
+      - **Author:** @product-strategist (Lodestar)
+      - **Adopted by:** {{named_leader_or_"not yet adopted"}}
+      - **Status:** {{draft|reviewed|adopted|superseded}}
+      - **Date:** {{YYYY-MM-DD}}
+      - **Supersedes:** {{path_or_"none"}}
+
+  - id: target-customer
+    title: Who This Is For
+    instruction: |
+      Name the customer whose life changes. A vision is always a vision for someone; a vision for
+      everyone resolves no tradeoff, which is the only work a vision does.
+
+      How to fill:
+      - Name the segment concretely enough that you could list ten real examples of it
+      - State what they do today, in their words, not in feature terms
+      - State what it costs them — time, money, risk, or work they should not be doing
+      - If the vision serves two segments, say which one wins when they conflict
+
+      Bad answers: "developers"; "modern teams"; "enterprises seeking digital transformation";
+      any sentence where the segment could be swapped for another and stay true.
+
+      REJECTION GATE: if the segment cannot be named, stop. There is no vision to write yet — the
+      question is a strategy and segment question. Route to `*strategy`.
+    template: |
+      **Primary segment:** {{segment_named_concretely}}
+
+      **What they do today:** {{current_behaviour_in_their_terms}}
+
+      **What it costs them:** {{cost_in_time_money_risk_or_misplaced_work}}
+
+      **When segments conflict, this vision serves:** {{winning_segment}} — because {{reason}}
+
+  - id: future-state
+    title: The Future We Intend to Create
+    instruction: |
+      Describe the future state as if a customer were living in it. This is the body of the vision
+      and it is prose, not bullets — three to six paragraphs is usually enough.
+
+      How to fill:
+      - Write in the present tense of the future year. "In 2033, a team that needs X does Y."
+      - Describe what the customer does and does not have to do any more
+      - Include at least one thing that is impossible today and state what makes it possible
+      - Prefer concrete scenes over capability lists. A scene can be argued with; a capability
+        list cannot.
+
+      Bad answers: "the leading platform for..."; "seamlessly empowering teams to..."; any sentence
+      whose negation nobody would ever claim. If the opposite of your sentence is absurd, the
+      sentence is empty.
+
+      TEST WHILE WRITING: could a competitor publish this same paragraph unchanged? If yes, it
+      describes the category, not your vision.
+    template: |
+      {{future_state_narrative_present_tense_of_the_future_year}}
+
+      **What becomes unnecessary:** {{work_that_disappears}}
+
+      **What becomes possible that is impossible today:** {{new_capability}} — made possible by
+      {{technology_shift_or_structural_change}}
+
+  - id: why-worth-doing
+    title: Why This Is Worth Doing
+    instruction: |
+      Two audiences read this section: the people you want to recruit, and the leaders who fund it.
+      Answer both without turning it into a business case.
+
+      How to fill:
+      - State the size of the change for the customer, not the size of the market
+      - State why this matters to the people building it — the reason a strong engineer would
+        choose this over another offer
+      - State what the business gets if the vision is realized, in one sentence
+
+      Bad answers: a TAM figure standing in for meaning; "because the market is growing";
+      "to become the category leader". None of those recruit anyone.
+
+      Do not invent market numbers here. If a market figure is used, cite the source and date, or
+      leave it out. Constitution Article IV — No Invention — applies to visions as it does to specs.
+    template: |
+      **For the customer:** {{magnitude_of_change_for_them}}
+
+      **For the people building it:** {{why_a_strong_engineer_or_designer_would_want_in}}
+
+      **For the business:** {{one_sentence}}
+
+  - id: why-now
+    title: Why Now
+    instruction: |
+      A vision that was equally true five years ago and will be equally true in five years is not
+      a vision, it is a preference. Name what changed.
+
+      How to fill — at least one, sourced:
+      - A technology shift that makes the previously impossible thing possible
+      - A change in customer behaviour, with the data or discovery evidence behind it
+      - A market or regulatory change, with the source named
+      - A structural change in cost that alters what can be offered
+
+      Every claim carries a source and a date. An unsourced "why now" is the most common place a
+      vision quietly becomes fiction.
+
+      Bad answers: "AI is changing everything"; "the market is moving to X" with no source;
+      "customers are demanding it" with no customer named.
+    template: |
+      | What changed | Source | Date | Why it makes this possible now |
+      |---|---|---|---|
+      | {{change}} | {{data query / discovery snapshot / market source / technology signal}} | {{YYYY-MM-DD}} | {{consequence}} |
+
+  - id: implied-choices
+    title: What This Vision Chooses Against
+    instruction: |
+      A vision that implies no choices cannot resolve a tradeoff, and resolving tradeoffs without
+      escalation is what a vision is for.
+
+      How to fill:
+      - Name at least two directions the product could credibly take and will not
+      - For each, state what it would have cost to pursue and what is given up by not pursuing it
+      - Be specific enough that someone could disagree
+
+      Bad answers: "we will not build a bad product"; "we will not chase every trend"; any
+      rejected direction nobody was proposing.
+    template: |
+      | Direction not taken | What it would have offered | What we give up by declining it |
+      |---|---|---|
+      | {{direction}} | {{upside}} | {{cost_of_declining}} |
+
+  - id: product-principles
+    title: Product Principles
+    instruction: |
+      The companion to the vision. Principles are the stated commitments used to resolve tradeoffs
+      without escalation — how the hard call gets made at 2am by someone who cannot reach you.
+
+      How to fill:
+      - Elicit each principle from a REAL past tradeoff. Ask: "name a decision where we chose one
+        good thing over another good thing. What rule were we following?"
+      - Write each as a commitment with a cost. A principle with no cost is a slogan.
+      - Include the tension it resolves and a worked example of it being applied
+      - Aim for a set small enough to be remembered without reading the document
+
+      Bad answers: "we put customers first" (nobody claims otherwise); "quality matters"; any
+      principle whose opposite no company would ever adopt. Test: if the inverse is absurd, delete it.
+
+      Good shape: "We favour {{X}} over {{Y}}, even when {{Y}} is what is being asked for."
+    template: |
+      ### {{principle_name}}
+
+      **Commitment:** We favour {{X}} over {{Y}}, even when {{Y}} is what is being asked for.
+
+      **Tension it resolves:** {{the_recurring_conflict}}
+
+      **What it costs us:** {{explicit_cost}}
+
+      **Elicited from:** {{real_past_decision_and_date}}
+
+      **Worked example:** {{how_it_decided_a_concrete_case}}
+
+  - id: vision-tests
+    title: Vision Tests
+    instruction: |
+      Run all three tests and record the verdict honestly. A vision that fails all three is a
+      slogan and does no work — record the verdict, say so plainly, and do not block the cycle on
+      rewriting it. A vision that fails only the durability test is usually this year's plan
+      wearing vision vocabulary, and should be re-cut against a longer horizon.
+
+      Source: the three tests are the published vision tests applied by @product-strategist —
+      Marty Cagan, INSPIRED, 2nd ed. (2018) and Cagan and Jones, EMPOWERED (2020).
+    template: |
+      | Test | Verdict | Evidence for the verdict |
+      |---|---|---|
+      | Does a strong engineer read it and want to work on it? | pass / fail | {{who_read_it_and_what_they_said}} |
+      | Does it describe a future state, or only a superlative? | pass / fail | {{the_concrete_future_state_or_the_superlative_found}} |
+      | Does it survive a strategy change, or is it this year's plan in disguise? | pass / fail | {{what_would_have_to_change_for_it_to_break}} |
+
+      **Overall verdict:** {{adopt | revise | it is a slogan — record and move on}}
+
+  - id: traceability
+    title: Traceability and Revision
+    instruction: |
+      The vision is the top of the traceability chain: shipped work traces to an objective, an
+      objective to a problem, a problem to an insight, an insight to evidence, and the whole
+      strategy to this vision.
+
+      How to fill:
+      - Link the current strategy artifact that descends from this vision
+      - State the condition under which the VISION would be revised — this is a different and much
+        rarer condition than the strategy's revision condition
+      - A vision revised every planning cycle was never a vision
+
+      Bad answers: "reviewed annually" (a schedule is not a condition); "when leadership decides";
+      leaving it blank.
+    template: |
+      - **Current strategy descending from this vision:** {{path_to_strategy_artifact}}
+      - **This vision would be revised if:** {{specific_evidence_or_structural_change}}
+      - **Last reviewed:** {{YYYY-MM-DD}} by {{name}}
+
+  - id: handoff
+    title: Handoff
+    instruction: |
+      State where this artifact goes next and where it explicitly does not go. Strategy ends where
+      the epic begins.
+
+      Do not populate this section with implementation steps. This vision does not become stories,
+      code, tests, or a release. It becomes a strategy, and the strategy becomes problems, and the
+      problems become epics owned by @pm.
+    template: |
+      | Destination | Condition |
+      |---|---|
+      | `*strategy` / product-strategy-tmpl.yaml | The vision is adopted and the cycle needs focus, insights, action and management |
+      | `@discovery-lead` | The vision rests on a customer assumption that needs opportunity mapping |
+      | `@positioning-lead` | The vision implies a category change and the market narrative must follow |
+      | `@analyst` | A "why now" claim needs research beyond the strategy cycle to source |
+      | `@pm` | A problem descending from this vision is evidenced and ready for epic framing |
+      | `@sm`, `@dev`, `@qa` | Not from here — no stories, implementation or tests originate in a vision |
+      | `@devops` | Not from here — git push, PRs, MCP and CI/CD are `@devops` exclusive authority |
+
+  - id: attribution
+    title: Method Attribution
+    instruction: |
+      Keep this section in the generated artifact. The reasoning stays auditable only if the source
+      is named. Never add a citation that is not in this list, and never attach a number to a
+      published work unless the number is verified at the source.
+    template: |
+      The framework applied here is published work, cited so it can be checked at the source.
+
+      - Marty Cagan, *INSPIRED: How to Create Tech Products Customers Love*, 2nd edition (2018) —
+        product vision, product principles, and the vision as the durable frame above strategy.
+      - Marty Cagan and Chris Jones, *EMPOWERED: Ordinary People, Extraordinary Products* (2020) —
+        vision as the instrument that lets multiple teams make independent decisions that still
+        compose, and the missionary-versus-mercenary framing Cagan attributes to John Doerr.
+      - John Doerr, *Measure What Matters* (2018) — missionaries, not mercenaries.
+
+      @product-strategist (Lodestar) is a specialist applying these methods.

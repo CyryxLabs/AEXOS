@@ -1,0 +1,315 @@
+template:
+  id: job-statement-template-v1
+  name: Job Statement
+  version: 1.0
+  squad: products
+  agent: jobs-analyst
+  output:
+    format: markdown
+    filename: docs/product/jobs/job-{{job_slug}}.md
+    title: "Job — {{job_short_name}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+  custom_elicitation:
+    title: "Job Statement Elicitation Actions"
+    options:
+      - "Strip the solution — remove every product, feature and technology name"
+      - "Run the durability test — would this hold if the product category vanished"
+      - "Run the attribute test — could two people sharing this attribute be in opposite circumstances"
+      - "Trace every clause to a transcript id"
+      - "Recover the missing dimension — social or emotional is usually the gap"
+      - "Name what was fired, not only what was hired"
+      - "Rewrite the circumstance with its trigger and timestamp"
+      - "State the falsification condition"
+      - "Split the job — this may be two circumstances treated as one"
+      - "Proceed to next section"
+
+sections:
+  - id: preamble
+    instruction: |
+      This template produces a well-formed, solution-free job statement backed by switch interview
+      evidence. Do not open it without transcripts. A job statement written in a workshop with no
+      interview behind it is plausible, unfalsifiable, and a violation of Constitution Article IV —
+      No Invention.
+
+      Before starting, confirm:
+      1. At least one switch transcript exists, ideally five, from people who actually switched in
+         the last 60 to 90 days. If a fallback source was used (recent churn, closed-lost, sales
+         call recordings), record which and its limitation.
+      2. Each transcript has a stable id (SW-NN). Every clause below cites one.
+      3. The struggling moment is recoverable from the transcripts. If it cannot be named, there is
+         no job here — only a description of a user. Stop and interview again.
+
+      Ask the user which mode they prefer:
+      1. **Interactive Mode** — work through each section, confirming evidence per clause
+      2. **YOLO Mode** — draft from the transcripts, then run every gate in section `gates`
+
+      Theory applied: Clayton M. Christensen, Taddy Hall, Karen Dillon and David S. Duncan,
+      *Competing Against Luck* (2016). The "when / I want to / so I can" scaffold is a JTBD
+      community convention; the substance — circumstance, motivation, expected progress — is
+      Christensen's.
+
+  - id: identity
+    title: Identity
+    instruction: |
+      Name the job by its progress, not by your product area. "Answer for channel performance
+      without preparation" is a job name. "Analytics" is a product area.
+      Bad answer: a name that only makes sense to people who already work here.
+    template: |
+      **Job id:** {{job_id}}
+      **Short name:** {{job_short_name}}
+      **Status:** {{draft | evidenced | validated | superseded}}
+      **Owner:** @jobs-analyst
+      **Date:** {{YYYY-MM-DD}}
+      **Supersedes:** {{prior job id, or "none"}}
+
+  - id: statement
+    title: Job Statement
+    instruction: |
+      Fill the scaffold. Each slot has its own rule and its own failure mode.
+
+      - `{{circumstance}}` — the situation that made the progress urgent NOW. It must have a
+        trigger and a position in time. Not a role, not a demographic, not a firmographic.
+        Bad answer: "As a marketing manager" (a role — predicts who is in the room, not what
+        caused a purchase). Bad answer: "When I need better visibility" (a standing condition with
+        no trigger — equally true last year, so it explains no timing).
+        Good shape: "When my CEO asks in Monday standup which channel drove last week's pipeline
+        and I have to say I will get back to them".
+
+      - `{{motivation}}` — what they want to be able to do. Stated without naming any mechanism.
+        Bad answer: anything containing a product, feature, technology, vendor or interface noun
+        ("dashboard", "AI-powered", "integration", "single pane of glass"). A statement naming your
+        product cannot be used to discover a better one, and dies with the product it names.
+
+      - `{{expected_progress}}` — the better situation reached. Progress, not an activity.
+        Bad answer: "so I can see all my metrics in one place" — seeing is not the point; something
+        happens after seeing. Ask "and then what?" until the answer stops being an activity.
+
+      Then cite. Every clause carries at least one transcript id. A clause with no citation is
+      invention and must be cut or evidenced.
+    template: |
+      > When {{circumstance}}, I want to {{motivation}}, so I can {{expected_progress}}.
+
+      | Clause | Text | Evidence (transcript id) | Verbatim quote |
+      |---|---|---|---|
+      | Circumstance | {{circumstance}} | {{SW-NN}} | {{quote}} |
+      | Motivation | {{motivation}} | {{SW-NN}} | {{quote}} |
+      | Expected progress | {{expected_progress}} | {{SW-NN}} | {{quote}} |
+
+  - id: struggling-moment
+    title: Struggling Moment
+    instruction: |
+      The moment that started the search, in the customer's own words, anchored in time, place and
+      who was present. This is the origin of the job; without it you have a description of a user.
+      Bad answer: a paraphrase in product vocabulary ("they had a visibility gap"). Keep their
+      language — "I got caught out in front of my VP" is the finding; "visibility gap" is the
+      finding destroyed.
+      Bad answer: a standing condition with no date. If it was equally true a year earlier, it did
+      not start the search.
+    template: |
+      **In their words:** "{{verbatim_quote}}"
+      **When:** {{date or position in sequence}}
+      **Where:** {{place}}
+      **Who was present:** {{people}}
+      **Transcript:** {{SW-NN}}
+      **Recurs:** {{how often this moment happens, from the transcripts}}
+
+  - id: dimensions
+    title: Dimensions
+    instruction: |
+      All three, separately, each with its own evidence. Capturing only the functional dimension is
+      the most common incomplete result, because the functional dimension is the one that shows up
+      in feature requests.
+
+      - Functional — the practical work to be done. Gets the product considered.
+        Bad answer: a feature list. State the work, not the mechanism.
+      - Social — how the person wants to be perceived by others. Often decides the purchase.
+        Bad answer: "wants to look good". Name the specific audience and the specific perception:
+        "be seen by the CEO as accountable rather than as a cost centre".
+      - Emotional — how the person wants to feel, or stop feeling. Often decides the purchase.
+        Bad answer: "wants to feel confident". Name the recurring feeling being escaped:
+        "stop the Sunday-night dread before Monday standup".
+
+      If social or emotional is blank, that is an interview gap, not an absence. Mark it
+      `not recovered` and route back to *switch-interview. Do not infer it.
+    sections:
+      - id: functional
+        title: Functional
+        template: |
+          **The work:** {{functional_dimension}}
+          **Evidence:** {{SW-NN}} — "{{quote}}"
+      - id: social
+        title: Social
+        template: |
+          **Perception sought, and by whom:** {{social_dimension}}
+          **Evidence:** {{SW-NN}} — "{{quote}}"
+      - id: emotional
+        title: Emotional
+        template: |
+          **Feeling sought or escaped:** {{emotional_dimension}}
+          **Evidence:** {{SW-NN}} — "{{quote}}"
+
+  - id: hire-fire
+    title: Hire and Fire
+    instruction: |
+      Always record what was fired. The fired alternative names the real competitive set and the
+      real hiring criteria more honestly than any market report.
+
+      The big hire is the purchase — committing money or switching. The little hire is the repeated
+      decision to actually use it. A big hire with no little hires is churn in waiting, so record
+      both.
+
+      Bad answer in "what was fired": "nothing". Something always stops — a spreadsheet, a person,
+      a habit, a tolerated struggle. If the transcript says nothing was fired, the probe was missed.
+      Bad answer in criteria: a feature list. Criteria are conditions that must be true, not
+      capabilities that must exist.
+    template: |
+      | Transcript | What was hired (big hire) | Little hire happened? | What was fired | Hiring criteria | Firing criteria |
+      |---|---|---|---|---|---|
+      | {{SW-NN}} | {{hired}} | {{yes / no / too early}} | {{fired}} | {{what had to be true}} | {{what would make them stop}} |
+
+  - id: competitive-set
+    title: Competitive Set by Job
+    instruction: |
+      Everything hired for this job, regardless of category. A set containing only same-category
+      vendors is incomplete by construction — it is a supplier list, not a competitive set.
+
+      Include all five classes, and assess non-consumption explicitly. Non-consumption is usually
+      the largest competitor and appears on no market map, because no vendor reports revenue from
+      it. Record frequency as `{{n}} of {{N}} interviews`, never as an impression.
+
+      Bad answer: leaving non-consumption out because "everyone needs this". If doing nothing was
+      genuinely impossible, some transcript will say so — cite it.
+    template: |
+      | What gets hired | Class | Frequency in sample | Why it wins for this job |
+      |---|---|---|---|
+      | {{alternative}} | {{same-category / adjacent category / manual workaround / human alternative / non-consumption}} | {{n}} of {{N}} | {{reason, from transcripts}} |
+
+      **Non-consumption assessment:** {{how long doing nothing remained viable, and what ended it}}
+
+  - id: gates
+    title: Quality Gates
+    instruction: |
+      Run every gate before the status leaves `draft`. Each is a pass/fail with a recorded reason —
+      a gate marked pass with no reason is not a gate. Full gate procedure lives in
+      `squads/products/checklists/job-statement-quality-checklist.md` (PRD-CL-003).
+    template: |
+      | Gate | Verdict | Reason |
+      |---|---|---|
+      | Solution-free — no product, feature, technology or vendor name in the statement | {{pass / fail}} | {{reason}} |
+      | Durability — still true if the product category disappeared entirely | {{pass / fail}} | {{reason}} |
+      | Circumstance, not attribute — could two people sharing this attribute be in opposite circumstances | {{pass / fail}} | {{reason}} |
+      | Progress, not activity — "and then what?" has been asked until it stops being an activity | {{pass / fail}} | {{reason}} |
+      | Three dimensions present and evidenced | {{pass / fail}} | {{reason}} |
+      | Clause-level traceability — every clause cites a transcript id or named source | {{pass / fail}} | {{reason}} |
+      | Fired alternative recorded, non-consumption assessed | {{pass / fail}} | {{reason}} |
+      | Falsification condition stated | {{pass / fail}} | {{reason}} |
+
+  - id: falsification
+    title: Falsification Condition
+    instruction: |
+      State the evidence that would overturn the central causal claim. A job statement that no
+      interview could contradict is not a finding.
+      Shape: "If switchers consistently report the search beginning without {{trigger}}, the
+      circumstance named here is not the cause."
+      Bad answer: "if customers stop buying" — not tied to the specific circumstance claimed, so it
+      could never discriminate between this statement and any other.
+    template: |
+      **Central causal claim:** {{claim}}
+      **Would be overturned by:** {{falsifying evidence}}
+      **How we would notice:** {{where that evidence would show up, and who would see it}}
+
+  - id: evidence-base
+    title: Evidence Base
+    instruction: |
+      List every transcript behind this statement, with its recruit source, so a reader can judge
+      the weight of the evidence without opening the transcripts. Record fallback sources with the
+      limitation attached — recent churn colours the retelling of the beginning; closed-lost has no
+      deciding event; mined sales calls have gaps in the six stages.
+      Bad answer: a count with no ids. "Based on 12 interviews" is not traceable.
+    template: |
+      | Transcript id | Switch date | Recruit source | Limitation, if any |
+      |---|---|---|---|
+      | {{SW-NN}} | {{YYYY-MM-DD}} | {{recent win / recent churn / closed-lost / mined sales call}} | {{limitation or "none"}} |
+
+      **Interviews in this job:** {{N}}
+      **Squad completion floor:** 5 switch interviews with people who switched in the last 60 to 90 days
+
+  - id: persona-annotation
+    title: Persona Annotation
+    condition: Existing personas, segments or ICP definitions were supplied
+    instruction: |
+      Do not delete the persona. Annotate it. The persona and the circumstance map answer different
+      questions: the persona is a targeting artifact for media buying, the circumstance map is a
+      causal artifact for product decisions. What cannot be done is using the first to answer the
+      second.
+      Bad answer: rewriting the persona as a job statement. They coexist.
+    template: |
+      | Line in persona | Class | Verdict |
+      |---|---|---|
+      | {{line}} | {{demographic attribute / firmographic attribute / stated preference / circumstance}} | {{cut from causal explanation / keep as targeting filter / restate as circumstance}} |
+
+  - id: handoff
+    title: Handoff
+    instruction: |
+      This artifact is input, never a build instruction. A validated job plus its forces analysis
+      goes to @pm and @discovery-lead; it does not become a story or a ticket here.
+      Nothing in this squad implements (@dev), tests code (@qa), creates stories (@sm), writes
+      epics or PRDs (@pm), or pushes (@devops — exclusive).
+    template: |
+      | Destination | Condition | Sent? |
+      |---|---|---|
+      | `@discovery-lead` | The job needs an opportunity solution tree and a weekly interview cadence | {{yes/no}} |
+      | `@positioning-lead` | The job-defined competitive set differs from the positioned category | {{yes/no}} |
+      | `@pricing-strategist` | Hiring criteria include a price threshold, or the fired alternative was free | {{yes/no}} |
+      | `@experimentation-lead` | A forces hypothesis needs a live test with statistical design | {{yes/no}} |
+      | `@product-strategist` | The job implies a different portfolio bet or an unentered market | {{yes/no}} |
+      | `@products-chief` | The analysis contradicts the squad's stated market definition | {{yes/no}} |
+      | `@pm` | A validated job spec is ready to become epic-level requirements | {{yes/no}} |
+      | `@analyst` | Sizing non-consumption needs research beyond interview evidence | {{yes/no}} |
+      | `@ux-design-expert` | The anxiety-reduction bet is an interaction design problem | {{yes/no}} |
+      | `@sm` | Story drafting — outside this squad | {{yes/no}} |
+      | `@devops` | Git push, PRs, CI/CD — exclusive authority | {{yes/no}} |
+
+  - id: attribution
+    title: Method Attribution
+    instruction: |
+      Keep this section. It exists so every causal claim can be traced to its source and checked.
+      Never add a citation that is not on this list, and never attach a number to a published
+      finding unless it is verified at the source.
+    content: |
+      - Clayton M. Christensen, Taddy Hall, Karen Dillon and David S. Duncan, *Competing Against
+        Luck: The Story of Innovation and Customer Choice* (2016) — the job as progress in a
+        circumstance, hiring and firing, the job dimensions, the milkshake case.
+      - Clayton M. Christensen and Michael E. Raynor, *The Innovator's Solution* (2003), jobs
+        chapter — circumstance-based versus attribute-based market segmentation.
+      - Clayton M. Christensen, Scott Cook and Taddy Hall, "Marketing Malpractice: The Cause and
+        the Cure", *Harvard Business Review* (2005) — why organizations drift to attribute data.
+      - Clayton M. Christensen, Taddy Hall, Karen Dillon and David S. Duncan, "Know Your Customers'
+        Jobs to Be Done", *Harvard Business Review* (September 2016) — the job spec and
+        organizational integration around the job.
+      - Bob Moesta with Greg Engle, *Demand-Side Sales 101: Stop Selling and Help Your Customers
+        Make Progress* (2020) — the switch interview method and the four forces of progress.
+      - Anthony W. Ulwick, *Jobs to Be Done: Theory to Practice* (2016) — outcome-driven job
+        statements and desired-outcome metrics, used when the job needs measurable success criteria.
+      - Alan Klement, *When Coffee and Kale Compete* (2016) — job-as-progress framing and
+        competition across category boundaries.
+
+      `@jobs-analyst` (Plumb) is a specialist applying these methods.
+
+  - id: outcome-variant
+    title: Desired-Outcome Statements
+    condition: The job needs measurable success criteria
+    instruction: |
+      Optional and compatible. Anthony W. Ulwick, *Jobs to Be Done: Theory to Practice* (2016),
+      adds desired-outcome statements of the form "minimize the time it takes to {{step}}" as
+      measurable success criteria. Use when the job must be instrumented, not as a replacement for
+      the statement.
+      Bad answer: a product metric (activation rate, DAU). A desired outcome is measured on the
+      customer's job, not on your funnel.
+    template: |
+      | Desired outcome | Job step it measures | Current value | Evidence |
+      |---|---|---|---|
+      | {{minimize the time it takes to ...}} | {{step}} | {{value or "not measured"}} | {{SW-NN or instrument}} |

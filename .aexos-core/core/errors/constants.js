@@ -1,0 +1,137 @@
+const ErrorCategory = Object.freeze({
+  CONFIGURATION: 'configuration',
+  VALIDATION: 'validation',
+  FILESYSTEM: 'filesystem',
+  NETWORK: 'network',
+  REGISTRY: 'registry',
+  ORCHESTRATION: 'orchestration',
+  SYNAPSE: 'synapse',
+  EXECUTION: 'execution',
+  PERMISSION: 'permission',
+  EXTERNAL_EXECUTOR: 'external_executor',
+  UNKNOWN: 'unknown',
+});
+
+const ErrorSeverity = Object.freeze({
+  CRITICAL: 'critical',
+  ERROR: 'error',
+  WARNING: 'warning',
+  INFO: 'info',
+});
+
+const DEFAULT_ERROR_CODE = 'AEXOS_UNKNOWN_ERROR';
+
+const CORE_ERROR_DEFINITIONS = Object.freeze([
+  {
+    code: DEFAULT_ERROR_CODE,
+    category: ErrorCategory.UNKNOWN,
+    severity: ErrorSeverity.ERROR,
+    retryable: false,
+    userMessage: 'An unexpected AEXOS core error occurred.',
+    recovery: ['Review the error metadata and retry if the operation is safe to repeat.'],
+  },
+  {
+    code: 'AEXOS_CONFIGURATION_INVALID',
+    category: ErrorCategory.CONFIGURATION,
+    severity: ErrorSeverity.ERROR,
+    retryable: false,
+    userMessage: 'AEXOS configuration is invalid.',
+    recovery: ['Validate the active AEXOS configuration and retry.'],
+  },
+  {
+    code: 'AEXOS_VALIDATION_FAILED',
+    category: ErrorCategory.VALIDATION,
+    severity: ErrorSeverity.ERROR,
+    retryable: false,
+    userMessage: 'AEXOS validation failed.',
+    recovery: ['Review validation errors and correct the invalid input.'],
+  },
+  {
+    code: 'AEXOS_FILESYSTEM_ERROR',
+    category: ErrorCategory.FILESYSTEM,
+    severity: ErrorSeverity.ERROR,
+    retryable: true,
+    userMessage: 'A filesystem operation failed.',
+    recovery: ['Check path existence, permissions, and disk availability.'],
+  },
+  {
+    code: 'AEXOS_PERMISSION_DENIED',
+    category: ErrorCategory.PERMISSION,
+    severity: ErrorSeverity.ERROR,
+    retryable: false,
+    exitCode: 13,
+    userMessage: 'The operation does not have the required permissions.',
+    recovery: ['Grant the required permission or run the command in an authorized context.'],
+  },
+  {
+    code: 'AEXOS_NETWORK_ERROR',
+    category: ErrorCategory.NETWORK,
+    severity: ErrorSeverity.ERROR,
+    retryable: true,
+    userMessage: 'A network operation failed.',
+    recovery: ['Check connectivity and retry the operation.'],
+  },
+  {
+    code: 'AEXOS_REGISTRY_LOAD_FAILED',
+    category: ErrorCategory.REGISTRY,
+    severity: ErrorSeverity.ERROR,
+    retryable: false,
+    userMessage: 'AEXOS could not load a registry.',
+    recovery: ['Validate registry file syntax and path configuration.'],
+  },
+  {
+    code: 'AEXOS_REGISTRY_WRITE_FAILED',
+    category: ErrorCategory.REGISTRY,
+    severity: ErrorSeverity.ERROR,
+    retryable: true,
+    userMessage: 'AEXOS could not write a registry.',
+    recovery: ['Check registry path permissions and retry.'],
+  },
+  {
+    code: 'AEXOS_ORCHESTRATION_FAILED',
+    category: ErrorCategory.ORCHESTRATION,
+    severity: ErrorSeverity.ERROR,
+    retryable: false,
+    userMessage: 'AEXOS orchestration failed.',
+    recovery: ['Review orchestration metadata and the active workflow state.'],
+  },
+  {
+    code: 'AEXOS_SYNAPSE_LAYER_FAILED',
+    category: ErrorCategory.SYNAPSE,
+    severity: ErrorSeverity.WARNING,
+    retryable: true,
+    userMessage: 'A Synapse layer failed while processing context.',
+    recovery: ['Review layer metadata and continue with graceful degradation when possible.'],
+  },
+  {
+    code: 'AEXOS_EXECUTION_FAILED',
+    category: ErrorCategory.EXECUTION,
+    severity: ErrorSeverity.ERROR,
+    retryable: false,
+    userMessage: 'AEXOS execution failed.',
+    recovery: ['Review execution logs and retry after correcting the failure cause.'],
+  },
+  {
+    code: 'AEXOS_EXTERNAL_EXECUTOR_FAILED',
+    category: ErrorCategory.EXTERNAL_EXECUTOR,
+    severity: ErrorSeverity.ERROR,
+    retryable: true,
+    userMessage: 'An external executor failed.',
+    recovery: ['Review external executor logs and retry if the command is idempotent.'],
+  },
+  {
+    code: 'AEXOS_PERSISTENCE_DEGRADED',
+    category: ErrorCategory.FILESYSTEM,
+    severity: ErrorSeverity.WARNING,
+    retryable: true,
+    userMessage: 'AEXOS persistence degraded and continued in memory.',
+    recovery: ['Check persistence path permissions and available disk space.'],
+  },
+]);
+
+module.exports = {
+  ErrorCategory,
+  ErrorSeverity,
+  DEFAULT_ERROR_CODE,
+  CORE_ERROR_DEFINITIONS,
+};

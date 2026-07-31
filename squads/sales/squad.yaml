@@ -1,0 +1,219 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# AEXOS Squad Manifest — Sales Squad
+# Conforms to .aexos-core/schemas/squad-schema.json (task-first architecture).
+# components/ is derived from disk by scripts/normalize-squad-manifests.js.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+name: sales
+version: 1.0.0
+short-title: Sales Squad
+description: >-
+  Squad comercial: qualificação, método de venda consultiva, negociação e operação de pipeline. Do
+  primeiro contato ao fechamento.
+author: Cyryx Labs LLC
+license: UNLICENSED
+slashPrefix: sales
+tags:
+  - sales
+  - qualification
+  - meddic
+  - negotiation
+  - pipeline
+  - enterprise-sales
+  - aexos
+cyryx:
+  minVersion: 2.1.0
+  type: squad
+components:
+  tasks:
+    - method-lead-build-insight.md
+    - negotiation-lead-prep.md
+    - pipeline-ops-stage-design.md
+    - qualification-lead-qualify.md
+    - sales-chief-diagnose.md
+  agents:
+    - method-lead.md
+    - negotiation-lead.md
+    - pipeline-ops.md
+    - qualification-lead.md
+    - sales-chief.md
+  workflows:
+    - wf-deal-cycle.yaml
+    - wf-pipeline-repair.yaml
+  checklists:
+    - coherence-audit-checklist.md
+    - commercial-integrity-screen-checklist.md
+    - forecast-integrity-checklist.md
+    - insight-quality-checklist.md
+    - negotiation-integrity-checklist.md
+    - qualification-evidence-checklist.md
+  templates:
+    - commercial-insight-tmpl.md
+    - concession-ladder-tmpl.md
+    - consolidated-deal-brief-tmpl.md
+    - disqualification-record-tmpl.md
+    - funnel-stage-specification-tmpl.md
+    - hiring-scorecard-tmpl.md
+    - negotiation-plan-tmpl.md
+    - qualification-record-tmpl.md
+    - teaching-call-plan-tmpl.md
+    - triage-routing-record-tmpl.md
+  tools: []
+  scripts: []
+config:
+  extends: extend
+dependencies:
+  node: []
+  squads: []
+squad:
+  name: sales
+  display_name: Sales Squad
+  version: 1.0.0
+  domain: Sales — Qualification, Method and Negotiation
+  description: >-
+    Squad comercial: qualificação, método de venda consultiva, negociação e operação de pipeline. Do
+    primeiro contato ao fechamento.
+  philosophy: |-
+    "Qualificar é decidir de quem não vender."
+    Método nomeado e verificável acima de intuição de vendedor.
+  keywords:
+    - sales
+    - qualification
+    - meddic
+    - negotiation
+    - pipeline
+    - enterprise-sales
+    - aexos
+  entry_agent: sales-chief
+  created_by: squad-creator
+  created_at: '2026-07-30'
+tiers:
+  tier_0:
+    name: Diagnosis & Routing
+    agents:
+      - sales-chief
+    purpose: Triar o pedido, rotear ao especialista, manter coerência
+  tier_1:
+    name: Core Practice
+    agents:
+      - qualification-lead
+      - method-lead
+    purpose: Domínios centrais do squad
+  tier_2:
+    name: Applied & Adjacent
+    agents:
+      - negotiation-lead
+      - pipeline-ops
+    purpose: Domínios de apoio e fronteira
+agents:
+  sales-chief:
+    persona: Vanguard
+    file: agents/sales-chief.md
+    tier: 0
+    based_on: Original (Orchestrator)
+    icon: 🎺
+    focus: Triagem, roteamento, coerência entre método, qualificação e negociação
+  qualification-lead:
+    persona: Sieve
+    file: agents/qualification-lead.md
+    tier: 1
+    based_on: MEDDIC (Dick Dunkel & Jack Napoli, PTC)
+    icon: 🧲
+    focus: >-
+      Métricas, comprador econômico, critérios de decisão, processo de decisão, dor, campeão — as
+      seis letras; o processo de decisão é a que mais responde por deslize de forecast
+  method-lead:
+    persona: Forge
+    file: agents/method-lead.md
+    tier: 1
+    based_on: Matthew Dixon & Brent Adamson (The Challenger Sale, 2011)
+    icon: 🔥
+    focus: Ensinar, personalizar, assumir o controle; tensão construtiva na venda
+  negotiation-lead:
+    persona: Tether
+    file: agents/negotiation-lead.md
+    tier: 2
+    based_on: Chris Voss (Never Split the Difference, 2016)
+    icon: 🪢
+    focus: Empatia tática, âncoras, rótulos, o "não" como início da negociação
+  pipeline-ops:
+    persona: Conveyor
+    file: agents/pipeline-ops.md
+    tier: 2
+    based_on: Mark Roberge (The Sales Acceleration Formula, 2015)
+    icon: ⛓️
+    focus: Previsibilidade, métricas de funil, contratação e ramp de vendedores
+handoffs:
+  sales-chief:
+    routes_to:
+      - qualification-lead
+      - method-lead
+      - negotiation-lead
+      - pipeline-ops
+  qualification-lead:
+    collaborates_with:
+      - method-lead
+      - negotiation-lead
+      - pipeline-ops
+    escalates_to:
+      - sales-chief
+  method-lead:
+    collaborates_with:
+      - qualification-lead
+      - negotiation-lead
+      - pipeline-ops
+    escalates_to:
+      - sales-chief
+  negotiation-lead:
+    collaborates_with:
+      - qualification-lead
+      - method-lead
+      - pipeline-ops
+    escalates_to:
+      - sales-chief
+  pipeline-ops:
+    collaborates_with:
+      - qualification-lead
+      - method-lead
+      - negotiation-lead
+    escalates_to:
+      - sales-chief
+cross_cutting:
+  aexos_awareness:
+    description: Todos os agentes entendem a arquitetura AEXOS-core
+    context_files:
+      - .claude/CLAUDE.md
+      - .aexos-core/core-config.yaml
+      - .aexos-core/data/entity-registry.yaml
+  core_agent_boundary:
+    description: >-
+      Este squad decide e evidencia dentro do seu domínio. Não implementa, não testa e não publica —
+      isso pertence aos agentes do core.
+    defers_to:
+      '@pm': Épicos, PRD, execução de épico
+      '@po': Validação de story e backlog
+      '@sm': Criação de story (draft) — autoridade exclusiva
+      '@dev': Implementação
+      '@qa': Quality gate
+      '@devops': Release e push (autoridade exclusiva)
+  cross_squad_boundary:
+    description: >-
+      Fronteiras com outros squads. Registradas aqui, e não apenas no texto dos agentes, porque é o
+      manifesto que a camada de roteamento lê.
+    defers_to:
+      '@products:pricing-strategist': Disposição a pagar, empacotamento e modelo de monetização
+      '@products:positioning-lead': Alternativas competitivas, categoria e frame de referência
+  attribution:
+    description: >-
+      Cada agente declara a obra que fundamenta seu método. Onde o papel se apoia numa disciplina e
+      não numa obra única, isso é dito — atribuição errada é pior que ausência de atribuição.
+    required_field: based_on
+  quality_standards:
+    min_score: 7
+    smoke_tests: 3
+    voice_dna_required: true
+    thinking_dna_required: true
+settings:
+  greeting:
+    level: archetypal
+    show_project_status: true

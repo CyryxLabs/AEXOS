@@ -1,0 +1,354 @@
+# Willingness-to-Pay Research Methods — Catalog with Sample Requirements
+# Squad: products
+# Owner agent: pricing-strategist (Assay)
+# Serves: *wtp-methods, *wtp-talk, run-wtp-talk.md (Step 1 — select the research instrument)
+# Last updated: 2026-07-30
+#
+# METHOD SOURCE
+#   The willingness-to-pay conversation before build is Rule 1 of Madhavan Ramanujam and Georg
+#   Tacke, "Monetizing Innovation: How Smart Companies Design the Product Around the Price" (2016).
+#   The individual instruments below are standard price-research techniques; each entry states what
+#   it produces, what it cannot produce, and the sample requirement carried in this squad's
+#   documentation.
+#   @pricing-strategist applies this framework with attribution.
+#
+# SAMPLE FIGURES — READ THIS FIRST
+#   The `sample_requirement` field reproduces this squad's documented requirement verbatim,
+#   including its hedging ("typically", "for reliable part-worths"). Do not tighten, round, or
+#   restate these figures as precise thresholds, and do not invent requirements for methods not
+#   listed. Where a mechanism is described without a number, the number is deliberately absent.
+#
+# ARTICLE IV — NO INVENTION
+#   Any WTP figure produced by these methods enters downstream artifacts only with the method, the
+#   achieved sample, and the range attached. Figures without a documented interview, survey
+#   instrument, transaction record or cited benchmark are marked UNVERIFIED and never enter a
+#   business case.
+
+version: "1.0.0"
+
+# =============================================================================
+# STANDING RULES — apply to every method in this file
+# =============================================================================
+
+standing_rules:
+
+  pair_stated_with_observed:
+    rule: >
+      Always pair any stated-preference method with observed behaviour before betting the business
+      case on it.
+    why: >
+      Every method below except analysis of transaction records is stated preference. Respondents
+      answer under no budget pressure, no procurement, and no competing priority. Stated intent
+      overstates behaviour.
+    how_to_satisfy:
+      - "Reconcile against your own transaction records or funnel conversion for a comparable motion"
+      - "Run a priced pilot where money actually changes hands"
+      - "Register a live price or packaging test with @experimentation-lead, with a defined OEC, guardrail metrics and a sample-size calculation"
+    until_satisfied: "Label every figure 'stated preference, not yet paired with behaviour' wherever it appears."
+
+  discounting_stated_intent:
+    rule: "Stated intent overstates behaviour and must be discounted."
+    no_universal_factor: >
+      This squad's documentation states the direction and the reason but does not publish a
+      universal discount factor, and none is asserted here. [verify against source]
+    what_to_do_instead:
+      - "Prefer your own realised stated-to-actual ratio, cited as a transaction record"
+      - "Absent that, state the discount you applied, call the basis 'judgement' if it is judgement, and give it an owner and a validation plan"
+      - "Record it in the business case assumption register, never as a fact"
+    note: >
+      Any specific discount percentage appearing in worked examples across this squad's artifacts is
+      an illustrative placeholder, not a default to inherit.
+
+  never_report_a_point:
+    rule: >
+      Every number leaves a study with three things attached: the method that produced it, the
+      sample it rests on, and the range.
+    failure_if_ignored: "A single price point quoted without them invites decisions with unearned confidence."
+
+  never_aggregate_across_segments:
+    rule: "Run and analyse the instrument against each hypothesised segment on its own."
+    failure_if_ignored: >
+      Aggregating averages a strong willingness to pay in one segment with none in four others and
+      produces a comfortable, meaningless number.
+
+  timing:
+    rule: >
+      Run the conversation before build. [Ramanujam & Tacke, Rule 1] Its value is not the number —
+      it is the ability to change what gets built while changing it is still cheap.
+    after_build: "The same conversation is an autopsy: it names which features were wasted and which killers already shipped."
+
+  sample_shortfall:
+    rule: >
+      If the achieved sample falls short of the method's requirement, report the shortfall and
+      downgrade the confidence label on every figure the instrument produced.
+    failure_if_ignored: >
+      A conjoint at a fraction of its requirement is not a weaker conjoint result; it is not a
+      conjoint result. Switching to a cheaper instrument while keeping the strong claim is worse.
+
+# =============================================================================
+# METHOD CATALOG
+# =============================================================================
+
+methods:
+
+  # ---------------------------------------------------------------------------
+  direct_questioning:
+    name: Direct questioning
+    description: "Ask price acceptability directly."
+    produces: "A stated expectation or refusal point, and — more usefully — the price frame the respondent arrived with."
+    strength: "Fast."
+    weakness: "Weak signal; buyers anchor and understate."
+    sample_requirement: "Any; treat as directional only."
+    when_to_use:
+      - "As a short block inside a longer interview, placed AFTER the indirect blocks"
+      - "To surface the reference price or competitor the respondent is silently comparing against"
+      - "To generate candidate price points for a purchase-probability or Gabor-Granger ladder"
+    when_not_to_use:
+      - "As the only instrument behind a price decision — it is directional and labelled as such"
+      - "At the START of an interview; the price question anchors the respondent and contaminates every answer after it"
+      - "As an input to a business case — a direct-stated figure never enters a case as a price"
+      - "When the respondent has not yet understood the offer as an outcome; they will price a feature list, which tells you nothing"
+    characteristic_failure_mode: >
+      The number is reported as willingness to pay. It is an expectation shaped by whatever the
+      respondent last bought, systematically low, and it becomes the ceiling the team then designs
+      against.
+    pairs_well_with: ["indirect_questioning", "purchase_probability_scale"]
+
+  # ---------------------------------------------------------------------------
+  indirect_questioning:
+    name: Indirect questioning
+    description: "Ask about current spend, alternatives, trade-offs, and what they would drop to hold a price."
+    produces: "The value structure — what they pay today in money, hours and risk; the real alternative; the order in which features are surrendered; leader, filler and killer signals."
+    strength: "Reveals value structure and the real alternative."
+    weakness: "Requires skilled interviewing."
+    sample_requirement: "12-25 interviews per hypothesized segment."
+    when_to_use:
+      - "Early concept work, small n, where reasons matter more than numbers"
+      - "Whenever the classification of features as leader, filler or killer is needed"
+      - "Before any quantitative instrument — it produces the price points and the feature set the quantitative method will test"
+      - "When the real alternative is unknown and may be a spreadsheet or a person rather than a vendor"
+    when_not_to_use:
+      - "As the sole basis for a demand curve or a take rate — it produces structure and ranges, not volume"
+      - "With untrained or rotating interviewers across segments; interviewer variance becomes indistinguishable from segment difference"
+      - "When the sample is drawn only from existing satisfied customers and the result will be reported as market WTP"
+      - "As a substitute for a quantitative instrument when the decision needs a demand curve"
+    characteristic_failure_mode: >
+      The killer probe — 'what in this offer would make you stop the evaluation?' — is dropped for
+      time. It is the question that most often changes the build and the one most often left out.
+    pairs_well_with: ["purchase_probability_scale", "van_westendorp", "maxdiff"]
+
+  # ---------------------------------------------------------------------------
+  purchase_probability_scale:
+    name: Purchase probability scale
+    description: "Likelihood of purchase at specific price points, on a graded scale."
+    produces: "A discountable intent curve across the price points tested."
+    strength: "Produces a discountable intent curve."
+    weakness: "Stated intent overstates behaviour; discount heavily."
+    sample_requirement: "Depends on segment count; needs enough per price point."
+    when_to_use:
+      - "When candidate price points already exist from indirect questioning or from the alternative's cost"
+      - "To locate where likelihood breaks between two prices under consideration"
+      - "Inside interviews as Block F, immediately after the trade-off questions"
+    when_not_to_use:
+      - "With price points clustered so tightly that no break can appear"
+      - "When the sample cannot support enough responses per price point — the curve will be noise shaped like a curve"
+      - "As a forecast. It is intent under no budget pressure, and it feeds a take rate only after an owned, stated discount"
+      - "When the respondent cannot name what they would compare the price to — the number is then uninterpretable"
+    characteristic_failure_mode: >
+      The top box is read as a conversion rate. The business case inherits an undiscounted intent
+      figure and cannot fail on paper.
+    required_capture:
+      - "The graded scale and its labels, stated explicitly"
+      - "The comparison the respondent named at each price point"
+      - "Where the price points came from"
+    pairs_well_with: ["indirect_questioning", "gabor_granger"]
+
+  # ---------------------------------------------------------------------------
+  van_westendorp:
+    name: Van Westendorp price sensitivity meter
+    description: "Four price questions producing a range of acceptable prices."
+    produces: "An acceptable price range for a fixed offer."
+    strength: "Fast acceptable-range estimate."
+    weakness: "No demand or volume estimate."
+    sample_requirement: "Typically 100+ respondents for stable curves."
+    when_to_use:
+      - "When an acceptable range is needed fast for a single, fixed, well-understood offer"
+      - "When the sample is large enough for the curves to stabilise"
+      - "As a bounding exercise before a Gabor-Granger ladder or a conjoint design"
+    when_not_to_use:
+      - "On a small interview sample. Running it on a handful of interviews and reporting the four points as a range is not a weak result — the sample never supported the instrument"
+      - "When volume or revenue is the question. It yields no demand estimate and no take rate"
+      - "When the offer is not fixed. Every configuration change invalidates the responses"
+      - "When respondents do not understand the offer well enough to hold four consistent price judgements about it"
+    characteristic_failure_mode: >
+      The range is quoted as a price recommendation, and the absence of any volume estimate is not
+      mentioned. A range without demand cannot size anything.
+    note: >
+      The specific wording of the four questions and the construction of the intersection points
+      that define the range should be taken from the source instrument rather than reconstructed
+      from memory. [verify against source]
+    pairs_well_with: ["gabor_granger", "indirect_questioning"]
+
+  # ---------------------------------------------------------------------------
+  gabor_granger:
+    name: Gabor-Granger
+    description: "Purchase likelihood tested across a descending or ascending price ladder."
+    produces: "A demand curve at discrete price points for a fixed offer."
+    strength: "Produces a demand curve at discrete points."
+    weakness: "Assumes a fixed offer; no feature trade-offs."
+    sample_requirement: "100+ respondents."
+    when_to_use:
+      - "When the offer is fixed and the remaining question is the price on that offer"
+      - "When a demand curve at discrete points is needed to place a price against a range"
+      - "After indirect questioning has established the candidate ladder"
+    when_not_to_use:
+      - "When the configuration itself is still in question — it cannot separate feature value from price sensitivity, so use conjoint"
+      - "Below the stated sample requirement"
+      - "When ladder order effects have not been controlled; a descending ladder and an ascending ladder do not produce the same answer"
+      - "As evidence for a bundle that was never shown to respondents as a whole"
+    characteristic_failure_mode: >
+      The demand curve is treated as a forecast rather than as stated intent, and volume is read
+      straight off it without discounting or behavioural pairing.
+    pairs_well_with: ["van_westendorp", "purchase_probability_scale"]
+
+  # ---------------------------------------------------------------------------
+  conjoint_analysis:
+    name: Conjoint analysis
+    description: "Respondents choose between configured bundles at prices, revealing trade-offs."
+    produces: "Part-worths that separate the value of individual features from price sensitivity, and simulated preference across configurations."
+    strength: "Separates feature value from price sensitivity."
+    weakness: "Design and analysis cost; needs sizable sample."
+    sample_requirement: "200+ respondents for reliable part-worths."
+    when_to_use:
+      - "When packaging is the decision — which features belong in which tier at which price"
+      - "When feature value must be separated from price sensitivity rather than inferred"
+      - "When the sample and the analysis capability genuinely exist"
+    when_not_to_use:
+      - "Below the stated sample requirement — part-worths from a small sample are unstable and will be quoted as if they were not"
+      - "Early concept stage, when respondents cannot yet evaluate configured bundles meaningfully"
+      - "When the attribute list is unsettled; a conjoint design fixes the attributes and a late change invalidates the study"
+      - "When too many attributes are included and the respondent task exceeds what anyone can answer consistently"
+      - "As a substitute for the killer probe. Conjoint reveals trade-offs; it does not reliably surface the requirement that ends an evaluation"
+    characteristic_failure_mode: >
+      A well-executed design on an unrepresentative or undersized sample. The output looks precise,
+      carries decimal places, and is trusted more than the sample supports.
+    operational_preconditions:
+      - "Attribute and level design reviewed before fielding"
+      - "Analysis capability available in-house or contracted"
+      - "A named plan for how part-worths translate into tier decisions"
+    pairs_well_with: ["maxdiff", "indirect_questioning"]
+
+  # ---------------------------------------------------------------------------
+  maxdiff:
+    name: MaxDiff
+    description: "Forced trade-offs to rank feature importance without price."
+    produces: "A clean priority ranking of features by importance."
+    strength: "Clean feature priority ranking."
+    weakness: "No price information; must be paired with a pricing method."
+    sample_requirement: "150+ respondents."
+    when_to_use:
+      - "When feature priority is the question and price is a separate, later step"
+      - "To reduce a long feature list to the top set that a pricing method will then test"
+      - "When respondents can compare features but cannot yet evaluate whole configured bundles"
+    when_not_to_use:
+      - "As a WTP method. It produces no price information whatsoever, and a ranking is routinely misread as willingness to pay"
+      - "Below the stated sample requirement"
+      - "As a killer detector — it ranks importance, and a killer is a feature whose presence reduces willingness to pay, which importance ranking does not express"
+      - "When the feature list is too long to trade off consistently, or the items are stated at inconsistent levels of abstraction"
+    characteristic_failure_mode: >
+      The top-ranked feature is treated as a leader without any evidence that the acceptable price
+      ceiling moves when it is present. Importance and ceiling movement are different claims.
+    always_followed_by: "Price the top set with an instrument that produces price information."
+    pairs_well_with: ["conjoint_analysis", "gabor_granger", "indirect_questioning"]
+
+# =============================================================================
+# SELECTION DECISION RULES
+# =============================================================================
+
+selection_decision_rules:
+
+  by_need:
+    - need: "Early concept, small n, need reasons not numbers"
+      instrument: "Open-ended direct and indirect questioning in interviews"
+      sample_requirement: "12-25 interviews per hypothesized segment"
+    - need: "An acceptable price range, fast"
+      instrument: "Van Westendorp price sensitivity meter"
+      sample_requirement: "Typically 100+ respondents for stable curves"
+    - need: "A demand curve at discrete price points"
+      instrument: "Gabor-Granger"
+      sample_requirement: "100+ respondents"
+    - need: "Trade-offs between features and price"
+      instrument: "Conjoint analysis"
+      sample_requirement: "200+ respondents for reliable part-worths"
+    - need: "Feature priority without price"
+      instrument: "MaxDiff, then price the top set"
+      sample_requirement: "150+ respondents"
+    - need: "Discountable purchase intent"
+      instrument: "Purchase probability scale"
+      sample_requirement: "Depends on segment count; needs enough per price point"
+
+  by_constraint:
+    - constraint: "Sample available is a handful of interviews"
+      choose: ["indirect_questioning"]
+      avoid: ["van_westendorp", "gabor_granger", "conjoint_analysis", "maxdiff"]
+      reason: "The quantitative instruments have sample requirements that a small interview base cannot meet. Running them anyway produces confident-looking output with no support."
+    - constraint: "The configuration is still open"
+      choose: ["indirect_questioning", "maxdiff", "conjoint_analysis"]
+      avoid: ["van_westendorp", "gabor_granger"]
+      reason: "Both assume a fixed offer; a configuration change invalidates the responses."
+    - constraint: "Killers must be found before launch"
+      choose: ["indirect_questioning"]
+      reason: "The killer probe is an interview question. No ranking or ladder method reliably surfaces the requirement that ends an evaluation."
+    - constraint: "A take rate is needed for a business case"
+      choose: ["purchase_probability_scale", "gabor_granger"]
+      qualifier: "Discounted, with the discount owned and stated, and paired with observed behaviour before the case rests on it"
+    - constraint: "Decision is which features belong in which tier"
+      choose: ["conjoint_analysis"]
+      fallback: "maxdiff to shortlist, then indirect_questioning on the top set, if the conjoint sample requirement cannot be met"
+
+  sequencing_pattern:
+    typical_order:
+      - "indirect_questioning — establish value structure, the real alternative, and candidate price points; classify leader / filler / killer"
+      - "maxdiff (optional) — reduce a long feature list to the top set"
+      - "van_westendorp or gabor_granger or conjoint_analysis — quantify, if the sample requirement can be met"
+      - "purchase_probability_scale — produce discountable intent at the specific points under consideration"
+      - "observed behaviour — priced pilot or a live test via @experimentation-lead, before the business case rests on any of it"
+    rule: "Qualitative structure first, quantification second, behaviour last. Reversing the order produces precise answers to the wrong question."
+
+  what_to_record_for_every_study:
+    - "Instrument chosen and why"
+    - "Sample requirement accepted, and achieved sample against it, per segment"
+    - "Whether the figures are stated preference and their behavioural-pairing status"
+    - "The discount applied to stated intent, its basis, and its owner"
+    - "Ranges, never points, with method attached"
+    - "Coverage gaps: features the instrument did not cover"
+    - "UNVERIFIED figures, listed separately and excluded from any business case"
+
+# =============================================================================
+# BOUNDARY
+# =============================================================================
+
+boundary:
+  this_file_decides: "Which willingness-to-pay instrument to use and what it can legitimately support"
+  not_here:
+    - "Research programme design when evidence is thin → @discovery-lead"
+    - "Live price and packaging tests, OEC, guardrails and sample-size calculation → @experimentation-lead"
+    - "Tracing a leader to the job the customer hires the product to do → @jobs-analyst"
+    - "Category and frame of reference → @positioning-lead"
+    - "Billing implementation and metering → @dev with @data-engineer"
+    - "Stories → @sm; epics and PRDs → @pm; push and publication → @devops (exclusive); code testing → @qa"
+
+attribution:
+  source: >
+    Madhavan Ramanujam and Georg Tacke, "Monetizing Innovation: How Smart Companies Design the
+    Product Around the Price" (2016) — Rule 1, have the willingness-to-pay talk early; the
+    leader / filler / killer classification.
+  agent_note: >
+    @pricing-strategist (Assay) applies this framework with attribution. The named instruments are
+    standard price research techniques; this file records what each produces, what it cannot
+    produce, and the
+    sample requirement carried in this squad's documentation.
+  article_iv: >
+    Constitution Article IV — No Invention. Every willingness-to-pay figure traces to a documented
+    interview, survey instrument, transaction record or cited benchmark. Unsourced numbers are
+    marked UNVERIFIED and never enter a business case.

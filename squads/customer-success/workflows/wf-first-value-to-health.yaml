@@ -1,0 +1,252 @@
+# ============================================================================
+# Workflow: First Value to Validated Health Model
+# Squad: customer-success
+# Version: 1.0.0
+# Purpose: Chain triage -> first-value definition -> account health model, so the
+#          health model is built on a falsifiable definition of value rather than
+#          on convenience metrics.
+# ============================================================================
+
+workflow:
+  id: wf-first-value-to-health
+  name: "First Value to Validated Health Model"
+  version: "1.0.0"
+  type: customer-success
+
+  description: |
+    The activation and retention chain, executed in the only order that holds:
+    a request is triaged and attributed to the lifecycle stage where it originated,
+    first value is defined per segment as a binary, observable, customer-side outcome,
+    and only then is the account health model built and validated backwards against a
+    completed renewal period.
+
+    Run this when losses are concentrated early, when activation is unmeasured, or when
+    an existing health score has never been tested against a completed period. Building
+    the health model first is the failure this workflow exists to prevent: a score built
+    on convenience metrics is decorative, and it displaces the signals that would have
+    predicted the loss.
+
+  trigger: "*first-value-to-health"
+  entry_agent: cs-chief
+  estimated_duration: "3-6 working sessions, gated by the availability of a completed renewal period"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE
+  # ──────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Triage and stage attribution ─────────────────────────────
+    - id: phase_0
+      name: "Triage and Stage Attribution"
+      agent: cs-chief
+      command: "*diagnose"
+      task: cs-chief-diagnose.md
+      action: "Restate the request in lifecycle terms, date the symptom, name the population, attribute the origin stage, and name exactly one owner."
+      creates: triage_record
+      description: |
+        The stage where a symptom surfaces is rarely the stage where it originated.
+        This phase produces the attribution and the single owner before any specialist
+        method is applied, and writes the data constraints the rest of the chain inherits.
+      outputs:
+        - triage_record: "Request as stated and as owned, origin stage, population, dated"
+        - owner: "Exactly one owning specialist id, with the excluded near misses and the reason for each"
+        - handoff_brief: "Symptom, date, population, evidence inventory, and the single open question"
+        - data_constraints: "What may be referenced in artifacts and what must stay in the system of record"
+      data_rules:
+        - "Account level or cohort level by default; individual identity is almost never required for a routing decision."
+        - "No personal data beyond what the routing decision requires."
+        - "Reference records, do not reproduce them: no contact records, support transcripts, contract terms or identified verbatims in the triage record."
+        - "Never re-identify anonymous feedback, and never instruct a specialist to."
+        - "Health, financial, credential or other special-category personal data: stop and escalate to the human owner."
+      checkpoint:
+        gate: "Population named as one account, a cohort, a segment or the base, with a size; origin stage stated with its supporting evidence or marked PROVISIONAL; exactly one owner named."
+        veto: "If the request is job discovery, route to @products:jobs-analyst or @products:discovery-lead and stop. If it is renewal negotiation, discounting or contract terms, route to the sales squad and stop. This workflow absorbs neither."
+
+    # ─── PHASE 1: First value per segment ──────────────────────────────────
+    - id: phase_1
+      name: "Define First Value Per Segment"
+      agent: onboarding-lead
+      command: "*define-first-value"
+      task: onboarding-lead-define-first-value.md
+      depends_on: [phase_0]
+      requires: triage_record
+      action: "Define first value per segment as a binary, observable, customer-side outcome and validate it against retained and early-churned accounts."
+      creates: first_value_definitions
+      description: |
+        The destination before the route. Every onboarding step is justified by the
+        destination it leads to; without a falsifiable definition of first value, every
+        downstream metric — including the health model built in phase 2 — becomes a proxy
+        for a proxy.
+      outputs:
+        - first_value_definitions: "One binary, observable, customer-side definition per segment"
+        - evidence_map: "The dated source behind each outcome statement, by segment"
+        - instrumentation_status: "INSTRUMENTED, PARTIALLY INSTRUMENTED or UNMEASURED per definition, with the missing event named"
+        - separation_test_result: "Whether the definition separates retained from early-churned accounts, with counts"
+      data_rules:
+        - "Samples are lists of account ids, never contact lists; work at account and cohort level."
+        - "No personal data beyond what the definition requires; never handle credentials or access secrets — name the prerequisite and the customer-side role that grants it."
+        - "Reference customer records, do not reproduce them: interview notes and transcripts stay in the authorized system; the artifact carries the finding and the record id."
+        - "Never re-identify anonymous feedback used as an outcome source."
+        - "Special-category personal data is out of scope — escalate to the human owner."
+      checkpoint:
+        gate: "Every definition passes binary, observable, customer-side and falsifiable; the separation test is reported with counts for both groups, including a negative result; instrumentation status is present on every definition."
+        veto: "If a definition can be reached without the outcome occurring, it is not first value — return to the outcome statement. If the outcome promised at sale is reachable by no path this product supports, that is a promise defect: stop, and return it to cs-chief and the sales squad the day it is identified."
+
+    # ─── PHASE 2: Account health model ─────────────────────────────────────
+    - id: phase_2
+      name: "Design and Validate the Account Health Model"
+      agent: retention-lead
+      command: "*health-model"
+      task: retention-lead-health-model.md
+      depends_on: [phase_1]
+      requires: first_value_definitions
+      action: "Build the four-dimension health model on the activation inputs, measure lead time per signal, and validate backwards against a completed renewal period."
+      creates: health_model
+      description: |
+        The activation inputs are imported, not restated. If they are wrong, that is a
+        finding routed back to onboarding-lead, not a local correction. Signals that fire
+        inside the intervention window report the loss rather than warning of it, and are
+        excluded with the exclusion stated.
+      outputs:
+        - health_model: "Four dimensions kept separate, with the admitted signals per dimension"
+        - signal_table: "Per signal — measured lead time, hit rate against the base rate, loss coverage, segment validity, verdict"
+        - backward_validation: "Renewal rate by health state over the completed period, with the separation reported"
+        - states_and_triggers: "Each state with its owner, action, time bound and exit condition"
+        - instrumentation_gaps: "Inputs marked UNMEASURED or PROXIED, with named requirements for @data-engineer"
+      data_rules:
+        - "Health is a property of an account: never characterize a named individual in a health artifact."
+        - "Account and cohort level only; store no personal data beyond what the retention question requires."
+        - "Reference records, do not reproduce them: contacts, contract terms, support transcripts and identified verbatims stay in the system of record."
+        - "Never re-identify anonymous feedback used as a signal input."
+        - "Special-category personal data is out of scope — escalate to the human owner."
+      checkpoint:
+        gate: "Backward validation is published with renewal rates by state, including a negative result; no signal inside the intervention window appears in the risk register; every state names an owner, an action, a time bound and an exit condition."
+        veto: "No completed renewal period means no backward validation, and no model may be published — stop and say so. No price, discount or contract term may appear in the output: that boundary is absolute and belongs to the sales squad, which this phase supplies with evidence only. Retention by obstruction is refused outright."
+      attribution:
+        source: "Nick Mehta, Dan Steinman and Lincoln Murphy, *Customer Success: How Innovative Companies Are Reducing Churn and Growing Recurring Revenue* (Wiley, 2016)."
+        limits:
+          - "The source organizes its guidance as a set of laws of customer success. Do NOT reproduce the canonical wording, numbering or ordering of those laws from memory. VERIFY against the book before publishing any quotation, law number or page reference."
+          - "Restatements in this workflow's own words are paraphrase, not quotation, and are labelled as such."
+          - "Retention metrics — gross and net revenue retention, logo churn, cohort retention curves — are standard industry measures and are attributed to no source."
+          - "Lead-time validation, backward validation against a completed period, and the unserved / unhappy / unfit / drift split are the agent's operating conventions, consistent with the source's premise but not presented as its content."
+
+    # ─── PHASE 3: Coherence check and routing ──────────────────────────────
+    - id: phase_3
+      name: "Coherence Check and Routing"
+      agent: cs-chief
+      command: "*coherence-check"
+      depends_on: [phase_2]
+      requires: health_model
+      action: "Audit the chain promise -> activation -> adoption -> realized value -> health for breaks, arbitrate contradictions, and package what leaves the squad."
+      creates: squad_handoff_register
+      description: |
+        No task file backs this phase; it runs as the cs-chief `*coherence-check` and
+        `*handoff-to-product` commands over the artifacts phases 0-2 produced. It generates
+        no new customer claim — every statement traces to a phase artifact, which traces to
+        an instrumented fact, a dated record or a dated interview.
+      outputs:
+        - coherence_report: "Breaks in the lifecycle chain, with the upstream repair order"
+        - contradiction_log: "Conflicting reads of the same account, with the differing assumption named — surfaced, not averaged"
+        - squad_handoff_register: "Each item leaving the squad, with exactly one destination and its explicit non-claims"
+      data_rules:
+        - "Account and cohort level only; no personal data enters the register."
+        - "Reference records, do not reproduce them."
+        - "Never re-identify anonymous feedback."
+        - "Special-category personal data: stop and escalate to the human owner."
+      checkpoint:
+        gate: "Every register entry has exactly one destination, no attached priority, and its non-claims stated; every statement traces to a phase artifact."
+        veto: "If the register contains a story, an epic, a PRD, an implementation plan, a price or a contract term, it is out of scope — strip it and route to the owner instead."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    cs_chief_to_onboarding_lead: |
+      Triage complete. Origin stage is activation. Handing over the symptom with its date,
+      the population and its size, the evidence inventory with dates, the data constraints,
+      and the single open question you must answer. Do not re-elicit what is in the brief.
+      Define first value before any path design starts.
+    onboarding_lead_to_retention_lead: |
+      First-value definitions, activation milestones and the habit criterion are attached,
+      per segment, with instrumentation status and separation-test counts. Import them as
+      inputs — do not restate or redefine them. If a definition is wrong, that is a finding
+      routed back to me, not a local correction.
+    retention_lead_to_cs_chief: |
+      Health model published with backward validation against the completed period, states
+      with owners and triggers, and the instrumentation gaps named for @data-engineer.
+      Value evidence for the sales squad is attached separately and contains no price, no
+      discount and no term. Auditing for coherence against activation is yours.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # FLOW DIAGRAM
+  # ──────────────────────────────────────────────────────────────────────────
+
+  flow_diagram: |
+    graph TD
+      A[cs-chief: diagnose] --> B[onboarding-lead: define-first-value]
+      B --> C[retention-lead: health-model]
+      C --> D[cs-chief: coherence-check and routing]
+      D --> E[Out of squad: @pm, @products, sales squad, @data-engineer]
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # VETO CONDITIONS (workflow-level)
+  # ──────────────────────────────────────────────────────────────────────────
+
+  veto_conditions:
+    - "Population ambiguous — an account question and a cohort question have different owners and different remedies; elicit before routing."
+    - "No dated source for the outcome bought — the segment is UNSOURCED and the definition does not proceed."
+    - "No completed renewal period — backward validation is impossible and no health model is published."
+    - "A signal admitted to the risk register whose lead time is shorter than the intervention window."
+    - "Any price, discount, contract term or renewal negotiation appearing in an output — that belongs to the sales squad."
+    - "Any customer job-discovery question absorbed instead of routed to @products:jobs-analyst or @products:discovery-lead."
+    - "Special-category personal data required to continue — stop and escalate to the human owner."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # CUSTOMER DATA RULES (binding on every phase)
+  # ──────────────────────────────────────────────────────────────────────────
+
+  customer_data_rules:
+    - "Work at account or cohort level by default. Individual identity is almost never required by the questions this workflow answers."
+    - "Request and store no personal data beyond what the decision at hand requires."
+    - "Reference records; do not reproduce them. Contact records, support transcripts, contract terms and identified verbatims stay in the authorized system of record; artifacts carry the finding and the record id."
+    - "Never re-identify anonymous feedback, and never ask another agent to."
+    - "Health, financial, credential or other special-category personal data is out of scope — stop and escalate to the human owner."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # BOUNDARIES
+  # ──────────────────────────────────────────────────────────────────────────
+
+  boundaries:
+    owned_here:
+      - "Adoption, realized value, activation measurement and account health."
+    routed_out:
+      "@products:jobs-analyst": "What job the customer hires the product to do, and the causal account of a switch."
+      "@products:discovery-lead": "A structured discovery program or assumption testing."
+      "sales squad": "Renewal negotiation, discounting, contract terms and expansion offers. This workflow supplies value evidence only."
+      "@ux-design-expert": "Screens, flows and copy."
+      "@data-engineer": "Telemetry implementation for every UNMEASURED or PROXIED input."
+      "@pm": "Epic framing once a customer problem is evidenced and chosen."
+      "@sm": "Story drafting — exclusive authority."
+      "@po": "Story validation and backlog."
+      "@dev": "Implementation."
+      "@qa": "Quality gates."
+      "@devops": "Git push, PRs and CI/CD — exclusive authority."
+    never_produced_here:
+      - "Stories, epics, PRDs and implementation plans."
+      - "Code, tests and releases."
+      - "Prices, discounts and contract terms."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # COMPLETION CRITERIA
+  # ──────────────────────────────────────────────────────────────────────────
+
+  completion_criteria:
+    - "A dated triage record exists with one owner and the excluded near misses."
+    - "One first-value definition per segment, each binary, observable, customer-side and falsifiable, with separation-test counts reported."
+    - "A health model validated backwards against a completed period, with renewal rates published by state."
+    - "Every state names an owner, an action, a time bound and an exit condition."
+    - "Instrumentation gaps named as event requirements for @data-engineer."
+    - "Every artifact versioned in the repository under squads/customer-success/data/ with a review or revalidation date."
+    - "No personal data beyond account-level references anywhere in the chain."

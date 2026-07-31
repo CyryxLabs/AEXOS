@@ -1,0 +1,256 @@
+# ============================================================================
+# Workflow: Project Setup
+# Squad: claude-code-mastery
+# Version: 1.0.0
+# Purpose: Full Claude Code project setup from zero to production-ready
+# ============================================================================
+
+workflow:
+  id: wf-project-setup
+  name: "Claude Code Project Setup"
+  version: "1.0.0"
+  type: setup
+  description: |
+    End-to-end workflow to set up Claude Code in any project.
+    Orchestrates config-engineer, hooks-architect, mcp-integrator,
+    and project-integrator to create a complete, production-ready setup.
+
+  trigger: "*setup-project"
+  entry_agent: claude-mastery-chief
+  estimated_duration: "30-60 minutes"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE
+  # ──────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Discovery ────────────────────────────────────────────────
+    - id: phase_0
+      name: "Discovery & Detection"
+      agent: project-integrator
+      task: integrate-project.md
+      parallel: false
+      creates: project_profile
+      description: |
+        Detect project type, analyze existing structure, determine what
+        Claude Code components are needed.
+      steps:
+        - "Scan project root for signature files (package.json, requirements.txt, Cargo.toml, etc.)"
+        - "Match against project-type-signatures.yaml"
+        - "Detect existing Claude Code setup (partial? none?)"
+        - "Determine setup scope: greenfield vs brownfield"
+      outputs:
+        - project_type: "string (monorepo | fullstack-nextjs | react-library | python-api | ...)"
+        - existing_setup: "object (has_claude_dir, has_settings, has_claudemd, has_hooks, has_mcp)"
+        - setup_scope: "string (greenfield | brownfield | upgrade)"
+      checkpoint:
+        gate: "Project type detected with confidence >= 0.7"
+        veto: "If project type undetectable, ask user to specify"
+
+    # ─── PHASE 1: CLAUDE.md Engineering ────────────────────────────────────
+    - id: phase_1
+      name: "CLAUDE.md Engineering"
+      agent: project-integrator
+      task: claude-md-engineer.md
+      depends_on: [phase_0]
+      parallel: false
+      requires: project_profile
+      creates: claude_md
+      description: |
+        Generate an optimized CLAUDE.md tailored to the detected project type.
+      steps:
+        - "Select template from templates/ based on project_type"
+        - "Analyze project structure for conventions (naming, patterns, tools)"
+        - "Generate CLAUDE.md under 200 lines"
+        - "Add managed sections for auto-update capability"
+      outputs:
+        - claude_md_path: ".claude/CLAUDE.md or CLAUDE.md"
+        - line_count: "number (target: < 200)"
+      checkpoint:
+        gate: "CLAUDE.md exists, < 200 lines, has essential sections"
+        veto: "CLAUDE.md > 500 lines without user approval"
+
+    # ─── PHASE 2: Configuration ────────────────────────────────────────────
+    - id: phase_2
+      name: "Settings & Permissions"
+      agent: config-engineer
+      task: configure-claude-code.md
+      depends_on: [phase_0]
+      parallel: false
+      requires: project_profile
+      creates: claude_settings
+      description: |
+        Generate .claude/settings.json with appropriate permissions,
+        deny rules, and MCP server configurations.
+      steps:
+        - "Generate .claude/settings.json with deny-first approach"
+        - "Configure permission mode based on project needs"
+        - "Add deny rules for sensitive files (.env, secrets, credentials)"
+        - "Configure allow rules for common safe operations"
+      outputs:
+        - settings_path: ".claude/settings.json"
+        - permission_mode: "string"
+        - deny_rules_count: "number"
+      checkpoint:
+        gate: "settings.json valid, deny rules cover .env and secrets"
+        veto: "No deny rules for sensitive files"
+
+    # ─── PHASE 3: Rules ────────────────────────────────────────────────────
+    - id: phase_3
+      name: "Conditional Rules"
+      agent: config-engineer
+      task: create-rules.md
+      depends_on: [phase_1]
+      parallel: false
+      requires: claude_md
+      creates: conditional_rules
+      description: |
+        Create .claude/rules/ with path-based conditional rules
+        to keep context window lean.
+      steps:
+        - "Identify rule categories (testing, API, database, frontend, etc.)"
+        - "Create rules with paths: frontmatter for conditional loading"
+        - "Move detailed instructions from CLAUDE.md to rules"
+        - "Validate rules load correctly"
+      outputs:
+        - rules_dir: ".claude/rules/"
+        - rules_count: "number"
+      checkpoint:
+        gate: "At least 2 rules created with valid frontmatter"
+        veto: "Rules without paths: frontmatter (always-loaded bloat)"
+
+    # ─── PHASE 4: Hooks ────────────────────────────────────────────────────
+    - id: phase_4
+      name: "Hook Setup"
+      agent: hooks-architect
+      task: hook-designer.md
+      depends_on: [phase_2]
+      parallel: false
+      requires: claude_settings
+      creates: hook_configuration
+      description: |
+        Configure hooks for the project based on its needs.
+      steps:
+        - "Assess hook needs from project type and workflow"
+        - "Create damage-control hook (block dangerous commands)"
+        - "Optionally add auto-lint, notification, or cost-tracking hooks"
+        - "Add hooks to settings.json"
+        - "Test hook execution"
+      outputs:
+        - hooks_configured: "number"
+        - hook_types: "array of event names"
+      checkpoint:
+        gate: "At least damage-control hook configured and tested"
+        veto: "Hook with syntax errors in settings.json"
+
+    # ─── PHASE 5: MCP Servers ──────────────────────────────────────────────
+    - id: phase_5
+      name: "MCP Integration"
+      agent: mcp-integrator
+      task: mcp-workflow.md
+      depends_on: [phase_2]
+      parallel: false
+      requires: claude_settings
+      creates: mcp_configuration
+      description: |
+        Configure MCP servers appropriate for the project's tech stack.
+      steps:
+        - "Map project needs to available MCP servers"
+        - "Calculate context budget impact"
+        - "Configure essential MCPs (prioritize by ROI)"
+        - "Test tool availability with ToolSearch"
+      outputs:
+        - mcp_servers: "array of configured servers"
+        - context_budget_used: "number (tokens)"
+      checkpoint:
+        gate: "MCP servers configured and responding"
+        veto: "Context budget > 10K tokens for MCP tools alone"
+
+    # ─── PHASE 6: Validation ───────────────────────────────────────────────
+    - id: phase_6
+      name: "Setup Validation"
+      agent: claude-mastery-chief
+      task: audit-setup.md
+      depends_on: [phase_1, phase_2, phase_3, phase_4, phase_5]
+      parallel: false
+      requires: all_setup_artifacts
+      validates: complete_claude_code_setup
+      creates: setup_audit_report
+      description: |
+        Run full audit of the completed setup to ensure quality.
+      steps:
+        - "Execute *audit command"
+        - "Verify all components are properly configured"
+        - "Generate setup report with score"
+        - "Recommend next steps"
+      outputs:
+        - audit_score: "number (0-100)"
+        - grade: "string (A-F)"
+        - recommendations: "array"
+      checkpoint:
+        gate: "Audit score >= 70 (grade C or better)"
+        veto: "Score < 50 — fundamental setup issues"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    project-integrator_to_config-engineer: |
+      project_profile carries the detected project type, the existing setup
+      state and the setup scope, and claude_md is already written. Generate
+      .claude/settings.json deny-first for this project type, then move the
+      detailed instructions out of CLAUDE.md into path-scoped rules so the
+      always-loaded context stays lean.
+    config-engineer_to_hooks-architect: |
+      claude_settings is valid and the deny rules cover .env and secrets.
+      Design the hooks this project actually needs, starting with
+      damage-control, wire them into settings.json and test that they fire.
+      Do not relax any deny rule to make a hook run.
+    hooks-architect_to_mcp-integrator: |
+      hook_configuration is in place and tested. Configure the MCP servers that
+      match this project's tech stack, prioritising by ROI, and report the
+      context budget the tools consume. Stop short of the 10K token ceiling.
+    mcp-integrator_to_claude-mastery-chief: |
+      Every component is configured — CLAUDE.md, settings, rules, hooks and MCP.
+      Run the full setup audit, verify each component against its checkpoint
+      gate, and return the score, the grade and the recommended next steps.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # FLOW
+  # ──────────────────────────────────────────────────────────────────────────
+
+  flow_diagram: |
+    graph TD
+      P0[Phase 0: Discovery — project-integrator] --> P1[Phase 1: CLAUDE.md — project-integrator]
+      P0 --> P2[Phase 2: Settings & Permissions — config-engineer]
+      P1 --> P3[Phase 3: Conditional Rules — config-engineer]
+      P2 --> P4[Phase 4: Hook Setup — hooks-architect]
+      P2 --> P5[Phase 5: MCP Integration — mcp-integrator]
+      P1 --> P6[Phase 6: Setup Validation — claude-mastery-chief]
+      P2 --> P6
+      P3 --> P6
+      P4 --> P6
+      P5 --> P6
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # COMPLETION CRITERIA
+  # ──────────────────────────────────────────────────────────────────────────
+
+  completion_criteria:
+    - "CLAUDE.md exists and is < 200 lines"
+    - ".claude/settings.json is valid with deny rules"
+    - "At least 2 conditional rules in .claude/rules/"
+    - "At least 1 hook configured (damage-control minimum)"
+    - "MCP servers configured for project stack"
+    - "Audit score >= 70"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # VETO CONDITIONS (workflow-level)
+  # ──────────────────────────────────────────────────────────────────────────
+
+  veto_conditions:
+    - "No .env or secrets files accessible without deny rules"
+    - "No autoApprove permission mode without explicit user consent"
+    - "No MCP configuration that exceeds context budget"

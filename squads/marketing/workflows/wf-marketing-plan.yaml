@@ -1,0 +1,301 @@
+# ============================================================================
+# Workflow: Marketing Plan
+# Squad: marketing
+# Version: 1.0.0
+# Purpose: Build the evidenced marketing plan along the squad's coherence chain
+# ----------------------------------------------------------------------------
+# Execution entries live under workflow.sequence (the canonical execution
+# contract read by WorkflowValidator). Each entry keeps the phase shape used
+# across AEXOS squads: id, name, agent, task, depends_on, parallel, outputs,
+# checkpoint{gate, veto}.
+# ============================================================================
+
+workflow:
+  id: wf-marketing-plan
+  name: "Evidenced Marketing Plan"
+  version: "1.0.0"
+  type: squad-workflow
+  description: |
+    Builds a marketing plan by walking the squad's coherence chain in dependency
+    order: position (an input, owned outside this squad) -> brand model ->
+    demand plan -> content -> measurement.
+
+    The order is not a preference. Content built before the beats are tied to
+    category entry points gets rewritten. Measurement designed before the
+    objectives are settled measures whatever was convenient to instrument. Each
+    phase consumes the artifact the phase above it produced.
+
+    The workflow produces an evidenced plan and stops there. It does not frame
+    epics, draft stories, implement, test or publish.
+
+  trigger: "*intake"
+  entry_agent: marketing-chief
+  estimated_duration: "4-8 working sessions, spread across the evidence each phase needs"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE
+  # ──────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Triage and intake ─────────────────────────────────────────
+    - id: phase_0
+      name: "Triage and Intake"
+      agent: marketing-chief
+      task: marketing-chief-diagnose.md
+      parallel: false
+      action: "Record the request verbatim, restate it in the owning discipline's vocabulary, decide the boundary, and check whether a position artifact exists before any downstream work starts."
+      creates: triage-record
+      description: |
+        Beacon triages the initiative, names the single discipline that owns the
+        entry question, and checks the one dependency that invalidates
+        everything downstream if it is missing: the position.
+      outputs:
+        - verbatim_record: "The request as stated, captured before any reframe"
+        - boundary_verdict: "IN-SQUAD or OUT-OF-SQUAD, with the receiving agent named"
+        - dependency_verdict: "PROCEED or BLOCKED-ON-POSITION"
+        - handoff_brief: "Path to the handoff record written under .aexos/handoffs/"
+      checkpoint:
+        gate: "The boundary verdict is IN-SQUAD and the handoff brief exists in the repository"
+        veto: "If no position artifact exists at @products:positioning-lead, the plan does not proceed past this phase. Marketing consumes positioning; it never defines it. The content audit, the archive review and the instrumentation gap analysis may proceed meanwhile; beats, entry points, the reach specification, the split and any measurement model may not."
+
+    # ─── PHASE 1: Brand model ───────────────────────────────────────────────
+    - id: phase_1
+      name: "Brand Growth Diagnosis"
+      agent: brand-lead
+      task: brand-lead-brand-audit.md
+      depends_on: [phase_0]
+      parallel: false
+      requires: triage-record
+      action: "Establish the category denominator, pull the six readings, apply the double-jeopardy expectation, and name the one binding constraint."
+      creates: brand-specification
+      description: |
+        Salience diagnoses brand growth health against the category rather than
+        against the customer list, and returns the binding constraint —
+        RETRIEVAL, ACCESS or REACH — instead of a list of opinions. This is the
+        specification the rest of the chain sizes, schedules and instruments.
+      outputs:
+        - denominator: "The category buyer population, with its source named"
+        - readings_table: "Six readings, each marked SOURCED or UNVERIFIED"
+        - binding_constraint: "RETRIEVAL, ACCESS or REACH"
+        - category_entry_points: "The buying situations the brand must be retrievable in"
+        - unverified_list: "Every figure that did not trace to a source"
+      checkpoint:
+        gate: "Exactly one binding constraint is named, with the evidence that identifies it, and the UNVERIFIED list is present"
+        veto: "If the category buyer population is unknown, the whole audit is marked UNVERIFIED and establishing the denominator becomes recommendation one — every reading below it is a ratio whose denominator this is. No empirical generalisation may be presented as a guaranteed outcome for this brand."
+
+    # ─── PHASE 2: Demand plan ───────────────────────────────────────────────
+    - id: phase_2
+      name: "Brand and Activation Split"
+      agent: demand-lead
+      task: demand-lead-split-decision.md
+      depends_on: [phase_1]
+      parallel: true
+      requires: brand-specification
+      action: "Classify every spend line, report the actual split before the desired one, adjust the named prior with an explicit direction and reason per factor, and output a range."
+      creates: split-decision
+      description: |
+        Cadence sizes what Salience specified. May run concurrently with
+        phase_3 — the beat plan does not need the split as an input, only the
+        phasing as an optional constraint.
+      outputs:
+        - actual_split: "The split the plan actually has, line by line, before any recommendation"
+        - recommended_split: "A RANGE with a midpoint, never a point estimate"
+        - evidence_class: "DATABANK PRIOR, OWN DATA or JUDGEMENT"
+        - effect_windows: "The window over which each effect occurs"
+        - unverified_list: "Every ratio or coefficient not yet checked against its publication"
+      checkpoint:
+        gate: "The actual split is reported before the recommendation, the recommendation is a range with a stated evidence class, and every adjustment carries a direction and a reason"
+        veto: "No ratio, split percentage or excess-share-of-voice coefficient may be stated from memory. If nobody in the session has the publication to hand, the output is a split structure with the prior slot marked UNVERIFIED and named — not a number produced from recollection. An UNVERIFIED figure does not justify a budget decision on its own."
+
+    # ─── PHASE 3: Content ───────────────────────────────────────────────────
+    - id: phase_3
+      name: "Editorial Beats"
+      agent: content-lead
+      task: content-lead-beat-plan.md
+      depends_on: [phase_1]
+      parallel: true
+      requires: brand-specification
+      action: "Take the category entry points from phase_1, propose candidate beats, apply the defensibility test, constrain the number against stated capacity, and record the beats deliberately not taken."
+      creates: beat-plan
+      description: |
+        Quill converts the category entry points into editorial territories the
+        brand can hold continuously and credibly. May run concurrently with
+        phase_2. Where phasing from the split is available it is consumed as an
+        optional continuity constraint; where it is not, the beat plan does not
+        wait for it.
+      outputs:
+        - beats: "The territories the brand will cover continuously, each with its claim and the CEPs it serves"
+        - declined_beats: "Beats deliberately not taken, with reasons"
+        - capacity_assumption: "The capacity the beat count assumes, stated explicitly"
+        - commitment_horizon: "How long each beat is committed to before it may be reconsidered"
+        - coherence_flags: "Beats not derived from any CEP, and beats that would contradict the position"
+      checkpoint:
+        gate: "Every beat traces to at least one category entry point from phase_1, the declined-beats list exists with a reason per entry, and the capacity assumption is stated"
+        veto: "No beat may be selected on search volume or internal interest alone. No founding author, work or year may be claimed for this role's method — the basis is editorial craft discipline and it is declared as such."
+
+    # ─── PHASE 4: Measurement ───────────────────────────────────────────────
+    - id: phase_4
+      name: "Measurement Model"
+      agent: analytics-lead
+      task: analytics-lead-measurement-model.md
+      depends_on: [phase_1, phase_2, phase_3]
+      parallel: false
+      requires: split-decision
+      action: "Build the model top down from the objectives set upstream, limit each goal to the critical few metrics, set targets in advance, and mark feasibility honestly per metric."
+      creates: measurement-model
+      description: |
+        Cipher decides how things are measured and what the measurement can
+        support. What matters was decided in phase_1 and phase_2 and is never
+        re-decided here. Effect windows come from phase_2; a metric read inside
+        the wrong window is noise, and a model built on it would enshrine that.
+      outputs:
+        - model_table: "Objectives, goals, critical few metrics, targets, segments, horizon and feasibility in one table"
+        - feasibility_marks: "INSTRUMENTED, INSTRUMENTABLE with cost, or NOT FEASIBLE, per metric"
+        - measurement_gaps: "Effects that matter and cannot currently be measured, reported as open gaps"
+        - proxy_escalations: "Metrics standing in for an objective nobody measures directly"
+      checkpoint:
+        gate: "Every metric has a target set in advance, a named horizon taken from phase_2, and a feasibility mark; attribution metrics are labelled as allocation rather than as cause"
+        veto: "A NOT FEASIBLE metric may never be quietly dropped and replaced with an easier proxy — it is reported as an open measurement gap. Any proxy silently standing in for a stated objective escalates to marketing-chief, and the proxy is retired only after the real measurement has run in parallel for one cycle."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    marketing_chief_to_brand_lead: |
+      Handing the triage record to brand-lead. Carrying: the verbatim request,
+      the confirmed restatement, the boundary verdict, the position artifact
+      this initiative depends on, and the evidence already in existence marked
+      PRESENT, PARTIAL or ABSENT. Do not re-elicit basics.
+
+    brand_lead_to_demand_lead: |
+      Handing the brand-building specification to demand-lead for sizing.
+      Carrying: the binding constraint, the category entry points, the reach and
+      continuity requirement, and the UNVERIFIED list. This is a requirement to
+      be sized, not a budget. If severe access friction was found, say so — the
+      activation side would otherwise be harvesting into a leak.
+
+    brand_lead_to_content_lead: |
+      Handing the category entry points and distinctive assets to content-lead.
+      These are the input to beat selection and are not authored in editorial.
+      Carrying: the CEPs, the assets settled so far, and the position the beats
+      must not contradict.
+
+    demand_lead_to_content_lead: |
+      Optional, concurrent. Where content is proposed as a cheaper continuity
+      mechanism than paid reach, the phasing is handed across as a trade-off to
+      be stated rather than assumed. The beat plan does not block on it.
+
+    demand_lead_to_analytics_lead: |
+      Handing the effect windows and the objectives to analytics-lead. Carrying:
+      which effects must be measured over which horizon, and the evidence class
+      of the split. Whether each effect can actually be measured is decided
+      there, not assumed here.
+
+    content_lead_to_analytics_lead: |
+      Handing the per-beat success definitions to analytics-lead for a verdict
+      on which are measurable and which are proxies standing in for something
+      nobody measures.
+
+    analytics_lead_to_marketing_chief: |
+      Returning the measurement model with its gaps. Carrying: proxy
+      substitutions for squad-level escalation, and any measurement gap that
+      leaves a stated objective untracked. Confidence must not increase during
+      consolidation.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # FLOW
+  # ──────────────────────────────────────────────────────────────────────────
+
+  flow_diagram: |
+    graph TD
+      P0[phase_0 marketing-chief diagnose] --> P1[phase_1 brand-lead brand-audit]
+      P1 --> P2[phase_2 demand-lead split-decision]
+      P1 --> P3[phase_3 content-lead beat-plan]
+      P2 --> P4[phase_4 analytics-lead measurement-model]
+      P3 --> P4
+
+# ────────────────────────────────────────────────────────────────────────────
+# VETO CONDITIONS (workflow-level)
+# ────────────────────────────────────────────────────────────────────────────
+
+veto_conditions:
+  - "No position artifact at @products:positioning-lead — the chain has no first link and nothing downstream is sound"
+  - "A published ratio, split or coefficient stated from memory rather than checked against its publication"
+  - "An invented, misattributed or unverifiable citation anywhere in the chain — attribution defects are critical, not stylistic, because they make the whole method unauditable"
+  - "A NOT FEASIBLE metric replaced by an easier proxy instead of reported as an open gap"
+  - "Any phase output that is more confident than the evidence upstream of it"
+
+# ────────────────────────────────────────────────────────────────────────────
+# BOUNDARY
+# ────────────────────────────────────────────────────────────────────────────
+
+boundary:
+  consumed_not_authored:
+    "@products:positioning-lead": "Market category, competitive alternatives, target segment. Marketing consumes the position; it does not define it."
+    "@products:pricing-strategist": "Price, packaging, willingness to pay."
+  released_at_the_end:
+    "@pm": "Epic framing and PRD, once the evidenced plan is complete"
+    "@sm": "Story creation (exclusive authority)"
+    "@po": "Story validation and backlog"
+    "@dev": "Implementation"
+    "@qa": "Quality gates"
+    "@devops": "Release, git push, PRs, MCP and CI/CD (exclusive authority)"
+  not_in_this_workflow:
+    - "No phase implements anything"
+    - "No phase tests anything"
+    - "No phase publishes or pushes anything"
+
+# ────────────────────────────────────────────────────────────────────────────
+# ATTRIBUTION
+# ────────────────────────────────────────────────────────────────────────────
+
+attribution:
+  note: |
+    Each phase declares the work its method rests on. Where a role rests on a
+    discipline rather than on a single work, that is said plainly — a wrong
+    attribution is worse than no attribution.
+  phase_1: |
+    Byron Sharp, How Brands Grow: What Marketers Don't Know (Oxford University
+    Press, 2010), reporting Ehrenberg-Bass Institute research. Where the method
+    draws on later work from the same institute it is named separately: How
+    Brands Grow Part 2 (Romaniuk and Sharp, 2016) for category entry points, and
+    Building Distinctive Brand Assets (Romaniuk, 2018) for the asset grid. An
+    empirical generalisation is a pattern observed across categories, not a
+    guarantee for this brand.
+  phase_2: |
+    Les Binet and Peter Field, The Long and the Short of It: Balancing Short and
+    Long-Term Marketing Strategies (IPA, 2013), analysing the IPA Databank; with
+    their later work, including Media in Focus (IPA, 2017) and the B2B work
+    published with the LinkedIn B2B Institute (2019), named separately where it
+    is used. This phase states no ratio, no split percentage and no
+    excess-share-of-voice coefficient from memory. Any figure carried into the
+    output is marked UNVERIFIED until it has been checked against the
+    publication it is attributed to.
+  phase_3: |
+    No single canonical published work founds this role, and none is claimed.
+    The basis is the accumulated craft practice of editorial operations — the
+    beat, the commissioning brief, the calendar, the style guide, the
+    corrections policy and the archive — transposed to a marketing context.
+  phase_4: |
+    Avinash Kaushik, Web Analytics 2.0 (Sybex/Wiley, 2009). Frameworks commonly
+    associated with the same author but published later on his Occam's Razor
+    blog rather than in the 2009 book — notably the Digital Marketing and
+    Measurement Model and See-Think-Do-Care — are named as later blog work and
+    are not attributed to the book. The incrementality methods relied on for
+    causal claims are established measurement disciplines with a broad
+    literature, not Kaushik's frameworks, and are attributed accordingly.
+
+# ────────────────────────────────────────────────────────────────────────────
+# COMPLETION CRITERIA
+# ────────────────────────────────────────────────────────────────────────────
+
+completion_criteria:
+  - "A position artifact existed before any phase after phase_0 ran"
+  - "Exactly one binding constraint is named in the brand specification"
+  - "The split is a range with a stated evidence class, and no ratio was stated from memory"
+  - "Every beat traces to a category entry point, and the declined-beats list exists"
+  - "Every metric has a target, a horizon and a feasibility mark"
+  - "Every UNVERIFIED marking and every NOT MEASURED verdict survives into the consolidated plan"
+  - "The plan is written to the repository with an owner and a review date"

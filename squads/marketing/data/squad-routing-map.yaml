@@ -1,0 +1,403 @@
+# Squad Routing Map, Reframing Patterns & Attribution Register
+# Squad: marketing
+# Owner agent: marketing-chief (Beacon)
+# Last updated: 2026-07-30
+
+version: "1.0.0"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# WHAT THIS FILE IS
+# ═══════════════════════════════════════════════════════════════════════════════
+purpose: >-
+  Routing accuracy is most of the answer. The most common failure in this squad is not a weak
+  method — it is the right question answered by the wrong discipline, or the right answer given
+  on the wrong horizon. This file records who owns what, what each specialist explicitly does
+  NOT own, the questions whose stated form differs from their owned form, and the register of
+  which method each specialist rests on.
+
+method_basis:
+  agent: "marketing-chief (Beacon)"
+  source: null
+  statement: >-
+    Original orchestration role. No external methodology is applied or claimed by this agent.
+    The published methods live in the specialists, each attributed to its author — or, for
+    content-lead, honestly declared as a discipline rather than a work.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 1. ROUTING MATRIX
+# ═══════════════════════════════════════════════════════════════════════════════
+# The not_theirs list is what makes routing accurate. When a request feels close to
+# two owners, check the NOT-lists of the near misses before the keyword lists.
+
+routing:
+
+  brand-lead:
+    persona: Salience
+    tier: 1
+    based_on: "Byron Sharp, How Brands Grow (Oxford University Press, 2010)"
+    also_rests_on:
+      - "Romaniuk and Sharp, How Brands Grow Part 2 (2016) — category entry points"
+      - "Romaniuk, Building Distinctive Brand Assets (2018) — the fame-and-uniqueness grid"
+    keywords: [brand, penetration, loyalty, mental availability, physical availability, category entry point, cep, distinctive asset, salience, awareness, reach, rebrand, logo, tracking, double jeopardy, light buyer, category buyer, memory]
+    covers: >-
+      Penetration versus loyalty diagnosis, mental availability and category entry points,
+      physical availability and buying-path friction, distinctive asset fame and uniqueness,
+      reach and continuity requirements, brand tracking specification, rebrand risk.
+    not_theirs:
+      - "Budget size, split and share of voice → demand-lead"
+      - "Editorial pipeline and formats → content-lead"
+      - "Measurement design and attribution → analytics-lead"
+      - "Market category and competitive alternatives → @products:positioning-lead"
+    local_artifacts:
+      task: "brand-lead-brand-audit.md"
+      template: "brand-specification-tmpl.md"
+      checklist: "brand-growth-evidence-checklist.md"
+      data: "distinctive-asset-taxonomy.yaml"
+
+  demand-lead:
+    persona: Cadence
+    tier: 1
+    based_on: "Les Binet and Peter Field, The Long and the Short of It (IPA, 2013)"
+    also_rests_on:
+      - "Media in Focus: Marketing Effectiveness in the Digital Era (IPA, 2017)"
+      - "B2B-specific analysis published with the LinkedIn B2B Institute (2019)"
+    keywords: [budget, split, share of voice, esov, brand building, sales activation, short termism, efficiency, effect window, payback, roi, cac, cost per acquisition, long term, phasing, cut, spend, media investment]
+    covers: >-
+      Brand-building versus activation split, share of voice and excess share of voice, effect
+      windows and payback periods, short-termism and efficiency-trap diagnosis, budget cut
+      impact modelling, phasing across the year.
+    not_theirs:
+      - "What the brand should mean, or which entry points to build → brand-lead"
+      - "Editorial pipeline → content-lead"
+      - "Whether an effect can actually be measured → analytics-lead"
+      - "Pricing and packaging → @products:pricing-strategist"
+    deliberate_non_assertion: >-
+      This agent deliberately does NOT assert ratios, split priors or share-of-voice
+      coefficients from memory. Every such figure is a category average across a case databank
+      with real dispersion, and must be read from the named publication before it is used. Until
+      it has been, it is marked UNVERIFIED. Its templates carry ⟨READ FROM PUBLICATION⟩ slots
+      rather than plausible numbers, and that is the design, not a gap.
+    local_artifacts:
+      task: "demand-lead-split-decision.md"
+      template: "split-decision-tmpl.md"
+      checklist: "effect-window-checklist.md"
+      data: "spend-classification.yaml"
+
+  content-lead:
+    persona: Quill
+    tier: 2
+    based_on: "Editorial discipline applied to marketing — a practice, not a single published work"
+    also_rests_on: []
+    keywords: [content, blog, editorial, beat, calendar, cadence, publish, article, brief, commission, format, distribution, repurpose, archive, evergreen, style guide, corrections, newsletter]
+    covers: >-
+      Beat definition and editorial territory, commissioning briefs, calendar and cadence
+      against capacity, format selection, distribution planning as part of the commission,
+      editorial standards and corrections, archive maintenance and pruning.
+    not_theirs:
+      - "Which entry points or assets to express → brand-lead"
+      - "Budget and amplification sizing → demand-lead"
+      - "Whether content performance can be proven → analytics-lead"
+      - "Interface copy and UX writing → @ux-design-expert"
+    attribution_note: >-
+      No canonical published work founds this role and none is claimed. Its principles are an
+      operating stance, arguable on their merits rather than on the strength of a citation. An
+      invented founding author would be worse than the honest absence of one — it would make the
+      whole squad's attribution unauditable.
+    local_artifacts:
+      task: "content-lead-beat-plan.md"
+      template: "beat-plan-tmpl.md"
+      checklist: "commissioning-brief-checklist.md"
+      data: "editorial-format-and-distribution.yaml"
+
+  analytics-lead:
+    persona: Cipher
+    tier: 2
+    based_on: "Avinash Kaushik, Web Analytics 2.0 (Sybex/Wiley, 2009)"
+    also_rests_on:
+      - "Later Occam's Razor blog frameworks — named as blog work, not as book content"
+      - "Incrementality methods (holdouts, geo experiments, marketing mix modelling) — established measurement disciplines, NOT attributed to Kaushik"
+    keywords: [metric, measurement, dashboard, attribution, last click, incrementality, holdout, geo test, segment, conversion, tracking, instrumentation, readout, kpi, benchmark, report, data, prove]
+    covers: >-
+      Measurement model from objectives to targets, actionable metrics and the critical few,
+      segmentation discipline, macro and micro conversions, attribution review and its limits,
+      incrementality design, readout construction, and stating what the data cannot support.
+    not_theirs:
+      - "Which objectives matter → brand-lead and demand-lead"
+      - "Effect windows → demand-lead"
+      - "Product-surface experiment statistics → @products:experimentation-lead"
+      - "Schema, pipelines and queries → @data-engineer"
+    local_artifacts:
+      task: "analytics-lead-measurement-model.md"
+      template: "measurement-model-tmpl.md"
+      checklist: "measurement-honesty-checklist.md"
+      data: "attribution-pitfalls.yaml"
+
+  marketing-chief:
+    persona: Beacon
+    tier: 0
+    based_on: "Original (Orchestrator)"
+    covers: >-
+      Triage and routing, discipline boundaries, multi-specialist sequencing, brand and
+      activation balance at squad level, coherence auditing, contradiction arbitration,
+      proxy-substitution escalation, consolidated briefs, and the squad boundary.
+    direct_answer_domains:
+      - "Which specialist owns a given question, and why"
+      - "What each specialist covers and explicitly does not"
+      - "The order in which specialists should be engaged"
+      - "Contradictions between existing artifacts, and what evidence would resolve them"
+      - "Whether the squad is drifting short, and where the drift is visible"
+      - "The boundary between this squad, the Products Squad and the AEXOS core agents"
+      - "Squad navigation, activation syntax, artifact locations"
+      - "Which method source each specialist rests on, and which rests on a discipline"
+    never_answers: "Anything requiring a method. Method belongs to the specialist who carries it."
+    local_artifacts:
+      task: "marketing-chief-diagnose.md"
+      template: "marketing-brief-tmpl.md"
+      checklist: "coherence-chain-checklist.md"
+      data: "squad-routing-map.yaml"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 2. REFRAMING PATTERNS — the stated question is often not the owned question
+# ═══════════════════════════════════════════════════════════════════════════════
+reframing_patterns:
+  - stated: "How much should we spend on marketing?"
+    owned_by: "brand-lead first, then demand-lead"
+    why: "A budget is a number attached to a mechanism. Until it is clear what must be built in buyer memory and access, there is nothing for the number to be a size of."
+  - stated: "Our blog gets traffic but no results."
+    owned_by: "content-lead, with analytics-lead if 'results' has not been defined"
+    why: "Usually a purpose or distribution failure, sometimes a measurement failure where the piece is judged on a metric it was never commissioned to move."
+  - stated: "Which channel should we double down on?"
+    owned_by: "analytics-lead first, then demand-lead"
+    why: "The evidence is almost always an attribution report, and attribution allocates credit rather than establishing cause. Check what the claim can support before reallocating against it."
+  - stated: "Our cost per acquisition keeps rising."
+    owned_by: "demand-lead, with brand-lead if the buying path is also suspect"
+    why: "Rising acquisition cost with flat demand is the efficiency-trap signature — a pool harvested faster than it is replenished."
+  - stated: "We need a rebrand."
+    owned_by: "brand-lead, with @products:positioning-lead if the underlying claim is about market frame"
+    why: "Most rebrand requests are either asset-equity decisions or positioning decisions wearing a visual costume. The two have very different costs."
+  - stated: "Awareness is high but sales are flat."
+    owned_by: "brand-lead for the retrieval-versus-recognition distinction, then analytics-lead"
+    why: "Prompted awareness and mental availability are different measurements, and the first routinely looks healthy while the second is weak."
+  - stated: "Can we prove the campaign worked?"
+    owned_by: "analytics-lead, with demand-lead on the window"
+    why: "Provability depends on both what was instrumented and whether the measurement window could contain the effect. Neither specialist can answer it alone."
+  - stated: "Marketing and sales disagree about lead quality."
+    owned_by: "analytics-lead on definitions, @products:positioning-lead if the segment itself is contested"
+    why: "Most lead-quality disputes are definitional or segment disputes rather than performance disputes."
+  - stated: "Should we start a podcast / newsletter / video series?"
+    owned_by: "content-lead, but only after brand-lead has named the entry points"
+    why: "A format question is downstream of a beat question, which is downstream of an entry point question. Answering it first produces a channel looking for a purpose."
+  - stated: "Our dashboard has too many numbers."
+    owned_by: "analytics-lead"
+    why: "A metric audit, not a design exercise. The question is which decision each number would change."
+  - stated: "Can we cut marketing this year?"
+    owned_by: "demand-lead"
+    why: "A cut is a trade with a delayed cost, not a veto. The output is what improves immediately, what degrades and when it becomes visible, and the recovery asymmetry."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 3. COHERENCE CHAIN
+# ═══════════════════════════════════════════════════════════════════════════════
+coherence_chain:
+  links:
+    - link: position
+      owner: "@products:positioning-lead"
+      question: "Against which alternatives, in which category, for whom?"
+      note: "Input to this squad, not an output of it."
+    - link: brand model
+      owner: brand-lead
+      question: "In which buying situations must we be retrieved, with which assets, through what buying path?"
+    - link: demand plan
+      owner: demand-lead
+      question: "What split, what share of voice, phased how, judged over what window?"
+    - link: content
+      owner: content-lead
+      question: "Which beats, what cadence, which formats, distributed how?"
+    - link: measurement
+      owner: analytics-lead
+      question: "Which metrics, over which horizon, and what can they actually support?"
+  propagation_rule: "A break invalidates every link downstream of it, not only the adjacent one. Repair upstream first."
+  parallelisable:
+    - "Measurement design can begin as soon as objectives are settled."
+    - "Content audit and archive review do not need to wait for the demand plan."
+  blocked_without_position:
+    - "Beats"
+    - "Category entry points"
+    - "The reach specification"
+    - "The split"
+    - "Any measurement model whose objectives come from a position that does not exist"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 4. ESCALATION RULES
+# ═══════════════════════════════════════════════════════════════════════════════
+escalation:
+  - trigger: "Specialist cannot complete the request within its discipline"
+    action: "Return to marketing-chief for re-routing"
+  - trigger: "Two specialists produce contradictory recommendations"
+    action: "marketing-chief runs conflict arbitration — establish horizons before treating it as a fact dispute"
+  - trigger: "A measurable proxy has silently replaced an objective"
+    action: "Proxy escalation. Never fixed at the dashboard alone — removing the proxy leaves the objective untracked"
+  - trigger: "Request depends on a position that does not exist"
+    action: "@products:positioning-lead, before any squad work proceeds"
+  - trigger: "Request has left the marketing surface"
+    action: "Route to the AEXOS core agent that owns it"
+  - trigger: "An invented or unverifiable citation is found in any squad artifact"
+    action: "BLOCK the artifact; require the source or its removal. Attribution defects are critical"
+  - trigger: "Ethical concern raised by any specialist"
+    action: "Surfaced explicitly before the decision proceeds, never as a footnote"
+  - trigger: "Request requires git push, PR, MCP or CI/CD"
+    action: "@devops. No exceptions"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 5. ARBITRATION RULES
+# ═══════════════════════════════════════════════════════════════════════════════
+arbitration:
+  rules:
+    - condition: "Different horizons"
+      ruling: "Not a contradiction. Both hold, and the real question is the split — demand-lead."
+    - condition: "One side has named checkable evidence, the other does not"
+      ruling: "Evidence wins this round."
+    - condition: "Evidence about different populations"
+      ruling: "A segment question. Check the position."
+    - condition: "Both evidenced and genuinely conflicting"
+      ruling: "Escalate the assumption; specify the measurement that would decide, with analytics-lead on feasibility."
+    - condition: "Neither has evidence"
+      ruling: "The output is a measurement plan, not a decision."
+    - condition: "Disagreement is about values, not facts"
+      ruling: "Surface as a human decision. Do not resolve silently."
+  forbidden: >-
+    Averaging two evidenced positions into an unevidenced third. A compromise neither side's
+    evidence supports fails on both horizons, and it is the natural response to a horizon
+    difference misread as a fact dispute.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 6. DRIFT DETECTION
+# ═══════════════════════════════════════════════════════════════════════════════
+drift_detection:
+  premise: >-
+    Marketing drifts short by default, because mechanisms with fast attributable feedback win
+    every argument run on a short clock — regardless of which produced more value. Measurability
+    is a property of the instrument; importance is a property of the effect. Naming that drift
+    is a chief-level job, not a specialist one.
+  signals:
+    - signal: "Split unstated"
+      reading: "Drift is unmanaged by default. A split exists; it was set by whatever was easiest to justify."
+    - signal: "Objective with no real metric"
+      reading: "Proxy substitution. Escalate; do not fix at the dashboard."
+    - signal: "Long effect on a short clock"
+      reading: "The readout is uninterpretable. The window belongs to demand-lead."
+    - signal: "Attributable-channel share rising over cycles"
+      reading: "Efficiency trap forming."
+    - signal: "Leadership metrics all short-horizon"
+      reading: "The drift will reoccur regardless of any single fix."
+    - signal: "Brand and content first to be cut"
+      reading: "The pattern is structural, not situational."
+  division_of_labour: "Beacon names the drift. demand-lead costs the sizing consequences; analytics-lead costs the measurement consequences."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 7. ATTRIBUTION REGISTER
+# ═══════════════════════════════════════════════════════════════════════════════
+# Checked by the attribution audit. Three specialists rest on named published works;
+# one rests on a discipline and says so. That structure is what makes every squad
+# recommendation auditable against a source.
+attribution_register:
+  agents:
+
+    - agent: marketing-chief
+      type: role
+      basis: "Original orchestration role"
+      work: null
+      note: "No external methodology applied or claimed."
+
+    - agent: brand-lead
+      type: published_works
+      works:
+        - author: "Byron Sharp"
+          title: "How Brands Grow: What Marketers Don't Know"
+          publisher: "Oxford University Press"
+          year: 2010
+          used_for: "Double jeopardy, duplication of purchase, buyer-base shape, distinctiveness vs differentiation, how advertising works"
+        - authors: "Jenni Romaniuk and Byron Sharp"
+          title: "How Brands Grow Part 2"
+          year: 2016
+          used_for: "Category entry points"
+        - author: "Jenni Romaniuk"
+          title: "Building Distinctive Brand Assets"
+          year: 2018
+          used_for: "The fame-and-uniqueness asset grid"
+      separation_rule: "Three distinct works. Folding them into one citation is a misattribution."
+
+    - agent: demand-lead
+      type: published_works
+      works:
+        - authors: "Les Binet and Peter Field"
+          title: "The Long and the Short of It: Balancing Short and Long-Term Marketing Strategies"
+          publisher: "IPA"
+          year: 2013
+          used_for: "Brand building vs activation, the split, excess share of voice, effect windows, short-termism"
+        - authors: "Les Binet and Peter Field"
+          title: "Media in Focus: Marketing Effectiveness in the Digital Era"
+          publisher: "IPA"
+          year: 2017
+          used_for: "Digital-era revision of the above"
+        - authors: "Les Binet and Peter Field"
+          title: "B2B-specific analysis published with the LinkedIn B2B Institute"
+          year: 2019
+          used_for: "B2B contexts"
+          note: "Named as the agents name it. Do not assert a title that has not been checked."
+      figure_rule: >-
+        Every ratio, coefficient and effect size in this literature is a category average across a
+        case databank, with dispersion. Read it from the publication; mark it UNVERIFIED until
+        then; never present it as a constant.
+
+    - agent: content-lead
+      type: discipline
+      basis: "Editorial craft practice — beat, brief, calendar, standard, corrections, archive"
+      work: null
+      declaration: >-
+        No canonical published work founds this role and none is claimed. This is stated
+        deliberately: an invented citation would be worse than none, and it would make the whole
+        squad's attribution unauditable.
+
+    - agent: analytics-lead
+      type: published_work_with_boundaries
+      works:
+        - author: "Avinash Kaushik"
+          title: "Web Analytics 2.0: The Art of Online Accountability and Science of Customer Centricity"
+          publisher: "Sybex/Wiley"
+          year: 2009
+          used_for: "Actionable metrics, the critical few, segmentation before conclusion, macro/micro conversions, multiplicity, analysis over tools"
+      boundaries:
+        - claim: "Digital Marketing and Measurement Model; See-Think-Do-Care"
+          actual_source: "Later work on the author's Occam's Razor blog"
+          rule: "Cite as blog work, not as book content."
+        - claim: "Randomised holdouts, geo experiments, marketing mix modelling"
+          actual_source: "Established measurement disciplines with their own broad literature"
+          rule: "Not Kaushik's frameworks. Do not borrow his name for them."
+
+  audit_rule: >-
+    Any invented, misattributed or unverifiable citation BLOCKS the artifact. A figure marked
+    UNVERIFIED is fine and honest; a figure presented as sourced when it is not is a critical
+    defect, because it makes the whole method unauditable.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 8. SQUAD BOUNDARY
+# ═══════════════════════════════════════════════════════════════════════════════
+boundary:
+  inputs_from:
+    "@products:positioning-lead": "Position — competitive alternatives, market category, target segment. Marketing CONSUMES positioning; it does not define it."
+  outside_this_squad:
+    "@products:pricing-strategist": "Price, packaging, willingness to pay"
+    "@products:experimentation-lead": "Product-surface experiment statistics"
+    "@products:discovery-lead": "Customer research design"
+    "@analyst": "Deep market and competitor research"
+    "@ux-design-expert": "Interface design, microcopy, UX writing"
+    "@data-engineer": "Schema, pipelines, instrumentation queries"
+    "@pm": "Epic framing, PRD"
+    "@sm": "Story drafting — exclusive"
+    "@po": "Story validation and backlog"
+    "@dev": "Implementation"
+    "@qa": "Quality gates"
+    "@devops": "Git push, PRs, MCP, CI/CD — exclusive authority, no exceptions"
+  squad_stops_at: "The evidenced marketing plan, packaged for @pm epic framing."
+  activation_syntax: "@marketing:{agent-id}, or ask marketing-chief to route."
+  persistence_rule: "A marketing decision that exists only in a chat transcript did not happen. Squad artifacts are versioned markdown and YAML in the repository (Constitution Article I — CLI First)."

@@ -1,0 +1,272 @@
+# Profit-Cash Divergence — Reference Knowledge
+# Squad: business-admin
+# Agent: finance-lead (Abacus)
+#
+# Where reported profit and the bank balance disagree, and why. A catalogue for
+# building and reading a profit-to-cash bridge, not a set of conclusions.
+#
+# ATTRIBUTION: The framework applied here is published by Karen Berman & Joe Knight,
+# "Financial Intelligence: A Manager's Guide to Knowing What the Numbers Really Mean"
+# (Harvard Business School Press, 2006, written with John Case). It is a MANAGEMENT-LITERACY
+# framework: it teaches managers to read and question financial information. It does not
+# qualify anyone to prepare, certify or opine on it.
+#
+# PROFESSIONAL LIMIT — APPLIES TO EVERY ENTRY BELOW: nothing in this file states how any item
+# should be recognised, measured, disclosed, classified or taxed. Every entry describes where
+# a gap between profit and cash MECHANICALLY comes from so it can be traced to a source.
+# Whether an item was treated correctly is a question for a licensed accountant; whether the
+# statements are right is a question for an external auditor; whether there is a tax
+# consequence is a question for a tax adviser. Each entry carries the referral it triggers.
+
+version: "1.0.0"
+last_reviewed: "2026-07-30"
+
+licensed_review:
+  required: true
+  rule: |
+    Any artefact built using this file carries a licensed-review block naming a specific
+    professional (person and firm), the question sent, the date sent and the review status.
+    "Our accountant" is not a name. An artefact whose review status is UNREVIEWED may inform an
+    internal conversation and may not close a decision whose correctness depends on a treatment.
+  who_reviews_what:
+    licensed_accountant: "Recognition, measurement, disclosure, classification, closing, statutory reporting, and whether any bridge item was treated correctly"
+    tax_adviser: "Any tax treatment, planning question or filing position surfaced by a bridge item"
+    external_auditor: "Any assurance, audit, review or certification. A bridge is explicitly not assurance."
+    lawyer: "Any contractual obligation, payment term, guarantee or commitment discovered while tracing an item"
+
+# ---------------------------------------------------------------------------
+# 1. WHY THEY DIVERGE AT ALL
+# ---------------------------------------------------------------------------
+
+why_they_diverge:
+  premise: |
+    Profit is an estimate; cash is closer to a fact. Profit depends on when revenue is
+    recognised, how costs are matched to it, what is capitalised rather than expensed, and how
+    things are depreciated or provided for. The bank balance depends on what actually moved.
+    Both measurements are legitimate and they are answering different questions.
+  the_common_failure: |
+    A profitable, growing business funds larger receivables and larger inventory before it
+    collects, and pays for capital items whose cost never reaches the result at full value in
+    the period they were bought. This is the standard way a healthy-looking company runs out of
+    money, and the people running it are consistently surprised — because the result was true.
+  what_a_bridge_is_for: |
+    Not to prove anyone wrong. To convert an argument about which report is right into a sourced
+    list of items, so the conversation moves to the one or two lines that actually matter.
+
+# ---------------------------------------------------------------------------
+# 2. BRIDGE ITEM CATALOGUE
+# ---------------------------------------------------------------------------
+# Each item: what it is, the direction it moves cash relative to profit, where the number
+# is found, how it is commonly got wrong, and which professional owns any question about it.
+
+bridge_items:
+
+  non_cash_charges:
+    - item: depreciation
+      effect_on_bridge: "Add back. Reduced profit, moved no cash this period."
+      source: "Fixed asset register for the period, not the P&L line alone"
+      common_error: "Taking the P&L line without checking whether it includes an impairment or a change in useful life, both of which behave differently"
+      what_it_hides: "A change in depreciation method or useful life moves the result without anything happening in the business"
+      referral: "Any question about method, useful life or whether a change was appropriate -> licensed accountant"
+
+    - item: amortisation
+      effect_on_bridge: "Add back."
+      source: "Intangible asset register"
+      common_error: "Conflating amortisation of an intangible with a prepayment release; they come from different places"
+      referral: "licensed accountant"
+
+    - item: impairment
+      effect_on_bridge: "Add back. Often large, often a one-off, frequently the whole explanation for a bad result with stable cash."
+      source: "The specific impairment entry and its supporting paper"
+      common_error: "Leaving it inside a general depreciation line so a one-off looks like a run rate"
+      referral: "licensed accountant — whether an impairment was required or correctly measured is not a management question"
+
+    - item: movement_in_provisions
+      effect_on_bridge: "Add back an increase; deduct a release."
+      source: "Provision movement schedule"
+      common_error: "A provision release quietly improving the result while no cash arrived, read as performance"
+      what_it_hides: "Provisions are estimates. A revision is an estimate change, not a business event."
+      referral: "licensed accountant"
+
+    - item: share_based_or_non_cash_compensation
+      effect_on_bridge: "Add back where it reduced the result without a cash outflow in the period."
+      source: "The specific charge and its schedule"
+      common_error: "Ignored entirely in small-company bridges, then reappearing as an unexplained residual"
+      referral: "licensed accountant, and a tax adviser if any tax consequence is being assumed"
+
+  working_capital:
+    - item: movement_in_receivables
+      effect_on_bridge: "An increase is a cash OUTFLOW. Revenue was recognised; the money has not arrived."
+      source: "Ledger balances at BOTH period ends — a single closing balance cannot produce a movement"
+      why_it_dominates: |
+        This is the single most common dominant driver of a profit-to-cash gap in a growing
+        business, and it is the one with the clearest operating owner outside finance.
+      decomposition_required: |
+        Split the increase into (a) receivables attributable to higher volume at constant
+        receivable days, and (b) receivables attributable to a change in receivable days.
+        (a) is growth and is expected. (b) is a terms change or a collection execution change,
+        and it has a different owner. Reporting them together hides the actionable half.
+      operating_causes_in_rough_order_of_frequency:
+        - "Invoices issued after month-end rather than on delivery"
+        - "No dunning sequence before the terms date has already passed"
+        - "Disputed items sitting unresolved because nobody owns the dispute"
+        - "Large accounts paying on their own cycle regardless of stated terms"
+        - "Terms granted commercially without anyone reading the cash consequence"
+        - "Credit notes and rebates settled late, inflating the gross balance"
+      routes_to:
+        "@business-admin:legal-ops": "When the cause is the contractual payment term — for the register and the process, never for a legal opinion"
+        "@business-admin:process-lead": "When the cause is invoicing lag, approval queues or collection handoffs"
+      referral: "Disputed invoices, credit-note questions and anything about how a receivable should be measured or provided against -> licensed accountant. Enforceability of a term -> lawyer."
+
+    - item: movement_in_inventory
+      effect_on_bridge: "An increase is a cash OUTFLOW."
+      source: "Stock report at both period ends"
+      diagnostic_question: "Is the build demand-backed, or is it a policy change, a supplier minimum, or slow-moving stock nobody has written down?"
+      common_error: "Reading an inventory build as preparation for growth when it is the accumulation of what did not sell"
+      referral: "Write-downs, obsolescence and valuation basis -> licensed accountant"
+
+    - item: movement_in_payables
+      effect_on_bridge: "An increase is a cash INFLOW — the business is holding suppliers' money longer."
+      honesty_note: |
+        An improving payables position often looks like good working-capital management and is
+        sometimes a liquidity symptom: the business is paying late because it cannot pay on time.
+        Distinguish deliberate terms from involuntary delay before reporting it as an improvement.
+      commercial_consequence: "Extending payment terms shifts cost onto a counterparty. It is a commercial and relationship decision, not a finance one, and the artefact must say so."
+      referral: "Contractual payment terms -> lawyer for enforceability; @legal-ops for the register"
+
+    - item: movement_in_accruals_and_prepayments
+      effect_on_bridge: "Increase in accruals is an inflow relative to profit; increase in prepayments is an outflow."
+      common_error: "The catch-all where an unexplained residual is quietly parked"
+      referral: "licensed accountant"
+
+  investing:
+    - item: capital_expenditure
+      effect_on_bridge: "Cash OUTFLOW that reaches the result only gradually through depreciation."
+      source: "Asset additions in the period"
+      why_it_surprises: "A business can be profitable and cash-negative purely on a capex programme, with nothing at all wrong"
+      referral: "Whether an item should have been capitalised or expensed -> licensed accountant. This is a treatment question and it is not answered here."
+
+    - item: disposals
+      effect_on_bridge: "Cash INFLOW; any gain or loss inside the result is non-cash relative to the proceeds."
+      common_error: "Netting the gain against the proceeds so neither figure is traceable"
+      referral: "licensed accountant"
+
+  financing:
+    - item: loan_drawdown_or_repayment
+      effect_on_bridge: "Inflow or outflow with no effect on the result except interest."
+      the_finding_it_produces: |
+        A business whose cash held up because of a drawdown had a financed period, not an
+        improved one. The result line will not distinguish the two, and this is precisely why
+        the cash flow statement is read in three sections rather than as a total.
+      referral: "Covenant questions, guarantees, security -> lawyer. Accounting for the instrument -> licensed accountant."
+
+    - item: capital_movements_and_distributions
+      effect_on_bridge: "Inflow or outflow outside the result entirely."
+      referral: "licensed accountant and tax adviser — distributions have both treatment and tax consequences"
+
+  one_off:
+    - item: any_one_off
+      rule: "List individually. Never net one-offs against each other."
+      why: "Netting produces a small number that looks unremarkable and destroys both underlying facts"
+      referral: "Depends on the item — classify it in the referral table rather than assuming"
+
+# ---------------------------------------------------------------------------
+# 3. DIVERGENCE SIGNATURES
+# ---------------------------------------------------------------------------
+# Patterns worth recognising. Each is a QUESTION to investigate, never a verdict.
+
+divergence_signatures:
+
+  - signature: "Profit up, operating cash down, receivables up"
+    read_as_question: "Is this growth funding, a terms change, or a collection execution problem?"
+    first_check: "Receivable days this period against last. If days moved, growth is not the whole story."
+    likely_owner: "process-lead for collection execution; legal-ops for the terms in the register"
+
+  - signature: "Profit up, operating cash down, inventory up"
+    read_as_question: "Is the build demand-backed, a policy change, or accumulation of what did not sell?"
+    first_check: "Inventory days, and ageing of the stock report if one exists"
+
+  - signature: "Profit down, cash stable"
+    read_as_question: "Is there a large non-cash charge in the period — impairment, a depreciation change, a new provision?"
+    first_check: "Non-cash section of the bridge before anything operational is discussed"
+
+  - signature: "Cash up, profit down, financing inflow present"
+    read_as_question: "Was the period funded rather than earned?"
+    first_check: "Cash flow by section. Operating, investing and financing tell three different stories and the total tells none."
+
+  - signature: "Both moving together, same direction, similar magnitude"
+    read_as_question: "Then the relationship is not the interesting thing. Read levels, trend and composition instead."
+    first_check: "Do not build a bridge to explain a gap that is not there"
+
+  - signature: "Result strong, payables materially extended, no terms change agreed"
+    read_as_question: "Is the business paying late because it chose to, or because it had to?"
+    caution: "This is the signature most often reported as good working-capital management"
+
+  - signature: "Large residual that closes when one sourced line is adjusted"
+    read_as_question: "Why was that line adjusted, and by whom?"
+    caution: "A bridge that closes perfectly on the first attempt has usually been made to close. Leave the residual visible."
+
+# ---------------------------------------------------------------------------
+# 4. WORKING CAPITAL MECHANICS
+# ---------------------------------------------------------------------------
+
+working_capital:
+  cash_conversion_cycle:
+    formula: "receivable days + inventory days - payable days"
+    inputs_must_be_shown: true
+    meaning: "The number of days cash is tied up between paying for an input and being paid for the output"
+    why_it_matters: "It is the cash lever a manager controls directly, and it moves faster than cost reduction does"
+
+  day_calculations:
+    receivable_days: "average receivables / revenue x 365 — state whether revenue is gross or net of tax, because the two give different answers"
+    inventory_days: "average inventory / cost of sales x 365"
+    payable_days: "average payables / cost of sales x 365"
+    caution: "Using a closing balance instead of an average produces a different number. Say which was used. Most disagreements about days are this."
+
+  growth_effect:
+    statement: "Growth increases the working-capital requirement before it increases collections."
+    consequence: "A business can grow itself out of cash while every operating metric improves."
+
+  release_framing:
+    correct: "A one-time cash release of X, plus a permanently lower working-capital requirement at this volume"
+    incorrect: "An improvement of X per year"
+    why_it_matters: "The incorrect framing enters a run rate and is then compounded in a forecast that no longer describes anything"
+
+# ---------------------------------------------------------------------------
+# 5. SOURCING GRADES
+# ---------------------------------------------------------------------------
+
+sourcing_grades:
+  - grade: SOURCED_AND_STABLE
+    definition: "Traceable to a system export, basis stated, no manual adjustment, preparer not measured on it"
+    may_carry: "Any decision, including a material irreversible one"
+  - grade: SOURCED_BUT_ASSUMPTION_SENSITIVE
+    definition: "Traceable, but the value depends materially on an allocation basis, an estimate or a judgement"
+    may_carry: "A decision, provided the assumption is stated alongside and the decision's sensitivity to it is shown"
+  - grade: UNSOURCED
+    definition: "No trace. A slide, a recollection, a figure whose export nobody can produce."
+    may_carry: "Nothing. It is named as unsourced and quarantined."
+    upgrade_path: "Usually one export plus a written statement of basis — roughly an hour of someone's time, after which the number is usable"
+
+# ---------------------------------------------------------------------------
+# 6. THE BOUNDARY, RESTATED WHERE IT IS ACTUALLY CROSSED
+# ---------------------------------------------------------------------------
+
+boundary:
+  what_this_file_supports:
+    - "Tracing where a gap between profit and cash came from"
+    - "Attributing a gap to a leg and to an operating cause"
+    - "Naming who controls the lever, usually outside finance"
+    - "Modelling what each candidate treatment would do to the result and to cash"
+    - "Writing the question to take to a licensed professional"
+  what_it_never_supports:
+    - "Stating which treatment applies"
+    - "Stating a tax effect or a filing position"
+    - "Asserting that books, controls or statements are correct"
+    - "Producing anything for a tax authority, regulator, auditor, lender or court"
+    - "Valuing the business for a transaction"
+  ordering_rule: |
+    Model the consequence; the professional decides the treatment. Not the other way around.
+    A borderline question is a licensed question — over-referring costs a phone call,
+    under-referring costs a filing.
+  notice_placement: "The professional-limit notice goes at the top of every artefact. A caveat that arrives after the answer arrives after the answer has already been read as advice."

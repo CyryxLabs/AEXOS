@@ -1,0 +1,281 @@
+template:
+  id: forces-of-progress-template-v1
+  name: Forces of Progress
+  version: 1.0
+  squad: products
+  agent: jobs-analyst
+  output:
+    format: markdown
+    filename: docs/product/jobs/forces/forces-{{transcript_id}}-{{slug}}.md
+    title: "Forces of Progress — {{transcript_id}} — {{slug}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+  custom_elicitation:
+    title: "Forces of Progress Elicitation Actions"
+    options:
+      - "Find the quote — this force cell has no verbatim evidence behind it"
+      - "Separate anxiety from habit — forward-facing fear or backward-facing value"
+      - "Reweigh from behaviour, not from interview emphasis"
+      - "Name the binding force — the map is incomplete without one"
+      - "Convert the binding force into a build decision"
+      - "State what adding pull would waste"
+      - "State the falsification condition"
+      - "Count the pattern across switches — one timeline is not a pattern"
+      - "Split the circumstance — different switches show different binding forces"
+      - "Proceed to next section"
+
+sections:
+  - id: preamble
+    instruction: |
+      This template maps the four forces for ONE switch and names the single force constraining it.
+
+      **A forces map with no named binding force is not complete.** Four forces listed with no
+      constraint identified produces a tidy diagram and no decision, and the artifact must not be
+      published in that state.
+
+      Before starting, confirm:
+      1. A switch timeline artifact exists for this transcript id, from someone who actually
+         switched. Anxiety and habit are only visible against a decision that was actually made.
+      2. Raw transcript text is available. Every force cell requires a verbatim quote; a map built
+         from the interviewer's summary is an interpretation of an interpretation.
+      3. Usage data does not substitute. The struggling moment, the rejected alternatives and the
+         anxiety that nearly stopped the purchase all happened outside the product.
+
+      Attribution: the four forces framing was developed by Bob Moesta and Chris Spiek within the
+      JTBD tradition; see Bob Moesta with Greg Engle, *Demand-Side Sales 101* (2020). Used here
+      alongside Christensen's theory.
+
+  - id: switch-frame
+    title: The Switch
+    instruction: |
+      One line, plus the two elapsed times. Elapsed time is diagnostic on its own: a long delay
+      after a strong push is usually anxiety or habit spending the time, and what they DID during
+      the delay tells you which.
+      Bad answer: naming only the product bought. The fired side is half the switch.
+    template: |
+      **Transcript id:** {{SW-NN}}
+      **From:** {{what was fired}}
+      **To:** {{what was hired}}
+      **Elapsed, first thought to purchase:** {{duration}}
+      **Elapsed, active looking to purchase:** {{duration}}
+      **What they did during the longest delay:** {{investigating the new solution | continuing comfortably with the old | other}}
+      **Date of analysis:** {{YYYY-MM-DD}}
+
+  - id: forces-table
+    title: The Four Forces
+    instruction: |
+      Every cell carries a transcript id and a verbatim quote, or the force is recorded as
+      `unevidenced`. An unevidenced force is a gap, never an estimate — Constitution Article IV,
+      No Invention.
+
+      Weight is assigned from behaviour in the timeline: how long each stage took, what was done
+      during the delay, what nearly stopped the purchase. Not from how emphatically the interviewee
+      spoke. Volume in an interview correlates with articulacy, not with force.
+
+      Per-force guidance and failure modes:
+
+      - **Push** — the struggle in the current situation. Without a push there is no search.
+        Good: "We missed a discrepancy for two months. My VP found it, not me." — a specific
+        incident, attributable in time.
+        Bad: "We needed better reporting" — a standing condition, equally true last year, explains
+        no timing. Bad: "Management wanted efficiency" — reported motive of someone not present.
+        If unevidenced: usually means no struggling moment, which means there may be no job here.
+
+      - **Pull** — the attraction of the new solution and the imagined better life with it.
+        Good: "I pictured answering in the meeting instead of promising to follow up."
+        Bad: "It has a great feature set" — post-purchase justification in marketing vocabulary.
+        Watch for pull recited in the vendor's own words: that is a memory of the sales process,
+        not of their own anticipation.
+
+      - **Anxiety** — fear of the new solution: switching cost, risk of failure, learning curve,
+        past migration scars.
+        Good: "If it silently mis-mapped an account I would not know until the next audit."
+        Bad: "There's always a learning curve" — generic, anyone would say it.
+        Most under-recorded force. Rarely volunteered, never in a feature request. A long gap
+        between active looking and purchase with no anxiety evidence usually means the interview
+        missed it — mark the gap, do not conclude absence.
+
+      - **Habit** — attachment to the present solution. Real value, correctly perceived, not
+        inertia.
+        Good: "I built that spreadsheet. I know exactly where every number comes from."
+        Bad: "They're resistant to change" — an attribution by someone else, contempt disguised as
+        analysis, and unbuildable.
+        If habit reads as pure irrationality, the interview did not find what the old way was good
+        at. That thing is usually what the new solution must preserve.
+    template: |
+      | Force | Direction | Evidence (transcript id + verbatim quote) | Weight | Basis for the weight (behaviour, not emphasis) |
+      |---|---|---|---|---|
+      | **Push** of the situation | toward change | {{SW-NN}} — "{{quote}}" | {{overwhelming / adequate / weak / unevidenced}} | {{what in the timeline shows this}} |
+      | **Pull** of the new solution | toward change | {{SW-NN}} — "{{quote}}" | {{overwhelming / adequate / weak / unevidenced}} | {{what in the timeline shows this}} |
+      | **Anxiety** of the new solution | against change | {{SW-NN}} — "{{quote}}" | {{overwhelming / adequate / weak / unevidenced}} | {{what in the timeline shows this}} |
+      | **Habit** of the present | against change | {{SW-NN}} — "{{quote}}" | {{overwhelming / adequate / weak / unevidenced}} | {{what in the timeline shows this}} |
+
+      **Mechanism:** switching occurs when push plus pull exceeds anxiety plus habit. This is a
+      directional statement about the mechanism, not an arithmetic model — do not score the forces
+      numerically and sum them. The equation earns its keep by insisting that two of the four
+      forces resist, which is the half product work routinely ignores.
+
+  - id: unevidenced
+    title: Unevidenced Forces
+    instruction: |
+      List any force with no verbatim quote behind it, and what would be needed to recover it.
+      Bad answer: leaving this section out because all four cells were filled. If a cell was filled
+      by inference rather than by a quote, it belongs here.
+    template: |
+      | Force | Why unevidenced | What would recover it |
+      |---|---|---|
+      | {{force}} | {{probe missed / interviewee could not recall / source was closed-lost so no first use}} | {{follow-up probe, or a different recruit source}} |
+
+  - id: binding-force
+    title: Binding Force
+    instruction: |
+      Name exactly ONE force. This section is what makes the artifact a decision instead of a
+      diagram.
+
+      Diagnostics, applied to observed behaviour:
+      - They want it, understand it, and still do not move -> anxiety or habit
+      - They cannot articulate why today rather than last year -> push is weak, no struggling moment
+      - They love the demo and never start -> anxiety of the new solution
+      - They start and revert within a month -> habit of the present was undervalued
+      - Strong push, no clear pull -> they will hire something, but not necessarily you
+      - Long delay spent verifying -> anxiety; the delay was bought, not wasted
+
+      Separating anxiety from habit when both resist: anxiety is about the new thing and points
+      forward ("what if it breaks"); habit is about the old thing and points backward ("I liked
+      knowing where every number came from"). If the delay was spent investigating the new
+      solution, it is anxiety. If it was spent continuing comfortably with the old one, it is habit.
+
+      Bad answer: "anxiety and habit, both". That is a refusal to decide and produces no build
+      implication. If two look co-binding, choose the one whose removal would have changed the
+      outcome soonest and record the other as the next constraint.
+      Bad answer: a binding force asserted with no reasoning. The reasoning is what makes it
+      checkable.
+    template: |
+      **Binding force:** {{push | pull | anxiety | habit}}
+
+      **Reasoning:** {{which observed behaviour in the timeline points here, and why the other three
+      are not the constraint}}
+
+      **Next constraint after this one:** {{force, or "not yet visible"}}
+
+      **What the other forces were doing:** {{one line each — e.g. push was overwhelming, pull was
+      adequate, habit was real but not decisive}}
+
+  - id: implication
+    title: Implication
+    instruction: |
+      Convert the binding force into a build decision, and state explicitly what the default
+      alternative would waste.
+
+      | Binding force | What actually moves it | What is wasted if ignored |
+      |---|---|---|
+      | Push (weak) | Nothing you build — find the circumstance where the struggle exists | Every feature; there is no search to win |
+      | Pull (weak, push strong) | Make the imagined better life concrete to their circumstance | Discounting; they will hire something, just not you |
+      | Anxiety | Reduce risk of the switch: verification, reversibility, guarantees, migration support, a way to check the new against the old | Every added feature — adding pull when anxiety is binding wastes the build |
+      | Habit | Preserve what the old way did well, or convert it into an asset rather than replacing it | Any framing of the incumbent as irrational; it insults a correct perception and hardens the habit |
+
+      Most product work adds pull and ignores anxiety. Reducing anxiety is often cheaper and more
+      decisive than adding features, and it is almost never what a feature request asks for — which
+      is why the binding force must be named before the roadmap conversation, not after.
+
+      Bad answer: an observation instead of a decision ("anxiety is high"). Write the sentence in
+      the required form.
+      Bad answer: an implication that names a feature already on the roadmap. If the binding force
+      analysis conveniently endorses the existing plan, re-check the evidence.
+    template: |
+      **Decision:** Because {{binding force}} is binding for {{switch}}, build {{intervention}}
+      rather than {{default}}.
+
+      **Why the default would not move the constraint:** {{explanation}}
+
+      **If the binding force is anxiety or habit, state it plainly here:** {{"Adding pull —
+      features, capability, capacity — does not move this constraint and would waste the build."}}
+
+      **Can habit be converted into an asset rather than replaced:** {{yes, how / no, why}}
+
+      **Estimated cheapness relative to the pull alternative:** {{qualitative — do not invent a
+      number}}
+
+  - id: cross-switch
+    title: Cross-Switch Pattern
+    instruction: |
+      One timeline is one person's constraint. Record the count before claiming a pattern.
+      Bad answer: generalising from a single switch. A binding force in one of five switches is an
+      individual; the same force in four of five is worth building against.
+      Where different switches in the same job show different binding forces, that usually means
+      two circumstances are being treated as one — note it and route to *circumstance-map.
+    template: |
+      | Switch id | Binding force | Circumstance | Same job? |
+      |---|---|---|---|
+      | {{SW-NN}} | {{force}} | {{circumstance}} | {{yes/no}} |
+
+      **This binding force appears in:** {{n}} of {{N}} switches analysed
+      **Pattern claim:** {{pattern / individual case / insufficient sample}}
+      **Different binding forces across switches:** {{yes — route to *circumstance-map | no}}
+
+  - id: falsification
+    title: Falsification Condition
+    instruction: |
+      State what evidence would overturn the binding-force claim. A forces map that no interview
+      could contradict is not a finding.
+      Shapes that work:
+      - "If switchers with the same push and no verification concern still take {{duration}},
+        anxiety is not the binding force here."
+      - "If the anxiety-reduction intervention ships and time-to-purchase does not shorten for this
+        circumstance, the claim is wrong."
+      Bad answer: "if it turns out to be wrong" — not tied to observable evidence, so it could never
+      discriminate.
+      Do not design the experiment here. If the second shape needs statistical design, hand it to
+      @experimentation-lead.
+    template: |
+      **Claim:** {{binding force}} is the constraint on {{switch}}.
+      **Would be overturned by:** {{falsifying evidence}}
+      **Where that evidence would show up:** {{observation point}}
+      **Needs a designed experiment:** {{yes — handoff to @experimentation-lead | no}}
+
+  - id: handoff
+    title: Handoff
+    instruction: |
+      This artifact is input, never a build instruction. Nothing in this squad implements (@dev),
+      tests code (@qa), creates stories (@sm), writes epics or PRDs (@pm), or pushes (@devops —
+      exclusive).
+    template: |
+      | Destination | Condition | Sent? |
+      |---|---|---|
+      | `*switch-interview` (this agent) | A force is unevidenced and needs a follow-up interview | {{yes/no}} |
+      | `*job-statement` (this agent) | Forces are mapped and the job needs stating | {{yes/no}} |
+      | `*circumstance-map` (this agent) | Different switches show different binding forces | {{yes/no}} |
+      | `@experimentation-lead` | The intervention bet needs a live test with power and guardrails | {{yes/no}} |
+      | `@ux-design-expert` | The anxiety-reduction intervention is an interaction design problem | {{yes/no}} |
+      | `@discovery-lead` | The implication needs assumption mapping and an opportunity solution tree | {{yes/no}} |
+      | `@positioning-lead` | The pull failure is a frame-of-reference problem, not a product problem | {{yes/no}} |
+      | `@pricing-strategist` | The anxiety is commercial, or the fired alternative was free | {{yes/no}} |
+      | `@product-strategist` | The binding force implies a different portfolio bet | {{yes/no}} |
+      | `@products-chief` | The finding contradicts the squad's stated market definition | {{yes/no}} |
+      | `@analyst` | Sizing the affected population needs research beyond interviews | {{yes/no}} |
+      | `@architect` | The intervention needs a feasibility assessment | {{yes/no}} |
+      | `@pm` | A validated job spec is ready to become epic-level requirements | {{yes/no}} |
+      | `@sm` | Story drafting — outside this squad | {{yes/no}} |
+      | `@devops` | Git push, PRs, CI/CD — exclusive authority | {{yes/no}} |
+
+  - id: attribution
+    title: Method Attribution
+    instruction: |
+      Keep this section. Never add a citation that is not on this list, and never attach a number
+      to a published finding unless it is verified at the source.
+    content: |
+      - Bob Moesta with Greg Engle, *Demand-Side Sales 101: Stop Selling and Help Your Customers
+        Make Progress* (2020) — the four forces of progress and the switch interview method. The
+        four forces framing was developed by Bob Moesta and Chris Spiek within the JTBD tradition.
+      - Clayton M. Christensen, Taddy Hall, Karen Dillon and David S. Duncan, *Competing Against
+        Luck: The Story of Innovation and Customer Choice* (2016) — the job as progress in a
+        circumstance, hiring and firing, the job dimensions, the milkshake case.
+      - Clayton M. Christensen and Michael E. Raynor, *The Innovator's Solution* (2003), jobs
+        chapter — circumstance-based versus attribute-based market segmentation.
+      - Clayton M. Christensen, Taddy Hall, Karen Dillon and David S. Duncan, "Know Your Customers'
+        Jobs to Be Done", *Harvard Business Review* (September 2016) — the job spec and
+        organizational integration around the job.
+
+      `@jobs-analyst` (Plumb) is a specialist applying these methods.

@@ -1,0 +1,249 @@
+# ============================================================================
+# Workflow: Pipeline Repair — Diagnose The Funnel, Rebuild The Stages
+# Squad: sales
+# Version: 1.0.0
+# Purpose: Chain triage, a sampled qualification read, stage redesign and, where
+#          the leak is a conversation defect, insight construction.
+# ============================================================================
+
+workflow:
+  id: wf-pipeline-repair
+  name: "Pipeline Repair — Diagnose The Funnel, Rebuild The Stages"
+  version: "1.0.0"
+  type: sales
+  description: |
+    Runs when the complaint spans deals rather than sitting inside one: the
+    forecast keeps slipping, deals stall at the same stage, new reps ramp slowly,
+    or the funnel reports optimism instead of evidence.
+
+    The order matters. A stage model built before the evidence standard is agreed
+    produces a second definition of truth, and the forecast consumes both without
+    distinguishing them. So the qualification standard is established first, on a
+    representative sample of real deals, and the stage model is built against it.
+
+    The output of this workflow is a specification, not an implementation. CRM
+    configuration, instrumentation and reporting code belong to @dev and
+    @data-engineer; git push, PRs and CI/CD belong to @devops exclusively.
+
+    Method attribution per phase is carried by the task that runs it. MEDDIC is a
+    qualification discipline originated at Parametric Technology Corporation and
+    commonly credited to Dick Dunkel and Jack Napoli; it has no canonical work by
+    its originators and is treated here as a named discipline, not a text to
+    quote. The stage phase applies the framework published by Mark Roberge (The
+    Sales Acceleration Formula, 2015), including the boundary the methodology
+    itself insists on: the formulas are built from the organization's own data,
+    and any published list is a hypothesis to validate locally, never a conclusion
+    to adopt. The insight phase applies the Challenger model published by Matthew
+    Dixon and Brent Adamson (The Challenger Sale, 2011).
+
+  trigger: "*funnel-analysis"
+  entry_agent: sales-chief
+  estimated_duration: "1-2 weeks, paced by the size of the deal sample and the remap"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE
+  # ──────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Triage The Systemic Complaint ─────────────────────────────
+    - id: phase_0
+      name: "Triage The Systemic Complaint"
+      agent: sales-chief
+      task: sales-chief-diagnose.md
+      parallel: false
+      action: "Restate the complaint in the owning discipline's vocabulary, separate a pattern across deals from a defect inside one deal, screen for integrity risk, and sequence the specialists."
+      creates: pipeline_triage_brief
+      description: |
+        "The forecast keeps slipping" is usually a stage-definition defect, and
+        "we keep losing on price" is one deal when it happens once and a
+        positioning question when it happens repeatedly. This phase decides which
+        it is before anyone rebuilds anything.
+      outputs:
+        - restated_request: "string — the complaint in the owning discipline's terms, confirmed with the requester"
+        - owner: "string — exactly one specialist id, with the sequence when more than one discipline is genuinely required"
+        - near_misses: "array — the two nearest non-owners with the reason each was excluded"
+        - scope: "string — pattern across deals, or a single deal wearing a systemic costume"
+        - handoff_brief: "markdown — evidence available, evidence missing, the specialist question, the deadline and whose it is"
+      checkpoint:
+        gate: "The restatement was confirmed by the requester, the complaint is established as a pattern rather than a single deal, and exactly one owner is named with the specialist sequence."
+        veto: "Block the request as framed if it presupposes fabricated urgency, invented scarcity, a bluffed alternative or the omission of a known limitation or cost — including internal framing that would push reps to push buyers. Block equally if the request is actually a price or category question: those belong to @products:pricing-strategist and @products:positioning-lead, and a funnel rebuild will not answer them."
+
+    # ─── PHASE 1: Establish The Evidence Standard ───────────────────────────
+    - id: phase_1
+      name: "Establish The Evidence Standard On A Deal Sample"
+      agent: qualification-lead
+      task: qualification-lead-qualify.md
+      depends_on: [phase_0]
+      parallel: false
+      requires: pipeline_triage_brief
+      action: "Run the full MEDDIC read across a representative sample of open deals, score every letter with a named source and date, and publish the 0-3 evidence scale as the single standard the stage model will consume."
+      creates: qualification_evidence_standard
+      description: |
+        The stage model and the qualification record must use one standard. This
+        phase produces it from real deals rather than asserting it, and the
+        systematic gap it exposes — usually the decision process — is the finding
+        that predicts the slippage.
+      outputs:
+        - sampled_records: "array — one MEDDIC table per sampled deal, each with sources and dates"
+        - evidence_scale: "table — the 0-3 scale, with what qualifies for each score"
+        - systematic_gap: "string — the letter that is weakest across the sample, with its evidence"
+        - unverified_block: "array — every field below evidence score 2 across the sample, listed separately and visibly"
+        - top_two_verifications: "array — the two highest impact-to-cost verification steps across the sample"
+      checkpoint:
+        gate: "The sample is representative and named; every letter in every sampled deal carries a source and a date; the evidence scale is published as one standard, not a parallel vocabulary; the UNVERIFIED block is visible."
+        veto: "Block any step that manufactures urgency, invents scarcity, bluffs an alternative, or conceals a criterion we cannot satisfy in order to keep a sampled deal scored as qualified. Buyer silence about a decision process is recorded as qualification data, never converted into a deadline. Do not soften a sampled verdict because the deal is large or because it would make the funnel look better — a sample corrected for comfort produces a stage model built on it."
+
+    # ─── PHASE 2: Rebuild The Stage Model ───────────────────────────────────
+    - id: phase_2
+      name: "Rebuild The Stage Model Against Buyer Action"
+      agent: pipeline-ops
+      task: pipeline-ops-stage-design.md
+      depends_on: [phase_1]
+      parallel: false
+      requires: qualification_evidence_standard
+      inputs:
+        - pipeline_triage_brief
+        - qualification_evidence_standard
+      action: "Write the buyer journey first, name every stage after buyer action, define one buyer-side exit criterion per stage, run the field test, remap the open pipeline and specify the instrumentation."
+      creates: stage_model_spec
+      description: |
+        If a stage can be advanced by updating a field, it will be, and the funnel
+        becomes a record of optimism. Stages are named after what the buyer has
+        done, and the deals that move backwards under the new model are the
+        measurement of how much of the pipeline was advanced on seller activity.
+      outputs:
+        - stage_model: "table — each stage named after buyer action, with its buyer-side exit criterion"
+        - exit_criteria: "table — the buyer-produced artifact evidencing each stage, and where it lives"
+        - field_test_results: "table — per criterion, whether a rep could satisfy it by updating a CRM field"
+        - remap_report: "table — how many open deals move backwards under the new model, by stage"
+        - unverified_rates: "array — any conversion rate computed from too few deals, marked UNVERIFIED with its count"
+        - instrumentation_requirements: "markdown — a specification only, handed to @dev and @data-engineer"
+      checkpoint:
+        gate: "The buyer journey was written before any stage was named; every stage has exactly one buyer-side exit criterion with a named artifact; the field test ran on every criterion and any field-satisfiable criterion was rewritten or deleted; the evidence standard is the one published in phase_1, not a parallel one; every rate carries its deal count."
+        veto: "Remove any mechanic that rewards pushing a buyer past their own decision process, pays off when urgency is manufactured rather than buyer-owned, specifies rep-level data that cannot be justified as a coaching input, collects data about a person without disclosing it to that person, or presents a borrowed industry benchmark as our number. Backwards movement in the remap is reported as the finding, never suppressed to protect a forecast — and forecast error is checked in both directions, since sandbagging misrepresents as much as inflation does. This phase specifies; it does not implement, configure a CRM, ship code or push."
+
+    # ─── PHASE 3: Repair The Conversation, Where That Is The Leak ───────────
+    - id: phase_3
+      name: "Repair The Conversation Where The Leak Is A Method Defect"
+      agent: method-lead
+      task: method-lead-build-insight.md
+      depends_on: [phase_2]
+      parallel: false
+      requires: stage_model_spec
+      condition: leak_is_a_conversation_defect_not_a_stage_defect
+      inputs:
+        - stage_model_spec
+        - qualification_evidence_standard
+      action: "Build the segment-level insight against what that segment currently believes, evidence every claim, run the four-rule test and write the four-line reframe."
+      creates: segment_insight_record
+      description: |
+        Runs only when the remap shows the pipeline leaking where the buyer never
+        learned anything — deals that reach a stage and stop because no assumption
+        was ever challenged. A stage model cannot fix a conversation that carries
+        no insight; it can only measure the loss more honestly.
+      outputs:
+        - insight: "string — the assumption being challenged and what is true instead"
+        - evidence_table: "table — one row per claim with its named source; UNVERIFIED where the only source is our own marketing"
+        - reframe: "markdown — four lines, the fourth being why the gap was invisible from where they sit"
+        - four_rule_result: "table — pass or fail per rule, with the rebuild or abandonment decision"
+        - coaching_finding: "string — whether the gap is individual or systematic, routed to pipeline-ops if systematic"
+      checkpoint:
+        gate: "The segment's current belief is recorded in their language and not as a strawman; every claim carries a named source; all four rules ran; the insight is verifiable by the buyer outside our own marketing."
+        veto: "Block any delivery plan built on manufactured urgency, invented scarcity, an unsubstantiable consequence, manufactured social proof, roadmap presented as shipped, or a known limitation left outside the conversation. If rule 1 keeps failing across the segment, the defect is upstream: route to @products:positioning-lead, who owns unique attributes and the frame of reference. If the insight is sound but the pattern is a training-formula gap, route to pipeline-ops rather than treating it as an individual failure."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    phase_0_to_phase_1: |
+      sales-chief → qualification-lead: "This is a pattern across deals, not one
+      deal. Before the funnel is redesigned we need one evidence standard, taken
+      from real deals. Run the MEDDIC read across the named sample and publish the
+      0-3 scale as the standard the stage model will consume."
+    phase_1_to_phase_2: |
+      qualification-lead → pipeline-ops: "Here is the evidence standard and the
+      systematic gap across the sample. Build the stage model against this scale —
+      not a parallel one. Two standards produce two truths and the forecast
+      consumes both without distinguishing them."
+    phase_2_to_phase_3: |
+      pipeline-ops → method-lead: "The remap shows the leak concentrating where the
+      buyer never learned anything, not where the stage rule was weak. That is a
+      conversation defect. Build the segment insight; the stage model will measure
+      whether it moved."
+    phase_2_to_delivery: |
+      pipeline-ops → @dev and @data-engineer: "Here is the instrumentation
+      specification: events, fields, ownership and point of capture, each tied to a
+      decision it must support. This squad specified it and does not implement it.
+      Release and push remain with @devops, exclusively."
+    phase_2_to_products_on_boundary: |
+      pipeline-ops → @products:pricing-strategist or @products:positioning-lead:
+      "The leak concentrates at price across the funnel, or deals repeatedly lose to
+      an alternative nobody tracked. Sent as funnel evidence for a pattern. This
+      squad does not set price, packaging or category."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # FLOW DIAGRAM
+  # ──────────────────────────────────────────────────────────────────────────
+
+  flow_diagram: |
+    flowchart TD
+        P0[Phase 0 — sales-chief triage of the pattern] --> P1[Phase 1 — qualification-lead evidence standard]
+        P1 --> P2[Phase 2 — pipeline-ops stage model rebuild]
+        P2 -->|leak is a conversation defect| P3[Phase 3 — method-lead segment insight]
+        P2 -->|leak is a stage defect| OUT[Stage model specification]
+        P3 --> OUT
+        P2 -.->|instrumentation| DEV[Hand specification to dev and data-engineer]
+        P2 -.->|price or category pattern| PROD[Route to the products squad]
+
+# ────────────────────────────────────────────────────────────────────────────
+# VETO CONDITIONS (workflow-level)
+# ────────────────────────────────────────────────────────────────────────────
+
+veto_conditions:
+  - "Fabricated urgency — any deadline invented for effect, including internal pressure designed to reach buyers"
+  - "Invented scarcity — allocation, capacity or an expiring structure that is not real"
+  - "Bluffed alternative — a competing offer or internal mandate implied and untrue"
+  - "Material omission — a known limitation, integration gap, implementation cost or renewal mechanic withheld"
+  - "A stage mechanic that pays off when a buyer is pushed past their own decision process"
+  - "Rep-level data collected without a coaching justification, or without disclosure to the rep it describes"
+  - "A borrowed industry benchmark presented as our own number"
+  - "A forecast adjusted to a desired number instead of adjusting the evidence standard"
+  - "Price, packaging or discount policy set inside this workflow — that belongs to @products:pricing-strategist"
+  - "Market category or competitive frame of reference set inside this workflow — that belongs to @products:positioning-lead"
+  - "Any implementation, CRM configuration, test, release or git push — @dev, @qa and @devops own those, and push is @devops exclusive"
+
+# ────────────────────────────────────────────────────────────────────────────
+# BOUNDARY
+# ────────────────────────────────────────────────────────────────────────────
+
+boundary:
+  owns:
+    - "The evidence standard applied to deals"
+    - "Stage definitions, exit criteria and the honest remap of open pipeline"
+    - "The specification of what must be instrumented, and why"
+  defers_to:
+    "@products:pricing-strategist": "Price level, packaging, value metric, discount policy"
+    "@products:positioning-lead": "Category, competitive alternatives, frame of reference"
+    "@pm": "Epic framing and PRD"
+    "@sm": "Story drafting — exclusive"
+    "@po": "Story validation and backlog"
+    "@dev": "CRM configuration, instrumentation and reporting implementation"
+    "@data-engineer": "Schema, queries and data modelling for the instrumentation"
+    "@qa": "Quality gates"
+    "@devops": "Git push, PRs and CI/CD — exclusive authority, no exceptions"
+
+# ────────────────────────────────────────────────────────────────────────────
+# COMPLETION CRITERIA
+# ────────────────────────────────────────────────────────────────────────────
+
+completion_criteria:
+  - "The complaint is established as a pattern across deals, with exactly one owner and a specialist sequence"
+  - "One evidence standard exists, derived from a named representative sample of real deals"
+  - "Every stage is named after buyer action and carries exactly one buyer-side exit criterion that survives the field test"
+  - "The open pipeline was remapped and backwards movement is reported as the finding"
+  - "Every conversion rate carries its deal count, and thin rates are marked UNVERIFIED"
+  - "The instrumentation exists as a specification and was handed to @dev and @data-engineer, not implemented here"
+  - "Every phase checkpoint ran, and no vetoed mechanic survives in the specification"
+  - "Every artifact is written under squads/sales/ with its date"

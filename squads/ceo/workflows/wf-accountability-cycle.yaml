@@ -1,0 +1,261 @@
+# ============================================================================
+# Workflow: Accountability Cycle
+# Squad: ceo
+# Version: 1.0.0
+# Purpose: Close a period against what was promised, find the mechanism behind
+#          each variance, and correct strategy, organisation and capital.
+# ============================================================================
+
+workflow:
+  id: wf-accountability-cycle
+  name: "Period Accountability and Course Correction"
+  version: "1.0.0"
+  type: executive-accountability
+  description: |
+    The backward-looking cycle of the executive chair, run at period close or before a
+    board meeting. It reports against the promises that came due, in their original
+    terms, including every miss; it then traces each variance to a mechanism and repairs
+    the layer that failed — the diagnosis, the organisation, or the allocation. It ends
+    with a draft held for a named human reviewer and, where the correction implies work,
+    a handoff to the core. Nothing is published from here.
+
+  trigger: "*accountability-cycle"
+  entry_agent: ceo-chief
+  estimated_duration: "2-5 working days (promise register quality dominates)"
+
+  # ────────────────────────────────────────────────────────────────────────
+  # SEQUENCE (canonical execution contract)
+  # ────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Scope the Period ───────────────────────────────────────
+    - id: phase_0
+      name: "Scope the Accounting Period"
+      agent: ceo-chief
+      task: executive-request-triage.md
+      creates: accountability_scope
+      description: >-
+        Frame the period close as an executive request: what is being accounted for, to
+        which audience, which specialists the account will need and in what order, and
+        which decision records from the period are in scope.
+      outputs:
+        - restated_request: "the period close stated as an answerable question"
+        - reversibility_class: "reversible-cheap | reversible-costly | irreversible"
+        - engagement_order: "ordered specialist list with the input each needs"
+        - handoff_brief: "period, audience, decision records and artifacts in scope"
+      checkpoint:
+        gate: "Period, audience and in-scope decision records named before drafting starts"
+        veto: >-
+          If no promise register exists and no sources exist to build one, stop — there
+          is nothing to account against, and an account written from memory is a story.
+
+    # ─── PHASE 1: Account Against the Promises ───────────────────────────
+    - id: phase_1
+      name: "Account Against the Promises"
+      agent: stakeholder-lead
+      task: stakeholder-account-report.md
+      depends_on: [phase_0]
+      requires: accountability_scope
+      creates: period_account_draft
+      description: >-
+        Report every promise that came due, quoted in its original wording and units,
+        with misses given the same prominence and voice as achievements, each variance
+        explained by a mechanism, and every element needing counsel flagged.
+      outputs:
+        - account: "per promise: original wording, what happened, variance, cause, what changes"
+        - miss_reports: "fixed-structure report per commitment not met"
+        - restatement_findings: "promises restated, disappeared, redefined or contradicted"
+        - candour_findings: "quoted evasions with their plain replacements"
+        - counsel_flags: "items requiring qualified human legal, securities or accounting review"
+        - draft_path: "path of the draft held for human review"
+      checkpoint:
+        gate: "Every promise due is reported in original terms; candour check run; draft marked DRAFT"
+        veto: >-
+          Nothing leaves this phase. The draft is held for a named human reviewer and is
+          never sent, filed or published by the squad.
+
+    # ─── PHASE 2: Repair the Diagnosis ───────────────────────────────────
+    - id: phase_2
+      name: "Repair the Diagnosis"
+      agent: strategy-lead
+      task: strategy-kernel.md
+      depends_on: [phase_1]
+      condition: variance_traces_to_the_diagnosis
+      requires: period_account_draft
+      creates: revised_strategy_kernel
+      description: >-
+        Where the account shows the prediction was disconfirmed or the exclusion list was
+        not held, rebuild the kernel rather than restate the target. The rival diagnosis
+        rejected last period is reconsidered in full with the new evidence.
+      outputs:
+        - diagnosis: "revised falsifiable claim with its evidence table"
+        - rejected_rival: "the rival reconsidered against the period's evidence"
+        - guiding_policy: "the revised approach, and what it now rules out"
+        - exclusion_list: "what stops, with exit cost"
+        - prediction: "new indicator, disconfirming observation, check date"
+        - strategy_doc_path: "path of the revised kernel document"
+      checkpoint:
+        gate: "Revised kernel clear of the four bad-strategy hallmarks; prior prediction settled as held or disconfirmed"
+        veto: >-
+          A target restated in more favourable terms is not a revised diagnosis. If the
+          only change is the wording of the goal, the kernel was not repaired.
+
+    # ─── PHASE 3: Repair the Organisation ────────────────────────────────
+    - id: phase_3
+      name: "Repair the Organisation"
+      agent: org-designer
+      task: org-design-plan.md
+      depends_on: [phase_2]
+      parallel: true
+      parallel_group: post_repair
+      condition: variance_traces_to_decision_rights_or_cadence
+      requires: revised_strategy_kernel
+      creates: revised_org_plan
+      description: >-
+        Where the mechanism behind the miss was organisational — a decision sitting at
+        the wrong level, an indicator nobody owned, a cadence that produced no decision —
+        redesign that part of the system and budget the transition cost.
+      outputs:
+        - decision_rights: "the decisions moved, with current level, proposed level and reason"
+        - indicator_set: "paired indicators with owner, frequency and triggered action"
+        - cadence: "the revised meeting portfolio, each entry stating what it replaces"
+        - transition_cost: "the budgeted period of degraded output"
+        - org_plan_path: "path of the revised org plan"
+      checkpoint:
+        gate: "Every miss with an organisational cause maps to a named decision, indicator or meeting change"
+        veto: >-
+          No assessment of any named individual enters this plan. A missed commitment is
+          a finding about the system, not a performance review.
+
+    # ─── PHASE 4: Re-allocate the Capital ────────────────────────────────
+    - id: phase_4
+      name: "Re-allocate the Capital"
+      agent: capital-allocator
+      task: capital-allocation-review.md
+      depends_on: [phase_2]
+      parallel: true
+      parallel_group: post_repair
+      condition: revised_policy_changes_the_criterion_for_cash
+      requires: revised_strategy_kernel
+      creates: revised_capital_plan
+      description: >-
+        Where the revised policy changes what the cash is for, re-open all five doors at
+        one published hurdle. Capital already spent on the failed approach is sunk and is
+        excluded from the recommendation.
+      outputs:
+        - position_statement: "the current cash position, every figure sourced and dated"
+        - hurdle: "the rate, its derivation, its horizon and the anti-drift rule"
+        - five_doors: "one row per use of cash, including do nothing"
+        - ranked_recommendation: "ranked options with confidence stated separately"
+        - adviser_flags: "items requiring qualified human tax, legal or regulatory review"
+        - capital_plan_path: "path of the revised capital plan"
+      checkpoint:
+        gate: "Sunk cost excluded; do nothing present as a priced option with a review date"
+        veto: >-
+          Continuing to fund a disconfirmed approach because it is already funded is the
+          exact failure this phase exists to catch. Sunk cost never enters the ranking.
+
+    # ─── PHASE 5: Close the Period ───────────────────────────────────────
+    - id: phase_5
+      name: "Close the Period and Hand Off"
+      agent: ceo-chief
+      depends_on: [phase_1, phase_3, phase_4]
+      requires: [period_account_draft, revised_strategy_kernel, revised_org_plan, revised_capital_plan]
+      action: >-
+        Run *coherence-check across the account and the repairs, capture each correction
+        with *decision-record, assemble the *exec-brief for the named human reviewer,
+        then *handoff-to-delivery for the corrections that imply work.
+      creates: accountability_package
+      description: >-
+        Assemble the period package: the account as drafted, the corrections as recorded
+        decisions with owners and review dates, the counsel flags as a checklist for a
+        named human, and the delivery handoff for whatever the corrections imply.
+      outputs:
+        - coherence_report: "breaks between what was promised, what was decided and what changed"
+        - decision_records: "one per correction, with owner, review date and reversal trigger"
+        - reviewer_checklist: "counsel and adviser flags, addressed to a named human"
+        - delivery_brief: "the corrections that imply work, framed for the core"
+      checkpoint:
+        gate: "Account, corrections and counsel flags assembled; named human reviewer identified"
+        veto: >-
+          The package is not sent, filed or published by this squad under any condition.
+          It is handed to a named human, who decides what goes out.
+      handoff_to_core:
+        '@pm': "Frames the epic for corrections that imply product or platform work"
+        '@po': "Reprioritises the backlog against the revised policy"
+        '@sm': "Drafts the stories once epic framing is complete"
+      terminates: >-
+        This workflow ends at the reviewer and the handoff. Implementation (@dev),
+        quality gates (@qa) and release or push (@devops, exclusive) are outside this
+        squad, and publication of the account belongs to a human, not to an agent.
+
+  # ────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    ceo_chief_to_stakeholder_lead: >-
+      Here is the period, the audience, the decision records in scope and the prior
+      accounts. Report against the register in its original terms. Misses get the same
+      section and the same voice as the achievements.
+    stakeholder_lead_to_strategy_lead: >-
+      Here are the variances and their stated causes, plus the restatement findings. Where
+      a prediction was disconfirmed, the kernel is what failed — rebuild it. A reworded
+      goal is not a repair.
+    strategy_lead_to_org_designer: >-
+      Here is the revised policy and the misses whose mechanism was organisational. Move
+      the decisions, name the indicator owners, and price the transition.
+    strategy_lead_to_capital_allocator: >-
+      Here is the revised policy. It changes what the cash is for. Re-open all five doors
+      at one hurdle; the money already spent on the previous approach is sunk.
+    org_designer_to_ceo_chief: >-
+      Here are the decisions moved, the indicators now owned, the cadence changes and the
+      transition cost.
+    capital_allocator_to_ceo_chief: >-
+      Here is the revised ranking with confidence stated separately, the do-nothing option
+      priced, and the adviser flags.
+    ceo_chief_to_reviewer_and_core: >-
+      Here is the period package: the account as DRAFT, the corrections as decision
+      records with owners and review dates, and the counsel checklist. A named human
+      reviews and decides what is published. @pm, @po and @sm pick up the work implied.
+
+  # ────────────────────────────────────────────────────────────────────────
+  # FLOW DIAGRAM
+  # ────────────────────────────────────────────────────────────────────────
+
+  flow_diagram: |
+    graph TD
+      PER[Period close or board meeting] --> P0[phase_0 Scope - ceo-chief]
+      P0 --> P1[phase_1 Account - stakeholder-lead]
+      P1 --> P2[phase_2 Repair diagnosis - strategy-lead]
+      P2 --> P3[phase_3 Repair organisation - org-designer]
+      P2 --> P4[phase_4 Re-allocate capital - capital-allocator]
+      P1 --> P5[phase_5 Close the period - ceo-chief]
+      P3 --> P5
+      P4 --> P5
+      P5 --> HUM[Named human reviewer - decides what is published]
+      P5 --> CORE[Handoff to core - pm, po, sm]
+
+# ────────────────────────────────────────────────────────────────────────────
+# VETO CONDITIONS (workflow-level)
+# ────────────────────────────────────────────────────────────────────────────
+
+veto_conditions:
+  - "No promise register and no sources to build one — there is nothing to account against"
+  - "A miss reported in softer terms, a smaller section or a different voice than an achievement"
+  - "A restated target presented as a revised diagnosis"
+  - "Sunk cost carried into the capital ranking"
+  - "Any element of the account sent, filed or published by the squad"
+
+# ────────────────────────────────────────────────────────────────────────────
+# COMPLETION CRITERIA
+# ────────────────────────────────────────────────────────────────────────────
+
+completion_criteria:
+  - "Every promise due in the period reported in its original wording and units"
+  - "Every variance explained by a mechanism, with what changes and who owns it"
+  - "Each miss traced to the layer that failed: diagnosis, organisation or allocation"
+  - "The failed layer repaired, or the decision not to repair it recorded with a reason"
+  - "Counsel and adviser flags assembled as a checklist for a named human"
+  - "Package handed to the reviewer and, where work is implied, to @pm / @po / @sm"

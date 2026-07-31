@@ -1,0 +1,6 @@
+# AEXOS aexos-dev — subagent role defaults
+description = "Full Stack Developer (Vulcan)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aexos-dev.md"

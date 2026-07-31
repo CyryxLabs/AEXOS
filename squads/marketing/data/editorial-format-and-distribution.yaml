@@ -1,0 +1,274 @@
+# Editorial Format, Distribution & Archive Reference
+# Squad: marketing
+# Owner agent: content-lead (Quill)
+# Last updated: 2026-07-30
+
+version: "1.0.0"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ATTRIBUTION — A DISCIPLINE, NOT A WORK
+# ═══════════════════════════════════════════════════════════════════════════════
+attribution:
+  basis: "Editorial craft practice applied to marketing — the beat, the commissioning brief, the calendar, the style guide, the corrections policy, the archive."
+  canonical_work: null
+  statement: >-
+    This role is NOT founded on a single canonical published work, and no such work is claimed
+    for it. What is applied here is accumulated newsroom and publishing convention, transposed
+    to a marketing context. No founding author, book title, year or quotation is manufactured to
+    give the role borrowed authority.
+  consequence: >-
+    Because there is no canonical source behind it, everything in this file carries no external
+    authority and is not presented as though it does. These are operating stances, arguable on
+    their merits. Where a claim about content effectiveness could be tested, it is routed to
+    @marketing:analytics-lead as a hypothesis rather than asserted here.
+  deference:
+    "@marketing:brand-lead":
+      carries: "Sharp, How Brands Grow (2010); Romaniuk and Sharp, How Brands Grow Part 2 (2016); Romaniuk, Building Distinctive Brand Assets (2018)"
+      defers_on: "Which buying situations to be retrievable in; which distinctive assets must survive into written and spoken work."
+    "@marketing:demand-lead":
+      carries: "Binet and Field, The Long and the Short of It (IPA, 2013); Media in Focus (IPA, 2017); LinkedIn B2B Institute work (2019)"
+      defers_on: "Whether owned content can substitute for paid continuity, and what that is worth."
+    "@marketing:analytics-lead":
+      carries: "Kaushik, Web Analytics 2.0 (2009)"
+      defers_on: "Whether any content success definition is measurable, and what a content metric does not prove."
+    "@products:positioning-lead":
+      defers_on: "Category, competitive alternatives, segment."
+  never: >-
+    Never invent a citation, a founding text, a year or a statistic to lend this role
+    authority it does not have. An invented citation would be worse than the honest absence
+    of one, and it would make the whole squad's attribution unauditable.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 1. BEAT VS TOPIC
+# ═══════════════════════════════════════════════════════════════════════════════
+beat_model:
+  beat:
+    definition: "A territory the brand covers continuously and credibly."
+    property: "Pieces accumulate. Each is worth more because of the ones around it."
+    requires:
+      - "A genuine claim: expertise, proprietary data, operating vantage point, or customer access"
+      - "At least one category entry point it serves, named — taken from @marketing:brand-lead"
+      - "A commitment horizon the team can actually sustain"
+  topic_list:
+    definition: "A set of subjects chosen individually, usually by search volume or internal interest."
+    property: "Pieces are disconnected. Nothing compounds, and the estate grows without the brand's authority growing."
+  derivation_rule: "Beats derive from the brand model. Search volume records what is asked; it does not tell you what is worth being retrievable in."
+  quantity_rule: "Fewer beats covered continuously outperform many covered once."
+  abandonment_rule: >-
+    Abandoning a beat costs more than never opening it, because the abandoned archive continues
+    to speak for the brand. Declare the commitment horizon before opening.
+  defensibility_test: "Could a competitor publish this identically tomorrow? If yes, the claim is weak and the beat should be declined explicitly rather than diluted."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 2. FORMAT SELECTION
+# ═══════════════════════════════════════════════════════════════════════════════
+format_selection:
+  rule: "Format follows the job, not the channel and not the trend."
+  anti_rule: >-
+    Choosing a format because a channel rewards it means the channel has selected the content.
+    That is how estates fill with pieces nobody can state a job for.
+  axes:
+    - axis: "Fit to the idea"
+      question: "Does the idea structurally require sequence, comparison, demonstration, data, narrative, reference or emotion? Some ideas cannot survive some formats."
+    - axis: "Fit to the reader's situation"
+      question: "Time available, device, attention, and whether they are seeking or encountering."
+    - axis: "Production cost"
+      question: "What does one unit cost to make at the required depth?"
+    - axis: "Maintenance cost over the declared shelf life"
+      question: "What does it cost to keep TRUE for as long as it is meant to remain published?"
+  maintenance_weighting: >-
+    The fourth axis is the one routinely ignored. Video and interactive formats are expensive to
+    correct, which makes them poor choices for content in a fast-changing area regardless of how
+    well they perform on first publication.
+
+  formats:
+    - format: "Long-form written article"
+      carries_well: "Argument, evidence, comparison, reference use."
+      carries_badly: "Demonstration, emotion at scale."
+      production_cost: medium
+      maintenance_cost: low
+      note: "Cheapest thing to correct. The default for anything in a moving territory."
+    - format: "Short written post"
+      carries_well: "A single point; a distribution wave for a larger piece."
+      carries_badly: "Anything requiring evidence."
+      production_cost: low
+      maintenance_cost: low
+      note: "Frequently mistaken for a strategy because volume is easy here."
+    - format: "Research or data piece"
+      carries_well: "A genuine claim to a beat — proprietary data is the strongest claim there is."
+      carries_badly: "Anything where the data is thin; thin data is visible and costly to credibility."
+      production_cost: high
+      maintenance_cost: medium
+      note: "Sourcing burden is at its highest here. Method must be stated, not just the result."
+    - format: "Video"
+      carries_well: "Demonstration, presence, distinctive assets that need voice or motion."
+      carries_badly: "Reference material a reader needs to scan."
+      production_cost: high
+      maintenance_cost: high
+      note: "Cannot be corrected in place. Avoid for fast-changing facts."
+    - format: "Audio / podcast"
+      carries_well: "Conversation, sustained attention, sonic distinctive assets."
+      carries_badly: "Anything requiring the reader to compare or return to a specific passage."
+      production_cost: medium
+      maintenance_cost: high
+      note: "Same correction problem as video, with a weaker archive surface."
+    - format: "Interactive tool or calculator"
+      carries_well: "Personalised output; a repeated reason to return."
+      carries_badly: "Nuance and caveat, which the output format tends to strip."
+      production_cost: high
+      maintenance_cost: very_high
+      note: "Becomes a software maintenance obligation. Implementation is @dev via the story pipeline, never commissioned as content."
+    - format: "Template, checklist or reference document"
+      carries_well: "A job the reader has right now; strong evergreen candidate."
+      carries_badly: "Persuasion."
+      production_cost: medium
+      maintenance_cost: medium
+      note: "Highest ratio of usefulness to production cost when the job is real."
+    - format: "Newsletter"
+      carries_well: "Owned distribution that compounds; continuity between larger pieces."
+      carries_badly: "Depth; the format's own cadence tends to set the depth."
+      production_cost: low_recurring
+      maintenance_cost: "cadence is the cost"
+      note: "The strongest owned route most brands already have and under-use."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 3. DISTRIBUTION
+# ═══════════════════════════════════════════════════════════════════════════════
+distribution:
+  principle: "Distribution is most of the work. Production effort and distribution effort are routinely inverted, and the inversion is the most common cause of good content having no effect."
+  timing_rule: "Commission the distribution WITH the piece. Distribution planned after publication is hope."
+  classes:
+    owned:
+      examples: ["Site and archive", "Newsletter", "Community", "Sales and success conversations"]
+      decay: "Slow. Compounds."
+      control: "Ours."
+      note: "The only class whose value accumulates across pieces."
+    earned:
+      examples: ["Coverage", "Citation", "Inclusion in someone else's roundup", "Sharing"]
+      decay: "Unpredictable."
+      control: "Not ours."
+      note: "High value, cannot be planned as a dependency. Plan for it; never budget on it."
+    paid:
+      examples: ["Promotion", "Amplification", "Syndication"]
+      decay: "Fast. Stops when the money stops."
+      control: "Ours while funded."
+      note: "Sizing belongs to @marketing:demand-lead. Content decides whether amplification is warranted; it does not decide the amount."
+  wave_rule: "Plan at least a second and third wave with dates. Most content is distributed once at publication and then abandoned."
+  repurposing_rule:
+    new_distribution: "Same idea, second form, DIFFERENT audience. Worth doing."
+    noise: "Same idea, recut, SAME audience."
+  ownership_rule: "Every route has a named executor and a date. An unowned distribution step does not happen."
+  effort_check: "State the production-vs-distribution effort split. If production exceeds distribution, flag the inversion explicitly."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 4. SHELF LIFE AND THE ARCHIVE
+# ═══════════════════════════════════════════════════════════════════════════════
+shelf_life:
+  declared_at: "Commission. Never afterwards."
+  classes:
+    perishable:
+      definition: "Loses relevance on a known date."
+      obligation: "Retire or redirect at expiry."
+    seasonal:
+      definition: "Recurs on a cycle."
+      obligation: "Refresh before each cycle."
+    evergreen:
+      definition: "Intended to remain true indefinitely."
+      obligation: "Recurring maintenance — accuracy, links, positioning alignment."
+      warning: "An evergreen piece nobody maintains becomes a liability while still looking like a past success."
+
+archive:
+  principle: "The archive is part of the product. A published page that has become inaccurate is doing active harm."
+  review_selection:
+    - "Pieces past their declared shelf life"
+    - "Pieces in beats where the underlying facts move fast"
+    - "Pieces with high sustained traffic regardless of age — this group carries the most risk, because its errors are the most read"
+  checks:
+    - "Factual accuracy now"
+    - "Broken links and dead references"
+    - "Contradiction with the current position from @products:positioning-lead"
+    - "Product and pricing statements that have moved"
+  dispositions:
+    KEEP: "Still accurate, still serving its job."
+    UPDATE: "Job still valid, content stale."
+    CONSOLIDATE: "Overlaps other pieces; merge into the strongest one."
+    CORRECT: "Contains a claim now known to be wrong. Requires a published, dated correction."
+    RETIRE: "No job, no reader, or contradicts current positioning."
+  corrections_rule: >-
+    Corrections are published and dated, never silently edited. A quietly changed claim damages
+    trust more than the original error once it is noticed, and it is noticed.
+  retirement_rule: "Decide the redirect. An orphaned URL is an editorial decision being made by default."
+  orphan_metric: >-
+    The share of the estate whose intended job nobody can state. It is the clearest diagnostic of
+    publishing without commissioning, and it is worth reporting as a number.
+  pruning_stance: >-
+    Removal is an editorial act with the same standing as publication. A smaller accurate estate
+    outperforms a larger stale one. Consolidation usually beats deletion where the underlying
+    idea is sound.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 5. WHAT CONTENT METRICS DO NOT PROVE
+# ═══════════════════════════════════════════════════════════════════════════════
+# Route every one of these to @marketing:analytics-lead before it enters a plan.
+metric_limits:
+  - metric: "Pageviews / sessions"
+    proves: "Arrival."
+    does_not_prove: "That the job was done, or that the right reader arrived. It is an activity metric and must not sit at the top of a report."
+  - metric: "Time on page"
+    proves: "Something about the sessions that were measured."
+    does_not_prove: "Attention or value. It is meaningless in aggregate and sometimes meaningful by segment and intent."
+  - metric: "Bounce rate"
+    proves: "Very little in aggregate."
+    does_not_prove: "Dissatisfaction. A reference piece that answered the question in one visit produces the same reading as a piece nobody wanted."
+  - metric: "Social shares and engagement"
+    proves: "That some people who already follow the brand reacted."
+    does_not_prove: "Reach among category buyers, retrieval, or anything about people who do not follow the brand."
+  - metric: "Search ranking"
+    proves: "Position in a results page for a query."
+    does_not_prove: "That the query corresponds to a buying situation worth being retrievable in. CEP priority is @marketing:brand-lead's call."
+  - metric: "Content-attributed pipeline or revenue"
+    proves: "What the attribution model allocated."
+    does_not_prove: "Cause. Attribution allocates credit; establishing cause requires a control — @marketing:analytics-lead."
+  - metric: "Publishing volume"
+    proves: "That the calendar ran."
+    does_not_prove: "Anything at all about effect. Volume becomes a goal only when nobody could state what the content was for."
+  - metric: "Backlinks"
+    proves: "Someone linked."
+    does_not_prove: "That the linking audience is the reader in the brief."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 6. EDITORIAL STANDARD — REQUIRED CONTENTS
+# ═══════════════════════════════════════════════════════════════════════════════
+editorial_standard:
+  purpose: "A published standard beats individual taste. Write it before the disagreement, not during it."
+  required_sections:
+    claims: "What may be asserted, what requires a source, what may never be claimed without legal or specialist review."
+    sourcing: >-
+      How sources are cited, and the rule that a remembered statistic is not a source. Content
+      citing the marketing literature names the publication and the year rather than paraphrasing
+      from memory. Unsourced claims are CUT, not softened.
+    voice: "How the brand sounds, including the distinctive assets from @marketing:brand-lead that must survive into written and spoken work."
+    approval: "Who approves what, at what risk level, and the escalation path."
+    corrections: "Corrections are published and dated. Specify the threshold for a correction versus a routine update, and where corrections appear."
+    ai_assisted_drafting: >-
+      What may be drafted with assistance, what must be verified by a human before publication,
+      and what is disclosed. Unverified generated claims are the fastest route to an unsourced
+      assertion under the brand's name.
+    review_date: "For the standard itself."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 7. BOUNDARY
+# ═══════════════════════════════════════════════════════════════════════════════
+boundary:
+  consumed_from:
+    "@marketing:brand-lead": "Category entry points, distinctive assets, reach and continuity requirements."
+    "@marketing:demand-lead": "Phasing, and the sizing of any paid amplification."
+    "@products:positioning-lead": "Category, competitive alternatives, segment."
+  confirmed_by:
+    "@marketing:analytics-lead": "Whether any success definition is measurable, and what a content metric does not prove."
+  never_here:
+    - "Interface copy, microcopy, product UX writing — @ux-design-expert"
+    - "Framework documentation — the AEXOS docs pipeline via @pm and the story process"
+    - "Epic framing and PRD — @pm; story creation — @sm; validation and backlog — @po"
+    - "Implementation — @dev; quality gates — @qa"
+    - "Git push, PRs, CI/CD — @devops, exclusive authority"

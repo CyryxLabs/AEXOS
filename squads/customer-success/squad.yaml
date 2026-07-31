@@ -1,0 +1,218 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# AEXOS Squad Manifest — Customer Success Squad
+# Conforms to .aexos-core/schemas/squad-schema.json (task-first architecture).
+# components/ is derived from disk by scripts/normalize-squad-manifests.js.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+name: customer-success
+version: 1.0.0
+short-title: Customer Success Squad
+description: >-
+  Squad de sucesso do cliente: ativação, retenção, expansão e voz do cliente. Do primeiro valor
+  entregue à renovação.
+author: Cyryx Labs LLC
+license: UNLICENSED
+slashPrefix: customer-success
+tags:
+  - customer-success
+  - onboarding
+  - retention
+  - churn
+  - nps
+  - expansion
+  - advocacy
+  - aexos
+cyryx:
+  minVersion: 2.1.0
+  type: squad
+components:
+  tasks:
+    - advocacy-lead-score-read.md
+    - cs-chief-diagnose.md
+    - onboarding-lead-define-first-value.md
+    - retention-lead-health-model.md
+    - voice-lead-aggregate-signal.md
+  agents:
+    - advocacy-lead.md
+    - cs-chief.md
+    - onboarding-lead.md
+    - retention-lead.md
+    - voice-lead.md
+  workflows:
+    - wf-first-value-to-health.yaml
+    - wf-loyalty-to-routed-signal.yaml
+  checklists:
+    - activation-model-checklist.md
+    - health-signal-checklist.md
+    - loyalty-wave-checklist.md
+    - signal-routing-checklist.md
+    - triage-routing-checklist.md
+  templates:
+    - first-value-definition-tmpl.md
+    - health-model-tmpl.md
+    - lifecycle-coherence-brief-tmpl.md
+    - loyalty-wave-report-tmpl.md
+    - voice-theme-register-tmpl.md
+  tools: []
+  scripts: []
+config:
+  extends: extend
+dependencies:
+  node: []
+  squads: []
+squad:
+  name: customer-success
+  display_name: Customer Success Squad
+  version: 1.0.0
+  domain: Customer Success — Onboarding, Retention and Expansion
+  description: >-
+    Squad de sucesso do cliente: ativação, retenção, expansão e voz do cliente. Do primeiro valor
+    entregue à renovação.
+  philosophy: |-
+    "Retenção é o produto funcionando, não o time insistindo."
+    Churn é sintoma; a causa está no valor não entregue.
+  keywords:
+    - customer-success
+    - onboarding
+    - retention
+    - churn
+    - nps
+    - expansion
+    - advocacy
+    - aexos
+  entry_agent: cs-chief
+  created_by: squad-creator
+  created_at: '2026-07-30'
+tiers:
+  tier_0:
+    name: Diagnosis & Routing
+    agents:
+      - cs-chief
+    purpose: Triar o pedido, rotear ao especialista, manter coerência
+  tier_1:
+    name: Core Practice
+    agents:
+      - onboarding-lead
+      - retention-lead
+    purpose: Domínios centrais do squad
+  tier_2:
+    name: Applied & Adjacent
+    agents:
+      - advocacy-lead
+      - voice-lead
+    purpose: Domínios de apoio e fronteira
+agents:
+  cs-chief:
+    persona: Anchor
+    file: agents/cs-chief.md
+    tier: 0
+    based_on: Original (Orchestrator)
+    icon: ⚓
+    focus: Triagem, roteamento, equilíbrio entre ativação, retenção e expansão
+  onboarding-lead:
+    persona: Threshold
+    file: agents/onboarding-lead.md
+    tier: 1
+    based_on: >-
+      Time-to-first-value and activation discipline in subscription products — no single canonical
+      work
+    icon: 🚪
+    focus: Primeiro valor, marcos de ativação, fricção que mata a adoção
+  retention-lead:
+    persona: Tenure
+    file: agents/retention-lead.md
+    tier: 1
+    based_on: Nick Mehta, Dan Steinman & Lincoln Murphy (Customer Success, 2016)
+    icon: 🔁
+    focus: Saúde de conta, sinais de churn, intervenção antes da renovação
+  advocacy-lead:
+    persona: Chorus
+    file: agents/advocacy-lead.md
+    tier: 2
+    based_on: Fred Reichheld (The Ultimate Question / Net Promoter System, 2006)
+    icon: 📣
+    focus: Promotores e detratores, ciclo de feedback fechado, o limite do NPS
+  voice-lead:
+    persona: Auricle
+    file: agents/voice-lead.md
+    tier: 2
+    based_on: >-
+      Voice of the Customer (VoC) discipline: structured collection and signal routing — no single
+      canonical work
+    icon: 👂
+    focus: Captura, categorização e encaminhamento do sinal do cliente ao produto
+handoffs:
+  cs-chief:
+    routes_to:
+      - onboarding-lead
+      - retention-lead
+      - advocacy-lead
+      - voice-lead
+  onboarding-lead:
+    collaborates_with:
+      - retention-lead
+      - advocacy-lead
+      - voice-lead
+    escalates_to:
+      - cs-chief
+  retention-lead:
+    collaborates_with:
+      - onboarding-lead
+      - advocacy-lead
+      - voice-lead
+    escalates_to:
+      - cs-chief
+  advocacy-lead:
+    collaborates_with:
+      - onboarding-lead
+      - retention-lead
+      - voice-lead
+    escalates_to:
+      - cs-chief
+  voice-lead:
+    collaborates_with:
+      - onboarding-lead
+      - retention-lead
+      - advocacy-lead
+    escalates_to:
+      - cs-chief
+cross_cutting:
+  aexos_awareness:
+    description: Todos os agentes entendem a arquitetura AEXOS-core
+    context_files:
+      - .claude/CLAUDE.md
+      - .aexos-core/core-config.yaml
+      - .aexos-core/data/entity-registry.yaml
+  core_agent_boundary:
+    description: >-
+      Este squad decide e evidencia dentro do seu domínio. Não implementa, não testa e não publica —
+      isso pertence aos agentes do core.
+    defers_to:
+      '@pm': Épicos, PRD, execução de épico
+      '@po': Validação de story e backlog
+      '@sm': Criação de story (draft) — autoridade exclusiva
+      '@dev': Implementação
+      '@qa': Quality gate
+      '@devops': Release e push (autoridade exclusiva)
+  cross_squad_boundary:
+    description: >-
+      Fronteiras com outros squads. Registradas aqui, e não apenas no texto dos agentes, porque é o
+      manifesto que a camada de roteamento lê.
+    defers_to:
+      '@products:jobs-analyst': Job do cliente e forças do progresso
+      '@products:discovery-lead': Discovery contínuo e teste de suposição
+      '@sales': Negociação de renovação, desconto e termos contratuais
+  attribution:
+    description: >-
+      Cada agente declara a obra que fundamenta seu método. Onde o papel se apoia numa disciplina e
+      não numa obra única, isso é dito — atribuição errada é pior que ausência de atribuição.
+    required_field: based_on
+  quality_standards:
+    min_score: 7
+    smoke_tests: 3
+    voice_dna_required: true
+    thinking_dna_required: true
+settings:
+  greeting:
+    level: archetypal
+    show_project_status: true

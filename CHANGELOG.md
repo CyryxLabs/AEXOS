@@ -1,0 +1,407 @@
+# Changelog
+
+All notable changes to AEXOS (Cyryx) will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [5.2.9] - 2026-05-21
+
+### Fixed
+
+- **Pro artifact install no longer invokes `npx install` when the installer itself runs through `npx`**.
+  - Root cause: `npm_execpath` can point at `npx-cli.js` during `npx -p @aexos-squads/core aexos install`.
+  - Fix: the installer now derives the sibling `npm-cli.js` when available and otherwise falls back to `npm`, so Pro artifact extraction keeps running `npm install <tgz> --prefix <target>`.
+  - This targets Linux installs that authenticated and activated Pro successfully, then failed at content installation with `unexpected argument '--prefix' found`.
+
+### Changed
+
+- `@aexos-squads/installer` bumped to `3.3.8` to ship the Pro artifact extraction fix.
+
+## [5.2.8] - 2026-05-21
+
+### Fixed
+
+- **Pro activation errors now surface the real license-server cause instead of opaque `HTTP 403`** (#775).
+  - Root cause: the installer read `parsed.message` / `parsed.code` at the response root while the license-server returns the PRO-16 structured envelope under `error`.
+  - Fix: `InlineLicenseClient` now reads nested `error.message` / `error.code` first, preserves the full envelope, and keeps legacy root-shaped responses compatible.
+  - This restores typed handling for `NOT_A_BUYER`, `SEAT_LIMIT_EXCEEDED`, `REVOKED_KEY`, and related Pro activation failures.
+- **Pro CLI error rendering is resilient to raw, null, and malformed errors** (#775).
+  - Added safe normalization before rendering user-facing messages.
+  - Added OS-aware recovery commands so Windows users receive PowerShell-compatible cleanup steps.
+
+### Changed
+
+- `@aexos-squads/installer` bumped to `3.3.7` to ship the activation-envelope parser fix.
+- `@aexos-squads/aexos-pro-cli` bumped to `0.2.2` to ship the Pro CLI error UX bridge.
+
+### Notes
+
+- This release targets the user-visible install failure where login succeeds, buyer access is confirmed, and activation then prints only `HTTP 403`.
+
+## [5.2.7] - 2026-05-18
+
+### Fixed
+
+- **Installer respects `--ci` / `--yes` / `--skipPrompts` flags at the CLAUDE.md merge prompt** — non-interactive runs no longer block waiting for keyboard input (#739 Bug 1, #750).
+  - Root cause: `generateIDEConfigs()` callsite never forwarded CI flags down to `promptFileExists()`. The wizard parsed the flags but the prompt layer never saw them.
+  - Fix: new `isNonInteractive(options)` helper checks (in precedence order) explicit options → CI env → `AEXOS_NON_INTERACTIVE` env → `!stdout.isTTY`. Plumbing added at `index.js → generateIDEConfigs() → promptFileExists()`. Default choice when non-interactive matches the interactive flow's landing default (brownfield + canMerge → `merge`; else → `backup`).
+  - Regression coverage: 16 new tests in `tests/installer/ide-config-generator-ci-flags.test.js`. Full installer suite: 275/275 pass.
+- **Legacy path references aligned with current `.aexos-core/` directory layout** — `@po *validate-story-draft` and downstream story-flow tasks no longer reference paths that don't exist (#741, #747).
+  - 70 substitutions across 17 authored files mapping `aexos-core/{templates,checklists,agents,tasks,workflows,agent-teams}/<X>` → `.aexos-core/{product/templates,product/checklists,development/agents,development/tasks,development/workflows,development/agent-teams}/<X>`. Negative-lookbehind regex `(?<![\.])` preserved already-dotted references.
+- **IDS `extractPurpose()` priority chain rewritten** — registry purpose fields no longer pick up garbage from body text or example transcripts (#748).
+  - Removed body-level regex that matched any `description:`/`purpose:`/`summary:` occurrence (false-positive on installer example output).
+  - New strict priority: frontmatter `description:` → `## Purpose` → `## Overview` → `# Title` → generic `Entity at <path>` fallback. Each strategy anchored to its respective markdown construct.
+  - Added `syncSelfRegistryEntry()` writing sentinel `sha256:<self-reference>` for the registry's own record (avoids circular hash) and using `metadata.lastUpdated` as single source for `lastVerified`.
+- **IDS placeholder filter (`looksLikePlaceholder()`)** — 16 garbage purposes (`{Brief description...}`, `{{TASK_TITLE}}`, `${context.componentName}`, etc) no longer appear in `entity-registry.yaml` (#749).
+  - Detects whole-string single placeholders, leading-token placeholders, and dominant-interpolation (>30%) cases. Conservative on real prose containing legitimate `{}` syntax.
+  - Wired into all 4 strategies in the priority chain; falls through to `Entity at <path>` when every strategy yields a placeholder. 12 new unit tests covering positive + negative cases.
+- **Internal `.aexos-core/package.json` core architectureed** — `@aexos-fullstack/core@4.31.1` → `@aexos-squads/core-internal@5.2.7` (`private: true`; phantom peerDependencies dropped) (#739 Bug 2, #746).
+  - The `-internal` suffix is defensive disambiguation: keeps the internal manifest name-distinct from the surface package for tooling that resolves by name (`npm ls`, lockfile resolution, dependency graphs).
+  - New `scripts/validate-aexos-core-namespace.js` (5-rule gate: file exists, name ends with `-internal`, `private: true`, version matches root, no `@aexos-fullstack/*` peers) wired into `validate:publish` so future drift is blocked before tag push.
+
+### Added
+
+- `docs/guides/installation-troubleshooting.md` **Issue 10** — install-side troubleshooting for `Installed Pro artifact did not create node_modules/@aexos-squads/pro`, with 3 OS variants (macOS/Linux/Windows). Two-tier recovery: simple retry first, then cache cleanup + residual install removal if state is fouled (#745).
+- `docs/guides/aexos-pro-access.md` — explicit entry in "Erros comuns" linking to Issue 10 (#745).
+- `.aexos-core/development/tasks/publish-npm.md` + `.aexos-core/development/tasks/release-management.md` converted to slim wrappers pointing at canonical `docs/guides/release-procedure.md` SOP (net −979/+108 lines; single source of truth) (#745).
+- `.aexos-core/development/agents/devops.md` — "Release Procedure (NON-NEGOTIABLE Reference)" section directs release/push/publish invocations to the SOP (#745).
+- `scripts/validate-aexos-core-namespace.js` — 5-rule namespace drift gate enforcing `-internal` suffix, `private: true`, version-match-root, no `@aexos-fullstack/*` peers, manifest exists. Wired into `validate:publish` (which `prepublishOnly` chains) (#746).
+
+### Changed
+
+- `docs/guides/release-procedure.md` — Version bump section now lists **5 sites** (was 4): root `package.json`, `compat/aexos-core/package.json` (version + dep), `packages/installer/package.json` (when installer src changed), `.aexos-core/package.json` (lockstep with root per `validate-aexos-core-namespace.js`), `package-lock.json` refresh. The 5th site became mandatory in 5.2.7 — first release publishing under the new namespace-drift gate.
+
+### Notes
+
+- Pipeline hardening from PR #744 (race condition fix between `publish_legacy_cyryx_core` and `publish`, smoke timeout 90s→240s with dual visibility check, structured notify summary distinguishing hard vs soft fails, Windows path escape via `WORKSPACE_DIR` env var in `installer-smoke-matrix.yml`) is already in production since 5.2.6 — this release does not change those workflows.
+- The `--ci`/`--yes` fix (Bug 1) directly benefits students running `npx aexos-core@latest install --ci --yes --merge --ide claude-code` in CI/CD pipelines. The `printf '\n\n\n' | npx ...` workaround is no longer required.
+- `@aexos-squads/installer@3.3.6` ships alongside this release (PR #750 touched `packages/installer/src/wizard/`). `@aexos-squads/aexos-install` and `@aexos-squads/aexos-pro-cli` are unchanged.
+
+## [5.2.6] - 2026-05-17
+
+### Fixed
+
+- Pro installer no longer fails with `Installed Pro artifact did not create node_modules/@aexos-squads/pro` when `aexos install` runs in a directory that sits beneath an ancestor with a `package.json` or a declared `workspaces:` array (#742).
+  - Root cause: `npm install <tgz>` walked the directory tree and resolved to the ancestor instead of the chosen target.
+  - Fix: pass `--prefix=<targetDir> --workspaces=false --include-workspace-root=false`; create a synthetic anchor `package.json` when the target is empty and clean it up afterwards; fall back to the sha256-verified Pro source from the temp cache if the target install still fails, with an explicit user-facing warning.
+- Improved diagnostic when an installer failure does occur: the error message now reports where npm actually placed the artifact (when detectable) so students can recover quickly.
+
+### Added
+
+- `tests/installer/pro-setup-target-install.test.js` — 8 regression tests covering the four real install topologies (empty target, ancestor with `workspaces:`, ancestor with plain `package.json`, target with its own `package.json`), the synthetic anchor cleanup, the diagnostic helper, and the graceful-fallback contract.
+- `.github/workflows/installer-smoke-matrix.yml` — pre-publish CI matrix (Ubuntu/macOS/Windows × Node 18/20/22 × npm 10/11/bundled) running the regression suite plus three end-to-end smoke installs.
+
+### Notes
+
+- Students hit by the original error can update via `npx -y -p @aexos-squads/core@latest aexos install`. The fresh-directory workaround (`mkdir ~/aexos-pro && cd ~/aexos-pro`) is no longer required.
+
+## [5.1.0] - 2026-05-06
+
+### Changed
+
+- Renamed the root package from `aexos-core` to `@aexos-squads/core`.
+- Preserved the `aexos-core` CLI command while moving npm installation to the `@aexos-squads` namespace.
+- Added publish validation for scoped package tarballs and installed-project skills smoke coverage.
+
+### Migration Notes
+
+- `@aexos-squads/core@5.1.0` is the successor publish for `aexos-core@5.0.7`; the version bump marks the namespace migration without a major runtime break.
+
+## [4.2.11] - 2026-02-16
+
+### Added
+
+- Squad agent commands are now automatically installed to active IDEs during pro scaffolding (`installSquadCommands`).
+- Supports Claude Code (`.claude/commands/{squad}/`), Codex CLI (`.codex/agents/`), Gemini CLI (`.gemini/rules/{squad}/`), and Cursor (`.cursor/rules/`).
+- Installed files are tracked in `pro-installed-manifest.yaml` and `pro-version.json`.
+
+## [4.2.10] - 2026-02-16
+
+### Fixed
+
+- Handle `ALREADY_ACTIVATED` license status gracefully instead of throwing error.
+- Fix error envelope parsing in pro license client — correctly extracts error messages from API responses.
+
+## [4.2.9] - 2026-02-16
+
+### Fixed
+
+- Pass `targetDir` correctly to `runProWizard` — fixes pro install failing in non-CWD projects.
+- Surface pro install errors to user instead of silently swallowing them.
+
+## [4.2.8] - 2026-02-16
+
+### Fixed
+
+- Exclude `mmos-squad` (private) from pro scaffolding via `SCAFFOLD_EXCLUDES`.
+- Merge `pro-config.yaml` sections into `core-config.yaml` during pro install (`mergeProConfig`).
+
+## [4.2.7] - 2026-02-16
+
+### Fixed
+
+- Pro wizard (`npx aexos-core install`) now auto-installs `@aexos-fullstack/pro` package during Step 2, fixing "Pro package not found" error in greenfield and brownfield projects.
+- Greenfield projects without `package.json` now get `npm init -y` automatically before pro install.
+- Removed unused `headings` import in `pro-setup.js`.
+
+## [Unreleased]
+
+### Added
+
+- `docs/glossary.md` with official CYRYX taxonomy terms:
+  - `squad`
+  - `flow-state`
+  - `confidence gate`
+  - `execution profile`
+- `scripts/semantic-lint.js` for semantic terminology regression checks.
+- `tests/unit/semantic-lint.test.js` for semantic lint rule validation.
+
+### Changed
+
+- CI now includes a `Semantic Lint` job (`npm run validate:semantic-lint`).
+- Pre-commit markdown pipeline now runs semantic lint through `lint-staged`.
+
+### Migration Notes
+
+- Deprecated terminology replacements:
+  - `expansion pack` -> `squad`
+  - `permission mode` -> `execution profile`
+  - `workflow state` -> `flow-state` (warning-level migration)
+
+---
+
+## [3.9.0] - 2025-12-26
+
+### Highlights
+
+This release introduces **Squad Continuous Improvement** capabilities with analyze and extend commands, plus a massive codebase cleanup removing 116K+ lines of deprecated content.
+
+### Added
+
+#### Story SQS-11: Squad Analyze & Extend
+- **`*analyze-squad` command** - Analyze squad structure, coverage, and get improvement suggestions
+- **`*extend-squad` command** - Add new components (agents, tasks, workflows, etc.) incrementally
+- **New Scripts:**
+  - `squad-analyzer.js` - Inventory and coverage analysis
+  - `squad-extender.js` - Component creation with templates
+- **8 Component Templates:**
+  - `agent-template.md`, `task-template.md`, `workflow-template.yaml`
+  - `checklist-template.md`, `template-template.md`
+  - `tool-template.js`, `script-template.js`, `data-template.yaml`
+- **New Tasks:**
+  - `squad-creator-analyze.md`
+  - `squad-creator-extend.md`
+
+### Changed
+
+#### Story TD-1: Tech Debt Cleanup
+- Fixed ESLint warnings in 5 core files
+- Removed 284 deprecated files (~116,978 lines deleted)
+- Cleaned `.github/deprecated-docs/` directory
+- Removed obsolete backup files
+
+### Fixed
+- ESLint `_error` variable warnings in test utilities
+- Context loader error handling improvements
+
+---
+
+## [3.8.0] - 2025-12-26
+
+*Previous release with WIS and SQS features.*
+
+---
+
+## [2.2.3] - 2025-12-22
+
+### Highlights
+
+This release marks the **Open-Source Community Readiness** milestone, preparing CYRYX for public contribution while introducing the **Squad System** for extensibility.
+
+### Added
+
+#### Epic OSR: Open-Source Community Readiness (10 Stories)
+
+- **Legal Foundation** (OSR-3)
+  - `PRIVACY.md` / `PRIVACY-PT.md` - Privacy policies (EN/PT)
+  - `TERMS.md` / `TERMS-PT.md` - Terms of use (EN/PT)
+  - `CODE_OF_CONDUCT.md` - Community guidelines with contact info
+
+- **Community Process** (OSR-6)
+  - Feature request templates and triage process
+  - Issue labeling standards
+
+- **Public Roadmap** (OSR-7)
+  - Public roadmap documentation
+  - Community visibility into planned features
+
+- **Squads Guide** (OSR-8)
+  - Comprehensive guide for creating community squads
+  - Examples and best practices
+
+- **Architecture Core to Cyryx** (OSR-9)
+  - Brand investigation complete
+  - Namespace updated to CyryxLabs
+
+- **Release Checklist** (OSR-10)
+  - GitHub configuration validated
+  - CodeQL security scanning active (30+ alerts addressed)
+  - Branch protection rules configured
+  - Smoke test passed on clean clone
+
+#### Epic SQS: Squad System Enhancement (Sprint 7)
+
+- **Squad Designer Agent** (SQS-9)
+  - New `@squad-creator` agent for guided squad creation
+  - Interactive wizard with `*create-squad` command
+  - AI-powered naming and structure suggestions
+
+- **Squad Loader Utility** (SQS-2)
+  - Local squad resolution from `./squads/` directory
+  - Simplified loading without complex caching
+
+- **Squad Validator + Schema** (SQS-3)
+  - JSON Schema for squad manifest validation
+  - `*validate-squad` command for compliance checking
+
+- **Squad Creator Tasks** (SQS-4)
+  - `*create-squad` - Interactive squad creation
+  - `*validate-squad` - Manifest validation
+  - `*list-squads` - Local squad discovery
+
+#### Infrastructure & Documentation
+
+- **Documentation Integrity System** (6.9)
+  - Automated cross-reference validation
+  - Link checking in CI pipeline
+
+- **MCP Governance Consolidation** (6.14)
+  - Unified MCP configuration rules
+  - `.claude/rules/mcp-usage.md` guidance
+
+- **Agent Config Path Fix** (6.15)
+  - Resolved path resolution issues across platforms
+
+- **Scripts Path Consolidation** (6.16)
+  - Standardized script locations under `.aexos-core/scripts/`
+
+- **Semantic Release Automation** (6.17)
+  - Automated versioning on merge to main
+  - Conventional commit parsing
+  - Automatic CHANGELOG generation
+
+- **Agent Command Rationalization** (Story 6.1.2.3)
+  - Command consolidation: `aexos-master` 44→30 commands (32% reduction)
+  - Command consolidation: `data-engineer` 31→28 commands (9.7% reduction)
+  - New consolidated tasks: `security-audit`, `analyze-performance`, `test-as-user`, `setup-database`
+  - Migration guide: `docs/guides/command-migration-guide.md`
+  - Agent selection guide: `docs/guides/agent-selection-guide.md`
+
+- **Dynamic Project Status Context** (Story 6.1.2.4)
+  - Git branch, modified files, and recent commits shown in agent greetings
+  - Current story and epic detection from `docs/stories/`
+  - 60-second cache mechanism (<100ms first load, <10ms cached)
+  - Cross-platform support (Windows/Linux/macOS)
+
+### Changed
+
+- **Agent Delegation Guidance** - All agents now include "NOT for" sections in `whenToUse`
+- **PR Title Format** - DevOps `*create-pr` now generates Conventional Commits format titles
+- **Scripts Location** - Consolidated under `.aexos-core/scripts/` for consistency
+- **MCP Configuration** - Unified rules in `.claude/rules/mcp-usage.md`
+
+### Fixed
+
+- **Agent Config Paths** (6.15) - Resolved path resolution issues on Windows
+- **Script References** (6.16) - Fixed broken script imports across agents
+
+### Security
+
+- **CodeQL Scanning** - Active with 30+ alerts reviewed
+- **Branch Protection** - Enabled on main (1 approver, dismiss stale reviews)
+
+### Documentation
+
+- **Squads Guide** - Complete guide for community squad creation
+- **Feature Process** - Templates and triage workflow documented
+- **Public Roadmap** - Community visibility into planned features
+- **Legal Documents** - Privacy policy, Terms of Use (EN/PT)
+
+---
+
+## [4.32.0] - 2025-11-12
+
+### Removed
+- **Private squads** - Moved to separate private repository (`aexos-squads`)
+  - Removed `squads/creator/` (CreatorOS)
+  - Removed `squads/innerlens/`
+  - Removed `squads/mmos-mapper/`
+  - Removed `squads/aexos-infrastructure-devops/`
+  - Removed `squads/meeting-notes/`
+  - Repository: https://github.com/CyryxLabs/aexos-squads (PRIVATE)
+- **Internal development tools** - Moved to separate private repository (`aexos-dev-tools`)
+  - Removed analysis scripts: `analyze-batches.js`, `analyze-decision-patterns.js`, `analyze-epic3.js`, etc.
+  - Removed consolidation scripts: `consolidate-entities.js`, `consolidate-results.js`, etc.
+  - Removed extraction scripts: `extract-all-claude-backups.js`, `extract-claude-history.js`
+  - Removed generation scripts: `generate-entity-summary.js`, `generate-entity-table.js`
+  - Repository: https://github.com/CyryxLabs/aexos-dev-tools (PRIVATE)
+- **hybrid-ops squad** - Moved to separate repository for independent maintenance
+  - Removed `squads/hybrid-ops/` directory
+  - Removed `.hybrid-ops/` directory
+  - Updated `core-config.yaml` to reference external repository
+  - Updated `install-manifest.yaml` (removed 47 file entries)
+  - Repository: https://github.com/CyryxLabs/aexos-hybrid-ops-pedro-valerio
+
+### Changed
+- README.md - hybrid-ops now listed under "Squads Externos"
+- Squad can now be installed independently via GitHub
+- **Squad naming convention** - Applied consistent `{agent-id}-` prefix to agent-specific tasks across all 6 squads
+  - ETL pack: 4 tasks renamed (youtube-specialist, social-specialist, web-specialist)
+  - Creator pack: 4 tasks already renamed (pre-existing migration)
+  - Innerlens pack: 4 tasks renamed (fragment-extractor, psychologist, quality-assurance)
+  - Mmos-mapper pack: 7 tasks renamed (cognitive-analyst, research-specialist, system-prompt-architect, emulator, mind-pm)
+  - Cyryx-infrastructure-devops pack: 2 tasks already renamed (pre-existing)
+  - Meeting-notes pack: 1 task already renamed (pre-existing)
+  - All agent dependencies updated to reference new task names
+  - Shared tasks correctly have NO prefix (conservative approach)
+
+### Technical
+- Story: 4.6 - Move Hybrid-Ops to Separate Repository
+- Breaking Change: hybrid-ops no longer bundled with aexos-core
+- Migration: Users can install from external repo to `squads/hybrid-ops/`
+- Story: 4.7 - Removed `squads/hybrid-ops.legacy/` directory (legacy backup no longer needed)
+- Story: 4.5.3 - Squads Naming Convention Migration
+  - Applied naming convention from Story 4.5.2 to all 6 squads
+  - Total: 15 tasks renamed (11 new + 4 pre-existing)
+  - 18 agent files updated with new dependencies
+  - Validation: 100% compliance, 0 broken references
+
+## [4.31.1] - 2025-10-22
+
+### Added
+- NPX temporary directory detection with defense-in-depth architecture
+- PRIMARY detection layer in `tools/aexos-npx-wrapper.js` using `__dirname`
+- SECONDARY fallback detection in `tools/installer/bin/aexos.js` using `process.cwd()`
+- User-friendly help message with chalk styling when NPX temp directory detected
+- Regex patterns to identify macOS NPX temporary paths (`/private/var/folders/.*/npx-/`, `/.npm/_npx/`)
+- JSDoc documentation for NPX detection functions
+
+### Fixed
+- NPX installation from temporary directory no longer attempts IDE detection
+- Clear error message guides users to correct installation directory
+- Prevents confusion when running `npx aexos-core install` from home directory
+
+### Changed
+- Early exit with `process.exit(1)` when NPX temporary context detected
+- Help message provides actionable solution: `cd /path/to/your/project && npx aexos-core install`
+
+### Technical
+- Story: 2.3 - NPX Installation Context Detection & Help Text (macOS)
+- Defense in depth: Two independent detection layers provide redundancy
+- macOS-specific implementation (other platforms unaffected)
+- Non-breaking change (patch version)
+
+## [4.31.0] - Previous Release
+
+*(Previous changelog entries to be added)*

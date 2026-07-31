@@ -1,0 +1,300 @@
+# ============================================================================
+# Workflow: Leadership Continuity Review
+# Squad: board
+# Version: 1.0.0
+# Purpose: Chain the squad's tasks around the one matter the board cannot
+#          delegate — who leads next, on what authority, at what exposure.
+# ============================================================================
+#
+# PROFESSIONAL LIMIT — binding on every phase below.
+# Nothing produced by this workflow is legal, employment, tax, compensation-
+# regulation or statutory-audit advice, and no phase issues an audit opinion.
+# Employment law, contract terms, severance, discrimination, immigration and
+# compensation regulation go to qualified counsel, unmodified. Every phase
+# produces INPUT FOR REVIEW BY QUALIFIED HUMANS — the directors themselves and
+# licensed advisers — and never the final instrument.
+#
+# No phase appoints, removes, rates or ranks a person as a person. Assessment
+# is expressed as readiness against agreed criteria, on stated evidence, and
+# any rating without observed evidence is marked UNVERIFIED.
+#
+# BOUNDARY — this workflow does not implement, test or publish anything, and
+# does not run recruitment or performance management. Implementation is @dev,
+# gates are @qa, epics are @pm, stories are @sm, backlog is @po, and push, PRs,
+# MCP and CI/CD belong exclusively to @devops.
+# ============================================================================
+
+workflow:
+  id: wf-succession-review
+  name: "Leadership Continuity Review"
+  version: "1.0.0"
+  type: oversight
+  description: |
+    Board-owned review of leadership continuity. The sequence establishes who
+    holds the authority to appoint before anyone is assessed, tests whether
+    continuity actually exists or is a name on a slide, carries key-person
+    concentration into the risk portfolio as a bounded exposure, and challenges
+    any succession-linked figure the board is being asked to rely on.
+
+    Chief-executive succession, chief-executive assessment and the criteria for
+    both sit in take-charge mode — the board owns them and does not delegate
+    the process to the incumbent while retaining the appearance of ownership.
+
+    The output of the whole workflow is a continuity evidence pack. It is input
+    for director and counsel review and is never an appointment, a removal, a
+    performance rating or an employment determination.
+
+  trigger: "*continuity-review"
+  entry_agent: board-chief
+  estimated_duration: "60-120 minutes"
+
+  professional_limit: |
+    No legal, employment, tax, compensation-regulation or statutory-audit
+    advice, and no audit opinion. Not a recruitment process and not an
+    individual performance management process. Every artifact is input for
+    review by the board's human directors and by qualified counsel where an
+    employment or contractual question arises.
+
+  boundary: |
+    No phase implements, tests, deploys or publishes, interviews a candidate,
+    runs performance management below the executive team, or drafts an epic,
+    story or backlog change. Push and PR authority remains exclusively with
+    @devops.
+
+  attribution: |
+    Phase 2 applies Ram Charan, Dennis Carey and Michael Useem, "Boards That
+    Lead: When to Take Charge, When to Partner, and When to Stay Out of the
+    Way" (Harvard Business Review Press, 2013), whose operating premise is the
+    three modes and which places chief-executive succession in take charge.
+    That book is not a step-by-step succession manual: the detailed mechanics
+    used here are marked DISCIPLINE or CONSTRUCTION and are never presented as
+    the authors' text. Pipeline reasoning is attributed separately to Ram
+    Charan, Stephen Drotter and James Noel, "The Leadership Pipeline" (2001) —
+    a different book with different co-authors, and the two attributions are
+    never merged. Phase 1 applies the Cadbury Report (United Kingdom, December
+    1992) and its Code of Best Practice; Phase 3 applies the COSO Enterprise
+    Risk Management framework; Phase 4 draws on audit committee discipline,
+    which has no single canonical work. Executing agents speak as none of these
+    bodies or authors.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE
+  # ──────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Intake ───────────────────────────────────────────────────
+    - id: phase_0
+      name: "Continuity Matter Triage"
+      agent: board-chief
+      task: board-matter-triage.md
+      parallel: false
+      creates: continuity_triage_record
+      description: |
+        Classify the continuity matter before engaging its content. "The CEO is
+        stretched" is a key-person question; "we were blindsided" is an
+        escalation-threshold question. The restatement happens before anything
+        is assessed, and the legal/employment limit check runs here.
+      outputs:
+        - classification: "RESERVED | DELEGATED WITH OVERSIGHT | NOT A BOARD MATTER | UNDEFINED"
+        - limit_note: "employment, contractual and compensation-regulation questions referred out"
+        - owning_specialist: "succession-lead in the ordinary case, with near-misses and exclusions listed"
+        - handoff_brief: "markdown — evidence held, evidence missing, the question, the date needed"
+      checkpoint:
+        gate: "Matter restated in oversight vocabulary, three boundary tests shown, exactly one owning specialist named"
+        veto: "Chief-executive succession is a reserved matter. If the triage returns DELEGATED WITH OVERSIGHT for the appointment itself, that classification is the finding and routes to governance-counsel"
+
+    # ─── PHASE 1: Appointment Authority ────────────────────────────────────
+    - id: phase_1
+      name: "Appointment Authority — Governance Audit"
+      agent: governance-counsel
+      task: governance-audit.md
+      depends_on: [phase_0]
+      parallel: false
+      requires: continuity_triage_record
+      creates: appointment_authority_record
+      description: |
+        Establish who may appoint, on what record, before any name is
+        discussed. Scope: the schedule of reserved matters as it covers
+        appointment and removal, nomination committee terms of reference,
+        board composition, tenure and the independence of whoever sets the
+        successor's terms. A PRESENT provision that was never operated is
+        downgraded to ASSERTED.
+      outputs:
+        - provision_table: "PRESENT | ASSERTED | ABSENT | NOT APPLICABLE per provision, appointment authority first"
+        - gap_ranking: "unfettered-decision gaps first — appointment power held by one individual is the top rank"
+        - remediation_list: "per gap — the concrete instrument that would close it, and its owner"
+        - attribution_map: "Cadbury Code provision, DERIVED, or CONSTRUCTION"
+      checkpoint:
+        gate: "Appointment and removal authority marked, and the adaptation from the Cadbury Code's original scope declared in the output body"
+        veto: "No conclusion is offered on companies legislation, listing rules, directors' duties at law or any filing obligation — those go to qualified counsel unmodified"
+
+    # ─── PHASE 2: Continuity ───────────────────────────────────────────────
+    - id: phase_2
+      name: "Continuity — Succession Audit"
+      agent: succession-lead
+      task: succession-audit.md
+      depends_on: [phase_1]
+      parallel: false
+      requires: appointment_authority_record
+      creates: succession_audit_record
+      description: |
+        Test the four things the board owns: an emergency plan that would
+        function tomorrow, criteria derived from where the strategy is going
+        rather than from the incumbent, a bench with evidenced readiness
+        horizons, and a cadence that puts the matter on the agenda as a
+        decision rather than an update. The incumbent-contamination test is
+        applied in both directions, in writing.
+      outputs:
+        - emergency_finding: "exists, last reviewed, and whether it would function tomorrow"
+        - criteria_finding: "derived from strategy or from the incumbent, and whether agreed before any name"
+        - bench_finding: "READY NOW | READY IN 1-2 YEARS | READY IN 3+ YEARS | NOT ON THIS PATH, with evidence"
+        - unverified_ratings: "every rating with no observed evidence"
+        - concentration_finding: "roles covered by exactly one name; single points of leadership knowledge"
+        - mode_finding: "take charge, partner, or stay out of the way"
+      checkpoint:
+        gate: "All dimensions reported including those where nothing exists, every candidate carries a readiness horizon, and findings are ranked by departure-this-quarter impact"
+        veto: "Assessment is readiness against agreed criteria on stated evidence — never a judgement of a person. 'Talented' is not a horizon. Without written criteria, no bench ranking is produced at all: the missing criteria is the first structural finding"
+
+    # ─── PHASE 3: Exposure ─────────────────────────────────────────────────
+    - id: phase_3
+      name: "Exposure — Key-Person Appetite"
+      agent: risk-oversight
+      task: risk-appetite-statement.md
+      depends_on: [phase_2]
+      parallel: false
+      requires: succession_audit_record
+      creates: people_risk_appetite_record
+      description: |
+        Convert the concentration findings into a bounded people and key-person
+        appetite: how much leadership concentration the board is willing to
+        carry, on what measure, and what happens when the band is breached. An
+        appetite that no plausible proposal would breach is not a boundary.
+      outputs:
+        - appetite_statements: "people and key-person appetite, stated separately from other risk types"
+        - forbidden_decision_tests: "the concrete proposal this appetite would cause the board to reject"
+        - tolerance_bands: "measure, source and breach point for leadership concentration"
+        - breach_consequences: "who is told, how fast, and what happens"
+        - unverified_list: "every exposure figure with no stated basis"
+      checkpoint:
+        gate: "A key-person appetite exists with a tolerance, a breach point and an escalation consequence"
+        veto: "Halt if strategy and objectives are absent. Where Phase 1 found appointment authority ASSERTED or ABSENT, drafting proceeds but approval is blocked until the approving authority is confirmed. No insurance, regulatory or tax conclusion is offered"
+
+    # ─── PHASE 4: Assurance ────────────────────────────────────────────────
+    - id: phase_4
+      name: "Assurance — Succession-Linked Figure Challenge"
+      agent: audit-lead
+      task: figure-challenge.md
+      depends_on: [phase_3]
+      parallel: false
+      requires: people_risk_appetite_record
+      creates: succession_figure_record
+      condition: succession_linked_figure_or_disclosure_presented
+      description: |
+        Run only where the board is being asked to rely on a succession-linked
+        figure or disclosure — a compensation number, a retention cost, a
+        transition provision. Establishes what is asserted, by whom, on what
+        basis, and who independent has tested it.
+
+        This phase is not a statutory audit and carries no audit opinion. It
+        produces a question set for the appointed auditor and for counsel where
+        a disclosure obligation arises.
+      outputs:
+        - restated_assertion: "the figure as a precise assertion, with basis and comparative basis"
+        - assertor_named: "the person or function standing behind it — 'the system' is not an assertor"
+        - judgements_range: "conservative and aggressive ends, plus the direction finding"
+        - assurance_status: "party, scope and date — or NO ASSURANCE, verbatim"
+        - verdict: "RELIABLE FOR THE PURPOSE | RELIABLE WITH STATED LIMITS | NOT ESTABLISHED"
+      checkpoint:
+        gate: "Verdict is one of the three permitted values, and definition stability across compared periods is reported"
+        veto: "No audit opinion, no accounting policy determination, and no view on whether a disclosure obligation has been met. Any allegation of misconduct or retaliation is surfaced immediately and in the open"
+
+    # ─── PHASE 5: Disposition ──────────────────────────────────────────────
+    - id: phase_5
+      name: "Disposition — Agenda and Residual Routing"
+      agent: board-chief
+      task: board-matter-triage.md
+      depends_on: [phase_4]
+      parallel: false
+      requires: succession_figure_record
+      creates: continuity_disposition_pack
+      description: |
+        Assemble the pack, place the ranked findings on the agenda as a
+        decision item rather than an update, and re-triage the residue so every
+        open finding leaves the cycle with exactly one owner. Deferral is
+        recorded as a count, not as a mood.
+      outputs:
+        - agenda_placement: "decision item, with the deferral count stated"
+        - residual_matters: "each with a classification and exactly one owning specialist"
+        - referred_out: "employment, contract, severance, compensation-regulation and tax questions, unmodified"
+        - human_review_clause: "the pack is input for director and counsel review, never the final instrument"
+        - disposition_pack: "path to the versioned pack under squads/board/data/"
+      checkpoint:
+        gate: "Every residual finding has exactly one owner, the deferral count is stated as a number, and the human-review clause is present"
+        veto: "The pack appoints nobody, removes nobody and rates nobody. It authorizes no git push, PR, story draft, backlog change or implementation — those remain with @devops, @sm, @po and @dev"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    board-chief_to_governance-counsel: |
+      continuity_triage_record holds the classification and the limit check.
+      Establish who may appoint and remove, on what record, before any name is
+      discussed. Do not assess a candidate — assess the authority.
+    governance-counsel_to_succession-lead: |
+      appointment_authority_record states whether appointment authority exists
+      as an artifact or only as an assertion. Audit continuity against it. If
+      written criteria do not exist, report that as the first structural
+      finding and produce no bench ranking.
+    succession-lead_to_risk-oversight: |
+      succession_audit_record carries the concentration findings — roles
+      covered by exactly one name, single points of leadership knowledge. Bound
+      them as a people and key-person appetite with a tolerance and a breach
+      consequence. Do not re-assess the candidates.
+    risk-oversight_to_audit-lead: |
+      people_risk_appetite_record lists the exposures the board has agreed to
+      carry. Challenge only the succession-linked figures or disclosures the
+      board is being asked to rely on. No opinion, no accounting determination.
+    audit-lead_to_board-chief: |
+      succession_figure_record carries the verdict and the judgements range.
+      Place the ranked continuity findings on the agenda as a decision item,
+      state the deferral count, and route the residue to exactly one owner each.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # FLOW
+  # ──────────────────────────────────────────────────────────────────────────
+
+  flow_diagram: |
+    graph TD
+      P0[Phase 0: Continuity Triage — board-chief] --> P1[Phase 1: Appointment Authority — governance-counsel]
+      P1 --> P2[Phase 2: Succession Audit — succession-lead]
+      P2 --> P3[Phase 3: Key-Person Appetite — risk-oversight]
+      P3 --> P4[Phase 4: Figure Challenge — audit-lead]
+      P4 --> P5[Phase 5: Disposition — board-chief]
+      P5 --> HR[Human review: directors and qualified counsel]
+      P0 --> EXT[Referred out: employment, contract, tax, compensation regulation]
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # VETO CONDITIONS (workflow-level)
+  # ──────────────────────────────────────────────────────────────────────────
+
+  veto_conditions:
+    - "Any employment, contractual, severance, discrimination, immigration or compensation-regulation question — referred to qualified counsel, unmodified"
+    - "Written succession criteria absent — no bench ranking is produced; the absence is the finding"
+    - "Any phase assessing a person rather than readiness against agreed criteria — stop the phase"
+    - "Any phase issuing an audit opinion, a legal conclusion or a regulatory determination — stop the phase"
+    - "Any phase running recruitment, interviews, performance management below the executive team, implementation, testing or release — outside the board's charge entirely"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # COMPLETION CRITERIA
+  # ──────────────────────────────────────────────────────────────────────────
+
+  completion_criteria:
+    - "Every phase artifact written to a versioned file under squads/board/data/"
+    - "Authority established before any candidate was assessed"
+    - "Every readiness rating carries its evidence basis, or is marked UNVERIFIED"
+    - "Key-person concentration carried into the risk portfolio as a bounded appetite"
+    - "Attribution declared per phase, with Boards That Lead and The Leadership Pipeline kept separate"
+    - "The human-review clause appears in the disposition pack and in every phase artifact"
+    - "Nothing appointed, removed, rated, implemented, tested, pushed or published by any phase"

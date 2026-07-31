@@ -1,0 +1,445 @@
+# Offer Construction Reference — value equation, guarantee types, offer integrity
+# Squad: marketing
+# Owner agent: offer-lead (Bounty)
+# Last updated: 2026-07-30
+
+version: "1.0.0"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ATTRIBUTION — AND THE NATURE OF THE SOURCE
+# ═══════════════════════════════════════════════════════════════════════════════
+# This file records CONCEPTS AND STRUCTURE. It deliberately contains no price
+# multiples, no conversion lifts, no guarantee redemption rates and no revenue
+# figures, because the source is a practitioner manual and every number in it is
+# an outcome observed in the author's own businesses rather than a value measured
+# across a sampled population.
+attribution:
+  primary:
+    author: "Alex Hormozi"
+    work: "$100M Offers: How to Make Offers So Good People Feel Stupid Saying No"
+    year: 2021
+    note: "Source of the value equation, the offer stack, guarantee taxonomy, and the offer-before-traffic diagnostic order."
+  secondary:
+    author: "Alex Hormozi"
+    work: "$100M Leads: How to Get Strangers to Want to Buy Your Stuff"
+    year: 2023
+    note: "Named separately. Lead magnets, the outbound/inbound acquisition taxonomy and lead-flow mechanics come from here, not from the 2021 book."
+
+  # --------------------------------------------------------------------------
+  # THE DISTINCTION THAT GOVERNS EVERY USE OF THIS FILE
+  # --------------------------------------------------------------------------
+  source_nature:
+    class: practitioner_manual
+    definition: >-
+      A body of method distilled by an operator from their own operating history and
+      the businesses they held or advised. Its authority is a track record: the method
+      produced results for the person who wrote it, repeatedly, and is written down in
+      enough structural detail to be applied by someone else.
+    what_it_gives_you: >-
+      Structure and sequence. What an offer is made of, in what order the parts are
+      assembled, which part to fix first, and what the failure looks like. This is
+      genuinely useful and no research programme currently supplies it.
+    what_it_does_not_give_you: >-
+      A measured population, a sampling frame, a control condition, dispersion, or
+      independent replication. There is no confidence interval around a practitioner
+      heuristic because nothing was sampled. A figure quoted in such a book describes
+      what happened in the author's businesses; it is not an estimate of what will
+      happen in yours.
+    contrast_with_the_rest_of_this_squad: >-
+      brand-lead is anchored in Byron Sharp reporting Ehrenberg-Bass research;
+      demand-lead in Binet and Field analysing the IPA Databank; analytics-lead in
+      Kaushik's measurement discipline. Those are RESEARCH PROGRAMMES WITH PUBLISHED
+      DATA — claims derived from many brands, many categories and stated dispersion.
+      This agent's source is a PRACTITIONER MANUAL WITH A TRACK RECORD. Both are
+      legitimate bases for a recommendation. They are not the same kind of thing, and
+      the difference must survive into the document, because a reader deciding how
+      much weight to put on a claim is entitled to know which kind it is.
+    the_failure_this_prevents: >-
+      Laundering a heuristic into a finding. A structural rule stated in the voice of
+      an empirical generalisation is treated by the next reader as measured, gets
+      quoted in a budget case, and cannot be traced back to anything that was ever
+      observed outside one operator's portfolio.
+  rule: >-
+    Every claim carries its evidence class. A structural rule from the manual is
+    labelled PRACTITIONER HEURISTIC. A finding from the research literature is labelled
+    EMPIRICAL and cites the programme. A reading from this business is labelled
+    OUR DATA. Any claim with no class is a defect.
+  never: >-
+    Never invent a citation, a title, a year, a page or a figure. Never present a
+    practitioner heuristic as an empirical finding. Never quote a price multiple, a
+    conversion rate, a guarantee redemption rate or a revenue figure from these books
+    from memory — read it from the publication or describe the mechanism without it.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 0. EVIDENCE CLASSES — the tag every claim must carry
+# ═══════════════════════════════════════════════════════════════════════════════
+evidence_classes:
+  - class: EMPIRICAL
+    means: "Observed across many brands or cases in a published research programme, with dispersion."
+    examples_of_sources: ["Sharp / Ehrenberg-Bass", "Binet and Field / IPA Databank"]
+    weight: "Can be used as a prior. State the dispersion. This business may deviate."
+    who_owns_it_here: "@marketing:brand-lead, @marketing:demand-lead"
+  - class: PRACTITIONER HEURISTIC
+    means: "A structural rule distilled from one operator's experience. No sample, no control, no dispersion."
+    examples_of_sources: ["Hormozi, $100M Offers (2021)", "Hormozi, $100M Leads (2023)"]
+    weight: >-
+      Can be used to CONSTRUCT and to SEQUENCE — what the parts are, which to fix
+      first. Cannot be used to PREDICT a magnitude. A heuristic never justifies a
+      forecast number.
+    who_owns_it_here: "@marketing:offer-lead, @marketing:funnel-lead"
+  - class: OUR DATA
+    means: "A reading from this business, with the instrument and period named."
+    weight: "The only class that settles a disagreement between the other two."
+    who_owns_it_here: "@marketing:analytics-lead specifies whether the instrument can support the reading."
+  - class: UNVERIFIED
+    means: "A figure with no traceable source, including one recalled from a book."
+    weight: "May inform a hypothesis. May never justify a decision."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 1. THE VALUE EQUATION — the four terms
+# ═══════════════════════════════════════════════════════════════════════════════
+# [CLASS: PRACTITIONER HEURISTIC — Hormozi, $100M Offers, 2021]
+# Structure only. The book states the relationship between the terms; it does not
+# supply weights, and no weights are invented here.
+value_equation:
+  form: >-
+    Perceived value rises with the dream outcome and with the buyer's perceived
+    likelihood of achieving it, and falls with the time delay before the outcome
+    arrives and with the effort and sacrifice required to get it.
+  numerator:
+    - term: dream_outcome
+      question: "What does the buyer actually want to be true afterwards, in their words?"
+      raise_it_by: "Naming the outcome the buyer already wants rather than the feature that produces it."
+      failure_mode: >-
+        Inflating the outcome instead of clarifying it. An enlarged promise raises the
+        claim and lowers perceived likelihood at the same time, which usually nets negative.
+      integrity_line: "The outcome described must be one the product actually produces. See §6."
+    - term: perceived_likelihood_of_achievement
+      question: "Why should this buyer believe it will work FOR THEM?"
+      raise_it_by: "Evidence, guarantees, risk reversal, specificity, and demonstrations the buyer can check."
+      failure_mode: "Treating this as a copy problem when it is an evidence problem."
+      integrity_line: "Proof must be real and attributable. Fabricated proof is a BLOCK, not a weak choice."
+      note: >-
+        This is the term most often left untouched, and it is frequently the binding one:
+        buyers who want the outcome and do not believe they personally will get it do not buy.
+  denominator:
+    - term: time_delay
+      question: "How long between paying and the first outcome the buyer can feel?"
+      lower_it_by: "Shortening onboarding, delivering a real intermediate win early, sequencing value forward."
+      failure_mode: "Compressing the promise instead of the delivery. That is a claim change, not an offer change."
+    - term: effort_and_sacrifice
+      question: "What must the buyer do, give up, learn, migrate or risk?"
+      lower_it_by: "Doing more of the work for them, removing setup, removing what they must abandon."
+      failure_mode: "Counting only monetary cost. Effort is usually the larger denominator and is rarely priced."
+  operating_note: >-
+    The two denominator terms are the ones a team most often ignores, because raising
+    the promise is a writing task and lowering time and effort is an operations task.
+    An offer diagnosis that only touches the numerator has not been done.
+  boundary_note: >-
+    The value equation is about PERCEIVED value. It does not set the price. Price and
+    packaging belong to @products:pricing-strategist. The offer is built on top of the
+    price; it does not replace it and it does not overrule it.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 2. OFFER COMPONENTS — what an offer is made of
+# ═══════════════════════════════════════════════════════════════════════════════
+# [CLASS: PRACTITIONER HEURISTIC — Hormozi, $100M Offers, 2021]
+offer_components:
+  - component: core_deliverable
+    is: "The thing actually delivered, as it exists today."
+    test: "Could an operations lead confirm every element of this is currently deliverable at volume?"
+    failure_mode: "An offer that describes the roadmap. That is a promise the company has not made internally."
+  - component: problem_to_solution_stack
+    is: >-
+      The enumerated list of everything that stops the buyer reaching the outcome, each
+      paired with the element of the offer that removes it.
+    method: >-
+      List obstacles first and exhaustively, then attach a solution to each. Built in
+      this order the stack is a completeness check; built in the reverse order it is a
+      feature list wearing a benefit costume.
+    test: "Is there an obstacle in the list with no solution attached, and is it disclosed?"
+  - component: delivery_vehicle
+    is: "How each solution reaches the buyer — done-for-you, done-with-you, self-serve, one-to-many, one-to-one."
+    trade_off: "Vehicles that lower buyer effort raise delivery cost. That trade is a margin decision, not a copy decision."
+    route_to: "@products:pricing-strategist when the vehicle changes the cost to serve"
+  - component: bonuses
+    is: "Additional elements that resolve a specific hesitation, attached to the main offer."
+    good_use: "Each bonus answers one named objection. A bonus with no objection attached is padding."
+    failure_mode: >-
+      Bonus stacking to inflate a stated value total. A value total assembled from prices
+      nobody was ever charged is a fabricated anchor. See §6.
+  - component: guarantee
+    is: "The explicit transfer of risk from buyer to seller. See §3."
+  - component: scarcity_and_urgency
+    is: "Real limits on quantity (scarcity) or on time (urgency)."
+    hard_rule: >-
+      Both must be REAL and CHECKABLE or they are removed from the offer. This is a
+      blocking rule, not a preference. See §6.
+  - component: naming
+    is: "What the offer is called, in words the buyer would use."
+    test: "Does the name state who it is for and what changes? A clever name that does neither costs comprehension."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 3. GUARANTEE TYPES
+# ═══════════════════════════════════════════════════════════════════════════════
+# [CLASS: PRACTITIONER HEURISTIC — Hormozi, $100M Offers, 2021]
+# The taxonomy is structural. No redemption rates, no conversion lifts, and no claim
+# about which type "converts best" appears here — those are numbers, and numbers from
+# a practitioner manual describe that operator's businesses.
+guarantees:
+  purpose: >-
+    A guarantee raises the perceived likelihood of achievement by moving risk off the
+    buyer. It is the highest-leverage lever available when buyers want the outcome and
+    do not believe it will work for them.
+  types:
+    - type: unconditional
+      form: "Money back within a stated window, no conditions."
+      strength: "Simplest to understand, therefore the strongest signal."
+      cost: "Highest redemption exposure. Requires a refund process that actually works."
+      integrity_requirement: "The refund must be operationally executable in the stated window, by a named owner."
+    - type: conditional
+      form: "Money back, or a stated remedy, if the buyer did specified things and the outcome did not occur."
+      strength: "Aligns the guarantee with the work the outcome genuinely requires."
+      cost: "Every condition lowers perceived likelihood, because every condition reads as an escape hatch."
+      integrity_requirement: >-
+        Conditions must be ones a good-faith buyer can meet and can verify they met.
+        Conditions engineered to be unmeetable are a deceptive guarantee — BLOCK. See §6.
+    - type: anti_guarantee
+      form: "Explicitly no refunds, stated plainly and up front."
+      strength: "Honest where the delivered thing genuinely cannot be returned."
+      cost: "Raises the evidence burden elsewhere in the offer."
+      integrity_requirement: "Must be disclosed before payment, not in terms discovered after."
+    - type: performance_or_service_remedy
+      form: "A defined remedy other than money — continued service, additional work, credit — if a defined outcome is missed."
+      strength: "Works where the outcome depends on both parties."
+      cost: "Requires the outcome to be measurable and the measurement to be agreed in advance."
+      integrity_requirement: "The measurement and its owner are named in the offer document, not left to interpretation later."
+  construction_rules:
+    - "The trigger condition is stated in terms the buyer can observe."
+    - "The window is a real date arithmetic, not a vague period."
+    - "The remedy is specific: what is returned, by when, by whom."
+    - "The claim process is stated, and it is not harder than the purchase process."
+    - "Someone with authority has agreed the redemption exposure before the guarantee is published."
+  hard_rule: >-
+    A guarantee whose claim process is deliberately harder than the buying process is a
+    deceptive guarantee regardless of how the terms are worded. BLOCK.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 4. OFFER LADDER
+# ═══════════════════════════════════════════════════════════════════════════════
+# [CLASS: PRACTITIONER HEURISTIC — Hormozi, $100M Offers (2021) and $100M Leads (2023)]
+offer_ladder:
+  definition: >-
+    A sequence of offers at increasing commitment, each one earning the right to the
+    next by delivering a real outcome.
+  construction_rule: >-
+    Each rung must be independently worth its price. A rung that only makes sense as a
+    step toward the next rung is bait, and buyers who stop there were sold something
+    that was not built to stand alone.
+  common_rungs:
+    - rung: lead_magnet
+      is: "Something of real standalone value given in exchange for permission to contact."
+      source_note: "[CLASS: PRACTITIONER HEURISTIC — Hormozi, $100M Leads, 2023]"
+      test: "Would the buyer have paid something for this? If not, it is not a lead magnet, it is an ad."
+      integrity_requirement: "Consent is explicit and the contact frequency is stated at capture. See §6."
+    - rung: entry_offer
+      is: "A low-commitment paid offer that solves one narrow, real problem completely."
+      failure_mode: "Solving a problem partially so the buyer must upgrade. That is manufactured incompleteness."
+    - rung: core_offer
+      is: "The main outcome the business exists to deliver."
+    - rung: continuity_or_expansion
+      is: "Ongoing delivery, or an expansion of scope."
+      integrity_requirement: >-
+        Auto-renewal, uplift and cancellation mechanics are disclosed before payment, and
+        cancellation is no harder than purchase. Forced continuity is a BLOCK. See §6.
+  boundary_note: >-
+    The RUNGS are an offer-construction decision and sit here. The PRICE POINTS on
+    those rungs, and the packaging of features into them, belong to
+    @products:pricing-strategist. This file never states a price or a ratio between prices.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 5. WHAT AN OFFER READING DOES NOT PROVE
+# ═══════════════════════════════════════════════════════════════════════════════
+measure_limits:
+  - measure: "Conversion rate on the offer page"
+    proves: "Of the people who arrived, this share bought."
+    does_not_prove: >-
+      That the offer is good. It moves with traffic quality, source intent and the
+      preceding step. An offer test run on differently-sourced traffic is not a test.
+  - measure: "A lift after an offer change"
+    proves: "Something changed alongside the offer change."
+    does_not_prove: >-
+      Attribution to the offer, unless nothing else moved. Route the design of any real
+      test to @marketing:analytics-lead before the result is quoted.
+  - measure: "Revenue per visitor after adding bonuses"
+    proves: "A short-window commercial reading."
+    does_not_prove: "That the bonuses are being used, or that the buyer got the outcome."
+  - measure: "Refund rate below expectation"
+    proves: "Few people claimed."
+    does_not_prove: >-
+      Satisfaction. It also drops when the claim process is hard, when the window is
+      short, or when the conditions are unmeetable — which are all defects, not wins.
+  - measure: "A high stated value total for the stack"
+    proves: "Nothing at all."
+    does_not_prove: "Value. Values assembled from prices never charged are an anchor the buyer did not agree to."
+  - measure: "Short-term conversion lift"
+    proves: "A short-term response."
+    does_not_prove: >-
+      Brand growth. Penetration, mental availability and long-term effect belong to
+      @marketing:brand-lead and @marketing:demand-lead, and are measured over windows
+      an offer test does not span.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 6. OFFER INTEGRITY — the blocking rules
+# ═══════════════════════════════════════════════════════════════════════════════
+# Offer construction is where fabricated urgency, invented scarcity and deceptive
+# guarantees enter a business, because each of them is cheap, effective in the short
+# window, and invisible in the conversion report. Each item below BLOCKS the offer.
+# A blocked element is replaced with the compliant alternative, never reworded until
+# it passes on phrasing.
+integrity_blocks:
+  violations:
+    - violation: fabricated_urgency
+      looks_like: "A countdown that resets, an 'ends tonight' that reopens, a deadline invented for effect."
+      why_it_blocks: >-
+        The buyer's decision was accelerated by a fact that was not true. Once discovered,
+        every other claim in the offer is discounted, including the true ones.
+      compliant_alternative: >-
+        State a real constraint and attribute it correctly: a real cohort start, a real
+        price change already decided and dated, a real capacity limit. If none exists, run
+        the offer with no deadline and say what actually changes if the buyer waits — often
+        the honest answer is "nothing changes, and here is why waiting costs you anyway."
+    - violation: invented_scarcity
+      looks_like: "'Only N seats left' where N is not tracked; a cohort cap that has never been enforced."
+      why_it_blocks: "It is a false statement of fact about the seller's own operation."
+      compliant_alternative: >-
+        Publish a real limit that is tracked somewhere checkable and enforce it, or remove
+        the scarcity claim entirely. A real constraint the buyer could ask to see is the
+        only kind that belongs in an offer.
+    - violation: deceptive_guarantee
+      looks_like: >-
+        Conditions engineered to be unmeetable, a claim window shorter than the time to the
+        first outcome, a refund process harder than the purchase, or a guarantee nobody in
+        operations has agreed to honour.
+      why_it_blocks: "It is a promise of risk transfer that does not transfer risk."
+      compliant_alternative: >-
+        Either a guarantee that is genuinely claimable — conditions a good-faith buyer can
+        meet and verify, a window that spans the first real outcome, a claim path no harder
+        than checkout — or no guarantee and a plain statement of what the buyer is risking.
+    - violation: fabricated_proof
+      looks_like: "Invented testimonials, composite case studies presented as one client, earnings claims with no source, borrowed logos."
+      why_it_blocks: "It manufactures the perceived-likelihood term instead of earning it, and it is a false statement about third parties."
+      compliant_alternative: >-
+        Real, attributable evidence with the conditions named — who, what they started
+        with, what they did, what happened. Where the evidence does not exist yet, say so
+        and lower the claim to what can be shown.
+    - violation: false_price_anchor
+      looks_like: "A crossed-out price never charged; a stack 'value' totalled from prices nobody paid."
+      why_it_blocks: "The comparison the buyer is asked to make is against a number that does not exist."
+      compliant_alternative: >-
+        Anchor against a real alternative cost the buyer already faces — the current
+        spend, the cost of the problem continuing, or a genuinely offered price that was
+        genuinely charged. Route any actual price decision to @products:pricing-strategist.
+    - violation: forced_continuity
+      looks_like: "Auto-renewal not disclosed before payment, uplift buried in terms, cancellation harder than purchase."
+      why_it_blocks: "It converts a purchase decision into an ongoing charge the buyer did not knowingly agree to."
+      compliant_alternative: >-
+        Disclose renewal, uplift and the cancellation path before payment, in the offer
+        itself. Make cancellation at most as hard as buying. A subscription that has to be
+        hard to leave is a retention problem being solved with friction.
+    - violation: manufactured_incompleteness
+      looks_like: "Deliberately withholding a necessary component so the buyer must upgrade to get the promised outcome."
+      why_it_blocks: "The outcome promised at the lower rung cannot be reached at that rung. The promise was false when made."
+      compliant_alternative: >-
+        Make each rung independently complete for its own stated, narrower outcome. Sell
+        the next rung on a larger outcome, not on completing the last one.
+    - violation: consent_violation_in_lead_capture
+      looks_like: "Pre-checked opt-ins, purchased or scraped lists, contact frequency not stated at capture, unsubscribe that does not work."
+      why_it_blocks: "Permission was not given. Everything downstream is built on contact the buyer did not agree to."
+      compliant_alternative: >-
+        Explicit opt-in, stated purpose, stated frequency, working unsubscribe honoured
+        immediately. A smaller list that agreed to be there outperforms a larger one that did not.
+    - violation: outcome_overclaim
+      looks_like: "Describing a dream outcome the product does not currently produce; roadmap presented as delivered."
+      why_it_blocks: "It inflates the numerator of the value equation with something that will fail at delivery."
+      compliant_alternative: >-
+        Describe the outcome the product produces today, disclose roadmap as roadmap with
+        no implied date, and raise perceived likelihood with evidence rather than the promise.
+  whole_offer_tests:
+    - test: reversal
+      question: >-
+        If the buyer saw exactly how this offer was constructed — every deadline's real
+        basis, every stated value's real basis, every condition's real purpose — would
+        they still consider it fair dealing?
+    - test: delivery
+      question: >-
+        If every buyer accepted every element on the day they bought, could operations
+        deliver it? An offer operations cannot honour is a refund queue with a landing page.
+    - test: durability
+      question: >-
+        Would the buyer defend this purchase internally six months from now, knowing what
+        we know today? A purchase they cannot defend is a churn event already scheduled.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 7. DIAGNOSTIC ORDER — offer before traffic
+# ═══════════════════════════════════════════════════════════════════════════════
+# [CLASS: PRACTITIONER HEURISTIC — Hormozi, $100M Offers, 2021]
+diagnostic_order:
+  premise: >-
+    When an offer does not convert, more traffic multiplies the failure rather than
+    diagnosing it. Establish that the offer is sound before spending on volume.
+  sequence:
+    - step: 1
+      check: "Is the offer addressed to someone with the problem, the money and the authority to act?"
+      if_no: "Not an offer problem. Route to @products:positioning-lead for the frame and segment."
+    - step: 2
+      check: "Is the dream outcome stated in the buyer's words, and does the product produce it today?"
+      if_no: "Fix the outcome statement, or lower it to what is true."
+    - step: 3
+      check: "Is perceived likelihood addressed with real evidence and a claimable guarantee?"
+      if_no: "This is the usual binding term. Fix it before touching anything else."
+    - step: 4
+      check: "Are time-to-first-outcome and buyer effort measured and reduced?"
+      if_no: "An operations fix, not a copy fix. It is also the least-attempted one."
+    - step: 5
+      check: "Is the price and packaging settled by @products:pricing-strategist?"
+      if_no: "Stop. The offer is built on the price; constructing it around an unsettled price wastes the work."
+    - step: 6
+      check: "Does the offer pass §6 with no BLOCK?"
+      if_no: "Replace the blocked element with the compliant alternative before publication."
+    - step: 7
+      check: "Only now — is the funnel carrying the offer intact to the buyer?"
+      if_no: "Route to @marketing:funnel-lead. A leak downstream of a sound offer is a funnel problem."
+  what_this_order_does_not_claim: >-
+    It does not claim that offer work grows the brand. Conversion of buyers already in
+    market is a different mechanism from building mental availability among category
+    buyers who are not. Both matter; they are not substitutes and their evidence bases
+    are different. See @marketing:brand-lead and @marketing:demand-lead.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 8. BOUNDARY
+# ═══════════════════════════════════════════════════════════════════════════════
+boundary:
+  consumed_from:
+    "@products:positioning-lead": "Market category, competitive alternatives, target segment. Consumed, never authored here."
+    "@products:pricing-strategist": >-
+      Price and packaging. The offer is BUILT ON the price — it composes what surrounds
+      it (deliverables, guarantee, risk reversal, bonuses, terms, name). It never sets,
+      overrides or works around the price.
+    "@marketing:brand-lead": "Distinctive assets and category entry points the offer must not contradict."
+  handed_to:
+    "@marketing:funnel-lead": "The constructed offer, so the funnel can carry it without dilution."
+    "@marketing:analytics-lead": "What must be instrumented to test an offer change, and whether the test can support the claim."
+    "@marketing:demand-lead": "Budget consequences of an offer change; spend sizing is never decided here."
+    "@marketing:content-lead": "The offer's claims and proof, so editorial work does not restate them differently."
+    "@sales:qualification-lead": "Where the offer implies a qualification the sales motion must enforce."
+    "@pm": "Where an offer requires product change — a shorter time to first outcome usually does."
+  never_here:
+    - "Price points, discounts, packaging tiers — @products:pricing-strategist"
+    - "Market category and competitive alternatives — @products:positioning-lead"
+    - "Media budget and brand-vs-activation split — @marketing:demand-lead"
+    - "Instrument design and attribution — @marketing:analytics-lead"
+    - "Implementation — @dev, through the story pipeline"
+    - "Quality gates — @qa"
+    - "Story creation — @sm"
+    - "Git push, PRs, CI/CD — @devops, exclusive authority"

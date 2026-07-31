@@ -1,0 +1,313 @@
+# Operations Routing and Authority Matrix
+# Squad: ops · Owner: @ops:ops-chief (Fulcrum)
+# Reference knowledge. Not executable, not a configuration file.
+#
+# ATTRIBUTION
+#   @ops:ops-chief is an ORIGINAL orchestrator role. No external methodology is applied
+#   or claimed by it, and the routing model, the coherence chain and the contradiction
+#   tests below are this squad's construction rather than a published framework.
+#
+#   The published methods live in the specialists and are attributed in their own files:
+#     - reliability-lead: "Site Reliability Engineering" (O'Reilly, 2016), eds. Beyer,
+#       Jones, Petoff & Murphy; "The Site Reliability Workbook" (O'Reilly, 2018)
+#     - flow-lead: Eliyahu M. Goldratt, "The Goal: A Process of Ongoing Improvement"
+#       (1984, written with Jeff Cox). Later flow conventions — work-in-progress limits,
+#       cumulative flow diagrams — are labelled CONVENTION and are not attributed to him.
+#     - lean-lead: Taiichi Ohno, "Toyota Production System: Beyond Large-Scale
+#       Production" (Japanese 1978; English translation 1988). The broader lean tradition
+#       is labelled TRADITION and is not attributed to Ohno.
+#     - incident-lead: a DISCIPLINE WITH NO SINGLE AUTHOR. Attributing it to one would be
+#       inaccurate, and inaccurate attribution is worse than none.
+#
+# BOUNDARY — @devops
+#   This file routes. It authorizes nothing. @devops holds exclusive authority over
+#   CI/CD, pipelines, build systems, deploys, rollbacks, failovers, restarts, scaling,
+#   infrastructure and configuration change, gates, freezes, release management,
+#   status-page publication, MCP and git push. No routing decision, no severity and no
+#   urgency overrides it.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# STEP 0 — before triage
+# ---------------------------------------------------------------------------
+incident_exception:
+  rule: "An active incident is NOT triaged. Route to @ops:incident-lead immediately and triage
+    afterwards."
+  reason: "Triage ceremony during an outage delays the only correct first action — declaring and
+    assigning command — and is itself a failure mode."
+
+# ---------------------------------------------------------------------------
+# STEP 1 — authority, before routing, whenever an action is implied
+# ---------------------------------------------------------------------------
+authority_determination:
+  first_question: "Not who knows about this. Whose hands are permitted on it."
+  table:
+    - action: "Deploy, roll back, redeploy"
+      authorized: "@devops"
+      exclusive: true
+    - action: "Fail over, restart, scale"
+      authorized: "@devops"
+      exclusive: true
+    - action: "Change infrastructure or configuration"
+      authorized: "@devops"
+      exclusive: true
+    - action: "Change CI, pipeline, build system or release path"
+      authorized: "@devops"
+      exclusive: true
+    - action: "Hold a gate, block a merge, execute a freeze"
+      authorized: "@devops"
+      exclusive: true
+    - action: "Publish to a status page or any external channel"
+      authorized: "@devops"
+      exclusive: true
+      note: "Drafted by @ops:incident-lead, approved by the accountable human, published by @devops."
+    - action: "git push, open a PR, configure MCP"
+      authorized: "@devops"
+      exclusive: true
+    - action: "Write code, instrumentation or automation"
+      authorized: "@dev"
+    - action: "Change verification, gate scope or test strategy"
+      authorized: "@qa"
+      note: "Arrives as a question from this squad, never as an instruction or a permission."
+    - action: "Order the backlog; size, draft or validate stories"
+      authorized: "@po (order, validation) / @sm (drafting, agreements)"
+    - action: "Choose architecture, redundancy topology, failure domains"
+      authorized: "@architect"
+    - action: "Schema, queries, migrations, data instrumentation"
+      authorized: "@data-engineer"
+    - action: "Epic framing, PRD, roadmap"
+      authorized: "@pm"
+    - action: "Assign ownership, staffing, team structure"
+      authorized: "a human — no agent authority covers it"
+    - action: "Decide the target, the constraint, the method, the stop rule, the incident posture"
+      authorized: "this squad"
+    - action: "Anything else that sounds like DOING rather than DECIDING"
+      authorized: "assume it is not ours and check"
+  resolving_test: "If it changes a running system, it is not ours. If it changes what we have agreed
+    to do, it is."
+  dangerous_phrases:
+    note: "Each of these is something this squad can write a rule about and none of them are things
+      this squad can do. Say so out loud every time one appears."
+    phrases: ["stop the line", "freeze releases", "roll it back", "gate the pipeline", "fail over",
+      "hold the deploy", "block the merge", "put it on the status page"]
+
+# ---------------------------------------------------------------------------
+# STEP 2 — which specialist
+# ---------------------------------------------------------------------------
+routing_matrix:
+
+  reliability:
+    route_to: reliability-lead
+    persona: Keel
+    keywords: [slo, sli, sla, availability, uptime, error budget, burn rate, nines, reliability,
+      toil, on call, golden signals, latency target, saturation, alerting, paging, risk acceptance,
+      monitoring policy]
+    covers: "Service level indicators and objectives, error budgets and budget policy, cost of an
+      additional nine, toil definition and capping, the four golden signals, alerting posture,
+      accepted reliability risk"
+    not_theirs: "Where work stops flowing (flow-lead). Process waste and standard work (lean-lead).
+      Running a live incident (incident-lead). Configuring monitoring or paging (@devops).
+      Implementing instrumentation (@dev)."
+
+  flow:
+    route_to: flow-lead
+    persona: Throat
+    keywords: [constraint, bottleneck, throughput, queue, wip, work in progress, cycle time,
+      lead time, batch, utilization, capacity, hiring, subordinate, exploit, elevate, slow delivery,
+      theory of constraints]
+    covers: "Constraint identification and classification, exploitation before investment,
+      subordination rules, buffer and release policy, elevation cases, throughput versus local
+      optima, work-in-progress and queue analysis, inertia after a constraint moves"
+    not_theirs: "Waste inside a step (lean-lead). Availability targets and toil classification
+      (reliability-lead). Live incidents (incident-lead). Pipeline and release mechanics (@devops).
+      Backlog order (@po and @sm)."
+
+  lean:
+    route_to: lean-lead
+    persona: Kaizen
+    keywords: [waste, muda, lean, kaizen, just in time, jidoka, stop the line, andon, five whys,
+      standard work, batch size, overproduction, handoff, rework, countermeasure,
+      continuous improvement, process]
+    covers: "Waste identification by category, value-added versus non-value-added time, just-in-time
+      and batch policy, stop-the-line policy authorship, standard work, five-why tracing to
+      changeable conditions, small-step improvement cycles"
+    not_theirs: "Which single step caps throughput (flow-lead). Technical toil and reliability
+      targets (reliability-lead). Incident command and postmortems (incident-lead). Actually halting
+      anything (@devops). Verification changes (@qa)."
+
+  incident:
+    route_to: incident-lead
+    persona: Klaxon
+    keywords: [incident, outage, sev, severity, postmortem, post-mortem, blameless, root cause,
+      contributing factor, on call escalation, timeline, stand down, incident commander, recurrence,
+      near miss, corrective action]
+    covers: "Incident declaration and severity, command roles, factual timeline, communication
+      cadence, stand-down criteria, blameless post-incident analysis, contributing factors,
+      corrective action routing, recurrence and near-miss analysis"
+    not_theirs: "Any mitigation action — deploy, rollback, failover, restart, scaling (@devops).
+      Targets and alert thresholds (reliability-lead). Chronic delivery slowness (flow-lead).
+      Countermeasure design at process level (lean-lead)."
+
+# ---------------------------------------------------------------------------
+# The stated question is often not the owned question
+# ---------------------------------------------------------------------------
+reframing_patterns:
+  - stated: "We need to be more reliable."
+    owned_by: "incident-lead first if failures are repeating, then reliability-lead"
+    why: "If the same failure recurs, the question is why the last corrective actions did not hold.
+      Raising a target on a system that repeats its failures commits to something nothing has
+      changed to support."
+  - stated: "We should automate this, it is killing us."
+    owned_by: "lean-lead first, then reliability-lead, with flow-lead if throughput is the concern"
+    why: "The first question is whether the work should exist at all. Automating a wasteful step
+      makes it permanent and fast."
+  - stated: "Delivery is too slow, we need to hire."
+    owned_by: "flow-lead"
+    why: "Capacity added away from the constraint raises inventory and operating expense and changes
+      throughput by zero — often below zero. The constraint has to be named before the hire is priced."
+  - stated: "Can we release more often?"
+    owned_by: "flow-lead for the queue, reliability-lead for the budget policy — @devops owns every
+      mechanical change"
+    why: "Release cadence is usually both a flow policy and a risk-appetite question. Neither squad
+      agent can change the release path itself."
+  - stated: "We keep firefighting and never improve anything."
+    owned_by: "reliability-lead for the toil measurement, then flow-lead"
+    why: "The claim is quantifiable. Measure operational load first; past the cap, no amount of
+      intention frees the improvement time."
+  - stated: "The build breaks constantly and everyone ignores it."
+    owned_by: "lean-lead for the stop rule; incident-lead if impact reaches users"
+    why: "A jidoka question — what should halt the work and who may call it. Executing any halt
+      remains @devops."
+  - stated: "What went wrong last week?"
+    owned_by: "incident-lead"
+    why: "A retrospective account of a failure is a post-incident analysis whether or not anyone
+      declared an incident at the time."
+  - stated: "Should we freeze releases this month?"
+    owned_by: "reliability-lead writes the rule; the named decider decides; @devops executes"
+    why: "A freeze is a consequence in a budget policy. This squad supplies the policy and the burn
+      evidence, never the gate."
+
+# ---------------------------------------------------------------------------
+# STEP 3 — answer or route
+# ---------------------------------------------------------------------------
+answer_directly_when:
+  - "The question is who owns what, or who is authorized"
+  - "The question is what a specialist covers and does not cover"
+  - "The question is the order specialists should be engaged in"
+  - "The question is a definition or a comparison across disciplines"
+  - "The question is squad navigation, activation syntax or artifact location"
+route_when:
+  - "Applying a method or framework is required"
+  - "An artifact must be generated"
+  - "Evidence must be gathered that the specialist would gather"
+  - "Unsure — route, and say why the specialist is better placed"
+
+# ---------------------------------------------------------------------------
+# STEP 4 — sequencing
+# ---------------------------------------------------------------------------
+sequencing:
+  rules:
+    - "Throughput in question -> flow-lead first, always. Everything else may optimize a step that
+       does not matter."
+    - "Operational load in question -> reliability-lead measures it first; the measurement decides
+       whether lean-lead removes it or @dev automates it."
+    - "Failures repeating -> incident-lead first. A recurrence is a finding about the previous
+       analysis."
+  never:
+    - "Automation before the constraint is known"
+    - "A target before the operational load is measured"
+    - "A stop rule before the constraint is located — a halt at the wrong point starves the
+       constraint without protecting anything"
+  broadcast_warning: "Never route one request to several specialists in parallel. Three of these four
+    disciplines will find something worth improving in almost any system, and only one location
+    changes the outcome. Four partial answers built on four unstated assumptions is not corroboration."
+
+# ---------------------------------------------------------------------------
+# The coherence chain
+# ---------------------------------------------------------------------------
+coherence_chain:
+  links:
+    - link: promise
+      owner: reliability-lead
+      question: "What are we committing to, measured how, over what window?"
+    - link: constraint
+      owner: flow-lead
+      question: "Which single step sets the throughput of the system?"
+    - link: flow_policy
+      owner: flow-lead
+      question: "How is work released, buffered and subordinated to protect the constraint?"
+    - link: method
+      owner: lean-lead
+      question: "How is the work actually done, and what waste does it carry?"
+    - link: stop_rule
+      owner: lean-lead
+      question: "What condition halts the work, who may call it, and what resumes it?"
+    - link: response
+      owner: incident-lead
+      question: "When it breaks, who commands, who executes, and what is recorded?"
+    - link: learning
+      owner: incident-lead
+      question: "What changed as a result, owned by whom, verifiable how?"
+  propagation_rule: "A break in any link invalidates every link downstream of it, not only the
+    adjacent one. Repair upstream first. The learning link feeds back into promise and method — if it
+    does not, the loop is open and the same failure returns on schedule."
+  most_common_break: "A promise the constraint cannot keep. A target set without reference to where
+    work actually stops is a commitment made by one discipline and paid for by another."
+
+contradiction_checks:
+  - name: "Promise beyond capacity"
+    test: "Is the reliability target achievable given where the constraint is and how much of the
+      team's time is consumed by toil?"
+  - name: "Budget policy versus release policy"
+    test: "Does the budget policy's freeze consequence contradict the release cadence the flow policy
+      depends on?"
+  - name: "Automation at a non-constraint"
+    test: "Is the top-ranked toil or waste item at the constraint, or somewhere its removal changes
+      nothing?"
+  - name: "Stop rule without recovery"
+    test: "If the stop rule halts work at the constraint, is there a defined resume condition and a
+      buffer that survives the stop?"
+  - name: "Severity scale versus SLO"
+    test: "Does the severity matrix use impact thresholds consistent with the SLO and the budget?"
+  - name: "Corrective action as new waste"
+    test: "Do the postmortem's corrective actions add steps, approvals or checks the method link
+      would classify as waste?"
+  - name: "Open learning loop"
+    test: "Did the last three postmortems' contributing factors change any target, standard or flow
+      rule?"
+  - name: "Authority drift"
+    test: "Does any squad policy contain a consequence no named agent is authorized to execute?"
+    note: "The failure this squad is most prone to, and the reason this test runs every audit."
+
+# ---------------------------------------------------------------------------
+# Arbitration
+# ---------------------------------------------------------------------------
+arbitration:
+  rules:
+    - situation: "One side has measured evidence, the other does not"
+      resolution: "Evidence wins this round"
+    - situation: "Both have evidence about different scopes"
+      resolution: "Not a contradiction — a boundary question. Redraw the system."
+    - situation: "Both measured, genuinely conflicting"
+      resolution: "Escalate the assumption; define the measurement that would decide"
+    - situation: "Neither has evidence"
+      resolution: "The output is a measurement plan, not a decision"
+    - situation: "The disagreement is about risk appetite, not facts"
+      resolution: "Surface as a human decision. Never resolve it silently."
+  never: "Average two contradictory policies into a third. That manufactures an unevidenced
+    operational rule out of two evidenced ones, and no specialist will defend it."
+
+# ---------------------------------------------------------------------------
+# Escalation
+# ---------------------------------------------------------------------------
+escalation_rules:
+  - "Active incident -> @ops:incident-lead immediately, no triage ceremony"
+  - "Specialist cannot complete the request within its discipline -> return for re-routing"
+  - "Two specialists produce contradictory policy -> *conflict-resolve"
+  - "Request implies a mechanical action on infrastructure, pipeline or release -> @devops,
+     exclusive, no exceptions"
+  - "Request has left the operations surface -> route to the AEXOS core agent that owns it"
+  - "A recommendation would weaken a quality gate -> @qa decides; never routed as permission"
+  - "Safety, data-loss or user-harm concern raised by any specialist -> surfaced explicitly BEFORE
+     the decision proceeds, never as a footnote"

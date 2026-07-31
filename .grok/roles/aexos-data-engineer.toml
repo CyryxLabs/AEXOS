@@ -1,0 +1,6 @@
+# AEXOS aexos-data-engineer — subagent role defaults
+description = "Database Architect & Operations Engineer (Ceres)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aexos-data-engineer.md"

@@ -1,0 +1,162 @@
+# Toil Taxonomy — the six-part test, what fails it, and what each failure means
+# Squad: ops · Owner: @ops:reliability-lead (Keel)
+# Reference knowledge. Not executable.
+#
+# ATTRIBUTION
+#   The definition of toil, its six properties and the guidance to cap it are published
+#   in "Site Reliability Engineering" (O'Reilly, 2016), eds. Beyer, Jones, Petoff &
+#   Murphy, Ch. 5 "Eliminating Toil", and extended in "The Site Reliability Workbook"
+#   (O'Reilly, 2018). Applied with attribution.
+#   Entries marked `convention: true` are common industry practice, not positions from
+#   those volumes, and are not attributed to them.
+#
+# BOUNDARY — @devops
+#   This file supports identifying, quantifying and ranking operational work. It builds
+#   nothing. Automation is implemented by @dev and operated by @devops. An agent that
+#   both declares the toil and builds the fix grades its own homework — and an agent that
+#   runs the automation in a pipeline has crossed into @devops' exclusive authority.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# The test. All six, or it is not toil.
+# ---------------------------------------------------------------------------
+definition:
+  rule: "Work is toil only if it satisfies ALL six properties. Failing any one makes it a different
+    kind of problem, fixed a different way. This matters because the wrong classification sends
+    automation effort at work that will resist it."
+  properties:
+    - id: manual
+      question: "Does a human have to perform it by hand each time?"
+      fails_when: "It already runs on a schedule or a trigger and a human only reads the outcome."
+    - id: repetitive
+      question: "Has it been done before and will it be done again in the same shape?"
+      fails_when: "Each occurrence differs enough to require a fresh decision."
+    - id: automatable
+      question: "Could a machine do it, given the tooling that exists or could reasonably be built?"
+      fails_when: "It needs judgement a machine cannot make, or the decision inputs are not
+        available in any system."
+    - id: tactical
+      question: "Is it interrupt-driven and reactive rather than planned?"
+      fails_when: "It is scheduled, planned work with a known slot."
+    - id: devoid_of_enduring_value
+      question: "After it is done, is the service in exactly the state it was in before?"
+      fails_when: "It leaves the service permanently improved — that is engineering work."
+    - id: scales_with_the_service
+      question: "Does the amount of it grow at least linearly with users, traffic or size?"
+      fails_when: "It is constant regardless of growth — annoying, but structurally bounded."
+
+# ---------------------------------------------------------------------------
+# What each failure of the test actually means
+# ---------------------------------------------------------------------------
+misclassification_consequences:
+  - fails: repetitive
+    usually_is: "Engineering or judgement work"
+    why_automation_fails: "Automating a non-repetitive task encodes one instance's decisions as a
+      rule, and the rule is wrong for the next instance."
+    route_to: "Keep with the team; consider standard work via @ops:lean-lead if the variance is in
+      the process rather than in the problem."
+  - fails: devoid_of_enduring_value
+    usually_is: "Improvement work being mislabelled because it is unglamorous"
+    why_automation_fails: "There is nothing to remove. The work produces a lasting change each time."
+    route_to: "Backlog as engineering work — @po for prioritization."
+  - fails: automatable
+    usually_is: "A toil candidate blocked on missing tooling, missing data, or missing authority"
+    why_automation_fails: "The blocker, not the task, is the item."
+    route_to: "Record the blocker explicitly in the register. Removing a tooling blocker is @dev;
+      a pipeline or infrastructure blocker is @devops."
+  - fails: tactical
+    usually_is: "Planned operational work"
+    why_automation_fails: "It is already bounded and scheduled; automating it buys the schedule,
+      not the interruption."
+    route_to: "Candidate for standard work — @ops:lean-lead."
+  - fails: scales_with_the_service
+    usually_is: "Fixed overhead"
+    why_automation_fails: "Payback never compounds, because the volume does not grow."
+    route_to: "Rank last. Frequently cheaper to leave alone and say so."
+  - fails: manual
+    usually_is: "Already automated; the human cost is the interpretation, not the execution"
+    why_automation_fails: "The automation exists. The remaining cost is signal quality."
+    route_to: "Alerting and signal review — @ops:reliability-lead `*alert-review`; configuration
+      is @devops."
+
+# ---------------------------------------------------------------------------
+# Work that is commonly mislabelled as toil
+# ---------------------------------------------------------------------------
+not_toil:
+  - work: "Incident response"
+    fails: ["repetitive", "automatable"]
+    reason: "Judgement-heavy and shaped differently each time. Belongs to @ops:incident-lead's
+      domain, not to the toil register."
+  - work: "Code review"
+    fails: ["devoid_of_enduring_value", "automatable"]
+    reason: "Produces a lasting improvement and requires judgement. If it is slow, that is a flow
+      question for @ops:flow-lead or a gate-design question for @qa — not automation."
+  - work: "Capacity forecasting"
+    fails: ["repetitive", "devoid_of_enduring_value"]
+    reason: "Analytical work whose output changes each cycle."
+  - work: "Work the team simply dislikes"
+    fails: ["varies"]
+    reason: "Dislike is not a property in the definition. Test it against all six before it enters
+      the register, or automation effort is aimed by mood."
+  - work: "Handoffs, re-typing context, waiting for approvals"
+    fails: ["automatable — usually"]
+    reason: "This is process waste, not technical toil. Route to @ops:lean-lead, whose countermeasure
+      is removing the step rather than automating it. Automating a wasteful step makes it permanent."
+
+# ---------------------------------------------------------------------------
+# Quantification and the cap
+# ---------------------------------------------------------------------------
+quantification:
+  unit: "Hours per month, per item, per rotation"
+  rule: "A toil register without hours is a complaint with a table around it. Estimate from observed
+    occurrences, not from recollection."
+  cap:
+    guidance: "Published guidance bounds operational toil at roughly half of engineering time, so the
+      remainder can be spent making the toil unnecessary."
+    reading_above_the_cap: "A team past the cap will not engineer its way out by trying harder. The
+      finding is structural — it belongs in a conversation about the target, the architecture, or
+      the staffing, not in a request for more discipline."
+    reading_far_below_the_cap: "Either the register is incomplete or the work being called toil is
+      not the actual load. Check on-call load separately."
+  payback_ranking:
+    formula_shape: "automation build cost / monthly hours removed = months to payback"
+    decision_rule: "Record and do not automate when payback exceeds several years of the toil it
+      removes. Say so explicitly rather than leaving the item ranked and untouched."
+    convention: true
+    convention_note: "Payback ranking is common practice. The cited volumes make the case for
+      eliminating toil; the specific ranking arithmetic here is convention and is not attributed."
+
+# ---------------------------------------------------------------------------
+# On-call load
+# ---------------------------------------------------------------------------
+on_call:
+  guidance: "Published guidance bounds incidents per on-call shift so that each incident receives
+    adequate follow-up time rather than only mitigation."
+  signal: "Sustained load above that bound is evidence that the objective, the architecture, or the
+    toil level needs to change — not that the rotation needs more stamina."
+  boundary: "Rotation design and staffing are organizational decisions made by humans. This agent
+    reports the load and states what it implies."
+
+# ---------------------------------------------------------------------------
+# Register shape
+# ---------------------------------------------------------------------------
+register_fields:
+  - "Operational work item"
+  - "Hours per month"
+  - "Six-part test result (which properties pass, which fail)"
+  - "Verdict: toil / toil-blocked / not toil"
+  - "If not toil: what it actually is, and who owns it"
+  - "Automation payback in months, or an explicit do-not-automate"
+  - "Implementing agent (@dev) and operating agent (@devops) — never this squad"
+
+# ---------------------------------------------------------------------------
+# Boundary restated, because this is where it is most often crossed
+# ---------------------------------------------------------------------------
+authority:
+  this_squad_does: "Identify, test, quantify, rank, and publish the register as a versioned file."
+  dev_does: "Build the automation."
+  devops_does: "Run it in the pipeline; change any infrastructure, schedule or configuration it needs."
+  never: "A toil register that arrives with its own automation attached has skipped the review that
+    would have asked whether the toil should exist at all — and it has crossed an authority boundary
+    on the way."

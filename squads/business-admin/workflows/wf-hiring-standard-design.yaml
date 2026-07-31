@@ -1,0 +1,250 @@
+# ============================================================================
+# Workflow: Hiring Standard Design
+# Squad: business-admin
+# Version: 1.0.0
+# Purpose: Design a role's hiring bar against the cash it must fit, the loop
+#          that will run it, and the instruments that will document it.
+# ============================================================================
+
+workflow:
+  id: wf-hiring-standard-design
+  name: "Hiring Standard Design"
+  version: "1.0.0"
+  type: squad-workflow
+  description: |
+    Chains the four disciplines around a single hiring decision. Finance reads
+    the cash the role must fit into rather than the profit it appears to fit
+    into; process maps the loop that will actually run; people design the bar,
+    its anchors and its disqualifiers; legal operations registers the dated
+    duties in the employment instruments that will document it. The workflow
+    closes by consolidating every referral into one licensed-review list.
+
+    The bar produced here does not touch a real candidate before qualified HR
+    and employment counsel have reviewed it. That is a gate, not a caveat.
+
+  trigger: "*hiring-standard-design"
+  entry_agent: admin-chief
+  estimated_duration: "4-8 working days, gated by access to the loop's performers"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # PROFESSIONAL LIMIT — read before running, enforced at every checkpoint
+  # ──────────────────────────────────────────────────────────────────────────
+  professional_limit: |
+    Finance, people and legal are regulated areas. No phase of this workflow
+    produces an accounting, tax, statutory, assurance, employment, labour,
+    discrimination, benefits, payroll or legal opinion, substitutes for an
+    accountant, auditor, lawyer or qualified HR professional, or generates
+    anything for a regulator, authority, court or counterparty. Every output
+    that approaches those areas is an input for a licensed professional, and
+    each phase carries a checkpoint that will not clear until the routing is
+    written down.
+
+    Selection criteria carry discrimination and adverse-impact exposure in
+    every jurisdiction. people-lead designs a practice for a role, never a case
+    for a person, and processes no personal data. legal-ops interprets no
+    clause. process-lead removes no control and decides no retention or data
+    question. Nothing produced here is privileged.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE
+  # ──────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Intake and regulated-referral gate ────────────────────────
+    - id: phase_0
+      name: "Intake and Regulated-Referral Gate"
+      agent: admin-chief
+      task: triage-administrative-request.md
+      parallel: false
+      creates: triage_record
+      description: |
+        Runs the regulated-referral gate first, confirms the request concerns a
+        role rather than a named person, and restates it before anyone starts
+        designing. Hire-faster is usually a decision-rights question rather
+        than an assessment question, and the restatement is where that surfaces.
+      outputs:
+        - gate_verdict: "inside | outside | split, with the licensed professional named for every outside part"
+        - referral_questions: "one written, directly answerable question per outward referral"
+        - restatement: "the request in the owning discipline's vocabulary, confirmed by the requester"
+        - triage_record: "versioned markdown file under docs/ with date and named owner"
+      checkpoint:
+        gate: "Request classified against all six referral categories; confirmed to concern a role and to contain no named individual and no personal data; licensed-review list at the top of the record."
+        veto: "If a named individual appears anywhere — a grievance, a dispute, discipline, dismissal, an accommodation, an investigation — the workflow does not run and the matter goes to qualified HR and employment counsel. Unclear classification counts as regulated. If the matter is or could become contentious, stop: nothing here is privileged."
+
+    # ─── PHASE 1: Cash envelope for the role ────────────────────────────────
+    - id: phase_1
+      name: "Cash Envelope for the Role"
+      agent: finance-lead
+      task: build-profit-to-cash-bridge.md
+      depends_on: [phase_0]
+      parallel: false
+      requires: triage_record
+      creates: cash_envelope_reading
+      description: |
+        Builds the profit-to-cash bridge for the current period so that
+        affordability is argued against cash movement and its dominant driver,
+        not against a reported result. A role approved on profit and paid in
+        cash is the standard way a hiring plan becomes a liquidity problem.
+      outputs:
+        - bridge_table: "each item with amount, named source and class"
+        - residual: "the unexplained remainder, shown as its own line"
+        - dominant_driver: "largest contributor, classified structural or timing, with its evidence"
+        - financial_brief: "versioned markdown file under docs/ with the boundary notice at the top"
+      checkpoint:
+        gate: "Result and cash movement verified as covering identical dates, entity and basis; every figure sourced; the residual shown unabsorbed; the cash envelope stated as a figure with its basis rather than as a feeling about affordability."
+        veto: "No line may state or imply how an item is recognised, measured, disclosed, classified or taxed; every such question goes to a licensed accountant or tax adviser as a written question. Payroll, benefits, social-charge and employment-tax treatment are out of scope entirely and go to the relevant specialist. Nothing produced is assurance or external-reliance material."
+
+    # ─── PHASE 2: Hiring Loop Map ───────────────────────────────────────────
+    - id: phase_2
+      name: "Hiring Loop Map"
+      agent: process-lead
+      task: map-process-end-to-end.md
+      depends_on: [phase_1]
+      parallel: false
+      requires: cash_envelope_reading
+      creates: hiring_loop_map
+      description: |
+        Maps the loop as it actually runs — from the moment the role was first
+        wanted to the moment the offer is usable — with the elapsed-to-working
+        ratio stated. Most hiring delay is queueing and scheduling rather than
+        assessment, and a bar redesigned onto an unmeasured loop fixes nothing.
+      outputs:
+        - process_map: "every step with performer, system, working time, elapsed time, volume and rework rate"
+        - measurement_marks: "each figure marked OBSERVED, RECORDED or ESTIMATED"
+        - elapsed_vs_working: "total elapsed against total working time, ratio stated prominently"
+        - handoff_points: "every transfer, with what waits and what is lost"
+        - control_inventory_seed: "approvals and sign-offs observed, with named owners"
+      checkpoint:
+        gate: "Loop mapped with its true start and true end across every function it crosses; every figure marked; the elapsed-to-working ratio stated prominently; the required-review list at the top of the artefact."
+        veto: "No approval or control is removed, weakened or retimed on this analysis's authority, and segregation-of-duties controls are untouchable. What candidate evidence may be recorded, merged or retained is a data-protection question for counsel, never a process-convenience question. Anything that changes roles, headcount or location goes to qualified HR and employment counsel. The map proposes nothing."
+
+    # ─── PHASE 3: Hiring Standard ───────────────────────────────────────────
+    - id: phase_3
+      name: "Hiring Standard"
+      agent: people-lead
+      task: define-hiring-standard.md
+      depends_on: [phase_2]
+      parallel: false
+      requires: hiring_loop_map
+      creates: hiring_standard
+      description: |
+        Derives four or five assessed attributes from the role's first-year
+        outcomes, writes behavioural anchors before anyone is seen, states the
+        disqualifiers separately, and assigns each attribute to a specific
+        interviewer within the loop the previous phase measured.
+      outputs:
+        - assessed_attributes: "four or five, derived from first-year outcomes"
+        - behavioural_anchors: "three or four observable levels per attribute, written before any candidate is seen"
+        - disqualifiers: "stated explicitly, kept separate from the scored attributes"
+        - interviewer_assignment: "which interviewer assesses which attribute"
+        - transfer_caveats: "which parts of the design depend on organisation size, selectivity or evidence volume"
+        - counsel_review_list: "every item requiring qualified HR and employment counsel before use"
+      checkpoint:
+        gate: "First-year outcomes written before any attribute is derived; unevidenceable attributes removed and the removals recorded; anchors written ahead of any candidate; every attribute assigned to a named interviewer role; transfer caveats stated."
+        veto: "The bar is not used with any real candidate before qualified HR and employment counsel have reviewed it for discrimination and adverse impact, data protection, works-council and collective-agreement obligations, and jurisdictional variation across every location that will use it — this is a hard gate on the artefact, not a closing note. No named individual and no personal data enters the work. Published selection-method findings are reproduced as direction only; no validity coefficient is reproduced from memory."
+
+    # ─── PHASE 4: Employment Instrument Register ────────────────────────────
+    - id: phase_4
+      name: "Employment Instrument Register"
+      agent: legal-ops
+      task: extract-obligation-register.md
+      depends_on: [phase_3]
+      parallel: false
+      requires: hiring_standard
+      creates: employment_instrument_register
+      description: |
+        Registers the administratively visible dates and duties in the executed
+        employment instruments the role will use — probation end dates, notice
+        periods, review dates, benefit enrolment windows — as a managed process
+        with owners and lead times. What the documents state, never what they mean.
+      outputs:
+        - obligation_register: "one row per administratively visible obligation, with clause reference, owner, lead time and action date"
+        - ambiguous_list: "items whose date or duty depends on interpreting wording, written as questions for counsel"
+        - register_gaps: "amendments, annexes and referenced documents not supplied"
+        - legalops_brief: "versioned markdown file under docs/ with the boundary and privilege notices at the top"
+      checkpoint:
+        gate: "Every entry carries a clause reference; every obligation has a named owner, a lead time and a computed action date; the whole AMBIGUOUS list routed to a qualified lawyer as a written question set at the top of the artefact."
+        veto: "legal-ops handles employment instruments as a managed process and never as content: no clause is interpreted, no term is called standard, favourable or onerous, and no view is offered on enforceability or lawfulness. Any question about what an employment term permits or requires goes to employment counsel. Nothing here is privileged, and a contentious matter stops the workflow before anything further is written."
+
+    # ─── PHASE 5: Licensed-review routing and close ─────────────────────────
+    - id: phase_5
+      name: "Licensed-Review Routing and Close"
+      agent: admin-chief
+      task: triage-administrative-request.md
+      depends_on: [phase_4]
+      parallel: false
+      requires: employment_instrument_register
+      creates: licensed_review_routing
+      description: |
+        Re-runs the regulated gate over the assembled design, consolidates the
+        referrals into a single list, and states plainly that the standard is
+        not live until the reviews come back.
+      outputs:
+        - licensed_review_routing: "every open item addressed to a named accountant, tax adviser, lawyer, employment counsel, qualified HR professional or control owner, as an answerable question with a date"
+        - contradictions: "where the readings disagree — for example a bar the cash envelope will not fund — stated rather than smoothed"
+        - handoff_brief: "what is settled, what is waiting on a licensed answer, and what nobody in this squad may decide"
+      checkpoint:
+        gate: "Every referral raised in phases 0-4 appears once in a consolidated licensed-review list at the top of the closing artefact, each written as a question a named professional can answer directly, each with a date and an owner."
+        veto: "The workflow does not close while any regulated item is unrouted, and the hiring standard is marked NOT FOR USE until qualified HR and employment counsel have returned their review. The artefact contains no epic, PRD, story, implementation plan, test or release action."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    admin_chief_to_finance_lead: |
+      The gate cleared this as a role-level design question. Read the cash the
+      role has to fit into, with its basis and its dominant driver. Payroll,
+      benefits, employment-tax and social-charge treatment are not yours and
+      not this squad's — route them.
+    finance_lead_to_process_lead: |
+      Here is the cash envelope and what drives it. Map the hiring loop as it
+      runs, not as it is documented, with the true start and true end. Mark
+      every figure by how it was obtained; an estimate presented as a
+      measurement loses the argument later.
+    process_lead_to_people_lead: |
+      Here is the loop: its stages, its queues, its elapsed-to-working ratio
+      and how much interview time genuinely exists. Design the bar against that
+      surface. Anything that changes roles or headcount leaves for qualified HR
+      and employment counsel through you.
+    people_lead_to_legal_ops: |
+      The bar is designed and marked NOT FOR USE pending counsel review.
+      Register the dated duties in the executed employment instruments as a
+      managed process. Their content is employment counsel's, not yours.
+    legal_ops_to_admin_chief: |
+      Register complete, with the AMBIGUOUS list unanswered and addressed to a
+      qualified lawyer, and gaps named where documents were not supplied.
+    admin_chief_to_pm: |
+      The squad's findings are complete and traced, with the hiring standard
+      still gated on counsel review. Epic framing belongs to @pm, story
+      drafting to @sm, implementation to @dev, quality gate to @qa, and push to
+      @devops — exclusively. This squad writes none of them.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # VETO CONDITIONS (workflow-level)
+  # ──────────────────────────────────────────────────────────────────────────
+
+  veto_conditions:
+    - "A named individual or any personal data entering the work — the matter belongs to qualified HR and employment counsel"
+    - "A hiring bar reaching a real candidate before qualified HR and employment counsel have reviewed it"
+    - "A regulated question answered, hedged or routed to a squad specialist instead of a licensed professional"
+    - "A validity coefficient reproduced from memory, or a published finding restated as anything but its direction"
+    - "An accounting, tax, payroll, benefits or employment-charge treatment stated or implied"
+    - "A clause interpreted, characterised or summarised anywhere in the outputs"
+    - "A control removed, weakened or retimed, or a candidate-data retention question decided inside the process design"
+    - "Any epic, PRD, story, implementation, test or release action produced by this workflow"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # COMPLETION CRITERIA
+  # ──────────────────────────────────────────────────────────────────────────
+
+  completion_criteria:
+    - "Triage record exists with the six-category gate applied and the role-not-person check passed"
+    - "Cash envelope stated as a sourced figure with its basis and dominant driver"
+    - "Hiring loop mapped with its true start and true end, every figure marked, ratio stated"
+    - "Four or five anchored attributes, separate disqualifiers, and a named interviewer per attribute"
+    - "Transfer caveats state which elements depend on organisation scale, selectivity or evidence volume"
+    - "Employment instrument register complete with clause references, owners, lead times and action dates"
+    - "One consolidated licensed-review list, and the standard marked NOT FOR USE until it returns"
+    - "Every artefact is a versioned file under docs/ with a date and a named owner, and every statement traces to a source (Constitution Article IV)"

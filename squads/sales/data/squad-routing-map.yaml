@@ -1,0 +1,247 @@
+# Squad Routing Map — Who Owns What, And What Excludes Them
+# Squad: sales
+# Referenced by: sales-chief (Vanguard)
+# Last updated: 2026-07-30
+
+version: "1.0.0"
+
+purpose: |
+  Reference data for triage. The most common commercial failure is not a weak method — it is the
+  right question answered by the wrong discipline. This file holds what makes routing checkable:
+  the owner per surface, the NOT-list that excludes each near miss, the reframes where the stated
+  question is not the owned question, and the boundary where this squad stops.
+
+  Nothing here is a method. Methods live in the specialists, each attributed in its own file.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. OWNERS
+# ─────────────────────────────────────────────────────────────────────────────
+
+owners:
+
+  - agent: qualification-lead
+    persona: Sieve
+    icon: "🧲"
+    tier: 1
+    method_source: >-
+      MEDDIC — sales qualification discipline originated inside Parametric Technology Corporation
+      (PTC), commonly credited to Dick Dunkel and Jack Napoli. Documented origin, no canonical
+      work by its originators; cited as a named discipline, never quoted as a text. MEDDICC
+      (adds Competition) and MEDDPICC (adds Paper Process and Competition) are practitioner
+      extensions and are flagged as extensions wherever used.
+    owns:
+      - Quantified metric in the buyer's own numbers, buyer-stated and dated
+      - Economic buyer identification and honest statement of access
+      - Decision criteria in the buyer's formulation, with an owner per criterion
+      - Decision process mapped step by step, including the paper process
+      - Pain identified and stated by the buyer, with cost and owner
+      - Champion identification and the three tests
+      - Disqualification decisions with structural reason and re-entry condition
+      - Deal inspection across a set of deals
+    not_theirs:
+      conversation_design: "How the conversation creates the insight → method-lead"
+      concessions: "Concession structure, procurement tactics, walk-away → negotiation-lead"
+      funnel: "Stage design, conversion, hiring, ramp, coaching cadence → pipeline-ops"
+      price: "Price level, packaging, discount policy → @products:pricing-strategist"
+    routing_keywords: [qualify, qualification, meddic, economic buyer, decision criteria, decision process, metric, pain, champion, disqualify, deal review, is this real, no decision, stalled, went dark, paper process]
+
+  - agent: method-lead
+    persona: Forge
+    icon: "🔥"
+    tier: 1
+    method_source: >-
+      Matthew Dixon & Brent Adamson, The Challenger Sale: Taking Control of the Customer
+      Conversation (2011), reporting Corporate Executive Board research. Buying-group material
+      draws on the follow-up, The Challenger Customer (2015), by Brent Adamson, Matthew Dixon,
+      Pat Spenner and Nick Toman, cited separately rather than blended into the 2011 book.
+    owns:
+      - Commercial insight construction and its evidence table
+      - Reframe design, including the why-it-was-invisible line
+      - The six-part teaching choreography
+      - Tailoring the constant reframe by stakeholder economics
+      - Constructive tension design and the tension screen
+      - Taking control of the conversation, including the money conversation
+      - Mobilizing consensus inside the buying group
+    not_theirs:
+      qualification: "Whether the deal is real, who signs, what the process is → qualification-lead"
+      terms: "Concessions, terms, walk-away → negotiation-lead"
+      funnel: "Team-wide method gaps as training formula → pipeline-ops"
+      positioning: "Market category, competitive alternatives, unique attributes → @products:positioning-lead"
+    routing_keywords: [challenger, teach, tailor, take control, insight, reframe, commercial teaching, constructive tension, mobilizer, consensus, discovery call, pitch, deck, first meeting, executive briefing]
+
+  - agent: negotiation-lead
+    persona: Tether
+    icon: "🪢"
+    tier: 2
+    method_source: >-
+      Chris Voss, Never Split the Difference: Negotiating As If Your Life Depended On It (2016),
+      written with Tahl Raz. Honesty note carried by the agent and repeated here: the book cites
+      the widely quoted 7-38-55 communication ratio attributed to research by Albert Mehrabian.
+      That ratio is contested in the wider literature and routinely generalized far beyond the
+      conditions that produced it. No recommendation anywhere in this squad rests on it.
+    owns:
+      - Interest mapping beneath stated positions
+      - Walk-away definition, written before the conversation
+      - Concession ladder inside an approved commercial structure
+      - Labels, mirrors, accusation audits, calibrated questions in exact wording
+      - Procurement handling and transparent sponsor re-engagement
+      - Deadline and leverage reading, including our own weak points
+      - Post-negotiation review of what each concession actually bought
+    not_theirs:
+      qualification: "Whether the deal should be negotiated at all → qualification-lead"
+      value: "The insight that makes the price defensible → method-lead"
+      price: "Price level, packaging, value metric, discount policy → @products:pricing-strategist"
+    routing_keywords: [negotiate, negotiation, discount, concession, terms, counteroffer, anchor, label, mirror, calibrated question, procurement, redline, walk away, deadline, leverage, ladder]
+
+  - agent: pipeline-ops
+    persona: Conveyor
+    icon: "⛓️"
+    tier: 2
+    method_source: >-
+      Mark Roberge, The Sales Acceleration Formula: Using Data, Technology, and Inbound Selling
+      to go from $0 to $100 Million (2015). The methodology's own warning is enforced here: there
+      is no universal ideal representative, ramp period or stage model. Every rate, ramp figure
+      and trait correlation used in this squad comes from local instrumented data. Figures
+      reported in the book describe one organization and are external hypotheses, never our
+      numbers.
+    owns:
+      - Stage definitions with buyer-side exit criteria
+      - Funnel conversion and cycle time analysis, by cohort, with denominators
+      - Forecast accuracy tracking by direction and source
+      - Capacity and coverage modelling from local conversion rates
+      - Hiring scorecard design and its validation against outcomes
+      - Training formula on the buyer journey, ramp design and cohort comparison
+      - Metrics-driven coaching, one skill at a time
+      - Incentive plan mechanics review (plan level and philosophy stay with the human)
+      - Instrumentation specification for @dev and @data-engineer
+    not_theirs:
+      single_deal: "One deal's qualification gap → qualification-lead"
+      conversation: "Conversation design → method-lead"
+      deal_terms: "Deal-level concessions → negotiation-lead"
+      comp_philosophy: "Compensation level, budget and philosophy — a human business decision"
+    routing_keywords: [pipeline, forecast, funnel, conversion, coverage, quota, ramp, hiring, onboarding, coaching, stage definition, cycle time, predictability, capacity, scorecard, sla, incentive]
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 2. REFRAMES — where the stated question is not the owned question
+# ─────────────────────────────────────────────────────────────────────────────
+# Never applied silently. State the reframe out loud and confirm it before routing.
+
+reframes:
+
+  - stated: "They are asking for 20% off. What do we give?"
+    owned_by: [qualification-lead, negotiation-lead]
+    order: "qualification first"
+    why: >-
+      A discount request from a buyer with no confirmed economic buyer and no quantified metric is
+      a qualification signal, not a negotiation. Conceding does not accelerate the deal; it teaches
+      the account that waiting produces a better price and moves an unqualified deal into a stage
+      it did not earn.
+
+  - stated: "The forecast keeps slipping."
+    owned_by: [pipeline-ops, qualification-lead]
+    order: "pipeline-ops leads; qualification-lead supplies the stage-entry evidence standard"
+    why: >-
+      Slippage is usually a stage-definition defect — deals enter late stages without the
+      buyer-side evidence the stage claims. That is a funnel design finding before it is a rep
+      performance finding.
+
+  - stated: "The prospect went dark."
+    owned_by: [qualification-lead, method-lead]
+    order: "champion test first, re-entry conversation second"
+    why: >-
+      Silence after a good meeting usually means the champion could not sell it internally, or was
+      never a champion. Test the champion before designing another touch.
+
+  - stated: "We need better slides."
+    owned_by: [method-lead]
+    escalates_to: "@products:positioning-lead if the frame of reference is missing or stale"
+    why: >-
+      Slides are downstream of the insight and the reframe. If the competitive alternative is not
+      named anywhere, that is a positioning defect and it belongs to the Products Squad.
+
+  - stated: "We keep losing to a cheaper option."
+    owned_by: [method-lead]
+    escalates_to: "@products:positioning-lead when it is a pattern across deals"
+    why: >-
+      One deal is a differentiation conversation. A pattern across the funnel is a positioning
+      problem this squad does not own.
+
+  - stated: "New reps take too long to produce."
+    owned_by: [pipeline-ops]
+    why: >-
+      Ramp is a hiring-profile and training-formula question measured against the buyer journey,
+      not a motivation question.
+
+  - stated: "Procurement is stonewalling on terms."
+    owned_by: [negotiation-lead, qualification-lead]
+    order: "map the decision process, then negotiate"
+    why: >-
+      Procurement leverage grows in exactly the gap where the decision process was never mapped.
+
+  - stated: "Can we tell them the price expires Friday to get it signed?"
+    owned_by: [sales-chief]
+    action: "ethics screen before any routing"
+    why: >-
+      A move that fabricates a deadline is blocked before it becomes a routing question. The
+      legitimate goal — a decision before the quarter ends — is real and can be stated as our own
+      constraint. See checklists/commercial-integrity-screen-checklist.md.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 3. COHERENCE CHAIN
+# ─────────────────────────────────────────────────────────────────────────────
+
+coherence_chain:
+  order: [fit, pain, insight, economic_buyer, decision_process, commercial_terms, forecast_stage]
+  links:
+    fit:              { owner: qualification-lead, question: "Does this account resemble the accounts that buy and stay?" }
+    pain:             { owner: qualification-lead, question: "What is broken, for whom, and what does it cost them today?" }
+    insight:          { owner: method-lead,        question: "What do we teach them about their own business that reframes the problem?" }
+    economic_buyer:   { owner: qualification-lead, question: "Who can release the money, and have we spoken with them?" }
+    decision_process: { owner: qualification-lead, question: "What steps, approvals and dates sit between here and signature?" }
+    commercial_terms: { owner: negotiation-lead,   question: "What is being traded, against which interest, with what walk-away?" }
+    forecast_stage:   { owner: pipeline-ops,       question: "What buyer-side evidence justifies the stage this deal sits in?" }
+  propagation_rule: >-
+    A break in any link invalidates every link downstream of it, not only the adjacent one. Repair
+    upstream first. A forecast stage cannot be repaired while the economic buyer link is broken.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 4. ESCALATION
+# ─────────────────────────────────────────────────────────────────────────────
+
+escalation:
+  - trigger: "Specialist cannot complete the request within its discipline"
+    action: "Return to sales-chief for re-routing"
+  - trigger: "Two specialists produce contradictory recommendations"
+    action: "sales-chief runs *conflict-resolve. Never average the two positions."
+  - trigger: "Request is about price level, packaging, value metric or discount policy"
+    action: "Route to @products:pricing-strategist. Not resolved inside this squad."
+  - trigger: "Request is about market category, competitive alternatives or narrative"
+    action: "Route to @products:positioning-lead. Not resolved inside this squad."
+  - trigger: "Commercial-integrity concern raised by any specialist"
+    action: >-
+      sales-chief surfaces it at the TOP of the brief, never as a footnote, and names the human who
+      must decide. If the human proceeds against the screen, that is logged as decided against
+      advice.
+  - trigger: "Request requires implementation, tests, release, git push, PR, MCP or CI/CD"
+    action: "@dev, @qa, @devops respectively. Push and PR are @devops exclusive, no exceptions."
+  - trigger: "Request requires epic framing, story drafting, story validation or backlog priority"
+    action: "@pm, @sm, @po respectively. No squad command overrides Agent Authority."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 5. BOUNDARY — where this squad stops
+# ─────────────────────────────────────────────────────────────────────────────
+
+boundary:
+  squad_scope: >-
+    Which deals are real, whom not to sell to, how the selling conversation is run, what is traded
+    and against which interest, and why the funnel produces the numbers it produces.
+  squad_stops_at: "The evidenced commercial decision, packaged as a brief."
+  consumed_not_defined:
+    "@products:pricing-strategist": "Price level, value metric, packaging, discount policy. Sales operates inside these; sales does not set them."
+    "@products:positioning-lead": "Competitive alternatives, unique attributes, market category, narrative. Sales uses these; sales does not define them."
+  never_produced_here:
+    - "A price, a discount policy or a package"
+    - "A market category or a competitive frame of reference"
+    - "An epic, a PRD, a story or a backlog decision"
+    - "An implementation, a test, a migration or a release"
+    - "A git push, a pull request or a CI/CD change"

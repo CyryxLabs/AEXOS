@@ -1,0 +1,261 @@
+template:
+  id: team-objectives-template-v1
+  name: Team Objectives and Key Results
+  version: 1.0
+  squad: products
+  owner: "@product-strategist"
+  output:
+    format: markdown
+    filename: docs/product/objectives/team-objectives-{{cycle}}.md
+    title: "Team Objectives: {{cycle}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+  custom_elicitation:
+    title: "Team Objectives Elicitation Actions"
+    options:
+      - "Read each key result aloud and ask: can this be marked done?"
+      - "Ask the team which lever they would pull to move this number"
+      - "Find the baseline query for every key result with no baseline"
+      - "Ask who proposed this objective — the team or the leadership review"
+      - "Lower every confidence level by one and see which objectives survive"
+      - "Name the key result you would be least surprised to miss"
+      - "Check each objective against the team's actual authority over the solution"
+      - "Trace each objective back to a chosen problem and its insight"
+      - "Separate the genuine dated obligations out of the key results"
+      - "Proceed to next section"
+
+sections:
+  - id: preamble
+    instruction: |
+      This template produces the ACTION half of the product strategy: team objectives with outcome
+      key results, proposed by teams and aligned by leadership.
+
+      Method: objective and key result practice draws on John Doerr, *Measure What Matters* (2018)
+      and Christina Wodtke, *Radical Focus* (2016). The contribution from Marty Cagan and Chris
+      Jones, *EMPOWERED* (2020), is the coupling of objectives to empowered teams and to product
+      strategy — which is why the authority check in this template is a gate rather than a note.
+
+      Three gates run and none is optional:
+      1. COMPLETABLE KEY RESULT GATE — a key result that can be marked done is a deliverable in
+         disguise. It is rewritten or removed. See the `rejection-gate` section.
+      2. AUTHORITY GATE — do not give outcome objectives to a team without authority over the
+         solution. Fix the team model first, or record the gap.
+      3. TRACEABILITY GATE — every objective descends from a chosen problem in the current strategy,
+         and that problem descends from a sourced insight.
+
+      SCOPE BOUNDARY: objectives are not epics, not PRDs, not stories, not sprints. Once a problem
+      is evidenced and chosen, epic framing belongs to @pm and story drafting to @sm.
+
+  - id: metadata
+    title: Objectives Metadata
+    instruction: |
+      How to fill:
+      - `cycle` — the period these objectives govern, with an end date
+      - `strategy_ref` — path to the strategy artifact these objectives descend from. If there is
+        no strategy, stop: objectives derived from nothing are a team wish list, and the fix is
+        upstream.
+      - `proposed_by` — for the set as a whole: teams, leadership, or mixed. Record it honestly.
+        Objectives assigned top-down to a feature team produce compliance, not ownership, and
+        knowing that at the outset is what lets you predict the failure.
+
+      Bad answers: a cycle with no end date; `strategy_ref: TBD`; `proposed_by: the company`.
+    template: |
+      - **Cycle:** {{cycle}} (ends {{YYYY-MM-DD}})
+      - **Strategy:** {{path_to_strategy_artifact}}
+      - **Teams covered:** {{team_list}}
+      - **Proposed by:** {{teams | leadership | mixed — with which parts came from where}}
+      - **Aligned by:** {{named_leader}} on {{YYYY-MM-DD}}
+      - **Author:** @product-strategist (Lodestar)
+      - **Status:** {{draft|proposed|aligned|superseded}}
+
+  - id: objectives
+    title: Objectives
+    instruction: |
+      One block per team, per objective. Keep the set small enough that a team can name all of its
+      objectives without opening the document.
+
+      How to fill each field:
+      - `Objective` — the qualitative statement of what changes for the customer or the business
+        this cycle. It descends from a chosen problem, not from a backlog theme.
+      - `Descends from` — the chosen problem in the strategy, and through it the sourced insight.
+        If this field cannot be filled, the objective has no strategy behind it.
+      - `Owning team` — one team. An objective owned by two teams is owned by neither; if two teams
+        genuinely share it, decompose it into the part each one moves.
+      - `Proposed by` — team or leadership. Teams propose, leaders align and negotiate.
+      - `Key results` — outcome measures the owning team can influence THROUGH THE PRODUCT.
+      - `Baseline` — the current value, with the query and date that produced it. If genuinely
+        unknown, write `unknown` and name the query that would establish it. Never invent a baseline.
+      - `Target` — the value being aimed at, with the reasoning for the size of the move.
+      - `Confidence` — high / medium / low, with a stated reason for anything above low.
+
+      Bad answers:
+      - Objective: "Improve onboarding" (no change named, no segment)
+      - Key result: "Launch the new onboarding flow" (completable — deliverable)
+      - Key result: "Ship v2 by Aug 20" (output and a date)
+      - Key result: "Company revenue +20%" for one team (not team-influenceable, decompose)
+      - Baseline: "roughly 30%" with no query (invented precision)
+      - Confidence: every objective at high (a portfolio where nothing can fail is not a portfolio)
+
+      CONFIDENCE NOTE: published OKR practice attaches a stated confidence to an objective when it
+      is set, so that the portfolio can be read as bets rather than promises — Christina Wodtke,
+      *Radical Focus* (2016). The specific numeric convention used in that work is not reproduced
+      here [verify against source]; this template uses high / medium / low.
+    template: |
+      ### {{team}} — {{objective}}
+
+      **Descends from:** problem `{{chosen_problem}}` -> insight `{{insight_ref}}` -> evidence
+      `{{source + date}}`
+
+      **Proposed by:** {{team | leadership}}   **Aligned:** {{YYYY-MM-DD}}
+
+      | # | Key result | Baseline (query + date) | Target | Confidence | Reason for confidence |
+      |---|---|---|---|---|---|
+      | 1 | {{metric_and_direction}} | {{value_or_unknown}} | {{value}} | high / medium / low | {{reason}} |
+
+      **The lever:** {{what_the_team_would_actually_change_in_the_product_to_move_this}}
+
+      **This objective is NOT:** {{the_nearby_thing_it_will_be_confused_with}}
+
+  - id: rejection-gate
+    title: Key Result Rejection Gate
+    instruction: |
+      Run this gate on every key result before it is adopted, and KEEP THE TABLE in the artifact.
+      The rejected rows are the most useful part of the document at review time — they are the
+      record of what the team stopped itself from measuring.
+
+      THE TEST: a key result you can finish is a task; a key result you can move is an outcome.
+
+      Apply in order. The first failing row decides the verdict:
+
+      | Check | Fails when | Disposition |
+      |---|---|---|
+      | Completable? | It can be marked done — "launch", "migrate", "ship", "roll out", "deliver" | Rewrite as the change it is supposed to cause |
+      | Output? | It names a release, a scope or a date rather than a change | Rewrite, or move to the commitments section if it is a genuine obligation |
+      | Influenceable? | The team cannot move it through the product | Decompose into the part this team moves; the remainder belongs to leadership |
+      | Measurable? | There is no instrument that produces the number | Route to @experimentation-lead to define the measure, or drop the key result |
+      | Baselined? | No current value and no query that would produce one | Record `baseline: unknown` and name the query — do not invent a value |
+      | Attributable? | Nobody can say what the team did to move it | Keep, but state the confounders openly |
+
+      Bad practice to avoid: softening a completable key result into vaguer language so it passes.
+      "Improve the launch of shared workspaces" is the same deliverable with worse measurement.
+    template: |
+      | Proposed key result | Failed check | Rewritten as | Kept? |
+      |---|---|---|---|
+      | {{original}} | completable / output / not influenceable / not measurable / no baseline | {{rewrite_or_"removed"}} | yes / no |
+
+      **Rejected outright (not rewritten):** {{list_with_reasons}}
+
+  - id: authority-check
+    title: Team Authority Check
+    instruction: |
+      Objectives presuppose that the team can decide HOW to move the number. Without that authority,
+      objectives become theatre and reporting overhead.
+
+      How to fill — one row per team receiving objectives, diagnosed from observed behaviour:
+      - `Receives` — what actually arrives at the team: specs, prioritized features with dates, or
+        problems with outcomes
+      - `Decides` — does the team choose the solution, or does it arrive chosen?
+      - `Measured on` — output, delivery predictability, or outcomes
+      - `Trio staffed` — is there a product manager, a product designer and a tech lead, all present
+        for the evidence?
+      - `Verdict` — delivery team | feature team | empowered product team
+
+      DISPOSITION:
+      - `empowered product team` — proceed
+      - `feature team` or `delivery team` — record the gap, run
+        `squads/products/checklists/empowered-team-checklist.md`, and decide explicitly whether to
+        proceed with the gap documented or to fix the team model first. Do not proceed silently.
+
+      Bad answers: a verdict taken from the org chart; "empowered, but the roadmap is set by the
+      stakeholder review" (that is a feature team); trio staffing marked yes when the designer
+      joins after scope is fixed.
+    template: |
+      | Team | Receives | Decides the solution | Measured on | Trio staffed | Verdict | Gap |
+      |---|---|---|---|---|---|---|
+      | {{team}} | {{what_arrives}} | yes / no | {{measure}} | yes / partial / no | delivery / feature / empowered | {{gap_or_none}} |
+
+      **Proceeding with a documented gap:** yes / no — decided by {{named_leader}} on {{YYYY-MM-DD}}
+
+  - id: commitments
+    title: High-Integrity Commitments This Cycle
+    instruction: |
+      Genuine dated obligations are recorded here as commitments. They are NOT converted into key
+      results, and key results are not converted into them.
+
+      How to fill — all four must hold:
+      - named external counterparty
+      - externally fixed date
+      - enough discovery done to make the date honest
+      - a stated material consequence for missing it
+
+      Bad answers: using this section to reinstate a feature roadmap; a commitment with more detail
+      than any objective in the document; a date whose feasibility risk has never been looked at
+      (record it as `commitment at risk` and route to @architect).
+    template: |
+      | Commitment | Counterparty | Date | Discovery done | Consequence of miss | Status |
+      |---|---|---|---|---|---|
+
+  - id: check-in
+    title: Check-in and Management
+    instruction: |
+      How progress is read between the start and the end of the cycle. Weekly check-in practice is
+      published in Christina Wodtke, *Radical Focus* (2016); the coupling to coaching and obstacle
+      removal is from Cagan and Jones, *EMPOWERED* (2020).
+
+      How to fill:
+      - `Cadence` — how often confidence is re-stated, and where it is written
+      - `What is reported` — outcome movement and what was learned. NOT percentage complete.
+      - `Confidence changes` — a dropping confidence level is information, not a failure to be
+        hidden. Record the change and the reason.
+      - `Obstacles` — named, with an owner for removal and a date
+
+      Bad answers: a check-in that reports task completion; confidence levels that never move; a
+      status meeting listed as the whole management approach.
+    template: |
+      - **Cadence:** {{frequency}}, recorded at {{artifact_path}}
+      - **What is reported:** outcome movement, confidence change, and what was learned
+
+      | Week | Objective | Confidence now | Changed from | Why |
+      |---|---|---|---|---|
+
+      | Obstacle | Blocking | Owner of removal | By when |
+      |---|---|---|---|
+
+  - id: handoff
+    title: Handoff
+    instruction: |
+      Objectives do not become stories. State where each objective goes next; leave the rest.
+    template: |
+      | Destination | Condition |
+      |---|---|
+      | `@discovery-lead` | The team owns the objective and needs opportunity mapping to find the solution |
+      | `@experimentation-lead` | A key result has no instrument, no baseline query, or needs a live experiment to read |
+      | `@pricing-strategist` | A key result turns on packaging or willingness to pay |
+      | `@positioning-lead` | A key result depends on how the market frames the product |
+      | `@architect` | A key result is blocked by an unretired feasibility risk |
+      | `@products-chief` | Two teams claim the same objective, or alignment needs squad-level arbitration |
+      | `@pm` | The problem behind an objective is evidenced and ready for epic framing and a PRD |
+      | `@po` | Objectives changed and the backlog and epic context need reprioritizing |
+      | `@sm` | Only after `@pm` has framed the epic — objectives never become stories directly |
+      | `@dev`, `@qa` | Not from here — objectives do not implement or test code |
+      | `@devops` | Not from here — git push, PRs, MCP and CI/CD are `@devops` exclusive authority |
+
+  - id: attribution
+    title: Method Attribution
+    instruction: |
+      Keep this section in the generated artifact. Never add a citation that is not listed here, and
+      never attach a number to a published work unless the number is verified at the source.
+    template: |
+      - John Doerr, *Measure What Matters* (2018) — objective and key result practice; the
+        missionaries-not-mercenaries framing Cagan cites.
+      - Christina Wodtke, *Radical Focus* (2016) — OKR cadence, stated confidence, and the weekly
+        check-in.
+      - Marty Cagan and Chris Jones, *EMPOWERED: Ordinary People, Extraordinary Products* (2020) —
+        objectives derived from product strategy, proposed by teams and aligned by leadership; the
+        warning against giving OKRs to teams without authority over the solution.
+      - Marty Cagan, *INSPIRED: How to Create Tech Products Customers Love*, 2nd edition (2018) —
+        high-integrity commitments as the mechanism for genuine dated obligations.
+
+      @product-strategist (Lodestar) is a specialist applying these methods.

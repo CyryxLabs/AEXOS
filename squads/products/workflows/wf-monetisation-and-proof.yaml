@@ -1,0 +1,235 @@
+# ============================================================================
+# Workflow: Monetisation and Proof
+# Squad: products
+# Version: 1.0.0
+# Purpose: Take an evidenced problem to a defensible market frame, a priced
+#          offer, and a pre-registered experiment that can prove or kill it.
+# ============================================================================
+
+workflow:
+  id: wf-monetisation-and-proof
+  name: "Monetisation and Proof"
+  version: "1.0.0"
+  type: product-commercial
+  description: |
+    Establishes the frame of reference the offer is judged against, measures
+    willingness to pay before the build proceeds, and pre-registers the
+    experiment that will decide whether the change shipped value. Terminates
+    with a commercial decision brief handed to @pm and @po.
+
+    A price is only defensible against a named frame of reference, and a
+    result is only defensible against a metric registered before exposure.
+    That ordering is the whole reason this workflow exists.
+
+    This workflow decides what the offer is worth and how the claim gets
+    tested. It does not implement (@dev), test code (@qa), release (@devops),
+    draft stories (@sm) or write epics (@pm).
+
+  trigger: "*monetisation-and-proof"
+  entry_agent: products-chief
+  estimated_duration: "3-8 weeks — the experiment phase is traffic-bound"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE — the canonical execution contract
+  # ──────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Triage ────────────────────────────────────────────────────
+    - id: phase_0
+      name: "Triage and Routing"
+      agent: products-chief
+      task: triage-product-request.md
+      action: diagnose
+      description: >-
+        A commercial request is very often mis-owned — "what should we charge?"
+        is usually a positioning question wearing a pricing costume. Restate,
+        reframe, check the boundary, name one owner, and write the brief the
+        specialists start from.
+      creates: docs/product/triage/triage-{initiative}-{date}.md
+      outputs:
+        - triage_record: "markdown — verbatim request, reframe, owner, excluded near misses, handoff brief"
+        - boundary_verdict: "string (Squad | Outside — @agent)"
+        - sequence: "ordered specialist list with the input each one needs"
+      checkpoint:
+        gate: "Exactly one owner named and the reframe confirmed out loud with the requester"
+        veto: "If boundary_verdict is Outside, stop this workflow and route to the named core agent"
+
+    # ─── PHASE 1: Frame of Reference ────────────────────────────────────────
+    - id: phase_1
+      name: "Positioning"
+      agent: positioning-lead
+      task: run-positioning-process.md
+      action: ten-step
+      depends_on: [phase_0]
+      requires: docs/product/triage/triage-{initiative}-{date}.md
+      description: >-
+        List the true competitive alternatives including do-nothing, isolate
+        the attributes the alternatives genuinely lack, map them to value
+        themes with proof, find who cares a lot, and choose the market
+        category that makes the value obvious.
+      creates: docs/product/positioning/positioning-{product}-{date}.md
+      outputs:
+        - positioning_document: "all five components sourced, per-function actions, review date"
+        - alternatives_table: "true alternatives ranked by frequency in real deals, do-nothing included"
+        - attribute_table: "unique attributes with the alternatives that lack each, table stakes struck out"
+        - category_decision: "chosen category and style, with cost and proof burden per option considered"
+        - testable_claim: "at least one positioning claim as a falsifiable hypothesis"
+      checkpoint:
+        gate: "Best-fit segment derived from customers who already love the product, and every attribute claim mapped to an alternative that lacks it"
+        veto: "If category creation is chosen without an education budget, the position cannot be funded — reopen the category decision"
+
+    # ─── PHASE 2: Willingness to Pay ────────────────────────────────────────
+    - id: phase_2
+      name: "Willingness-to-Pay Conversation"
+      agent: pricing-strategist
+      task: run-wtp-talk.md
+      action: wtp-talk
+      depends_on: [phase_1]
+      requires: docs/product/positioning/positioning-{product}-{date}.md
+      description: >-
+        Run the willingness-to-pay conversation against the best-fit segment,
+        sampling each hypothesized segment separately, and classify every
+        feature as leader, filler or killer before the build proceeds.
+      creates: docs/product/pricing/wtp-findings-{offer}-{date}.md
+      outputs:
+        - wtp_findings: "ranges per segment, with the method, the sample and the confidence stated"
+        - feature_classification: "every feature classified leader, filler or killer, with evidence"
+        - killer_list: "features that measurably reduce willingness to pay, and the segment each affects"
+        - build_impact: "what the findings say should change in scope before the build proceeds"
+      checkpoint:
+        gate: "Findings reported as ranges with confidence, never as a single number, and every killer flagged with its affected segment"
+        veto: "If the offer is already shipped, say what the findings can and cannot still change — do not present a post-hoc reading as a pre-build one"
+
+    # ─── PHASE 3: Pre-registered Proof ──────────────────────────────────────
+    - id: phase_3
+      name: "Controlled Experiment Design"
+      agent: experimentation-lead
+      task: design-controlled-experiment.md
+      action: design-experiment
+      depends_on: [phase_2]
+      requires: docs/product/pricing/wtp-findings-{offer}-{date}.md
+      description: >-
+        Turn the commercial claim into a testable design: hypothesis with
+        mechanism, randomization unit against the interference structure, OEC
+        registered before exposure, guardrails with breach thresholds, power,
+        duration, ramp and abort conditions.
+      creates: docs/product/experiments/experiment-design-{hypothesis}-{date}.md
+      outputs:
+        - design_doc: "pre-registered design — hypothesis, unit, triggering, OEC, guardrails, MDE, power, duration, analysis plan, ramp, abort"
+        - oec: "the single metric or explicitly weighted combination the ship decision turns on"
+        - guardrail_set: "guardrails that block a ship regardless of the OEC"
+        - power_result: "required sample per arm and duration, plus the effects the traffic cannot detect"
+        - feasibility_verdict: "whether this decision can be made by experiment at all"
+      checkpoint:
+        gate: "OEC registered before any exposure, guardrail thresholds set, and the design written to the repository before traffic is exposed"
+        veto: "If feasibility_verdict says the available traffic cannot detect the effect that matters, do not run the experiment — say so and choose another form of evidence"
+
+    # ─── PHASE 4: Decision and Handoff ──────────────────────────────────────
+    - id: phase_4
+      name: "Coherence Check and Delivery Handoff"
+      agent: products-chief
+      action: coherence-check
+      depends_on: [phase_3]
+      requires: docs/product/experiments/experiment-design-{hypothesis}-{date}.md
+      description: >-
+        Terminal phase. Check the narrative, the price and the measure against
+        each other, consolidate them into one brief that generates nothing new,
+        and close the squad's involvement.
+      steps:
+        - "Run *coherence-check across triage, positioning, WTP findings and experiment design"
+        - "Confirm the segment priced is the segment positioned, and the metric measured is the value claimed"
+        - "Run *product-brief to consolidate, tracing every statement to its source artifact"
+        - "State the killers, the unretired risks and the open questions explicitly"
+        - "Run *handoff-to-delivery and stop"
+      creates: docs/product/briefs/monetisation-decision-brief-{initiative}.md
+      outputs:
+        - decision_brief: "markdown — consolidated commercial view with every statement traced to a source artifact"
+        - coherence_report: "breaks in the segment → narrative → price → measure chain, with repair order"
+        - open_risks: "risks not retired by this cycle, with the evidence each still needs"
+      checkpoint:
+        gate: "The priced segment, the positioned segment and the experiment's eligible population are the same population, or the divergence is stated"
+        veto: "If a killer feature is still in scope, the brief cannot recommend proceeding — return to phase_2 and fence or remove it"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    chief_to_positioning: |
+      Triage complete. The request was reframed — a price question is not
+      answerable until the frame of reference is named.
+
+      Next: @positioning-lead → *ten-step
+      Bring: best-fit accounts, win/loss records, and the cross-functional team.
+
+    positioning_to_pricing: |
+      Positioning captured: alternatives, unique attributes, value themes,
+      best-fit segment and market category, each sourced.
+
+      Next: @pricing-strategist → *wtp-talk
+      Bring: the best-fit segment and the value themes — the WTP conversation
+      samples against them, not against a demographic.
+
+    pricing_to_experimentation: |
+      Willingness to pay measured per segment, features classified, killers
+      flagged. The commercial claim is now stated and needs to be testable.
+
+      Next: @experimentation-lead → *design-experiment
+      Bring: the claim, the segment, and the decision the result must support.
+
+    experimentation_to_chief: |
+      Design pre-registered before exposure, with OEC, guardrails and abort
+      conditions. All four artifacts now exist and must be checked against
+      each other.
+
+      Next: @products-chief → *coherence-check, then *product-brief
+
+    chief_to_core: |
+      Squad involvement is closed. The offer is framed, priced and testable;
+      building it and shipping it are not this squad's authority.
+
+      Handoff:
+      - @pm  — epic framing and PRD from the commercial decision brief
+      - @po  — backlog reprioritization and epic context updates
+      - @sm  — story drafting once the epic exists (exclusive authority)
+
+      Instrumentation, implementation and release remain with @dev, @qa and
+      @devops. @devops holds push authority exclusively.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # FLOW DIAGRAM
+  # ──────────────────────────────────────────────────────────────────────────
+
+  flow_diagram: |
+    graph TD
+      A[phase_0 triage-product-request / products-chief] --> B[phase_1 run-positioning-process / positioning-lead]
+      B --> C[phase_2 run-wtp-talk / pricing-strategist]
+      C --> D[phase_3 design-controlled-experiment / experimentation-lead]
+      D --> E[phase_4 coherence-check and product-brief / products-chief]
+      E --> F[Core agents: pm, po, sm - squad stops here]
+      C --> G[Killer feature in scope: fence or remove before proceeding]
+
+# ────────────────────────────────────────────────────────────────────────────
+# VETO CONDITIONS (workflow-level)
+# ────────────────────────────────────────────────────────────────────────────
+
+veto_conditions:
+  - "Boundary verdict is Outside — the request belongs to a core agent, not to this squad"
+  - "Pricing is attempted before the frame of reference is named — the price has nothing to be defended against"
+  - "A killer feature is still in scope when the brief is written"
+  - "An OEC is chosen after exposure has begun — the result is no longer pre-registered"
+  - "Available traffic cannot detect the effect that matters — the decision is not experimentable"
+  - "Any phase asks the squad to implement, test, release, draft a story or write an epic — that is a core agent's authority"
+
+# ────────────────────────────────────────────────────────────────────────────
+# COMPLETION CRITERIA
+# ────────────────────────────────────────────────────────────────────────────
+
+completion_criteria:
+  - "A triage record names exactly one owner and an explicit boundary verdict"
+  - "A positioning document carries all five components, each sourced, plus one falsifiable claim"
+  - "WTP findings are reported as ranges with confidence per segment, and every feature is classified"
+  - "An experiment design is pre-registered in the repository before any traffic is exposed"
+  - "A commercial decision brief consolidates all four artifacts with no untraceable statement"
+  - "The brief is handed to @pm and @po, and the squad stops there"

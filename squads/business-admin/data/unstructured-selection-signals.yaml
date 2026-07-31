@@ -1,0 +1,265 @@
+# Unstructured Selection Signals — Reference Knowledge
+# Squad: business-admin
+# Agent: people-lead (Roster)
+#
+# How to recognise that a selection process is unstructured while it is describing itself as
+# structured, what each signal costs, and what the smallest repair is. Also the transfer
+# caveats that decide whether a source practice applies to THIS organisation.
+#
+# ATTRIBUTION: The framework applied here is published by Laszlo Bock in "Work Rules! Insights
+# from Inside Google That Will Transform How You Live and Lead" (2015). It is applied with
+# attribution.
+#
+# TWO ATTRIBUTION CONSTRAINTS THAT GOVERN THIS ENTIRE FILE:
+#   1. The book reports practices developed inside one very large, unusually selective and
+#      unusually well-funded organisation. Several of them do not transfer intact to a smaller
+#      organisation. Every entry that depends on scale carries a transfer note saying so.
+#   2. Where the book cites published research on the predictive validity of selection methods,
+#      this file reproduces the DIRECTION of the finding only — structured methods and work
+#      samples substantially outperform unstructured interviews at predicting performance — and
+#      reproduces NO coefficients, effect sizes or percentages from memory. A misquoted
+#      statistic is worse than a described one. If a number is needed for an external argument,
+#      read the underlying research directly.
+#
+# PROFESSIONAL LIMIT — APPLIES TO EVERY ENTRY: this file supports the DESIGN of selection
+# practice. It is not HR advice, employment advice or legal advice, and it states nowhere that
+# anything is lawful in any jurisdiction. Selection criteria carry discrimination and
+# adverse-impact exposure and in many jurisdictions carry data-protection obligations. Nothing
+# derived from this file reaches a candidate before a dated counsel review. No entry here is
+# ever applied to a named individual — individual cases go to qualified HR and employment
+# counsel, immediately and entirely.
+
+version: "1.0.0"
+last_reviewed: "2026-07-30"
+
+licensed_review:
+  required: true
+  reviewer: "Employment counsel, and qualified HR where the organisation has it"
+  must_be_named: "A person and a firm. A role title is not a name."
+  must_be_dated: "Both sent and reviewed. A blank reviewed date means the practice has not been reviewed."
+  itemised_scope:
+    - "Assessed attribute list and every behavioural anchor"
+    - "Disqualifier list — the item most likely to create unlawful exclusion and the one usually written last"
+    - "The full interview question set"
+    - "Work-sample brief, time bound, compensation position and intellectual-property position"
+    - "What candidate data is collected, stored, for how long, and who can see it"
+    - "Any recorded interview, automated scoring or third-party assessment tooling"
+    - "Accommodation and adjustment process"
+    - "Jurisdictional variation across every location a candidate may be in"
+  status_rule: "UNREVIEWED or SENT-AWAITING means the practice does not touch a candidate. This is not a formality; it is the condition of use."
+
+individual_case_stop:
+  rule: |
+    Nothing in this file is applied to a named person. If a request concerns an individual's
+    performance, conduct, pay, grievance, discipline, dismissal, accommodation, investigation or
+    improvement plan, the work stops and routes to qualified HR and employment counsel — in full,
+    immediately, with the question written for them. It is not softened, not partially answered,
+    and not handed to another squad agent so it can be answered indirectly.
+  data_rule: "No personal data about an identifiable candidate or employee is requested, held or processed. Convenience is not a lawful basis."
+
+# ---------------------------------------------------------------------------
+# 1. SIGNALS — the process calls itself structured; here is how to tell
+# ---------------------------------------------------------------------------
+# Each signal: what it looks like, what it actually produces, the cost, the smallest repair,
+# and the exposure it creates. Ordered roughly by how often it is the real problem.
+
+signals:
+
+  - signal: rubric_written_after_the_first_candidate
+    looks_like: "There is a scorecard. It was drafted once interviews had started, or refined 'as we learned what good looks like'."
+    actually_produces: "A rationalisation. The standard now encodes the first strong candidate seen rather than the role's requirements."
+    cost: "Every earlier candidate was assessed against a different bar, and nobody can say which."
+    smallest_repair: "Write the rubric from the first-year outcomes before any candidate is seen. Freeze it for the role."
+    exposure: "Inconsistently applied criteria are the standard shape of an adverse-impact problem."
+
+  - signal: discussion_before_independent_submission
+    looks_like: "Interviewers debrief in the corridor, in a shared channel, or in a panel meeting before anyone has submitted."
+    actually_produces: "One signal, not several. The first confident voice sets the frame and later interviewers report agreement."
+    cost: "The organisation believes it has four independent assessments and has one."
+    detection: "Check timestamps, and check for near-identical phrasing across interviewers. That phrasing is the usual tell."
+    smallest_repair: "Submission before discussion, enforced by the tooling rather than by good intentions."
+
+  - signal: undefined_attributes
+    looks_like: "'Culture fit', 'polish', 'hunger', 'gets it', 'would grab a beer with them'."
+    actually_produces: "A channel for similarity bias. The attribute resolves to resemblance because it resolves to nothing else."
+    cost: "Simultaneously a quality problem — the team narrows — and a legal exposure."
+    smallest_repair: "Either define it with observable anchors at three or four levels, or delete it. There is no third option."
+    exposure: "This is the entry most likely to be unlawful in effect while being neutral in wording. It requires explicit counsel review."
+
+  - signal: verdict_without_evidence
+    looks_like: "'Strong communicator.' 'Not senior enough.' 'Hire.' A packet a non-attendee cannot review."
+    actually_produces: "An impression with a signature on it."
+    cost: "The deciding body cannot decide on evidence, so it decides on the loudest recommendation."
+    smallest_repair: "Enforce the recording order: what the candidate said and did, then the level, then the reasoning. Evidence before verdict."
+
+  - signal: hypotheticals_instead_of_past_behaviour
+    looks_like: "'How would you handle a difficult stakeholder?'"
+    actually_produces: "A measurement of articulacy and of familiarity with interview conventions."
+    cost: "Selects for people who interview well, which is rarely the attribute in the bar."
+    smallest_repair: "Past-behaviour questions with follow-up probes: what happened, what did you do, what was the result, what would you change."
+
+  - signal: hiring_manager_decides_alone
+    looks_like: "The manager with the vacancy makes the call, sometimes 'after consulting the panel'."
+    actually_produces: "A bar that moves with the length of time the role has been open."
+    cost: "The bar drifts downward precisely when the pressure is highest, and nobody records that it moved."
+    smallest_repair: "One named independent reviewer decides on the packet. In a small organisation this is a person, not a committee."
+    transfer_note: "MECHANISM transfers fully; IMPLEMENTATION does not. The source describes a hiring committee. A small organisation runs a single independent reviewer and gets most of the benefit."
+
+  - signal: more_than_five_assessed_attributes
+    looks_like: "A scorecard with nine to fifteen dimensions."
+    actually_produces: "Overlapping noise that reads as thoroughness. Interviewers score the same impression under several headings."
+    cost: "Correlated scores look like converging evidence and are one observation counted repeatedly."
+    smallest_repair: "Cut to four or five, each traced to a first-year outcome, each owned by one interviewer."
+
+  - signal: everyone_assesses_everything
+    looks_like: "All four interviewers score all attributes."
+    actually_produces: "Diffusion. Nobody probes deeply and each assumes another covered it."
+    cost: "Broad shallow coverage in the packet, and the deepest attribute in the bar is the least evidenced."
+    smallest_repair: "Assign each attribute to one interviewer by name."
+
+  - signal: unjustified_rounds
+    looks_like: "Five rounds because that is what the process says."
+    actually_produces: "Elapsed time, candidate attrition, and repeated assessment of the same attribute."
+    cost: "Good candidates leave the process; the loop selects for availability."
+    smallest_repair: "Every round justified by what it adds that the previous one could not. Delete rounds that fail the test."
+    cross_reference: "Where the delay is scheduling and approvals rather than assessment, this is process-lead territory, not a bar problem."
+
+  - signal: work_sample_used_as_production_work
+    looks_like: "A 'take-home' that solves a real current problem, unpaid, sometimes shipped."
+    actually_produces: "Unpaid labour with an assessment label."
+    cost: "Reputational, ethical, and — depending on jurisdiction — legal. It is not a grey area."
+    smallest_repair: "Representative but not live. Time-bounded. Compensated if substantial. Never used in production. IP position reviewed by counsel."
+
+  - signal: work_sample_requires_insider_context
+    looks_like: "An exercise that assumes knowledge of internal systems, acronyms or history."
+    actually_produces: "A measurement of prior exposure to this organisation."
+    cost: "Systematically favours referrals and former contractors, narrowing the pipeline in a way nobody chose."
+    smallest_repair: "Strip internal context. Provide any background the exercise genuinely needs, identically to every candidate."
+
+  - signal: unwritten_disqualifiers
+    looks_like: "'We would never hire someone who…' — known by three people, written nowhere."
+    actually_produces: "Inconsistent exclusion."
+    cost: "Applied to some candidates and not others, with no record of which."
+    smallest_repair: "Write them, make them objective and observable, list them separately from scored attributes, and put every one in front of counsel."
+
+  - signal: scoring_against_the_other_candidates
+    looks_like: "'Best of the three we saw.'"
+    actually_produces: "A relative ranking presented as a bar."
+    cost: "The bar becomes a function of the pipeline. A weak pipeline produces a hire; a strong one produces a rejection of someone who met the standard."
+    smallest_repair: "Score against the pre-written rubric. Rank afterwards, separately, and only among those who met the bar."
+
+  - signal: invisible_exception_path
+    looks_like: "'We made an exception for this one.' No record of what was waived or why."
+    actually_produces: "A bar that erodes without anyone deciding to erode it."
+    cost: "Nobody can later tell whether the bar predicted anything, because the bar was not the thing applied."
+    smallest_repair: "Exceptions are written down, reviewed, and visible. Lowering the bar must be an act, not a mood."
+
+# ---------------------------------------------------------------------------
+# 2. WHAT STRUCTURE ACTUALLY MEANS
+# ---------------------------------------------------------------------------
+
+structured_definition:
+  minimum_conditions:
+    - "The same questions, in the same order, for every candidate for the role"
+    - "A written rubric with behavioural anchors, produced before any candidate is seen"
+    - "Each attribute assigned to one named interviewer"
+    - "Evidence recorded before a verdict, in a form a non-attendee can review"
+    - "Independent submission before any discussion"
+  anything_less: "A conversation with a scorecard attached."
+  direction_of_the_evidence: |
+    The source cites published research finding that structured methods and work samples
+    substantially outperform unstructured interviews at predicting subsequent performance.
+    Reproduce that direction. Do not reproduce a coefficient from memory. If a specific figure is
+    required for an external argument, read the underlying research rather than this file.
+  why_unstructured_persists: |
+    Unstructured interviews produce high confidence in the interviewer. An impression forms early
+    and the remaining time is spent confirming it, which feels like evidence gathering. Confidence
+    is the output; accuracy is not. This is why the practice survives being told it does not work.
+
+# ---------------------------------------------------------------------------
+# 3. WORK SAMPLES
+# ---------------------------------------------------------------------------
+
+work_samples:
+  premise: "Asking someone to do a representative piece of the work produces better evidence than asking them to narrate how they would."
+  design_rules:
+    - "Representative slice of what the role does in a normal week"
+    - "Time-bounded; if it exceeds a couple of hours, cut it down or compensate at a stated rate"
+    - "No dependence on internal context the candidate cannot have"
+    - "Rubric written before the first submission arrives"
+    - "Scored blind to identity where the format allows"
+    - "Never used as production work"
+  counsel_items: ["employment-law implications of unpaid assessment work", "intellectual property in candidate output", "accommodation and adjustment", "data retention of submissions"]
+  transfer_note: "Transfers fully to small organisations. Often the highest-yield single change available, because it replaces the least reliable signal with the most reliable one at low cost."
+
+# ---------------------------------------------------------------------------
+# 4. TRANSFER MATRIX
+# ---------------------------------------------------------------------------
+# The mechanism is the transferable part. The implementation frequently is not.
+
+transfer_matrix:
+  - practice: "Fixed questions, pre-written anchored rubric"
+    mechanism_transfers: true
+    implementation_transfers: true
+    adaptation: "None needed."
+  - practice: "Independent submission before discussion"
+    mechanism_transfers: true
+    implementation_transfers: true
+    adaptation: "None needed. Enforce in tooling."
+  - practice: "Decision separated from the hiring manager"
+    mechanism_transfers: true
+    implementation_transfers: false
+    adaptation: "A hiring committee becomes one named independent reviewer."
+  - practice: "Multi-round loops"
+    mechanism_transfers: false
+    implementation_transfers: false
+    adaptation: "Two rounds with defined purposes. Committee overhead assumes candidate volume a small organisation does not have."
+  - practice: "Work samples"
+    mechanism_transfers: true
+    implementation_transfers: true
+    adaptation: "Keep the time bound short; compensate anything substantial."
+  - practice: "Cross-manager calibration on written evidence"
+    mechanism_transfers: true
+    implementation_transfers: "partially"
+    adaptation: "Formal rating machinery often does not transfer; a lighter calibrated judgement on the same evidence discipline does."
+  - practice: "Wide contribution-linked pay differentiation"
+    mechanism_transfers: true
+    implementation_transfers: false
+    adaptation: "Weaker in a small organisation. A wide spread is more defensible where there is volume of evidence; in a small team a single observation can drive a rating. Counsel review on pay equity, wage regulation, contractual and collective commitments, tax and social charges, data protection, and jurisdictional variation is required regardless of size."
+  - practice: "Large annual voice survey with a committed action loop"
+    mechanism_transfers: true
+    implementation_transfers: false
+    adaptation: "The instrument shrinks; the committed response does not. Never collect voice without a committed response — a survey collected and not acted on teaches people that being asked is theatre."
+  - practice: "Manager-effectiveness measurement via upward feedback"
+    mechanism_transfers: true
+    implementation_transfers: "partially"
+    adaptation: "Derive the behaviour list from your own outcome data rather than importing one. Keep upward feedback out of the manager's own rating — the moment it counts, it stops being honest. Set a minimum team size before any result is shown, or anonymity fails and honesty follows."
+
+adoption_test:
+  - "Mechanism understood and applies at our scale -> adopt and measure"
+  - "Mechanism applies, implementation assumes volume we lack -> adapt the implementation, keep the mechanism"
+  - "Adopted because a well-known company does it, mechanism unexamined -> reject, examine first"
+  - "No outcome measure can be defined for it -> do not make it mandatory"
+  - "Touches selection, evaluation, pay or employee data -> counsel review before deployment, without exception"
+
+# ---------------------------------------------------------------------------
+# 5. BOUNDARY, RESTATED WHERE IT IS ACTUALLY CROSSED
+# ---------------------------------------------------------------------------
+
+boundary:
+  this_file_supports:
+    - "Designing a bar, a rubric, an interview kit, a work sample, a decision process"
+    - "Recognising that a process is unstructured while it describes itself as structured"
+    - "Deciding whether a source practice transfers to this organisation"
+    - "Assembling the itemised counsel-review list"
+    - "Writing the question to take to a qualified professional"
+  this_file_never_supports:
+    - "Stating that any practice is lawful, in any jurisdiction"
+    - "Any matter concerning a named individual"
+    - "Processing personal data about candidates or employees"
+    - "Drafting employment contracts, policies or notices"
+    - "Advice on pay regulation, working time, worker classification, immigration or benefits"
+    - "Producing anything for a tribunal, authority or opposing party"
+    - "Quoting a validity coefficient or research statistic from memory"
+  notice_placement: "The professional-limit notice goes at the top of every artefact derived from this file. A boundary that arrives after the answer arrives after the answer has been read as advice."
+  borderline_rule: "Unclear means qualified territory. Always."

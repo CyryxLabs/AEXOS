@@ -1,0 +1,276 @@
+# ============================================================================
+# Workflow: Chronic Operations Improvement
+# Squad: ops
+# Version: 1.0.0
+# Purpose: Chain the squad's steady-state tasks into one defensible improvement
+#          decision — route, locate the constraint, set the objective, remove
+#          the waste, and hand every mechanical consequence to @devops.
+# ----------------------------------------------------------------------------
+# workflow.sequence is the canonical execution contract read by
+# .aexos-core/development/scripts/workflow-validator.js. Each entry carries the
+# phase vocabulary used across AEXOS workflows: id, name, agent, task,
+# depends_on, parallel, outputs, checkpoint{gate,veto}.
+# ============================================================================
+
+workflow:
+  id: wf-chronic-improvement
+  name: "Chronic Operations Improvement"
+  version: "1.0.0"
+  type: operations-improvement
+  description: |
+    For chronic conditions, not active failures: delivery is slow, operational load is
+    high, the same problem keeps returning. The sequence is ordered by dependency, not
+    by seniority — the constraint is located before any target is set, and the target is
+    set before any countermeasure is designed. An improvement made away from the
+    constraint changes the system's output by nothing, and a stop rule written before the
+    constraint is located protects the wrong step.
+
+    This workflow produces policy, method and evidence. It changes no running system.
+
+  trigger: "*intake"
+  entry_agent: ops-chief
+  estimated_duration: "3-10 working days (elapsed), depending on how much queue and timing evidence already exists"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # BOUNDARY — read before running any phase
+  # ──────────────────────────────────────────────────────────────────────────
+  boundary:
+    principle: >-
+      This squad defines policy and method. @devops operates. If it changes a running
+      system it is not ours; if it changes what we have agreed to do, it is.
+    this_workflow_produces:
+      - "A routing decision with the authority note written before it"
+      - "A constraint finding with exploitation and subordination rules"
+      - "SLIs, SLOs and the error budget derived from them"
+      - "A waste register, five-why chains and countermeasure candidates"
+      - "A written instruction packet naming @devops as the executor"
+    this_workflow_never_does:
+      - "Deploy, roll back, fail over, restart or scale anything"
+      - "Configure or change CI/CD, pipelines, build systems or release paths"
+      - "Hold a gate, execute a freeze or manage a release"
+      - "Configure monitoring, alert routing or paging"
+      - "git push, open or merge PRs, configure MCP"
+    exclusive_authority:
+      "@devops": "Every mechanical action above — no exception for urgency, severity or convenience"
+    also_deferred_to:
+      "@dev": "Implementation of instrumentation, automation and corrective actions"
+      "@qa": "Quality gates, verification scope and test strategy — never bypassed, only redesigned by @qa"
+      "@po": "Backlog order — this workflow supplies evidence, never a decree"
+      "@sm": "Story creation and working agreements"
+      "@architect": "Redundancy, failure domains and structural coupling"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE (phases)
+  # ──────────────────────────────────────────────────────────────────────────
+  sequence:
+
+    # ─── PHASE 0: Intake and routing ───────────────────────────────────────
+    - id: phase_0
+      name: "Intake, Authority and Routing"
+      agent: ops-chief
+      task: ops-diagnose-and-route.md
+      command: "*diagnose"
+      parallel: false
+      action: "Restate the request, name the authorized agent for any implied mechanical action, and route it"
+      creates: ops_routing_decision
+      description: >-
+        Establishes what is actually being asked, in whose vocabulary, and who is
+        authorized to act on it. If something is failing right now this workflow is the
+        wrong one — stop and run wf-incident-response.
+      boundary: >-
+        Authority is answered before routing. Requests that sound operational — stop the
+        line, freeze releases, roll it back, gate the pipeline — are things this squad can
+        write a rule about and cannot do. Say so out loud, name @devops, and continue.
+      outputs:
+        - authority_note: "prose — who may execute any implied mechanical action, written before the routing decision"
+        - restatement: "string — the request in the owning discipline's vocabulary, confirmed with the requester"
+        - owner: "string — exactly one owning specialist, with the near misses and exclusion reasons"
+        - handoff_brief: "markdown — context, evidence on hand, and the specific command to run"
+        - record_path: "path — versioned file holding the routing decision"
+      checkpoint:
+        gate: "Exactly one owner is named, and the authority note exists in writing before the routing decision"
+        veto: "If something is actively failing, abort this workflow and run wf-incident-response — triage ceremony during an outage is itself a failure mode"
+
+    # ─── PHASE 1: Constraint ───────────────────────────────────────────────
+    - id: phase_1
+      name: "Constraint Identification"
+      agent: flow-lead
+      task: flow-find-constraint.md
+      command: "*find-constraint"
+      depends_on: [phase_0]
+      parallel: false
+      requires: ops_routing_decision
+      action: "Name the one step that sets throughput, from queue and state-time evidence"
+      creates: constraint_finding
+      description: >-
+        Runs first because everything downstream is scoped by it. Until the constraint is
+        named, every improvement proposal is a preference. The policy hypothesis is tested
+        explicitly — policy constraints are the cheapest to remove and the hardest to see.
+      boundary: >-
+        Produces the finding and the exploit rule. Build, CI, pipeline and release changes
+        implied by it are written as instructions for @devops. Gate findings go to @qa as
+        a redesign question and never as permission to weaken a gate. Sequencing arguments
+        go to @po as evidence, not as a priority order issued from here.
+      outputs:
+        - constraint: "string — exactly one named step, with the evidence behind the claim"
+        - constraint_type: "enum — capacity | policy | skill | dependency | market"
+        - excluded_candidates: "array — rivals with the reason each was excluded, including the starvation test"
+        - exploit_options: "array — capacity recoverable inside the constraint at no capital cost, quantified"
+        - subordination_rules: "array — how each non-constraint must operate, and the local metrics abandoned"
+        - next_constraint_prediction: "string — where the constraint moves if this one is relieved"
+      checkpoint:
+        gate: "One constraint named with queue or state-time evidence; rivals excluded; exploitation enumerated before any elevation"
+        veto: "If the only evidence is anecdote, stop and gather queue data — a constraint asserted from intuition is a guess wearing a framework (Constitution Article IV)"
+
+    # ─── PHASE 2: Objective and error budget ───────────────────────────────
+    - id: phase_2
+      name: "Objective and Error Budget"
+      agent: reliability-lead
+      task: reliability-slo-design.md
+      command: "*slo-design"
+      depends_on: [phase_1]
+      parallel: false
+      requires: constraint_finding
+      action: "Convert the reliability expectation into indicators, targets, windows and an error budget"
+      creates: slo_document
+      description: >-
+        Sets the measurable level before any countermeasure is designed, so the
+        improvement has something to be judged against. A target set before the load is
+        measured commits to something nothing has changed to support.
+      boundary: >-
+        Writes the specification only. Instrumentation is @dev. Monitoring, alert routing
+        and paging configuration are @devops, exclusively. Every gate, freeze and release
+        consequence of the budget policy names @devops as its executor inside the document
+        itself.
+      outputs:
+        - sli_table: "table — event definition, valid-event denominator, data source, current value"
+        - slo_table: "table — target, measurement window, and a perceptibility or cost justification"
+        - error_budget: "string — the objective's complement over the window, in time or events"
+        - unreachable_findings: "array — objectives capped by architecture, routed to @architect"
+        - instrumentation_requests: "array — indicators not computable today, packaged for @dev"
+        - unverified_register: "array — every figure not traced to measured data, marked UNVERIFIED with a review date"
+      checkpoint:
+        gate: "Every objective has an indicator, a window and a justification; the budget is derived arithmetically; the document has an owner and a review date"
+        veto: "If any figure is neither measured nor marked UNVERIFIED, do not circulate the document — it will be quoted in a contract"
+
+    # ─── PHASE 3: Waste and countermeasures ────────────────────────────────
+    - id: phase_3
+      name: "Waste Walk and Countermeasures"
+      agent: lean-lead
+      task: lean-waste-walk.md
+      command: "*waste-walk"
+      depends_on: [phase_2]
+      parallel: false
+      requires: slo_document
+      action: "Walk the actual process, register waste by category, and design countermeasures at the condition"
+      creates: waste_register
+      description: >-
+        Applied inside the constraint identified in phase 1, because waste removed at a
+        non-constraint changes delivered output by nothing. Overproduction is checked
+        first — it conceals the other wastes.
+      boundary: >-
+        A stop-the-line rule written here is a document. The stop itself is @devops,
+        exclusively, and that separation is deliberate: it keeps a halt reviewable and
+        accountable rather than instantaneous and anonymous. No countermeasure removes
+        verification and reports it as waste removed — that is a redesign conversation
+        with @qa.
+      outputs:
+        - waste_register: "table — every waste by category, with the count or measured time behind it"
+        - value_time_ratio: "ratio — value-adding vs necessary non-value-adding vs pure waste"
+        - largest_block: "string — the single largest non-value block, with its owner"
+        - divergence_findings: "array — where the actual process differs from the documented one"
+        - countermeasure_candidates: "array — ordered by preference, each with the check that would confirm it worked and by when"
+      checkpoint:
+        gate: "Every waste named by category with evidence; five-why chains end on changeable conditions, never on a person; each countermeasure has a dated confirming check"
+        veto: "If a countermeasure's only effect is to add a step, reject it and return to removal — adding a check, a form or a review is how a process becomes slower without becoming better"
+
+    # ─── PHASE 4: Terminal handoff — instruction only ──────────────────────
+    - id: phase_4
+      name: "Execution Handoff to @devops"
+      agent: ops-chief
+      command: "*handoff-to-core"
+      depends_on: [phase_3]
+      parallel: false
+      requires: waste_register
+      action: "Assemble every mechanical consequence into one written instruction packet and name @devops as the executor"
+      creates: devops_instruction_packet
+      executor: "@devops"
+      description: >-
+        The terminal phase of this workflow is a handoff, not an execution. Everything
+        produced upstream that touches a running system — pipeline changes, release rules,
+        gates, freezes, monitoring and alert configuration, status-page copy, pushes — is
+        written down here with its rationale, its expected effect and its rollback
+        consideration, and handed to @devops. This squad does not carry it out.
+      boundary: >-
+        No task file backs this phase because no task in this squad may execute
+        infrastructure work. The phase produces text. @devops decides how and whether to
+        apply it under their own authority, and @qa owns any verification change implied.
+      outputs:
+        - instruction_packet: "markdown — one entry per mechanical consequence, each with rationale, expected effect and the executor named"
+        - executor: "string — @devops, exclusive authority, stated per entry"
+        - non_mechanical_routing: "array — items belonging to @dev, @qa, @po, @sm or @architect, with the reason for each"
+        - open_items: "array — decisions still owed by a named human"
+      checkpoint:
+        gate: "Every mechanical consequence names @devops as executor; nothing in the packet reads as an action already taken"
+        veto: "If any upstream phase performed, configured, released or pushed anything, the run is void — record it as a boundary violation and restate the authority note"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+  handoff_prompts:
+    ops_chief_to_flow_lead: >-
+      "Routing decision and authority note attached. The request is a throughput question.
+      Locate the constraint from queue evidence before anything else is proposed, and test
+      the policy hypothesis explicitly. Nothing in the brief authorizes a change to a
+      running system."
+    flow_lead_to_reliability_lead: >-
+      "Constraint named and evidenced, with exploitation options quantified. Set the
+      indicators and objectives for the journeys this constraint affects, derive the error
+      budget, and state inside the document that every gate, freeze and release
+      consequence is executed by @devops."
+    reliability_lead_to_lean_lead: >-
+      "Objective, window and error budget attached. Walk the actual process inside the
+      constraint, check overproduction first, and design countermeasures at the condition.
+      Any stop rule you write is a document; the switch belongs to @devops."
+    lean_lead_to_ops_chief: >-
+      "Waste register and countermeasure candidates attached, with dated confirming checks.
+      Assemble the mechanical consequences into a single instruction packet for @devops and
+      route the rest to @dev, @qa, @po, @sm or @architect."
+    ops_chief_to_devops: >-
+      "Instruction packet attached. Each entry states rationale, expected effect and
+      rollback consideration. Nothing here has been executed, and nothing here may be read
+      as authorization already given — the decision and the execution are yours."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # FLOW DIAGRAM
+  # ──────────────────────────────────────────────────────────────────────────
+  flow_diagram: |
+    graph TD
+      A[phase_0 ops-chief: route + authority note] --> B[phase_1 flow-lead: constraint]
+      B --> C[phase_2 reliability-lead: SLO + error budget]
+      C --> D[phase_3 lean-lead: waste + countermeasures]
+      D --> E[phase_4 ops-chief: instruction packet]
+      E --> F[@devops executes - outside this squad]
+      A -.active failure.-> G[wf-incident-response]
+
+# ────────────────────────────────────────────────────────────────────────────
+# VETO CONDITIONS (workflow-level)
+# ────────────────────────────────────────────────────────────────────────────
+
+veto_conditions:
+  - "Something is actively failing — run wf-incident-response instead"
+  - "No queue or timing evidence available and none can be gathered — the constraint cannot be named honestly"
+  - "Any phase performs a mechanical action instead of writing the instruction for @devops"
+  - "A countermeasure removes verification and reports the result as waste reduction"
+  - "A figure appears in an output that is neither measured nor marked UNVERIFIED (Constitution Article IV)"
+
+# ────────────────────────────────────────────────────────────────────────────
+# COMPLETION CRITERIA
+# ────────────────────────────────────────────────────────────────────────────
+
+completion_criteria:
+  - "One constraint named with evidence, and its exploitation options quantified"
+  - "Objectives, windows and the error budget derived and owned, with a review date"
+  - "Waste registered by category, with countermeasures acting on conditions"
+  - "Every mechanical consequence written as an instruction naming @devops as executor"
+  - "All artifacts persisted as versioned files in the repository (Constitution Article I — CLI First)"

@@ -1,0 +1,239 @@
+# Lifecycle Attribution Map — where a customer-success symptom actually originated
+# Squad: customer-success
+# Owner: cs-chief (Anchor)
+# Last updated: 2026-07-30
+#
+# Purpose: routing reference. A symptom is observed at one lifecycle stage and is almost always
+# caused at an earlier one. This file records, for each recurring symptom, the stage where it
+# surfaces, the stage where it usually originates, the test that decides between them, and what the
+# symptom does NOT prove on its own.
+#
+# Method attribution: original orchestrator reference. No external methodology is claimed for this
+# map. Where a routed specialist applies a published framework, the attribution and its caveats live
+# in that specialist's own files and travel with the finding:
+#   - retention-lead: Nick Mehta, Dan Steinman & Lincoln Murphy, "Customer Success: How Innovative
+#     Companies Are Reducing Churn and Growing Recurring Revenue" (Wiley, 2016). Do NOT reproduce the
+#     canonical wording, numbering or ordering of the source's laws from memory — VERIFY against the
+#     book before quoting.
+#   - advocacy-lead: Fred Reichheld, "The Ultimate Question" (Harvard Business School Press, 2006),
+#     developing "The One Number You Need to Grow" (Harvard Business Review, 2003), revised as
+#     "The Ultimate Question 2.0" (2011, with Rob Markey). VERIFY exact question wording, trademark
+#     attribution, the contested predictive claim, and the measure proposed in "Winning on Purpose"
+#     (2021, with Darci Darnell and Maureen Burns) before citing any of them.
+#   - onboarding-lead and voice-lead: practitioner disciplines with NO single canonical published
+#     work. Do not attach an author, a book or a year to them.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# THE CHAIN
+# ---------------------------------------------------------------------------
+lifecycle_chain:
+  - link: promise
+    owner: "sales squad (input to this squad)"
+    question: "What outcome was the customer told they would get, and by when?"
+  - link: activation
+    owner: onboarding-lead
+    question: "What is first value, and did this account reach it?"
+  - link: adoption
+    owner: onboarding-lead
+    question: "Is the behaviour that produces value now habitual, and for whom?"
+  - link: realized_value
+    owner: retention-lead
+    question: "What outcome can the customer demonstrate that they could not before?"
+  - link: health
+    owner: retention-lead
+    question: "What signals predict renewal, and how much lead time do they give?"
+  - link: renewal
+    owner: "sales squad (commercial), retention-lead (evidence)"
+    question: "Is the account renewing on value, on inertia, or on lock-in?"
+  - link: advocacy
+    owner: advocacy-lead
+    question: "Would they recommend it, and did we close the loop on why or why not?"
+
+propagation_rule: >
+  A break invalidates every link downstream of it, not only the adjacent one. Repair upstream first.
+  Advocacy built on a broken activation link is the most expensive artifact in the chain.
+
+# ---------------------------------------------------------------------------
+# SYMPTOM → ORIGIN
+# ---------------------------------------------------------------------------
+symptoms:
+
+  - symptom: "Churn rate rose this quarter"
+    surfaces_at: renewal
+    likely_origin:
+      - stage: activation
+        when: "Losses concentrate in accounts younger than the median time-to-first-value"
+      - stage: promise
+        when: "Losses cluster at first renewal with heavy price focus and no prior behaviour change"
+      - stage: realized_value
+        when: "Losses follow a champion change or a customer-side workflow change in mid-tenure"
+    deciding_test: "Split the churned population by tenure at loss and by whether each account ever reached the defined first-value milestone."
+    route_to: "retention-lead for the split; onboarding-lead if it concentrates in early life"
+    does_not_prove: "A churn rate proves nothing about cause. It is the sum of at least three failure types whose remedies are mutually useless."
+    wrong_move: "Designing a renewal-stage save motion before the tenure split is run. It cannot touch accounts lost before anyone had a renewal conversation with them."
+
+  - symptom: "New accounts go quiet after kickoff"
+    surfaces_at: activation
+    likely_origin:
+      - stage: activation
+        when: "A customer-side prerequisite (data access, an internal approval, an unmade decision) is blocking and no vendor step is blocked"
+      - stage: promise
+        when: "The account was started without the conditions that make progress possible"
+    deciding_test: "Locate the furthest milestone reached per account, count accounts per stall location, then classify the top stall as prerequisite, friction or wrong fit."
+    route_to: onboarding-lead
+    does_not_prove: "Silence does not prove disengagement. Most early-life silence is an account waiting on something it cannot resolve and has not been asked about."
+    wrong_move: "Adding vendor touches to a prerequisite stall. Nothing vendor-side is blocked, so vendor effort changes nothing and the cost scales with the failure rate."
+
+  - symptom: "Nobody uses the new capability"
+    surfaces_at: adoption
+    likely_origin:
+      - stage: adoption
+        when: "The step exists, accounts attempted it, and it is buried, slow or unprompted — a path problem"
+      - stage: promise
+        when: "The capability solves a problem this segment does not have — a demand problem"
+    deciding_test: "Did accounts attempt the behaviour and stop, or never start? Started-and-stopped is a path problem; never-started with no expressed need is a demand problem."
+    route_to: "onboarding-lead for the path; voice-lead if the signal is that they do not want it"
+    does_not_prove: "Low usage does not prove low demand, and high usage does not prove realized value."
+    wrong_move: "Treating a demand problem as a path problem. The remedies are opposite: one removes friction, the other stops investment."
+
+  - symptom: "The health score is green and the account churned"
+    surfaces_at: health
+    likely_origin:
+      - stage: adoption
+        when: "The adoption metric measures what is easy to instrument rather than what produces the outcome"
+      - stage: activation
+        when: "Early-tenure accounts are scored on a habit criterion they never established"
+    deciding_test: "Over the last CLOSED period, did accounts scored healthy renew at a materially higher rate than accounts scored at risk? If not, the model is decorative."
+    route_to: retention-lead
+    does_not_prove: "A green score proves the model fired green. It says nothing about the account until the model has been validated backwards."
+    wrong_move: "Retuning the health model before the upstream adoption metric is repaired. It will be retuned against the wrong behaviour."
+
+  - symptom: "The loyalty score dropped"
+    surfaces_at: advocacy
+    likely_origin:
+      - stage: advocacy
+        when: "Sample composition, response rate, timing or channel changed between waves — a method artifact"
+      - stage: realized_value
+        when: "The movement survives the composition check and the verbatim themes moved with it"
+    deciding_test: "Compare sample size, response rate and respondent-role composition against the previous wave, then run a segment-stable comparison. Attribute to composition before attributing to experience."
+    route_to: "advocacy-lead for the instrument read; voice-lead for what the verbatims say"
+    does_not_prove: "A score movement is not a finding, and a movement smaller than the sampling error is not even a movement."
+    wrong_move: "Constructing a causal story for a movement inside the sampling error. It sends teams to fix things that did not happen."
+
+  - symptom: "Support tickets are up"
+    surfaces_at: adoption
+    likely_origin:
+      - stage: activation
+        when: "Tickets cluster in accounts under 90 days — an onboarding defect"
+      - stage: adoption
+        when: "Tickets cluster on one workflow across tenures — a path or product defect"
+    deciding_test: "Split ticket volume by account tenure band and by the workflow involved."
+    route_to: "voice-lead for theme extraction; onboarding-lead if the cluster is early-life"
+    does_not_prove: "Ticket volume tracks ticket-opening propensity as much as it tracks prevalence. Accounts that gave up do not open tickets."
+    wrong_move: "Reading ticket volume as a satisfaction measure. The quietest segment is frequently the worst served."
+
+  - symptom: "The same feature is requested constantly"
+    surfaces_at: advocacy
+    likely_origin:
+      - stage: adoption
+        when: "Several different requests are one obstruction restated in different vocabulary"
+    deciding_test: "Restate every request as the problem it implies, deduplicate by account, then count distinct accounts and channel mix."
+    route_to: "voice-lead to aggregate and evidence, then @products for the decision"
+    does_not_prove: "'Constantly' is frequently one account raising the same request through four channels. Mentions are not accounts."
+    wrong_move: "Treating aggregated feedback as a prioritization. Routing is not deciding — that boundary is not negotiable."
+
+  - symptom: "This account wants a discount to renew"
+    surfaces_at: renewal
+    likely_origin:
+      - stage: realized_value
+        when: "No demonstrable outcome exists to answer the price objection with"
+      - stage: promise
+        when: "The outcome promised at sale was never reachable by any path"
+    deciding_test: "Can the account demonstrate an outcome it could not demonstrate before? If not, the price objection is unrealized value being repriced."
+    route_to: "sales squad for the commercial decision; retention-lead for the value evidence behind it"
+    does_not_prove: "Price is the most polite exit available to a buyer. Stated reason and observed cause routinely differ."
+    wrong_move: "Deciding a discount, a term or a renewal position inside this squad. The commercial table belongs to the sales squad, without exception."
+
+  - symptom: "We need reference customers and case studies"
+    surfaces_at: advocacy
+    likely_origin:
+      - stage: realized_value
+        when: "Candidates were nominated on enthusiasm rather than on demonstrated outcome"
+    deciding_test: "For each candidate, does retention-lead confirm realized value, is adoption broader than one champion, is health stable over a full period, and is consent recorded with a defined scope?"
+    route_to: "advocacy-lead for qualification; retention-lead for the realized-value confirmation"
+    does_not_prove: "A high score proves a disposition, usually one person's. It does not prove the outcome occurred."
+    wrong_move: "Publishing a reference built on an unconfirmed account. If it churns, the case study outlives the relationship and gets quoted back."
+
+  - symptom: "Which accounts should we expand?"
+    surfaces_at: renewal
+    likely_origin:
+      - stage: realized_value
+        when: "Candidates are being selected on usage volume rather than on demonstrated outcome"
+    deciding_test: "Realized value demonstrated, adoption beyond a single champion, health stable across a full period, no open escalation or unclosed loop."
+    route_to: "retention-lead for readiness evidence, then sales squad for the commercial motion"
+    does_not_prove: "High usage does not prove value was realized. Usage is a proxy, and proxies do not survive a renewal conversation."
+    wrong_move: "Expanding a single-champion account. It multiplies an existing dependency on one person's continued employment."
+
+  - symptom: "A segment produces no feedback at all"
+    surfaces_at: advocacy
+    likely_origin:
+      - stage: adoption
+        when: "The segment has no channel that reaches us — an intake defect, not satisfaction"
+    deciding_test: "Compare that segment's churn rate against the base. Silence plus above-average churn is a collection gap."
+    route_to: voice-lead
+    does_not_prove: "Absence of signal is not absence of problem. The worst-served customers are the least likely to report, and the ones who gave up have stopped writing."
+    wrong_move: "Reading silence as satisfaction and deprioritizing the segment."
+
+# ---------------------------------------------------------------------------
+# ARBITRATION
+# ---------------------------------------------------------------------------
+arbitration_heuristics:
+  situations:
+    - situation: "Instrumented behaviour versus reported sentiment on the same question"
+      resolution: "Behaviour wins this round; sentiment explains it. Both readings are usually correct about different subjects."
+    - situation: "Both sides evidenced, but about different accounts or different periods"
+      resolution: "Not a contradiction. A segment or time split, and the split is the finding."
+    - situation: "Both evidenced, same population, genuine conflict"
+      resolution: "Escalate the shared assumption and design the deciding measurement. Do not pick a side on confidence."
+    - situation: "Neither side evidenced"
+      resolution: "The output is an instrumentation plan, not a decision."
+    - situation: "Disagreement is about values, ethics or customer treatment"
+      resolution: "Surface it as a human decision. Never resolve it silently inside an agent session."
+  forbidden: >
+    Averaging two contradictory readings into a middle position. It manufactures a claim no evidence
+    supports and conceals a gap that is normally fixable with evidence the product already emits.
+
+# ---------------------------------------------------------------------------
+# BOUNDARY
+# ---------------------------------------------------------------------------
+boundary:
+  squad_owns: "What happens after the customer is ours: activation, adoption, realized value, retention, and the structured capture of what they tell us."
+  squad_stops_at: "The evidenced customer problem, or the evidenced retention decision, packaged as a brief."
+  routed_out:
+    "@products:jobs-analyst": "What job the customer hires the product to do; the causal account of a switch"
+    "@products:discovery-lead": "Structured discovery programs and opportunity trees"
+    "@products:product-strategist": "Focus, portfolio, positioning and packaging decisions"
+    "sales squad": "Renewal negotiation, discounting, contract terms, expansion offers, quota"
+    "marketing squad": "Campaign execution and case-study production from qualified references"
+    "@pm": "Epic framing and PRD authoring"
+    "@po": "Story validation and backlog prioritization"
+    "@sm": "Story creation and drafting"
+    "@dev": "Implementation"
+    "@qa": "Tests and quality gates"
+    "@ux-design-expert": "Screens, flows and copy, including onboarding interface design"
+    "@data-engineer": "Telemetry and schema implementation behind adoption and health metrics"
+    "@devops": "Git push, PRs, MCP and CI/CD — exclusive authority, no exception"
+
+# ---------------------------------------------------------------------------
+# CUSTOMER DATA — binding on every use of this file
+# ---------------------------------------------------------------------------
+customer_data_rules:
+  default_granularity: "Account and cohort level. Individual identity is almost never required for an attribution or routing decision."
+  minimization: "Request and store no personal data beyond what the pending decision requires."
+  records: "Reference customer records by id in the authorized system. Never reproduce contact records, support transcripts, contract terms or identified verbatims in a repository artifact."
+  anonymity: "Anonymous feedback is never re-identified, by account matching or otherwise, regardless of usefulness."
+  individuals: "No named individual is characterized in any squad artifact. Health and adoption are properties of accounts."
+  special_category: "Health, financial, credential, biometric and equivalent special-category data are out of scope. Stop and escalate to the human owner rather than proceeding."
+  collection_terms: "Terms promised at collection bind every downstream use, including aggregation, routing and loop closure."

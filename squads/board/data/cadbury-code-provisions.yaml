@@ -1,0 +1,272 @@
+# Cadbury Code provisions, independence criteria and reserved-matters reference
+# Squad: board
+# Owned by: governance-counsel (Charter)
+# Reference knowledge for *governance-audit, *reserved-matters, *delegation-map, *role-separation,
+# *committee-charter, *independence-test, *conflict-register, *duty-check, *comply-or-explain
+
+version: "1.0.0"
+
+professional_limit: |
+  This file is governance reference knowledge. It is NOT legal advice, NOT a statutory-audit
+  instrument, NOT a listing-rule determination and NOT a compliance certificate. Nothing produced
+  from it is an audit opinion of any kind.
+
+  Corporate governance codes are not law. Legal duties and liabilities sit in statute, in case law,
+  in the organization's constitution and in its contracts — all of which are outside this file and
+  outside this squad. Any question of whether an arrangement satisfies a legal or regulatory
+  obligation goes to qualified counsel.
+
+  Every artifact produced from this file is INPUT FOR REVIEW by the directors themselves and by
+  licensed professionals. It is never the final governance opinion and never a defence that
+  governance was adequate.
+
+# ---------------------------------------------------------------------------
+# PROVENANCE
+# ---------------------------------------------------------------------------
+
+provenance:
+  document: "Report of the Committee on the Financial Aspects of Corporate Governance (the Cadbury Report), together with its Code of Best Practice"
+  jurisdiction: "United Kingdom"
+  published: "December 1992"
+  committee: "Committee on the Financial Aspects of Corporate Governance, chaired by Sir Adrian Cadbury"
+  established: "May 1991, by the Financial Reporting Council, the London Stock Exchange, and the accountancy profession"
+  definition_given: "Corporate governance is the system by which companies are directed and controlled."
+  original_scope: "The boards of listed companies registered in the United Kingdom."
+  disclosure_mechanism:
+    name: "Comply or explain"
+    description: "Companies should state whether they comply with the Code and give reasons for any areas of non-compliance. Compliance is disclosed and departures are explained, rather than compliance being mandated."
+
+adaptation_rule: |
+  The Code addresses UK listed company boards. Applying it to a private company, a non-UK entity, a
+  non-corporate body, a public-sector body or an internal product organization is an ANALOGY.
+
+  DECLARE THE ADAPTATION IN THE BODY of every artifact, naming the specific differences that change
+  how the provisions read. An artifact without that paragraph has implicitly assumed the subject is
+  a UK listed company, and every provision mark in it inherits that error.
+
+no_invention_rule: |
+  Never invent a citation, a title, a year, an author or a provision.
+
+  Where the exact wording of a provision is uncertain, DESCRIBE THE PRINCIPLE and instruct the
+  reader to consult the source document. A wrong attribution is worse than no attribution, because
+  it is relied upon exactly as if it had been verified.
+
+  The provision summaries below are a working reference, not a substitute for the source. Where the
+  precise text matters to a decision, read the Report.
+
+# ---------------------------------------------------------------------------
+# CODE OF BEST PRACTICE — provision summaries
+# [SOURCE: Cadbury Report, 1992, Code of Best Practice]
+# ---------------------------------------------------------------------------
+
+code_of_best_practice:
+
+  board_of_directors:
+    - "The board should meet regularly, retain full and effective control over the company, and monitor the executive management."
+    - "There should be a clearly accepted division of responsibilities at the head of the company, such that no one individual has unfettered powers of decision. Where the chairman is also the chief executive, it is essential that there should be a strong and independent element on the board, with a recognised senior member."
+    - "The board should include non-executive directors of sufficient calibre and number for their views to carry significant weight in the board's decisions."
+    - "The board should have a formal schedule of matters specifically reserved to it for decision."
+    - "There should be an agreed procedure for directors, in the furtherance of their duties, to take independent professional advice if necessary, at the company's expense."
+    - "All directors should have access to the advice and services of the company secretary, and the removal of the company secretary should be a matter for the board as a whole."
+
+  non_executive_directors:
+    - "Non-executive directors should bring an independent judgement to bear on issues of strategy, performance, resources including key appointments, and standards of conduct."
+    - "The majority should be independent of management and free from any business or other relationship which could materially interfere with the exercise of their independent judgement, apart from their fees and shareholding."
+    - "They should be appointed for specified terms, and reappointment should not be automatic."
+    - "They should be selected through a formal process, and both the process and their appointment should be a matter for the board as a whole."
+
+  executive_directors:
+    - "Directors' service contracts should not exceed three years without shareholders' approval."
+    - "There should be full and clear disclosure of directors' total emoluments and those of the chairman and highest-paid director, including pension contributions and stock options, with salary and performance-related elements shown separately."
+    - "Executive directors' pay should be subject to the recommendations of a remuneration committee made up wholly or mainly of non-executive directors."
+
+  reporting_and_controls:
+    - "The board should present a balanced and understandable assessment of the company's position."
+    - "The board should establish an audit committee of at least three non-executive directors, with written terms of reference dealing clearly with its authority and duties."
+    - "Directors should explain their responsibility for preparing the accounts, next to a statement by the auditors about their reporting responsibilities."
+    - "Directors should report on the effectiveness of the company's system of internal control."
+    - "Directors should report that the business is a going concern, with supporting assumptions or qualifications as necessary."
+
+# ---------------------------------------------------------------------------
+# WHAT THE CODE DOES NOT DO
+# ---------------------------------------------------------------------------
+
+what_the_code_does_not_do:
+  - "It does not make governance a legal question. Legal duties and liabilities sit in statute and case law, outside this framework and outside this agent."
+  - "It does not prohibit combined chair and chief executive roles. It requires a compensating strong and independent element, with a recognised senior member."
+  - "It does not prescribe board size, sector expertise, or the number of committees beyond the audit committee."
+  - "It does not address executive succession planning in depth — that is succession-lead's surface (Charan, Carey & Useem, Boards That Lead, 2013)."
+  - "It does not provide an enterprise risk management framework — that is risk-oversight's surface (COSO ERM, Integrating with Strategy and Performance, 2017)."
+  - "It does not provide an internal control framework — the COSO Internal Control — Integrated Framework (1992, updated 2013) is a separate publication and belongs to audit-lead."
+
+# ---------------------------------------------------------------------------
+# DERIVED LINEAGE — named for orientation only
+# ---------------------------------------------------------------------------
+
+derived_lineage:
+  handling_rule: |
+    Named for orientation ONLY. Do not reproduce or paraphrase the provisions of any instrument
+    below as though they had been verified. Where a specific provision from one of them matters to
+    a decision, it must be read in the source. Anything not traceable to the 1992 report is marked
+    DERIVED or CONSTRUCTION.
+  successors_in_the_uk_line:
+    - "Greenbury Report (1995) — directors' remuneration"
+    - "Hampel Report (1998) — review of the Cadbury and Greenbury recommendations"
+    - "The Combined Code (1998) — consolidation of the preceding reports"
+    - "Turnbull guidance (1999) — internal control"
+    - "Higgs Review (2003) — the role and effectiveness of non-executive directors"
+    - "Smith Report (2003) — audit committees"
+    - "UK Corporate Governance Code (from 2010) — current successor of the Combined Code"
+  international_reference:
+    - "OECD Principles of Corporate Governance (first issued 1999, revised subsequently)"
+  caution: "Version, numbering and content of all of the above change over time. Cite none of them from memory in a governance artifact; cite the source document and its edition, or do not cite it."
+
+# ---------------------------------------------------------------------------
+# RESERVED MATTERS
+# ---------------------------------------------------------------------------
+
+reserved_matters_model:
+  code_basis: "The requirement for a formal schedule of matters specifically reserved to the board is a Cadbury Code provision. The reservation test below is this agent's CONSTRUCTION for populating that schedule."
+  reservation_test:
+    attribution: CONSTRUCTION
+    limbs:
+      - "Irreversible, or expensive to reverse?"
+      - "Commits the organization beyond the delegated threshold?"
+      - "Changes the risk profile the board approved?"
+      - "Touches the board's own composition, remuneration or independence?"
+      - "Would delegating it leave nobody able to hold anyone accountable?"
+    logic: "Disjunctive by design. Any single yes reserves the matter — a matter that is merely large is reserved on threshold alone, and a matter that is small but irreversible is reserved on reversibility alone."
+  candidates:
+    - "Appointment, assessment and removal of the chief executive"
+    - "Approval of strategy and material changes to it"
+    - "Approval of risk appetite and any breach of it"
+    - "Approval of reported figures and the assurance position behind them"
+    - "Board and committee composition, terms of reference and delegation limits"
+    - "Related-party transactions, with no de minimis"
+    - "Capital commitments and contracts above the delegated limit"
+    - "Entry into or exit from a market, segment or jurisdiction"
+    - "Adoption of, or departure from, a governance code"
+    - "Anything that would breach an approved policy"
+  threshold_rule: "Express value thresholds with an indexation or annual-review rule. A nominal threshold never revisited delegates progressively more as scale grows, with no visible moment of failure."
+  negative_statement_rule: "State explicitly what is NOT reserved, so that delegation is positive rather than residual. A schedule that lists only reservations leaves every unlisted matter ambiguous."
+  review: "Annual at minimum, plus an early-review trigger on a change in scale, structure, funding or regulatory posture."
+
+# ---------------------------------------------------------------------------
+# DELEGATION FAILURE CLASSES  [CONSTRUCTION]
+# ---------------------------------------------------------------------------
+
+delegation_failure_classes:
+  attribution: CONSTRUCTION
+  classes:
+    - class: UNBOUNDED
+      description: "Authority granted with no limit of value, scope or duration."
+    - class: STALE
+      description: "A nominal limit never revisited, which now permits materially more than intended."
+    - class: ORPHAN
+      description: "Decisions being taken with no covering written authority at all."
+    - class: OVERLAPPING
+      description: "Two bodies both authorized, so neither is accountable."
+  separate_test: "Test the reporting obligation SEPARATELY from the authority. A delegation with a limit but no report back is unmonitored, and monitoring is the board's retained duty — it does not travel with the delegation."
+  method_note: "Enumerate decision types actually taken, from evidence rather than from the org chart. Then list the decisions that must be re-taken or ratified because they were taken without authority."
+
+# ---------------------------------------------------------------------------
+# INDEPENDENCE
+# ---------------------------------------------------------------------------
+
+independence_criteria:
+  code_basis: "The Code requires the majority of non-executive directors to be independent of management and free from any business or other relationship which could materially interfere with the exercise of their independent judgement, apart from their fees and shareholding."
+  structural_tests:
+    - "Employed by the organization now, or recently"
+    - "Material commercial relationship, directly or through a connected entity"
+    - "Remuneration beyond fees and shareholding"
+    - "Family connection to management"
+    - "Cross-directorship or significant links through other bodies"
+    - "Representation of a significant shareholder or funder"
+    - "Tenure: appointment for a specified term, and whether reappointment is automatic in practice even if not in policy"
+  removal_power_test:
+    attribution: CONSTRUCTION
+    question: "Can the person being supervised initiate or effectively determine this member's removal, reappointment or fee?"
+    rule: "If yes, independence fails STRUCTURALLY regardless of every other answer. This test operationalizes the Code's criterion of freedom from materially interfering relationships; it is not Code text."
+  quorum_test:
+    attribution: "Cadbury Code"
+    question: "Are the independent members of sufficient calibre and number for their views to carry significant weight in the board's decisions?"
+    rule: "One independent voice against a unified executive is not a quorum."
+  verdicts:
+    - "INDEPENDENT"
+    - "NOT INDEPENDENT — name the deciding relationship"
+    - "INDEPENDENT BUT AT RISK — name the relationship to monitor"
+  output_rule: "Where independence fails, recommend the STRUCTURAL CHANGE that would fix it. An exhortation to be more independent is not a remediation."
+
+# ---------------------------------------------------------------------------
+# ROLE SEPARATION
+# ---------------------------------------------------------------------------
+
+role_separation:
+  code_position: "The Code does NOT prohibit combining the chairman and chief executive roles. It requires, where they are combined, a strong and independent element on the board with a recognised senior member."
+  if_separate:
+    operated_test: "Does the chair set the agenda, control the information flow to the board, and run executive sessions without the chief executive? Nominal separation with agenda control by the executive is not separation, and is marked ASSERTED."
+  if_combined:
+    rule: "Do NOT default to recommending separation. Apply the Code's own answer and specify the compensating element concretely."
+    senior_member_must_be_able_to:
+      - "Convene the board without the combined role-holder"
+      - "Control the agenda for at least part of each meeting"
+      - "Lead the evaluation of the combined role-holder"
+      - "Be a channel outside the executive line"
+    reality_test: "Who appoints the senior independent member, who can remove them, and who sets their remuneration? If the combined role-holder controls any of these, the compensating element is nominal."
+
+# ---------------------------------------------------------------------------
+# CONFLICTS OF INTEREST
+# ---------------------------------------------------------------------------
+
+conflict_register:
+  capture_per_member:
+    - "Other directorships and offices"
+    - "Material shareholdings"
+    - "Commercial relationships with the organization"
+    - "Family connections to management or to suppliers"
+    - "Any interest in a matter currently before the board"
+  classification:
+    - NONE
+    - DISCLOSED_NOT_MATERIAL
+    - MATERIAL_MANAGED
+    - MATERIAL_UNMANAGED
+  participation_decisions:
+    - "Present and voting"
+    - "Present and abstaining"
+    - "Absent from the discussion"
+  binding_rule: "DISCLOSURE ALONE IS NOT A REMEDY. A disclosed conflict still requires a recorded participation decision for the specific matter, with its reason."
+  cadence: "Standing agenda item at the start of each meeting, plus an obligation to declare on change rather than only at review time."
+  limit: "Whether a given interest creates a legal disability is a question for qualified counsel, not for this register."
+
+# ---------------------------------------------------------------------------
+# DUTY CHECK — governance sense only
+# ---------------------------------------------------------------------------
+
+duty_check:
+  scope_warning: "This assesses PROCESS AND RECORD in the governance sense. It is NOT a legal opinion on duty, breach, liability or consequence, and must not be used as one. State this limit in the output."
+  care_governance_sense:
+    - "What did the board receive, and when? Was there time to read it?"
+    - "Did it deliberate, or ratify?"
+    - "Were alternatives considered? A record with one option shows ratification."
+    - "Was independent professional advice available if wanted?"
+  loyalty_governance_sense:
+    - "Was any divided interest present?"
+    - "Was it disclosed?"
+    - "Was participation decided and recorded?"
+  record_test: "Can all of the above be demonstrated from the minute alone, without recourse to anyone's memory?"
+
+# ---------------------------------------------------------------------------
+# BOUNDARIES
+# ---------------------------------------------------------------------------
+
+not_this_agent:
+  risk_appetite_and_control_design: "risk-oversight"
+  control_evidence_and_reporting_integrity: "audit-lead"
+  ceo_succession_and_executive_assessment: "succession-lead"
+  legal_statutory_listing_tax_employment: "Qualified counsel, outside AEXOS entirely"
+  epics_and_prd: "@pm"
+  stories: "@sm"
+  backlog_and_story_validation: "@po"
+  implementation: "@dev"
+  quality_gates: "@qa"
+  push_pr_mcp_cicd: "@devops (exclusive)"

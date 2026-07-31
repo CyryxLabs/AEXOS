@@ -1,0 +1,401 @@
+# GENERATED FILE — do not hand-edit.
+# Source: squads/*/{squad,config}.yaml via scripts/generate-squad-registry.js
+registry:
+  version: 1.0.0
+  generated_at: '2026-07-31T03:40:57.039Z'
+  generator: scripts/generate-squad-registry.js
+  note: >-
+    Generated from squads/*/{squad,config}.yaml. Do not hand-edit — create a squad and regenerate.
+    @aexos-master reads this to route by domain.
+  squad_count: 9
+squads:
+  - name: board
+    display_name: Board Squad
+    domain: Board of Directors — Governance, Risk and Oversight
+    description: >-
+      Squad de conselho: governança, supervisão de risco, auditoria e sucessão. Fiscaliza e
+      aconselha a gestão; não executa nem substitui o CEO.
+    keywords:
+      - governance
+      - board
+      - risk
+      - oversight
+      - audit
+      - succession
+      - compliance
+      - aexos
+    entry_agent: board-chief
+    agent_count: 5
+    agents:
+      - id: audit-lead
+        name: Tally
+        title: Audit Lead
+        based_on: >-
+          COSO (Internal Control -- Integrated Framework) + Sarbanes-Oxley Act (2002) + Cadbury
+          Report (1992) + the three-lines model associated with the Institute of Internal Auditors
+      - id: board-chief
+        name: Chair
+        title: Board Squad Chief
+        based_on: Original (Orchestrator)
+      - id: governance-counsel
+        name: Charter
+        title: Governance Counsel
+        based_on: Cadbury Report (1992) and the corporate governance principles derived from it
+      - id: risk-oversight
+        name: Bulwark
+        title: Risk Oversight Lead
+        based_on: COSO Enterprise Risk Management Framework
+      - id: succession-lead
+        name: Lineage
+        title: Succession Lead
+        based_on: Ram Charan, Dennis Carey & Michael Useem (Boards That Lead, 2013)
+  - name: business-admin
+    display_name: Business Administration Squad
+    domain: Business Administration — Finance, People, Legal and Process
+    description: >-
+      Squad de administração: finanças, pessoas, jurídico-operacional e processo. A infraestrutura
+      que permite o resto da empresa funcionar.
+    keywords:
+      - finance
+      - people-ops
+      - legal-ops
+      - process
+      - administration
+      - compliance
+      - aexos
+    entry_agent: admin-chief
+    agent_count: 5
+    agents:
+      - id: admin-chief
+        name: Steward
+        title: Business Administration Squad Chief
+        based_on: Original (Orchestrator)
+      - id: finance-lead
+        name: Abacus
+        title: Finance Lead
+        based_on: Karen Berman & Joe Knight (Financial Intelligence, 2006)
+      - id: legal-ops
+        name: Codex
+        title: Legal Operations Lead
+        based_on: Corporate Legal Operations Consortium (CLOC core competencies)
+      - id: people-lead
+        name: Roster
+        title: People Lead
+        based_on: Laszlo Bock (Work Rules!, 2015)
+      - id: process-lead
+        name: Sluice
+        title: Process Lead
+        based_on: Michael Hammer & James Champy (Reengineering the Corporation, 1993)
+  - name: ceo
+    display_name: CEO Squad
+    domain: Chief Executive — Strategy, Capital and Organisation
+    description: >-
+      Squad da cadeira executiva: diagnóstico estratégico, alocação de capital, desenho
+      organizacional e comunicação com stakeholders. Decide onde a empresa aposta e por quê, não
+      como se implementa.
+    keywords:
+      - strategy
+      - capital-allocation
+      - org-design
+      - stakeholders
+      - ceo
+      - vision
+      - aexos
+    entry_agent: ceo-chief
+    agent_count: 5
+    agents:
+      - id: capital-allocator
+        name: Ledger
+        title: Capital Allocator
+        based_on: William Thorndike (The Outsiders, 2012)
+      - id: ceo-chief
+        name: Regent
+        title: CEO Squad Chief
+        based_on: Original (Orchestrator)
+      - id: org-designer
+        name: Lattice
+        title: Organisation Designer
+        based_on: Andrew Grove (High Output Management, 1983)
+      - id: stakeholder-lead
+        name: Herald
+        title: Stakeholder Communication Lead
+        based_on: Annual shareholder letter and board reporting tradition
+      - id: strategy-lead
+        name: Kernel
+        title: Strategy Lead
+        based_on: Richard Rumelt (Good Strategy Bad Strategy, 2011)
+  - name: claude-code-mastery
+    display_name: Claude Code Mastery Squad
+    domain: Claude Code — Full Spectrum Expertise
+    description: |-
+      Squad especialista em todas as dimensões do Claude Code: hooks, skills,
+      subagents, MCP, plugins, agent teams, customização, integração com projetos,
+      roadmap tracking, e CYRYX-core architecture awareness.
+    keywords:
+      - claude-code
+      - hooks
+      - skills
+      - subagents
+      - mcp
+      - plugins
+      - agent-teams
+      - customization
+      - integration
+      - context-engineering
+      - roadmap
+      - cyryx
+    entry_agent: claude-mastery-chief
+    agent_count: 8
+    agents:
+      - id: claude-mastery-chief
+        name: Warden
+        title: Claude Code Mastery Orchestrator
+        based_on: null
+      - id: config-engineer
+        name: Sigil
+        title: Claude Code Configuration Engineer
+        based_on: null
+      - id: hooks-architect
+        name: Latch
+        title: Hooks Architect
+        based_on: null
+      - id: mcp-integrator
+        name: Piper
+        title: MCP Integration Architect & Tool Composition Specialist
+        based_on: null
+      - id: project-integrator
+        name: Conduit
+        title: Project Integration Architect
+        based_on: null
+      - id: roadmap-sentinel
+        name: Vigil
+        title: Claude Code Roadmap Sentinel & Plan-First Strategist
+        based_on: null
+      - id: skill-craftsman
+        name: Anvil
+        title: Skill Craftsman
+        based_on: null
+      - id: swarm-orchestrator
+        name: Nexus
+        title: Swarm Orchestrator & Multi-Agent Architect
+        based_on: null
+  - name: customer-success
+    display_name: Customer Success Squad
+    domain: Customer Success — Onboarding, Retention and Expansion
+    description: >-
+      Squad de sucesso do cliente: ativação, retenção, expansão e voz do cliente. Do primeiro valor
+      entregue à renovação.
+    keywords:
+      - customer-success
+      - onboarding
+      - retention
+      - churn
+      - nps
+      - expansion
+      - advocacy
+      - aexos
+    entry_agent: cs-chief
+    agent_count: 5
+    agents:
+      - id: advocacy-lead
+        name: Chorus
+        title: Advocacy & Loyalty Lead
+        based_on: Fred Reichheld (The Ultimate Question / Net Promoter System, 2006)
+      - id: cs-chief
+        name: Anchor
+        title: Customer Success Squad Chief
+        based_on: Original (Orchestrator)
+      - id: onboarding-lead
+        name: Threshold
+        title: Onboarding & Activation Lead
+        based_on: >-
+          Time-to-first-value and activation discipline in subscription products — no single
+          canonical work
+      - id: retention-lead
+        name: Tenure
+        title: Retention & Account Health Lead
+        based_on: Nick Mehta, Dan Steinman & Lincoln Murphy (Customer Success, 2016)
+      - id: voice-lead
+        name: Auricle
+        title: Voice of the Customer Lead
+        based_on: >-
+          Voice of the Customer (VoC) discipline: structured collection and signal routing — no
+          single canonical work
+  - name: marketing
+    display_name: Marketing Squad
+    domain: Marketing — Brand, Demand and Measurement
+    description: >-
+      Squad de marketing: construção de marca, geração de demanda, conteúdo e medição. Cobre do
+      alcance de longo prazo à conversão de curto prazo.
+    keywords:
+      - marketing
+      - brand
+      - demand-generation
+      - content
+      - analytics
+      - attribution
+      - aexos
+    entry_agent: marketing-chief
+    agent_count: 7
+    agents:
+      - id: analytics-lead
+        name: Cipher
+        title: Analytics Lead
+        based_on: Avinash Kaushik (Web Analytics 2.0, 2009)
+      - id: brand-lead
+        name: Salience
+        title: Brand Lead
+        based_on: Byron Sharp (How Brands Grow, 2010)
+      - id: content-lead
+        name: Quill
+        title: Content Lead
+        based_on: >-
+          Editorial discipline applied to marketing (agenda, cadence, distribution) — no single
+          canonical work
+      - id: demand-lead
+        name: Cadence
+        title: Demand Lead
+        based_on: Les Binet & Peter Field (The Long and the Short of It, 2013)
+      - id: funnel-lead
+        name: Weir
+        title: Funnel Lead
+        based_on: Russell Brunson (DotCom Secrets, 2015 / Expert Secrets, 2017 / Traffic Secrets, 2020)
+      - id: marketing-chief
+        name: Beacon
+        title: Marketing Squad Chief
+        based_on: Original (Orchestrator)
+      - id: offer-lead
+        name: Bounty
+        title: Offer Lead
+        based_on: Alex Hormozi ($100M Offers, 2021 / $100M Leads, 2023)
+  - name: ops
+    display_name: Operations Squad
+    domain: Operations — Reliability, Flow and Continuous Improvement
+    description: >-
+      Squad de operações: confiabilidade de serviço, fluxo e restrições, melhoria contínua e
+      resposta a incidentes.
+    keywords:
+      - operations
+      - reliability
+      - sre
+      - theory-of-constraints
+      - lean
+      - incident
+      - flow
+      - aexos
+    entry_agent: ops-chief
+    agent_count: 5
+    agents:
+      - id: flow-lead
+        name: Throat
+        title: Flow Lead
+        based_on: Eliyahu Goldratt (The Goal / Theory of Constraints, 1984)
+      - id: incident-lead
+        name: Klaxon
+        title: Incident Lead
+        based_on: >-
+          Incident Command System + Beyer, Jones, Petoff & Murphy (Site Reliability Engineering,
+          Google, 2016) + Richard I. Cook (How Complex Systems Fail) + Sidney Dekker (just culture)
+      - id: lean-lead
+        name: Kaizen
+        title: Lean Lead
+        based_on: Taiichi Ohno (Toyota Production System, 1978)
+      - id: ops-chief
+        name: Fulcrum
+        title: Operations Squad Chief
+        based_on: Original (Orchestrator)
+      - id: reliability-lead
+        name: Keel
+        title: Reliability Lead
+        based_on: Beyer, Jones, Petoff & Murphy (Site Reliability Engineering, Google, 2016)
+  - name: products
+    display_name: Products Squad
+    domain: Product Management — Discovery to Monetisation
+    description: |-
+      Squad especialista no ciclo completo de produto: estratégia e times empoderados,
+      discovery contínuo, jobs to be done, posicionamento, monetização e
+      experimentação confiável. Cobre da decisão sobre o que construir até a prova
+      de que aquilo funcionou.
+    keywords:
+      - product-management
+      - discovery
+      - jobs-to-be-done
+      - positioning
+      - pricing
+      - monetization
+      - experimentation
+      - ab-testing
+      - product-strategy
+      - opportunity-solution-tree
+      - willingness-to-pay
+      - aexos
+    entry_agent: products-chief
+    agent_count: 7
+    agents:
+      - id: discovery-lead
+        name: Sonar
+        title: Continuous Discovery Lead
+        based_on: Teresa Torres (Continuous Discovery Habits)
+      - id: experimentation-lead
+        name: Vernier
+        title: Experimentation Lead
+        based_on: Kohavi, Tang & Xu (Trustworthy Online Controlled Experiments)
+      - id: jobs-analyst
+        name: Plumb
+        title: Jobs Analyst
+        based_on: Clayton Christensen (Jobs to Be Done / Competing Against Luck)
+      - id: positioning-lead
+        name: Datum
+        title: Positioning Lead
+        based_on: April Dunford (Obviously Awesome / Sales Pitch)
+      - id: pricing-strategist
+        name: Assay
+        title: Pricing Strategist
+        based_on: Madhavan Ramanujam & Georg Tacke (Monetizing Innovation)
+      - id: product-strategist
+        name: Lodestar
+        title: Product Strategist
+        based_on: Marty Cagan (INSPIRED / EMPOWERED)
+      - id: products-chief
+        name: Helm
+        title: Products Squad Chief
+        based_on: Original (Orchestrator)
+  - name: sales
+    display_name: Sales Squad
+    domain: Sales — Qualification, Method and Negotiation
+    description: >-
+      Squad comercial: qualificação, método de venda consultiva, negociação e operação de pipeline.
+      Do primeiro contato ao fechamento.
+    keywords:
+      - sales
+      - qualification
+      - meddic
+      - negotiation
+      - pipeline
+      - enterprise-sales
+      - aexos
+    entry_agent: sales-chief
+    agent_count: 5
+    agents:
+      - id: method-lead
+        name: Forge
+        title: Sales Method Lead
+        based_on: Matthew Dixon & Brent Adamson (The Challenger Sale, 2011)
+      - id: negotiation-lead
+        name: Tether
+        title: Negotiation Lead
+        based_on: Chris Voss (Never Split the Difference, 2016)
+      - id: pipeline-ops
+        name: Conveyor
+        title: Pipeline Operations Lead
+        based_on: Mark Roberge (The Sales Acceleration Formula, 2015)
+      - id: qualification-lead
+        name: Sieve
+        title: Qualification Lead
+        based_on: MEDDIC (Dick Dunkel & Jack Napoli, PTC)
+      - id: sales-chief
+        name: Vanguard
+        title: Sales Squad Chief
+        based_on: Original (Orchestrator)
+warnings:
+  - '_example: no squad.yaml or config.yaml — not a squad, skipped'

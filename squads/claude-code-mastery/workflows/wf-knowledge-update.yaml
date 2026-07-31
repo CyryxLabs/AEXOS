@@ -1,0 +1,205 @@
+# ============================================================================
+# Workflow: Knowledge Update
+# Squad: claude-code-mastery
+# Version: 1.0.0
+# Purpose: Refresh squad knowledge from Claude Code changelog and roadmap
+# ============================================================================
+
+workflow:
+  id: wf-knowledge-update
+  name: "Claude Code Knowledge Update"
+  version: "1.0.0"
+  type: knowledge-maintenance
+  description: |
+    Workflow to refresh the claude-code-mastery squad's knowledge base
+    from official Claude Code sources: changelog, documentation, blog posts,
+    and community resources. Ensures the squad stays current.
+
+  trigger: "*update-knowledge"
+  entry_agent: roadmap-sentinel
+  estimated_duration: "15-30 minutes"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE
+  # ──────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Source Collection ────────────────────────────────────────
+    - id: phase_0
+      name: "Source Collection"
+      agent: roadmap-sentinel
+      parallel: false
+      creates: source_collection_record
+      description: |
+        Fetch latest information from all official and community sources.
+      steps:
+        - "Fetch Claude Code CHANGELOG.md from GitHub"
+        - "Fetch latest releases from GitHub releases page"
+        - "Check official documentation at code.claude.com/docs"
+        - "Check Anthropic blog for Claude Code announcements"
+        - "Check community sources (claudelog.com, claudefast.com)"
+      sources:
+        changelog: "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md"
+        releases: "https://github.com/anthropics/claude-code/releases"
+        docs: "https://code.claude.com/docs/en/overview"
+        blog: "https://claude.com/blog/"
+        community:
+          - "https://claudelog.com/claude-code-changelog/"
+          - "https://claudefa.st/blog/guide/changelog"
+      outputs:
+        - latest_version: "string (e.g., 1.0.47)"
+        - new_features: "array of feature descriptions"
+        - breaking_changes: "array (if any)"
+        - deprecations: "array (if any)"
+      checkpoint:
+        gate: "At least changelog and releases fetched successfully"
+        veto: "No sources accessible (network issue)"
+
+    # ─── PHASE 1: Delta Analysis ───────────────────────────────────────────
+    - id: phase_1
+      name: "Delta Analysis"
+      agent: roadmap-sentinel
+      depends_on: [phase_0]
+      parallel: false
+      requires: source_collection_record
+      creates: delta_report
+      description: |
+        Compare new information against squad's current knowledge base
+        to identify what needs updating.
+      steps:
+        - "Read current data/claude-code-quick-ref.yaml"
+        - "Compare tool list, hook events, features against latest docs"
+        - "Identify new features not in knowledge base"
+        - "Identify deprecated features still in knowledge base"
+        - "Assess impact on each specialist agent"
+      outputs:
+        - delta_report:
+            new_features: "array"
+            deprecated_features: "array"
+            changed_features: "array"
+            affected_agents: "array of agent IDs"
+        - update_priority: "string (critical | important | minor | none)"
+      checkpoint:
+        gate: "Delta report generated"
+        veto: "If update_priority is 'none', skip remaining phases"
+
+    # ─── PHASE 2: Knowledge Base Update ────────────────────────────────────
+    - id: phase_2
+      name: "Knowledge Base Update"
+      agent: roadmap-sentinel
+      depends_on: [phase_1]
+      parallel: false
+      requires: delta_report
+      updates: squad_knowledge_base_data_files
+      condition: update_priority_is_not_none
+      description: |
+        Update the squad's data files with new information.
+      steps:
+        - "Update data/claude-code-quick-ref.yaml with new features"
+        - "Update data/hook-patterns.yaml if new hook events"
+        - "Update data/mcp-integration-catalog.yaml if new MCPs"
+        - "Add new entries to relevant data files"
+        - "Remove deprecated entries"
+      outputs:
+        - files_updated: "array of file paths"
+        - entries_added: "number"
+        - entries_removed: "number"
+      checkpoint:
+        gate: "All identified deltas addressed in data files"
+        veto: "Removing entries without deprecation notice"
+
+    # ─── PHASE 3: Agent Impact Assessment ──────────────────────────────────
+    - id: phase_3
+      name: "Agent Impact Assessment"
+      agent: claude-mastery-chief
+      depends_on: [phase_2]
+      parallel: false
+      requires: delta_report
+      creates: agent_impact_assessment
+      description: |
+        Assess which specialist agents need updates based on the delta.
+      steps:
+        - "For each affected agent, identify impacted sections"
+        - "Check if agent's knowledge references are still accurate"
+        - "Flag agents that need quick_reference or commands updates"
+        - "Generate update recommendations per agent"
+      outputs:
+        - agent_updates:
+            - agent_id: "string"
+              sections_affected: "array"
+              priority: "string (critical | recommended | optional)"
+              recommendation: "string"
+      checkpoint:
+        gate: "All affected agents assessed"
+        veto: "N/A (assessment only)"
+
+    # ─── PHASE 4: Summary & Notification ───────────────────────────────────
+    - id: phase_4
+      name: "Update Summary"
+      agent: claude-mastery-chief
+      depends_on: [phase_3]
+      parallel: false
+      requires: agent_impact_assessment
+      creates: knowledge_update_report
+      description: |
+        Generate final update summary with actionable next steps.
+      steps:
+        - "Compile update summary"
+        - "List all changes made"
+        - "List recommended agent updates"
+        - "Provide version comparison (was → now)"
+      outputs:
+        - update_report:
+            version_before: "string"
+            version_after: "string"
+            data_files_updated: "number"
+            agents_needing_update: "number"
+            summary: "string"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    roadmap-sentinel_to_claude-mastery-chief: |
+      delta_report names the new, changed and deprecated features and the
+      agents each one touches; the squad data files have already been updated
+      to match. Assess which specialist agents actually need editing, mark each
+      recommendation critical, recommended or optional, and close the pass with
+      the update summary and the version comparison.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # FLOW
+  # ──────────────────────────────────────────────────────────────────────────
+
+  flow_diagram: |
+    graph TD
+      P0[Phase 0: Source Collection — roadmap-sentinel] --> P1[Phase 1: Delta Analysis — roadmap-sentinel]
+      P1 --> P2[Phase 2: Knowledge Base Update — roadmap-sentinel]
+      P2 --> P3[Phase 3: Agent Impact Assessment — claude-mastery-chief]
+      P3 --> P4[Phase 4: Update Summary — claude-mastery-chief]
+      P1 --> SKIP[update_priority = none: skip remaining phases]
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # COMPLETION CRITERIA
+  # ──────────────────────────────────────────────────────────────────────────
+
+  completion_criteria:
+    - "All official sources checked"
+    - "Delta report generated"
+    - "Knowledge base data files updated"
+    - "Agent impact assessment completed"
+    - "Update summary report generated"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SCHEDULE
+  # ──────────────────────────────────────────────────────────────────────────
+
+  schedule:
+    recommended: "Run after each Claude Code version update"
+    minimum: "Monthly"
+    trigger_on:
+      - "User runs *update-knowledge or *updates"
+      - "Claude Code version change detected"
+      - "User asks 'what is new in Claude Code?'"

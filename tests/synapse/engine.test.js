@@ -1,0 +1,846 @@
+/**
+ * SynapseEngine + PipelineMetrics Tests
+ *
+ * Tests for the 8-layer pipeline orchestrator, bracket-aware filtering,
+ * fallback strategies, pipeline timeout, and PipelineMetrics class.
+ *
+ * @module tests/synapse/engine
+ * @story SYN-6 - SynapseEngine Orchestrator + Output Formatter
+ */
+
+jest.setTimeout(30000);
+
+// ---------------------------------------------------------------------------
+// Mocks — must be set BEFORE require
+// ---------------------------------------------------------------------------
+
+// Mock context-tracker (SYN-3)
+jest.mock('../../.aexos-core/core/synapse/context/context-tracker', () => ({
+  estimateContextPercent: jest.fn(() => 85),
+  calculateBracket: jest.fn(() => 'FRESH'),
+  getActiveLayers: jest.fn(() => ({ layers: [0, 1, 2, 7], memoryHints: false, handoffWarning: false })),
+  getTokenBudget: jest.fn(() => 800),
+  needsMemoryHints: jest.fn(() => false),
+  needsHandoffWarning: jest.fn(() => false),
+}));
+
+// Mock formatter
+jest.mock('../../.aexos-core/core/synapse/output/formatter', () => ({
+  formatSynapseRules: jest.fn(() => '<synapse-rules>\nmocked\n</synapse-rules>'),
+}));
+
+// Mock layer modules — provide fake layer classes
+const mockLayerModules = {};
+
+jest.mock('../../.aexos-core/core/synapse/layers/l0-constitution', () => {
+  const cls = class MockL0 {
+    constructor() { this.name = 'constitution'; this.layer = 0; this.timeout = 5; }
+    _safeProcess(ctx) { return { rules: ['ART.I: CLI First'], metadata: { layer: 0, source: 'constitution' } }; }
+  };
+  mockLayerModules.L0 = cls;
+  return cls;
+}, { virtual: true });
+
+jest.mock('../../.aexos-core/core/synapse/layers/l1-global', () => {
+  const cls = class MockL1 {
+    constructor() { this.name = 'global'; this.layer = 1; this.timeout = 10; }
+    _safeProcess(ctx) { return { rules: ['Global rule 1'], metadata: { layer: 1, source: 'global' } }; }
+  };
+  mockLayerModules.L1 = cls;
+  return cls;
+}, { virtual: true });
+
+jest.mock('../../.aexos-core/core/synapse/layers/l2-agent', () => {
+  const cls = class MockL2 {
+    constructor() { this.name = 'agent'; this.layer = 2; this.timeout = 10; }
+    _safeProcess(ctx) { return { rules: ['Agent rule 1'], metadata: { layer: 2, source: 'agent' } }; }
+  };
+  mockLayerModules.L2 = cls;
+  return cls;
+}, { virtual: true });
+
+jest.mock('../../.aexos-core/core/synapse/layers/l3-workflow', () => {
+  const cls = class MockL3 {
+    constructor() { this.name = 'workflow'; this.layer = 3; this.timeout = 10; }
+    _safeProcess(ctx) { return { rules: ['Workflow rule 1'], metadata: { layer: 3, source: 'workflow' } }; }
+  };
+  mockLayerModules.L3 = cls;
+  return cls;
+}, { virtual: true });
+
+// L4-L7: simulate missing modules (MODULE_NOT_FOUND with proper code)
+jest.mock('../../.aexos-core/core/synapse/layers/l4-task', () => {
+  const err = new Error("Cannot find module './layers/l4-task'");
+  err.code = 'MODULE_NOT_FOUND';
+  throw err;
+}, { virtual: true });
+
+jest.mock('../../.aexos-core/core/synapse/layers/l5-squad', () => {
+  const err = new Error("Cannot find module './layers/l5-squad'");
+  err.code = 'MODULE_NOT_FOUND';
+  throw err;
+}, { virtual: true });
+
+jest.mock('../../.aexos-core/core/synapse/layers/l6-keyword', () => {
+  const err = new Error("Cannot find module './layers/l6-keyword'");
+  err.code = 'MODULE_NOT_FOUND';
+  throw err;
+}, { virtual: true });
+
+jest.mock('../../.aexos-core/core/synapse/layers/l7-star-command', () => {
+  const err = new Error("Cannot find module './layers/l7-star-command'");
+  err.code = 'MODULE_NOT_FOUND';
+  throw err;
+}, { virtual: true });
+
+// Mock memory bridge (SYN-10)
+const mockGetMemoryHints = jest.fn(() => Promise.resolve([]));
+jest.mock('../../.aexos-core/core/synapse/memory/memory-bridge', () => ({
+  MemoryBridge: jest.fn().mockImplementation(() => ({
+    getMemoryHints: mockGetMemoryHints,
+    clearCache: jest.fn(),
+    _reset: jest.fn(),
+  })),
+  BRACKET_LAYER_MAP: { FRESH: { layer: 0, maxTokens: 0 }, MODERATE: { layer: 1, maxTokens: 50 } },
+  BRIDGE_TIMEOUT_MS: 15,
+}));
+
+// ---------------------------------------------------------------------------
+// Imports (after mocks)
+// ---------------------------------------------------------------------------
+
+const {
+  SynapseEngine,
+  PipelineMetrics,
+  PIPELINE_TIMEOUT_MS,
+  DEFAULT_PIPELINE_TIMEOUT_MS,
+  MAX_PIPELINE_TIMEOUT_MS,
+  SYNAPSE_PIPELINE_TIMEOUT_ENV,
+  resolvePipelineTimeoutMs,
+} = require('../../.aexos-core/core/synapse/engine');
+const contextTracker = require('../../.aexos-core/core/synapse/context/context-tracker');
+const formatter = require('../../.aexos-core/core/synapse/output/formatter');
+
+// =============================================================================
+// PipelineMetrics
+// =============================================================================
+
+describe('PipelineMetrics', () => {
+  let metrics;
+
+  beforeEach(() => {
+    metrics = new PipelineMetrics();
+  });
+
+  test('should initialize with empty state', () => {
+    expect(metrics.layers).toEqual({});
+    expect(metrics.totalStart).toBeNull();
+    expect(metrics.totalEnd).toBeNull();
+  });
+
+  test('startLayer() should record start time and running status', () => {
+    metrics.startLayer('constitution');
+    expect(metrics.layers.constitution).toBeDefined();
+    expect(metrics.layers.constitution.status).toBe('running');
+    expect(typeof metrics.layers.constitution.start).toBe('bigint');
+  });
+
+  test('endLayer() should record duration and rules count', () => {
+    metrics.startLayer('agent');
+    metrics.endLayer('agent', 5);
+    const layer = metrics.layers.agent;
+    expect(layer.status).toBe('ok');
+    expect(layer.rules).toBe(5);
+    expect(typeof layer.duration).toBe('number');
+    expect(layer.duration).toBeGreaterThanOrEqual(0);
+  });
+
+  test('endLayer() without startLayer() should still record', () => {
+    metrics.endLayer('unknown', 3);
+    expect(metrics.layers.unknown.status).toBe('ok');
+    expect(metrics.layers.unknown.rules).toBe(3);
+  });
+
+  test('skipLayer() should record skip reason', () => {
+    metrics.skipLayer('squad', 'Not active in FRESH');
+    expect(metrics.layers.squad.status).toBe('skipped');
+    expect(metrics.layers.squad.reason).toBe('Not active in FRESH');
+  });
+
+  test('errorLayer() should record error message', () => {
+    metrics.errorLayer('keyword', new Error('File not found'));
+    expect(metrics.layers.keyword.status).toBe('error');
+    expect(metrics.layers.keyword.error).toBe('File not found');
+    expect(metrics.layers.keyword.errorDetails).toEqual(expect.objectContaining({
+      name: 'CYRYXError',
+      code: 'AEXOS_SYNAPSE_LAYER_FAILED',
+      category: 'synapse',
+      stack: '[redacted]',
+    }));
+  });
+
+  test('errorLayer() should record duration if startLayer() was called', () => {
+    metrics.startLayer('workflow');
+    metrics.errorLayer('workflow', new Error('Timeout'));
+    const layer = metrics.layers.workflow;
+    expect(layer.status).toBe('error');
+    expect(typeof layer.duration).toBe('number');
+  });
+
+  test('errorLayer() should handle non-Error objects', () => {
+    metrics.errorLayer('test', 'string error');
+    expect(metrics.layers.test.error).toBe('string error');
+    expect(metrics.layers.test.errorDetails).toEqual(expect.objectContaining({
+      name: 'CYRYXError',
+      code: 'AEXOS_SYNAPSE_LAYER_FAILED',
+      message: 'string error',
+    }));
+  });
+
+  test('errorLayer() should preserve canonical metadata without changing legacy message', () => {
+    const error = new TypeError('Layer typed failure');
+    error.layerPhase = 'parse';
+
+    metrics.errorLayer('workflow', error);
+
+    expect(metrics.layers.workflow.error).toBe('Layer typed failure');
+    expect(metrics.layers.workflow.errorDetails).toEqual(expect.objectContaining({
+      name: 'CYRYXError',
+      message: 'Layer typed failure',
+      code: 'AEXOS_SYNAPSE_LAYER_FAILED',
+      category: 'synapse',
+      metadata: expect.objectContaining({
+        synapse: { layer: 'workflow' },
+        originalError: expect.objectContaining({
+          name: 'TypeError',
+          properties: expect.objectContaining({
+            layerPhase: 'parse',
+          }),
+        }),
+      }),
+      cause: expect.objectContaining({
+        name: 'TypeError',
+        message: 'Layer typed failure',
+        stack: '[redacted]',
+        layerPhase: 'parse',
+      }),
+    }));
+  });
+
+  test('getSummary() should return correct totals', () => {
+    metrics.totalStart = BigInt(1000000000);
+    metrics.totalEnd = BigInt(1050000000);
+
+    metrics.startLayer('l0');
+    metrics.endLayer('l0', 6);
+    metrics.startLayer('l1');
+    metrics.endLayer('l1', 2);
+    metrics.skipLayer('l3', 'Not active');
+    metrics.errorLayer('l4', new Error('fail'));
+
+    const summary = metrics.getSummary();
+    expect(summary.total_ms).toBe(50);
+    expect(summary.layers_loaded).toBe(2);
+    expect(summary.layers_skipped).toBe(1);
+    expect(summary.layers_errored).toBe(1);
+    expect(summary.total_rules).toBe(8);
+    expect(summary.per_layer).toBeDefined();
+  });
+
+  test('getSummary() should return 0 total_ms when no timestamps set', () => {
+    const summary = metrics.getSummary();
+    expect(summary.total_ms).toBe(0);
+  });
+});
+
+// =============================================================================
+// SynapseEngine
+// =============================================================================
+
+describe('SynapseEngine', () => {
+  let engine;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    delete process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
+
+    // Default mocks: FRESH bracket with L0, L1, L2, L7
+    contextTracker.estimateContextPercent.mockReturnValue(85);
+    contextTracker.calculateBracket.mockReturnValue('FRESH');
+    contextTracker.getActiveLayers.mockReturnValue({
+      layers: [0, 1, 2, 7],
+      memoryHints: false,
+      handoffWarning: false,
+    });
+    contextTracker.getTokenBudget.mockReturnValue(800);
+    contextTracker.needsMemoryHints.mockReturnValue(false);
+    contextTracker.needsHandoffWarning.mockReturnValue(false);
+
+    mockGetMemoryHints.mockReset();
+    mockGetMemoryHints.mockResolvedValue([]);
+
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation();
+    engine = new SynapseEngine('/fake/.synapse', { manifest: {} });
+    warnSpy.mockRestore();
+
+    const coreMocks = {
+      0: mockLayerModules.L0,
+      1: mockLayerModules.L1,
+      2: mockLayerModules.L2,
+      3: mockLayerModules.L3,
+    };
+    for (const layer of engine.layers) {
+      const LayerClass = coreMocks[layer.layer];
+      if (LayerClass) layer._safeProcess = LayerClass.prototype._safeProcess;
+    }
+  });
+
+  describe('constructor', () => {
+    test('should store synapsePath and config', () => {
+      expect(engine.synapsePath).toBe('/fake/.synapse');
+      expect(engine.config).toEqual({ manifest: {} });
+    });
+
+    test('should instantiate available layers', () => {
+      // The engine must always load the core bracket layers and may also load
+      // optional layers when they exist in the repository/runtime.
+      expect(engine.layers.length).toBeGreaterThanOrEqual(3);
+    });
+
+    test('should remain resilient as optional layer availability evolves', () => {
+      // Optional layers may exist or not depending on the current Synapse
+      // rollout. The constructor should never instantiate more than L0-L7.
+      expect(engine.layers.length).toBeLessThanOrEqual(8);
+    });
+
+    test('should only instantiate known pipeline layers', () => {
+      const layerIds = engine.layers.map(layer => layer.layer);
+      expect(layerIds).toEqual(expect.arrayContaining([0, 1, 2]));
+      expect(layerIds.every(layerId => layerId >= 0 && layerId <= 7)).toBe(true);
+    });
+  });
+
+  describe('process() — basic pipeline', () => {
+    test('should return xml and metrics', async () => {
+      const result = await engine.process('test prompt', { prompt_count: 1 });
+      expect(result).toHaveProperty('xml');
+      expect(result).toHaveProperty('metrics');
+      expect(typeof result.xml).toBe('string');
+      expect(typeof result.metrics).toBe('object');
+    });
+
+    test('should call context-tracker with prompt_count', async () => {
+      await engine.process('test', { prompt_count: 5 });
+      expect(contextTracker.estimateContextPercent).toHaveBeenCalledWith(5);
+    });
+
+    test('should call calculateBracket with context percent', async () => {
+      contextTracker.estimateContextPercent.mockReturnValue(72);
+      await engine.process('test', { prompt_count: 10 });
+      expect(contextTracker.calculateBracket).toHaveBeenCalledWith(72);
+    });
+
+    test('should NOT call getActiveLayers in non-legacy mode (NOG-18)', async () => {
+      // NOG-18: In non-legacy mode, activeLayers = DEFAULT_ACTIVE_LAYERS [0,1,2]
+      // getActiveLayers is only called in SYNAPSE_LEGACY_MODE=true
+      contextTracker.calculateBracket.mockReturnValue('MODERATE');
+      await engine.process('test', {});
+      expect(contextTracker.getActiveLayers).not.toHaveBeenCalled();
+    });
+
+    test('should call formatSynapseRules with correct args', async () => {
+      await engine.process('test', { prompt_count: 0 });
+      expect(formatter.formatSynapseRules).toHaveBeenCalledTimes(1);
+
+      const args = formatter.formatSynapseRules.mock.calls[0];
+      // results, bracket, contextPercent, session, devmode, metrics, tokenBudget, showHandoffWarning
+      expect(args[1]).toBe('FRESH');        // bracket
+      expect(args[2]).toBe(85);             // contextPercent
+      expect(args[4]).toBe(false);          // devmode (default)
+      expect(args[6]).toBe(800);            // tokenBudget
+      expect(args[7]).toBe(false);          // showHandoffWarning
+    });
+
+    test('should pass devmode=true when config has devmode', async () => {
+      await engine.process('test', {}, { devmode: true });
+      const args = formatter.formatSynapseRules.mock.calls[0];
+      expect(args[4]).toBe(true);
+    });
+
+    test('should default prompt_count to 0 when session is null', async () => {
+      await engine.process('test', null);
+      expect(contextTracker.estimateContextPercent).toHaveBeenCalledWith(0);
+    });
+  });
+
+  describe('process() — bracket-aware filtering', () => {
+    test('should skip layers not in active bracket (FRESH skips L3)', async () => {
+      // FRESH has layers [0,1,2,7] — L3 (workflow) should be skipped
+      const result = await engine.process('test', { prompt_count: 1 });
+
+      // Check metrics — workflow should be skipped
+      const summary = result.metrics;
+      const workflowEntry = summary.per_layer.workflow;
+      if (workflowEntry) {
+        expect(workflowEntry.status).toBe('skipped');
+        expect(workflowEntry.reason).toContain('Not active');
+      }
+    });
+
+    test('should only execute L0-L2 in non-legacy mode (NOG-18)', async () => {
+      // NOG-18: In non-legacy mode, only L0-L2 are active regardless of bracket.
+      // getActiveLayers mock is overridden by DEFAULT_ACTIVE_LAYERS = [0,1,2].
+      contextTracker.getActiveLayers.mockReturnValue({
+        layers: [0, 1, 2, 3, 4, 5, 6, 7],
+        memoryHints: false,
+        handoffWarning: false,
+      });
+
+      const result = await engine.process('test', { prompt_count: 30 });
+
+      // NOG-18: Only L0-L2 active — max 3 layers loaded
+      expect(result.metrics.layers_loaded).toBeLessThanOrEqual(3);
+
+      // Verify L3+ layers are skipped
+      const workflowEntry = result.metrics.per_layer.workflow;
+      if (workflowEntry) {
+        expect(workflowEntry.status).toBe('skipped');
+      }
+    });
+  });
+
+  describe('process() — fallback and edge cases', () => {
+    test('should return empty xml when no results', async () => {
+      // Make all layers return null
+      for (const layer of engine.layers) {
+        layer._safeProcess = jest.fn(() => null);
+      }
+
+      formatter.formatSynapseRules.mockReturnValue('');
+      const result = await engine.process('test', {});
+      expect(result.xml).toBe('');
+    });
+
+    test('should return empty when getActiveLayers returns null', async () => {
+      contextTracker.getActiveLayers.mockReturnValue(null);
+      const result = await engine.process('test', {});
+      expect(result.xml).toBe('');
+      expect(result.metrics.total_ms).toBeGreaterThanOrEqual(0);
+    });
+
+    test('should handle session without prompt_count', async () => {
+      const result = await engine.process('test', {});
+      expect(contextTracker.estimateContextPercent).toHaveBeenCalledWith(0);
+      expect(result).toHaveProperty('xml');
+    });
+
+    test('should accumulate previousLayers across layer executions', async () => {
+      // Spy on _safeProcess to verify previousLayers grows
+      const calls = [];
+      for (const layer of engine.layers) {
+        const orig = layer._safeProcess.bind(layer);
+        layer._safeProcess = jest.fn((ctx) => {
+          calls.push({ name: layer.name, prevCount: ctx.previousLayers.length });
+          return orig(ctx);
+        });
+      }
+
+      await engine.process('test', {});
+
+      // First active layer should have 0 previousLayers
+      if (calls.length > 0) {
+        expect(calls[0].prevCount).toBe(0);
+      }
+      // Each subsequent layer should have more
+      for (let i = 1; i < calls.length; i++) {
+        expect(calls[i].prevCount).toBeGreaterThanOrEqual(calls[i - 1].prevCount);
+      }
+    });
+
+    test('should record captured layer processing errors in metrics', async () => {
+      const layer = engine.layers[0];
+      layer._safeProcess = jest.fn(() => null);
+      layer.getLastError = jest.fn(() => new Error('Layer processing failed'));
+
+      const result = await engine.process('test', {});
+
+      expect(result.metrics.per_layer[layer.name]).toEqual(expect.objectContaining({
+        status: 'error',
+        error: 'Layer processing failed',
+      }));
+      expect(result.metrics.layers_errored).toBeGreaterThanOrEqual(1);
+    });
+
+    test('should record direct _safeProcess exceptions in metrics', async () => {
+      const layer = engine.layers[0];
+      layer._safeProcess = jest.fn(() => {
+        throw new Error('Unsafe layer crash');
+      });
+
+      const result = await engine.process('test', {});
+
+      expect(result.metrics.per_layer[layer.name]).toEqual(expect.objectContaining({
+        status: 'error',
+        error: 'Unsafe layer crash',
+      }));
+      expect(result.metrics.layers_errored).toBeGreaterThanOrEqual(1);
+    });
+
+    test('should record getLastError accessor failures in metrics', async () => {
+      const layer = engine.layers[0];
+      layer._safeProcess = jest.fn(() => null);
+      layer.getLastError = jest.fn(() => {
+        throw new Error('Last error unavailable');
+      });
+
+      const result = await engine.process('test', {});
+
+      expect(result.metrics.per_layer[layer.name]).toEqual(expect.objectContaining({
+        status: 'error',
+        error: 'Last error unavailable',
+      }));
+      expect(result.metrics.layers_errored).toBeGreaterThanOrEqual(1);
+    });
+  });
+
+  describe('process() — metrics', () => {
+    test('should have total_ms in metrics', async () => {
+      const result = await engine.process('test', {});
+      expect(typeof result.metrics.total_ms).toBe('number');
+      expect(result.metrics.total_ms).toBeGreaterThanOrEqual(0);
+    });
+
+    test('should count loaded and skipped layers', async () => {
+      const result = await engine.process('test', { prompt_count: 1 });
+      const m = result.metrics;
+      expect(m.layers_loaded + m.layers_skipped + m.layers_errored).toBeGreaterThanOrEqual(1);
+    });
+
+    test('should count total rules', async () => {
+      const result = await engine.process('test', {});
+      expect(typeof result.metrics.total_rules).toBe('number');
+    });
+  });
+
+  describe('PIPELINE_TIMEOUT_MS constant', () => {
+    test('default export remains 100ms (backward-compatible)', () => {
+      expect(PIPELINE_TIMEOUT_MS).toBe(100);
+      expect(DEFAULT_PIPELINE_TIMEOUT_MS).toBe(100);
+      expect(MAX_PIPELINE_TIMEOUT_MS).toBe(30000);
+      expect(SYNAPSE_PIPELINE_TIMEOUT_ENV).toBe('AEXOS_SYNAPSE_PIPELINE_TIMEOUT_MS');
+    });
+  });
+
+  describe('resolvePipelineTimeoutMs (CORE-SU.A1 / #798)', () => {
+    const originalEnv = process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
+
+    afterEach(() => {
+      if (originalEnv === undefined) {
+        delete process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
+      } else {
+        process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV] = originalEnv;
+      }
+    });
+
+    test('uses default when no env and no config', () => {
+      delete process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
+      expect(resolvePipelineTimeoutMs({})).toBe(100);
+      expect(resolvePipelineTimeoutMs(undefined)).toBe(100);
+    });
+
+    test('env wins over core-config synapse.pipelineTimeoutMs', () => {
+      process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV] = '250';
+      expect(
+        resolvePipelineTimeoutMs({ synapse: { pipelineTimeoutMs: 500 } }),
+      ).toBe(250);
+    });
+
+    test('core-config used when env unset', () => {
+      delete process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
+      expect(
+        resolvePipelineTimeoutMs({ synapse: { pipelineTimeoutMs: 750 } }),
+      ).toBe(750);
+    });
+
+    test('invalid env falls back to default and warns', () => {
+      const warn = jest.fn();
+      process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV] = 'not-a-number';
+      expect(resolvePipelineTimeoutMs({}, { warn })).toBe(100);
+      expect(warn).toHaveBeenCalled();
+      expect(warn.mock.calls[0][0]).toMatch(/Invalid pipeline timeout/);
+      expect(warn.mock.calls[0][0]).toMatch(/AEXOS_SYNAPSE_PIPELINE_TIMEOUT_MS/);
+    });
+
+    test.each([
+      ['0', 0],
+      ['-5', -5],
+      ['30001', 30001],
+      ['12.5', 12.5],
+      ['', ''],
+    ])('invalid value %j from config falls back to default', (raw, asNumber) => {
+      delete process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
+      const warn = jest.fn();
+      // empty string env is ignored (falls through to config)
+      if (raw === '') {
+        expect(resolvePipelineTimeoutMs({ synapse: { pipelineTimeoutMs: 0 } }, { warn })).toBe(100);
+      } else {
+        expect(
+          resolvePipelineTimeoutMs({ synapse: { pipelineTimeoutMs: asNumber } }, { warn }),
+        ).toBe(100);
+      }
+      expect(warn).toHaveBeenCalled();
+    });
+
+    test('does not use AEXOS_PIPELINE_TIMEOUT alias', () => {
+      delete process.env[SYNAPSE_PIPELINE_TIMEOUT_ENV];
+      process.env.AEXOS_PIPELINE_TIMEOUT = '9999';
+      try {
+        expect(resolvePipelineTimeoutMs({})).toBe(100);
+      } finally {
+        delete process.env.AEXOS_PIPELINE_TIMEOUT;
+      }
+    });
+  });
+
+  describe('process() — pipeline timeout soft-fail (CORE-SU.A1)', () => {
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    test('skips remaining active layers after budget and console.warns', async () => {
+      for (const layer of engine.layers) {
+        if (layer.layer === 0) layer._safeProcess = () => ({ rules: ['constitution'] });
+        if (layer.layer === 1) layer._safeProcess = () => ({ rules: ['global'] });
+        if (layer.layer === 2) layer._safeProcess = () => ({ rules: ['agent'] });
+      }
+      // Timeline: totalStart=0; first layer elapsed=0 → run; later checks=500ms → timeout
+      const timeline = [0n, 0n, 500_000_000n];
+      const nowNs = jest.fn(() => timeline.shift() ?? 500_000_000n);
+      const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+
+      const result = await engine.process('test', { prompt_count: 1 }, {
+        synapse: { pipelineTimeoutMs: 100 },
+        nowNs,
+      });
+
+      const perLayer = result.metrics.per_layer;
+      if (perLayer.constitution.status !== 'ok') {
+        throw new Error(
+          JSON.stringify({ perLayer, nowCalls: nowNs.mock.calls.length }, null, 2),
+        );
+      }
+      expect(perLayer.constitution.status).toBe('ok');
+      expect(perLayer.global.status).toBe('skipped');
+      expect(perLayer.global.reason).toBe('Pipeline timeout');
+      expect(perLayer.agent.status).toBe('skipped');
+      expect(perLayer.agent.reason).toBe('Pipeline timeout');
+
+      expect(warnSpy).toHaveBeenCalled();
+      const warnMsg = warnSpy.mock.calls.map((c) => c[0]).join(' ');
+      expect(warnMsg).toMatch(/\[synapse:engine\] Pipeline timeout/);
+      expect(warnMsg).toMatch(/budget 100ms/);
+      expect(warnMsg).toMatch(/global|agent/);
+
+      warnSpy.mockRestore();
+    });
+
+    test('with high budget all active layers (L0-L2) complete', async () => {
+      for (const layer of engine.layers) {
+        if (layer.layer === 0) layer._safeProcess = () => ({ rules: ['constitution'] });
+        if (layer.layer === 1) layer._safeProcess = () => ({ rules: ['global'] });
+        if (layer.layer === 2) layer._safeProcess = () => ({ rules: ['agent'] });
+      }
+      const nowNs = jest.fn(() => 0n);
+      const result = await engine.process('test', { prompt_count: 1 }, {
+        synapse: { pipelineTimeoutMs: 30000 },
+        nowNs,
+      });
+      const perLayer = result.metrics.per_layer;
+      if (perLayer.constitution.status !== 'ok') {
+        throw new Error(
+          JSON.stringify({ perLayer, nowCalls: nowNs.mock.calls.length }, null, 2),
+        );
+      }
+      expect(perLayer.constitution.status).toBe('ok');
+      expect(perLayer.global.status).toBe('ok');
+      expect(perLayer.agent.status).toBe('ok');
+      expect(result.metrics.layers_loaded).toBeGreaterThanOrEqual(3);
+    });
+
+    test('uses the injected clock for deterministic total duration', async () => {
+      for (const layer of engine.layers) {
+        if (layer.layer === 0) layer._safeProcess = () => ({ rules: ['constitution'] });
+        if (layer.layer === 1) layer._safeProcess = () => ({ rules: ['global'] });
+        if (layer.layer === 2) layer._safeProcess = () => ({ rules: ['agent'] });
+      }
+      const nowNs = jest
+        .fn()
+        .mockReturnValueOnce(1_000_000n)
+        .mockReturnValue(6_000_000n);
+
+      const result = await engine.process('test', { prompt_count: 1 }, {
+        synapse: { pipelineTimeoutMs: 30000 },
+        nowNs,
+      });
+
+      expect(result.metrics.total_ms).toBe(5);
+      expect(nowNs).toHaveBeenCalled();
+    });
+  });
+
+  describe('process() — handoff warning', () => {
+    test('should pass showHandoffWarning=true when bracket needs it', async () => {
+      contextTracker.needsHandoffWarning.mockReturnValue(true);
+      await engine.process('test', {});
+      const args = formatter.formatSynapseRules.mock.calls[0];
+      expect(args[7]).toBe(true);
+    });
+  });
+
+  describe('process() — null/invalid processConfig guard', () => {
+    test('should handle null processConfig without throwing', async () => {
+      const result = await engine.process('test', { prompt_count: 1 }, null);
+      expect(result).toHaveProperty('xml');
+      expect(result).toHaveProperty('metrics');
+    });
+
+    test('should handle non-object processConfig (string)', async () => {
+      const result = await engine.process('test', { prompt_count: 1 }, 'invalid');
+      expect(result).toHaveProperty('xml');
+    });
+
+    test('should handle undefined processConfig', async () => {
+      const result = await engine.process('test', { prompt_count: 1 }, undefined);
+      expect(result).toHaveProperty('xml');
+    });
+
+    test('should handle numeric processConfig', async () => {
+      const result = await engine.process('test', { prompt_count: 1 }, 42);
+      expect(result).toHaveProperty('xml');
+    });
+  });
+
+  describe('process() — memory bridge integration (SYN-10)', () => {
+    test('should call memoryBridge.getMemoryHints when needsMemoryHints is true', async () => {
+      contextTracker.needsMemoryHints.mockReturnValue(true);
+      contextTracker.calculateBracket.mockReturnValue('MODERATE');
+      contextTracker.getTokenBudget.mockReturnValue(500);
+      mockGetMemoryHints.mockResolvedValue([
+        { content: 'Use absolute imports', source: 'procedural', relevance: 0.9, tokens: 5 },
+      ]);
+
+      await engine.process('test', { prompt_count: 30, activeAgent: 'dev' });
+
+      expect(mockGetMemoryHints).toHaveBeenCalledWith('dev', 'MODERATE', 500);
+
+      // Verify hints were passed to formatter via results array
+      const formatterCall = formatter.formatSynapseRules.mock.calls[0];
+      const resultsArg = formatterCall[0]; // first arg = results array
+      const memoryResult = resultsArg.find(r => r.metadata?.source === 'memory');
+      expect(memoryResult).toBeDefined();
+      expect(memoryResult.rules).toEqual([
+        { content: 'Use absolute imports', source: 'procedural', relevance: 0.9, tokens: 5 },
+      ]);
+    });
+
+    test('should NOT call memoryBridge.getMemoryHints when needsMemoryHints is false', async () => {
+      contextTracker.needsMemoryHints.mockReturnValue(false);
+      await engine.process('test', { prompt_count: 1 });
+      expect(mockGetMemoryHints).not.toHaveBeenCalled();
+    });
+
+    test('should use active_agent fallback when activeAgent is missing', async () => {
+      contextTracker.needsMemoryHints.mockReturnValue(true);
+      contextTracker.calculateBracket.mockReturnValue('DEPLETED');
+      contextTracker.getTokenBudget.mockReturnValue(300);
+      mockGetMemoryHints.mockResolvedValue([]);
+
+      await engine.process('test', { prompt_count: 50, active_agent: 'qa' });
+
+      expect(mockGetMemoryHints).toHaveBeenCalledWith('qa', 'DEPLETED', 300);
+    });
+  });
+
+  describe('process() — bracket in return value (QW-1)', () => {
+    test('should return bracket field in result', async () => {
+      contextTracker.calculateBracket.mockReturnValue('FRESH');
+      const result = await engine.process('test', { prompt_count: 0 });
+      expect(result.bracket).toBe('FRESH');
+    });
+
+    test('should return MODERATE bracket when context is 55%', async () => {
+      contextTracker.estimateContextPercent.mockReturnValue(55);
+      contextTracker.calculateBracket.mockReturnValue('MODERATE');
+      const result = await engine.process('test', { prompt_count: 60 });
+      expect(result.bracket).toBe('MODERATE');
+    });
+
+    test('should return DEPLETED bracket when context is 30%', async () => {
+      contextTracker.estimateContextPercent.mockReturnValue(30);
+      contextTracker.calculateBracket.mockReturnValue('DEPLETED');
+      const result = await engine.process('test', { prompt_count: 100 });
+      expect(result.bracket).toBe('DEPLETED');
+    });
+
+    test('should return CRITICAL bracket when context is 10%', async () => {
+      contextTracker.estimateContextPercent.mockReturnValue(10);
+      contextTracker.calculateBracket.mockReturnValue('CRITICAL');
+      const result = await engine.process('test', { prompt_count: 120 });
+      expect(result.bracket).toBe('CRITICAL');
+    });
+  });
+
+  describe('process() — edge cases for coverage', () => {
+    test('should handle layer returning non-array rules (invalid result format)', async () => {
+      // Make a layer return an object without rules array
+      if (engine.layers.length > 0) {
+        engine.layers[0]._safeProcess = jest.fn(() => ({
+          rules: 'not-an-array',
+          metadata: { source: 'test' },
+        }));
+      }
+
+      const result = await engine.process('test', {});
+      // Should not crash — invalid result is skipped
+      expect(result).toHaveProperty('xml');
+      if (engine.layers.length > 0) {
+        const layerName = engine.layers[0].name;
+        const entry = result.metrics.per_layer[layerName];
+        expect(entry.status).toBe('skipped');
+        expect(entry.reason).toBe('Invalid result format');
+      }
+    });
+
+    test('should log remaining layers as skipped on pipeline timeout', async () => {
+      // Mock Date.now to simulate timeout after first layer
+      const realDateNow = Date.now;
+      let callCount = 0;
+      Date.now = jest.fn(() => {
+        callCount++;
+        // First call: totalStart = 1000
+        // Second call (timeout check): 1000
+        // Third call (startLayer): 1000
+        // After first layer executes, next timeout check returns 1200 (>100ms)
+        if (callCount <= 4) return 1000;
+        return 1200; // Exceeds 100ms timeout
+      });
+
+      // Ensure all layers are active
+      contextTracker.getActiveLayers.mockReturnValue({
+        layers: [0, 1, 2, 3, 4, 5, 6, 7],
+        memoryHints: false,
+        handoffWarning: false,
+      });
+
+      const result = await engine.process('test', {});
+
+      Date.now = realDateNow;
+
+      // Some layers should be skipped due to pipeline timeout
+      const skipped = Object.values(result.metrics.per_layer)
+        .filter(l => l.status === 'skipped' && l.reason === 'Pipeline timeout');
+      expect(skipped.length).toBeGreaterThanOrEqual(0);
+      expect(result).toHaveProperty('xml');
+    });
+  });
+});

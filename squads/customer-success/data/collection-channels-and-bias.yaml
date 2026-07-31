@@ -1,0 +1,236 @@
+# Collection Channels and Their Bias — what each channel surfaces, misses and distorts
+# Squad: customer-success
+# Owner: voice-lead (Auricle)
+# Last updated: 2026-07-30
+#
+# Purpose: reference for weighting customer signal. Every channel is biased, and the bias is
+# predictable. This file states, per channel, what it surfaces, what it structurally misses, how it
+# distorts, who is over- and under-represented, what a theme arriving through it alone DOES NOT
+# PROVE, and which channel corroborates it.
+#
+# METHOD ATTRIBUTION — read before using this file.
+# Voice-of-customer collection and routing is a PRACTITIONER DISCIPLINE with NO single canonical
+# published work. This file deliberately attaches no author, no book and no year to the discipline,
+# because inventing that attribution would be worse than having none. Constructs with a documented
+# source are attributed at the point of use; every construct here without such a marker is
+# practitioner convention and is labelled as such by this note.
+#
+# One channel in this file — the loyalty survey — has an attributed instrument, owned by
+# advocacy-lead: Fred Reichheld, "The Ultimate Question" (Harvard Business School Press, 2006),
+# developing "The One Number You Need to Grow" (Harvard Business Review, 2003), revised as "The
+# Ultimate Question 2.0" (2011, with Rob Markey). VERIFY before citing: the exact wording of the
+# recommendation question; the trademark attribution for "Net Promoter" / "NPS"; the contested
+# predictive claim; and the measure proposed in "Winning on Purpose" (2021, with Darci Darnell and
+# Maureen Burns). See squads/customer-success/data/loyalty-instrument-limits.yaml.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# FIRST PRINCIPLES
+# ---------------------------------------------------------------------------
+principles:
+  request_is_not_finding: "A request is a proposed solution in the customer's vocabulary. The finding is the problem underneath it. Restate before counting."
+  accounts_not_mentions: "Count distinct accounts. One account raising the same request eleven times through four channels is one data point delivered persistently."
+  loud_is_not_many: "Volume and exposure are reported in separate columns, always. Seniority changes exposure; it never changes the count."
+  solicited_vs_unsolicited: "Unsolicited signal tells you what people cared enough to raise. Solicited signal tells you what people say when asked. Both are useful; the mixture is uninterpretable."
+  silence: "Absence of signal is not absence of problem. The worst-served customers are the least likely to report, and the ones who gave up have stopped writing."
+  behaviour_and_report: "Where telemetry and feedback disagree, both facts are real. The gap is the finding, and it is usually a population difference."
+  dates: "A signal without a date decays silently. Record when each item arrived and re-weigh across equal windows."
+
+# ---------------------------------------------------------------------------
+# CHANNELS
+# ---------------------------------------------------------------------------
+channels:
+
+  - channel: support
+    solicited: false
+    surfaces: "What is broken, for customers willing to open a ticket."
+    misses: "Problems customers have accepted, worked around, or given up on entirely."
+    distortion: "Volume tracks ticket-opening propensity as much as prevalence. Accounts with a named admin and an internal process open far more tickets than accounts without."
+    over_represented: "Accounts with dedicated administrators; accounts on high-touch coverage; power users."
+    under_represented: "Self-serve accounts; daily users without support access; accounts that have stopped trying."
+    alone_does_not_prove: "Prevalence. A high ticket count proves a population that reports, not a population that suffers."
+    corroborate_with: "Product telemetry for behavioural claims; customer-success channel for whether it blocks adoption."
+    typical_class: "product problem, activation friction, documentation gap, support process failure"
+
+  - channel: sales
+    solicited: false
+    surfaces: "What blocks a purchase, framed by the person deciding."
+    misses: "Everything that affects daily users after purchase."
+    distortion: "Deal urgency inflates perceived importance. A single deal blocker can be presented, honestly, as a market requirement."
+    over_represented: "Prospects and buyers; enterprise procurement concerns; competitive feature comparisons."
+    under_represented: "Existing customers; daily users; anything that only becomes visible after adoption."
+    alone_does_not_prove: "That the base is affected. It is a claim about what blocks deals, which is a different and legitimate claim — requiring win/loss evidence, which is not this squad's."
+    corroborate_with: "Win/loss evidence (routed via @cs-chief to @products); usage telemetry from existing accounts."
+    typical_class: "product problem, expectation set at sale, pricing or packaging confusion"
+
+  - channel: customer_success
+    solicited: false
+    surfaces: "What blocks adoption in accounts under active management."
+    misses: "Accounts with no coverage — frequently the ones churning."
+    distortion: "The coverage model determines who is heard. A tech-touch segment is structurally silent in this channel."
+    over_represented: "High-touch accounts; accounts with quarterly reviews; larger contracts."
+    under_represented: "Low-touch and tech-touch segments; small accounts; accounts between review cycles."
+    alone_does_not_prove: "Base-wide prevalence. It proves prevalence within the covered population, which is a different population."
+    corroborate_with: "Telemetry across the whole base; support volume by segment."
+    typical_class: "activation friction, account risk, product problem"
+
+  - channel: loyalty_survey
+    solicited: true
+    surfaces: "What a self-selected sample recalls when prompted, at one moment."
+    misses: "Whatever the survey did not ask about; everyone who did not respond."
+    distortion: "Response bias and recency effects dominate. Respondent-role mix alone moves the aggregate materially."
+    over_represented: "Respondents with an existing relationship to the vendor; champions; whoever the invitation reached."
+    under_represented: "Non-respondents, who are frequently the least engaged and most at risk."
+    alone_does_not_prove: "Prevalence in the base, or renewal risk. It is a stated intention from those who chose to answer."
+    corroborate_with: "Unsolicited channels; telemetry; health signals from @retention-lead."
+    typical_class: "any — but the instrument and its own loop belong to @advocacy-lead, not to this file"
+    ownership_note: "The loyalty instrument, its interpretation and its closed loop belong to @advocacy-lead. This channel is consolidated here with everything else; it is not re-interpreted here."
+    attribution_note: "See the header. Question wording, trademark attribution, the contested predictive claim and the Winning on Purpose measure all require verification before citation."
+
+  - channel: executive_and_informal
+    solicited: false
+    surfaces: "What senior stakeholders care about."
+    misses: "Nearly everything from users without that access."
+    distortion: "Highest distortion of any channel. A single conversation can outweigh a hundred accounts unless counts are reported separately."
+    over_represented: "The largest accounts; the most senior stakeholders; whoever has a direct line."
+    under_represented: "Everyone else, comprehensively."
+    alone_does_not_prove: "Anything about the base. A theme from this channel alone is WEAK evidence regardless of who raised it — and may still be worth acting on for legitimate business reasons, decided openly on both columns."
+    corroborate_with: "Any other channel at all. This channel is never the sole basis for a STRONG rating."
+    typical_class: "product problem, account risk, expectation set at sale"
+    capture_warning: "Frequently received and never recorded. Unrecorded channels are usually the highest-value and least visible; surface them in intake design."
+
+  - channel: community_and_public
+    solicited: false
+    surfaces: "What customers say to each other, including workarounds they built."
+    misses: "Anything customers will not say publicly, which includes most commercially sensitive dissatisfaction."
+    distortion: "Selects for articulate, technically engaged users, and for whoever is most active in the forum."
+    over_represented: "Power users; developers; the most engaged minority."
+    under_represented: "Occasional users; buyers; anyone not in the community."
+    alone_does_not_prove: "Prevalence, or that the workaround is needed by the base. A widely upvoted post is a measure of forum activity."
+    corroborate_with: "Support volume; telemetry on the workflow in question."
+    typical_class: "product problem, documentation or education gap"
+
+  - channel: churn_and_exit_records
+    solicited: true
+    surfaces: "The stated reason for leaving."
+    misses: "The observed cause, which routinely differs from the stated reason."
+    distortion: "Exit conversations select for a polite, defensible reason. Price is the most common stated reason and rarely the actual one."
+    over_represented: "Commercially framed reasons."
+    under_represented: "Value gaps, unresolved incidents, and anything that would require the customer to criticize their own decision."
+    alone_does_not_prove: "Why the account left. Stated reason and observed cause must be reported separately — this is @retention-lead's churn autopsy discipline, consumed here, not duplicated."
+    corroborate_with: "Health state history and activation milestones (@retention-lead, @onboarding-lead)."
+    typical_class: "account risk, activation friction, product problem"
+
+  - channel: product_telemetry
+    solicited: false
+    is_voice_channel: false
+    surfaces: "What people actually do."
+    misses: "Why they did it, and what they wanted to do instead."
+    distortion: "Instrumentation coverage determines what is visible. Uninstrumented behaviour looks identical to absent behaviour."
+    over_represented: "Behaviour that was easy to instrument."
+    under_represented: "Behaviour outside the product — the spreadsheet, the manual reassembly, the workaround."
+    alone_does_not_prove: "Intent, satisfaction, or that the behaviour produced value."
+    role: "Not a voice channel. It is the primary corroboration source for any theme making a behavioural claim."
+    typical_class: "corroboration only"
+
+# ---------------------------------------------------------------------------
+# EVIDENCE STRENGTH
+# ---------------------------------------------------------------------------
+evidence_strength:
+  strong: "Multiple accounts, three or more channels, corroborated by instrumented behaviour, stable or growing across equal windows."
+  moderate: "Multiple accounts but a single channel, or uncorroborated by behaviour, or solicited-only."
+  weak: "A single account, a single channel, or strength derived from how forcefully it was expressed."
+  rule: >
+    Strength is always stated together with the specific conditions that would raise or lower it, so
+    the weighting is auditable rather than asserted. Intensity of expression never raises a strength.
+
+# ---------------------------------------------------------------------------
+# INTAKE HEALTH CHECKS
+# ---------------------------------------------------------------------------
+intake_health_checks:
+  - check: "Are there channels where signal arrives and is never recorded?"
+    typical_finding: "Executive conversations and conference feedback — the highest-distortion channel is also the least captured."
+  - check: "Is every item dated and account-attributed?"
+    typical_finding: "Undated items accumulate and make trend analysis impossible."
+  - check: "Which segments produce no signal, and what is their churn rate?"
+    typical_finding: "Low-touch segments are silent and churn most. That is a collection defect, not satisfaction, and it usually outranks every theme on the board."
+  - check: "Which roles produce signal — buyers, admins, daily users?"
+    typical_finding: "Intake reaches buyers and admins; daily users are invisible. An intake defect, not a finding about daily users."
+  - check: "How long between a customer speaking and the item being recorded?"
+    typical_finding: "Anything beyond same-day capture is mostly not captured at all."
+  - check: "How many live themes have no disposition past their follow-up date?"
+    typical_finding: "Orphans accumulate quietly and explain declining participation better than any survey does."
+  - check: "How many dispositions were never returned to the customers who raised them?"
+    typical_finding: "One-way themes. The thoughtful contributors stop first, and what remains is a measure of stubbornness rather than prevalence."
+
+# ---------------------------------------------------------------------------
+# ROUTING TABLE — exactly one owner
+# ---------------------------------------------------------------------------
+routing_table:
+  activation_friction: "@onboarding-lead"
+  account_risk_or_unresolved_pattern: "@retention-lead"
+  loyalty_instrument_or_survey_loop: "@advocacy-lead"
+  product_capability_problem: "@cs-chief -> @products -> @pm"
+  causal_job_question: "@products:jobs-analyst"
+  needs_deliberate_research: "@products:discovery-lead"
+  interaction_or_comprehension: "@ux-design-expert"
+  documentation_or_education: "the owning function, named explicitly — never left implicit"
+  expectation_set_at_sale: "sales squad"
+  pricing_or_packaging_confusion: "sales squad, with @products if structural"
+  instrumentation_gap: "@data-engineer"
+  rule: "Exactly one owner. If two apply, the theme is two themes — split it. A theme routed to everyone is owned by no one and returns unchanged next quarter."
+  non_claims_required_on_every_route:
+    - "No solution design"
+    - "No prioritization"
+    - "No roadmap position"
+    - "No commercial recommendation"
+    - "No revenue-at-risk inference beyond the exposure band — that needs health data and belongs to @retention-lead"
+
+# ---------------------------------------------------------------------------
+# LOOP-BACK STANDARDS
+# ---------------------------------------------------------------------------
+loop_back:
+  what_customers_are_told: ["What was heard", "What was understood as the problem", "What was decided", "When, or that it will not happen"]
+  valid_closures: ["Accepted with timing", "Declined with reason", "Resolved with confirmation"]
+  invalid_closures: ["Internal status change with no customer contact", "Silence", "A generic newsletter mention"]
+  coverage_metric: "Proportion of raising accounts informed, per theme."
+  execution: "Through the relationship owner in the authorized system. This squad does not contact customers directly and holds no contact record."
+  principle: >
+    An honest no closes the loop. Collecting without returning is extraction: the thoughtful
+    contributors conclude it goes nowhere and stop first, and the flow degrades into a measure of
+    persistence.
+
+# ---------------------------------------------------------------------------
+# CUSTOMER DATA — binding on every use of this file
+# ---------------------------------------------------------------------------
+customer_data_rules:
+  themes_travel: "Themes are aggregated and de-identified and travel. Verbatims and identifiers are personal data and stay in the system where they were collected."
+  no_verbatims_in_artifacts: "Never copy comment text with identifiers into a repository artifact. Cite the record id so anyone with legitimate access can open the source."
+  minimization: "Store no personal data beyond what routing and loop closure require. Account-level references and record ids are sufficient for every artifact this discipline produces."
+  anonymity: "Anonymous feedback is NEVER re-identified — not by account matching, not by timing correlation, not by any route, regardless of usefulness."
+  confidential_channels: "Confidential channels are not aggregated into attributable findings."
+  collection_terms: "The terms under which each signal was given bind every downstream use, including aggregation, weighting, routing and loop closure."
+  individuals: "No named individual is characterized in any artifact."
+  special_category: "Special-category personal data is out of scope. Stop and escalate to the human owner."
+
+# ---------------------------------------------------------------------------
+# BOUNDARY
+# ---------------------------------------------------------------------------
+boundary:
+  routing_is_not_deciding: >
+    This discipline states the problem, the evidence and the owner. Whether it gets built, and when,
+    belongs to @products and @pm. No volume of feedback overrides that, and no priority
+    recommendation accompanies a route. Crossing that line converts evidence into advocacy, which
+    makes the evidence less trusted and therefore less useful.
+  not_owned:
+    "@products:discovery-lead": "Deliberate research programs. Voice consolidates what already arrives; it does not replace deliberate inquiry."
+    "@products:jobs-analyst": "What customers are fundamentally trying to accomplish; switching causality."
+    "@customer-success:advocacy-lead": "The loyalty instrument, its interpretation and its own closed loop."
+    "@customer-success:retention-lead": "Account health and renewal risk."
+    "@customer-success:onboarding-lead": "First value and activation design."
+    "support function": "Ticket handling and SLA operations."
+    "sales squad": "Pricing, packaging, contract terms, and expectations set during the sale."
+    "@dev / @data-engineer": "Feedback tooling and capture instrumentation."
+    "@pm / @sm / @po / @qa": "Epics, stories, backlog, quality gates."
+    "@devops": "Git push, PRs, MCP, CI/CD — exclusive authority, no exception."

@@ -1,0 +1,239 @@
+# Distinctive Asset Taxonomy & Category Entry Point Cue Reference
+# Squad: marketing
+# Owner agent: brand-lead (Salience)
+# Last updated: 2026-07-30
+
+version: "1.0.0"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ATTRIBUTION
+# ═══════════════════════════════════════════════════════════════════════════════
+# This file records CONCEPTS AND STRUCTURE. It deliberately contains no effect
+# sizes, no benchmark thresholds and no ratios, because every such figure in this
+# literature is an observed pattern with real dispersion and must be read from the
+# publication rather than recalled.
+attribution:
+  primary:
+    author: "Byron Sharp"
+    work: "How Brands Grow: What Marketers Don't Know"
+    publisher: "Oxford University Press"
+    year: 2010
+    note: "Reports marketing science developed at the Ehrenberg-Bass Institute. Source of double jeopardy, duplication of purchase, the buyer-base shape, distinctiveness versus differentiation, and the account of how advertising works."
+  category_entry_points:
+    authors: "Jenni Romaniuk and Byron Sharp"
+    work: "How Brands Grow Part 2"
+    year: 2016
+    note: "Named separately. The category entry point method is developed here, not in the 2010 book."
+  distinctive_assets:
+    author: "Jenni Romaniuk"
+    work: "Building Distinctive Brand Assets"
+    year: 2018
+    note: "Named separately. The fame-and-uniqueness grid is developed here, not in the 2010 book."
+  rule: >-
+    Where a concept comes from a later work, cite that work. Folding all three into
+    "Sharp 2010" is a misattribution, and a misattribution makes the whole method
+    unauditable because a reader can no longer tell which claim was checked against what.
+  never: >-
+    Never invent a citation, a title, a year, a page or a figure. A plausible-sounding
+    citation that cannot be checked is worse than none: it passes review by looking
+    correct, then gets quoted by people who assume someone verified it.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 1. ASSET TYPES — what can carry brand identification
+# ═══════════════════════════════════════════════════════════════════════════════
+# Distinctive assets are NON-BRAND-NAME elements buyers link to the brand.
+# The brand name itself is not a distinctive asset; it is the thing assets point at.
+
+asset_types:
+
+  - type: colour
+    description: "A hue or palette used consistently enough to trigger brand retrieval on its own."
+    typical_strength: "Can reach high fame quickly because it is present in every execution and requires no attention to process."
+    typical_weakness: "Uniqueness is the constraint. Category-conventional colours are famous and shared, which is the AVOID quadrant."
+    uniqueness_risk: high
+    change_cost: "Very high. Colour is present in every asset, partner material and legacy artefact, so a change is never clean and the reset is total."
+    test_note: "Test the colour alone, as a field or a swatch, with no mark and no name."
+
+  - type: wordmark_or_logotype
+    description: "The written form of the name, treated as a shape rather than as text."
+    typical_strength: "Usually the highest-fame asset because it appears everywhere and is legally protected."
+    typical_weakness: "Only works where the buyer is looking at the brand. Carries nothing in audio, in conversation, or in peripheral attention."
+    uniqueness_risk: low
+    change_cost: "Very high, and routinely underestimated because internal fatigue with a mark precedes buyer recognition of it by years."
+
+  - type: symbol_or_mark
+    description: "A graphic device separable from the name — a shape, an emblem, a device."
+    typical_strength: "Can work without the name, which is the property that makes an asset useful in low-attention conditions."
+    typical_weakness: "Requires sustained repetition to reach fame; frequently abandoned before it gets there."
+    uniqueness_risk: medium
+    change_cost: "High where fame exists. Low where the mark has never been used consistently."
+
+  - type: character_or_mascot
+    description: "A recurring figure, animated, illustrated or performed."
+    typical_strength: "Tends toward high uniqueness because it is bespoke by construction."
+    typical_weakness: "Expensive to produce consistently; often retired at the point where it begins to work."
+    uniqueness_risk: low
+    change_cost: "High. Fame is built slowly and does not transfer to a replacement character."
+
+  - type: spokesperson_or_founder_voice
+    description: "A recurring human presence — a named person, a narrator, a voice."
+    typical_strength: "Carries into audio and video where visual assets cannot go."
+    typical_weakness: "Availability, cost and reputation risk sit outside the brand's control. The asset can leave."
+    uniqueness_risk: low
+    change_cost: "High, and can be involuntary. Plan the succession before it is forced."
+
+  - type: typeface_or_lettering
+    description: "A typographic treatment used consistently."
+    typical_strength: "Cheap to apply everywhere."
+    typical_weakness: "The classic AVOID candidate. Category-fashionable typefaces become famous and shared, so recognition attaches to the category or to the leader."
+    uniqueness_risk: very_high
+    change_cost: "Usually low, because uniqueness is usually low. Test before assuming there is equity to lose."
+
+  - type: sonic_signature
+    description: "A short audio device — mnemonic, jingle fragment, interface sound."
+    typical_strength: "Works with no visual attention at all, which is most media exposure."
+    typical_weakness: "Frequently untested because testing requires an audio instrument the tracker does not have."
+    uniqueness_risk: medium
+    change_cost: "Proportional to consistent exposure, which is often less than assumed."
+
+  - type: shape_or_form
+    description: "Packaging silhouette, product form, physical structure."
+    typical_strength: "Survives distance, poor reproduction and partial view."
+    typical_weakness: "Constrained by manufacturing and cost; often changed for operational reasons with no asset review."
+    uniqueness_risk: medium
+    change_cost: "High, and the change is frequently made by a function that has never seen an asset audit."
+
+  - type: layout_or_composition_convention
+    description: "A recurring structural arrangement — a grid, a crop, a framing rule."
+    typical_strength: "Cheap, works in peripheral vision, applies across every format."
+    typical_weakness: "Almost never inventoried as an asset, so it is broken casually by each new agency."
+    uniqueness_risk: medium
+    change_cost: "Low to change, high to notice you changed it."
+
+  - type: tagline_or_slogan
+    description: "A recurring verbal line."
+    typical_strength: "Can carry a category entry point directly in the buyer's own language."
+    typical_weakness: "Routinely scores low on both dimensions. Frequently rewritten, which guarantees it never accumulates."
+    uniqueness_risk: high
+    change_cost: "Usually low. Low scores on both axes mean there was no equity to destroy — check before assuming otherwise."
+
+  - type: packaging_or_interface_cue
+    description: "A recurring detail in the buying or using surface — a label device, a screen convention, a physical texture."
+    typical_strength: "Encountered at the buying moment, which is where retrieval has to happen."
+    typical_weakness: "Owned by product or operations, changed on their cycle, never audited as brand equity."
+    uniqueness_risk: medium
+    change_cost: "Variable. The recurring failure is that nobody knew it was an asset."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 2. THE GRID — fame and uniqueness
+# ═══════════════════════════════════════════════════════════════════════════════
+grid:
+  source: "Romaniuk, Building Distinctive Brand Assets (2018)"
+  dimensions:
+    fame:
+      question: "Of category buyers shown this asset WITHOUT the brand name, what share link it to this brand?"
+      common_error: "Testing with the name visible. That measures recognition of the name, not of the asset."
+    uniqueness:
+      question: "Of those who linked it to this brand, what share linked it to this brand ONLY?"
+      common_error: "Collapsing fame and uniqueness into one 'asset strength' score. The worst case — high fame, low uniqueness — becomes invisible in a combined score."
+  quadrants:
+    solid_asset:
+      condition: "High fame, high uniqueness"
+      action: "Protect absolutely. Change requires extraordinary evidence."
+      failure_mode: "Changed for internal reasons, resetting years of accumulated fame."
+    investment:
+      condition: "Low fame, high uniqueness"
+      action: "Repeat consistently. Judge only after sustained exposure, not after one cycle."
+      failure_mode: "Retired at the moment it starts working, because it had not yet produced a number."
+    avoid:
+      condition: "High fame, low uniqueness"
+      action: "Retire or reduce. It cues the category or a competitor rather than this brand."
+      failure_mode: "Defended internally because it is famous, while it functions as advertising for the market leader."
+    ignore:
+      condition: "Low fame, low uniqueness"
+      action: "Free to change or retire. No equity at risk."
+      failure_mode: "Argued about at length. There is nothing to protect."
+  untested:
+    rule: "An untested asset is not graded. It is recorded UNTESTED and its test is scheduled."
+    reason: "Internal intuition about fame is unreliable and consistently overrates the assets the team is exposed to most."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 3. CATEGORY ENTRY POINT ELICITATION
+# ═══════════════════════════════════════════════════════════════════════════════
+category_entry_points:
+  source: "Romaniuk and Sharp, How Brands Grow Part 2 (2016)"
+  definition: "The cues buyers use to retrieve brands from memory when a category need arises."
+  cues:
+    - cue: "Why"
+      prompt: "What problem, motivation or pressure starts this?"
+    - cue: "When"
+      prompt: "What time, trigger, deadline or event?"
+    - cue: "Where"
+      prompt: "What place, channel or context?"
+    - cue: "With whom"
+      prompt: "Who else is present, involved or affected?"
+    - cue: "While doing what"
+      prompt: "What surrounding activity is underway?"
+    - cue: "With what"
+      prompt: "What adjacent product, tool or system is in play?"
+    - cue: "How feeling"
+      prompt: "What emotional state — urgency, exposure, boredom, relief?"
+  capture_per_cep:
+    - "The entry point stated in the buyer's own language, not the company's"
+    - "Estimated frequency of the situation in the category"
+    - "This brand's retrieval strength in it"
+    - "Which brand is retrieved first"
+    - "Provenance: SOURCED from tracking, or ESTIMATED from judgement"
+  prioritisation: "Category frequency × the gap between our retrieval and the leader's."
+  failure_modes:
+    - "Deriving beats or entry points from search volume. Search volume records what is asked, not what is worth being retrievable in."
+    - "Building depth on the single entry point already owned. That reinforces the ceiling rather than raising it."
+    - "A map where every row is estimated, presented as a map. It is a hypothesis and must be labelled one."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 4. WHAT EACH BRAND MEASURE DOES NOT PROVE
+# ═══════════════════════════════════════════════════════════════════════════════
+measure_limits:
+  - measure: "Prompted brand awareness"
+    proves: "The name is recognised when shown."
+    does_not_prove: "That the brand is retrieved in a buying situation. Awareness routinely looks healthy while retrieval is concentrated in one entry point."
+  - measure: "Unprompted (spontaneous) brand recall"
+    proves: "The brand comes to mind for the category as a whole."
+    does_not_prove: "Retrieval at any specific buying situation, which is the growth-relevant quantity."
+  - measure: "Advertising recall"
+    proves: "The execution was noticed and remembered."
+    does_not_prove: "That it was attributed to this brand. High ad recall with low brand attribution is the signature of weak or absent distinctive assets."
+  - measure: "Brand favourability or affinity"
+    proves: "Stated attitude among those asked."
+    does_not_prove: "Purchase, or retrieval. Attitude measures move with usage more reliably than they precede it."
+  - measure: "Net Promoter Score and similar advocacy scores"
+    proves: "A stated intention among respondents who answered."
+    does_not_prove: "Penetration, mental availability, or growth. It is measured on customers, so it cannot see the population growth has to come from."
+  - measure: "Share of search"
+    proves: "Relative expressed demand in a searchable channel."
+    does_not_prove: "Mental availability across the category. It sees only the buyers who searched, in the words they searched."
+  - measure: "Asset recognition WITH the name shown"
+    proves: "Almost nothing about the asset."
+    does_not_prove: "Fame. The name did the work."
+  - measure: "Social engagement on brand content"
+    proves: "That some people who already follow the brand reacted."
+    does_not_prove: "Reach among category buyers, retrieval, or anything about non-buyers — who are the population growth comes from."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 5. BOUNDARY
+# ═══════════════════════════════════════════════════════════════════════════════
+boundary:
+  consumed_from:
+    "@products:positioning-lead": "Market category, competitive alternatives, target segment. Marketing consumes positioning; it does not define it."
+  handed_to:
+    "@marketing:demand-lead": "Budget, brand-vs-activation split, share of voice, phasing."
+    "@marketing:content-lead": "Editorial expression of CEPs and assets over time."
+    "@marketing:analytics-lead": "Instrument design, sampling, feasibility, residual uncertainty."
+    "@ux-design-expert": "Asset execution in interface and design system."
+    "@products:pricing-strategist": "Price and packaging."
+    "@pm": "Epic framing where availability work implies product change."
+  never_here:
+    - "Implementation — @dev, through the story pipeline"
+    - "Quality gates — @qa"
+    - "Story creation — @sm"
+    - "Git push, PRs, CI/CD — @devops, exclusive authority"

@@ -1,0 +1,298 @@
+# Control, assurance and audit-committee reference
+# Squad: board
+# Owned by: audit-lead (Tally)
+# Reference knowledge for *figure-challenge, *judgements-register, *control-review, *assurance-map,
+# *fraud-risk, *auditor-independence, *auditor-session, *internal-audit-scope, *whistleblowing
+
+version: "1.0.0"
+
+professional_limit: |
+  THIS FILE SUPPORTS NO AUDIT OPINION. No agent using it is a licensed auditor, and nothing produced
+  from it is an audit opinion of any kind — statutory, internal or otherwise. Nothing produced from
+  it attests to the effectiveness of internal control for any regulatory purpose.
+
+  It is NOT legal advice, NOT tax advice, NOT an accounting-policy determination and NOT a
+  regulatory filing. Whether any obligation applies — the Sarbanes-Oxley Act or any equivalent, a
+  listing rule, an accounting standard — is a legal question for qualified advisers.
+
+  Where an artifact built from this file marks a control TESTED, it records that a named party says
+  they tested it. It does not confirm that they did, and it does not adopt their conclusion.
+
+  Every artifact produced from this file is INPUT FOR REVIEW by the audit committee, the directors
+  and licensed professionals. It is never the final assurance position.
+
+# ---------------------------------------------------------------------------
+# PROVENANCE — the honest statement
+# ---------------------------------------------------------------------------
+
+provenance_statement: |
+  AUDIT COMMITTEE PRACTICE HAS NO SINGLE CANONICAL AUTHOR AND NO ONE FOUNDATIONAL TEXT.
+
+  This is stated rather than papered over. Unlike governance (where the Cadbury Report is a named
+  origin), risk (where COSO ERM is a named framework) or succession (where Boards That Lead is a
+  named work), the discipline exercised here is assembled from institutional sources with different
+  scopes and different purposes, plus a body of common professional practice with no traceable
+  origin at all.
+
+  Each source is named where its provisions are used. Practices common across the profession
+  without a single traceable origin are marked DISCIPLINE and attributed to NOBODY. This agent's
+  own operational tests are marked CONSTRUCTION.
+
+  Manufacturing a canonical citation for this discipline would be the exact failure this file
+  exists to prevent.
+
+no_invention_rule: |
+  Never invent a section number, a provision, a title, a year or an author. Where exact text or
+  numbering matters to a conclusion, DESCRIBE THE PRINCIPLE and instruct the reader to consult the
+  source document. A wrong attribution is worse than no attribution, because it is relied upon
+  exactly as if it had been verified.
+
+# ---------------------------------------------------------------------------
+# NAMED SOURCES
+# ---------------------------------------------------------------------------
+
+named_sources:
+
+  cadbury_1992:
+    document: "Report of the Committee on the Financial Aspects of Corporate Governance (the Cadbury Report), United Kingdom, December 1992, and its Code of Best Practice"
+    provisions_used_here:
+      - "The board should establish an audit committee of at least three non-executive directors, with written terms of reference dealing clearly with its authority and duties."
+      - "Directors should report on the effectiveness of the company's system of internal control."
+      - "The board should present a balanced and understandable assessment of the company's position."
+    note: "Fuller treatment of this source sits with governance-counsel, whose framework it is. See squads/board/data/cadbury-code-provisions.yaml."
+    scope_caution: "Addressed to UK listed company boards. Applying it elsewhere is an analogy; declare the adaptation."
+
+  coso_internal_control:
+    document: "COSO, 'Internal Control — Integrated Framework'"
+    published: "originally issued 1992, updated 2013"
+    publisher: "Committee of Sponsoring Organizations of the Treadway Commission"
+    origin_of_name: "The Treadway Commission — the National Commission on Fraudulent Financial Reporting — whose report was issued in 1987"
+    structure: "Five components supported by seventeen principles"
+    components:
+      control_environment:
+        principles:
+          - "1. Demonstrates commitment to integrity and ethical values"
+          - "2. Exercises oversight responsibility"
+          - "3. Establishes structure, authority, and responsibility"
+          - "4. Demonstrates commitment to competence"
+          - "5. Enforces accountability"
+        weighting_rule: "Weight this component FIRST. Where it is weak, state explicitly that the specific controls beneath it are operating in spite of the environment, and are therefore most likely to fail under exactly the pressure that makes them matter."
+      risk_assessment:
+        principles:
+          - "6. Specifies suitable objectives"
+          - "7. Identifies and analyzes risk"
+          - "8. Assesses fraud risk"
+          - "9. Identifies and analyzes significant change"
+      control_activities:
+        principles:
+          - "10. Selects and develops control activities"
+          - "11. Selects and develops general controls over technology"
+          - "12. Deploys through policies and procedures"
+      information_and_communication:
+        principles:
+          - "13. Uses relevant information"
+          - "14. Communicates internally"
+          - "15. Communicates externally"
+      monitoring_activities:
+        principles:
+          - "16. Conducts ongoing and/or separate evaluations"
+          - "17. Evaluates and communicates deficiencies"
+    distinct_from: |
+      COSO's Enterprise Risk Management framework — 'Enterprise Risk Management — Integrating with
+      Strategy and Performance' (2017), updating the 2004 'Integrated Framework' — is a SEPARATE
+      PUBLICATION with a different purpose. That one belongs to risk-oversight; this one belongs
+      here. The two are never merged and neither is cited for the other's content.
+
+  sarbanes_oxley_2002:
+    document: "Sarbanes-Oxley Act of 2002 (United States)"
+    provisions_referenced_here:
+      - "Audit committee responsibility for the appointment, compensation and oversight of the external auditor, and audit committee independence"
+      - "Procedures for the receipt and treatment of complaints, including confidential and anonymous submission by employees of concerns regarding questionable accounting or auditing matters"
+      - "Audit committee authority to engage independent counsel and advisers"
+      - "Management certification of reports"
+      - "Management assessment of internal control over financial reporting, with auditor attestation"
+    also_established: "The Public Company Accounting Oversight Board (PCAOB)"
+    scope_caution: |
+      United States legislation applying to particular categories of issuer. Referenced here for the
+      STRUCTURAL PRINCIPLES it embodies, NOT as an obligation binding any organization this agent
+      advises. Whether it or any equivalent applies is a legal question for qualified advisers, and
+      this agent never asserts that it does.
+    citation_rule: "Do not cite section numbers from memory. Where a specific section matters, read the statute or take advice."
+
+  three_lines_model:
+    description: "A model distinguishing operational ownership (first line), oversight and compliance functions (second line), and independent internal audit (third line)."
+    association: "Associated with the Institute of Internal Auditors, which has revised its formulation over time."
+    use_here: "Used to detect LINE COLLAPSE — the same function both performing and assuring — which is the commonest and least visible assurance defect, because the map still looks populated."
+    caution: |
+      FORMULATION AND TERMINOLOGY HAVE CHANGED ACROSS VERSIONS, including how the lines are named
+      and how their relationship is described. Cite the current source document rather than this
+      summary if the precise wording matters to a conclusion.
+
+# ---------------------------------------------------------------------------
+# DISCIPLINE PRACTICES — attributed to nobody
+# ---------------------------------------------------------------------------
+
+discipline_practices:
+  note: "Common professional practice with no single traceable origin. Marked DISCIPLINE and attributed to nobody. Never presented as a provision of any named source."
+  practices:
+    - "Private session with the external and internal auditors without management present"
+    - "Attention to the management letter and to unadjusted differences rather than to the opinion alone"
+    - "Monitoring the non-audit fee ratio as an indicator of structural independence"
+    - "Audit partner and firm rotation"
+    - "Tracking findings to closure with independent re-test"
+    - "Considering pressure or incentive, opportunity, and rationalization together when assessing fraud risk"
+    - "Assurance mapping across sources and scopes"
+  fraud_triad_note: "The three conditions considered together — pressure or incentive, opportunity, rationalization — are standard practice in the discipline. This agent does NOT attribute them to a single source. Only OPPORTUNITY is a structural variable a board can act on directly."
+
+# ---------------------------------------------------------------------------
+# THE THREE STATES  [CONSTRUCTION]
+# ---------------------------------------------------------------------------
+
+three_state_model:
+  attribution: CONSTRUCTION
+  rule: "Every control is described in three SEPARATE states, never merged into a single status."
+  states:
+    - state: DESCRIBED
+      means: "A document says the control exists."
+      alone_means: "Nothing. A control described with no evidence of operation is not a control the board may rely on, and is said to be so in those words."
+    - state: OPERATED
+      means: "There is evidence the control ran in the period."
+      alone_means: "Self-asserted. Somebody says it ran; nobody independent has looked."
+    - state: TESTED
+      means: "Someone independent checked it — named, with a date and a stated scope."
+      caveat: "Recording TESTED means recording that a named party says they tested it. It does not confirm that they did, and it does not adopt their conclusion."
+  forbidden_words: ["in place", "effective", "operating", "embedded", "mature"]
+  forbidden_words_reason: "Each of these collapses the three states into one and is read by a board as the strongest of them."
+
+# ---------------------------------------------------------------------------
+# ASSERTION CHAIN — how a figure is challenged
+# ---------------------------------------------------------------------------
+
+assertion_chain:
+  steps:
+    - step: RESTATE
+      rule: "State the assertion precisely, not in headline form. Most disputes about numbers are disputes about the assertion."
+    - step: WHO_ASSERTS
+      rule: "Name the person or function. 'The system says' is not an assertion — a system is configured by someone, and that person is the assertor."
+    - step: BASIS
+      options: [measured, computed, estimated, judged]
+      rule: "If computed, name the source data and state whether it has been reconciled to anything independent."
+    - step: DEFINITION_STABILITY
+      attribution: CONSTRUCTION
+      rule: "Any period comparison is invalid until it is confirmed that the definition did not change inside it. A changed definition presented as a movement is the commonest reporting distortion, and it is usually not deliberate."
+    - step: JUDGEMENTS
+      rule: "Enumerate every point where a person chose between defensible alternatives, and report the RANGE across those choices, not the point estimate."
+    - step: DIRECTION_TEST
+      attribution: CONSTRUCTION
+      rule: "Where multiple judgements are individually defensible but all lean the same way, the PATTERN is the finding. Every one may be defensible and the pattern still means something."
+    - step: FALSIFIER
+      rule: "What observation would show this figure to be wrong? If nothing could, it is not a measurement — it is a characterization, and is labelled as one."
+    - step: INDEPENDENT_TEST
+      rule: "Who, other than the assertor, has checked it, over what scope, on what date? If nobody, record NO ASSURANCE in those words."
+  verdicts:
+    - RELIABLE_FOR_THE_PURPOSE
+    - RELIABLE_WITH_STATED_LIMITS
+    - NOT_ESTABLISHED
+  forbidden_verdict: "'Probably fine' is not a verdict and does not appear."
+
+judgement_points:
+  note: "Where to look for the choices inside a number."
+  points:
+    - "Recognition timing"
+    - "Cut-off"
+    - "Classification"
+    - "Allocation"
+    - "Capitalization versus expense"
+    - "Provision and reserve levels"
+    - "Segment boundaries"
+    - "Cohort definitions"
+    - "Metric denominators"
+
+# ---------------------------------------------------------------------------
+# AGENT CONSTRUCTIONS
+# ---------------------------------------------------------------------------
+
+agent_constructions:
+  note: "This agent's own operational tests. Not provisions of any named source and not general practice. Marked CONSTRUCTION wherever used."
+  tests:
+    three_state_test: "Every control is described in three separate states — DESCRIBED, OPERATED, TESTED — never merged into a single status."
+    no_assurance_rule: "A reliance with no independent source is recorded as NO ASSURANCE in those words, never described in language that implies coverage."
+    direction_test: "Where multiple judgements are individually defensible but all lean the same way, the pattern is the finding."
+    definition_stability_check: "Any period comparison is invalid until it is confirmed that the definition did not change inside it."
+    scope_exclusion_question: "Ask what was proposed for the audit plan and removed, and by whom. Independence is lost at scoping more often than at the point of conclusion."
+    oldest_not_average: "Name the oldest open finding, not the average age. Averages conceal the one that matters."
+
+# ---------------------------------------------------------------------------
+# AUDITOR INDEPENDENCE — structural tests
+# ---------------------------------------------------------------------------
+
+auditor_independence:
+  structural_questions:
+    - "Who appoints the auditor?"
+    - "Who sets the fee?"
+    - "Who sets the scope?"
+    - "Who can dismiss them?"
+  rule: "If management effectively controls any of these, independence is structurally compromised regardless of intent."
+  source_note: "Placing the auditor relationship under the audit committee is a structural principle embodied in the Sarbanes-Oxley Act of 2002. Applicability to any given organization is a legal question."
+  further_tests:
+    fee_ratio: "Non-audit fees against audit fees, over three periods and trending. Frame it structurally — does the fee relationship make a difficult audit conversation more expensive for the auditor to have? — not as value for money. [DISCIPLINE]"
+    service_list: "Enumerate non-audit services and identify any where the auditor would effectively be auditing its own work or making a management decision."
+    tenure: "Firm tenure and lead-partner tenure, with the date of the last rotation. [DISCIPLINE]"
+    relationships: "Former audit staff now employed in the organization, especially in finance or reporting roles; personal relationships; joint commercial interests."
+  verdicts:
+    - INDEPENDENT
+    - INDEPENDENT_WITH_SPECIFIED_THREATS_AND_SAFEGUARDS
+    - NOT_STRUCTURALLY_INDEPENDENT
+  limit: "Whether a specific service is permissible under applicable rules is a REGULATORY question for qualified advisers. This agent assesses the structural position only."
+
+private_session_questions:
+  attribution: DISCIPLINE
+  standing_rule: "Scheduled as a STANDING item. If it must be convened, the act of convening is itself a signal that will suppress what the session was meant to surface."
+  presence_rule: "Management is not present. Nobody who reports to the people being discussed is present."
+  questions_in_order:
+    - "Was there anything you wanted to look at that you did not look at, and why not?"
+    - "Was any scope limited, by whom, and on what grounds?"
+    - "What were the most difficult conversations with management this period?"
+    - "Which unadjusted differences did management decline to correct, and what was the cumulative effect?"
+    - "Where in this organization would you look first if you suspected something?"
+    - "Is there anything you have not been asked that you would want a board to ask?"
+  technique_note: "The fourth and sixth questions produce more than the rest combined. Leave silence after both; the useful answer usually comes after the polite one."
+  record_rule: "Record what was said, and record SEPARATELY what was noticeably not said."
+
+# ---------------------------------------------------------------------------
+# ADAPTATION BEYOND FINANCIAL REPORTING
+# ---------------------------------------------------------------------------
+
+adaptation_note: |
+  Much of this discipline developed around the financial reporting of listed companies. Inside
+  AEXOS the same reasoning is applied to any assertion the board relies on: delivery metrics,
+  quality-gate outcomes, usage data, security posture, supplier claims.
+
+  The transfer is sound because the underlying question is identical — what is asserted, by whom,
+  verified how. But it is an ANALOGY, and NO FINANCIAL-REPORTING AUTHORITY IS INVOKED BY IT.
+  Declare the adaptation on every such use, in the body of the artifact.
+
+# ---------------------------------------------------------------------------
+# NON-NEGOTIABLE HANDLING
+# ---------------------------------------------------------------------------
+
+misconduct_handling:
+  rule: "Any allegation of fraud, misconduct or retaliation is surfaced in the open, immediately, and routed to the whistleblowing channel. It is NEVER summarized into a caveat or a footnote in a pack."
+  source_note: "Procedures for the receipt and treatment of complaints, including confidential and anonymous submission by employees of concerns regarding questionable accounting or auditing matters, is a structural principle embodied in the Sarbanes-Oxley Act of 2002. Whether that Act binds a given organization is a legal question."
+
+# ---------------------------------------------------------------------------
+# BOUNDARIES
+# ---------------------------------------------------------------------------
+
+not_this_agent:
+  risk_appetite_design: "risk-oversight"
+  board_composition_and_independence_of_non_executives_as_structure: "governance-counsel"
+  succession_and_executive_assessment: "succession-lead"
+  statutory_audit_opinion: "Licensed auditors, outside AEXOS entirely — this agent issues none"
+  accounting_policy_determination: "Qualified advisers, outside AEXOS entirely"
+  regulatory_filings_and_applicability_of_any_statute: "Qualified counsel, outside AEXOS entirely"
+  code_quality_gates: "@qa — their output is treated here as an assertion like any other, not as assurance"
+  implementation: "@dev"
+  epics_and_prd: "@pm"
+  stories: "@sm"
+  push_pr_mcp_cicd: "@devops (exclusive)"

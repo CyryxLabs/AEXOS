@@ -1,0 +1,283 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# AEXOS Squad Manifest — Products Squad
+# Conforms to .aexos-core/schemas/squad-schema.json (task-first architecture).
+# components/ is derived from disk by scripts/normalize-squad-manifests.js.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+name: products
+version: 1.0.0
+short-title: Products Squad
+description: >-
+  Squad especialista no ciclo completo de produto: estratégia e times empoderados, discovery
+  contínuo, jobs to be done, posicionamento, monetização e experimentação confiável. Cobre da
+  decisão sobre o que construir até a prova de que aquilo funcionou.
+author: Cyryx Labs LLC
+license: UNLICENSED
+slashPrefix: products
+tags:
+  - product-management
+  - discovery
+  - jobs-to-be-done
+  - positioning
+  - pricing
+  - monetization
+  - experimentation
+  - ab-testing
+  - product-strategy
+  - opportunity-solution-tree
+  - willingness-to-pay
+  - aexos
+cyryx:
+  minVersion: 2.1.0
+  type: squad
+components:
+  tasks:
+    - assess-product-risks.md
+    - build-opportunity-tree.md
+    - coherence-review.md
+    - convert-feature-roadmap.md
+    - design-assumption-test.md
+    - design-controlled-experiment.md
+    - draft-product-strategy.md
+    - map-forces-of-progress.md
+    - resolve-specialist-conflict.md
+    - run-interview-cadence.md
+    - run-positioning-process.md
+    - run-switch-interview.md
+    - run-wtp-talk.md
+    - triage-product-request.md
+    - write-job-statement.md
+  agents:
+    - discovery-lead.md
+    - experimentation-lead.md
+    - jobs-analyst.md
+    - positioning-lead.md
+    - pricing-strategist.md
+    - product-strategist.md
+    - products-chief.md
+  workflows:
+    - wf-discovery-to-decision.yaml
+    - wf-monetisation-and-proof.yaml
+  checklists:
+    - causal-evidence-checklist.md
+    - coherence-checklist.md
+    - continuous-discovery-checklist.md
+    - empowered-team-checklist.md
+    - experiment-launch-checklist.md
+    - experiment-trust-checklist.md
+    - interview-quality-checklist.md
+    - job-statement-quality-checklist.md
+    - positioning-quality-checklist.md
+    - pricing-readiness-checklist.md
+    - product-strategy-checklist.md
+    - squad-intake-checklist.md
+  templates:
+    - assumption-map-tmpl.yaml
+    - experiment-design-tmpl.md
+    - experiment-readout-tmpl.md
+    - forces-of-progress-tmpl.yaml
+    - interview-snapshot-tmpl.yaml
+    - job-statement-tmpl.yaml
+    - opportunity-solution-tree-tmpl.yaml
+    - packaging-design-tmpl.md
+    - positioning-canvas-tmpl.md
+    - positioning-document-tmpl.md
+    - pricing-business-case-tmpl.md
+    - product-brief-tmpl.yaml
+    - product-strategy-tmpl.yaml
+    - product-vision-tmpl.yaml
+    - risk-assessment-tmpl.yaml
+    - switch-timeline-tmpl.yaml
+    - team-objectives-tmpl.yaml
+    - triage-record-tmpl.yaml
+    - wtp-interview-guide-tmpl.md
+  tools: []
+  scripts: []
+config:
+  extends: extend
+dependencies:
+  node: []
+  squads: []
+squad:
+  name: products
+  display_name: Products Squad
+  version: 1.0.0
+  domain: Product Management — Discovery to Monetisation
+  description: |
+    Squad especialista no ciclo completo de produto: estratégia e times empoderados,
+    discovery contínuo, jobs to be done, posicionamento, monetização e
+    experimentação confiável. Cobre da decisão sobre o que construir até a prova
+    de que aquilo funcionou.
+  philosophy: |
+    "Evidência antes de convicção."
+    Cada agente é ancorado numa metodologia publicada e atribuída ao seu autor —
+    não numa imitação de pessoa. Isso é deliberado: um agente que segue um método
+    nomeado pode ser auditado contra ele. Um que faz imitação de celebridade não
+    tem contra o quê ser verificado.
+  keywords:
+    - product-management
+    - discovery
+    - jobs-to-be-done
+    - positioning
+    - pricing
+    - monetization
+    - experimentation
+    - ab-testing
+    - product-strategy
+    - opportunity-solution-tree
+    - willingness-to-pay
+    - aexos
+  entry_agent: products-chief
+  created_by: squad-creator
+  created_at: '2026-07-30'
+tiers:
+  tier_0:
+    name: Diagnosis & Routing
+    agents:
+      - products-chief
+    purpose: Triar o pedido, rotear ao especialista, manter coerência do squad
+  tier_1:
+    name: Direction & Discovery
+    agents:
+      - product-strategist
+      - discovery-lead
+      - positioning-lead
+    purpose: Decidir o que construir e para quem, com evidência de campo
+  tier_2:
+    name: Evidence & Commercial
+    agents:
+      - jobs-analyst
+      - pricing-strategist
+      - experimentation-lead
+    purpose: Causalidade da compra, monetização e prova estatística
+agents:
+  products-chief:
+    persona: Helm
+    file: agents/products-chief.md
+    tier: 0
+    based_on: Original (Orchestrator)
+    icon: 🎛️
+    focus: Triagem, roteamento, coerência entre discovery, posicionamento e monetização
+  product-strategist:
+    persona: Lodestar
+    file: agents/product-strategist.md
+    tier: 1
+    based_on: Marty Cagan (INSPIRED / EMPOWERED)
+    icon: 🌟
+    focus: Visão de produto, times empoderados, os quatro riscos, product/market fit
+  discovery-lead:
+    persona: Sonar
+    file: agents/discovery-lead.md
+    tier: 1
+    based_on: Teresa Torres (Continuous Discovery Habits)
+    icon: 📡
+    focus: Opportunity solution tree, cadência de entrevistas, teste de suposições
+  positioning-lead:
+    persona: Datum
+    file: agents/positioning-lead.md
+    tier: 1
+    based_on: April Dunford (Obviously Awesome / Sales Pitch)
+    icon: 📐
+    focus: Alternativas competitivas, atributos únicos, segmento, categoria de mercado
+  jobs-analyst:
+    persona: Plumb
+    file: agents/jobs-analyst.md
+    tier: 2
+    based_on: Clayton Christensen (Jobs to Be Done / Competing Against Luck)
+    icon: 🔬
+    focus: Job statement, forças do progresso, circunstância acima de demografia
+  pricing-strategist:
+    persona: Assay
+    file: agents/pricing-strategist.md
+    tier: 2
+    based_on: Madhavan Ramanujam & Georg Tacke (Monetizing Innovation)
+    icon: 💰
+    focus: Disposição a pagar antes de construir, empacotamento, modelo de monetização
+  experimentation-lead:
+    persona: Vernier
+    file: agents/experimentation-lead.md
+    tier: 2
+    based_on: Kohavi, Tang & Xu (Trustworthy Online Controlled Experiments)
+    icon: 🧪
+    focus: Desenho de A/B confiável, OEC, métricas de guarda, armadilhas estatísticas
+handoffs:
+  products-chief:
+    routes_to:
+      - product-strategist
+      - discovery-lead
+      - positioning-lead
+      - jobs-analyst
+      - pricing-strategist
+      - experimentation-lead
+  product-strategist:
+    collaborates_with:
+      - discovery-lead
+      - positioning-lead
+      - pricing-strategist
+    escalates_to:
+      - products-chief
+  discovery-lead:
+    collaborates_with:
+      - jobs-analyst
+      - experimentation-lead
+      - product-strategist
+    escalates_to:
+      - products-chief
+  positioning-lead:
+    collaborates_with:
+      - jobs-analyst
+      - pricing-strategist
+      - product-strategist
+    escalates_to:
+      - products-chief
+  jobs-analyst:
+    collaborates_with:
+      - discovery-lead
+      - positioning-lead
+    escalates_to:
+      - products-chief
+  pricing-strategist:
+    collaborates_with:
+      - positioning-lead
+      - product-strategist
+    escalates_to:
+      - products-chief
+  experimentation-lead:
+    collaborates_with:
+      - discovery-lead
+      - product-strategist
+    escalates_to:
+      - products-chief
+cross_cutting:
+  aexos_awareness:
+    description: Todos os agentes entendem a arquitetura AEXOS-core
+    context_files:
+      - .claude/CLAUDE.md
+      - .aexos-core/core-config.yaml
+      - .aexos-core/data/entity-registry.yaml
+  core_agent_boundary:
+    description: |
+      Este squad decide o QUE construir e para quem. Não implementa, não testa e
+      não faz release — isso pertence aos agentes do core.
+    defers_to:
+      '@pm': Épicos, PRD e execução de épico
+      '@po': Validação de story e backlog
+      '@sm': Criação de story (draft) — autoridade exclusiva
+      '@dev': Implementação
+      '@qa': Quality gate
+      '@devops': Release e push
+  attribution:
+    description: |
+      Cada agente declara a obra que fundamenta seu método. A atribuição é
+      obrigatória e verificável: se um agente recomenda algo, deve ser possível
+      rastrear a recomendação até o framework nomeado.
+    required_field: based_on
+  quality_standards:
+    min_score: 7
+    smoke_tests: 3
+    voice_dna_required: true
+    thinking_dna_required: true
+settings:
+  greeting:
+    level: archetypal
+    show_project_status: true

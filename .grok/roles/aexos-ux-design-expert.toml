@@ -1,0 +1,6 @@
+# AEXOS aexos-ux-design-expert — subagent role defaults
+description = "UX/UI Designer & Design System Architect (Iris)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aexos-ux-design-expert.md"

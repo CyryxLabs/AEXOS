@@ -1,0 +1,242 @@
+# Health Signals and Their Limits — what each signal indicates, and what it does NOT prove
+# Squad: customer-success
+# Owner: retention-lead (Tenure)
+# Last updated: 2026-07-30
+#
+# Purpose: candidate-signal reference for building and auditing an account health model. Every entry
+# states what the signal indicates, WHAT IT DOES NOT PROVE, its typical lead-time character relative
+# to the intervention window, its failure mode, and whether it is a proxy.
+#
+# No signal in this file is admitted to a model on the strength of appearing here. Every one must be
+# validated locally: lead time measured against a CLOSED period, hit rate compared against the base
+# rate, loss coverage stated, segment validity established. The figures differ by product and by base.
+#
+# METHOD ATTRIBUTION — read before using this file.
+# Framework source: Nick Mehta, Dan Steinman & Lincoln Murphy, "Customer Success: How Innovative
+# Companies Are Reducing Churn and Growing Recurring Revenue" (Wiley, 2016).
+# Constructs applied: continuous health monitoring rather than inspection at renewal; coverage
+# segmented by touch model; deliberate time-to-value reduction; the product as the mechanism that
+# scales customer success; company-wide ownership; drift as the default state.
+# ATTRIBUTION LIMITS, BINDING:
+#   - The source organizes its guidance as a set of laws of customer success. Do NOT reproduce their
+#     canonical wording, numbering or ordering from memory. Describe the construct and mark it
+#     "paraphrase, not quotation".
+#   - VERIFY against the book before publishing any quotation, law number or page reference. A wrong
+#     attribution is worse than no attribution.
+#   - Retention metrics below (GRR, NRR, logo churn, cohort curves) are standard industry measures
+#     and are NOT attributed to this or any other source.
+#   - Lead-time validation, backward validation against a closed period, the unserved / unhappy /
+#     unfit / drift split, and deferred-risk logging of discount-only saves are this squad's
+#     operating conventions, consistent with the source's premise but not its content.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# QUALIFICATION RULES — applied to every candidate before admission
+# ---------------------------------------------------------------------------
+qualification:
+  closed_period: "Validate against a completed period with known renewal outcomes. An open period has no outcomes, so a result obtained there is not a result."
+  lead_time: "Median days between the signal firing and the outcome. Must EXCEED the intervention window for the touch model it will be used in."
+  intervention_window: "The time a touch model needs before an intervention can change anything. Stated per touch model before any signal is qualified."
+  hit_rate: "Proportion of firings that preceded a loss, compared against THE BASE RATE, never against zero."
+  coverage: "Proportion of losses the signal fired for. A precise signal catching 5% of losses is not a monitoring system."
+  convenience_test: "Can this signal move materially while the customer gets nothing? If yes, it is a convenience metric. Remove it and say why."
+  segment_validity: "Does it predict base-wide or only within a segment? Segment-specific signals are never applied base-wide."
+  instrumentation: "INSTRUMENTED / PROXIED / UNMEASURED. A proxy is labelled a proxy at every use, not only at first mention."
+  early_tenure_rule: >
+    Accounts younger than the median time-to-first-value are scored on the ACTIVATION model, not on
+    the health model. A young account cannot break a habit criterion it never established, so the
+    health model scores it Healthy right up to the loss. Route them to @onboarding-lead.
+
+# ---------------------------------------------------------------------------
+# DIMENSION 1 — VALUE REALIZATION (primary)
+# ---------------------------------------------------------------------------
+value_realization:
+
+  - signal: "Habit criterion broken for N consecutive periods"
+    definition: "The value-producing behaviour, at the frequency and distinct-user count defined by @onboarding-lead, stops being met."
+    indicates: "The account has stopped realizing the outcome it bought."
+    does_not_prove: "It does not prove dissatisfaction, and it does not prove the reason. A customer-side reorganization, a seasonal cycle and abandonment all look identical here."
+    lead_time_character: "Typically long. Usually the earliest reliable signal in the set, which is why it is worth the instrumentation cost."
+    proxy: false
+    failure_mode: "Undefined or vendor-side habit criterion imported from convenience metrics rather than taken from @onboarding-lead."
+    prerequisite: "A habit criterion defined by @onboarding-lead. Without it this signal cannot exist."
+
+  - signal: "Value-producing output volume down materially, period over period"
+    definition: "The count of completed value-producing workflows falls beyond a defined threshold."
+    indicates: "Degradation in realized value short of a full break."
+    does_not_prove: "It does not distinguish a customer-side workflow change from disengagement, and it is confounded by seasonality."
+    lead_time_character: "Moderate to long. Usually earlier than any relationship or commercial signal."
+    proxy: false
+    failure_mode: "Threshold set to whatever produces a comfortable number of alerts rather than to what predicts."
+
+  - signal: "Milestone regression — a previously reached activation milestone no longer holds"
+    definition: "An account that met a milestone stops meeting it."
+    indicates: "The value path has broken somewhere it had previously been established."
+    does_not_prove: "It does not identify which step broke, or whether the cause is vendor-side."
+    lead_time_character: "Moderate."
+    proxy: false
+    failure_mode: "Only meaningful where milestones are binary and observable. Against soft milestones it fires arbitrarily."
+
+# ---------------------------------------------------------------------------
+# DIMENSION 2 — ADOPTION BREADTH (strong)
+# ---------------------------------------------------------------------------
+adoption_breadth:
+
+  - signal: "Distinct active users performing the value behaviour falls to one"
+    definition: "The account collapses to single-champion dependency."
+    indicates: "Fragility. Renewal now depends on one person remaining in one role."
+    does_not_prove: "It does not prove value is not being realized. A single user can realize genuine value — the risk is concentration, not absence."
+    lead_time_character: "Long where instrumented."
+    proxy: false
+    failure_mode: "Counting seats or licences instead of users performing the value behaviour. Seats are purchased; behaviour is performed."
+
+  - signal: "Number of distinct teams or departments using the product"
+    definition: "Organizational breadth of the value behaviour."
+    indicates: "Resilience to personnel and priority change."
+    does_not_prove: "Breadth does not prove depth. Many shallow users can be less valuable than a few doing the whole workflow."
+    lead_time_character: "Slow-moving; better as a state than as an alert."
+    proxy: false
+
+  - signal: "Seats provisioned versus seats performing the value behaviour"
+    definition: "Gap between purchased and active capacity."
+    indicates: "Contraction risk at renewal even where the account is otherwise healthy."
+    does_not_prove: "It does not prove the product is unwanted. Provisioning frequently runs ahead of rollout by design."
+    lead_time_character: "Moderate."
+    proxy: true
+    proxy_note: "A proxy for adoption. Label it as a proxy every time it is used."
+
+# ---------------------------------------------------------------------------
+# DIMENSION 3 — RELATIONSHIP DEPTH (moderate, often segment-specific)
+# ---------------------------------------------------------------------------
+relationship_depth:
+
+  - signal: "Contact ROLE change with no successor engaged within N days"
+    definition: "The account-side role that owns the relationship changes and nobody replaces the engagement."
+    indicates: "Drift. The value story usually leaves with the person who held it."
+    does_not_prove: "It does not prove the account is at risk on its own — a well-adopted account survives a role change; a single-champion account does not. Read it together with adoption breadth."
+    lead_time_character: "Moderate to long where captured reliably."
+    proxy: false
+    instrumentation_warning: "Frequently manual and inconsistent. Where it is, mark it PARTIALLY INSTRUMENTED and treat its hit rate as provisional."
+    data_rule: "Record the ROLE and the account. NEVER the person's name, contact details, or a characterization of them."
+
+  - signal: "Executive touchpoint recency"
+    definition: "Time since the last substantive sponsor-level conversation."
+    indicates: "Sponsor engagement, in segments where a sponsor exists."
+    does_not_prove: "It does not prove value realization, and it measures the vendor's coverage model as much as the customer's interest. In tech-touch segments it measures nothing at all."
+    lead_time_character: "Varies wildly. Segment-specific by construction."
+    proxy: true
+    failure_mode: "Applied base-wide. It is only meaningful where the touch model includes executive contact."
+
+# ---------------------------------------------------------------------------
+# DIMENSION 4 — COMMERCIAL POSTURE (late)
+# ---------------------------------------------------------------------------
+commercial_posture:
+
+  - signal: "Invoice dispute or payment delay"
+    definition: "Commercial friction in the billing relationship."
+    indicates: "A decision that has usually already been taken internally."
+    does_not_prove: "It does not prove a value problem, and it arrives far too late to warn of one. It is triage information, not a warning."
+    lead_time_character: "SHORT — usually inside the intervention window. Exclude from the risk register and say why."
+    proxy: false
+    failure_mode: "Admitted because its hit rate looks good. Hit rate without lead time is exactly how a model comes to produce nothing but discount requests, at which point the only remaining lever is commercial — and that is the sales squad's."
+
+  - signal: "Procurement review or vendor consolidation exercise initiated"
+    definition: "A formal customer-side process that includes the contract."
+    indicates: "The renewal is now a contested decision."
+    does_not_prove: "It does not prove dissatisfaction. Consolidation exercises catch well-liked vendors routinely."
+    lead_time_character: "Short to moderate. Frequently inside the intervention window for high-touch."
+    proxy: false
+
+# ---------------------------------------------------------------------------
+# CONVENIENCE METRICS — collected everywhere, predict little
+# ---------------------------------------------------------------------------
+convenience_metrics:
+  note: >
+    These survive in health models because they are already collected, not because they predict.
+    Each fails the convenience test: it can move materially while the customer gets nothing. Remove
+    them and state why — they displace signals that would have worked.
+  entries:
+    - metric: "Login count / session count"
+      does_not_prove: "That any outcome occurred, or that anyone did the value-producing work. Logins rise during troubleshooting and during handover chaos."
+    - metric: "Page views / feature clicks"
+      does_not_prove: "Value. Exploration and confusion look identical to engagement."
+    - metric: "Support ticket count (raw)"
+      does_not_prove: "Health in either direction. High counts indicate engagement as often as trouble; low counts indicate a satisfied account as often as an abandoned one."
+    - metric: "NPS or satisfaction score used as a health input"
+      does_not_prove: "Renewal risk. It is a stated intention from a self-selected respondent at one moment, usually one person. Belongs to @advocacy-lead as its own instrument, with its own limits — never as a substitute for a validated health model."
+    - metric: "CSM sentiment / gut-feel rating"
+      does_not_prove: "Anything auditable, and it encodes relationship warmth rather than realized value. It also tends to characterize individuals, which this squad does not do."
+    - metric: "Email open and response rates"
+      does_not_prove: "Engagement with the product. It measures engagement with the vendor's outbound."
+
+# ---------------------------------------------------------------------------
+# CAUSE CLASSES — classify before designing any remedy
+# ---------------------------------------------------------------------------
+cause_classes:
+  unserved:
+    evidence: "Engaged and trying; value realization absent or regressed."
+    remedy: "Re-establish the value path, usually with @onboarding-lead."
+    wrong_remedy: "Relationship attention — produces a pleasant conversation and no change."
+  unhappy:
+    evidence: "Value realization intact; an unresolved event dominates, with an age and a record."
+    remedy: "Resolution with a date and an owner; route the underlying signal to @voice-lead."
+    wrong_remedy: "Value demonstration — reads as evasion of the actual complaint."
+  unfit:
+    evidence: "No workflow ever established; the use case recorded at handover does not match what the product does."
+    remedy: "Honest evidence, clean exit, escalate the qualification pattern."
+    wrong_remedy: "A save play — spends effort that belonged to an account that could have succeeded."
+  drift:
+    evidence: "Role change with no successor engaged, or a customer-side workflow or reorganization change."
+    remedy: "Treat as unserved until proven otherwise; re-establish the value story with the successor."
+    wrong_remedy: "Assuming quiet means fine."
+
+# ---------------------------------------------------------------------------
+# STANDARD METRICS — industry-standard, attributed to no source
+# ---------------------------------------------------------------------------
+standard_metrics:
+  gross_revenue_retention:
+    definition: "Recurring revenue retained from an existing cohort, excluding expansion. Cannot exceed 100%."
+    does_not_prove: "Nothing about cause, and nothing about which accounts."
+  net_revenue_retention:
+    definition: "Recurring revenue retained including expansion, contraction and churn. Can exceed 100%."
+    does_not_prove: "Logo health. NRR above 100% with rising logo churn is concentration risk being reported as growth. Always show both."
+  logo_churn:
+    definition: "Proportion of accounts lost, irrespective of value."
+    does_not_prove: "Revenue impact. It diverges from revenue churn when losses concentrate in small accounts."
+  cohort_retention_curve:
+    definition: "Retention by tenure for a fixed start cohort."
+    does_not_prove: "Cause — but it is the only view that reliably separates activation failure from mid-life drift."
+
+# ---------------------------------------------------------------------------
+# CUSTOMER DATA — binding on every use of this file
+# ---------------------------------------------------------------------------
+customer_data_rules:
+  default_granularity: "Account and cohort level. Health is a property of an account."
+  individuals: "NEVER characterize a named individual in a health artifact. Record 'a contact role change occurred with no successor engaged in 30 days', never 'the champion is disengaged'. The first is an account-level fact and predicts better; the second is a personal-data liability with negligible predictive value."
+  minimization: "Store no personal data beyond what the retention question requires."
+  records: "Reference customer records by id in the authorized system. Never reproduce contact records, contract terms, support transcripts or identified survey verbatims in a repository artifact."
+  anonymity: "Anonymous feedback used as a signal input is never re-identified, by account matching or any other route."
+  collection_terms: "Confidentiality terms attached at collection bind every derived signal and every downstream artifact."
+  special_category: "Health, financial, credential, biometric and equivalent special-category data are out of scope. Stop and escalate to the human owner."
+
+# ---------------------------------------------------------------------------
+# BOUNDARY — absolute
+# ---------------------------------------------------------------------------
+boundary:
+  commercial: >
+    No price, discount, contract term or renewal position is produced from this file, ever. That
+    decision belongs to the SALES SQUAD. This squad supplies value evidence and readiness signals;
+    crossing the line makes the evidence look like advocacy for a deal and destroys its usefulness.
+  refused_outright: >
+    Retention by obstruction: cancellation friction, data withholding, auto-renewal exploitation.
+    Refused however the request is framed. It converts a lost customer into a hostile former customer
+    and corrupts the numbers it appears to improve.
+  not_owned:
+    "@customer-success:onboarding-lead": "First value, activation milestones, habit criterion, early-life stalls. This model consumes them; it does not define them."
+    "@customer-success:advocacy-lead": "Loyalty instrument, promoters and detractors, references."
+    "@customer-success:voice-lead": "Feedback taxonomy, evidence weighting, signal routing."
+    "@products:jobs-analyst": "Why customers switch, causally."
+    "@data-engineer": "Telemetry implementation for proxied and unmeasured inputs."
+    "@pm / @sm / @po / @dev / @qa": "Epics, stories, backlog, implementation, quality gates."
+    "@devops": "Git push, PRs, MCP, CI/CD — exclusive authority, no exception."

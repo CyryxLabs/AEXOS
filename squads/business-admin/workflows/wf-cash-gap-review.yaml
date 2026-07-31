@@ -1,0 +1,220 @@
+# ============================================================================
+# Workflow: Cash Gap Review
+# Squad: business-admin
+# Version: 1.0.0
+# Purpose: Explain why a reported result and the bank balance disagree, using
+#          the finance, legal-operations and process tasks in sequence.
+# ============================================================================
+
+workflow:
+  id: wf-cash-gap-review
+  name: "Cash Gap Review"
+  version: "1.0.0"
+  type: squad-workflow
+  description: |
+    Chains the squad's financial reading to the commitments and the process
+    that produce it. The profit-to-cash bridge names the gap and its dominant
+    driver; the obligation register records the dated commitments the bridge
+    surfaced; the process map measures the order-to-cash steps behind the
+    working-capital movement. The workflow closes by consolidating every
+    referral into a single licensed-review list.
+
+    It produces a management reading for internal decision-making. It produces
+    no accounting, tax, assurance, legal or employment opinion, and it replaces
+    no accountant, auditor or lawyer.
+
+  trigger: "*cash-gap-review"
+  entry_agent: admin-chief
+  estimated_duration: "3-6 working days, gated by document and record availability"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # PROFESSIONAL LIMIT — read before running, enforced at every checkpoint
+  # ──────────────────────────────────────────────────────────────────────────
+  professional_limit: |
+    Finance, people and legal are regulated areas. No phase of this workflow
+    produces an accounting, tax, statutory, assurance, employment or legal
+    opinion, substitutes for an accountant, auditor or lawyer, or generates
+    anything for a regulator, tax authority, court, lender or external reader.
+    Every output that approaches those areas is an input for a licensed
+    professional to answer, and each phase carries a checkpoint that will not
+    clear until the routing is written down.
+
+    legal-ops does not interpret clauses. people-lead handles no individual
+    case and no personal data. process-lead removes no control and decides no
+    retention or data question. Nothing produced here is privileged.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE
+  # ──────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Intake and regulated-referral gate ────────────────────────
+    - id: phase_0
+      name: "Intake and Regulated-Referral Gate"
+      agent: admin-chief
+      task: triage-administrative-request.md
+      parallel: false
+      creates: triage_record
+      description: |
+        Runs the regulated-referral gate before any content is produced,
+        restates the request in the vocabulary of the discipline that owns it,
+        and names the parts that leave the squad for a licensed professional.
+      outputs:
+        - gate_verdict: "inside | outside | split, with the licensed professional named for every outside part"
+        - referral_questions: "one written, directly answerable question per outward referral"
+        - restatement: "the request in the owning discipline's vocabulary, confirmed by the requester"
+        - triage_record: "versioned markdown file under docs/ with date and named owner"
+      checkpoint:
+        gate: "Request classified against all six referral categories — accountant, tax adviser, auditor, lawyer, qualified HR and employment counsel, control owner — with the licensed-review list at the top of the record, not as a footnote."
+        veto: "If any part of the request is a regulated question, it leaves the squad as a written referral and no later phase answers it, softens it, or routes it to a squad specialist instead. Unclear classification counts as regulated. If the matter is or could become contentious, stop: nothing here is privileged and counsel decides what is written next."
+
+    # ─── PHASE 1: Profit-to-cash reading ────────────────────────────────────
+    - id: phase_1
+      name: "Profit-to-Cash Reading"
+      agent: finance-lead
+      task: build-profit-to-cash-bridge.md
+      depends_on: [phase_0]
+      parallel: false
+      requires: triage_record
+      creates: profit_to_cash_bridge
+      description: |
+        Reconciles the reported result against the movement in cash for the
+        same dates, entity and basis. Every bridge item carries a named source;
+        what cannot be traced stays visible as a residual rather than being
+        smoothed into a neighbouring line.
+      outputs:
+        - bridge_table: "each item with amount, named source and class"
+        - residual: "the unexplained remainder, shown as its own line"
+        - dominant_driver: "largest contributor, classified structural or timing, with its evidence"
+        - closing_actions: "what would close the gap and which role controls it"
+        - financial_brief: "versioned markdown file under docs/ with the boundary notice at the top"
+      checkpoint:
+        gate: "Result and cash movement verified as covering identical dates, entity and basis; every bridge item sourced; the residual shown unabsorbed; the boundary notice at the top of the artefact."
+        veto: "No line may state or imply how an item is recognised, measured, disclosed, classified or taxed. Every such question stops here and goes to a licensed accountant or tax adviser as a written question, and the workflow does not proceed on an assumed treatment. Nothing produced is assurance, audit, certification or external-reliance material."
+
+    # ─── PHASE 2: Committed-date register ───────────────────────────────────
+    - id: phase_2
+      name: "Committed-Date Register"
+      agent: legal-ops
+      task: extract-obligation-register.md
+      depends_on: [phase_1]
+      parallel: true
+      requires: profit_to_cash_bridge
+      creates: obligation_register
+      description: |
+        Records what the executed agreements behind the bridge's dated
+        commitments state — payment milestones, notice periods, renewal
+        mechanics — each with a clause reference, a named owner and a lead time.
+        Recording, never interpreting.
+      outputs:
+        - obligation_register: "one row per administratively visible obligation, with clause reference, owner, lead time and action date"
+        - ambiguous_list: "items whose date or duty depends on interpreting wording, written as questions for counsel"
+        - register_gaps: "amendments, annexes and referenced documents not supplied"
+        - legalops_brief: "versioned markdown file under docs/ with the boundary and privilege notices at the top"
+      checkpoint:
+        gate: "Every entry carries a clause reference; automatic-renewal mechanics flagged prominently; the whole AMBIGUOUS list routed to a qualified lawyer as a written question set at the top of the artefact."
+        veto: "legal-ops interprets no clause and gives no legal advice under any framing — not as a view, not as what usually happens, not as a starting point for counsel to correct. No entry summarises an agreement or calls an obligation onerous, standard, favourable or risky. Nothing here is privileged; if the matter looks contentious the workflow stops and counsel decides what is written next."
+
+    # ─── PHASE 3: Order-to-cash process map ─────────────────────────────────
+    - id: phase_3
+      name: "Order-to-Cash Process Map"
+      agent: process-lead
+      task: map-process-end-to-end.md
+      depends_on: [phase_1]
+      parallel: true
+      requires: profit_to_cash_bridge
+      creates: order_to_cash_map
+      description: |
+        Maps the steps behind the working-capital movement the bridge named —
+        quote to invoice to collection — across every function they cross, with
+        each figure marked by how it was obtained. The map proposes nothing.
+      outputs:
+        - process_map: "every step with performer, system, working time, elapsed time, volume and rework rate"
+        - measurement_marks: "each figure marked OBSERVED, RECORDED or ESTIMATED"
+        - elapsed_vs_working: "total elapsed against total working time, ratio stated prominently"
+        - handoff_points: "every transfer, with what waits and what is lost"
+        - control_inventory_seed: "checks, approvals and reconciliations observed, with named owners"
+      checkpoint:
+        gate: "Elapsed-to-working ratio stated prominently; every figure marked OBSERVED, RECORDED or ESTIMATED; controls inventoried with named owners; the required-review list at the top of the artefact."
+        veto: "No control is removed, weakened or retimed by this analysis — that belongs to the accountant, auditor or counsel who owns it, and segregation-of-duties controls are untouchable entirely. Retention and personal-data questions go to counsel; anything touching roles, headcount or location goes to qualified HR and employment counsel via people-lead. If the real objective is headcount reduction, that is said out loud and the work stops."
+
+    # ─── PHASE 4: Licensed-review routing and close ─────────────────────────
+    - id: phase_4
+      name: "Licensed-Review Routing and Close"
+      agent: admin-chief
+      task: triage-administrative-request.md
+      depends_on: [phase_2, phase_3]
+      parallel: false
+      requires: order_to_cash_map
+      creates: licensed_review_routing
+      description: |
+        Re-runs the regulated gate over everything the three readings produced,
+        consolidates the referrals into one list, and states which findings
+        contradict each other rather than presenting a smoothed conclusion.
+      outputs:
+        - licensed_review_routing: "every open item addressed to a named accountant, tax adviser, auditor, lawyer, qualified HR professional or control owner, as an answerable question with a date"
+        - contradictions: "where the three readings disagree, stated rather than reconciled by preference"
+        - handoff_brief: "what is settled, what is waiting on a licensed answer, and what nobody in this squad may decide"
+      checkpoint:
+        gate: "Every referral raised in phases 0-3 appears once in a consolidated licensed-review list at the top of the closing artefact, each written as a question a named professional can answer directly, each with a date and an owner."
+        veto: "The workflow does not close while any regulated item is unrouted, and no decision in the closing artefact may rest on an answer a licensed professional has not yet given. The artefact contains no epic, PRD, story, implementation plan, test or release action."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    admin_chief_to_finance_lead: |
+      The gate cleared this part as a management reading. Here is the restated
+      request, the decision that depends on it, the deadline, and the referrals
+      already outstanding with a licensed professional. Build the bridge only
+      for the part marked inside; do not answer around a pending referral.
+    finance_lead_to_legal_ops: |
+      The bridge names these dated commitments as drivers of the gap. Register
+      what the executed agreements state about them — dates, notice periods,
+      renewal mechanics — with clause references and owners. The cash
+      consequence is finance's reading; the meaning of any clause is counsel's.
+    finance_lead_to_process_lead: |
+      The bridge attributes this share of the gap to invoicing lag, approval
+      queues or collection handoffs. Map those steps end to end with sourced
+      measurements. Produce the map only; classification and redesign are
+      separate steps and no control moves on this workflow's authority.
+    legal_ops_to_admin_chief: |
+      Register complete, with the AMBIGUOUS list unanswered and addressed to a
+      qualified lawyer, and gaps named where documents were not supplied.
+    process_lead_to_admin_chief: |
+      Map complete with every figure marked, controls inventoried with owners,
+      and the review list assembled. No proposal is attached, by design.
+    admin_chief_to_pm: |
+      The squad's findings are complete and traced. Epic framing belongs to
+      @pm, story drafting to @sm, implementation to @dev, quality gate to @qa,
+      and push to @devops — exclusively. This squad writes none of them. Carry
+      the outstanding licensed-review items forward as preconditions.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # VETO CONDITIONS (workflow-level)
+  # ──────────────────────────────────────────────────────────────────────────
+
+  veto_conditions:
+    - "A regulated question answered, hedged or routed to a squad specialist instead of a licensed professional — routing is not a laundering mechanism"
+    - "Result and cash movement compared across mismatched dates, entities or bases"
+    - "An unsourced figure carried into a conclusion instead of shown as a residual"
+    - "A clause interpreted, characterised or summarised anywhere in the outputs"
+    - "A control removed, weakened or retimed, or a segregation-of-duties control touched"
+    - "A contentious matter written up inside an unprivileged operational record"
+    - "A working-capital release presented as recurring income or run rate"
+    - "Any epic, PRD, story, implementation, test or release action produced by this workflow"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # COMPLETION CRITERIA
+  # ──────────────────────────────────────────────────────────────────────────
+
+  completion_criteria:
+    - "Triage record exists with the six-category gate applied and the licensed-review list at the top"
+    - "Bridge reconciles result to cash for identical dates, entity and basis, with the residual visible"
+    - "Dominant driver named and classified structural or timing, with its evidence"
+    - "Obligation register complete with clause references, owners, lead times and action dates"
+    - "Process map complete with every figure marked and the elapsed-to-working ratio stated"
+    - "One consolidated licensed-review list, every item an answerable question with a named professional and a date"
+    - "Every artefact is a versioned file under docs/ with a date and a named owner, and every statement traces to a source (Constitution Article IV)"

@@ -1,0 +1,337 @@
+# Spend Classification, Effect Windows & Horizon Metrics Reference
+# Squad: marketing
+# Owner agent: demand-lead (Cadence)
+# Last updated: 2026-07-30
+
+version: "1.0.0"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ATTRIBUTION — AND WHY THIS FILE CONTAINS NO NUMBERS
+# ═══════════════════════════════════════════════════════════════════════════════
+attribution:
+  primary:
+    authors: "Les Binet and Peter Field"
+    work: "The Long and the Short of It: Balancing Short and Long-Term Marketing Strategies"
+    publisher: "IPA"
+    year: 2013
+    basis: "Analysis of the IPA Databank of documented marketing effectiveness cases."
+  later_work:
+    - authors: "Les Binet and Peter Field"
+      work: "Media in Focus: Marketing Effectiveness in the Digital Era"
+      publisher: "IPA"
+      year: 2017
+      note: "Named separately. Do not fold its findings into the 2013 report."
+    - authors: "Les Binet and Peter Field"
+      work: "B2B-specific analysis published with the LinkedIn B2B Institute"
+      year: 2019
+      note: >-
+        Named separately, and deliberately without a title asserted here. Where a B2B split
+        prior is quoted, name the specific publication after reading it — not from memory.
+
+  no_numbers_policy:
+    rule: >-
+      This file records MECHANISMS, CLASSIFICATION TESTS AND STRUCTURE. It contains no split
+      ratios, no share-of-voice coefficients, no effect sizes and no payback periods.
+    reason: >-
+      Every such figure in this literature is a category average across a case databank, with
+      real dispersion. Reproduced here as a constant it would be wrong twice: wrong because it
+      is not this business's number, and wrong because a reference file is exactly where a
+      remembered figure acquires false authority and stops being questioned.
+    procedure: >-
+      Read the figure from the named publication, record the section you read, carry the
+      dispersion with it, and mark it UNVERIFIED until that has happened. An UNVERIFIED figure
+      may size an argument; it may not carry a budget decision alone.
+    prohibition: >-
+      Never invent a ratio, a coefficient, a title, a year or a page. A plausible figure with a
+      plausible citation is the single hardest defect to catch, because it passes review by
+      looking correct.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 1. THE TWO MECHANISMS
+# ═══════════════════════════════════════════════════════════════════════════════
+mechanisms:
+
+  brand_building:
+    mechanism: "Builds and refreshes memory structures among all category buyers, raising the level of base demand over time."
+    audience: "Broad — all category buyers, including those not currently in market."
+    effect_onset: "Slow. Accumulates over months and years."
+    effect_decay: "Slow. Persists after spend stops, then erodes."
+    typical_creative: "Broad reach, emotionally engaging, consistently branded."
+    measured_by:
+      - "Base demand level"
+      - "Market share over years"
+      - "Price elasticity and discount depth"
+      - "Brand tracking readings — construct owned by @marketing:brand-lead"
+    failure_mode: "Judged on short-window response metrics, then discontinued as unproven."
+
+  sales_activation:
+    mechanism: "Converts existing demand into purchase now, by reaching buyers currently in market."
+    audience: "Narrow — in-market buyers, often individually addressable."
+    effect_onset: "Fast. Days to weeks."
+    effect_decay: "Fast. Effect largely ends when spend ends."
+    typical_creative: "Specific, rational, offer-led, with a direct response path."
+    measured_by:
+      - "Response volume"
+      - "Cost per acquisition"
+      - "Conversion rate"
+      - "Incremental sales within the window"
+    failure_mode: "Scaled beyond the size of the demand pool, producing rising acquisition cost read as market difficulty."
+
+  relationship: >-
+    Complements, not substitutes. Activation harvests demand that brand building creates.
+    Removing either degrades the other: activation with nothing replenishing the pool shows
+    rising acquisition cost; brand building with no capture leaves demand for a competitor.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 2. CLASSIFICATION TESTS
+# ═══════════════════════════════════════════════════════════════════════════════
+classification:
+  purpose: "Determining whether a spend line is brand building, sales activation, or hybrid."
+  tests:
+    - test: "Audience"
+      question: "All category buyers, or only those currently in market?"
+    - test: "Effect onset"
+      question: "Does the response arrive in days, or accumulate over months?"
+    - test: "Optimisation target"
+      question: "Is it optimised for immediate response, or for reach and memorability?"
+    - test: "Decay"
+      question: "Does the effect end with the spend, or persist after it?"
+  hybrid_rule: "A line that both builds memory and drives immediate response is HYBRID. Split it by judgement and record the judgement."
+  inversion_warning: >-
+    Classify by OPTIMISATION TARGET, not by intent or label. A line called brand building but
+    optimised for click-through behaves as activation regardless of what the plan calls it.
+    This inversion is the most common reason the claimed split and the actual split diverge.
+  scope_note: "Include agency fees, production and channel costs. A split computed on media only is not the plan's split."
+
+  worked_examples:
+    - line: "Broad-reach video, no response mechanism, consistent distinctive assets"
+      class: "BRAND"
+      why: "All category buyers; slow onset; optimised for reach and memorability."
+    - line: "Search on brand terms"
+      class: "ACTIVATION"
+      why: "Harvests demand that already exists and already named us. Its efficiency is largely inherited from whatever created the demand."
+    - line: "Search on generic category terms"
+      class: "ACTIVATION, with a caveat"
+      why: "In-market buyers only. Volume available here is a downstream reading of category demand, not a source of it."
+    - line: "Sponsorship with year-round presence and consistent assets"
+      class: "BRAND"
+      why: "Continuity and broad reach; effect persists after the period."
+    - line: "Trade show stand with lead capture"
+      class: "HYBRID"
+      why: "Reaches in-market buyers with a response path, and builds memory among attendees who are not. Apportion and record the judgement."
+    - line: "Owned editorial and newsletter"
+      class: "HYBRID, usually brand-weighted"
+      why: "Owned distribution compounds and can substitute for paid continuity. Where it does, the trade routes to demand sizing — @marketing:content-lead owns the pipeline."
+    - line: "Retargeting"
+      class: "ACTIVATION"
+      why: "Narrow, in-market, fast decay. Frequently credited with demand it did not create."
+    - line: "Discounting and promotional pricing"
+      class: "ACTIVATION, with a boundary note"
+      why: "Harvests fast and can erode price elasticity over years. Pricing and packaging decisions belong to @products:pricing-strategist; the demand plan records the elasticity consequence, it does not set the price."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 3. SPLIT ADJUSTMENT FACTORS (directions only — no magnitudes)
+# ═══════════════════════════════════════════════════════════════════════════════
+split_adjustments:
+  status: "The split is a decision variable. Every plan has one whether or not anyone decided it."
+  prior_handling: >-
+    Start from the published category prior, read from the publication, marked UNVERIFIED until
+    read. Treat it as a starting prior with dispersion. Adjust for this business with stated
+    reasons. Report a RANGE.
+  factors:
+    - factor: "Purchase cycle length"
+      direction: "Longer cycle → more brand building"
+      reason: "At any moment most future buyers are out of market and reachable only through memory, not through response."
+    - factor: "Share position"
+      direction: "Smaller share, growing → more brand building"
+      reason: "A small share means a small existing demand pool for activation to harvest."
+    - factor: "Customer mix"
+      direction: "Growth from new customers → more brand building"
+      reason: "Activation converts known demand efficiently and creates first-time consideration poorly."
+    - factor: "Business model"
+      direction: "High repeat, contractual, strongly seasonal → relatively more activation"
+      reason: "Renewal and seasonal harvesting genuinely pay back inside a short window."
+    - factor: "Competitor spend behaviour"
+      direction: "Competitors increasing → more brand building to hold share of voice"
+      reason: "Share of voice is relative; flat spend in a rising market is a cut."
+    - factor: "Physical availability constraint"
+      direction: "NOT a split adjustment"
+      reason: "Neither mechanism pays back through a blocked buying path. Fix availability first, with @marketing:brand-lead."
+  magnitude_note: >-
+    Directions are structural and can be stated. MAGNITUDES are this business's judgement and
+    must be labelled JUDGEMENT unless modelled on own data. There is no published table of
+    adjustment sizes, and inventing one would be the same defect as inventing the prior.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 4. SHARE OF VOICE
+# ═══════════════════════════════════════════════════════════════════════════════
+share_of_voice:
+  definition: "This brand's share of category marketing communication, measured on a stated basis."
+  excess_share_of_voice: "Share of voice minus share of market."
+  documented_relationship: "Positive excess share of voice is associated with share growth over time; negative with share decline. [SOURCE: Binet and Field, 2013]"
+  coefficient: "⟨READ FROM PUBLICATION — deliberately not recorded here⟩"
+  coefficient_handling: >-
+    An average across a case databank with wide dispersion by category. Use it to size an
+    argument between options. Never use it to promise an outcome, and never quote it without
+    the dispersion.
+  measurement_basis_warning: "Spend, impressions and reach give different answers. Comparisons are valid only within one basis."
+  relativity_trap: "Share of voice is relative. A flat budget while competitors increase spend is a reduction that nobody recorded as one."
+  what_the_model_cannot_know:
+    - "Creative quality, ours and the competitor's"
+    - "Category shocks"
+    - "Distribution and availability changes"
+    - "That the underlying coefficient varies substantially by category"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 5. EFFECT WINDOWS
+# ═══════════════════════════════════════════════════════════════════════════════
+effect_windows:
+  principle: "Judge an effect over the window in which it occurs. A window shorter than the effect produces a blank, not a zero."
+  shapes:
+    activation: "Fast onset, fast decay. Interpretable within days to one purchase cycle."
+    brand_building: "Slow onset, cumulative, slow decay. Interpretable over multiple quarters to years."
+  window_selection:
+    - situation: "Direct response with immediate conversion"
+      window: "Days to weeks"
+    - situation: "Activation with a considered purchase"
+      window: "Weeks to one purchase cycle"
+    - situation: "Brand building, fast-moving category"
+      window: "Multiple quarters at minimum"
+    - situation: "Brand building, long purchase cycle"
+      window: "Multiple years. Interim readings are tracking readings, not business results"
+  uninterpretable_rule: >-
+    A readout taken inside a window shorter than the effect is reported UNINTERPRETABLE and is
+    never converted into a directional conclusion, not even provisionally.
+  reporting_language:
+    honest: "Effect not measured."
+    dishonest: "No effect."
+  duration_note: >-
+    Specific window lengths for specific effect types are reported in the publications. Read
+    them there. This file states the SHAPE and the RULE, not the number.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 6. METRICS BY HORIZON — AND WHAT EACH DOES NOT PROVE
+# ═══════════════════════════════════════════════════════════════════════════════
+metrics_by_horizon:
+
+  short:
+    window: "Days to weeks"
+    metrics:
+      - metric: "Response volume"
+        proves: "How many people acted inside the window."
+        does_not_prove: "That the action would not have happened anyway. Volume without a control is not incremental volume."
+      - metric: "Cost per acquisition"
+        proves: "What was spent per recorded acquisition, under the current attribution convention."
+        does_not_prove: "Efficiency of the marketing system. It rises when the demand pool shrinks, which is a brand-building signal wearing an activation metric."
+      - metric: "Conversion rate"
+        proves: "Behaviour of the traffic that arrived."
+        does_not_prove: "Anything about the buyers who never arrived — the population growth has to come from."
+      - metric: "Return on ad spend, in-window"
+        proves: "In-window revenue against in-window spend."
+        does_not_prove: "Total return. It excludes every effect with an onset longer than the window by construction."
+    valid_for: "Activation"
+    invalid_for: "Any judgement about brand building"
+
+  medium:
+    window: "Months to several quarters"
+    metrics:
+      - metric: "Base demand level"
+        proves: "The level of demand not attributable to current activity."
+        does_not_prove: "Its cause. Separating base from incremental requires a model — route to @marketing:analytics-lead."
+      - metric: "Share of search or equivalent demand proxy"
+        proves: "Relative expressed demand in a searchable channel."
+        does_not_prove: "Mental availability across the category. It sees only buyers who searched, in the words they searched."
+      - metric: "CEP-linked retrieval from brand tracking"
+        proves: "Retrieval in the specific buying situations prompted."
+        does_not_prove: "Retrieval in situations the tracker does not prompt. Construct owned by @marketing:brand-lead."
+    valid_for: "Early evidence of brand building; leading indicators after a cut"
+
+  long:
+    window: "Years"
+    metrics:
+      - metric: "Market share"
+        proves: "Relative position over time."
+        does_not_prove: "Which activity produced the movement, without a control or a model."
+      - metric: "Price elasticity and discount depth"
+        proves: "How much price movement demand tolerates."
+        does_not_prove: "That marketing alone changed it. Pricing and packaging are @products:pricing-strategist."
+      - metric: "Base vs incremental decomposition"
+        proves: "How much of the business is running without current activity."
+        does_not_prove: "A forecast. Modelled decompositions carry meaningful confidence intervals and must report them."
+    valid_for: "Brand building outcomes and the cumulative cost of short-termism"
+
+  forbidden_comparison: >-
+    Ranking metrics from different horizons in one efficiency table. The short-horizon activity
+    wins by construction, regardless of value produced. This is the arithmetic engine of the
+    efficiency trap, not an incidental reporting habit.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 7. SHORT-TERMISM / THE EFFICIENCY TRAP
+# ═══════════════════════════════════════════════════════════════════════════════
+short_termism:
+  definition: "The systematic drift of budget toward short-window, directly-attributable activity, driven by the measurement asymmetry between the two mechanisms."
+  mechanism: >-
+    Each reallocation is locally rational. Cumulatively they replace demand creation with demand
+    harvesting, shrinking the pool and raising acquisition cost.
+  root_confusion: "Measurability is a property of the instrument. Importance is a property of the effect. Ranking by measured return conflates them and moves budget every cycle."
+  signature_symptoms:
+    - "Share of budget in directly-attributable channels rising over successive cycles"
+    - "Cost per acquisition rising while total demand is flat or falling"
+    - "Brand activities judged on sub-quarter windows"
+    - "Brand spend proposed first whenever a cut is required"
+    - "Leadership reporting composed entirely of short-window metrics"
+    - "Deepening discounts or worsening price elasticity over years"
+  threshold: "Three or more affirmatives indicates the trap. Any test that cannot be answered from available data is recorded as unanswerable, not assumed negative."
+  misreading: "Rising acquisition cost read as 'the market got harder' rather than 'we stopped replenishing demand'."
+  correction:
+    - "Freeze the drift"
+    - "Re-baseline base versus incremental sales"
+    - "Restore brand building over several quarters rather than in one step"
+    - "Change the metrics leadership sees — otherwise the drift reoccurs regardless of any single fix"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 8. CUT IMPACT STRUCTURE
+# ═══════════════════════════════════════════════════════════════════════════════
+cut_impact:
+  framing: "A cut is a trade, never a veto and never free. A business that needs cash may correctly take it."
+  visibility_sequence:
+    weeks: "Activation volume, if activation was cut"
+    months: "Share of voice position; brand tracking readings"
+    quarters_to_years: "Base demand, price elasticity, acquisition cost, share"
+  recovery_asymmetry: >-
+    Rebuilding memory structure costs more and takes longer than maintaining it: decay happens
+    during the gap and competitors occupy the space while it is open.
+  required_in_any_cut_recommendation:
+    - "What improves immediately, in its strongest form"
+    - "What degrades, and when each degradation becomes visible"
+    - "Recovery asymmetry"
+    - "Leading indicators, so the cost becomes visible early enough to act"
+  defect: "Presenting the cut without its second half. The trade may be correct; concealing it is not."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 9. EVIDENCE CLASSES
+# ═══════════════════════════════════════════════════════════════════════════════
+evidence_classes:
+  OWN_DATA: "This business has modelled the effect on its own data. Strongest; use directly."
+  DATABANK_PRIOR: "Published category average from a named source. Use as a starting point; state the dispersion."
+  ANALOGUE: "Evidence from an adjacent category. Weak. Label it; do not build a plan on it alone."
+  JUDGEMENT: "None of the above. Explicitly a hypothesis, and the plan must include the measurement that would replace it."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 10. BOUNDARY
+# ═══════════════════════════════════════════════════════════════════════════════
+boundary:
+  consumed_from:
+    "@marketing:brand-lead": "What brand building must achieve — CEPs, reach, continuity, assets. Sizing does not decide meaning."
+    "@products:positioning-lead": "Category, competitive alternatives, segment."
+  confirmed_by:
+    "@marketing:analytics-lead": "Whether each specified effect can actually be measured, how, and with what residual uncertainty. Never claim measurability without this."
+  handed_to:
+    "@marketing:content-lead": "Where owned editorial can carry continuity more cheaply than paid reach."
+    "@products:pricing-strategist": "Worsening elasticity or deepening discounting — a pricing question, not a demand question."
+    "@pm": "Epic framing where demand work implies product or roadmap change."
+  never_here:
+    - "Implementation — @dev"
+    - "Quality gates — @qa"
+    - "Story creation — @sm; story validation and backlog — @po"
+    - "Git push, PRs, CI/CD — @devops, exclusive authority"

@@ -1,0 +1,272 @@
+# Succession readiness horizons, board modes and evidence discipline
+# Squad: board
+# Owned by: succession-lead (Lineage)
+# Reference knowledge for *mode-check, *succession-audit, *succession-criteria, *bench-review,
+# *candidate-assessment, *internal-vs-external, *emergency-succession, *key-person-map,
+# *transition-plan, *executive-assessment, *board-succession
+
+version: "1.0.0"
+
+professional_limit: |
+  This file is board-oversight reference knowledge. It is NOT legal advice and NOT employment-law
+  advice. Employment law, contract terms, notice, severance, compensation regulation,
+  discrimination, immigration, and any question of what may lawfully be said, recorded or decided
+  about a named individual are OUTSIDE this file entirely and go to qualified counsel before any
+  action is taken.
+
+  Nothing built from this file is a psychological, psychometric or personality assessment, and no
+  agent using it is qualified to produce one. Assessment is AGAINST AGREED CRITERIA, ON OBSERVED
+  EVIDENCE, ONLY — never a characterization of a person.
+
+  Nothing built from this file issues an audit opinion of any kind on any figure used within it.
+  Whether such figures have been challenged is audit-lead's question.
+
+  Every artifact produced from this file is INPUT FOR REVIEW by the directors themselves and by
+  licensed professionals. Every appointment, removal and transition decision is taken by humans, who
+  remain wholly accountable for it. Artifacts built from this file name individuals and their
+  assessed gaps: confirm the circulation list before writing, not after.
+
+# ---------------------------------------------------------------------------
+# PROVENANCE
+# ---------------------------------------------------------------------------
+
+primary_source:
+  title: "Boards That Lead: When to Take Charge, When to Partner, and When to Stay Out of the Way"
+  authors: "Ram Charan, Dennis Carey, Michael Useem"
+  publisher: "Harvard Business Review Press"
+  year: 2013
+  central_argument: "Boards have moved beyond a purely monitoring role. The practical discipline is not more involvement or less, but knowing which of three modes applies to a given matter."
+  what_is_drawn_from_it:
+    - "The three modes: take charge, partner, stay out of the way"
+    - "The shift beyond the monitoring board, and why arriving after the decision is the monitoring board's structural problem"
+    - "The placement of chief-executive succession as a matter the board takes charge of and cannot delegate to the incumbent"
+    - "The board's obligation to grasp and endorse the central idea of the business, from which succession criteria are then derived"
+  honest_qualification: |
+    THIS IS A BOOK ABOUT BOARD LEADERSHIP ACROSS MANY MATTERS, of which succession is one of the
+    most prominent. IT IS NOT A STEP-BY-STEP SUCCESSION MANUAL.
+
+    The detailed mechanics used by this agent — emergency plan structure, readiness horizons,
+    transition sequencing, the bench-of-one rule — are general board practice (DERIVED) or this
+    agent's own CONSTRUCTION, and are marked as such. They are NEVER presented as the authors' text.
+
+supplementary_source:
+  title: "The Leadership Pipeline"
+  authors: "Ram Charan, Stephen Drotter, James Noel"
+  year: 2001
+  used_only_for: "Level-transition reasoning: each move up a leadership pipeline requires a change in skills, in how time is applied, and in what the person values about the work — not simply more of the previous level's work."
+  separation_note: |
+    A DIFFERENT BOOK WITH DIFFERENT CO-AUTHORS from the primary source. Ram Charan appears on both;
+    Carey and Useem are not authors of The Leadership Pipeline, and Drotter and Noel are not authors
+    of Boards That Lead. This agent NEVER merges the two attributions and NEVER cites one for
+    content that belongs to the other.
+
+no_invention_rule: |
+  Never invent a provision, a title, a year or an author. Where the precise wording of either work
+  matters to a decision, read the source. A wrong attribution is worse than no attribution, because
+  it is relied upon exactly as if it had been verified.
+
+# ---------------------------------------------------------------------------
+# THE THREE MODES  [SOURCE: Boards That Lead, 2013]
+# ---------------------------------------------------------------------------
+
+the_three_modes:
+
+  take_charge:
+    definition: "The board leads the matter and owns the decision."
+    applies_to:
+      - "Chief-executive succession"
+      - "Chief-executive assessment"
+      - "The criteria for both"
+      - "The board's own composition and continuity"
+    failure_if_wrong: "Delegating a take-charge matter to management means delegating a decision to the party with the strongest interest in its outcome."
+    standing_rule: "Do not re-derive this each time. Chief-executive succession is always take charge."
+
+  partner:
+    definition: "Management's knowledge and the board's perspective are both required, and the contribution of each is stated."
+    applies_to:
+      - "Strategy formation"
+      - "Executive team structure"
+      - "Leadership development priorities"
+      - "Transition execution after the appointment is made"
+    failure_if_wrong: "Partnering that is not specified decays into one of the other two modes by drift, usually without anyone noticing."
+
+  stay_out_of_the_way:
+    definition: "Management decides; the board does not substitute its judgement."
+    applies_to:
+      - "Operational execution"
+      - "Recruitment and interviewing"
+      - "Individual performance management below the executive team"
+      - "Day-to-day organizational design inside delegation"
+    failure_if_wrong: "A board that takes charge here has absorbed a management function and left nobody to hold accountable for it."
+
+mode_discipline:
+  both_directions_rule: "State the consequence of getting the mode wrong in BOTH directions for the specific matter. Under-involvement and over-involvement both have costs, and naming both prevents the mode decision from becoming a proxy for how assertive the board feels."
+  record_rule: "Record the mode with the matter. Modes drift silently; a written mode can be checked later."
+  honest_current_state_question: "Is the board operating in take-charge mode on this, or has it delegated the process to the incumbent while retaining the appearance of ownership?"
+
+# ---------------------------------------------------------------------------
+# READINESS HORIZONS  [DERIVED — general board discipline, not a provision of either source]
+# ---------------------------------------------------------------------------
+
+readiness_horizons:
+  attribution: "DERIVED — general board discipline. Not a provision of Boards That Lead or of The Leadership Pipeline."
+  rejection_rule: "'Talented' is not a horizon and is not accepted as an answer. Neither is 'high potential' without a horizon attached."
+  levels:
+
+    - horizon: READY_NOW
+      definition: "Meets the criteria against observed evidence and could take the role this quarter."
+      required_evidence: "DELIVERED or OBSERVED evidence against every MUST criterion."
+      board_test: "If the chief executive left tomorrow, would the board appoint this person permanently — not as interim? If the honest answer is no, this is not READY NOW."
+
+    - horizon: READY_1_2
+      definition: "Meets most criteria; the gap is a named experience or level transition with a development action underway."
+      required_fields: ["the specific gap", "the development action", "the owner", "the timescale"]
+      board_test: "Is the development action actually underway, with a named owner, or is it a description of what would help?"
+
+    - horizon: READY_3_PLUS
+      definition: "Strong at the current level; no evidence yet at the next, and the transition has not begun."
+      caution: "Excellence at the current level is the most common cause of a wrongly optimistic horizon. Apply the pipeline check."
+
+    - horizon: NOT_ON_THIS_PATH
+      definition: "Valuable in the current role; the criteria for this one are not the direction of their development."
+      note: "This is not a negative rating. Using it honestly is what keeps the rest of the bench meaningful."
+
+    - horizon: UNVERIFIED
+      definition: "Regarded highly with no observed evidence against criteria."
+      binding_rule: "THIS IS NOT A RATING. It is a statement that the board does not know. Reporting it as a horizon in its own right is what prevents reputation from being laundered into readiness."
+
+  stalled_bench_rule: "Anyone on the bench three or more years without moving is named, with the diagnosis: a development failure, a retention risk, or a rating that was never honest."
+
+# ---------------------------------------------------------------------------
+# EVIDENCE TYPES
+# ---------------------------------------------------------------------------
+
+evidence_types:
+  rule: "Mark the evidence type per criterion, per candidate. The type is as important as the rating."
+  types:
+    - type: DELIVERED
+      means: "They did this, at this scale, with this result."
+    - type: OBSERVED
+      means: "Behaviour seen directly by a board member."
+    - type: REPORTED
+      means: "Someone else's account — usually the incumbent's."
+      caution: "The most common evidence type on an internal bench, and the one most shaped by the person whose successor is being chosen."
+    - type: INFERRED
+      means: "No direct evidence."
+      binding_rule: "Marked as a GAP, not a rating. An inferred strength is an absence of information wearing the costume of a finding."
+
+observation_gap_rule:
+  attribution: CONSTRUCTION
+  rule: "Where the board has never directly observed a candidate, state that as a finding rather than filling it with reported evidence."
+  note: "It is the most common and most correctable weakness in internal succession, and it is closed by exposure to the board over time — not by a longer interview."
+
+# ---------------------------------------------------------------------------
+# CRITERIA DISCIPLINE
+# ---------------------------------------------------------------------------
+
+criteria_discipline:
+  derivation_rule: "START FROM THE STRATEGY. What will this organization be doing in three to five years that it is not doing now? Derive the leadership demands of that future state."
+  source_note: "Deriving criteria from the enterprise's direction rather than from the incumbent follows the primary source's insistence that the board own the central idea of the business and lead on succession. [SOURCE: Boards That Lead, 2013]"
+  form_rule: "Write criteria as CAPABILITIES AND EVIDENCE, not as attributes. 'Has led an organization through a transition from X to Y, evidenced by Z' is a criterion. 'Visionary' is not."
+  prioritization_rule: "Separate MUST from STRONGLY PREFERRED from NICE. A list where everything is essential has not been prioritized and will be applied inconsistently."
+  sequencing_rule: "Criteria are agreed by the board BEFORE any name is discussed, and the date is recorded. Criteria agreed after names are in the room are criteria shaped by the names."
+  review_trigger: "Criteria are re-derived when the STRATEGY changes — not annually by habit."
+  incumbent_contamination_test:
+    attribution: CONSTRUCTION
+    forward: "Read each criterion and ask whether it would be present if the current chief executive were someone else."
+    inverse: "Ask whether the list OMITS anything the incumbent is weak at that the next phase requires."
+    note: "The inverse direction is nearly invisible and usually more consequential. Both are run explicitly, and both answers are written down."
+
+pipeline_check:
+  source: "Charan, Drotter & Noel, The Leadership Pipeline (2001)"
+  question: "What change in skills, in time application, and in what the person values about the work does the next level require — and is the candidate showing any of it yet?"
+  common_failure: "Excellence at the previous level, mistaken for readiness at the next."
+
+# ---------------------------------------------------------------------------
+# EMERGENCY SUCCESSION — exists versus functions
+# ---------------------------------------------------------------------------
+
+emergency_succession:
+  attribution: "DERIVED / CONSTRUCTION. Structure and sequencing are general board practice and this agent's construction, not the text of either source."
+  scenario: "The chief executive is unavailable from tomorrow morning, without notice, for an unknown period."
+  exists_versus_functions_rule: |
+    A PLAN THAT EXISTS IS NOT A PLAN THAT FUNCTIONS. Test each element for function, not for
+    presence. The gap between the two only becomes visible on the morning it matters.
+  function_tests:
+    - element: authority
+      test: "Who holds decision authority in the interval, under WHAT INSTRUMENT? Is that instrument passed?"
+      failure_statement: "If the answer requires a board resolution that has not been passed, the plan DOES NOT CURRENTLY FUNCTION. Pass it now. Coordinate the instrument with governance-counsel."
+    - element: named_interim
+      test: "Would the named person actually be available and willing? Confirmed with them, or assumed from the org chart?"
+    - element: rehearsal
+      test: "Has anyone walked through the first 48 hours? A plan reviewed but never rehearsed is untested."
+    - element: first_48_hours
+      test: "Who is told, in what order, by whom — staff, customers, suppliers, funders, any regulator."
+      note: "Sequence matters more than content, and is almost never written down."
+    - element: interim_mandate
+      test: "What may the interim decide, and what may they not? Is the boundary written?"
+      failure_modes:
+        - "An interim with the FULL mandate becomes a candidate by incumbency."
+        - "An interim with NO mandate cannot operate."
+      note: "Both failures come from leaving the boundary unwritten."
+    - element: candidacy_declaration
+      test: "Is the interim a candidate for the permanent role — yes or no?"
+      binding_rule: "State it explicitly. Ambiguity there distorts everyone's behaviour immediately."
+
+# ---------------------------------------------------------------------------
+# INTERNAL VERSUS EXTERNAL
+# ---------------------------------------------------------------------------
+
+internal_vs_external:
+  framing_rule: "Refuse the framing as a preference. Structure it on four variables and evaluate each."
+  variables:
+    - variable: continuity_value
+      question: "How much of what makes this work is relationship, context and tacit knowledge that leaves with a departure?"
+    - variable: change_mandate
+      question: "How much must be different in the next phase, and can someone who built the current state credibly dismantle parts of it?"
+    - variable: bench_reality
+      question: "Is there an internal candidate READY NOW against the criteria, honestly rated — or is the internal option really a development plan?"
+    - variable: integration_risk
+      question: "How strong is the culture, how dependent is the role on internal relationships, and what is the historical record of external senior hires here?"
+  asymmetry_note: "Internal appointments fail slowly and visibly; external appointments fail fast and expensively. Neither pattern is an argument on its own, and both are usually the whole of the unstated argument in the room."
+  honest_default: "Where the change mandate is high and the bench is not ready against criteria, EXTERNAL is the indicated answer. The correct response to disliking that is to fix the bench years earlier, not to relax the criteria now."
+  output_rule: "Name the variable that decided it, and state what would change the answer."
+  limit: "Search execution, contract terms and compensation structure are outside this agent — management, and qualified counsel for terms."
+
+# ---------------------------------------------------------------------------
+# AGENT CONSTRUCTIONS
+# ---------------------------------------------------------------------------
+
+agent_constructions:
+  note: "This agent's own operational tests. Not provisions of either source and not general practice. Marked CONSTRUCTION wherever used."
+  tests:
+    incumbent_contamination_test: "Read each criterion and ask whether it would be present if the current chief executive were someone else. Then ask the inverse: does the list omit anything the incumbent is weak at that the next phase requires? The second direction is nearly invisible and usually more consequential."
+    bench_of_one_rule: "Where exactly one internal candidate is named for a role, report that there is no internal succession for that role, plus one person who might work out. Applied without exception, because the alternative reads as coverage."
+    three_strand_separation: "Results, capability for the next phase, and conduct are assessed and reported separately, never netted into a single verdict. A strong results strand does not offset a conduct finding, and netting them is how conduct findings disappear."
+    observation_gap_rule: "Where the board has never directly observed a candidate, that gap is stated as a finding rather than filled with reported evidence."
+
+# ---------------------------------------------------------------------------
+# CADENCE
+# ---------------------------------------------------------------------------
+
+cadence_tests:
+  questions:
+    - "When was succession last on the agenda as a DECISION item rather than an update?"
+    - "How many consecutive periods has it been deferred?"
+    - "Has the board discussed what would move any named candidate from ready-in-two-years to ready-now?"
+  development_rule: "If succession is reviewed annually and development never is, the board is reviewing a fact it has chosen not to influence."
+  ranking_rule: "Rank findings by what would hurt most if a departure happened THIS QUARTER — not by ease of remedy."
+
+# ---------------------------------------------------------------------------
+# BOUNDARIES
+# ---------------------------------------------------------------------------
+
+what_this_framework_does_not_cover:
+  - "Employment law, contract terms, notice, severance, compensation regulation, discrimination, immigration — qualified counsel, outside AEXOS"
+  - "Recruitment execution, interviewing, candidate sourcing — management"
+  - "Individual performance management below the executive team — management"
+  - "Psychological or personality assessment of individuals — outside this agent entirely"
+  - "Board composition rules, independence criteria and appointment authority — governance-counsel"
+  - "Enterprise risk framework and appetite — risk-oversight (key-person concentration is NAMED here and OWNED there)"
+  - "Assurance over figures used in assessment — audit-lead"
+  - "Epics and PRD — @pm; stories — @sm; backlog — @po; implementation — @dev; quality gates — @qa; push, PRs, MCP and CI/CD — @devops (exclusive)"

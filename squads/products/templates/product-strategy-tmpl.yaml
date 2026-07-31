@@ -1,0 +1,372 @@
+template:
+  id: product-strategy-template-v1
+  name: Product Strategy
+  version: 1.0
+  squad: products
+  owner: "@product-strategist"
+  output:
+    format: markdown
+    filename: docs/product/strategy/product-strategy-{{cycle}}.md
+    title: "Product Strategy: {{cycle}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+  custom_elicitation:
+    title: "Product Strategy Elicitation Actions"
+    options:
+      - "Strike every insight with no named source and re-read what survives"
+      - "Apply the decision test: which insights would change what we do?"
+      - "Force the focus cut: if only two problems could be funded, which two?"
+      - "Name the good ideas being declined, out loud, to their proposers"
+      - "Ask which risk dominates each chosen problem and who owns it"
+      - "Rewrite each key result until it can be moved but not completed"
+      - "Diagnose the receiving team model from last quarter's observed behaviour"
+      - "State the evidence that would falsify this strategy"
+      - "Trace one shipped item back up to an insight and find where the chain breaks"
+      - "Proceed to next section"
+
+sections:
+  - id: preamble
+    instruction: |
+      This template produces a product strategy across the four activities of the published method:
+      FOCUS, INSIGHTS, ACTION, MANAGEMENT (Marty Cagan and Chris Jones, EMPOWERED, 2020).
+
+      It is authored by @product-strategist (Lodestar) and driven by
+      `squads/products/tasks/draft-product-strategy.md`.
+
+      Two gates run throughout and are not optional:
+      1. SOURCING GATE — every insight cites a data query, customer evidence, a market source or a
+         technology shift. An unsourced insight is deleted, not defended. Constitution Article IV.
+      2. FOCUS GATE — focus is a subtraction. A strategy that pursues eight priorities has none,
+         and the teams will each pick their own. The declined alternatives are named in writing.
+
+      SCOPE BOUNDARY: this template ends at the evidenced problem with its outcome and its risks.
+      It does not produce epics or PRDs (@pm), stories (@sm), implementation (@dev), tests (@qa),
+      or anything that gets pushed (@devops, exclusive).
+
+  - id: metadata
+    title: Strategy Metadata
+    instruction: |
+      How to fill:
+      - `cycle` — the planning period this strategy governs, e.g. "Q3 2026" or "H2 2026"
+      - `business_outcome` — the company objective this strategy serves, stated as a number with a
+        baseline and a target. "Grow revenue" fails. "Net revenue retention 104% to 115%" passes.
+        If the baseline is genuinely unknown, write `baseline: unknown` and name the query that
+        would establish it — do not invent one.
+      - `vision_ref` — path to the vision this strategy descends from, with its horizon
+
+      Bad answers: a cycle with no end; a business outcome that is an aspiration; a vision
+      reference that points to a slide deck rather than a versioned file.
+    template: |
+      - **Cycle:** {{cycle}}
+      - **Business outcome this strategy serves:** {{metric}}: {{baseline}} -> {{target}}
+      - **Vision:** {{path_to_vision}} (horizon {{start_year}}-{{end_year}})
+      - **Author:** @product-strategist (Lodestar)
+      - **Status:** {{draft|reviewed|adopted|superseded}}
+      - **Date:** {{YYYY-MM-DD}}
+      - **Teams in scope:** {{team_list}}
+
+  - id: insights
+    title: Insights
+    instruction: |
+      ACTIVITY 2 of the four (written before focus, because focus is chosen FROM the insights).
+
+      Collect every statement the proposed strategy rests on, across all four classes —
+      quantitative, qualitative, technology, industry — then source each one and strike the rest.
+
+      How to fill the table:
+      - `Stated insight` — the claim as someone actually made it, before you improve it
+      - `Source` — a data query with its date, a discovery snapshot id, a named market source, or a
+        named technology signal. "We know from experience" is not a source.
+      - `Class` — quantitative | qualitative | technology | industry
+      - `Changes what we would do` — the specific decision this insight alters. If nothing changes,
+        it is an observation, not an insight.
+      - `Verdict` — insight | assertion (no source, remove) | trend (sourced but changes nothing)
+
+      THE DECISION TEST: an observation becomes an insight only when it changes what you would do.
+      "Enterprises want more governance" changes nothing — everyone wants governance. "Activation
+      drops at the credentials step, and the teams that drop there do not return" changes where the
+      next cycle goes.
+
+      Bad answers: an insight sourced to "customer feedback" with no snapshot or date; a market
+      claim sourced to unnamed "industry commentary"; a number with no query behind it. Numbers
+      without a query are the most dangerous entry in this table because they survive review.
+
+      REJECTION GATE: rows with verdict `assertion` are deleted from the strategy, not moved to an
+      appendix. Keep them in this table with the verdict visible so the deletion is auditable.
+    template: |
+      | Stated insight | Source (query + date / snapshot id / market source / technology signal) | Class | Changes what we would do | Verdict |
+      |---|---|---|---|---|
+      | {{statement}} | {{source}} | quantitative / qualitative / technology / industry | {{decision_it_alters}} | insight / assertion / trend |
+
+      **Struck for lack of source:** {{count}} of {{total}}
+      **Limitation on evidence access:** {{what_data_was_not_available_and_what_that_weakens}}
+
+  - id: focus
+    title: Focus
+    instruction: |
+      ACTIVITY 1 of the four. Focus is a subtraction, and it is the section most often faked.
+
+      How to fill:
+      - Choose very few problems — the ones the surviving insights say move the business outcome
+        most. AEXOS operating convention: more than three chosen problems in one cycle fails the
+        focus gate in `product-strategy-checklist.md`. That threshold is an AEXOS convention; the
+        published guidance says "very few" without fixing a count.
+      - Each chosen problem states the problem, the named segment, the insight it rests on, and the
+        business outcome it moves
+      - Then write the second table. The declined alternatives are NAMED, in writing, with the
+        reason and the condition for revisiting.
+
+      Bad answers for chosen problems: a solution wearing a problem's clothes ("build a shared
+      workspace" is not a problem); a problem with no segment; a problem resting on a row whose
+      verdict was `assertion`.
+
+      Bad answers for the declined table: leaving it empty; filling it with ideas nobody proposed;
+      "deprioritized" with no revisit condition. An empty declined table means no focus decision was
+      made — a strategy that declines nothing has merely reformatted the backlog.
+    template: |
+      ### Chosen this cycle
+
+      | Chosen problem | Segment | Insight it rests on | Business outcome it moves |
+      |---|---|---|---|
+      | {{problem_in_customer_terms}} | {{named_segment}} | {{insight_row_ref}} | {{metric_and_direction}} |
+
+      ### Declined this cycle — deliberately not funded
+
+      | Declined | The problem it would solve | Why not now | Revisit when |
+      |---|---|---|---|
+      | {{good_idea}} | {{real_problem}} | {{reason}} | {{condition}} |
+
+      **What this focus costs us:** {{stated_explicitly_by_name}}
+
+  - id: risks
+    title: Risks per Chosen Problem
+    instruction: |
+      For each chosen problem, name the dominant product risks, assign exactly one owner per risk,
+      record the current evidence with its date, and sequence the cheapest disconfirming test first.
+
+      How to fill:
+      - Repeat the block once per chosen problem. Do not merge problems into one risk table.
+      - Owner assignment is fixed: product manager owns value and business viability, product
+        designer owns usability, tech lead owns feasibility.
+      - Evidence cells carry a source and a date, or the literal word `none`.
+      - The dominant risk is the one whose negative answer makes the other three irrelevant.
+      - Sequencing rule: cheapest test capable of returning a NO, first. A negative feasibility
+        answer makes the value evidence irrelevant, so the spike runs before the interview round.
+
+      Bad answers: a risk marked "shared" or "the team owns it"; evidence described as "we
+      discussed it"; a test sequence with no stop rule; a problem where all four risks are declared
+      retired with no artifact to point at.
+
+      For a full assessment of a single initiative, use
+      `squads/products/tasks/assess-product-risks.md` and
+      `squads/products/templates/risk-assessment-tmpl.yaml`. This section is the strategy-level
+      summary, not a replacement for it.
+    template: |
+      ### {{chosen_problem}}
+
+      | Risk | Question | Owner | Current evidence (source + date) | Verdict |
+      |---|---|---|---|---|
+      | Value | Will they buy it, or choose to use it? | Product manager | {{evidence_or_none}} | retired / partially evidenced / unaddressed |
+      | Usability | Can they figure out how to use it? | Product designer | {{evidence_or_none}} | retired / partially evidenced / unaddressed |
+      | Feasibility | Can our engineers build it with the time, skills and technology we have? | Tech lead | {{evidence_or_none}} | retired / partially evidenced / unaddressed |
+      | Business viability | Does it work for sales, marketing, finance, legal, privacy, security? | Product manager | {{evidence_or_none}} | retired / partially evidenced / unaddressed |
+
+      **Dominant risk:** {{risk}} — because {{one_sentence_justification}}
+
+      **Test sequence (cheapest disconfirming first):**
+
+      | # | Test | Who runs it | Duration | Stop rule if negative |
+      |---|---|---|---|---|
+
+  - id: action
+    title: Action — Team Objectives
+    instruction: |
+      ACTIVITY 3 of the four. Convert each chosen problem into a team objective with outcome key
+      results.
+
+      How to fill:
+      - Teams PROPOSE their objectives; leadership aligns and negotiates. An objective assigned
+        top-down produces compliance, not ownership. Record who proposed each one.
+      - Every key result is movable, not completable. If it can be marked done, it is a deliverable.
+      - Every key result carries a confidence level, not a promise. A strategy is a portfolio of
+        bets and some are meant to fail cheaply.
+      - Genuine dated obligations — contracts, regulatory deadlines, partner launches — stay as
+        high-integrity commitments and are recorded in the next section, not converted into outcomes.
+
+      Bad answers: "Launch shared workspaces" (completable); "Migrate to the new store"
+      (completable); "Company revenue +20%" for a single team (not team-influenceable, decompose);
+      any key result with an invented baseline.
+
+      For the full objectives artifact, use `squads/products/templates/team-objectives-tmpl.yaml`.
+      This section is the strategy-level view; the objectives file is the working artifact.
+    template: |
+      | Objective (from problem) | Key result (baseline -> target) | Owning team | Proposed by | Confidence |
+      |---|---|---|---|---|
+      | {{objective}} | {{metric}}: {{baseline}} -> {{target}} | {{team}} | {{team_or_leadership}} | high / medium / low |
+
+      **Key results rejected in review, and why:**
+
+      | Rejected key result | Failure mode | Rewritten as |
+      |---|---|---|
+      | {{original}} | completable / output / not team-influenceable / no baseline | {{rewrite}} |
+
+  - id: commitments
+    title: High-Integrity Commitments
+    instruction: |
+      The short list of genuinely dated obligations. This section exists so that real commitments
+      survive the move to outcomes — it is not a place to reinstate the feature roadmap.
+
+      How to fill — a line belongs here only if all four are true:
+      - There is a named external counterparty (contract, regulator, launch partner)
+      - The date is externally fixed, not chosen in a planning meeting
+      - Enough discovery has been done to make the date honest
+      - Missing it has a stated material consequence
+
+      A line that passes the first two but not the third is recorded with status
+      `commitment at risk`, and its feasibility risk routes to @architect immediately.
+
+      Bad answers: "leadership expects it by Q3"; a date with no counterparty; more commitments than
+      chosen problems. If this table is longer than the focus table, the roadmap came back in
+      through the side door.
+    template: |
+      | Commitment | Counterparty | Date | Discovery done | Consequence of missing it | Status |
+      |---|---|---|---|---|---|
+      | {{deliverable}} | {{named_party}} | {{YYYY-MM-DD}} | yes / no | {{material_consequence}} | committed / commitment at risk |
+
+  - id: team-model
+    title: Team Model Check
+    instruction: |
+      Outcome objectives only work when the receiving team can decide the solution. Diagnose from
+      OBSERVED BEHAVIOUR — what the team receives, decides and is measured on — never from the
+      org chart label.
+
+      How to fill:
+      - One row per team receiving an objective from this strategy
+      - If the diagnosis is delivery team or feature team, record the gap here and run
+        `squads/products/checklists/empowered-team-checklist.md` for the full diagnosis
+      - Do not proceed as if the gap were absent. An outcome objective given to a team with no
+        authority over the solution produces reporting overhead and a team accountable for a number
+        it cannot move.
+
+      Bad answers: "empowered" because the org chart says "product team"; a diagnosis based on
+      whether the team runs discovery ceremonies rather than on whether discovery evidence has ever
+      changed a decision.
+    template: |
+      | Team | Receives | Measured on | Owns the solution | Diagnosis | Gap |
+      |---|---|---|---|---|---|
+      | {{team}} | {{specs / prioritized features / problems and outcomes}} | {{output / delivery predictability / outcomes}} | yes / no | delivery team / feature team / empowered product team | {{gap_or_none}} |
+
+  - id: management
+    title: Management
+    instruction: |
+      ACTIVITY 4 of the four, and the one most often reduced to status reporting.
+
+      How to fill:
+      - Transparency — where outcome progress is visible, to whom, and how often. Name the artifact
+        and its path, not a meeting.
+      - Coaching — who coaches which team, on what competency gap
+      - Obstacle removal — the named obstacles currently blocking a team, and who is removing each
+
+      Bad answers: "weekly status review" as the whole section; percentage-complete tracking;
+      coaching listed with no named coach or no named gap; an obstacle log with no owner.
+
+      Management is what makes the strategy real between planning cycles. A strategy whose
+      management section is a meeting invite will be a document nobody reads by week four.
+    template: |
+      **Transparency:** outcome progress is published at {{artifact_path}}, updated {{cadence}},
+      visible to {{audience}}.
+
+      **Coaching:**
+
+      | Team | Coach | Competency gap being closed |
+      |---|---|---|
+
+      **Obstacles being removed:**
+
+      | Obstacle | Blocking which team | Owner of removal | By when |
+      |---|---|---|---|
+
+  - id: revision-condition
+    title: Revision Condition
+    instruction: |
+      State the evidence that would cause this strategy to change. A strategy with no revision
+      condition is unfalsifiable and survives contradicting data indefinitely.
+
+      How to fill:
+      - Name the specific result that would invalidate a chosen problem, per problem
+      - Name the portfolio-level condition that would trigger a re-cut of focus
+      - The strategy loop does not wait for a planning season; it revises when an insight
+        invalidates focus
+
+      Bad answers: "reviewed quarterly" (a schedule is not a condition); "if things change"; "if
+      leadership decides". None of those can be falsified, which is the whole point of the section.
+    template: |
+      | Chosen problem | Would be dropped if | Detected by |
+      |---|---|---|
+      | {{problem}} | {{specific_disconfirming_result}} | {{query, test, or signal}} |
+
+      **Focus would be re-cut if:** {{portfolio_level_condition}}
+
+  - id: traceability
+    title: Traceability
+    instruction: |
+      Record the chain so a reader can walk it in either direction: shipped work traces to an
+      objective, an objective to a problem, a problem to an insight, an insight to evidence, and
+      the whole strategy to the vision.
+
+      How to fill: one row per chain. Any row with a broken link is a finding — record the break
+      rather than smoothing it over. A break upstream invalidates everything downstream of it.
+    template: |
+      | Objective | Problem | Insight | Evidence | Vision link |
+      |---|---|---|---|---|
+      | {{objective}} | {{problem}} | {{insight}} | {{source + date}} | {{vision_section}} |
+
+      **Broken links found:** {{list_or_none}}
+
+  - id: handoff
+    title: Handoff
+    instruction: |
+      Strategy ends where the epic begins. Populate the destinations that apply and leave the rest.
+      Do not add implementation steps to this section under any circumstance.
+    template: |
+      | Destination | Condition |
+      |---|---|
+      | `@discovery-lead` | A chosen problem needs an opportunity solution tree, interview cadence and assumption tests |
+      | `@jobs-analyst` | An insight depends on why customers switch and the causal job must be formalized |
+      | `@positioning-lead` | The strategy implies a category change or the market narrative must follow the bet |
+      | `@pricing-strategist` | A business viability risk is really a willingness-to-pay or packaging question |
+      | `@experimentation-lead` | An outcome key result needs an instrumented measure or a live traffic experiment |
+      | `@architect` | A feasibility risk requires a technical spike or an architecture decision |
+      | `@ux-design-expert` | A usability risk requires prototype fidelity to retire |
+      | `@analyst` | A market or competitive insight needs research beyond the strategy cycle |
+      | `@products-chief` | Specialists conflict, or the decision needs squad-level arbitration |
+      | `@pm` | A chosen problem is evidenced and ready to become an epic and a PRD |
+      | `@po` | The strategy change requires backlog reprioritization and epic context updates |
+      | `@sm` | Only after `@pm` has framed the epic — never straight from strategy to stories |
+      | `@dev`, `@qa` | Not from here — strategy does not implement or test code |
+      | `@devops` | Not from here — git push, PRs, MCP and CI/CD are `@devops` exclusive authority |
+
+  - id: attribution
+    title: Method Attribution
+    instruction: |
+      Keep this section in the generated artifact. Never add a citation that is not listed here, and
+      never attach a number to a published work unless the number is verified at the source.
+    template: |
+      The framework applied here is published work, cited so it can be checked at the source.
+
+      - Marty Cagan and Chris Jones, *EMPOWERED: Ordinary People, Extraordinary Products* (2020) —
+        product strategy as focus, insights, action and management; team objectives proposed by
+        teams and aligned by leadership; empowered product teams versus feature teams.
+      - Marty Cagan, *INSPIRED: How to Create Tech Products Customers Love*, 2nd edition (2018) —
+        the four product risks, discovery versus delivery, the feature-roadmap critique, and
+        high-integrity commitments.
+      - Marty Cagan, *TRANSFORMED: Moving to the Product Operating Model* (2024) — the three
+        dimensions of the product operating model.
+      - John Doerr, *Measure What Matters* (2018) and Christina Wodtke, *Radical Focus* (2016) —
+        objective and key result practice, and confidence levels.
+      - Teresa Torres, *Continuous Discovery Habits* (2021) — the discovery cadence that feeds
+        strategy insight, owned in this squad by @discovery-lead.
+
+      @product-strategist (Lodestar) is a specialist applying these methods.

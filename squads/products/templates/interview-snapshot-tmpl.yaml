@@ -1,0 +1,250 @@
+template:
+  id: interview-snapshot-template-v1
+  name: Interview Snapshot
+  version: 1.0
+  squad: products
+  owner: discovery-lead
+  output:
+    format: markdown
+    filename: docs/product/discovery/snapshots/snapshot-{{nn}}-{{yyyy_mm_dd}}-{{participant_slug}}.md
+    title: "Interview Snapshot {{nn}}: {{participant_slug}}"
+  attribution: |
+    The interview snapshot — one page per interview capturing participant context, the story,
+    the opportunities surfaced and key quotes — and story-based interviewing itself are Teresa
+    Torres's practice, published in "Continuous Discovery Habits: Discover Products that Create
+    Customer Value and Business Value" (2021). Research operations, recruiting and question
+    quality draw on Tomer Sharon, "Validating Product Ideas: Through Lean User Research" (2016).
+    This template applies the published method and attributes it.
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+  custom_elicitation:
+    title: "Interview Snapshot Elicitation Actions"
+    options:
+      - "Re-read the transcript and replace any paraphrase with the participant's own words"
+      - "Check each captured line: is this a recalled story or an opinion invented on the spot?"
+      - "Rebuild the timeline in the order it actually happened, not the order it was told"
+      - "Find the moment the participant gave up or worked around it"
+      - "Extract the need, pain or desire underneath a feature the participant requested"
+      - "Challenge an opportunity that has no quote behind it"
+      - "Note what was NOT asked that should have been, for the next guide"
+      - "Proceed to next section"
+
+sections:
+  - id: preamble
+    instruction: |
+      One interview, one snapshot. Filed before the next touchpoint — a snapshot written a
+      fortnight later is written from memory of a memory.
+
+      This artifact is the unit of provenance for the whole discovery practice. Every opportunity
+      on the opportunity solution tree cites a snapshot id from this file series, and an
+      opportunity that cites none is deleted under Constitution Article IV, No Invention. That
+      makes the id, the date and the quotes load bearing, not administrative.
+
+      Capture the story, not the participant's theory of the story. Opinions are generated on the
+      spot; stories are recalled. Only the recalled specifics carry evidence about actual
+      behaviour.
+
+  - id: header
+    title: Header
+    instruction: |
+      The id is permanent and is what tree branches point at. Never reuse or renumber an id
+      after it has been cited — renumbering silently breaks every provenance reference in the
+      repository.
+
+      Bad answer: a filename with no id, or an id that duplicates an earlier one.
+    template: |
+      **Snapshot id:** {{snapshot_id}}
+      **Date of interview:** {{yyyy_mm_dd}}
+      **Filed on:** {{yyyy_mm_dd}}
+      **Outcome in pursuit of:** {{outcome_statement_with_baseline_and_target}}
+      **Target opportunity at time of interview:** {{opportunity_or_none_exploratory}}
+      **Interviewers present:** {{names_and_roles}}
+      **Trio roles present:** PM yes/no | design yes/no | engineering yes/no
+      **Duration:** {{minutes}}
+      **Recording / consent:** {{consent_status_and_retention_rule}}
+
+  - id: participant
+    title: Participant Context
+    instruction: |
+      Enough context to judge later whether this story generalises, and to spot a skewed sample
+      across the snapshot index. Do not record identifying detail beyond what the consent
+      covers — use the slug, not the name, if that is the agreed rule.
+
+      Record the recruiting source honestly. It is the single strongest source of sample bias:
+      support-queue recruits skew frustrated, in-product-prompt recruits skew towards users who
+      got far enough to see the prompt.
+
+      Bad answers: "a customer"; "power user" with no definition; omitting the recruiting source;
+      omitting that this is the fourth interview with the same advisory-board member.
+    template: |
+      | Field | Value |
+      |---|---|
+      | Participant slug | {{slug}} |
+      | Segment / firmographic | {{segment}} |
+      | Role and what they are accountable for | {{role}} |
+      | Tenure with the product | {{tenure_or_prospect}} |
+      | Relevant behaviour observed in product data | {{behaviour_or_unknown}} |
+      | Recruiting source | {{in_product_prompt / post_transaction / support_queue / sales / advisory_list / other}} |
+      | Known bias this source introduces | {{bias}} |
+      | Screener criteria met | {{criteria}} |
+      | First interview or repeat participant | {{first / repeat — nth}} |
+
+  - id: story
+    title: The Story
+    instruction: |
+      The heart of the snapshot. Reconstruct one specific past episode as a timeline, in the
+      order it happened, with what the participant did and what they were thinking at each step.
+
+      Rules for this section:
+      - Specific episode, not a general pattern. "The last time" and "that Tuesday", not "usually".
+      - Behaviour and context, not evaluation. What they did, what they saw, who else was
+        involved, what they did instead.
+      - Their words. Where you must summarise, mark it as a summary so it is not later quoted as
+        verbatim.
+
+      Bad answers, and why each is a problem:
+      - "The user said the setup flow is confusing." — an opinion, and a paraphrase. It supports
+        any solution and therefore constrains none.
+      - "They generally struggle with credentials." — a generalisation. There is no episode here,
+        so there is nothing to interrogate.
+      - "They want a preview feature." — a solution the participant chose. Record it, but the
+        opportunity is what they were trying to do when they wanted it.
+      - A timeline with no abandonment, workaround or hesitation in it — usually a sign the
+        interview collected a tidy narrative rather than what happened.
+    sections:
+      - id: episode
+        title: Episode
+        instruction: |
+          One line naming the specific episode and when it happened. If you cannot date it even
+          loosely, it is probably not a real episode.
+        template: |
+          **Episode:** {{what_happened}}
+          **When:** {{approximate_date_or_relative_time}}
+          **Trigger:** {{what_set_it_off}}
+      - id: timeline
+        title: Timeline
+        type: table
+        template: |
+          | # | What happened | What they were doing / looking at | What they said they were thinking | Who else was involved |
+          |---|---|---|---|---|
+          | 1 | {{event}} | {{context}} | {{thought}} | {{people}} |
+      - id: friction-points
+        title: Friction, Workarounds and Abandonment
+        instruction: |
+          The points where the episode went wrong are where the opportunities are. Record each
+          one, what they did instead, and what it cost them. "Nothing went wrong" is a valid but
+          rare finding — record it as such rather than inventing friction.
+        type: table
+        template: |
+          | Moment | What went wrong | What they did instead | Cost to them |
+          |---|---|---|---|
+      - id: outcome-of-episode
+        title: How It Ended
+        instruction: |
+          Whether they got what they were after, and what they did next. An episode with no
+          ending is an unfinished interview — note it for the next touchpoint.
+        template: "{{how_it_ended_and_what_they_did_next}}"
+
+  - id: quotes
+    title: Verbatim Quotes
+    instruction: |
+      Exact words, in quotation marks, with the moment in the story they attach to. These are what
+      keep opportunities in the customer's language across successive tree edits, and what a
+      reviewer checks an opportunity against months later.
+
+      Bad answers: cleaned-up quotes; composite quotes assembled from two sentences; quotes with
+      no context so nobody can tell what they were responding to; a quote used to support an
+      opportunity it was not about.
+    type: table
+    template: |
+      | Quote | Attached to (timeline step) | Why it matters |
+      |---|---|---|
+      | "{{exact_words}}" | {{step_number}} | {{significance}} |
+
+  - id: opportunities-surfaced
+    title: Opportunities Surfaced
+    instruction: |
+      Needs, pains and desires extracted from the story by the trio — not reported by the
+      participant. Users cannot tell you what they need, which is why we do not ask; we extract
+      from what happened.
+
+      Each row must trace to a timeline step or a quote in this same snapshot. An opportunity in
+      this table with no anchor above it is an invention, and it will fail the tree's provenance
+      check.
+
+      Bad answers: an opportunity that names a feature ("needs a preview button"); an opportunity
+      written in internal vocabulary ("poor discoverability"); an opportunity so broad that every
+      solution fits under it ("wants better onboarding").
+    type: table
+    template: |
+      | Opportunity (customer's words) | Need / pain / desire | Anchored to | Tree placement | New or reinforces existing |
+      |---|---|---|---|---|
+      | "{{opportunity}}" | {{type}} | step {{n}} / quote {{n}} | {{parent_opportunity_or_new_branch}} | new / reinforces O-{{n}} |
+
+  - id: solutions-mentioned
+    title: Solutions the Participant Mentioned
+    instruction: |
+      Record feature requests separately from opportunities. A feature request is a solution the
+      customer already chose on your behalf — a legitimate signal, but it arrives stripped of the
+      circumstance that produced it.
+
+      For each one, trace back to the opportunity underneath it. Ten requests usually collapse
+      into two opportunities. A row here with an empty "opportunity underneath" column means the
+      trace was not done, and the request will drift onto the tree as if it were evidence.
+    type: table
+    template: |
+      | What they asked for | What they were trying to do | Opportunity underneath it | Anchored to |
+      |---|---|---|---|
+
+  - id: interview-quality
+    title: Interview Quality Self-Check
+    instruction: |
+      Filled in by the interviewer immediately after the call, honestly. This is how the guide
+      improves; a snapshot series where every self-check is clean is a self-check nobody is
+      running.
+
+      Run `squads/products/checklists/interview-quality-checklist.md` against the transcript for
+      the full gate. This section records the short version and what changes in the next guide.
+    template: |
+      | Check | Result |
+      |---|---|
+      | Opinion, prediction or frequency questions asked | {{count}} — {{which}} |
+      | Leading questions asked | {{count}} — {{which}} |
+      | Story obtained | full episode / partial / none — {{note}} |
+      | Participant matched the screener | yes / no — {{note}} |
+      | Snapshot filed before the next touchpoint | yes / no |
+
+      **What to change in the next guide:** {{change}}
+      **What we did not ask and should have:** {{gap}}
+
+  - id: routing
+    title: Routing
+    instruction: |
+      What this snapshot triggers outside the snapshot itself. This squad decides what to build;
+      it does not implement, test code, draft stories, write epics or push. Route those outward
+      and leave the row out entirely when it does not apply — a routing table filled with
+      speculative rows is noise.
+    type: table
+    template: |
+      | Signal in this snapshot | Destination | Condition |
+      |---|---|---|
+      | {{switching or hiring/firing moment}} | @jobs-analyst | The causal job needs formalizing |
+      | {{unexpected category language}} | @positioning-lead | Customer names a category we are not positioned in |
+      | {{willingness-to-pay signal}} | @pricing-strategist | The signal is really about price or packaging |
+      | {{quantification needed}} | @experimentation-lead | The story needs magnitude, not just existence |
+      | {{ethical concern or consent issue}} | @products-chief | A call above the trio |
+      | {{uninfluenceable outcome exposed}} | @product-strategist | Needs decomposition into a portfolio bet |
+      | {{commit and push}} | @devops | Exclusive authority, no exceptions |
+
+  - id: next
+    title: Next
+    instruction: |
+      Every snapshot ends in the next touchpoint. The cadence is the habit; a snapshot that does
+      not lead to another interview is the end of a research project, not a link in a chain.
+    template: |
+      **Next touchpoint:** {{date}}
+      **Recruiting from:** {{channel}}
+      **Attending:** {{trio_members}}
+      **Open question carried forward:** {{question}}

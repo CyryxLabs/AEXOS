@@ -1,0 +1,212 @@
+# Qualification Evidence Standards — MEDDIC Scoring, Verdicts, Triggers, Stalls
+# Squad: sales
+# Referenced by: qualification-lead (Sieve); consumed by pipeline-ops for stage exit criteria
+# Last updated: 2026-07-30
+
+version: "1.0.0"
+
+attribution:
+  discipline: MEDDIC
+  origin: >-
+    Sales qualification discipline that originated inside Parametric Technology Corporation (PTC)
+    and is commonly credited to Dick Dunkel and Jack Napoli, who formalized and taught it there.
+  caveat: >-
+    MEDDIC spread as internal sales practice and through training organizations rather than through
+    a single canonical book by its originators. It is cited here as a named discipline with a
+    documented origin, never quoted as a text. Where practitioner formulations differ, the
+    variation is stated rather than resolved by invention. No sentence, title, year or figure is
+    attributed to any individual on the basis of inference.
+  extensions:
+    MEDDICC: "Adds Competition. Practitioner extension — flagged as an extension wherever used."
+    MEDDPICC: "Adds Paper Process and Competition. Practitioner extension — flagged as an extension wherever used."
+  agent_stance: >-
+    This squad applies the discipline and makes no claim about what Dunkel or Napoli wrote or
+    said.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# EVIDENCE SCALE — the spine of every qualification decision
+# ─────────────────────────────────────────────────────────────────────────────
+
+evidence_scale:
+  scores:
+    - score: 0
+      meaning: "Absent. Nothing on file."
+      example: "No decision process has ever been discussed."
+    - score: 1
+      meaning: "Asserted by the seller. Inference, model or recollection."
+      example: "VP Finance named as budget holder, from an org chart. Never met."
+    - score: 2
+      meaning: "Stated by the buyer verbally, recorded with a date and a named speaker."
+      example: "Controller, 3 Jun: 'Month-end close slipped twice last quarter and my board asked why.'"
+    - score: 3
+      meaning: "Confirmed in writing by the buyer, or evidenced by an artifact the buyer produced."
+      example: "Buyer's own evaluation scoring sheet, shared 18 Jun."
+
+  downgrade_rule: >-
+    The written-confirmation test overrides the recorded score. Ask of every field: if we emailed
+    the buyer today asking them to confirm this in writing, would they? A field that would not
+    survive that email is scored 1, whatever the record says.
+
+  source_quality:
+    buyer_source: ["The buyer's own email or message", "A document the buyer produced", "A verbatim quote with speaker and date", "A calendar record of a meeting with the right person"]
+    seller_source: ["Our call notes summarizing what we concluded", "A value model we built", "A CRM field with no artifact behind it", "The rep's recollection"]
+    note: "A seller source caps the score at 1. This is a label on the input, not a judgement about the rep."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE SIX LETTERS — question, required evidence, good signal, failure mode
+# ─────────────────────────────────────────────────────────────────────────────
+
+letters:
+
+  M_metrics:
+    question: "What quantified economic impact does the buyer expect, in their own numbers?"
+    evidence_required: "A current figure and a target figure, in the buyer's units, stated by the buyer."
+    good_signal: "The buyer repeats the number back in writing and uses it in their own internal materials."
+    failure_mode: "A seller-built value model counted as the buyer's metric. It collapses at the approval step, because nobody inside the buyer will defend a number they did not produce."
+    bridge_question: "We estimate this at around X for an operation your size — does that match what you actually see?"
+
+  E_economic_buyer:
+    question: "Who can release the funds, and what are they personally measured on?"
+    evidence_required: "A conversation with that individual, or a written statement of their own criteria."
+    good_signal: "They state their own success criteria unprompted and correct our understanding of them."
+    failure_mode: "A name from an org chart, with access assumed rather than established."
+    distinction: "Requester can ask. Approver can endorse. Releaser can release the money. Only the releaser is the economic buyer."
+
+  D_decision_criteria:
+    question: "What technical, business and relationship criteria will the buyer actually score against?"
+    evidence_required: "Criteria in the buyer's formulation, with an owner per criterion."
+    good_signal: "The buyer shares an internal evaluation document or scoring sheet."
+    failure_mode: "Criteria we authored, counted as independent buyer evidence."
+    hard_rule: "Any criterion we cannot satisfy is stated plainly. Concealing one is a material omission and a disqualification signal."
+
+  D_decision_process:
+    question: "What steps, approvals, documents and dates lead from today to signature?"
+    evidence_required: "A dated sequence with named owners, including the paper process."
+    good_signal: "The buyer walks the sequence unprompted and names the approval thresholds."
+    failure_mode: "A close date taken from our quarter with no buyer-side sequence behind it."
+    the_question_that_works: "Walk me through what happens between a yes from you and a signed contract — who touches it, and roughly how long does each step take?"
+    why_it_goes_unasked: "The answer is often inconvenient because it moves the close date. Learning that early is cheap; learning it at quarter end is a missed quarter."
+
+  I_identify_pain:
+    question: "What specific consequence is the buyer living with now, and who feels it?"
+    evidence_required: "A dated instance in the buyer's words, with a cost and a named owner."
+    good_signal: "The consequence has already been escalated inside the buyer organization."
+    failure_mode: "Pain the seller can see and the buyer has never named. That is a hypothesis, recorded as one."
+    urgency_test: "What changed recently to make this urgent now? If nothing changed, expect a no-decision outcome and forecast it that way."
+
+  C_champion:
+    question: "Who sells this internally when we are not in the room, and have they been tested?"
+    evidence_required: "Results of the influence, personal benefit and willingness tests, with dates."
+    good_signal: "They have taken a concrete action on our behalf without being chased."
+    failure_mode: "An enthusiastic contact recorded as a champion on the basis of warmth."
+    see_also: "data/champion-signals.yaml"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# VERDICT RULES
+# ─────────────────────────────────────────────────────────────────────────────
+
+verdicts:
+
+  qualified:
+    condition: >-
+      All six letters at score 2 or above, with pain, economic buyer and decision process at 2 or
+      above, and no concealed unmet criterion.
+    output: "Proceed, with any remaining gaps listed and owned."
+
+  qualified_with_gaps:
+    condition: "All letters present, but two or more sit at score 2 where 3 is achievable and material."
+    output: "Proceed while running named verification steps. Forecast confidence capped accordingly."
+
+  not_qualified:
+    condition: "Economic buyer or decision process at score 0 or 1, or pain with no named owner."
+    output: "Do not advance the stage. Run the two highest-yield verification steps first."
+
+  disqualified:
+    condition: "A structural trigger is met (see below)."
+    output: "Formal disqualification with capacity returned and an observable re-entry condition."
+
+  rule: "Do not soften a verdict because the deal is large, old, or well-liked."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DISQUALIFICATION TRIGGERS — structural only
+# ─────────────────────────────────────────────────────────────────────────────
+
+disqualification_triggers:
+  - "No reachable authority who can release funds"
+  - "No consequence to inaction and no trigger event"
+  - "A heavily weighted criterion we cannot satisfy and would have to conceal"
+  - "No process that ends in a signature within any horizon the buyer will state"
+  - "The buyer requires a commitment we cannot make truthfully"
+  - "Repeated failure of the champion tests with no second relationship available"
+
+not_a_trigger:
+  - "The deal is hard"
+  - "The buyer is slow to respond"
+  - "The rep does not enjoy the account"
+  - "The competitor is entrenched"
+  - "The quarter is ending"
+
+mandatory_on_disqualification:
+  - "A structural reason from the trigger list, with its evidence"
+  - "The capacity returned, stated concretely"
+  - "An observable re-entry condition with a date and a named checker"
+  - "An honest close-out message with no guilt and no manufactured last chance"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STALL DIAGNOSTICS — symptom to first check
+# ─────────────────────────────────────────────────────────────────────────────
+
+stall_diagnostics:
+  - symptom: "Prospect goes dark after a strong meeting"
+    likely_cause: "The champion could not sell it internally, or was never a champion"
+    first_check: "champion-test, willingness"
+  - symptom: "Deal slips one quarter, repeatedly"
+    likely_cause: "Close date derived from our calendar, not from the buyer's decision process"
+    first_check: "map-decision-process"
+  - symptom: "Procurement appears late holding all the leverage"
+    likely_cause: "Paper process never mapped; procurement entered without a mandate from the business"
+    first_check: "paper-process"
+  - symptom: "Deal dies at final approval"
+    likely_cause: "Economic buyer never met; the business case was ours rather than theirs"
+    first_check: "find-economic-buyer and quantify-metric"
+  - symptom: "Every conversation returns to price"
+    likely_cause: "Pain unquantified, or criteria never surfaced, so price is the only visible variable"
+    first_check: "identify-pain and map-criteria"
+  - symptom: "Loss to no-decision"
+    likely_cause: "No trigger event — the cost of inaction is lower than the cost of change"
+    first_check: "identify-pain, the what-changed-recently question"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DISTINCTIONS THAT DECIDE ARGUMENTS
+# ─────────────────────────────────────────────────────────────────────────────
+
+distinctions:
+  qualification_vs_discovery: "Discovery learns about the buyer's situation. Qualification determines whether that situation can become a purchase, and what is missing."
+  qualification_vs_forecasting: "Qualification establishes evidence per deal. Forecasting aggregates. A forecast built on unqualified deals is arithmetic on assertions."
+  pain_vs_interest: "Interest is wanting the outcome. Pain is a consequence someone is already absorbing, with a name attached to it."
+  champion_vs_coach: "A coach gives information. A champion spends internal capital. Only one of them changes the outcome."
+  criteria_vs_requirements: "Requirements are what a buyer lists. Criteria are what they actually score against — usually shorter and differently weighted."
+  metric_vs_model: "A number they stated is a metric. A number we computed is a proposal about their business."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ETHICS — non-negotiable, applies to every command in this discipline
+# ─────────────────────────────────────────────────────────────────────────────
+
+ethics:
+  prohibited:
+    - move: "Fabricating urgency, scarcity or consequence to force a qualification answer"
+      why: "It corrupts the answer it obtains and the relationship it obtains it from. If the buyer will not name a decision process, that silence is itself qualification data."
+    - move: "Concealing a criterion we cannot satisfy in order to keep the deal alive"
+      why: "A material omission, not a sales tactic. It converts a lost deal into a churned customer."
+    - move: "Omitting a known limitation, integration gap or element of total cost"
+      why: "A deal that requires the buyer to stay uninformed is deferred churn and belongs in the disqualification path."
+    - move: "Asking a champion to advocate a claim we have not verified"
+      why: "It spends their internal credibility on our risk, and they cannot get it back."
+    - move: "Presenting a MEDDIC score as a number with no per-letter source"
+      why: "False precision that hides exactly the gaps the score exists to expose."
+  entitlements_of_the_buyer:
+    - "To know why a qualification question is being asked"
+    - "To decline to answer it, with the declination recorded as data rather than pressured"
+  boundary:
+    price: "Price level, packaging, value metric and discount policy are @products:pricing-strategist. Never set here."
+    positioning: "Market category, competitive alternatives and narrative are @products:positioning-lead. Never set here."

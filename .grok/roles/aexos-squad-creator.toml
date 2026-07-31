@@ -1,0 +1,6 @@
+# AEXOS aexos-squad-creator — subagent role defaults
+description = "Squad Creator (Arkantos)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aexos-squad-creator.md"

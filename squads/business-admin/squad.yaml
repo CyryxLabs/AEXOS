@@ -1,0 +1,202 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# AEXOS Squad Manifest — Business Administration Squad
+# Conforms to .aexos-core/schemas/squad-schema.json (task-first architecture).
+# components/ is derived from disk by scripts/normalize-squad-manifests.js.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+name: business-admin
+version: 1.0.0
+short-title: Business Administration Squad
+description: >-
+  Squad de administração: finanças, pessoas, jurídico-operacional e processo. A infraestrutura que
+  permite o resto da empresa funcionar.
+author: Cyryx Labs LLC
+license: UNLICENSED
+slashPrefix: business-admin
+tags:
+  - finance
+  - people-ops
+  - legal-ops
+  - process
+  - administration
+  - compliance
+  - aexos
+cyryx:
+  minVersion: 2.1.0
+  type: squad
+components:
+  tasks:
+    - build-profit-to-cash-bridge.md
+    - define-hiring-standard.md
+    - extract-obligation-register.md
+    - map-process-end-to-end.md
+    - triage-administrative-request.md
+  agents:
+    - admin-chief.md
+    - finance-lead.md
+    - legal-ops.md
+    - people-lead.md
+    - process-lead.md
+  workflows:
+    - wf-cash-gap-review.yaml
+    - wf-hiring-standard-design.yaml
+  checklists:
+    - financial-reading-quality-checklist.md
+    - obligation-extraction-checklist.md
+    - people-practice-review-checklist.md
+    - process-redesign-review-checklist.md
+    - regulated-referral-gate-checklist.md
+  templates:
+    - consolidated-administration-brief.md
+    - end-to-end-process-map.md
+    - hiring-standard.md
+    - obligation-register.md
+    - profit-to-cash-bridge.md
+  tools: []
+  scripts: []
+config:
+  extends: extend
+dependencies:
+  node: []
+  squads: []
+squad:
+  name: business-admin
+  display_name: Business Administration Squad
+  version: 1.0.0
+  domain: Business Administration — Finance, People, Legal and Process
+  description: >-
+    Squad de administração: finanças, pessoas, jurídico-operacional e processo. A infraestrutura que
+    permite o resto da empresa funcionar.
+  philosophy: '"Processo existe para remover decisão repetida, não para adicionar etapa."'
+  keywords:
+    - finance
+    - people-ops
+    - legal-ops
+    - process
+    - administration
+    - compliance
+    - aexos
+  entry_agent: admin-chief
+  created_by: squad-creator
+  created_at: '2026-07-30'
+tiers:
+  tier_0:
+    name: Diagnosis & Routing
+    agents:
+      - admin-chief
+    purpose: Triar o pedido, rotear ao especialista, manter coerência
+  tier_1:
+    name: Core Practice
+    agents:
+      - finance-lead
+      - people-lead
+    purpose: Domínios centrais do squad
+  tier_2:
+    name: Applied & Adjacent
+    agents:
+      - legal-ops
+      - process-lead
+    purpose: Domínios de apoio e fronteira
+agents:
+  admin-chief:
+    persona: Steward
+    file: agents/admin-chief.md
+    tier: 0
+    based_on: Original (Orchestrator)
+    icon: 🗝️
+    focus: Triagem, roteamento entre finanças, pessoas, jurídico e processo
+  finance-lead:
+    persona: Abacus
+    file: agents/finance-lead.md
+    tier: 1
+    based_on: Karen Berman & Joe Knight (Financial Intelligence, 2006)
+    icon: 🧮
+    focus: Leitura de demonstrações, fluxo de caixa vs lucro, qualidade do número
+  people-lead:
+    persona: Roster
+    file: agents/people-lead.md
+    tier: 1
+    based_on: Laszlo Bock (Work Rules!, 2015)
+    icon: 🧑‍🤝‍🧑
+    focus: Contratação, avaliação, decisão baseada em dado de pessoas
+  legal-ops:
+    persona: Codex
+    file: agents/legal-ops.md
+    tier: 2
+    based_on: Corporate Legal Operations Consortium (CLOC core competencies)
+    icon: ⚗️
+    focus: Ciclo de contrato, gestão de risco jurídico, quando escalar a advogado
+  process-lead:
+    persona: Sluice
+    file: agents/process-lead.md
+    tier: 2
+    based_on: Michael Hammer & James Champy (Reengineering the Corporation, 1993)
+    icon: 🪜
+    focus: Processo ponta a ponta, eliminação de handoff, automação do repetido
+handoffs:
+  admin-chief:
+    routes_to:
+      - finance-lead
+      - people-lead
+      - legal-ops
+      - process-lead
+  finance-lead:
+    collaborates_with:
+      - people-lead
+      - legal-ops
+      - process-lead
+    escalates_to:
+      - admin-chief
+  people-lead:
+    collaborates_with:
+      - finance-lead
+      - legal-ops
+      - process-lead
+    escalates_to:
+      - admin-chief
+  legal-ops:
+    collaborates_with:
+      - finance-lead
+      - people-lead
+      - process-lead
+    escalates_to:
+      - admin-chief
+  process-lead:
+    collaborates_with:
+      - finance-lead
+      - people-lead
+      - legal-ops
+    escalates_to:
+      - admin-chief
+cross_cutting:
+  aexos_awareness:
+    description: Todos os agentes entendem a arquitetura AEXOS-core
+    context_files:
+      - .claude/CLAUDE.md
+      - .aexos-core/core-config.yaml
+      - .aexos-core/data/entity-registry.yaml
+  core_agent_boundary:
+    description: >-
+      Este squad decide e evidencia dentro do seu domínio. Não implementa, não testa e não publica —
+      isso pertence aos agentes do core.
+    defers_to:
+      '@pm': Épicos, PRD, execução de épico
+      '@po': Validação de story e backlog
+      '@sm': Criação de story (draft) — autoridade exclusiva
+      '@dev': Implementação
+      '@qa': Quality gate
+      '@devops': Release e push (autoridade exclusiva)
+  attribution:
+    description: >-
+      Cada agente declara a obra que fundamenta seu método. Onde o papel se apoia numa disciplina e
+      não numa obra única, isso é dito — atribuição errada é pior que ausência de atribuição.
+    required_field: based_on
+  quality_standards:
+    min_score: 7
+    smoke_tests: 3
+    voice_dna_required: true
+    thinking_dna_required: true
+settings:
+  greeting:
+    level: archetypal
+    show_project_status: true

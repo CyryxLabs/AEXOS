@@ -1,0 +1,277 @@
+# ============================================================================
+# Workflow: Demand Diagnostic
+# Squad: marketing
+# Version: 1.0.0
+# Purpose: Diagnose rising acquisition cost, flat demand and short-horizon drift
+# ----------------------------------------------------------------------------
+# Execution entries live under workflow.sequence (the canonical execution
+# contract read by WorkflowValidator). Each entry keeps the phase shape used
+# across AEXOS squads: id, name, agent, task, depends_on, parallel, outputs,
+# checkpoint{gate, veto}.
+# ============================================================================
+
+workflow:
+  id: wf-demand-diagnostic
+  name: "Demand Diagnostic and Short-Termism Review"
+  version: "1.0.0"
+  type: squad-workflow
+  description: |
+    Reactive diagnostic for an existing marketing operation showing the
+    efficiency-trap signature: acquisition cost rising while demand stays flat,
+    spend drifting toward whatever is most directly attributable, and long
+    effects being judged on short clocks.
+
+    Distinct from wf-marketing-plan, which builds a plan from scratch. This one
+    starts from a symptom and asks three questions in dependency order: is the
+    constraint actually in retrieval, access or reach; is the split stated and
+    does it match what the mechanism requires; and can any of the claims being
+    argued over actually be measured.
+
+    Content is deliberately out of scope here. A beat plan is a build decision,
+    not a diagnostic, and adding it would produce editorial work before the
+    diagnosis it should serve exists.
+
+  trigger: "*balance-check"
+  entry_agent: marketing-chief
+  estimated_duration: "2-4 working sessions, depending on how much spend history and instrumentation already exists"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE
+  # ──────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Triage the symptom ────────────────────────────────────────
+    - id: phase_0
+      name: "Triage the Symptom"
+      agent: marketing-chief
+      task: marketing-chief-diagnose.md
+      parallel: false
+      action: "Record the symptom verbatim, restate it in the owning discipline's terms, and route it to exactly one owner rather than broadcasting it to the squad."
+      creates: symptom-triage
+      description: |
+        Most requests that arrive here are stated as a channel question ("which
+        channel should we double down on") or as a proof question ("can we prove
+        the campaign worked"). Both usually rest on an attribution allocation
+        being read as a causal claim. Beacon restates the symptom before anyone
+        starts costing it.
+      outputs:
+        - verbatim_record: "The symptom as stated, captured before any reframe"
+        - restatement: "The symptom restated in the owning discipline's vocabulary, confirmed aloud"
+        - boundary_verdict: "IN-SQUAD or OUT-OF-SQUAD, with the receiving agent named"
+        - handoff_brief: "Path to the handoff record written under .aexos/handoffs/"
+      checkpoint:
+        gate: "The restatement was confirmed by the requester and the handoff brief exists in the repository"
+        veto: "If the request is a positioning question wearing a marketing costume — contested segment, contested category, contested competitive alternative — it goes to @products:positioning-lead and this workflow stops. If it is a price question, it goes to @products:pricing-strategist."
+
+    # ─── PHASE 1: Is the constraint where everyone assumes? ─────────────────
+    - id: phase_1
+      name: "Binding Constraint Check"
+      agent: brand-lead
+      task: brand-lead-brand-audit.md
+      depends_on: [phase_0]
+      parallel: false
+      requires: symptom-triage
+      action: "Establish the denominator, pull the six readings, apply the double-jeopardy expectation, and name the one binding constraint before anyone reallocates budget against a different one."
+      creates: binding-constraint
+      description: |
+        Runs first because activation sized against the wrong constraint is
+        expensive in a way that takes a year to become visible. If the buying
+        path is leaking, more activation harvests into a leak. If retrieval is
+        the constraint, more activation harvests a pool nothing is replenishing.
+        The double-jeopardy expectation is applied before any loyalty
+        recommendation: where loyalty sits roughly where the pattern predicts
+        for this share, loyalty is not the problem, and saying so plainly
+        prevents money being spent on a number that was never broken.
+      outputs:
+        - denominator: "The category buyer population, with its source named"
+        - binding_constraint: "RETRIEVAL, ACCESS or REACH"
+        - double_jeopardy_verdict: "Whether loyalty sits where the pattern predicts for this share"
+        - instrumentation_gaps: "Readings that must be instrumented before the next audit"
+        - unverified_list: "Every figure that did not trace to a source"
+      checkpoint:
+        gate: "Exactly one binding constraint is named with its evidence, and the UNVERIFIED list is present"
+        veto: "No segmentation claim survives without purchase data behind it; unsupported claims are marked UNSUPPORTED rather than carried. No empirical generalisation is presented as a guaranteed outcome for this brand."
+
+    # ─── PHASE 2: Is the split stated, and is it drifting? ──────────────────
+    - id: phase_2
+      name: "Split and Short-Termism Review"
+      agent: demand-lead
+      task: demand-lead-split-decision.md
+      depends_on: [phase_1]
+      parallel: false
+      requires: binding-constraint
+      action: "Classify every spend line, report the actual split against the claimed one, cross-check each activity against the effect window it is being judged over, and output the recommendation as a range."
+      creates: split-diagnosis
+      description: |
+        A plan with no explicit split has one anyway — set by whatever was
+        easiest to justify in the last budget review. This phase makes it a
+        stated decision variable so it can be argued with rather than inherited.
+
+        The efficiency-trap signature is checked here explicitly: budget drifting
+        toward the most measurable channel across planning cycles while
+        acquisition cost rises and demand stays flat. Short-term measurement is
+        biased toward activation by construction, not by evidence — the mechanism
+        with the fast, attributable, individually-tracked response wins every
+        comparison run inside a short window.
+      outputs:
+        - actual_split: "The split the plan actually has, line by line, before any recommendation"
+        - recommended_split: "A RANGE with a midpoint, never a point estimate"
+        - evidence_class: "DATABANK PRIOR, OWN DATA or JUDGEMENT"
+        - effect_windows: "The window over which each effect occurs, per activity"
+        - uninterpretable_readouts: "Activities being judged over a window shorter than their effect"
+        - unverified_list: "Every ratio or coefficient not yet checked against its publication"
+      checkpoint:
+        gate: "The actual split is reported before the recommendation, and every activity judged over a window shorter than its effect is declared UNINTERPRETABLE rather than converted into a directional conclusion"
+        veto: "No ratio, split percentage or excess-share-of-voice coefficient may be stated from memory. If the publication is not to hand, the prior slot is marked UNVERIFIED and named rather than filled from recollection. Short-window and long-window metrics never share an efficiency ranking."
+
+    # ─── PHASE 3: What can any of this actually support? ────────────────────
+    - id: phase_3
+      name: "Provability Verdict"
+      agent: analytics-lead
+      task: analytics-lead-measurement-model.md
+      depends_on: [phase_2]
+      parallel: false
+      requires: split-diagnosis
+      action: "Rebuild the measurement top down from the objectives established upstream, mark feasibility per metric, and separate allocation from causation in every claim the diagnosis rests on."
+      creates: provability-verdict
+      description: |
+        Closes the diagnostic by stating what the available evidence can and
+        cannot support. Attribution allocates credit; it does not establish
+        cause. Last-click is a reporting convention rather than a finding, and
+        "we do not use a model" always means last-click. Structurally invisible
+        contributors receive zero credit under every click-based model
+        regardless of their real contribution.
+
+        Absence of measurement is not evidence of absence: an effect measured
+        outside its window, or never instrumented, has not been shown to be zero.
+      outputs:
+        - model_table: "Objectives, goals, critical few metrics, targets, segments, horizon and feasibility in one table"
+        - feasibility_marks: "INSTRUMENTED, INSTRUMENTABLE with cost, or NOT FEASIBLE, per metric"
+        - measurement_gaps: "Effects that matter and cannot currently be measured, reported as open gaps"
+        - proxy_escalations: "Metrics standing in for an objective nobody measures directly"
+        - removal_list: "Metrics that change no decision, have no target, or exist only in aggregate"
+      checkpoint:
+        gate: "Every metric carries a target set in advance, a horizon taken from phase_2, and a feasibility mark; every attribution-based number is labelled as allocation rather than as cause"
+        veto: "Any proxy silently standing in for a stated objective escalates to marketing-chief — a substituted objective is a squad-level problem, not a dashboard problem. Commission the real measurement first, run both in parallel for one cycle, retire the proxy last. Retiring the proxy first leaves the objective entirely untracked, which is worse, because a gap that looks like coverage is not visible."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    marketing_chief_to_brand_lead: |
+      Handing the symptom triage to brand-lead. Carrying: the verbatim symptom,
+      the confirmed restatement, the spend history and the evidence already in
+      existence marked PRESENT, PARTIAL or ABSENT. The question is not "is the
+      brand healthy" — it is "which of retrieval, access or reach is actually
+      binding, before anyone reallocates against a different one".
+
+    brand_lead_to_demand_lead: |
+      Handing the binding constraint to demand-lead. Carrying: the constraint,
+      the double-jeopardy verdict, any access friction found on the buying path,
+      and the UNVERIFIED list. If access friction is severe, say so — sizing
+      activation over a leaking buying path is sizing a harvest into a leak.
+
+    demand_lead_to_analytics_lead: |
+      Handing the split diagnosis and the effect windows to analytics-lead.
+      Carrying: which effects must be measured over which horizon, which
+      readouts are already UNINTERPRETABLE because their window was too short,
+      and the evidence class of the recommendation. Feasibility is decided
+      there, not assumed here.
+
+    analytics_lead_to_marketing_chief: |
+      Returning the provability verdict. Carrying: proxy substitutions for
+      squad-level escalation, measurement gaps that leave a stated objective
+      untracked, and an explicit statement of which claims in the diagnosis the
+      current instrumentation cannot support. Beacon names the drift; the
+      specialists cost it.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # FLOW
+  # ──────────────────────────────────────────────────────────────────────────
+
+  flow_diagram: |
+    graph TD
+      D0[phase_0 marketing-chief diagnose] --> D1[phase_1 brand-lead brand-audit]
+      D1 --> D2[phase_2 demand-lead split-decision]
+      D2 --> D3[phase_3 analytics-lead measurement-model]
+
+# ────────────────────────────────────────────────────────────────────────────
+# VETO CONDITIONS (workflow-level)
+# ────────────────────────────────────────────────────────────────────────────
+
+veto_conditions:
+  - "A budget or reallocation decision resting on an attribution allocation presented as a causal claim"
+  - "A published ratio, split or coefficient stated from memory rather than checked against its publication"
+  - "A too-short measurement window converted into a directional conclusion 'for now' — the readout is UNINTERPRETABLE, not negative"
+  - "A proxy retired before the real measurement has run in parallel for one cycle"
+  - "An invented, misattributed or unverifiable citation anywhere in the diagnosis"
+
+# ────────────────────────────────────────────────────────────────────────────
+# BOUNDARY
+# ────────────────────────────────────────────────────────────────────────────
+
+boundary:
+  consumed_not_authored:
+    "@products:positioning-lead": "Market category, competitive alternatives, target segment. Marketing consumes the position; it does not define it."
+    "@products:pricing-strategist": "Price, packaging, willingness to pay. A rising acquisition cost is sometimes a price problem, and it is not solved here."
+  released_at_the_end:
+    "@pm": "Epic framing and PRD, once the diagnosis is evidenced"
+    "@sm": "Story creation (exclusive authority)"
+    "@po": "Story validation and backlog"
+    "@dev": "Implementation, including any instrumentation work the verdict requires"
+    "@qa": "Quality gates"
+    "@devops": "Release, git push, PRs, MCP and CI/CD (exclusive authority)"
+    "@data-engineer": "Schema, pipelines, queries and migrations behind the instrumentation specification"
+  not_in_this_workflow:
+    - "No phase implements anything"
+    - "No phase tests anything"
+    - "No phase publishes or pushes anything"
+    - "No editorial beat plan is produced here — that is a build decision, and it belongs to wf-marketing-plan"
+
+# ────────────────────────────────────────────────────────────────────────────
+# ATTRIBUTION
+# ────────────────────────────────────────────────────────────────────────────
+
+attribution:
+  note: |
+    Each phase declares the work its method rests on, with the caveats that work
+    carries. An unverifiable citation blocks the artifact: attribution defects
+    are critical rather than stylistic, because they make the whole method
+    unauditable.
+  phase_1: |
+    Byron Sharp, How Brands Grow: What Marketers Don't Know (Oxford University
+    Press, 2010), reporting Ehrenberg-Bass Institute research. Later work from
+    the same institute is named separately where used: How Brands Grow Part 2
+    (Romaniuk and Sharp, 2016) and Building Distinctive Brand Assets (Romaniuk,
+    2018). Any numeric value quoted from these sources is marked UNVERIFIED
+    until it has been checked against the publication.
+  phase_2: |
+    Les Binet and Peter Field, The Long and the Short of It (IPA, 2013),
+    analysing the IPA Databank, with their later work — Media in Focus (IPA,
+    2017) and the B2B work published with the LinkedIn B2B Institute (2019) —
+    named separately where it is used. The ratios reported in this literature
+    are category averages across a case databank with wide dispersion, never
+    constants, and this workflow states none of them from memory.
+  phase_3: |
+    Avinash Kaushik, Web Analytics 2.0 (Sybex/Wiley, 2009). The Digital
+    Marketing and Measurement Model and See-Think-Do-Care were published later
+    on his Occam's Razor blog rather than in the 2009 book, and are attributed
+    as later blog work. Geo holdouts, randomised holdout groups and marketing
+    mix modelling are established measurement disciplines with a broad
+    literature rather than Kaushik's frameworks, and his name is not borrowed
+    for them.
+
+# ────────────────────────────────────────────────────────────────────────────
+# COMPLETION CRITERIA
+# ────────────────────────────────────────────────────────────────────────────
+
+completion_criteria:
+  - "Exactly one binding constraint is named, with the evidence that identifies it"
+  - "The actual split is on the table before any recommendation"
+  - "Every activity judged over a window shorter than its effect is declared UNINTERPRETABLE"
+  - "Every attribution-based number is labelled as allocation rather than as cause"
+  - "Every metric carries a target, a horizon and a feasibility mark"
+  - "Proxy substitutions are escalated to marketing-chief, and none is retired before its replacement has run"
+  - "The diagnosis is written to the repository with an owner and a review date"

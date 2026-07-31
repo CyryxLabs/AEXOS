@@ -1,0 +1,329 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# AEXOS Products Squad — Triage Record
+# Owner: @products-chief (Helm)  |  Materializes the output of *diagnose {request}
+#
+# A routing decision that lives only in a chat transcript did not happen. This
+# template is the artifact that makes a routing decision checkable later: what was
+# asked, what it was restated as, who was excluded and why, and what the specialist
+# received.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+template:
+  id: products-triage-record-v1
+  name: Triage Record (Products Squad)
+  version: 1.0
+  owner: products-chief
+  output:
+    format: markdown
+    filename: docs/product/triage/triage-{{slug}}-{{date}}.md
+    title: "Triage: {{slug}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+  elicitation_scope: |
+    Elicitation here is for CAPTURE, not for content. The questions asked are: what did you
+    actually say, what decision does this unblock, what already exists. Never elicit the
+    domain answer — that is the specialist's work and eliciting it here produces an artifact
+    no specialist owns.
+
+  stop_conditions:
+    - id: undefined-decision
+      test: "The requester cannot name the decision the answer must unblock."
+      action: |
+        Record `decision_at_stake: undefined` and STOP. An undefined decision cannot be routed:
+        every specialist would be a defensible choice, which means none of them is. Return the
+        record to the requester with the single question that would unblock it.
+    - id: paraphrased-request
+      test: "Only a summary of the request exists, not the original wording."
+      action: |
+        Ask for the original wording before continuing. The reframe in section 3 is only
+        meaningful against what was actually said; reframing a paraphrase reframes twice.
+    - id: outside-boundary
+      test: "The boundary verdict is Outside."
+      action: |
+        Record the core agent, write the handoff brief, and STOP routing inside the squad.
+        Do not additionally name a squad specialist as a courtesy — two owners is no owner.
+
+sections:
+  # ---------------------------------------------------------------------------
+  - id: instructions
+    instruction: |
+      FILL ORDER MATTERS. Sections 1-3 are capture and must be complete before section 4 is
+      attempted. Naming an owner before the reframe is confirmed produces a confident answer
+      from the wrong discipline, which is the failure this whole record exists to prevent.
+
+      1. Capture (verbatim, requester, decision, deadline, existing artifacts)
+      2. Restate in the owning discipline's vocabulary — show it to the requester
+      3. Reframe — say it out loud and record whether it was confirmed
+      4. Boundary verdict — squad, or a named core agent
+      5. Owner — exactly one, plus every near miss with its exclusion reason
+      6. Short answer — labelled non-defensible
+      7. Sequence — only when several specialists are genuinely required
+      8. Handoff brief — what the specialist must not have to re-elicit
+
+  # ---------------------------------------------------------------------------
+  - id: header
+    title: Record Header
+    instruction: |
+      Identify the record. `existing_artifacts` is not optional metadata: two or more artifacts
+      for the same initiative means the coherence chain is checked before the request is routed,
+      because an upstream break invalidates everything downstream of it.
+    bad_answer: |
+      Leaving `existing_artifacts` empty because nobody mentioned any. Look — a request that
+      arrives with prior artifacts and is routed as if it were greenfield sends a specialist to
+      rewrite work that already exists.
+    template: |
+      **Date:** {{date}}
+      **Requester:** {{requester}}
+      **Deadline:** {{deadline}} | none stated
+      **Initiative:** {{initiative}} | new
+      **Existing artifacts for this initiative:**
+
+      | Artifact | Chain link | Owner | Last revised |
+      |---|---|---|---|
+
+      **Coherence check required before routing:** yes ({{n}} artifacts exist) | no
+
+  # ---------------------------------------------------------------------------
+  - id: request-verbatim
+    title: "1. Request, verbatim"
+    instruction: |
+      The requester's own words, unedited. Keep the hedges, the vagueness and the loaded terms —
+      they carry the assumption that the reframe is about to test. Cleaning up the wording
+      deletes the evidence.
+    bad_answer: |
+      "User wants pricing guidance." That is a routing conclusion wearing the costume of a
+      request. The original sentence is the input; the conclusion belongs in section 2.
+    template: |
+      > {{request_verbatim}}
+
+      **Channel / context:** {{where_it_was_said}}
+
+  # ---------------------------------------------------------------------------
+  - id: requester-and-decision
+    title: "2. Requester and the decision at stake"
+    instruction: |
+      Name who is asking and, precisely, the decision that cannot be made until this is answered.
+      The decision determines the required depth: a reversible, cheap decision may be served by
+      the short answer alone; a decision others will build on must be routed.
+    bad_answer: |
+      "To understand our pricing better." Not a decision. If the requester cannot do better,
+      apply the `undefined-decision` stop condition rather than routing on a guess.
+    template: |
+      **Requester:** {{requester}} ({{role}})
+      **Decision at stake:** {{decision}}
+      **Reversibility:** cheap and reversible | others will build on it
+      **Consequence of the wrong discipline answering:** {{consequence}}
+
+  # ---------------------------------------------------------------------------
+  - id: restatement
+    title: "3. Restated in the owning discipline's vocabulary"
+    instruction: |
+      Rewrite the request in the vocabulary of the discipline that appears to own it. Show the
+      restatement to the requester. Do not proceed on a restatement they have not seen.
+    bad_answer: |
+      A restatement that only substitutes jargon for the requester's words without changing what
+      is being asked. If the restatement is the original sentence in fancier terms, no discipline
+      has been identified yet.
+    template: |
+      **Restated:** {{restatement}}
+      **Vocabulary of:** {{discipline}}
+      **Shown to requester:** yes | no — {{why not}}
+
+  # ---------------------------------------------------------------------------
+  - id: reframe
+    title: "4. Reframe"
+    instruction: |
+      The stated question is frequently not the owned question. Check the request against the
+      reframing table in `squads/products/data/product-squad-routing.yaml` and record the result
+      — including "no reframe needed", which is a legitimate outcome.
+
+      Then state the reframe OUT LOUD to the requester and record whether they confirmed it. A
+      silent reframe answers a question the requester did not ask, and they will take the answer
+      as a response to the one they did ask.
+    bad_answer: |
+      Recording `confirmed: yes` when the reframe was merely mentioned in passing. Confirmation
+      means the requester agreed that the reframed question is the one they need answered.
+    template: |
+      **Reframe applied:** {{reframe}} | none — the stated question is the owned question
+      **Why:** {{why}}
+      **Stated out loud to the requester:** yes | no
+      **Confirmed by the requester:** yes | no — {{their objection}}
+      **If not confirmed:** {{what was routed instead, and on whose call}}
+
+  # ---------------------------------------------------------------------------
+  - id: boundary-verdict
+    title: "5. Boundary verdict"
+    instruction: |
+      Decide whether this is still a product-discipline question. If it has left the product
+      surface, name the core agent and stop routing inside the squad.
+
+      Agent Authority is not negotiable and no triage decision overrides it: git push, PRs, MCP
+      and CI/CD are `@devops` exclusively; story creation is `@sm`; story validation and backlog
+      are `@po`; epic framing and PRD authoring are `@pm`.
+    bad_answer: |
+      "Squad, with @pm involved." A hedged boundary verdict produces two owners and no decision.
+      Pick the side of the line the request is on, and note the follow-on handoff separately in
+      section 9.
+    template: |
+      **Verdict:** SQUAD | OUTSIDE — `@{{core_agent}}`
+      **Reason:** {{reason}}
+
+      **If OUTSIDE:** the request is not routed to any squad specialist. Handoff brief for
+      `@{{core_agent}}`: {{brief}}
+
+      **Agent Authority check:** this record routes nothing that belongs exclusively to another
+      agent. Git push, PRs, MCP and CI/CD → `@devops`. Story creation → `@sm`. Story validation
+      and backlog → `@po`. Epics and PRDs → `@pm`.
+
+  # ---------------------------------------------------------------------------
+  - id: owner
+    title: "6. Owner — exactly one"
+    instruction: |
+      Name one specialist. One. Broadcasting a request to several specialists produces several
+      competent partial answers built on several unstated assumptions, and no decision.
+      Overlapping answers are not corroboration when the inputs differ.
+
+      Valid owners: product-strategist, discovery-lead, jobs-analyst, positioning-lead,
+      pricing-strategist, experimentation-lead.
+    bad_answer: |
+      Two owners "to be safe", or an owner named without checking the near misses' NOT-lists.
+      The NOT-list check is what makes the routing verifiable by someone else later.
+    template: |
+      **Owner:** `@products:{{agent_id}}` ({{persona}})
+      **Why this one:** {{reason, referencing what the specialist covers}}
+      **Activation:** `@products:{{agent_id}}`
+
+  # ---------------------------------------------------------------------------
+  - id: near-misses
+    title: "7. Near misses excluded"
+    instruction: |
+      List the disciplines that were plausible and the reason each was excluded, quoting the
+      relevant NOT-list entry where one applies. Record these even when the exclusion feels
+      obvious — the exclusion reasons are what let a reader check the routing without redoing it,
+      and they are the first thing to revisit if the specialist bounces the request back.
+    bad_answer: |
+      "Others not relevant." That is the whole record's audit trail replaced with an assertion.
+      If a discipline was never plausible, it is not a near miss and does not belong in the table
+      at all.
+    template: |
+      | Discipline | Why it looked like a fit | Why it was excluded |
+      |---|---|---|
+      | `{{agent_id}}` | {{surface_similarity}} | {{exclusion_reason, citing the NOT-list}} |
+
+  # ---------------------------------------------------------------------------
+  - id: short-answer
+    title: "8. Short usable answer (non-defensible)"
+    instruction: |
+      The two-minute version: enough to unblock the requester today, explicitly labelled as the
+      non-defensible version, with a statement of what the specialist adds that this lacks.
+
+      If the request is definitional, navigational or a boundary question, this answer is the
+      whole output — record it, mark the record `no routing required`, and skip sections 9 and 10.
+
+      Never produce a strategy, positioning statement, price, job statement, opportunity tree or
+      experiment design here. That is the specialist's method, and an artifact produced here has
+      no owner.
+    bad_answer: |
+      A confident domain answer with no caveat, or a refusal to answer at all. The first gets
+      taken as the decision; the second wastes the requester's trip. Give the bridge and label it.
+    template: |
+      **Valid until the specialist replies. Not defensible.**
+
+      {{short_answer}}
+
+      **What the specialist adds that this does not have:** {{gap}}
+      **Safe to act on now?** yes, it is cheap and reversible | no — wait for `@products:{{agent_id}}`
+
+  # ---------------------------------------------------------------------------
+  - id: sequence
+    title: "9. Sequence — only if several specialists are genuinely required"
+    instruction: |
+      Fill this ONLY when more than one discipline is genuinely needed. Order by dependency, not
+      by preference — each step consumes the previous step's output:
+
+        segment -> job -> outcome -> solution -> narrative -> price -> measure
+
+      For every step, record the input it needs and what would be wasted if it ran earlier.
+      Positioning built before the job is understood gets rewritten. Pricing set before the
+      segment is fixed gets rewritten. Naming the waste is what stops the sequence from being
+      reordered for convenience later.
+    bad_answer: |
+      A list of specialists with no inputs and no waste column — that is a broadcast with numbers
+      next to it. Also bad: sequencing three specialists when one would do, which spends three
+      cycles to answer one question.
+    template: |
+      **Sequence required:** no — single owner | yes
+
+      | # | Specialist | Input they need | Produces | Wasted if run earlier |
+      |---|---|---|---|---|
+      | 1 | `@products:{{agent_id}}` | {{input}} | {{output}} | {{waste}} |
+
+      **Parallel-safe steps:** none | {{steps}} — {{why they do not depend on each other}}
+
+  # ---------------------------------------------------------------------------
+  - id: handoff-brief
+    title: "10. Handoff brief"
+    instruction: |
+      Written for the receiving specialist, not for the requester. Its job is to make re-eliciting
+      the basics unnecessary. Include the decision at stake, the confirmed reframe, every existing
+      artifact with its path, the open questions, the deadline, and an explicit list of what the
+      specialist must NOT re-elicit.
+      Pass the record path at activation. Do not paraphrase the brief into chat — the record is
+      the handoff.
+    bad_answer: |
+      "See the request above." The specialist then re-elicits everything, which is the cost this
+      record exists to remove. Also bad: a brief that tells the specialist what to conclude —
+      that is the chief doing the specialist's work.
+    template: |
+      **To:** `@products:{{agent_id}}`
+      **Decision they must unblock:** {{decision}}
+      **Confirmed reframe:** {{reframe}}
+      **Deadline:** {{deadline}} | none
+
+      **Context already established (do NOT re-elicit):**
+      - {{fact}} (source: `{{artifact_path}}`)
+
+      **Artifacts to read first:**
+      | Path | Why it matters to this request |
+      |---|---|
+
+      **Open questions for the specialist:**
+      - {{question}}
+
+      **Out of scope for this handoff:** {{what this specialist should not take on, and who owns it}}
+
+  # ---------------------------------------------------------------------------
+  - id: ethical-flags
+    title: "11. Ethical flags"
+    instruction: |
+      Any ethical concern raised during triage, recorded here at the point of routing rather than
+      appended to a later document. If none was raised, say so — silence and absence must be
+      distinguishable.
+    template: |
+      **Raised:** none | {{concern, verbatim, with who raised it}}
+      **Surfaced to:** {{who}} before routing proceeded: yes | no
+
+  # ---------------------------------------------------------------------------
+  - id: attribution
+    title: Method Attribution
+    instruction: |
+      Fixed block, reproduced verbatim. Do not add titles, years, editions or statistics that the
+      specialist agent files do not carry.
+    template: |
+      `@products-chief` (Helm) carries no external product methodology; triage, sequencing and
+      coherence are original AEXOS orchestration routines and are not attributed to any author.
+
+      The published methods live in the specialists this record routes to: Marty Cagan
+      (product-strategist), Teresa Torres (discovery-lead), April Dunford (positioning-lead),
+      Clayton M. Christensen with Taddy Hall, Karen Dillon and David S. Duncan (jobs-analyst),
+      Madhavan Ramanujam and Georg Tacke (pricing-strategist), and Ron Kohavi, Diane Tang and
+      Ya Xu (experimentation-lead).
+
+related:
+  agent: squads/products/agents/products-chief.md
+  squad_manifest: squads/products/squad.yaml
+  task: squads/products/tasks/triage-product-request.md
+  checklist: squads/products/checklists/squad-intake-checklist.md
+  data: squads/products/data/product-squad-routing.yaml

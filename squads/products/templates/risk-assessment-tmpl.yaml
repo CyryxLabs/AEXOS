@@ -1,0 +1,270 @@
+template:
+  id: risk-assessment-template-v1
+  name: Four-Risk Product Assessment
+  version: 1.0
+  squad: products
+  owner: "@product-strategist"
+  output:
+    format: markdown
+    filename: docs/product/risks/risk-{{initiative_slug}}-{{date}}.md
+    title: "Risk Assessment: {{initiative_name}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+  custom_elicitation:
+    title: "Risk Assessment Elicitation Actions"
+    options:
+      - "State the problem this solution claims to solve, for a named segment"
+      - "Ask what evidence exists per risk, and demand a source and a date"
+      - "Name the risk whose NO makes the other three irrelevant"
+      - "Design the cheapest test that could return a NO"
+      - "Ask what we would do if the dominant risk came back negative"
+      - "Challenge every retired verdict: point at the artifact"
+      - "Check whether the evidence is about this segment or a different one"
+      - "Ask who specifically owns each risk, by name, not by role alone"
+      - "Look for the business viability risk nobody mentioned — legal, security, pricing model"
+      - "Proceed to next section"
+
+sections:
+  - id: preamble
+    instruction: |
+      This template records a four-risk assessment of ONE initiative, driven by
+      `squads/products/tasks/assess-product-risks.md`.
+
+      Method: the four product risks — value, usability, feasibility, business viability — their
+      ownership, and the principle that risks are retired in discovery before build, are from
+      Marty Cagan, *INSPIRED*, 2nd edition (2018).
+
+      Two rules govern the whole document:
+      1. EVERY RISK APPEARS. No risk is omitted because it "obviously does not apply". An unnamed
+         risk is not an absent risk — it is a risk discovered later, at full cost.
+      2. EVERY EVIDENCE CELL CARRIES A SOURCE AND A DATE, or the literal word `none`. Blank cells
+         read as "not yet filled in" and quietly become "fine".
+
+      SCOPE BOUNDARY: this assessment routes and sequences. It does not run the tests, and it does
+      not produce epics (@pm), stories (@sm), implementation (@dev) or tests of code (@qa).
+
+  - id: metadata
+    title: Assessment Metadata
+    instruction: |
+      How to fill:
+      - `initiative` — verbatim, as the proposer stated it. Do not improve the wording; the original
+        phrasing is often where the unstated assumption lives.
+      - `segment` — the named customer segment this serves. Not "users".
+      - `outcome` — what would MOVE if this worked, not what would ship.
+      - `descends from` — the chosen problem in the current strategy, if any. `none` is a valid
+        answer and is itself a finding.
+
+      Bad answers: an initiative paraphrased into a theme; `segment: everyone`; an outcome written
+      as a release.
+    template: |
+      - **Initiative (verbatim):** {{initiative}}
+      - **Proposed by:** {{proposer}}
+      - **Decision this must unblock:** {{decision}}
+      - **Target segment:** {{named_segment}}
+      - **Outcome it should move:** {{metric_and_direction}}
+      - **Descends from:** {{chosen_problem_or_"none — not in the current strategy"}}
+      - **Constraints:** {{deadline / contract / regulation / budget, or "none"}}
+      - **Assessor:** @product-strategist (Lodestar)
+      - **Date:** {{YYYY-MM-DD}}
+
+  - id: restatement
+    title: Solution and the Problem It Claims to Solve
+    instruction: |
+      Two lines. If the second cannot be written, stop assessing.
+
+      How to fill:
+      - `Solution proposed` — what would be built, in one sentence
+      - `Problem it claims to solve` — the customer or business problem, in the customer's terms,
+        for the named segment
+
+      REJECTION GATE: an initiative with no statable problem is not assessable — every risk verdict
+      would be an opinion about a preference. Record `verdict: send back` and route to `*strategy`
+      or to @discovery-lead for opportunity mapping.
+
+      Bad answers: restating the solution as the problem ("the problem is that we don't have shared
+      workspaces"); a problem that belongs to the company rather than the customer, with no
+      customer-side statement at all.
+    template: |
+      **Solution proposed:** {{what_would_be_built}}
+
+      **Problem it claims to solve:** {{customer_or_business_problem_for_the_named_segment}}
+
+      **Who says so:** {{source_of_the_problem_statement + date, or "nobody — see verdict"}}
+
+  - id: four-risks
+    title: The Four Risks
+    instruction: |
+      Fill every cell. An empty cell is a finding, not an omission to tidy up.
+
+      OWNERSHIP IS FIXED — do not reassign it for local convenience:
+      - Value — product manager
+      - Usability — product designer
+      - Feasibility — tech lead
+      - Business viability — product manager
+
+      Name the actual person where staffing is known; the role alone is the fallback, not the
+      target. Shared accountability with unnamed owners means nobody addressed the risk.
+
+      EVIDENCE COLUMN: source and date, or `none`. Examples of acceptable sources per risk —
+      - Value: customer interviews and stories, demand tests, prior behaviour data
+      - Usability: prototype tests, unmoderated tasks, observed first-run behaviour
+      - Feasibility: technical spike, feasibility prototype, architecture review
+      - Business viability: stakeholder reviews, model impact analysis, legal and security read
+
+      VERDICT VOCABULARY — use these four and nothing else:
+      - `retired` — evidence exists, is named and dated, and answers the question FOR THIS SEGMENT
+      - `partially evidenced` — evidence is indirect, stale, or about a different segment
+      - `unaddressed` — no evidence
+      - `unaddressed, likely dominant` — no evidence, and a NO here makes the rest irrelevant
+
+      Bad answers: "we're confident on value" (no source); evidence reused from a previous cycle for
+      a different segment and marked retired; a business viability row left blank because "legal
+      never blocks anything".
+    template: |
+      | Risk | Question | Owner | Current evidence (source + date, or none) | Would be retired by | Verdict |
+      |---|---|---|---|---|---|
+      | Value | Will they buy it, or choose to use it? | {{PM name}} (product manager) | {{evidence_or_none}} | {{specific_evidence_that_would_close_it}} | {{verdict}} |
+      | Usability | Can they figure out how to use it? | {{designer name}} (product designer) | {{evidence_or_none}} | {{specific_evidence_that_would_close_it}} | {{verdict}} |
+      | Feasibility | Can our engineers build it with the time, skills and technology we have? | {{tech lead name}} (tech lead) | {{evidence_or_none}} | {{specific_evidence_that_would_close_it}} | {{verdict}} |
+      | Business viability | Does it work for sales, marketing, finance, legal, privacy, security? | {{PM name}} (product manager) | {{evidence_or_none}} | {{specific_evidence_that_would_close_it}} | {{verdict}} |
+
+  - id: dominant-risk
+    title: Dominant Risk
+    instruction: |
+      Exactly one, with a one-sentence justification. The dominant risk is the one whose negative
+      answer makes the evidence on the other three worthless.
+
+      Heuristic for choosing it:
+      - The mechanism has never been built on the current architecture -> feasibility
+      - The behaviour has never been observed anywhere, only requested -> value
+      - There is a genuinely hard state to resolve (conflict, merge, permission) -> usability
+      - It touches pricing model, contractual terms, audit trail, data residency or regulated data
+        -> business viability
+      - Two candidates tie -> pick the cheaper disconfirming test, and record the tie
+
+      If the justification cannot be written without speculating, say so. "Dominant risk not yet
+      known" is an honest answer and leads to running the two cheapest tests in parallel; a
+      confidently wrong rank order leads to spending the expensive test first.
+
+      Bad answers: naming two dominant risks to avoid choosing; naming the risk that is most
+      comfortable to test; a justification that restates the risk instead of explaining the
+      dependency.
+    template: |
+      **Dominant risk:** {{value | usability | feasibility | business viability | not yet known}}
+
+      **Why it dominates:** {{one_sentence_dependency_argument}}
+
+      **If it comes back negative, we:** {{stop | re-scope to {{X}} | proceed with {{condition}}}}
+
+  - id: test-sequence
+    title: Test Sequence — Cheapest Disconfirming First
+    instruction: |
+      The sequencing rule: address the dominant risk first, with the cheapest test capable of
+      DISCONFIRMING it. A negative feasibility answer makes the value evidence irrelevant, so the
+      spike runs before the interview round, not after it.
+
+      "Cheapest disconfirming" means the cheapest test that could return a NO. A test that can only
+      return encouragement is a demonstration, not a test.
+
+      How to fill:
+      - Order by dependency, not by who is available
+      - Every row names who runs it, a duration, and a STOP RULE
+      - The stop rule states what happens on a negative result: stop the initiative, re-scope, or
+        continue under a named condition
+
+      Bad answers: a sequence with no stop rules (that is a plan to run every test regardless of
+      outcome, which is the opposite of retiring risk cheaply); a first test that is the most
+      expensive one because it was already scheduled; a "test" that is a stakeholder presentation.
+    template: |
+      | # | Risk | Test | Who runs it | Duration | What a NO means | Stop rule |
+      |---|---|---|---|---|---|---|
+      | 1 | {{dominant}} | {{test}} | {{agent_or_role}} | {{days}} | {{consequence}} | {{stop / re-scope / continue with condition}} |
+
+      **Tests running in parallel (only when the dominant risk is not yet known):** {{list_or_none}}
+
+  - id: routing
+    title: Routing
+    instruction: |
+      Each risk that is not `retired` gets an owner AND a destination. The owner is accountable; the
+      destination does the work. Routing is not delegation of the decision — the assessment stays
+      owned by @product-strategist until every risk is retired or explicitly accepted with a named
+      accepting party.
+
+      How to fill: use the destination that matches the actual question, not the nearest agent.
+      Include the input the destination needs, so it does not re-elicit context that is already here.
+
+      Bad answers: routing everything to @discovery-lead; routing a feasibility question to a
+      designer; routing anything to @sm, @dev, @qa or @devops from this document.
+    template: |
+      | Risk | Destination | Input the destination needs | Accepted-without-evidence by |
+      |---|---|---|---|
+      | Value | `@discovery-lead` (opportunity mapping, assumption tests) or `@jobs-analyst` (why they switch) | {{segment, outcome, the assumption to test}} | {{name or "not accepted"}} |
+      | Usability | `@ux-design-expert` (prototype fidelity), `@discovery-lead` (test protocol) | {{the hard state, the unassisted task}} | {{name or "not accepted"}} |
+      | Feasibility | `@architect` (spike or architecture decision) | {{the mechanism, the constraint, the time box}} | {{name or "not accepted"}} |
+      | Business viability | `@pricing-strategist` (willingness to pay, packaging), `@positioning-lead` (category, narrative), or the PM with finance, legal, security | {{the model or policy that would change}} | {{name or "not accepted"}} |
+      | Outcome measurement | `@experimentation-lead` | {{metric, guardrails, population}} | {{name or "not accepted"}} |
+
+  - id: verdict
+    title: Verdict
+    instruction: |
+      One of three, recorded explicitly. `proceed` is not a decision to build — it is a decision
+      that the initiative may go to @pm for epic framing or to @discovery-lead for solution work.
+      Strategy ends where the epic begins.
+
+      How to fill:
+      - `proceed` — all four risks retired or explicitly accepted, with the accepting party named
+      - `hold pending {test}` — at least one risk unaddressed; the sequence above is the condition
+        for revisiting, with a date to revisit
+      - `send back` — no stated problem, no named segment, or classifiable against none of the four
+        risks
+
+      Bad answers: "proceed with caution"; "conditional go" with no named condition; a verdict of
+      proceed where two evidence cells read `none`.
+    template: |
+      **Verdict:** {{proceed | hold pending {{test}} | send back}}
+
+      **Reason:** {{one_paragraph}}
+
+      **Revisit on:** {{YYYY-MM-DD or the result that triggers revisit}}
+
+      **Risks accepted without evidence:** {{list_with_the_named_accepting_party, or "none"}}
+
+  - id: handoff
+    title: Handoff
+    instruction: |
+      Populate only the destinations that apply. Never add implementation steps to this section.
+    template: |
+      | Destination | Condition |
+      |---|---|
+      | `@discovery-lead` | Value or usability risk needs opportunity mapping, assumption tests or prototype testing |
+      | `@jobs-analyst` | The value risk turns on why customers switch and the causal job must be formalized |
+      | `@ux-design-expert` | The usability risk requires prototype fidelity to retire |
+      | `@architect` | The feasibility risk requires a technical spike or an architecture decision |
+      | `@pricing-strategist` | The business viability risk is a willingness-to-pay or packaging question |
+      | `@positioning-lead` | The business viability risk is a category or market-narrative question |
+      | `@experimentation-lead` | The outcome needs an instrumented measure or a live traffic experiment |
+      | `@products-chief` | Specialists conflict, or the verdict needs squad-level arbitration |
+      | `@pm` | Verdict is `proceed` and the problem is ready for epic framing and a PRD |
+      | `@po` | The verdict changes priorities and the backlog needs updating |
+      | `@sm` | Never directly from here — stories are drafted only after `@pm` frames the epic |
+      | `@dev`, `@qa` | Never from here — this assessment does not implement or test code |
+      | `@devops` | Never from here — git push, PRs, MCP and CI/CD are `@devops` exclusive authority |
+
+  - id: attribution
+    title: Method Attribution
+    instruction: |
+      Keep this section in the generated artifact. Never add a citation that is not listed here, and
+      never attach a number to a published work unless the number is verified at the source.
+    template: |
+      - Marty Cagan, *INSPIRED: How to Create Tech Products Customers Love*, 2nd edition (2018) —
+        the four product risks, their ownership by product manager, product designer and tech lead,
+        and risk retirement in discovery rather than at the end of delivery.
+      - Marty Cagan and Chris Jones, *EMPOWERED: Ordinary People, Extraordinary Products* (2020) —
+        the empowered product team as the unit that owns the risks, and the trio staffing that makes
+        that ownership real.
+      - Marty Cagan, *TRANSFORMED: Moving to the Product Operating Model* (2024) — risk retirement as
+        the "how you solve" dimension of the product operating model.
+
+      @product-strategist (Lodestar) is a specialist applying these methods.

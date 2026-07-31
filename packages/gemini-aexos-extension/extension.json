@@ -1,0 +1,147 @@
+{
+  "$schema": "https://geminicli.com/schemas/extension.json",
+  "name": "aexos",
+  "displayName": "AEXOS (Cyryx)",
+  "version": "1.0.0",
+  "description": "Multi-agent orchestration system for CLI-first development. Brings AEXOS agents, hooks, and workflows to Gemini CLI.",
+  "author": "Cyryx Labs LLC",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CyryxLabs/AEXOS"
+  },
+  "engines": {
+    "gemini-cli": ">=0.26.0"
+  },
+  "capabilities": {
+    "hooks": true,
+    "skills": true,
+    "commands": true,
+    "mcp": false
+  },
+  "activation": {
+    "onStartup": true,
+    "conditions": [
+      {
+        "type": "fileExists",
+        "path": ".aexos-core"
+      }
+    ]
+  },
+  "commands": [
+    {
+      "name": "aexos-status",
+      "description": "Show AEXOS system status and provider info",
+      "script": "commands/aexos-status.js"
+    },
+    {
+      "name": "aexos-agents",
+      "description": "List available AEXOS agents",
+      "script": "commands/aexos-agents.js"
+    },
+    {
+      "name": "aexos-validate",
+      "description": "Validate AEXOS installation and skills",
+      "script": "commands/aexos-validate.js"
+    },
+    {
+      "name": "aexos-menu",
+      "description": "Show AEXOS quick agent menu for Gemini",
+      "script": "commands/aexos-menu.js"
+    },
+    {
+      "name": "aexos-agent",
+      "description": "Prepare activation prompt for a specific AEXOS agent (/aexos-agent <id>)",
+      "script": "commands/aexos-agent.js"
+    },
+    {
+      "name": "aexos-master",
+      "description": "Quick launch aexos-master agent",
+      "script": "commands/aexos-master.js"
+    },
+    {
+      "name": "aexos-analyst",
+      "description": "Quick launch analyst agent",
+      "script": "commands/aexos-analyst.js"
+    },
+    {
+      "name": "aexos-architect",
+      "description": "Quick launch architect agent",
+      "script": "commands/aexos-architect.js"
+    },
+    {
+      "name": "aexos-data-engineer",
+      "description": "Quick launch data-engineer agent",
+      "script": "commands/aexos-data-engineer.js"
+    },
+    {
+      "name": "aexos-dev",
+      "description": "Quick launch dev agent",
+      "script": "commands/aexos-dev.js"
+    },
+    {
+      "name": "aexos-devops",
+      "description": "Quick launch devops agent",
+      "script": "commands/aexos-devops.js"
+    },
+    {
+      "name": "aexos-pm",
+      "description": "Quick launch pm agent",
+      "script": "commands/aexos-pm.js"
+    },
+    {
+      "name": "aexos-po",
+      "description": "Quick launch po agent",
+      "script": "commands/aexos-po.js"
+    },
+    {
+      "name": "aexos-qa",
+      "description": "Quick launch qa agent",
+      "script": "commands/aexos-qa.js"
+    },
+    {
+      "name": "aexos-sm",
+      "description": "Quick launch sm agent",
+      "script": "commands/aexos-sm.js"
+    },
+    {
+      "name": "aexos-squad-creator",
+      "description": "Quick launch squad-creator agent",
+      "script": "commands/aexos-squad-creator.js"
+    },
+    {
+      "name": "aexos-ux-design-expert",
+      "description": "Quick launch ux-design-expert agent",
+      "script": "commands/aexos-ux-design-expert.js"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dev",
+      "path": "skills/dev.md",
+      "description": "Developer agent - code implementation"
+    },
+    {
+      "name": "architect",
+      "path": "skills/architect.md",
+      "description": "Architect agent - system design"
+    },
+    {
+      "name": "qa",
+      "path": "skills/qa.md",
+      "description": "QA agent - testing and quality"
+    }
+  ],
+  "hooks": {
+    "configPath": "hooks/hooks.json"
+  },
+  "keywords": [
+    "cyryx",
+    "agents",
+    "orchestration",
+    "development",
+    "ai",
+    "claude",
+    "multi-agent"
+  ]
+}

@@ -1,0 +1,6 @@
+# AEXOS aexos-master — subagent role defaults
+description = "AEXOS Master Orchestrator & Framework Developer (Zeus)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aexos-master.md"

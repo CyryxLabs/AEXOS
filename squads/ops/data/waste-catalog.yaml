@@ -1,0 +1,231 @@
+# Waste Catalogue — categories, observable signals, and their countermeasures
+# Squad: ops · Owner: @ops:lean-lead (Kaizen)
+# Reference knowledge. Not executable.
+#
+# ATTRIBUTION
+#   The Toyota Production System — the two pillars (just-in-time and jidoka), the
+#   categories of waste, overproduction as the fundamental waste, and the five-why
+#   practice — is documented by Taiichi Ohno in "Toyota Production System: Beyond
+#   Large-Scale Production", published in Japanese in 1978 and in English translation
+#   in 1988. Applied with attribution. The persona name Kaizen refers to the practice of
+#   continuous improvement, not to any author.
+#
+#   Entries marked `tradition: true` belong to the BROADER LEAN TRADITION rather than to
+#   Ohno's book — value stream mapping notation, the muda/mura/muri triad as commonly
+#   taught, later lean-software adaptations, and the position that improvement requires
+#   a written standard. They are labelled as tradition and are NOT attributed to Ohno.
+#
+# BOUNDARY — @devops
+#   Naming a waste is method. Removing it may or may not be this squad's to do, and
+#   usually is not. Every countermeasure that halts, blocks, gates, configures, releases
+#   or deploys is executed by @devops, exclusively — including a stop rule this squad
+#   authored. Implementation is @dev. Verification changes are @qa.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# The two pillars
+# ---------------------------------------------------------------------------
+pillars:
+  just_in_time:
+    definition: "Make only what is needed, when it is needed, in the amount needed."
+    in_this_domain: "Build against confirmed need. Keep unreleased work small. Defer decisions until
+      they can be informed."
+    failure_mode: "Producing ahead of demand and calling the resulting inventory progress."
+  jidoka:
+    definition: "Automation with a human touch — a process that stops itself when something is wrong
+      rather than continuing to produce defects."
+    in_this_domain: "Detection that halts the work at the moment of the fault, while the cause is
+      still visible."
+    failure_mode: "Detecting a fault and continuing, converting one defect into a batch of them."
+    authority_note: "Authoring the stop rule is @ops:lean-lead. Executing the halt — blocking a
+      merge, holding a pipeline, gating a release — is @devops, exclusively. Never confuse the rule
+      with the switch."
+
+# ---------------------------------------------------------------------------
+# The categories, with what each looks like where it can actually be seen
+# ---------------------------------------------------------------------------
+wastes:
+
+  - name: Overproduction
+    rank: "Attacked first"
+    definition: "Producing more than is needed, or earlier than it is needed."
+    why_first: "It conceals every other waste behind apparent productivity: work produced ahead of
+      need creates inventory, handling, storage and rework, and looks like output the whole time.
+      [SOURCE: Ohno.]"
+    observable_signals:
+      - "Features shipped whose usage telemetry stays flat after launch"
+      - "Work completed and then held: merged-but-unreleased changes accumulating"
+      - "Detailed plans written for quarters whose scope has not been confirmed"
+      - "Documents produced on a cadence rather than on a request"
+      - "Decisions taken early and then revisited when the information arrived"
+    counterfeit_signal: "High team output metrics. Overproduction reads as productivity on every
+      activity measure, which is precisely why it survives."
+    countermeasure_direction: "Pull rather than push. Confirm the need before producing. Size the bet
+      out loud when producing ahead of demand is deliberate."
+
+  - name: Waiting
+    definition: "Work idle between steps, or a person idle waiting for input, approval or a window."
+    observable_signals:
+      - "Ticket state history showing long dwell in a waiting state"
+      - "Work that arrives just after a scheduled gate and waits a full cycle"
+      - "A queue that forms daily in front of a once-daily activity"
+      - "Approval requests sitting unread"
+    measurement: "Wait time per state, from state-transition history. If transitions are not
+      recorded, that gap is the first finding."
+    countermeasure_direction: "Reduce the batch or the cadence that creates the wait. Where the wait
+      is a release window or a pipeline queue, the finding goes to @devops."
+    cross_reference: "A large wait is usually a queue, and queue location is a constraint question
+      for @ops:flow-lead. Removing a wait that is not at the constraint changes nothing measurable."
+
+  - name: Transport
+    definition: "Moving work, or the context around it, between people, teams, systems or boards."
+    observable_signals:
+      - "Context re-typed rather than carried between tools"
+      - "The same item existing in two trackers with diverging state"
+      - "A handoff where the receiver's first action is to ask for information the sender had"
+      - "Status meetings whose content is the transfer itself"
+    countermeasure_direction: "Reduce the number of hops, or make the context travel with the work.
+      Count handoffs before proposing anything."
+
+  - name: Over-processing
+    definition: "More precision, detail, approval or polish than the need requires."
+    observable_signals:
+      - "Approval steps whose approver has never rejected anything"
+      - "Documents produced to a template nobody reads past the summary"
+      - "Estimation refined to a granularity the decision does not use"
+      - "Test coverage on code paths that cannot be reached"
+    trap: "Distinguishing over-processing from necessary verification. A step that catches real
+      defects is not waste — it is a cost paid to avoid a larger one. Count what it catches before
+      touching it, and route any change to @qa."
+
+  - name: Inventory
+    definition: "Started and unfinished work of any kind."
+    observable_signals:
+      - "Open branches older than a release cycle"
+      - "Merged changes not yet released"
+      - "Stories in progress exceeding the number of people working"
+      - "Drafted plans that have not begun"
+    cost: "Ages, hides defects, generates coordination overhead, and delays the feedback that would
+      have prevented the next one."
+    cross_reference: "Inventory is Goldratt's second measure as well. @ops:flow-lead reads it as
+      evidence of where the constraint is; @ops:lean-lead reads it as a waste to remove. Both
+      readings are needed and they are not the same finding."
+
+  - name: Motion
+    definition: "Effort spent locating, switching or reassembling context."
+    observable_signals:
+      - "Time spent finding which document is current"
+      - "Repeated environment setup before work can begin"
+      - "Context switching between unrelated items within a single day"
+      - "Rediscovering a decision that was made and not recorded"
+    countermeasure_direction: "Put the thing where it is looked for. Record decisions where they will
+      be searched. Sequence work so switching is not required."
+
+  - name: Defects
+    definition: "Anything requiring correction after it was called done."
+    observable_signals:
+      - "Reverts and hotfix commits in history"
+      - "Reopened tickets"
+      - "Rework arriving back at an upstream step"
+      - "A defect intake form that produces a follow-up question in most cases — the form is the
+        defect"
+    cost_note: "A defect found late is the same defect found early at higher cost. Rework frequently
+      re-enters at the constraint, which is why it is a flow cost as well as a quality cost."
+
+# ---------------------------------------------------------------------------
+# The five-why practice
+# ---------------------------------------------------------------------------
+five_whys:
+  practice: "Ask why repeatedly until the answer is a condition in the system that can be changed."
+  worked_example_in_source: "A stopped machine traced back through successive whys from a blown fuse
+    to a missing filter on a lubricating pump — the first answer explained the stop, not the cause."
+  discipline:
+    - rule: "An answer describing a symptom -> keep asking"
+    - rule: "An answer naming a person, or their attention, memory or care -> BACK UP one level"
+      why: "That level offers only training, attention and care as countermeasures, and all three
+        erode within weeks. Ask instead: what made the error possible, and what made it
+        consequential. Both questions produce conditions."
+    - rule: "An answer that is a changeable condition -> STOP. This is the level to act at."
+    - rule: "Still on symptoms at five -> the problem statement was too broad. Split it."
+    - rule: "A condition reached at two -> stop at two. Five is a habit, not a quota."
+  anti_pattern: "A chain that concludes 'human error'. That is where a causal analysis stops being
+    productive, not where it concludes."
+
+# ---------------------------------------------------------------------------
+# Countermeasure preference order
+# ---------------------------------------------------------------------------
+countermeasure_order:
+  tradition: true
+  tradition_note: "The ordering as stated here is broader lean practice, not a numbered list from
+    Ohno's book. Labelled as tradition."
+  order:
+    - level: 1
+      action: "Remove the condition entirely"
+      note: "Best. Removes the failure mode and a step."
+    - level: 2
+      action: "Make the error impossible, or immediately self-evident"
+      note: "Jidoka applied at the design level."
+    - level: 3
+      action: "Make the process stop itself at detection"
+      note: "The stop RULE is @ops:lean-lead. The stop MECHANISM is @devops, exclusively."
+    - level: 4
+      action: "Add a signal that surfaces the trend before the failure"
+      note: "Specification here; threshold and routing configuration is @devops; emitting the signal
+        is @dev. Signal design pairs with @ops:reliability-lead."
+    - level: 5
+      action: "Add a human check"
+      note: "Last resort. State what the added step costs, permanently, against what it prevents."
+  never:
+    - "Remove verification and report it as waste removed. The cost moves downstream where it is
+       larger and later; the risk transfer is misrepresented as an efficiency gain. Route to @qa."
+    - "Exhortation. Training, attention and care are not countermeasures."
+
+# ---------------------------------------------------------------------------
+# Batch and feedback
+# ---------------------------------------------------------------------------
+batch:
+  position: "A batch delays feedback by its own size. Everything learned from the first item arrives
+    after the last one was already built the old way."
+  questions:
+    - "What is learned only after the whole batch is complete?"
+    - "Would a smaller batch surface it earlier, at acceptable overhead?"
+    - "Is the batch size a technical necessity or an inherited habit?"
+  routing: "Inherited habits are usually free to change and belong to the team as a working
+    agreement (@sm). Technical necessity is a @devops or @architect question."
+  deliberate_inventory: "Holding inventory as a buffer can be legitimate. Say why, size it, and set a
+    review date — an unexamined buffer becomes an unexamined queue."
+
+# ---------------------------------------------------------------------------
+# Attribution ledger
+# ---------------------------------------------------------------------------
+attribution_ledger:
+  attributed_to_ohno:
+    - "The two pillars: just-in-time and jidoka"
+    - "The categories of waste"
+    - "Overproduction as the fundamental waste, because it conceals the others"
+    - "The five-why practice and its worked example"
+    - "Kanban as the operating means of just-in-time"
+  broader_lean_tradition:
+    - "Value stream mapping notation"
+    - "The muda / mura / muri triad as commonly taught"
+    - "The position that improvement requires a written standard"
+    - "The countermeasure preference order as stated here"
+    - "Later lean-software adaptations"
+  rule: "Positions from the broader tradition are labelled as tradition and are not attributed to
+    Ohno. Inaccurate attribution is worse than none."
+
+# ---------------------------------------------------------------------------
+# Boundary restated
+# ---------------------------------------------------------------------------
+authority:
+  this_squad_does: "Walk the actual process, name the waste by category with evidence, root the cause
+    to a changeable condition, design the countermeasure, write the standard, author the stop rule,
+    and state the check in advance. All of it versioned in the repository."
+  devops_does: "Every halt, merge block, pipeline hold, gate, build change, release and deploy —
+    exclusively, including the mechanical part of a stop rule this squad wrote."
+  dev_does: "Implement countermeasures."
+  qa_does: "Own verification, gate scope and test strategy. Any proposal touching them arrives as a
+    question, never as an instruction."
+  flow_lead_does: "Say whether the waste found is at the constraint. Improving a non-constraint
+    changes nothing measurable."

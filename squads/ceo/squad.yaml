@@ -1,0 +1,213 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# AEXOS Squad Manifest — CEO Squad
+# Conforms to .aexos-core/schemas/squad-schema.json (task-first architecture).
+# components/ is derived from disk by scripts/normalize-squad-manifests.js.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+name: ceo
+version: 1.0.0
+short-title: CEO Squad
+description: >-
+  Squad da cadeira executiva: diagnóstico estratégico, alocação de capital, desenho organizacional e
+  comunicação com stakeholders. Decide onde a empresa aposta e por quê, não como se implementa.
+author: Cyryx Labs LLC
+license: UNLICENSED
+slashPrefix: ceo
+tags:
+  - strategy
+  - capital-allocation
+  - org-design
+  - stakeholders
+  - ceo
+  - vision
+  - aexos
+cyryx:
+  minVersion: 2.1.0
+  type: squad
+components:
+  tasks:
+    - capital-allocation-review.md
+    - executive-request-triage.md
+    - org-design-plan.md
+    - stakeholder-account-report.md
+    - strategy-kernel.md
+  agents:
+    - capital-allocator.md
+    - ceo-chief.md
+    - org-designer.md
+    - stakeholder-lead.md
+    - strategy-lead.md
+  workflows:
+    - wf-accountability-cycle.yaml
+    - wf-executive-decision-cycle.yaml
+  checklists:
+    - bad-strategy-checklist.md
+    - candour-checklist.md
+    - capital-allocation-checklist.md
+    - executive-coherence-checklist.md
+    - org-design-checklist.md
+  templates:
+    - accountability-letter-tmpl.md
+    - capital-allocation-plan-tmpl.md
+    - executive-decision-record-tmpl.md
+    - org-design-plan-tmpl.md
+    - strategy-kernel-tmpl.md
+  tools: []
+  scripts: []
+config:
+  extends: extend
+dependencies:
+  node: []
+  squads: []
+squad:
+  name: ceo
+  display_name: CEO Squad
+  version: 1.0.0
+  domain: Chief Executive — Strategy, Capital and Organisation
+  description: >-
+    Squad da cadeira executiva: diagnóstico estratégico, alocação de capital, desenho organizacional
+    e comunicação com stakeholders. Decide onde a empresa aposta e por quê, não como se implementa.
+  philosophy: >-
+    "Estratégia é escolher o que não fazer."
+
+    Cada agente é ancorado numa obra publicada e atribuída. O squad decide direção; a execução
+    pertence ao core.
+  keywords:
+    - strategy
+    - capital-allocation
+    - org-design
+    - stakeholders
+    - ceo
+    - vision
+    - aexos
+  entry_agent: ceo-chief
+  created_by: squad-creator
+  created_at: '2026-07-30'
+tiers:
+  tier_0:
+    name: Diagnosis & Routing
+    agents:
+      - ceo-chief
+    purpose: Triar o pedido, rotear ao especialista, manter coerência
+  tier_1:
+    name: Core Practice
+    agents:
+      - strategy-lead
+      - capital-allocator
+      - org-designer
+    purpose: Domínios centrais do squad
+  tier_2:
+    name: Applied & Adjacent
+    agents:
+      - stakeholder-lead
+    purpose: Domínios de apoio e fronteira
+agents:
+  ceo-chief:
+    persona: Regent
+    file: agents/ceo-chief.md
+    tier: 0
+    based_on: Original (Orchestrator)
+    icon: 🔱
+    focus: Triagem executiva, roteamento, coerência entre estratégia, capital e organização
+  strategy-lead:
+    persona: Kernel
+    file: agents/strategy-lead.md
+    tier: 1
+    based_on: Richard Rumelt (Good Strategy Bad Strategy, 2011)
+    icon: 🧩
+    focus: Diagnóstico, política orientadora, ação coerente; identificar bad strategy
+  capital-allocator:
+    persona: Ledger
+    file: agents/capital-allocator.md
+    tier: 1
+    based_on: William Thorndike (The Outsiders, 2012)
+    icon: 🏦
+    focus: Alocação de capital, retorno por unidade investida, recompra vs reinvestimento
+  org-designer:
+    persona: Lattice
+    file: agents/org-designer.md
+    tier: 1
+    based_on: Andrew Grove (High Output Management, 1983)
+    icon: 🧱
+    focus: Output do gestor, alavancagem, desenho de time e cadência de decisão
+  stakeholder-lead:
+    persona: Herald
+    file: agents/stakeholder-lead.md
+    tier: 2
+    based_on: Annual shareholder letter and board reporting tradition
+    icon: 📯
+    focus: Narrativa para conselho, investidores e time; o que se promete e como se presta conta
+handoffs:
+  ceo-chief:
+    routes_to:
+      - strategy-lead
+      - capital-allocator
+      - org-designer
+      - stakeholder-lead
+  strategy-lead:
+    collaborates_with:
+      - capital-allocator
+      - org-designer
+      - stakeholder-lead
+    escalates_to:
+      - ceo-chief
+  capital-allocator:
+    collaborates_with:
+      - strategy-lead
+      - org-designer
+      - stakeholder-lead
+    escalates_to:
+      - ceo-chief
+  org-designer:
+    collaborates_with:
+      - strategy-lead
+      - capital-allocator
+      - stakeholder-lead
+    escalates_to:
+      - ceo-chief
+  stakeholder-lead:
+    collaborates_with:
+      - strategy-lead
+      - capital-allocator
+      - org-designer
+    escalates_to:
+      - ceo-chief
+cross_cutting:
+  aexos_awareness:
+    description: Todos os agentes entendem a arquitetura AEXOS-core
+    context_files:
+      - .claude/CLAUDE.md
+      - .aexos-core/core-config.yaml
+      - .aexos-core/data/entity-registry.yaml
+  core_agent_boundary:
+    description: >-
+      Este squad decide e evidencia dentro do seu domínio. Não implementa, não testa e não publica —
+      isso pertence aos agentes do core.
+    defers_to:
+      '@pm': Épicos, PRD, execução de épico
+      '@po': Validação de story e backlog
+      '@sm': Criação de story (draft) — autoridade exclusiva
+      '@dev': Implementação
+      '@qa': Quality gate
+      '@devops': Release e push (autoridade exclusiva)
+  cross_squad_boundary:
+    description: >-
+      Fronteiras com outros squads. Registradas aqui, e não apenas no texto dos agentes, porque é o
+      manifesto que a camada de roteamento lê.
+    defers_to:
+      '@products:product-strategist': Estratégia de produto e apostas de portfólio
+      '@board:governance-counsel': Supervisão de governança e prestação de contas ao conselho
+  attribution:
+    description: >-
+      Cada agente declara a obra que fundamenta seu método. Onde o papel se apoia numa disciplina e
+      não numa obra única, isso é dito — atribuição errada é pior que ausência de atribuição.
+    required_field: based_on
+  quality_standards:
+    min_score: 7
+    smoke_tests: 3
+    voice_dna_required: true
+    thinking_dna_required: true
+settings:
+  greeting:
+    level: archetypal
+    show_project_status: true

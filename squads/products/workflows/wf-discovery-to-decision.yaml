@@ -1,0 +1,225 @@
+# ============================================================================
+# Workflow: Discovery to Decision
+# Squad: products
+# Version: 1.0.0
+# Purpose: Take a raw product request to an evidenced decision about what to
+#          build and for whom, then hand off to the AEXOS core agents.
+# ============================================================================
+
+workflow:
+  id: wf-discovery-to-decision
+  name: "Discovery to Decision"
+  version: "1.0.0"
+  type: product-discovery
+  description: |
+    Routes a product request to the discipline that owns it, sets focus with a
+    sourced strategy, maps the opportunity space from customer interviews, and
+    formalizes the causal job underneath the chosen opportunity. Terminates
+    with a consolidated decision brief handed to @pm, @po and @sm.
+
+    This workflow decides WHAT to build and for WHOM. It does not implement,
+    test, release, draft stories or frame epics — those belong to the core
+    agents and the workflow stops at their door.
+
+  trigger: "*discovery-to-decision"
+  entry_agent: products-chief
+  estimated_duration: "2-6 weeks — interview-bound, not effort-bound"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE — the canonical execution contract
+  # Each step names the agent, the task file that materializes it, the
+  # artifact it requires from upstream, and the artifact it creates.
+  # ──────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Triage ────────────────────────────────────────────────────
+    - id: phase_0
+      name: "Triage and Routing"
+      agent: products-chief
+      task: triage-product-request.md
+      action: diagnose
+      description: >-
+        Restate the request in the owning discipline's vocabulary, apply the
+        reframing table, check the squad/core boundary, name exactly one owner,
+        and write the handoff brief the specialists start from.
+      creates: docs/product/triage/triage-{slug}-{date}.md
+      outputs:
+        - triage_record: "markdown — verbatim request, reframe, owner, excluded near misses, handoff brief"
+        - boundary_verdict: "string (Squad | Outside — @agent)"
+        - sequence: "ordered specialist list with the input each one needs"
+      checkpoint:
+        gate: "Exactly one owner named, boundary verdict recorded, restatement confirmed with the requester"
+        veto: "If boundary_verdict is Outside, stop this workflow and route to the named core agent — do not run the specialist phases"
+
+    # ─── PHASE 1: Focus ─────────────────────────────────────────────────────
+    - id: phase_1
+      name: "Product Strategy and Focus"
+      agent: product-strategist
+      task: draft-product-strategy.md
+      action: strategy
+      depends_on: [phase_0]
+      requires: docs/product/triage/triage-{slug}-{date}.md
+      description: >-
+        Source every insight, cut focus to very few problems, name the declined
+        alternatives in writing, assign the four product risks with one owner
+        each, and convert the chosen problems into outcome objectives.
+      creates: docs/product/strategy/product-strategy-{cycle}.md
+      outputs:
+        - strategy_doc: "markdown — focus, insights, action, management, declined alternatives"
+        - insight_table: "every insight with its named source and the decision it changes"
+        - risk_register: "four risks per chosen problem, one named owner each"
+        - revision_condition: "the evidence that would change this strategy"
+      checkpoint:
+        gate: "Every surviving insight cites a source; focus names very few problems and lists what is not funded"
+        veto: "If no insight survives sourcing, the strategy rests on assertions — stop and commission evidence before continuing (Constitution Article IV)"
+
+    # ─── PHASE 2: Opportunity Space ─────────────────────────────────────────
+    - id: phase_2
+      name: "Opportunity Solution Tree"
+      agent: discovery-lead
+      task: build-opportunity-tree.md
+      action: map-opportunities
+      depends_on: [phase_1]
+      requires: docs/product/strategy/product-strategy-{cycle}.md
+      description: >-
+        Turn the chosen problem into a measurable product outcome, extract
+        opportunities from interview snapshots in the customer's own language,
+        run the structural checks, delete the orphans, and select exactly one
+        target opportunity.
+      creates: docs/product/discovery/opportunity-tree-{outcome-slug}.md
+      outputs:
+        - tree: "opportunity solution tree with snapshot provenance per branch"
+        - target_opportunity: "exactly one, with the four-criteria sizing that justified it"
+        - orphan_list: "opportunities deleted for having no snapshot behind them"
+        - next_touchpoint: "date and named attendee for the next weekly interview"
+      checkpoint:
+        gate: "Every opportunity cites at least one snapshot id; exactly one target selected; next touchpoint scheduled"
+        veto: "If zero snapshots exist, the tree is a brainstorm — stop and run the weekly touchpoint first"
+
+    # ─── PHASE 3: Causality ─────────────────────────────────────────────────
+    - id: phase_3
+      name: "Causal Job Statement"
+      agent: jobs-analyst
+      task: write-job-statement.md
+      action: job-statement
+      depends_on: [phase_2]
+      requires: docs/product/discovery/opportunity-tree-{outcome-slug}.md
+      description: >-
+        Reconstruct the switch behind the target opportunity, locate the
+        struggling moment, record what was fired as well as what was hired, and
+        state the progress being sought — solution-free and cited per clause.
+      creates: docs/product/jobs/job-statement-{slug}.md
+      outputs:
+        - job_statement: "circumstance, motivation and expected progress, every clause cited to a transcript id"
+        - dimensions: "functional, social and emotional, each with its evidence"
+        - hire_fire_record: "what was hired, what was fired, and the criteria used for each"
+        - falsification_condition: "the evidence that would overturn the causal claim"
+      checkpoint:
+        gate: "Statement is solution-free, survives the durability test, and every clause carries a transcript id"
+        veto: "If the transcripts are from prospects rather than actual switchers, there is no switch to explain — stop and recruit switchers"
+
+    # ─── PHASE 4: Decision and Handoff ──────────────────────────────────────
+    - id: phase_4
+      name: "Coherence Check and Delivery Handoff"
+      agent: products-chief
+      action: coherence-check
+      depends_on: [phase_3]
+      requires: docs/product/jobs/job-statement-{slug}.md
+      description: >-
+        Terminal phase. Audit the four artifacts against the coherence chain,
+        consolidate them into one brief that generates nothing new, and close
+        the squad's involvement by handing the brief to the core agents.
+      steps:
+        - "Run *coherence-check across triage, strategy, tree and job statement"
+        - "Report every break with the upstream repair order — a break upstream invalidates everything below it"
+        - "Run *product-brief to consolidate, tracing every statement to its source artifact"
+        - "State the unretired risks and the open questions explicitly"
+        - "Run *handoff-to-delivery and stop"
+      creates: docs/product/briefs/discovery-decision-brief-{slug}.md
+      outputs:
+        - decision_brief: "markdown — consolidated squad view with every statement traced to a source artifact"
+        - coherence_report: "breaks in the segment → job → outcome → solution chain, with repair order"
+        - open_risks: "risks not retired by this cycle, with the evidence each still needs"
+      checkpoint:
+        gate: "Brief contains no statement that is not traceable to a phase artifact"
+        veto: "If the coherence chain is broken upstream, repair the upstream artifact before handing off — do not paper over the break in the brief"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    chief_to_strategist: |
+      Triage complete. The request is owned by product-strategist.
+      Read the triage record at docs/product/triage/ before asking anything —
+      the context is written down so it is not re-elicited.
+
+      Next: @product-strategist → *strategy
+
+    strategist_to_discovery: |
+      Strategy complete. The chosen problem and its business outcome are set,
+      and the declined alternatives are named.
+
+      Next: @discovery-lead → *map-opportunities {outcome}
+      Bring: the chosen problem, its outcome, and the trio who will interview.
+
+    discovery_to_jobs: |
+      Tree complete with exactly one target opportunity selected.
+      The interview stories point to a switch that is not yet explained causally.
+
+      Next: @jobs-analyst → *job-statement
+      Bring: the target opportunity and the snapshots behind it.
+
+    jobs_to_chief: |
+      Job statement complete, solution-free and cited per clause.
+      All four artifacts now exist and must be checked against each other.
+
+      Next: @products-chief → *coherence-check, then *product-brief
+
+    chief_to_core: |
+      Squad involvement is closed. The decision is evidenced; delivery is not
+      this squad's authority.
+
+      Handoff:
+      - @pm  — epic framing and PRD from the decision brief
+      - @po  — backlog reprioritization if the evidence changed the order
+      - @sm  — story drafting once the epic exists (exclusive authority)
+
+      This workflow does not implement (@dev), test (@qa) or release (@devops).
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # FLOW DIAGRAM
+  # ──────────────────────────────────────────────────────────────────────────
+
+  flow_diagram: |
+    graph TD
+      A[phase_0 triage-product-request / products-chief] --> B[phase_1 draft-product-strategy / product-strategist]
+      B --> C[phase_2 build-opportunity-tree / discovery-lead]
+      C --> D[phase_3 write-job-statement / jobs-analyst]
+      D --> E[phase_4 coherence-check and product-brief / products-chief]
+      E --> F[Core agents: pm, po, sm - squad stops here]
+      A --> G[Outside verdict: route to core agent and stop]
+
+# ────────────────────────────────────────────────────────────────────────────
+# VETO CONDITIONS (workflow-level)
+# ────────────────────────────────────────────────────────────────────────────
+
+veto_conditions:
+  - "Boundary verdict is Outside — the request belongs to a core agent, not to this squad"
+  - "No interview snapshot exists — a tree without provenance violates Constitution Article IV (No Invention)"
+  - "No insight survives sourcing — the strategy is a set of assertions"
+  - "Transcripts come from prospects rather than switchers — there is no switch to explain"
+  - "Any phase asks the squad to implement, test, release, draft a story or write an epic — that is a core agent's authority"
+
+# ────────────────────────────────────────────────────────────────────────────
+# COMPLETION CRITERIA
+# ────────────────────────────────────────────────────────────────────────────
+
+completion_criteria:
+  - "A triage record names exactly one owner and an explicit boundary verdict"
+  - "A strategy artifact states focus, the declined alternatives, and a revision condition"
+  - "An opportunity tree selects exactly one target with snapshot provenance on every branch"
+  - "A job statement is solution-free and cited per clause"
+  - "A decision brief consolidates all four artifacts with no untraceable statement"
+  - "The brief is handed to @pm, @po and @sm, and the squad stops there"

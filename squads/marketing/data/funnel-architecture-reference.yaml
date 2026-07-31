@@ -1,0 +1,378 @@
+# Funnel Architecture Reference — stages, leak taxonomy, traffic origin, funnel integrity
+# Squad: marketing
+# Owner agent: funnel-lead (Weir)
+# Last updated: 2026-07-30
+
+version: "1.0.0"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ATTRIBUTION — AND THE NATURE OF THE SOURCE
+# ═══════════════════════════════════════════════════════════════════════════════
+# This file records CONCEPTS, STRUCTURE AND FAILURE MODES. It deliberately contains
+# no conversion rates, no benchmark step ratios, no list-size thresholds and no ad
+# spend ratios, because the source is a practitioner manual and every number in it
+# describes what happened in the author's own funnels rather than a value measured
+# across a sampled population.
+attribution:
+  primary:
+    author: "Russell Brunson"
+    work: "DotCom Secrets: The Underground Playbook for Growing Your Company Online"
+    year: 2015
+    note: "Source of the value ladder, the funnel-stage sequence, and the diagnostic habit of locating the failing step rather than treating the funnel as one number."
+  secondary:
+    - author: "Russell Brunson"
+      work: "Expert Secrets: The Underground Playbook for Converting Your Online Visitors into Lifelong Customers"
+      year: 2017
+      note: "Named separately. Audience, belief-shift sequencing and the structure of a persuasive presentation come from here, not from the 2015 book."
+    - author: "Russell Brunson"
+      work: "Traffic Secrets: The Underground Playbook for Filling Your Websites and Funnels with Your Dream Customers"
+      year: 2020
+      note: "Named separately. Traffic origin, owned versus rented distribution and audience-first traffic thinking come from here."
+
+  # --------------------------------------------------------------------------
+  # THE DISTINCTION THAT GOVERNS EVERY USE OF THIS FILE
+  # --------------------------------------------------------------------------
+  source_nature:
+    class: practitioner_manual
+    definition: >-
+      A body of method distilled by an operator from their own operating history and the
+      businesses they built. Its authority is a track record: the method produced results
+      for the person who wrote it, repeatedly, and is written down in enough structural
+      detail to be applied by someone else.
+    what_it_gives_you: >-
+      A decomposition and a sequence. Where the steps of a buying path are, what each step
+      is for, what breaks at each one, and the discipline of asking WHICH step failed
+      rather than declaring the funnel broken. No research programme currently supplies
+      this level of operational structure.
+    what_it_does_not_give_you: >-
+      A sampling frame, a control condition, dispersion, or independent replication. There
+      is no confidence interval around a practitioner heuristic because nothing was
+      sampled. A conversion figure quoted in such a book describes the author's funnels in
+      the author's categories at that time; it is not an estimate of yours.
+    contrast_with_the_rest_of_this_squad: >-
+      brand-lead is anchored in Byron Sharp reporting Ehrenberg-Bass research; demand-lead
+      in Binet and Field analysing the IPA Databank; analytics-lead in Kaushik's
+      measurement discipline. Those are RESEARCH PROGRAMMES WITH PUBLISHED DATA — claims
+      derived from many brands, many categories, with stated dispersion. This agent's
+      source is a PRACTITIONER MANUAL WITH A TRACK RECORD. Both are legitimate bases for a
+      recommendation. They are different kinds of thing, and the difference must survive
+      into the document, because a reader deciding how much weight to place on a claim is
+      entitled to know which kind it is.
+    the_failure_this_prevents: >-
+      A step benchmark quoted as if it were an empirical norm. "This step should convert at
+      X" recalled from a manual becomes a target, then a performance review, then a budget
+      case — and it was never a measurement of anything outside one operator's portfolio.
+  rule: >-
+    Every claim carries its evidence class. A structural rule from the manual is labelled
+    PRACTITIONER HEURISTIC. A finding from the research literature is labelled EMPIRICAL and
+    cites the programme. A reading from this business is labelled OUR DATA. Any claim with
+    no class is a defect.
+  never: >-
+    Never invent a citation, a title, a year, a page or a figure. Never present a
+    practitioner heuristic as an empirical finding. Never quote a step conversion rate, a
+    list-size threshold, a value-ladder price ratio or an ad spend ratio from these books
+    from memory — read it from the publication, or describe the mechanism without it.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 0. EVIDENCE CLASSES — the tag every claim must carry
+# ═══════════════════════════════════════════════════════════════════════════════
+evidence_classes:
+  - class: EMPIRICAL
+    means: "Observed across many brands or cases in a published research programme, with dispersion."
+    weight: "Usable as a prior with its dispersion stated. This business may deviate."
+  - class: PRACTITIONER HEURISTIC
+    means: "A structural rule distilled from one operator's experience. No sample, no control, no dispersion."
+    weight: >-
+      Usable to DECOMPOSE and to SEQUENCE — where the steps are, which one to look at
+      first. Not usable to PREDICT a rate. A heuristic never justifies a target number.
+  - class: OUR DATA
+    means: "A reading from this funnel, with the instrument, the segment and the period named."
+    weight: "The only class that can state what this funnel actually does."
+  - class: UNVERIFIED
+    means: "A figure with no traceable source, including one recalled from a book."
+    weight: "May inform a hypothesis. May never justify a decision or a target."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 1. FUNNEL STAGES — the decomposition
+# ═══════════════════════════════════════════════════════════════════════════════
+# [CLASS: PRACTITIONER HEURISTIC — Brunson, DotCom Secrets, 2015]
+# Stage NAMES vary between the source works and between implementations. What matters
+# is that the path is decomposed into steps each of which has one job and one reading.
+# No step conversion rate appears anywhere in this file.
+stages:
+  - stage: traffic_origin
+    job: "Bring a person with the relevant problem into the path."
+    reading: "Arrivals by source, with source intent characterised."
+    breaks_when: "The source selects for curiosity rather than for the problem."
+    note: "Sourcing and budget are @marketing:demand-lead. This file describes what the origin does to the funnel, not what to spend."
+  - stage: entry_step
+    job: "Establish in one screen that this is about the visitor's problem."
+    reading: "Continuation rate to the next step, by source."
+    breaks_when: "The promise that brought them and the promise on arrival are not the same promise."
+  - stage: capture
+    job: "Exchange something of real standalone value for explicit permission to contact."
+    reading: "Capture rate, and the share of captured contacts who engage at all afterwards."
+    breaks_when: "The exchange is unequal, or the buyer does not know what they signed up to receive."
+    integrity_requirement: "Explicit opt-in, stated purpose, stated frequency, working unsubscribe. See §5."
+  - stage: offer_presentation
+    job: "Present the constructed offer intact."
+    reading: "Conversion among people who reached this step from a known source."
+    breaks_when: >-
+      The offer itself is unsound — in which case this is NOT a funnel problem. Route to
+      @marketing:offer-lead. A funnel cannot carry an offer that does not convert.
+  - stage: transaction
+    job: "Let a decided buyer complete without friction."
+    reading: "Completion rate from initiate to complete, and time to complete."
+    breaks_when: "Unexpected cost, forced account creation, payment options missing, form length."
+  - stage: immediate_sequence
+    job: "Deliver the first real outcome, and present any genuinely related next step."
+    reading: "Time to first outcome; take-up of the next step; refund and complaint rate."
+    breaks_when: "The next step is presented before the first outcome is delivered."
+    integrity_requirement: "No pre-selected add-ons, no charge not explicitly agreed at that moment. See §5."
+  - stage: follow_up_sequence
+    job: "Continue the relationship for people who did not buy, and for those who did."
+    reading: "Engagement over time, unsubscribe rate, downstream conversion."
+    breaks_when: "Frequency exceeds what was disclosed at capture, or the sequence is one long close."
+  - stage: ascension
+    job: "Offer the next rung to buyers who got the outcome from this one."
+    reading: "Share of delivered buyers who take the next rung."
+    breaks_when: "It is offered to buyers who have not yet reached the first outcome."
+    note: "The rungs themselves and their contents belong to @marketing:offer-lead; the price points to @products:pricing-strategist."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 2. THE VALUE LADDER
+# ═══════════════════════════════════════════════════════════════════════════════
+# [CLASS: PRACTITIONER HEURISTIC — Brunson, DotCom Secrets, 2015]
+value_ladder:
+  definition: >-
+    A sequence of offers at increasing value and increasing commitment, with the funnel
+    arranged so a buyer can enter at a low-commitment rung and ascend as delivered
+    outcomes earn the next step.
+  what_it_is_for: >-
+    It gives the funnel a shape. Without it, every visitor is asked for the largest
+    commitment on first contact, and the entire path is judged on one conversion number
+    that hides which step actually failed.
+  construction_rules:
+    - "Every rung delivers a complete outcome for its own stated, narrower promise."
+    - "Ascension is offered after an outcome is delivered, not after a payment is taken."
+    - "A rung whose only purpose is to lead to the next rung is bait — rebuild it or remove it."
+    - "The ladder's shape is a funnel decision. The price on each rung is @products:pricing-strategist."
+  no_numbers_note: >-
+    The source discusses price relationships between rungs. Those figures are not
+    reproduced here and must not be recalled from memory. If a ratio is needed, read it
+    from the publication, label it PRACTITIONER HEURISTIC, and treat it as a starting
+    shape to test — never as a rule this business must satisfy.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 3. LEAK TAXONOMY — where funnels actually fail
+# ═══════════════════════════════════════════════════════════════════════════════
+# Classifying the leak is what makes the fix findable. "The funnel is broken" is not a
+# diagnosis; it is a summary statistic hiding one failing step.
+leak_types:
+  - leak: promise_break
+    signature: "High arrival, immediate exit at the entry step, worst on the highest-intent source."
+    is: "The promise that brought them and the promise on arrival differ."
+    fix_owner: "funnel-lead, with @marketing:content-lead where the source is editorial"
+  - leak: intent_mismatch
+    signature: "One source converts far below the others at the same step, with similar volume."
+    is: "The source selects people without the problem. Not a step defect."
+    fix_owner: "@marketing:demand-lead (source and spend), @products:positioning-lead (who the offer is for)"
+    caution: "Fixing a step to accommodate a mismatched source degrades it for the sources that were working."
+  - leak: offer_failure
+    signature: "Traffic is relevant, the step is clean, and the offer step still does not convert."
+    is: "NOT a funnel problem. The offer does not convert."
+    fix_owner: "@marketing:offer-lead — and this must be settled before more traffic is bought"
+  - leak: comprehension_gap
+    signature: "Long dwell, high scroll, low action."
+    is: "The visitor cannot tell what they get, who it is for, or what happens next."
+    fix_owner: "funnel-lead, with @ux-design-expert for execution"
+  - leak: proof_gap
+    signature: "Buyers want the outcome and do not believe it applies to them; objections repeat verbatim in sales."
+    is: "The perceived-likelihood term of the offer is unaddressed at this step."
+    fix_owner: "@marketing:offer-lead constructs the proof; funnel-lead places it at the step where the doubt occurs"
+  - leak: friction_drag
+    signature: "High initiate-to-complete drop; time to complete long; drop concentrated on one device or one payment path."
+    is: "A decided buyer cannot finish."
+    fix_owner: "funnel-lead names it; @dev implements via the story pipeline; never fixed directly here"
+  - leak: unexpected_cost
+    signature: "Drop concentrated at the step where a fee, tax, term or requirement first appears."
+    is: "A disclosure failure, not a pricing failure."
+    fix_owner: "funnel-lead (disclose earlier); @products:pricing-strategist if the cost itself is in question"
+  - leak: sequence_break
+    signature: "Capture rate healthy, downstream engagement near zero."
+    is: "The follow-up never arrived, arrived wrongly, or arrived at a frequency nobody agreed to."
+  - leak: delivery_gap
+    signature: "Conversion healthy, refunds and complaints rising, ascension near zero."
+    is: "The first outcome is not being delivered. The funnel is working and the product step is not."
+    fix_owner: "@pm — this is a product problem the funnel exposed"
+  - leak: instrumentation_gap
+    signature: "The step-by-step numbers do not exist, or do not reconcile between steps."
+    is: "There is no diagnosis available yet."
+    fix_owner: "@marketing:analytics-lead — and this is recommendation one whenever it appears"
+    note: >-
+      A funnel with no per-step reading cannot be diagnosed, only guessed at. Say that
+      plainly rather than producing a confident guess.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 4. TRAFFIC ORIGIN
+# ═══════════════════════════════════════════════════════════════════════════════
+# [CLASS: PRACTITIONER HEURISTIC — Brunson, Traffic Secrets, 2020]
+traffic_origin:
+  principle: >-
+    Traffic has an origin and the origin has intent. The same funnel converts differently
+    by source not because the source is "better" but because it selects a different person.
+    Reading a funnel without segmenting by source averages away the finding.
+  ownership:
+    is: "Owned distribution — a list, a channel, a property the business controls."
+    rented: "Distribution controlled by a platform, subject to change without notice."
+    implication: >-
+      A funnel whose entire origin is rented has a single point of failure it does not
+      control. Converting rented reach into owned contact is a structural decision, and it
+      is the funnel's job, not the platform's.
+    integrity_requirement: "Conversion to owned contact happens by explicit consent. See §5."
+  boundary: >-
+    WHICH sources to buy, HOW MUCH to spend, and the brand-versus-activation split belong
+    to @marketing:demand-lead. What belongs here is the effect of an origin on the funnel:
+    which step it breaks, and whether the funnel can be read at all without segmenting by it.
+  cross_check_with_the_research_side: >-
+    [CLASS: EMPIRICAL — see @marketing:brand-lead] A funnel reaches people already in
+    market. Growth in the number of people who ever enter the funnel comes from mental
+    availability among category buyers who are not in market today. Funnel optimisation
+    and brand building are different mechanisms with different evidence bases, and one
+    does not substitute for the other. A funnel agent that claims otherwise is overreaching.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 5. FUNNEL INTEGRITY — the blocking rules
+# ═══════════════════════════════════════════════════════════════════════════════
+# Funnels are where fabricated urgency, invented scarcity and non-consensual contact get
+# implemented, because each is a small technical change with an immediate reading. Each
+# item below BLOCKS the funnel step. A blocked element is replaced with the compliant
+# alternative, never reworded until it passes on phrasing.
+integrity_blocks:
+  violations:
+    - violation: fake_countdown_or_resetting_deadline
+      looks_like: "A timer that restarts per visitor; an evergreen 'closes tonight' that reopens tomorrow."
+      why_it_blocks: "The buyer's decision was accelerated by a false statement of fact."
+      compliant_alternative: >-
+        A real dated deadline with a real consequence — a cohort that actually starts, a
+        price already decided and dated — or no deadline, and a plain statement of what
+        genuinely changes if they wait.
+    - violation: fake_inventory_or_seat_counter
+      looks_like: "'N spots remaining' not backed by a tracked limit; a live counter that is decorative."
+      why_it_blocks: "A false statement about the seller's own operation, made at the moment of decision."
+      compliant_alternative: "Publish a real tracked limit and enforce it, or remove the claim."
+    - violation: fabricated_activity_proof
+      looks_like: "'12 people are viewing this' with no such measurement; invented recent-purchase notifications; fake reviews."
+      why_it_blocks: "Manufactured social proof is fabricated evidence presented as observation."
+      compliant_alternative: "Show real activity if it is measured and worth showing; otherwise show real, attributable evidence instead."
+    - violation: undisclosed_or_preselected_charge
+      looks_like: "Pre-ticked add-ons, one-click upsells charged without explicit agreement, fees first shown at the final step."
+      why_it_blocks: "Money changes hands on a decision the buyer did not knowingly make."
+      compliant_alternative: >-
+        Every charge explicitly agreed at the moment it is incurred; total cost including
+        fees and required extras disclosed at the first step where cost is discussed.
+    - violation: forced_continuity
+      looks_like: "Trial converting to a subscription without clear prior disclosure; cancellation harder than purchase."
+      why_it_blocks: "It converts a single decision into a recurring charge the buyer did not agree to."
+      compliant_alternative: >-
+        Disclose the renewal, the amount and the date before payment; make cancellation at
+        most as hard as buying, on the same surface.
+    - violation: consent_violation_at_capture
+      looks_like: "Pre-checked opt-ins, purchased or scraped lists, frequency not stated, unsubscribe that does not work or takes effect late."
+      why_it_blocks: "Permission was never given, so every downstream step is built on contact the person did not agree to."
+      compliant_alternative: >-
+        Explicit opt-in, stated purpose, stated frequency, immediate working unsubscribe.
+        Route the data-handling and retention questions to the owning function before launch.
+    - violation: exit_trap
+      looks_like: "Back button hijack, modal that cannot be dismissed, interstitial with no visible close, confirm-shaming as the only exit."
+      why_it_blocks: "It removes the buyer's ability to leave. That is coercion regardless of the lift it produces."
+      compliant_alternative: >-
+        A dismissible offer with a plain decline, shown once. If it only works when the
+        visitor cannot escape, it was never persuasion.
+    - violation: bait_entry
+      looks_like: "An entry step that promises one thing and delivers a pitch for another."
+      why_it_blocks: "The arrival was purchased with a promise the next screen does not keep."
+      compliant_alternative: "Deliver exactly the promised thing first, completely, and make the next step a genuine option."
+    - violation: manufactured_origin_story
+      looks_like: "An invented founder narrative, fabricated results history, or a credential that does not exist, used to build authority at the entry step."
+      why_it_blocks: "Authority is being manufactured rather than earned, and it is a false statement about a real person."
+      compliant_alternative: "The real history, including what has not been achieved yet. Specificity that can be checked outperforms a story that cannot."
+  whole_funnel_tests:
+    - test: reversal
+      question: >-
+        If the visitor saw exactly how each step was constructed — every timer's real
+        basis, every counter's real basis, every default's purpose — would they consider
+        the dealing fair?
+    - test: exit
+      question: "At every step, can the visitor leave, decline, or unsubscribe in one obvious action?"
+    - test: disclosure
+      question: "Is every cost, term and recurring charge disclosed before the step at which the buyer commits?"
+    - test: delivery
+      question: >-
+        If every visitor converted today, would the promised first outcome actually be
+        delivered? A funnel optimised past what delivery can honour builds a refund queue.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 6. WHAT A FUNNEL READING DOES NOT PROVE
+# ═══════════════════════════════════════════════════════════════════════════════
+measure_limits:
+  - measure: "Overall funnel conversion rate"
+    proves: "A ratio of two totals."
+    does_not_prove: "Which step failed. It is the number that hides the diagnosis."
+  - measure: "A step conversion rate compared to a remembered benchmark"
+    proves: "Nothing."
+    does_not_prove: >-
+      That the step is under-performing. The benchmark came from a different business,
+      a different source mix and a different offer. Compare a step to itself over time,
+      or to a controlled variant.
+  - measure: "A lift after a funnel change"
+    proves: "Something changed alongside the change."
+    does_not_prove: >-
+      Attribution, unless traffic mix, offer and season held. Route the test design to
+      @marketing:analytics-lead before the number is quoted anywhere.
+  - measure: "Aggregate conversion across all sources"
+    proves: "An average."
+    does_not_prove: "Anything about any source. Mix shift alone moves this number with no step changing."
+  - measure: "Rising conversion after adding urgency devices"
+    proves: "A short-window response."
+    does_not_prove: >-
+      That the buyers are the right buyers. Check refunds, first-outcome delivery and
+      ascension before treating it as a win — and check §5 before treating it as allowed.
+  - measure: "Lead capture volume"
+    proves: "Contacts were captured."
+    does_not_prove: "Permission quality, engagement, or that any of them had the problem."
+  - measure: "Funnel improvement over a quarter"
+    proves: "A short-term conversion movement."
+    does_not_prove: >-
+      Brand growth. Penetration and mental availability are measured over windows a funnel
+      test does not span, on a population the funnel never sees — @marketing:brand-lead
+      and @marketing:demand-lead own that.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 7. BOUNDARY
+# ═══════════════════════════════════════════════════════════════════════════════
+boundary:
+  consumed_from:
+    "@marketing:offer-lead": >-
+      The constructed offer. The funnel carries an offer; it does not construct one, and
+      it cannot repair one. An unsound offer routes back before any traffic is bought.
+    "@products:positioning-lead": "Market category, competitive alternatives, target segment."
+    "@products:pricing-strategist": "Price and packaging. Never set or worked around here."
+    "@marketing:brand-lead": "Distinctive assets and category entry points the funnel must express, not contradict."
+    "@marketing:demand-lead": "Which sources are bought and at what level. The funnel reads the consequence; it does not set the spend."
+  handed_to:
+    "@marketing:analytics-lead": "Per-step instrumentation requirements, segmentation requirements, and any test that must be designed before a result is claimed."
+    "@marketing:content-lead": "Where an entry step depends on editorial work, so the promise is consistent across both."
+    "@ux-design-expert": "Comprehension and interface execution of a named step."
+    "@pm": "Where a leak is a product or delivery gap rather than a funnel gap."
+    "@sales:pipeline-ops": "Where the funnel hands off to a human sales motion and the handoff itself is the leak."
+  never_here:
+    - "Offer construction, guarantees and risk reversal — @marketing:offer-lead"
+    - "Price and packaging — @products:pricing-strategist"
+    - "Market category and competitive alternatives — @products:positioning-lead"
+    - "Media budget, source selection and the brand-vs-activation split — @marketing:demand-lead"
+    - "Instrument design and attribution modelling — @marketing:analytics-lead"
+    - "Implementation of any page, form or tracking change — @dev, through the story pipeline"
+    - "Quality gates — @qa"
+    - "Story creation — @sm"
+    - "Git push, PRs, CI/CD — @devops, exclusive authority"

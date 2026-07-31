@@ -1,0 +1,52 @@
+{
+  "name": "@aexos-squads/installer",
+  "version": "3.3.9",
+  "description": "AEXOS Installer - Automated setup wizard for AEXOS projects (greenfield & brownfield)",
+  "main": "src/index.js",
+  "bin": {
+    "aexos-installer": "./src/index.js"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./aexos-core-installer": "./src/installer/aexos-core-installer.js",
+    "./pro-setup": "./src/wizard/pro-setup.js",
+    "./pro-scaffolder": "./src/pro/pro-scaffolder.js",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration"
+  },
+  "keywords": [
+    "cyryx",
+    "installer",
+    "wizard",
+    "cli",
+    "setup",
+    "greenfield",
+    "brownfield"
+  ],
+  "author": "Cyryx Labs LLC",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@aexos-squads/core": "^5.1.0",
+    "@clack/prompts": "^0.11.0",
+    "chalk": "^4.1.2",
+    "cli-progress": "^3.12.0",
+    "fs-extra": "^11.3.2",
+    "inquirer": "^8.2.6",
+    "js-yaml": "^4.1.0",
+    "node-machine-id": "^1.1.12",
+    "ora": "^5.4.1",
+    "semver": "^7.7.2"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
+}

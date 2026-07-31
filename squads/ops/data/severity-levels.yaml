@@ -1,0 +1,180 @@
+# Incident Severity Levels — criteria, obligations, and the traps in classification
+# Squad: ops · Owner: @ops:incident-lead (Klaxon)
+# Reference knowledge. Not executable. A starting scale to be calibrated per service,
+# not a scale to be adopted unread.
+#
+# ATTRIBUTION
+#   Severity scales are common industry CONVENTION. No canonical source defines these
+#   levels, and this file does not attribute them to one. The surrounding discipline —
+#   declaring early, classifying against written criteria, separating command from
+#   execution, and blameless analysis afterwards — has no single author either.
+#   Its convergent documented sources: the Incident Command System, adapted from
+#   emergency response into technology operations; "Site Reliability Engineering"
+#   (O'Reilly, 2016), Ch. 14 "Managing Incidents" and Ch. 15 "Postmortem Culture";
+#   safety science and resilience engineering on multiple contributing factors, in the
+#   form most engineers meet it — Richard I. Cook's "How Complex Systems Fail"; and the
+#   just-culture literature, notably Sidney Dekker's writing.
+#
+# BOUNDARY — @devops
+#   Severity classification is coordination. It authorizes nothing. No severity level in
+#   this file grants anyone other than @devops the authority to deploy, roll back, fail
+#   over, restart, scale, change configuration, hold a pipeline, cut a release or publish
+#   to a status page. SEV-1 does not change that. Nothing changes that.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# The dimensions severity is classified against
+# ---------------------------------------------------------------------------
+dimensions:
+  - name: user_impact
+    question: "How many users, doing what?"
+    note: "Stated in user terms — 'orders cannot be submitted' — not component terms."
+  - name: scope
+    question: "One journey, one region, one segment, or everything?"
+  - name: data_risk
+    question: "Is data being lost, corrupted or exposed?"
+    rule: "Data loss, corruption or a security exposure takes the highest severity REGARDLESS of how
+      few users are affected. A quiet corruption affecting a hundred records outranks a loud outage
+      affecting thousands, because the loud one is recoverable and reversible."
+  - name: reversibility
+    question: "Can this be undone once it stops?"
+    rule: "Irreversibility raises severity by one level. A reversible failure and a permanent one are
+      different problems even at identical user impact."
+  - name: self_recovery
+    question: "Is it recovering on its own?"
+    note: "Self-recovering does not mean 'not an incident'. It means the impact window may be
+      bounded. Classify on what happened, not on what stopped happening."
+
+tie_break_rule: "When two levels are arguable, take the HIGHER one and reclassify downward with a
+  recorded reason. Downgrading is cheap and visible; upgrading late costs the coordination that was
+  not happening."
+
+# ---------------------------------------------------------------------------
+# The levels
+# ---------------------------------------------------------------------------
+levels:
+
+  - level: SEV-1
+    name: Critical
+    criteria:
+      - "Data loss, corruption or security exposure — at any user count"
+      - "A core journey is completely unavailable for a broad population"
+      - "The failure is irreversible, or reversibility is unknown and the impact is broad"
+      - "A regulatory or contractual breach is occurring now"
+    response:
+      command: "Dedicated incident commander, not executing. Operations, communications and scribe
+        assigned separately."
+      cadence: "Internal updates at a short fixed interval, including 'no change yet'."
+      escalation: "Accountable human notified immediately."
+      postmortem: "Mandatory, full analysis."
+    mechanical_authority: "@devops, exclusive. No exception at this level — the pressure to make one
+      is highest here, which is why the rule is stated here."
+
+  - level: SEV-2
+    name: Major
+    criteria:
+      - "A core journey is degraded for a broad population, or unavailable for a narrow one"
+      - "Failures are clean rejections rather than partial writes — no data at risk"
+      - "Reversible, or reversibility confirmed"
+      - "Error budget consumption at a rate that would exhaust the window"
+    response:
+      command: "Named commander, not executing. Communications assigned."
+      cadence: "Fixed internal cadence."
+      escalation: "Service owner notified."
+      postmortem: "Mandatory."
+    mechanical_authority: "@devops, exclusive."
+
+  - level: SEV-3
+    name: Minor
+    criteria:
+      - "A peripheral function is affected, or a core journey is mildly degraded"
+      - "A workaround exists and is known to the affected users"
+      - "Budget impact is within the window's normal spend"
+    response:
+      command: "A named coordinator; roles may be combined."
+      cadence: "Update at open and at close."
+      postmortem: "Short record. Timeline, factors, actions. Not a ceremony — and not nothing."
+    mechanical_authority: "@devops, exclusive."
+
+  - level: SEV-4
+    name: Low
+    criteria:
+      - "Cosmetic or narrowly scoped; no journey materially affected"
+      - "Detected internally before users reported it"
+    response:
+      command: "Single responder."
+      postmortem: "Record only. Escalate to a full analysis if it is the third occurrence."
+    mechanical_authority: "@devops, exclusive."
+
+# ---------------------------------------------------------------------------
+# Declare or not
+# ---------------------------------------------------------------------------
+declaration_heuristics:
+  asymmetry: "Declaring something minor costs a few minutes of coordination. Not declaring something
+    real costs the first hour — the hour nobody coordinated and nobody recorded."
+  rules:
+    - condition: "Users are affected and it is not self-recovering"
+      action: "Declare"
+    - condition: "Unclear whether users are affected"
+      action: "Declare at low severity and find out"
+    - condition: "Self-recovered, but would have been severe"
+      action: "Not an incident — run a near-miss analysis instead. Same structure, a fraction of the
+        cost, and almost never done."
+    - condition: "Degradation within the error budget and expected"
+      action: "Not an incident. @ops:reliability-lead's window."
+    - condition: "Recurring known issue with an accepted risk on file"
+      action: "Declare anyway and reference the accepted risk. An accepted risk is not an exemption
+        from recording."
+    - condition: "Cannot decide"
+      action: "Declare. The asymmetry favours declaring."
+
+# ---------------------------------------------------------------------------
+# Where severity classification goes wrong
+# ---------------------------------------------------------------------------
+classification_traps:
+  - trap: "A scale invented mid-incident"
+    consequence: "Calibrated by adrenaline. Define the matrix while nothing is on fire — that is what
+      `*severity-matrix` is for."
+  - trap: "Severity criteria that predate the SLO"
+    consequence: "Failures that consume the entire error budget classify low and receive no command
+      structure. This is a coherence break; @ops:ops-chief `*coherence-check` tests for it."
+  - trap: "Classifying on cause rather than impact"
+    consequence: "A database failure sounds severe and a slow render sounds trivial; the users may
+      experience the opposite. Classify on what users experience."
+  - trap: "Refusing to declare because it is 'probably nothing'"
+    consequence: "The incidents that get worst are the ones nobody declared: the response starts
+      informally, several people work in parallel unaware of each other, and there is no timeline
+      afterwards to explain what any of them changed."
+  - trap: "Treating severity as a status symbol or a blame signal"
+    consequence: "Systematic under-declaration, and a severity distribution that describes the
+      culture rather than the system."
+  - trap: "Reading severity as authorization"
+    consequence: "The specific failure this squad is prone to. Severity determines coordination
+      intensity and notification obligations. It grants no mechanical authority to anyone. Deploy,
+      rollback, failover, restart, scale, configuration change, pipeline hold, release and
+      status-page publication remain @devops, exclusively, at every level."
+
+# ---------------------------------------------------------------------------
+# Who declares, who reclassifies
+# ---------------------------------------------------------------------------
+authority_to_declare:
+  may_declare: "Anyone. Requiring permission to declare reintroduces the delay that declaring exists
+    to remove."
+  may_reclassify: "The incident commander, with the reason recorded."
+  may_stand_down: "The incident commander, against the written stand-down criteria."
+  may_execute_any_mitigation: "@devops, exclusively — unchanged by severity, urgency or time of day."
+
+# ---------------------------------------------------------------------------
+# Notification obligations
+# ---------------------------------------------------------------------------
+notification:
+  internal: "Fixed cadence per level, including 'no change yet'. Absence of updates is what causes
+    the response to be interrupted by status requests."
+  external:
+    drafted_by: "@ops:incident-lead"
+    approved_by: "The accountable human"
+    published_by: "@devops"
+    rule: "Never issued from this squad. An external statement published at incident speed commits
+      the organization to a cause that is, at that moment, usually still an inference in the
+      timeline — and the inference line is the one that most often escapes into a public statement."

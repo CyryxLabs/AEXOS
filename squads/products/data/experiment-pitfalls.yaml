@@ -1,0 +1,517 @@
+# Experiment Pitfall Taxonomy — Threats to Validity
+# Squad: products
+# Owner: @experimentation-lead (Vernier)
+# Last updated: 2026-07-30
+#
+# Attribution: the validity threat catalogue applied here is published method —
+#   Ron Kohavi, Diane Tang and Ya Xu, "Trustworthy Online Controlled Experiments:
+#   A Practical Guide to A/B Testing" (2020).
+# @experimentation-lead (Vernier) applies this framework with attribution.
+#
+# Boundary: this file diagnoses experiment validity. Instrumentation, event pipelines
+# and metric definitions are @data-engineer. Implementation is @dev. CI quality gates
+# and defect investigation are @qa. Publishing and pushing is @devops (exclusive).
+#
+# HOW TO USE THIS FILE
+#   - At DESIGN time, read the `prevent_at_design_time` block of every entry. That is
+#     the whole point: most of these cost nothing to prevent and cannot be repaired
+#     after the traffic is spent.
+#   - At ANALYSIS time, entries 1 and 3 are covered by PRD-CL-007 and run before any
+#     effect is computed. The rest are worked during *validity-audit.
+#   - Twyman's law governs the order of work: any figure that looks interesting or
+#     different is usually wrong, so a surprising result sends you back to entry 1
+#     before it sends you anywhere else.
+#
+# NUMERIC POLICY
+#   Only constants stated by the agent definition appear here: alpha conventionally
+#   0.05, power conventionally 0.80, the SRM investigation threshold p = 0.001, the
+#   "approximately 16 x variance / squared absolute effect size" rule of thumb, and
+#   the "roughly one in three or lower" base rate from published rates at large
+#   experimentation programs. Everything else is described as a mechanism without a
+#   number. Any figure inside an example is an ILLUSTRATIVE PLACEHOLDER.
+
+version: "1.0.0"
+
+# Ordered as they most commonly appear.
+pitfalls:
+
+  # ---------------------------------------------------------------------------
+  # 1. SAMPLE RATIO MISMATCH
+  # ---------------------------------------------------------------------------
+  - id: sample-ratio-mismatch
+    name: Sample ratio mismatch (SRM)
+    order: 1
+    severity: critical
+    stage: [analysis, ramp]
+    voids_experiment: true
+
+    what_it_is: |
+      The observed traffic split between arms diverges from the designed split by more
+      than chance. The arms stop being comparable populations, because whatever caused
+      the imbalance selected on something — speed, patience, device, bot status — and
+      that something is now correlated with the treatment assignment.
+
+    detect:
+      method: "Chi-square test of observed unit counts against the designed split, at the randomization unit."
+      threshold: "Investigate below p = 0.001. Above it, pass."
+      where_to_count: "Assignment logs, not a downstream metric table that may filter asymmetrically."
+      also_check: "Run the test at every ramp step, not only on pooled data. An SRM confined to one step disappears in the pool."
+      example: "ILLUSTRATIVE — designed 50/50; observed control 248,110, treatment 241,884; chi-square p = 3.1e-09; verdict VOID."
+
+    consequence: |
+      The experiment is void. Not weakened, not caveated — void. Any computed effect is
+      confounded by the imbalance mechanism, and an imbalance smaller than the effect
+      being measured is still large enough to manufacture or erase it entirely.
+
+    remedy:
+      - "Do not analyze. Do not report the effect with a caveat."
+      - "Walk the cause list below in order, recording evidence per candidate."
+      - "Fix the cause and re-run from a clean start."
+      - "Do NOT reweight to repair the split — reweighting assumes exactly the exchangeability the mismatch has disproved."
+    cause_walk:
+      - "Bot and crawler filtering applied asymmetrically"
+      - "Redirect-based assignment losing units in one arm"
+      - "Deployment or cache lag exposing arms at different times"
+      - "Telemetry drop correlated with a slower variant"
+      - "Assignment occurring before an eligibility check that itself differs"
+      - "Units reassigned mid-experiment by an ID change or a login event"
+
+    prevent_at_design_time:
+      - "Assign server-side wherever a redirect would otherwise sit between assignment and exposure."
+      - "Apply bot filtering after assignment, identically in both arms."
+      - "Log assignment as its own event, independent of any product event."
+      - "Evaluate eligibility before assignment, never between assignment and exposure."
+      - "Put sample ratio in the design's trust guardrail table with p = 0.001 and the action VOID."
+      - "Check SRM at the 1% ramp step, before the blast radius grows."
+
+    when_to_suspect: "Always — this is check 1 of PRD-CL-007, run before any effect is computed. Also the first thing to re-check when a result is surprisingly large in either direction."
+    when_this_is_not_the_explanation: "When the chi-square p is comfortably above 0.001 at every ramp step and counts come from assignment logs. A passing SRM does not, however, clear triggering asymmetry — that is a separate check."
+    owner_of_fix: "@data-engineer for telemetry, pipeline and logging causes; @dev where the assignment mechanism itself must change."
+
+  # ---------------------------------------------------------------------------
+  # 2. PEEKING
+  # ---------------------------------------------------------------------------
+  - id: peeking
+    name: Peeking (repeated significance testing without correction)
+    order: 2
+    severity: critical
+    stage: [run, analysis]
+    voids_experiment: false
+
+    what_it_is: |
+      Repeatedly inspecting the OEC on accumulating data against a fixed-horizon
+      threshold, and stopping when it crosses. Each look is another chance for noise to
+      cross the line, so the realised false positive rate rises above the nominal alpha —
+      and the more often the metric is inspected, the worse it gets.
+
+    detect:
+      method: "Any repeated inspection of the OEC against a fixed-horizon threshold."
+      signals:
+        - "The run ended earlier than the declared horizon, and the reason given is that the result reached significance"
+        - "Dashboard access logs, or a chat history, showing the OEC being read mid-run"
+        - "A sequential method appearing in the analysis that was not named in the design"
+      note: "This is a process finding, not a statistical test. There is no test on the data that recovers the inflated alpha after the fact."
+
+    consequence: "False positive rate inflated well above nominal alpha. The reported p-value no longer describes this experiment."
+
+    remedy:
+      - "Fixed horizon with a single analysis, or a sequential method declared before launch and analyzed at its own boundaries."
+      - "Where peeking already occurred, record it as a design-integrity finding in the readout and state that the nominal alpha does not describe this experiment."
+      - "Do not retro-fit a sequential method to data that has already been read — adopting it after the data looks good is the same error applied one level up."
+
+    prevent_at_design_time:
+      - "Declare exactly one stopping rule in the design: fixed horizon with a date, or a named sequential method with its boundaries."
+      - "Name the mechanism that limits mid-run OEC visibility — for example, hiding the OEC from the experiment dashboard until the horizon."
+      - "State explicitly that guardrails and trust metrics may be monitored continuously and the OEC may not."
+      - "Give guardrail monitoring its own view, so the legitimate need to watch for harm does not require opening the OEC."
+
+    when_to_suspect: "Any run that ended early on good news; any request to 'just take a quick look'; any result whose p-value sits just under the threshold at an unplanned stopping point."
+    when_this_is_not_the_explanation: "A genuine sequential design analyzed at its declared boundaries is not peeking. Neither is continuous guardrail monitoring — a guardrail breach aborts immediately and needs no significance test."
+    related_objection: "'The results already look great, can we call it early?' — not on a fixed-horizon design. Wait for the horizon, or have declared a sequential method before launch."
+
+  # ---------------------------------------------------------------------------
+  # 3. DILUTION
+  # ---------------------------------------------------------------------------
+  - id: dilution
+    name: Dilution (untriggered units included in the analysis)
+    order: 3
+    severity: high
+    stage: [design, analysis]
+    voids_experiment: false
+
+    what_it_is: |
+      Units that never encountered the change are included in the analysis population.
+      They cannot have been affected, so they contribute only noise and pull the measured
+      effect toward zero, roughly in proportion to the untriggered share.
+
+    detect:
+      method: "Compare the measured effect against the expectation, and inspect the triggering rate."
+      signals:
+        - "Effect much smaller than expected, with a low triggering rate"
+        - "The analysis population is 'all users in the experiment' rather than 'triggered users'"
+        - "No trigger event is logged in the control arm"
+      example: "ILLUSTRATIVE — a real effect within a triggered population that is a minority of eligible traffic can be attenuated to a fraction of its true size once untriggered units are pooled in, and then dismissed as null."
+
+    consequence: "Real effects are attenuated toward zero, discarded as null, and the idea is abandoned on evidence that never had the sensitivity to see it."
+
+    remedy:
+      - "Restrict the analysis to triggered units in both arms."
+      - "Where the control-arm trigger was never logged, the correct restriction cannot be reconstructed — treat this as an instrumentation failure and re-run."
+
+    prevent_at_design_time:
+      - "Define the triggering condition at design time as a logged, queryable condition."
+      - "Define the symmetric counterfactual trigger in control: the same rule, evaluated at the same point in the flow, logged as its own event."
+      - "Evaluate the trigger before any arm-specific branching that could itself change who qualifies."
+      - "Quantify the dilution cost in the design, so nobody later proposes 'analyzing everyone' as the conservative option."
+      - "Compute power on triggered traffic, not on eligible traffic."
+
+    when_to_suspect: "Any change that only some visitors reach — a step deep in a funnel, a feature behind a state, an error path."
+    when_this_is_not_the_explanation: "When effectively all eligible units trigger (a site-wide change on the entry page), triggering restriction changes little. Note that a low triggering rate is not itself a defect; failing to restrict to it is."
+    caution: "Asymmetric triggering is a different and worse problem — it makes the two analysis populations different by construction and is a trust-check failure, not a sensitivity loss."
+
+  # ---------------------------------------------------------------------------
+  # 4. NOVELTY AND PRIMACY
+  # ---------------------------------------------------------------------------
+  - id: novelty-and-primacy
+    name: Novelty and primacy effects
+    order: 4
+    severity: high
+    stage: [run, analysis]
+    voids_experiment: false
+
+    what_it_is: |
+      Users react to change itself before they react to value. Novelty produces an early
+      lift that decays as the change stops being new; primacy produces the mirror image —
+      an early drop from users disrupted by a familiar flow moving, which recovers as they
+      re-learn. Both are reactions to the transition, not estimates of the steady state.
+
+    detect:
+      method: "Plot the effect by period across the run and inspect the trend before concluding."
+      signals:
+        - "Effect trending toward zero over the run (novelty signature)"
+        - "Effect recovering away from an initial dip (primacy signature)"
+        - "The headline number comes from the first days of exposure"
+      note: "Both signatures are read from the trend, not from a single window. A flat trend is itself evidence and should be reported."
+      no_general_decay_period_asserted: "No general number of days for novelty or primacy to decay is stated here. Derive the stabilization point from this product's own trend data or from a prior experiment on the same surface. [verify against source] before quoting any general figure."
+
+    consequence: "Early readings do not represent the durable effect. A change shipped on a novelty reading delivers nothing; a change killed on a primacy reading is killed for adapting users."
+
+    remedy:
+      - "Read the effect on a stabilized window."
+      - "Report the effect trend over time alongside the headline effect, in every readout."
+      - "Where the trend has not stabilized by the horizon, say so and state that the durable effect is not yet estimated."
+
+    prevent_at_design_time:
+      - "Set duration as the LARGER of the power requirement and whole weekly cycles plus time for novelty and primacy to decay."
+      - "State in the design which driver set the duration, so a later 'we have power at day three' does not reopen it."
+      - "Pre-declare the stabilized window that will be reported."
+      - "For a change to an established, habitual flow, expect primacy and design the duration for re-learning rather than for the first reaction."
+
+    when_to_suspect: "Any visible UI or flow change, especially to a habitual surface; any headline effect drawn from the earliest days."
+    when_this_is_not_the_explanation: "Backend changes invisible to users have no transition to react to. A stable effect across the whole run is not a decayed novelty effect — do not discount a real result by asserting decay that the trend does not show."
+    illustrative_example: "ILLUSTRATIVE — an OEC showing +4.2% in days 1-3 decaying to flat by day 10 is the standard novelty signature; calling the experiment at day 3 would have shipped a change with no durable effect."
+
+  # ---------------------------------------------------------------------------
+  # 5. SIMPSON'S PARADOX
+  # ---------------------------------------------------------------------------
+  - id: simpsons-paradox
+    name: Simpson's paradox (pooling across periods with different traffic mix)
+    order: 5
+    severity: high
+    stage: [analysis]
+    voids_experiment: false
+
+    what_it_is: |
+      When periods or segments with different traffic mixes are pooled, the aggregate
+      effect can differ in sign from the effect in every component. In online experiments
+      the usual generator is our own ramp-up: allocation changes mid-experiment, so each
+      step contributes a different mix to the pool.
+
+    detect:
+      method: "Compute the effect by period and by the segment whose mix changed, then compare with the pooled effect."
+      signals:
+        - "Effect sign differs between periods, or between ramp steps"
+        - "The pooled effect contradicts every individual period"
+        - "Traffic allocation changed during the analyzed window"
+
+    consequence: "The aggregate conclusion contradicts its own components. A ship decision is made on a number that describes no period of the experiment."
+
+    remedy:
+      - "Analyze by period and by the segment whose mix changed."
+      - "Do not pool across ramp steps."
+      - "Where pooling is unavoidable, report the component effects alongside the pooled one and explain the mix difference."
+
+    prevent_at_design_time:
+      - "Declare in the design that the analysis window excludes the ramp steps, and state the window explicitly."
+      - "Hold allocation constant for the whole measurement window; treat any mid-window allocation change as the start of a new window."
+      - "Record the traffic mix per step so a mix difference can be demonstrated rather than argued."
+
+    when_to_suspect: "Any experiment with a ramp, any experiment whose allocation changed mid-run, any result where the pooled sign surprises the people who watched it daily."
+    when_this_is_not_the_explanation: "A single-allocation window with stable mix is not exposed to this. Do not invoke Simpson's paradox to dismiss an unwelcome result without showing the component effects that contradict the pool."
+
+  # ---------------------------------------------------------------------------
+  # 6. MULTIPLE COMPARISONS
+  # ---------------------------------------------------------------------------
+  - id: multiple-comparisons
+    name: Multiple comparisons
+    order: 6
+    severity: high
+    stage: [design, analysis]
+    voids_experiment: false
+
+    what_it_is: |
+      Many metrics or many segments evaluated at the same alpha. Each test carries its own
+      false positive probability, so with enough tests a significant result is guaranteed
+      by chance alone even when nothing is happening.
+
+    detect:
+      method: "Count the tests actually performed: metrics x segments x periods."
+      arithmetic: "At alpha 0.05, the expected number of false positives is approximately 0.05 x (number of tests)."
+      example: "ILLUSTRATIVE — 6 metrics x 14 segments is roughly 84 tests; about 4 false positives are expected by chance alone, so one significant slice at p = 0.03 is consistent with finding nothing."
+
+    consequence: "Significance guaranteed by chance. A finding is produced regardless of whether an effect exists."
+
+    remedy:
+      - "Pre-register the OEC and the segments; everything else is hypothesis generation."
+      - "Apply a correction appropriate to the number of tests, or explicitly label the extras as hypothesis generation."
+      - "Report the test count alongside any secondary finding, so the reader can do the arithmetic."
+
+    prevent_at_design_time:
+      - "Register exactly one OEC. Multiple co-equal 'primary metrics' are a search wearing a design's clothing."
+      - "State the number of metrics and segments that will be tested, in the design. The count is what makes a correction computable."
+      - "Declare the multiple-comparisons handling before launch."
+
+    when_to_suspect: "Any readout with a long metric table and a highlighted secondary result; any 'we also found...' arriving after the OEC came back null."
+    when_this_is_not_the_explanation: "The single pre-registered OEC tested once at the declared horizon is not a multiple-comparisons problem. Guardrails are also not — they are asymmetric by design and a breach triggers an abort rather than a claim."
+
+  # ---------------------------------------------------------------------------
+  # 7. SEGMENT SCANNING
+  # ---------------------------------------------------------------------------
+  - id: segment-scanning
+    name: Segment scanning (post-hoc search for a significant slice)
+    order: 7
+    severity: high
+    stage: [analysis]
+    voids_experiment: false
+
+    what_it_is: |
+      Searching across segments after the fact until one is significant, then presenting it
+      as a finding. It is multiple comparisons with a narrative attached: the segment that
+      surfaced always has a plausible-sounding mechanism available in hindsight.
+
+    detect:
+      method: "Compare the segments reported against the segments pre-registered in the design."
+      signals:
+        - "A segment result is reported that appears nowhere in the design document"
+        - "The reported segment is unusually specific — a device and a region and a cohort"
+        - "The headline finding is a segment while the OEC is null"
+
+    consequence: "A ship decision is made on a slice selected for being significant. The effect typically does not replicate, and the traffic spent confirming it is spent twice."
+
+    remedy:
+      - "Label the finding hypothesis generation, explicitly, wherever it is quoted."
+      - "State the test-count arithmetic next to it."
+      - "If the mechanism is plausible, run a confirmatory experiment with that segment as the pre-registered population and the OEC declared in advance."
+      - "Never promote the finding into the pre-registered section because the mechanism sounds convincing."
+
+    prevent_at_design_time:
+      - "Pre-register each segment with its own directional hypothesis, or register none and say so."
+      - "State in the design that unregistered segments can never support a ship decision."
+      - "Keep a labelled hypothesis-generation section in the readout template so a late finding has an obvious and unflattering place to sit."
+
+    when_to_suspect: "Any segment claim; the burden is on the claim to show it was registered."
+    when_this_is_not_the_explanation: "A pre-registered segment with a stated prior hypothesis is a legitimate result within its own power. Segment discovery is also legitimate work — it is hypothesis generation, and generating hypotheses is valuable; it is only the promotion to conclusion that is the error."
+
+  # ---------------------------------------------------------------------------
+  # 8. INTERFERENCE
+  # ---------------------------------------------------------------------------
+  - id: interference
+    name: Interference (treatment leaking into control)
+    order: 8
+    severity: high
+    stage: [design, analysis]
+    voids_experiment: false
+
+    what_it_is: |
+      Units are not independent: they share a social graph, an inventory, a marketplace, a
+      cache, or a team account. The treatment applied to one unit changes the experience of
+      another that was assigned to control, so the control arm is no longer a clean
+      counterfactual.
+
+    detect:
+      method: "Structural assessment at design time — ask through which channel units could influence each other. After the fact, detection is difficult and often impossible."
+      signals:
+        - "Units share resources, inventory, a social graph, or a marketplace"
+        - "The product's value depends on other users' behaviour"
+        - "A supply-side change that reallocates a fixed pool rather than growing it"
+      caution: "There is usually no test on the data that reveals interference after the fact. This is why it is a design-time question."
+
+    consequence: "The effect estimate is biased in an unpredictable direction — it can overstate or understate, and a zero-sum reallocation can appear as a pure gain."
+
+    remedy:
+      - "Switch to cluster randomization where clusters can be separated."
+      - "Use a time-based switchback design where interference is unavoidable and clusters are inseparable."
+      - "Where neither is possible, state the assumption the causal claim rests on rather than reporting a number that silently assumes independence."
+
+    prevent_at_design_time:
+      - "Make the interference assessment a required, written field in the design, answered with evidence about this system rather than with a default."
+      - "Choose the randomization unit from that assessment, not from habit."
+      - "For marketplaces and dispatch systems, plan for switchback from the start — retrofitting it costs a full re-run."
+      - "Where a fixed pool is being reallocated, add a guardrail on the total pool, not only on the treated side."
+
+    when_to_suspect: "Marketplaces, social products, shared inventory, team or organisation accounts, shared caches, anything with a supply side."
+    when_this_is_not_the_explanation: "Independent single-player flows with no shared resource. Do not force cluster randomization on an independent population — it costs power for nothing."
+
+  # ---------------------------------------------------------------------------
+  # 9. VARIANCE MISESTIMATION
+  # ---------------------------------------------------------------------------
+  - id: variance-misestimation
+    name: Variance misestimation
+    order: 9
+    severity: high
+    stage: [design, analysis]
+    voids_experiment: false
+
+    what_it_is: |
+      The variance used to build the interval does not match the way units were randomized.
+      The classic case is analysing at a finer unit than randomization — randomize by user,
+      analyze by page view — which treats correlated observations as independent. The other
+      case is a ratio metric whose denominator varies across units.
+
+    detect:
+      method: "Compare the analysis unit with the randomization unit, and check whether the metric is a ratio with a varying denominator."
+      signals:
+        - "Analysis unit finer than the randomization unit"
+        - "Ratio metric analyzed as if the denominator were fixed"
+        - "Intervals surprisingly narrow for the sample size"
+        - "An A/A test rejecting far more often than the nominal alpha"
+
+    consequence: "Intervals too narrow, p-values too small, and confident wrong conclusions. The error is invisible in the output — the numbers look better, not worse."
+
+    remedy:
+      - "Analyze at the randomization unit, or coarser."
+      - "Use the delta method or bootstrap for ratio metrics with a varying denominator."
+      - "Validate the correction with an A/A test: a correctly calibrated platform rejects at approximately the nominal rate."
+
+    prevent_at_design_time:
+      - "State the analysis unit in the design and check it against the randomization unit — this is a CRITICAL item on PRD-CL-008."
+      - "Declare the variance method for every ratio metric in the design, not at analysis time."
+      - "Compute the required sample using the variance at the analysis unit, not at the event level."
+      - "Run A/A tests on the platform periodically. A platform that never fails an A/A test is as suspicious as one that always does."
+
+    when_to_suspect: "Per-event, per-page-view or per-session metrics under user-level randomization; any click-through-rate style ratio; any interval that looks too good for the traffic."
+    when_this_is_not_the_explanation: "Simple means at the randomization unit with a fixed denominator need no special treatment. Note also that variance reduction using a pre-period covariate (CUPED-style) is a legitimate technique, not a misestimation — but it is declared in the design, not adopted once the data is visible."
+
+  # ---------------------------------------------------------------------------
+  # 10. OUTLIERS
+  # ---------------------------------------------------------------------------
+  - id: outliers
+    name: Outliers in heavy-tailed metrics
+    order: 10
+    severity: medium
+    stage: [design, analysis]
+    voids_experiment: false
+
+    what_it_is: |
+      A metric dominated by a small number of extreme units — revenue is the usual case.
+      A handful of units can drive the entire estimate, so the result is unstable across
+      reruns and can be flipped by a single account.
+
+    detect:
+      method: "Inspect the metric distribution and the contribution of the top units to the effect."
+      signals:
+        - "A small number of units account for a large share of the metric"
+        - "The effect changes materially when the largest contributors are removed"
+        - "The estimate is unstable across reruns or across sub-periods"
+
+    consequence: "Single units drive the result; the estimate is unstable and the interval understates how much it could move."
+
+    remedy:
+      - "Cap or winsorize with the rule DECLARED BEFORE ANALYSIS, or use a robust estimator."
+      - "Report the effect with and without the rule where the rule is doing heavy lifting, and say which one the decision used."
+      - "Where a rule was chosen after seeing the tail, record that as a design-integrity finding — the choice was made with knowledge of its effect on the answer."
+
+    prevent_at_design_time:
+      - "Declare the capping or winsorizing rule in the design, with its exact threshold, before launch."
+      - "Where no rule is declared, state why the metric is not heavy-tailed."
+      - "Consider a bounded proxy (for example, a conversion indicator alongside revenue) so the decision does not rest solely on the heavy tail."
+      - "Use the capped variance in the power calculation, since capping changes the variance the sample size depends on."
+
+    when_to_suspect: "Revenue, order value, session length, message volume, storage consumed — anything where one unit can be orders of magnitude above the median."
+    when_this_is_not_the_explanation: "Bounded metrics such as a per-user conversion indicator have no tail to cap. Do not cap a bounded metric; it removes signal and buys nothing."
+
+  # ---------------------------------------------------------------------------
+  # 11. RESIDUAL AND CARRYOVER EFFECTS
+  # ---------------------------------------------------------------------------
+  - id: residual-and-carryover
+    name: Residual and carryover effects
+    order: 11
+    severity: high
+    stage: [design, analysis]
+    voids_experiment: false
+
+    what_it_is: |
+      A prior experiment contaminates the current one. Units carry over a learned behaviour,
+      a changed state, or a stale assignment, so the arms differ before the new treatment
+      has done anything.
+
+    detect:
+      method: "Pre-period A/A comparison: compare the OEC and key guardrails across the assigned arms in a window before first exposure."
+      signals:
+        - "A difference between arms in the pre-period, reported with its interval"
+        - "A prior experiment on the same population ended close to this one's start"
+        - "Assignment buckets reused across experiments without re-randomization"
+
+    consequence: "The prior experiment's effect is attributed to this one, in either direction. The contamination is invisible in the post-period alone."
+
+    remedy:
+      - "Re-randomize and verify a clean pre-period before launching."
+      - "Do not adjust for the pre-period difference at analysis time as a substitute for re-randomizing — the difference is a symptom, not a nuisance parameter."
+      - "Record the contaminating experiment in institutional memory so the same overlap is not repeated."
+
+    prevent_at_design_time:
+      - "Re-randomize between experiments rather than reusing buckets."
+      - "State a washout period after any prior experiment on the same population."
+      - "Make the pre-period A/A comparison a required check in the design's analysis plan — it is check 4 of PRD-CL-007."
+      - "Keep a register of concurrent and recent experiments on each population, so overlaps are visible before launch rather than after."
+
+    when_to_suspect: "Any population that has recently carried another experiment; any platform that reuses assignment buckets; any experiment following a change that altered user habits."
+    when_this_is_not_the_explanation: "A freshly randomized population with a clean pre-period and no recent overlapping experiment. A pre-period difference within its interval is not evidence of carryover — report the interval rather than the point estimate."
+
+# ---------------------------------------------------------------------------
+# CROSS-CUTTING GUIDANCE
+# ---------------------------------------------------------------------------
+cross_cutting:
+
+  twymans_law:
+    statement: "Any figure that looks interesting or different is usually wrong."
+    operational_rule: "A surprising result is a defect hypothesis first and a product hypothesis second. Re-run the trust checks before interpreting anything."
+    attribution: "Kohavi, Tang & Xu (2020)"
+
+  base_rate:
+    statement: "Published rates from large experimentation programs put the share of ideas that improve the target metric at roughly one in three or lower."
+    operational_rule: "A program where most tests win has a measurement problem. Use this as a diagnostic on the program, not as a prior on any single experiment."
+    attribution: "Kohavi, Tang & Xu (2020)"
+
+  order_of_work:
+    pre_analysis_gate: "Pitfalls 1 and 3 are covered by PRD-CL-007 (SRM, triggering symmetry) and run before any effect is computed. A failure there voids the experiment."
+    validity_audit: "Pitfalls 2 and 4-11 are worked during *validity-audit, after the trust gate passes."
+    design_gate: "Every `prevent_at_design_time` block is checked by PRD-CL-008 before exposure."
+
+  what_voids_versus_what_weakens:
+    voids: ["sample-ratio-mismatch", "any failed check in PRD-CL-007"]
+    weakens_or_qualifies: ["peeking", "dilution", "novelty-and-primacy", "simpsons-paradox", "multiple-comparisons", "segment-scanning", "interference", "variance-misestimation", "outliers", "residual-and-carryover"]
+    note: "A void experiment reports no effect at all. A qualified experiment reports its effect with the qualification stated in the readout — never with the qualification omitted and never with the effect omitted."
+
+  article_iv_no_invention:
+    rule: "Every number in a readout traces to a query, a metric definition or a documented method. Effects without an interval and a stated analysis window are marked UNVERIFIED and do not enter a ship decision."
+    enforcement: "Readout template section 3.1 (Article IV gate)."
+
+  related_files:
+    - "squads/products/checklists/experiment-trust-checklist.md (PRD-CL-007)"
+    - "squads/products/checklists/experiment-launch-checklist.md (PRD-CL-008)"
+    - "squads/products/templates/experiment-design-tmpl.md"
+    - "squads/products/templates/experiment-readout-tmpl.md"
+    - "squads/products/data/metric-taxonomy.yaml"
+    - "squads/products/tasks/design-controlled-experiment.md"
+    - "squads/products/agents/experimentation-lead.md"

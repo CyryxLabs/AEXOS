@@ -1,0 +1,37 @@
+{
+  "name": "@aexos-squads/aexos-pro-cli",
+  "version": "0.2.2",
+  "description": "CLI for AEXOS Pro — install, activate and manage your license",
+  "bin": {
+    "aexos-pro": "bin/aexos-pro.js"
+  },
+  "files": [
+    "bin/",
+    "src/"
+  ],
+  "dependencies": {
+    "@aexos-squads/installer": "^3.3.2",
+    "open": "^10.0.0"
+  },
+  "keywords": [
+    "aexos",
+    "pro",
+    "license",
+    "cli",
+    "cyryx"
+  ],
+  "author": "Cyryx Labs LLC",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CyryxLabs/AEXOS.git",
+    "directory": "packages/aexos-pro-cli"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
+}

@@ -1,0 +1,476 @@
+# Monetization Models — Catalog with Fit Criteria
+# Squad: products
+# Owner agent: pricing-strategist (Assay)
+# Serves: *monetization-model, *price-strategy, *package
+# Last updated: 2026-07-30
+#
+# METHOD SOURCE
+#   Madhavan Ramanujam and Georg Tacke, "Monetizing Innovation: How Smart Companies Design the
+#   Product Around the Price" (2016) — Rule 5 (go beyond the price point: the monetization model
+#   often matters more than the number) and Rule 6 (price with a purpose).
+#   @pricing-strategist applies this framework with attribution.
+#
+# ARTICLE IV — NO INVENTION
+#   This file contains NO market figures, benchmark prices, or conversion rates, by design.
+#   Any number a user adds here must trace to a documented interview, survey instrument,
+#   transaction record or cited benchmark, or be marked UNVERIFIED.
+#
+# HOW TO USE
+#   1. Read `selection_decision_rules` and shortlist.
+#   2. For each shortlisted model read `when_not_to_use` BEFORE `when_it_fits` — the disqualifiers
+#      decide faster than the fits do.
+#   3. Run `value_metric_alignment_test` on the candidate billing unit.
+#   4. Confirm `operational_preconditions` are actually met, not merely planned.
+#   5. If two models survive, apply `tie_breaker`.
+#   6. Record the choice, the rejected alternatives, and the reason in the packaging document.
+
+version: "1.0.0"
+
+# =============================================================================
+# CORE PRINCIPLES
+# =============================================================================
+
+principles:
+  go_beyond_the_price_point: >
+    The monetization model — subscription, usage-based, per-seat, tiered, freemium, perpetual
+    license, outcome-based — often matters more than the number. The model decides who can afford
+    to start and how revenue grows with value delivered. [Ramanujam & Tacke, Rule 5]
+  value_metric_rule: >
+    The right metric is the one that tracks value received. If the billing unit and the value unit
+    diverge, customers feel penalized for succeeding and the model erodes.
+  legibility_rule: >
+    The billing unit must be legible: the customer should be able to predict their bill before it
+    arrives. A unit they cannot forecast is a unit they will negotiate.
+  model_before_tiers: >
+    Choose the model before drawing tiers. The model determines what a value fence can even be
+    measured in.
+
+# =============================================================================
+# MODEL CATALOG
+# =============================================================================
+
+models:
+
+  # ---------------------------------------------------------------------------
+  subscription:
+    name: Subscription
+    value_metric: "Time-based access"
+    billing_unit: "Period of access (per month, per year), per account"
+    when_it_fits:
+      - "Value accrues steadily and continuously per user or account over time"
+      - "Usage is regular enough that a flat period charge feels proportionate"
+      - "The buyer prefers a predictable, budgetable line item"
+      - "Product improves continuously, so ongoing payment maps to ongoing delivery"
+    when_not_to_use:
+      - "Value is episodic or seasonal — the customer pays through months they receive nothing and cancels at the first budget review"
+      - "The buyer's procurement requires capex treatment; a recurring opex line will stall the deal"
+      - "Value scales sharply with volume across the customer base — a flat period price under-monetizes heavy users and over-prices light ones"
+      - "The product is a one-time job with no recurring surface (a migration, a one-off conversion)"
+      - "Retention depends on a benefit the customer receives only once; the renewal has nothing to justify it"
+    characteristic_failure_mode: >
+      Value delivered decouples from the recurring charge. The customer keeps paying while usage
+      decays, notices at renewal, and the negotiation happens all at once instead of continuously.
+    value_metric_alignment_test:
+      question: "Does the customer receive value in every period they are billed for?"
+      pass: "Yes — usage or benefit is present in substantially every billed period"
+      fail_action: "Add a usage or capacity component, or move to a credit/prepaid pack that matches the episodic pattern"
+    operational_preconditions:
+      - "Recurring billing, dunning, and involuntary-churn recovery"
+      - "Renewal ownership: someone watches usage decay before the renewal conversation, not during it"
+      - "Cancellation and proration policy decided before launch"
+    fence_types_it_supports: ["feature", "user class", "support", "commitment", "capacity"]
+    interacts_with: ["tiered", "per_seat", "freemium"]
+
+  # ---------------------------------------------------------------------------
+  per_seat:
+    name: Per-seat
+    value_metric: "Named users"
+    billing_unit: "Named or active user, per period"
+    when_it_fits:
+      - "Value accrues per individual using the product"
+      - "Each additional user gets their own distinct benefit rather than sharing one output"
+      - "The customer already counts these people internally (headcount, licences, roles)"
+      - "Adoption grows naturally with team size and the customer accepts that as fair"
+    when_not_to_use:
+      - "Broad adoption is the goal — per-seat taxes the exact behaviour you want and buyers ration access"
+      - "Most users are occasional or read-only; they will not justify a full seat and will be squeezed out or shared"
+      - "The value is produced by the system for the organisation, not by each person individually (a pipeline, a monitor, an automation)"
+      - "The buyer cannot predict headcount, so the bill becomes unforecastable"
+      - "Credential sharing is easy and unenforceable — the fence collapses quietly and the reported seat count stops meaning anything"
+    characteristic_failure_mode: >
+      Penalizes broad adoption and encourages seat sharing. The customer restricts access to control
+      cost, product value falls because fewer people use it, and the renewal is argued on seat count
+      rather than on outcomes.
+    value_metric_alignment_test:
+      question: "Does each additional named user receive value roughly proportional to the seat price?"
+      pass: "Yes — a marginal user's benefit is comparable to an existing user's"
+      fail_action: "Introduce user classes (full / light / view-only) as a fence, or move to an account-level or usage-based unit"
+    operational_preconditions:
+      - "Reliable identity and seat provisioning; a way to detect sharing without policing customers"
+      - "True-up policy for seats added mid-term"
+      - "A defined light-user or viewer class if occasional users exist"
+    fence_types_it_supports: ["user class", "feature", "support", "commitment"]
+    interacts_with: ["subscription", "tiered"]
+
+  # ---------------------------------------------------------------------------
+  usage_based:
+    name: Usage-based
+    value_metric: "Units of work processed"
+    billing_unit: "The unit of work the customer already tracks (records, jobs, requests, transactions, GB, minutes)"
+    when_it_fits:
+      - "Value scales directly with the volume of work the product does"
+      - "The customer already measures this unit internally and associates it with getting value"
+      - "Buyers want to start small with no commitment and grow with adoption"
+      - "Marginal cost to serve also scales with the same unit, so margins stay stable"
+    when_not_to_use:
+      - "The billing unit is one the customer does not track and cannot forecast — the bill becomes a monthly surprise and the relationship becomes a negotiation"
+      - "The unit tracks your cost rather than their value (compute seconds, API calls behind the scenes); customers experience efficiency improvements as your revenue loss and their unchanged bill"
+      - "Usage is dominated by failures, retries, or exploration the customer did not want to pay for"
+      - "The buyer requires a fixed annual budget line and cannot approve a variable spend"
+      - "Metering cannot be made accurate and auditable — disputed invoices are more expensive than the model earns"
+    characteristic_failure_mode: >
+      Unpredictable bills; customers optimize against the meter instead of using the product. Usage
+      is throttled internally, adoption stalls, and the product is blamed for the behaviour the
+      pricing caused.
+    value_metric_alignment_test:
+      question: "Does the customer already track this number internally, and does a higher number mean they got more value?"
+      pass: "Yes to both"
+      fail_action: "Change the unit. If no unit satisfies both halves, usage-based is the wrong model regardless of market fashion"
+    operational_preconditions:
+      - "Accurate, auditable metering the customer can reconcile themselves"
+      - "In-product usage visibility and forecast before the invoice arrives"
+      - "Overage policy, spend caps or alerts, and a defined treatment of retries and errors"
+      - "Revenue recognition and forecasting adapted to variable revenue"
+    fence_types_it_supports: ["capacity", "feature", "support", "commitment"]
+    interacts_with: ["tiered", "credit_prepaid_pack", "subscription"]
+
+  # ---------------------------------------------------------------------------
+  tiered:
+    name: Tiered (Good / Better / Best)
+    value_metric: "Package boundaries"
+    billing_unit: "The tier, charged on whichever underlying model the tier is built from"
+    when_it_fits:
+      - "Distinct value segments exist, each with a different leader feature"
+      - "Each segment is identifiable pre-sale and fenceable post-sale"
+      - "Buyers want to self-select without a sales conversation"
+      - "There is a real upgrade trigger that moves a customer from one segment's needs to another's"
+    when_not_to_use:
+      - "Only one value segment exists — then tiers are a price ladder with no segmentation behind them, and the extra options only suppress decisions"
+      - "The tier boundaries would mirror engineering or cost-centre structure; customers cannot see why the next tier is worth more"
+      - "No fence is defensible, so the low tier serves the high segment at the low price"
+      - "The strongest leader would have to sit in a tier the target segment cannot reach — that manufactures a hidden gem"
+    characteristic_failure_mode: >
+      Tiers drawn on internal structure segment nothing. The lineup looks like a choice and behaves
+      like a single confusing package; buyers default down or stall.
+    value_metric_alignment_test:
+      question: "Does each tier map to exactly one named segment, anchored by a leader that segment measurably pays for?"
+      pass: "Yes for every tier"
+      fail_action: "Merge or delete the tier. A tier without a segment is a price line, not a package"
+    operational_preconditions:
+      - "Enforceable fences in the product, not only on the pricing page"
+      - "Upgrade and downgrade paths with defined proration"
+      - "Per-tier value messaging expressed as outcomes"
+    fence_types_it_supports: ["capacity", "feature", "user class", "support", "commitment"]
+    interacts_with: ["subscription", "per_seat", "usage_based", "freemium"]
+
+  # ---------------------------------------------------------------------------
+  freemium:
+    name: Freemium
+    value_metric: "Capacity or feature line"
+    billing_unit: "The paid tier above the free line"
+    when_it_fits:
+      - "Marginal cost to serve a free user is near zero"
+      - "A first-payment barrier is genuinely blocking adoption, and the product can be understood only by using it"
+      - "There is a natural line — capacity or feature — above which a real segment's leader sits"
+      - "Free users create value for paying users or for acquisition (collaboration, content, network effects)"
+    when_not_to_use:
+      - "Marginal cost per free user is material — support, compute or storage turn adoption into loss"
+      - "No defensible line exists: the free tier either satisfies the paying segment or is too crippled to demonstrate value"
+      - "The buyer is an enterprise with procurement anyway — the free tier removes no barrier that existed"
+      - "The sales motion needs qualification; a large unqualified free base consumes support without producing pipeline"
+      - "The leader would have to sit below the line to make free attractive"
+    characteristic_failure_mode: >
+      The leader is placed below the free line, which removes the reason to pay. Conversion is
+      diagnosed as a funnel problem and treated with messaging, when it is a packaging decision.
+    value_metric_alignment_test:
+      question: "Is the leader for the paying segment strictly above the free line, while the free tier still demonstrates real value?"
+      pass: "Yes to both halves — free is useful, and the reason to pay is intact"
+      fail_action: "Move the line, or drop freemium for a trial or a low-priced entry tier"
+    operational_preconditions:
+      - "Cost-to-serve per free user modelled and monitored"
+      - "Abuse and fair-use controls"
+      - "An instrumented upgrade trigger — the event that indicates a free user has entered the paying segment"
+    fence_types_it_supports: ["capacity", "feature", "user class", "support"]
+    interacts_with: ["tiered", "subscription", "usage_based"]
+
+  # ---------------------------------------------------------------------------
+  perpetual_license:
+    name: Perpetual license
+    value_metric: "Deployment right"
+    billing_unit: "One-time licence fee, usually with a recurring support and maintenance subscription"
+    when_it_fits:
+      - "The buyer requires capex treatment rather than an operating expense"
+      - "Deployment is air-gapped, on-premise, or otherwise outside your operational reach"
+      - "Regulatory or continuity requirements demand the customer retain the right to run the software independently"
+      - "Procurement cycles favour a single approved purchase over recurring renewals"
+    when_not_to_use:
+      - "The product is delivered as a hosted service whose cost to serve continues after the sale — revenue stops, costs do not"
+      - "The product's value depends on continuous updates; a perpetual buyer has weak incentive to keep paying for them"
+      - "You need predictable recurring revenue for planning or valuation"
+      - "The roadmap changes frequently enough that supporting many pinned versions becomes the dominant engineering cost"
+    characteristic_failure_mode: >
+      Revenue is front-loaded and the upgrade incentive is weak. The installed base drifts onto old
+      versions, support cost accumulates against revenue that was recognised years earlier.
+    value_metric_alignment_test:
+      question: "Is the value the customer buys genuinely the right to deploy, rather than an ongoing service you keep delivering?"
+      pass: "Yes — after delivery, your ongoing cost is limited to support that the maintenance fee covers"
+      fail_action: "Convert to subscription, or price maintenance to cover the true ongoing cost to serve"
+    operational_preconditions:
+      - "Version support policy and end-of-life dates set before the first sale"
+      - "Licence enforcement or audit mechanism"
+      - "Maintenance and support pricing that stands on its own"
+    fence_types_it_supports: ["feature", "user class", "capacity", "support"]
+    interacts_with: ["subscription"]
+
+  # ---------------------------------------------------------------------------
+  outcome_based:
+    name: Outcome-based
+    value_metric: "The customer's own result metric"
+    billing_unit: "The agreed outcome (per resolved case, per recovered amount, per qualified lead, per avoided incident)"
+    when_it_fits:
+      - "Value is directly measurable in the customer's own metric"
+      - "The result is attributable to the product with a method both parties accept in advance"
+      - "The customer's alternative is expensive enough that paying on results is clearly favourable"
+      - "You can carry the risk: your cost to serve does not spike when outcomes do not materialise"
+    when_not_to_use:
+      - "Attribution is contested or multi-touch — every invoice becomes a negotiation about causality"
+      - "The outcome depends heavily on customer behaviour you do not control (data quality, staffing, follow-through)"
+      - "No measurement method can be agreed before the contract; agreeing it afterwards never happens on favourable terms"
+      - "Outcome volume is small and lumpy — revenue becomes unforecastable for both sides"
+      - "The customer's own metric is not instrumented well enough to be audited"
+    characteristic_failure_mode: >
+      Attribution disputes. Requires agreed measurement up front; without it, the model converts
+      every renewal into a forensic exercise and the commercial relationship degrades into
+      measurement arbitration.
+    value_metric_alignment_test:
+      question: "Can both parties, today, name the measurement method, the data source, and the dispute procedure — in writing?"
+      pass: "Yes, all three, agreed before signature"
+      fail_action: "Do not use outcome-based. Use a proxy unit that correlates with the outcome, or a subscription with an outcome-linked component"
+    operational_preconditions:
+      - "Written measurement definition, data source of record, and audit rights"
+      - "Dispute procedure with a defined arbiter"
+      - "Baseline established before the product is deployed, or attribution is unrecoverable"
+      - "Cash-flow tolerance for revenue that lags delivery"
+    fence_types_it_supports: ["feature", "support", "commitment"]
+    interacts_with: ["subscription", "usage_based"]
+
+  # ---------------------------------------------------------------------------
+  credit_prepaid_pack:
+    name: Credit / prepaid pack
+    value_metric: "Prepaid units of the same work unit the customer values"
+    billing_unit: "A purchased balance of credits drawn down by usage"
+    when_it_fits:
+      - "Value is lumpy and event-driven rather than steady — the customer needs capacity in bursts"
+      - "A usage-based unit is right, but the buyer needs a fixed, budgetable commitment"
+      - "Procurement prefers a single purchase order over a variable monthly invoice"
+      - "The credit is denominated in the same unit the customer already tracks and values"
+    when_not_to_use:
+      - "Credits are denominated in an internal abstraction the customer cannot map to their own work — then the unit hides the price rather than clarifying it"
+      - "Expiry terms would be the main source of revenue; breakage-driven revenue fails the disclosure test and surfaces at renewal"
+      - "Usage is steady and predictable — a subscription is simpler and easier to forecast for both sides"
+      - "Multiple credit types with different exchange rates would be needed; the pricing becomes uninspectable"
+    characteristic_failure_mode: >
+      The credit becomes an abstraction layer between the customer and the price. Buyers stop being
+      able to say what a unit of work costs, hoard unused balances, and treat expiry as a penalty
+      rather than a term.
+    value_metric_alignment_test:
+      question: "Is one credit equal to one thing the customer recognises and wanted, at a rate they can state without a calculator?"
+      pass: "Yes — the customer can convert credits to their own work unit in their head"
+      fail_action: "Re-denominate the credit in the customer's unit, or drop credits for direct usage-based billing"
+    operational_preconditions:
+      - "Balance visibility, low-balance alerts, and top-up flow"
+      - "Expiry and rollover terms stated plainly at purchase"
+      - "Deferred revenue recognition against drawdown"
+    fence_types_it_supports: ["capacity", "commitment", "feature"]
+    interacts_with: ["usage_based", "subscription"]
+
+  # ---------------------------------------------------------------------------
+  razor_razorblade:
+    name: Razor–razorblade
+    value_metric: "The recurring consumable"
+    billing_unit: "Low-priced entry unit plus a recurring consumable that carries the margin"
+    when_it_fits:
+      - "A first-purchase barrier blocks adoption and a low entry price removes it"
+      - "The recurring consumable genuinely tracks the value the customer receives"
+      - "The consumable is durably tied to the entry unit, so the base cannot be served by someone else's consumable"
+      - "Lifetime value is predictable enough to justify subsidising the entry price"
+    when_not_to_use:
+      - "The consumable does not track value — then the customer pays more the longer they stay without receiving more, and defects at the first alternative"
+      - "The consumable can be substituted or bypassed; the subsidised entry unit becomes a permanent loss"
+      - "The subsidy cannot be recovered within a realistic retention window"
+      - "The pricing would only work if the customer failed to notice the total cost of ownership — that fails the disclosure test"
+    characteristic_failure_mode: >
+      The entry price is subsidised on an assumed consumable stream that never materialises at the
+      assumed rate, or the consumable is substituted. The model then loses money on every acquisition
+      it was designed to win.
+    value_metric_alignment_test:
+      question: "Does consuming more of the consumable mean the customer got more value — and would you be comfortable showing them the full multi-year cost at purchase?"
+      pass: "Yes to both"
+      fail_action: "Raise the entry price to stand on its own, or move the margin into a subscription the customer can evaluate directly"
+    operational_preconditions:
+      - "Total-cost-of-ownership disclosure at the point of sale"
+      - "Retention and consumable-attach measurement, watched from day one"
+      - "A defined response if attach rate falls below the level the subsidy assumed"
+    fence_types_it_supports: ["capacity", "commitment"]
+    interacts_with: ["usage_based", "credit_prepaid_pack"]
+    note: >
+      Listed in the agent's behavioural tactics as: low entry price with recurring consumable,
+      requiring that the consumable tracks value. Every tactic must survive disclosure — if
+      explaining it to the customer would embarrass you, do not use it.
+
+# =============================================================================
+# SELECTION DECISION RULES
+# =============================================================================
+
+selection_decision_rules:
+  order_of_application: >
+    Run the value-pattern rules first, then eliminate with `when_not_to_use`, then apply the
+    tie-breaker. Never choose a model because it is what the market is moving to; the model must
+    fit how value reaches this customer.
+
+  rules:
+    - condition: "Value accrues steadily per user over time"
+      choose: ["subscription", "per_seat"]
+    - condition: "Value scales with the volume of work processed"
+      choose: ["usage_based"]
+      qualifier: "On the unit that tracks value — not the unit that tracks your cost"
+    - condition: "Value is lumpy and event-driven"
+      choose: ["credit_prepaid_pack"]
+      qualifier: "Denominated against the same unit a usage model would have used"
+    - condition: "Adoption is blocked by a first-payment barrier and marginal cost is near zero"
+      choose: ["freemium"]
+      qualifier: "With the leader fenced above the free line"
+    - condition: "The buyer requires capex treatment or air-gapped deployment"
+      choose: ["perpetual_license"]
+      qualifier: "With a support subscription alongside"
+    - condition: "Value is directly measurable in the customer's own metric and attributable"
+      choose: ["outcome_based"]
+      qualifier: "Only with agreed measurement, defined before signature"
+    - condition: "Distinct value segments exist with different leaders"
+      choose: ["tiered"]
+      qualifier: "Layered on top of whichever underlying model was chosen above"
+    - condition: "Cannot decide"
+      choose: ["apply tie_breaker"]
+
+  tie_breaker:
+    rule: >
+      Choose the model whose billing unit the customer ALREADY TRACKS INTERNALLY and ALREADY
+      ASSOCIATES WITH GETTING VALUE.
+    why: >
+      When the billing unit and the value unit diverge, the customer experiences growth as a
+      penalty. A unit they already count is a unit they can forecast, defend internally, and accept
+      at renewal without a negotiation.
+    how_to_apply:
+      - "Ask, in the WTP interview: 'What number do you already report on internally for this?'"
+      - "Test the candidate unit against both halves: do they track it, and does more of it mean more value to them?"
+      - "If only one half passes, the unit is wrong. Both halves or a different unit."
+    failure_if_ignored: >
+      Customers optimize against the meter instead of using the product, and the model erodes from
+      the inside while headline revenue still looks healthy.
+
+  disqualifiers_that_override_any_fit:
+    - "Metering cannot be made accurate and auditable → no usage-based, no credit pack, no outcome-based"
+    - "Measurement method cannot be agreed in writing before signature → no outcome-based"
+    - "No defensible free line exists → no freemium"
+    - "Only one value segment exists → no tiered lineup; set a price instead of adding a tier"
+    - "Cost to serve continues after the sale with no maintenance revenue → no perpetual licence"
+
+  anti_patterns:
+    - name: "Cost-plus"
+      why_wrong: >
+        Cost sets the floor below which you should not sell. It says nothing about what the customer
+        will pay, which is set by the value delivered relative to their alternative. Cost-plus
+        systematically underprices high-value products and overprices low-value ones.
+    - name: "Copying the market's current model"
+      why_wrong: >
+        Usage-based works when the billing unit tracks the value the customer receives. When it does
+        not, customers experience growth as a penalty. The model must be tested against the unit
+        question, not against what competitors announced.
+    - name: "Adding a tier instead of changing the price"
+      why_wrong: >
+        A tier is only real if it targets a segment with a different value driver and is fenced on
+        something that segment cares about. A price line with no leader behind it produces a tier
+        nobody selects — or a compromise effect that pushes buyers down instead of up.
+    - name: "Choosing the model after the tiers are drawn"
+      why_wrong: >
+        The model determines what a fence can be measured in. Tiers designed first have to be redrawn.
+
+# =============================================================================
+# PRICING STRATEGIES  [Ramanujam & Tacke, Rule 6 — price with a purpose]
+# =============================================================================
+
+pricing_strategies:
+
+  maximization:
+    goal: "Capture available value now"
+    choose_when: "Segment understood, competition not building decisive share"
+    exit_condition: "A competitor begins converting on price in the target segment"
+    what_to_record:
+      - "Which segment is understood well enough to justify it, and from which evidence"
+      - "Who watches the exit condition, and on what cadence"
+    failure_if_defaulted: >
+      Maximization is what a lineup becomes when no strategy is chosen. An unstated strategy is
+      maximization by accident, without the monitoring that makes it survivable.
+
+  penetration:
+    goal: "Buy installed base with a low entry price"
+    choose_when: "Network effects or switching costs make base size decisive"
+    exit_condition: "Base threshold reached; a stated path back up must exist before starting"
+    what_to_record:
+      - "The base threshold, as a number, agreed before the low price goes live"
+      - "The written path back up — mechanism, timing, and treatment of existing customers"
+    failure_if_defaulted: >
+      Starting penetration without a written path back up. The low price becomes the reference price
+      and every later increase is read as a betrayal rather than as a plan.
+
+  skimming:
+    goal: "Start high, descend deliberately"
+    choose_when: "Early adopters hold high WTP; costs or competition will force descent"
+    exit_condition: "Adoption stalls at the current step of the descent"
+    what_to_record:
+      - "The descent steps and the trigger for each"
+      - "How early buyers are treated when the price falls beneath what they paid"
+    failure_if_defaulted: >
+      Descending reactively rather than on defined steps, which teaches buyers to wait for the next
+      cut instead of purchasing now.
+
+  standing_rules:
+    - "State the strategy explicitly. Maximization, penetration and skimming have different consequences; choose one deliberately and say which."
+    - "The exit condition must be observable by a named person, or it is decoration."
+    - "Tier prices across the lineup must be consistent with the stated strategy."
+    - "Any live change of strategy or price goes to @experimentation-lead as a registered experiment with a defined OEC, guardrail metrics and a sample-size calculation. Never call a winner from a partial period of revenue data."
+
+# =============================================================================
+# BOUNDARY
+# =============================================================================
+
+boundary:
+  this_file_decides: "What the monetization model is and why — the commercial design"
+  not_here:
+    - "Billing implementation and metering → @dev with @data-engineer"
+    - "Live price and packaging tests → @experimentation-lead"
+    - "Category, frame of reference and narrative → @positioning-lead"
+    - "Stories → @sm; epics and PRDs → @pm; push and publication → @devops (exclusive)"
+    - "Code testing → @qa"
+
+attribution:
+  source: >
+    Madhavan Ramanujam and Georg Tacke, "Monetizing Innovation: How Smart Companies Design the
+    Product Around the Price" (2016) — Rule 5 (go beyond the price point) and Rule 6 (price with a
+    purpose); the four commercial failure modes (feature shock, minivan, hidden gem, undead).
+  agent_note: >
+    @pricing-strategist (Assay) applies this framework with attribution.
+  article_iv: >
+    Constitution Article IV — No Invention. Every willingness-to-pay figure, segment size and take
+    rate traces to a documented interview, survey instrument, transaction record or cited benchmark.
+    Unsourced numbers are marked UNVERIFIED and never enter a business case.

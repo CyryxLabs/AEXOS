@@ -1,0 +1,6 @@
+# AEXOS aexos-qa — subagent role defaults
+description = "Test Architect & Quality Advisor (Argus)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aexos-qa.md"

@@ -1,0 +1,260 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# AEXOS Squad Manifest — Marketing Squad
+# Conforms to .aexos-core/schemas/squad-schema.json (task-first architecture).
+# components/ is derived from disk by scripts/normalize-squad-manifests.js.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+name: marketing
+version: 1.0.0
+short-title: Marketing Squad
+description: >-
+  Squad de marketing: construção de marca, geração de demanda, conteúdo e medição. Cobre do alcance
+  de longo prazo à conversão de curto prazo.
+author: Cyryx Labs LLC
+license: UNLICENSED
+slashPrefix: marketing
+tags:
+  - marketing
+  - brand
+  - demand-generation
+  - content
+  - analytics
+  - attribution
+  - aexos
+cyryx:
+  minVersion: 2.1.0
+  type: squad
+components:
+  tasks:
+    - analytics-lead-measurement-model.md
+    - brand-lead-brand-audit.md
+    - content-lead-beat-plan.md
+    - demand-lead-split-decision.md
+    - funnel-lead-funnel-map.md
+    - marketing-chief-diagnose.md
+    - offer-lead-offer-build.md
+  agents:
+    - analytics-lead.md
+    - brand-lead.md
+    - content-lead.md
+    - demand-lead.md
+    - funnel-lead.md
+    - marketing-chief.md
+    - offer-lead.md
+  workflows:
+    - wf-demand-diagnostic.yaml
+    - wf-marketing-plan.yaml
+  checklists:
+    - brand-growth-evidence-checklist.md
+    - coherence-chain-checklist.md
+    - commissioning-brief-checklist.md
+    - effect-window-checklist.md
+    - funnel-integrity-checklist.md
+    - measurement-honesty-checklist.md
+    - offer-integrity-checklist.md
+  templates:
+    - beat-plan-tmpl.md
+    - brand-specification-tmpl.md
+    - funnel-architecture-tmpl.md
+    - marketing-brief-tmpl.md
+    - measurement-model-tmpl.md
+    - offer-construction-tmpl.md
+    - split-decision-tmpl.md
+  tools: []
+  scripts: []
+config:
+  extends: extend
+dependencies:
+  node: []
+  squads: []
+squad:
+  name: marketing
+  display_name: Marketing Squad
+  version: 1.0.0
+  domain: Marketing — Brand, Demand and Measurement
+  description: >-
+    Squad de marketing: construção de marca, geração de demanda, conteúdo e medição. Cobre do
+    alcance de longo prazo à conversão de curto prazo.
+  philosophy: |-
+    "Alcance antes de persuasão."
+    Cada agente é ancorado em evidência publicada, não em opinião de mercado.
+  keywords:
+    - marketing
+    - brand
+    - demand-generation
+    - content
+    - analytics
+    - attribution
+    - aexos
+  entry_agent: marketing-chief
+  created_by: squad-creator
+  created_at: '2026-07-30'
+tiers:
+  tier_0:
+    name: Diagnosis & Routing
+    agents:
+      - marketing-chief
+    purpose: Triar o pedido, rotear ao especialista, manter coerência
+  tier_1:
+    name: Core Practice
+    agents:
+      - brand-lead
+      - demand-lead
+    purpose: Domínios centrais do squad
+  tier_2:
+    name: Applied & Adjacent
+    agents:
+      - content-lead
+      - analytics-lead
+      - offer-lead
+      - funnel-lead
+    purpose: Domínios de apoio e fronteira
+agents:
+  marketing-chief:
+    persona: Beacon
+    file: agents/marketing-chief.md
+    tier: 0
+    based_on: Original (Orchestrator)
+    icon: 🔆
+    focus: Triagem, roteamento, equilíbrio entre marca e demanda
+  brand-lead:
+    persona: Salience
+    file: agents/brand-lead.md
+    tier: 1
+    based_on: Byron Sharp (How Brands Grow, 2010)
+    icon: 🪧
+    focus: Disponibilidade mental e física, penetração acima de lealdade, distinctive assets
+  demand-lead:
+    persona: Cadence
+    file: agents/demand-lead.md
+    tier: 1
+    based_on: Les Binet & Peter Field (The Long and the Short of It, 2013)
+    icon: 📶
+    focus: Equilíbrio marca/ativação, efeito de longo prazo vs resposta imediata
+  content-lead:
+    persona: Quill
+    file: agents/content-lead.md
+    tier: 2
+    based_on: >-
+      Editorial discipline applied to marketing (agenda, cadence, distribution) — no single
+      canonical work
+    icon: 🖋️
+    focus: Pauta, formato, distribuição; conteúdo como ativo e não como campanha
+  analytics-lead:
+    persona: Cipher
+    file: agents/analytics-lead.md
+    tier: 2
+    based_on: Avinash Kaushik (Web Analytics 2.0, 2009)
+    icon: 📈
+    focus: Métricas acionáveis, atribuição, o que a medição não consegue provar
+  offer-lead:
+    persona: Bounty
+    file: agents/offer-lead.md
+    tier: 2
+    based_on: Alex Hormozi ($100M Offers, 2021 / $100M Leads, 2023)
+    icon: 🎁
+    focus: >-
+      Construção de oferta, equação de valor, garantia e risco invertido, escada de ofertas; por que
+      uma oferta não converte antes de mexer em tráfego
+  funnel-lead:
+    persona: Weir
+    file: agents/funnel-lead.md
+    tier: 2
+    based_on: Russell Brunson (DotCom Secrets, 2015 / Expert Secrets, 2017 / Traffic Secrets, 2020)
+    icon: 🪣
+    focus: >-
+      Arquitetura de funil, escada de valor, sequência de conversão e origem de tráfego; onde o
+      funil vaza e qual etapa responde por isso
+handoffs:
+  marketing-chief:
+    routes_to:
+      - brand-lead
+      - demand-lead
+      - content-lead
+      - analytics-lead
+      - offer-lead
+      - funnel-lead
+  brand-lead:
+    collaborates_with:
+      - demand-lead
+      - content-lead
+      - analytics-lead
+    escalates_to:
+      - marketing-chief
+  demand-lead:
+    collaborates_with:
+      - brand-lead
+      - content-lead
+      - analytics-lead
+    escalates_to:
+      - marketing-chief
+  content-lead:
+    collaborates_with:
+      - brand-lead
+      - demand-lead
+      - analytics-lead
+    escalates_to:
+      - marketing-chief
+  analytics-lead:
+    collaborates_with:
+      - brand-lead
+      - demand-lead
+      - content-lead
+    escalates_to:
+      - marketing-chief
+  offer-lead:
+    collaborates_with:
+      - brand-lead
+      - demand-lead
+      - content-lead
+      - analytics-lead
+    escalates_to:
+      - marketing-chief
+  funnel-lead:
+    collaborates_with:
+      - brand-lead
+      - demand-lead
+      - content-lead
+      - analytics-lead
+      - offer-lead
+    escalates_to:
+      - marketing-chief
+cross_cutting:
+  aexos_awareness:
+    description: Todos os agentes entendem a arquitetura AEXOS-core
+    context_files:
+      - .claude/CLAUDE.md
+      - .aexos-core/core-config.yaml
+      - .aexos-core/data/entity-registry.yaml
+  core_agent_boundary:
+    description: >-
+      Este squad decide e evidencia dentro do seu domínio. Não implementa, não testa e não publica —
+      isso pertence aos agentes do core.
+    defers_to:
+      '@pm': Épicos, PRD, execução de épico
+      '@po': Validação de story e backlog
+      '@sm': Criação de story (draft) — autoridade exclusiva
+      '@dev': Implementação
+      '@qa': Quality gate
+      '@devops': Release e push (autoridade exclusiva)
+  cross_squad_boundary:
+    description: >-
+      Fronteiras com outros squads. Registradas aqui, e não apenas no texto dos agentes, porque é o
+      manifesto que a camada de roteamento lê.
+    defers_to:
+      '@products:positioning-lead': Posicionamento de produto — marketing consome, não define
+      '@products:pricing-strategist': Preço e empacotamento do produto — a oferta é construída sobre eles, não os substitui
+  attribution:
+    description: >-
+      Cada agente declara a obra que fundamenta seu método. Onde o papel se apoia numa disciplina e
+      não numa obra única, isso é dito — atribuição errada é pior que ausência de atribuição.
+    required_field: based_on
+  quality_standards:
+    min_score: 7
+    smoke_tests: 3
+    voice_dna_required: true
+    thinking_dna_required: true
+settings:
+  greeting:
+    level: archetypal
+    show_project_status: true

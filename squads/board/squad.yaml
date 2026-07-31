@@ -1,0 +1,209 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# AEXOS Squad Manifest — Board Squad
+# Conforms to .aexos-core/schemas/squad-schema.json (task-first architecture).
+# components/ is derived from disk by scripts/normalize-squad-manifests.js.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+name: board
+version: 1.0.0
+short-title: Board Squad
+description: >-
+  Squad de conselho: governança, supervisão de risco, auditoria e sucessão. Fiscaliza e aconselha a
+  gestão; não executa nem substitui o CEO.
+author: Cyryx Labs LLC
+license: UNLICENSED
+slashPrefix: board
+tags:
+  - governance
+  - board
+  - risk
+  - oversight
+  - audit
+  - succession
+  - compliance
+  - aexos
+cyryx:
+  minVersion: 2.1.0
+  type: squad
+components:
+  tasks:
+    - board-matter-triage.md
+    - figure-challenge.md
+    - governance-audit.md
+    - risk-appetite-statement.md
+    - succession-audit.md
+  agents:
+    - audit-lead.md
+    - board-chief.md
+    - governance-counsel.md
+    - risk-oversight.md
+    - succession-lead.md
+  workflows:
+    - wf-oversight-cycle.yaml
+    - wf-succession-review.yaml
+  checklists:
+    - board-pack-integrity-checklist.md
+    - figure-challenge-checklist.md
+    - governance-audit-checklist.md
+    - risk-oversight-checklist.md
+    - succession-readiness-checklist.md
+  templates:
+    - assurance-map-tmpl.md
+    - board-agenda-tmpl.md
+    - board-pack-tmpl.md
+    - governance-audit-tmpl.md
+    - risk-appetite-statement-tmpl.md
+    - succession-plan-tmpl.md
+  tools: []
+  scripts: []
+config:
+  extends: extend
+dependencies:
+  node: []
+  squads: []
+squad:
+  name: board
+  display_name: Board Squad
+  version: 1.0.0
+  domain: Board of Directors — Governance, Risk and Oversight
+  description: >-
+    Squad de conselho: governança, supervisão de risco, auditoria e sucessão. Fiscaliza e aconselha
+    a gestão; não executa nem substitui o CEO.
+  philosophy: |-
+    "Supervisão é fazer a pergunta que ninguém quer responder."
+    O conselho não opera — ele exige evidência de quem opera.
+  keywords:
+    - governance
+    - board
+    - risk
+    - oversight
+    - audit
+    - succession
+    - compliance
+    - aexos
+  entry_agent: board-chief
+  created_by: squad-creator
+  created_at: '2026-07-30'
+tiers:
+  tier_0:
+    name: Diagnosis & Routing
+    agents:
+      - board-chief
+    purpose: Triar o pedido, rotear ao especialista, manter coerência
+  tier_1:
+    name: Core Practice
+    agents:
+      - governance-counsel
+      - risk-oversight
+    purpose: Domínios centrais do squad
+  tier_2:
+    name: Applied & Adjacent
+    agents:
+      - audit-lead
+      - succession-lead
+    purpose: Domínios de apoio e fronteira
+agents:
+  board-chief:
+    persona: Chair
+    file: agents/board-chief.md
+    tier: 0
+    based_on: Original (Orchestrator)
+    icon: ⚖️
+    focus: Pauta do conselho, roteamento, equilíbrio entre supervisão e aconselhamento
+  governance-counsel:
+    persona: Charter
+    file: agents/governance-counsel.md
+    tier: 1
+    based_on: Cadbury Report (1992) and the corporate governance principles derived from it
+    icon: 📜
+    focus: Separação de papéis, independência, deveres fiduciários, estrutura de comitês
+  risk-oversight:
+    persona: Bulwark
+    file: agents/risk-oversight.md
+    tier: 1
+    based_on: COSO Enterprise Risk Management Framework
+    icon: 🛡️
+    focus: Apetite a risco, controles, riscos de cauda, o que escala ao conselho
+  audit-lead:
+    persona: Tally
+    file: agents/audit-lead.md
+    tier: 2
+    based_on: >-
+      COSO (Internal Control -- Integrated Framework) + Sarbanes-Oxley Act (2002) + Cadbury Report
+      (1992) + the three-lines model associated with the Institute of Internal Auditors
+    icon: 🧾
+    focus: Integridade de demonstrações, controles internos, relação com auditor externo
+  succession-lead:
+    persona: Lineage
+    file: agents/succession-lead.md
+    tier: 2
+    based_on: Ram Charan, Dennis Carey & Michael Useem (Boards That Lead, 2013)
+    icon: 🌳
+    focus: Sucessão de CEO, pipeline de liderança, avaliação de desempenho executivo
+handoffs:
+  board-chief:
+    routes_to:
+      - governance-counsel
+      - risk-oversight
+      - audit-lead
+      - succession-lead
+  governance-counsel:
+    collaborates_with:
+      - risk-oversight
+      - audit-lead
+      - succession-lead
+    escalates_to:
+      - board-chief
+  risk-oversight:
+    collaborates_with:
+      - governance-counsel
+      - audit-lead
+      - succession-lead
+    escalates_to:
+      - board-chief
+  audit-lead:
+    collaborates_with:
+      - governance-counsel
+      - risk-oversight
+      - succession-lead
+    escalates_to:
+      - board-chief
+  succession-lead:
+    collaborates_with:
+      - governance-counsel
+      - risk-oversight
+      - audit-lead
+    escalates_to:
+      - board-chief
+cross_cutting:
+  aexos_awareness:
+    description: Todos os agentes entendem a arquitetura AEXOS-core
+    context_files:
+      - .claude/CLAUDE.md
+      - .aexos-core/core-config.yaml
+      - .aexos-core/data/entity-registry.yaml
+  core_agent_boundary:
+    description: >-
+      Este squad decide e evidencia dentro do seu domínio. Não implementa, não testa e não publica —
+      isso pertence aos agentes do core.
+    defers_to:
+      '@pm': Épicos, PRD, execução de épico
+      '@po': Validação de story e backlog
+      '@sm': Criação de story (draft) — autoridade exclusiva
+      '@dev': Implementação
+      '@qa': Quality gate
+      '@devops': Release e push (autoridade exclusiva)
+  attribution:
+    description: >-
+      Cada agente declara a obra que fundamenta seu método. Onde o papel se apoia numa disciplina e
+      não numa obra única, isso é dito — atribuição errada é pior que ausência de atribuição.
+    required_field: based_on
+  quality_standards:
+    min_score: 7
+    smoke_tests: 3
+    voice_dna_required: true
+    thinking_dna_required: true
+settings:
+  greeting:
+    level: archetypal
+    show_project_status: true

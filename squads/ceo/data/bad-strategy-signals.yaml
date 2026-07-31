@@ -1,0 +1,328 @@
+# Bad Strategy Signals — detection reference for strategy-lead (Kernel)
+# Squad: ceo
+#
+# Method source: Richard Rumelt, "Good Strategy Bad Strategy: The Difference and Why It
+# Matters" (2011); diagnostic emphasis extended in "The Crux: How Leaders Become
+# Strategists" (2022).
+#
+# ATTRIBUTION RULE FOR THIS FILE
+# The four hallmarks, the kernel, and the sources of power are Rumelt's and are marked
+# `source: rumelt`. The detection phrasings, the repair instructions and the worked
+# reframes are this squad's operating detail and are marked `source: squad`. Nothing in
+# this file quotes Rumelt. Where a distinction is uncertain, it is marked `source: squad`,
+# because a wrong attribution is worse than none.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# THE KERNEL — what a strategy has to contain to be one
+# ---------------------------------------------------------------------------
+kernel:
+  source: rumelt
+  order_is_load_bearing: true
+  parts:
+    - name: diagnosis
+      definition: "A claim about what is critical in the situation, simplifying its complexity into an account of the obstacle."
+      passes_if: "A named observation could contradict it."
+      fails_as: "A description. Descriptions do not guide action and cannot be corrected."
+      common_failure: "Restating the symptom, or naming a party to blame instead of a mechanism."
+    - name: guiding_policy
+      definition: "An overall approach to dealing with the obstacle named in the diagnosis."
+      passes_if: "It rules something out, and the excluded thing is named."
+      fails_as: "A slogan."
+      common_failure: "Stating a desired outcome instead of a method of dealing with the obstacle."
+    - name: coherent_action
+      definition: "A set of coordinated steps that carry out the guiding policy and support one another."
+      passes_if: "Each action supports or is supported by another, and no two conflict unresolved."
+      fails_as: "A budget with narration."
+      common_failure: "Individually sensible activities that pull against each other or compete for the same resource."
+
+# ---------------------------------------------------------------------------
+# HALLMARK 1 — FLUFF
+# ---------------------------------------------------------------------------
+hallmark_fluff:
+  source: rumelt
+  definition: "Abstract or esoteric language used to create an impression of expertise, restating the obvious."
+  detection_procedure:
+    source: squad
+    steps:
+      - "Extract every declarative sentence."
+      - "Rewrite each in plain language a new employee would understand, with no domain jargon."
+      - "Classify: CARRIES INFORMATION / EMPTY / UNCHECKABLE."
+      - "Report the ratio and quote the worst offenders beside their plain rewrite."
+  classification:
+    CARRIES_INFORMATION: "A reader could act differently because of it."
+    EMPTY: "True of any company in any industry. Occupies the space where a choice should be."
+    UNCHECKABLE: "No observation bears on it in either direction."
+
+  # These are constructions, not a blocklist. The test is always the plain rewrite —
+  # a sentence containing one of these can still carry information, and a sentence
+  # containing none of them can still be empty.
+  constructions_that_usually_survive_as_empty:
+    source: squad
+    items:
+      - construction: "leverage our {asset} to deliver {outcome} at scale"
+        plain_rewrite: "use our thing to be good for many customers"
+        verdict: EMPTY
+      - construction: "be the trusted partner of choice"
+        plain_rewrite: "we want customers to prefer us"
+        verdict: "EMPTY, and additionally hallmark 3 — a desired outcome presented as an approach"
+      - construction: "drive operational excellence across the organisation"
+        plain_rewrite: "run the company well"
+        verdict: EMPTY
+      - construction: "become a data-driven / AI-first / customer-centric organisation"
+        plain_rewrite: "use data / use AI / pay attention to customers"
+        verdict: "EMPTY unless a specific decision is named that would change"
+      - construction: "unlock synergies across the portfolio"
+        plain_rewrite: "get more out of the things we already own"
+        verdict: "EMPTY unless the mechanism and the amount are stated"
+      - construction: "deliver differentiated value to our customers"
+        plain_rewrite: "be better than competitors"
+        verdict: EMPTY
+      - construction: "our strategy is to win in {market}"
+        plain_rewrite: "we want to do well in this market"
+        verdict: "EMPTY, and hallmark 3"
+
+  adjective_test:
+    source: squad
+    rule: "Strike every adjective that carries no information. If the sentence is unchanged in meaning, the adjective was decoration."
+    frequent_offenders: [leading, world-class, best-in-class, innovative, trusted, differentiated, transformative, robust, holistic, seamless, strategic]
+    note: "'Strategic' used as an adjective on a noun ('strategic initiative', 'strategic priority') almost never narrows the noun. Test it by deletion."
+
+  repair:
+    source: squad
+    instruction: "Delete. Do not reword."
+    reason: "Rewording fluff produces fluff. Deleting it makes the absence of a choice visible, which is the finding."
+
+# ---------------------------------------------------------------------------
+# HALLMARK 2 — FAILURE TO FACE THE CHALLENGE
+# ---------------------------------------------------------------------------
+hallmark_unfaced_challenge:
+  source: rumelt
+  definition: "No obstacle is named, so no response can be evaluated as adequate or inadequate."
+  load_bearing: true
+  load_bearing_note:
+    source: squad
+    text: |
+      When this hallmark is present, the other three are usually downstream of it. Fixing
+      fluff and reordering objectives in a document with no diagnosis produces a
+      better-written document with the same defect. The repair is *diagnose-challenge.
+  detection_procedure:
+    source: squad
+    steps:
+      - "Reading ONLY the document, state what the plan is a response to."
+      - "If answering requires adding context from your own head, the hallmark is present."
+      - "Check that the named challenge is a mechanism and not a party at fault."
+      - "Check that a named observation could contradict it."
+  diagnosis_quality_tests:
+    source: squad
+    items:
+      - test: "Falsifiability"
+        question: "What observation would contradict this?"
+        fail_verdict: "It is a description, not a diagnosis."
+      - test: "Simplification"
+        question: "Does it reduce the situation to a claim about what is critical, or does it list everything?"
+        fail_verdict: "A list of difficulties is a survey, not a diagnosis."
+      - test: "Symptom separation"
+        question: "Is this the falling metric restated, or an account of why the metric must fall?"
+        fail_verdict: "Symptom restated. Ask what would have to be true for the symptom to be inevitable."
+      - test: "Mechanism not blame"
+        question: "Would the same outcome occur with different people in those seats?"
+        fail_verdict: "If no, the claim is about capability or management and belongs to @ceo:org-designer, not in a strategy document."
+      - test: "Rival fit"
+        question: "Does a rival explanation fit the same evidence equally well?"
+        fail_verdict: "Both stay open. The output is a discriminating test, not a diagnosis."
+
+  anchoring_guard:
+    source: rumelt
+    principle: "The first plausible idea offered in a leadership meeting anchors the group; later ideas are evaluated as departures from it rather than on their own evidence."
+    procedure:
+      source: squad
+      text: "Generate at least one rival diagnosis IN FULL before evaluating the first. Not as a straw man — as the explanation a competent sceptic would offer."
+
+  crux_selection:
+    source: rumelt
+    reference: "Rumelt, The Crux (2022)"
+    definition: "Among many difficulties, the strategist selects the one that is both important and addressable."
+    procedure:
+      source: squad
+      steps:
+        - "List the difficulties named."
+        - "Mark each: important? addressable with resources available this cycle?"
+        - "Select the one that is both. Name the important-but-not-addressable ones explicitly so they are not rediscovered as surprises."
+
+# ---------------------------------------------------------------------------
+# HALLMARK 3 — MISTAKING GOALS FOR STRATEGY
+# ---------------------------------------------------------------------------
+hallmark_goals_as_strategy:
+  source: rumelt
+  definition: "Desired outcomes and targets presented as the approach to achieving them."
+  detection_procedure:
+    source: squad
+    steps:
+      - "Sort every statement: GOAL / MECHANISM / CONSTRAINT / NEITHER."
+      - "For each GOAL, look for an attached MECHANISM."
+      - "Report the ratio. A document that is mostly goals means the strategic work has not been done yet."
+  worked_reframes:
+    source: squad
+    items:
+      - stated: "Our strategy is to grow 40% next year."
+        classification: GOAL
+        owned_question: "What currently prevents 40%? If nothing does, no strategy is needed — only execution. If something does, name it; that is the diagnosis."
+      - stated: "Our strategy is to become the category leader."
+        classification: GOAL
+        owned_question: "Leadership is an outcome of an advantage. Which advantage, relevant to what customer decision, and defensible for how long?"
+      - stated: "Our strategy is to be the platform of record."
+        classification: GOAL
+        owned_question: "What would have to become true about switching costs or integration for that to hold, and what is currently in the way?"
+      - stated: "Our strategy is operational excellence."
+        classification: NEITHER
+        owned_question: "Excellence at which limiting step, and what is currently capping it?"
+      - stated: "We will cut the budget by 20%."
+        classification: CONSTRAINT
+        owned_question: "A uniform cut is arithmetic standing in for a decision — it lands proportionally on what matters most and what matters least, because proportional is the one allocation requiring no judgement. Name the challenge, then cut what does not serve it."
+  note_on_salvage:
+    source: squad
+    text: "Some goals in a bad document DO carry a mechanism. Name those as salvageable rather than sweeping them up with the rest; it makes the finding credible and gives the authors somewhere to start."
+
+# ---------------------------------------------------------------------------
+# HALLMARK 4 — BAD STRATEGIC OBJECTIVES
+# ---------------------------------------------------------------------------
+hallmark_bad_objectives:
+  source: rumelt
+  two_forms:
+    - name: blue_sky
+      definition: "An objective that restates the desire rather than naming what must be overcome."
+    - name: undifferentiated_list
+      definition: "A long list of things to do, with no ordering and no logic connecting the items."
+  detection_procedure:
+    source: squad
+    steps:
+      - "Count the objectives."
+      - "Check for a stated ordering."
+      - "Check for a stated relationship between items — does achieving one make another possible?"
+      - "Check each against proximity: is the path knowable with current capability?"
+  what_the_list_signals:
+    source: rumelt
+    text: "Both forms indicate that the choice was avoided rather than made."
+  what_the_list_signals_operationally:
+    source: squad
+    text: "An undifferentiated list is frequently the choice delegated downward as workload: the leadership team declines to choose, and the organisation resolves the contradiction by under-resourcing everything equally."
+
+# ---------------------------------------------------------------------------
+# WHY BAD STRATEGY PERSISTS
+# ---------------------------------------------------------------------------
+why_bad_strategy_persists:
+  source: rumelt
+  items:
+    - "Choosing is painful, because a real strategy excludes someone's programme."
+    - "Template planning — filling in vision, mission, values and strategy headings — produces the form of a strategy without the content."
+    - "The belief that stating an ambition forcefully enough is itself a form of action."
+consensus_signal:
+  source: squad
+  observation: "Universal agreement among a leadership team is evidence about the document, not about the strategy."
+  reasoning: "A choice excludes. If it excluded something real, at least one person whose programme was excluded should be unhappy. Universal agreement usually means the document is abstract enough that each reader has projected their own plan onto it — and each will execute a different strategy while believing they are aligned."
+  test: "Run *stop-doing. If the exclusion list is empty, the agreement is explained."
+
+# ---------------------------------------------------------------------------
+# SOURCES OF POWER
+# ---------------------------------------------------------------------------
+sources_of_power:
+  source: rumelt
+  selection_rule:
+    source: squad
+    text: "Name exactly one primary source. A policy claiming to rely on all of them relies on none, because nothing is then concentrated."
+  entries:
+    - name: leverage
+      description: "Anticipation, insight into a pivot point, and concentration of effort on that point."
+      holds_only_if:
+        source: squad
+        text: "The amplifying mechanism can be named. If you cannot say why a modest effort here produces a disproportionate effect, there is no pivot point — only a preference."
+      failure_mode: "Effort spread evenly, which is the reliable way to have leverage nowhere."
+    - name: proximate_objective
+      description: "An objective close enough that the organisation can actually solve it, and whose achievement changes what becomes solvable next."
+      holds_only_if:
+        source: squad
+        text: "The path is knowable with current capability. An objective requiring several unknowns to resolve simultaneously is a wish and must be decomposed."
+      repair: "Move the objective inward until it is solvable, then solve it. State the unlock it produces."
+    - name: chain_link_system
+      description: "A system whose performance is limited by its weakest link; improving other links yields no gain."
+      holds_only_if:
+        source: squad
+        text: "Improving a non-limiting link demonstrably produces no system gain. Test it before claiming the pattern."
+      repair_note:
+        source: rumelt
+        text: "Chain-link systems resist incremental improvement and typically require coordinated attention across links rather than sequential local optimisation."
+      cross_check:
+        source: squad
+        text: "Cross-check against the limiting step identified by @ceo:org-designer. The two analyses should agree; if they do not, one of them is looking at the wrong process."
+    - name: design
+      description: "The deliberate fitting together of resources, policies and actions into a configuration that produces more than the parts."
+      cost:
+        source: rumelt
+        text: "Tighter designs deliver more but tolerate less variation and require more coordination."
+    - name: focus
+      description: "Concentration of force against a target where the effect is disproportionate."
+      note:
+        source: squad
+        text: "Concentration is a choice about where NOT to apply force. A focus statement with no corresponding exclusion list is a preference."
+    - name: advantage
+      description: "A capability that is relevant to what a customer decides on, hard to copy, and paid for."
+      audit:
+        source: squad
+        questions:
+          - "RELEVANT? Does it bear on something a customer actually decides on?"
+          - "PAID FOR? Is there evidence anyone pays more, buys faster, or stays longer because of it?"
+          - "DEFENSIBLE? What stops a competent rival copying it, and what is the evidence for that barrier?"
+          - "EXTENSIBLE? Where else does it apply without being diluted?"
+        verdict: "Failing RELEVANT or PAID FOR makes it a fact about the company, not a source of power. Strike it from the strategy."
+    - name: dynamics
+      description: "A structural shift underway in the market that can be ridden rather than created."
+      holds_only_if:
+        source: squad
+        text: "The shift is evidenced rather than asserted, and the window has an estimated duration with a stated basis."
+    - name: inertia_and_entropy
+      source: rumelt
+      description: "A rival's inertia is an opportunity; your own is a cost. Organisations drift toward disorder without managerial attention."
+      operating_rule:
+        source: squad
+        text: "Report our own inertia as a budgeted line item with an estimated cost and duration, never as a risk footnote. Unbudgeted inertia is the most common reason a sound strategy produces no observable change."
+
+# ---------------------------------------------------------------------------
+# REFRAMES — the stated question versus the owned question
+# ---------------------------------------------------------------------------
+# These overlap deliberately with the routing patterns held by ceo-chief. Here they are
+# used to decide whether a request has actually reached strategy work yet.
+reframes:
+  source: squad
+  items:
+    - stated: "We need to reorganise."
+      owned_first_by: strategy-lead
+      reason: "Structure follows the guiding policy. An org designed before the policy is chosen is optimised for the previous strategy."
+    - stated: "Our people are overloaded."
+      owned_first_by: strategy-lead
+      reason: "Overload is frequently a focus failure expressed as a capacity symptom. Adding people to an unfocused portfolio increases coordination cost."
+    - stated: "What are our goals for next year?"
+      owned_first_by: strategy-lead
+      reason: "A list of goals is not a strategy. The owned question is what challenge the goals answer."
+    - stated: "We cannot stop anything — every initiative has a sponsor."
+      owned_first_by: strategy-lead
+      reason: "The portfolio is being allocated by internal politics rather than by the challenge. That is the finding, not a constraint to work around. *focus-check usually shows that the protected initiatives are also the ones guaranteed not to work at current resourcing."
+
+# ---------------------------------------------------------------------------
+# BOUNDARY
+# ---------------------------------------------------------------------------
+boundary:
+  source: squad
+  produced_here: ["diagnosis", "guiding policy", "coherent action set", "exclusion list", "inertia budget", "falsifiable prediction"]
+  never_produced_here:
+    - what: "Hurdle rates, budgets, per-share arithmetic, acquisition pricing"
+      route_to: "@ceo:capital-allocator"
+    - what: "Headcount, reporting lines, decision rights, meeting cadence"
+      route_to: "@ceo:org-designer"
+    - what: "Board packets, investor updates, announcements of what stops"
+      route_to: "@ceo:stakeholder-lead"
+    - what: "Epics, PRDs, stories, implementation plans"
+      route_to: "@pm, @sm, @dev"
+  divergence_rule:
+    text: "The strategy is what the budget funds. When the stated strategy and the capital plan disagree, report the divergence to @ceo:ceo-chief rather than restating the intent."

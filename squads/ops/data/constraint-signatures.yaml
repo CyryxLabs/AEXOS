@@ -1,0 +1,221 @@
+# Constraint Signatures, Types and Exploitation Levers
+# Squad: ops · Owner: @ops:flow-lead (Throat)
+# Reference knowledge. Not executable.
+#
+# ATTRIBUTION
+#   The Theory of Constraints — one constraint at a time, the five focusing steps, and
+#   the throughput / inventory / operating expense measures — is published by
+#   Eliyahu M. Goldratt in "The Goal: A Process of Ongoing Improvement" (1984, written
+#   with Jeff Cox) and developed across his subsequent work on ongoing improvement.
+#   Applied with attribution.
+#
+#   Entries marked `convention: true` belong to later flow practice drawn from other
+#   schools — work-in-progress limits, cumulative flow diagrams, buffer banding,
+#   queueing arguments. They are useful and they are NOT attributed to Goldratt.
+#
+# BOUNDARY — @devops
+#   This file supports diagnosis. It changes nothing. If the constraint is the build,
+#   the pipeline, the deploy path or the release cadence, the finding and the exploit
+#   rule are the deliverable — every change to those is @devops, exclusively, decision
+#   and execution both.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# How to find it
+# ---------------------------------------------------------------------------
+identification_signatures:
+  - signature: "Work accumulates in front of it and downstream stages idle waiting"
+    weight: strongest
+    how_to_observe: "Queue length per stage over the window, plus idle time at the next stage down."
+    false_positive: "A stage fed in large batches shows a queue that is arrival lumpiness, not
+      capacity. Check whether it ever empties."
+
+  - signature: "It never starves"
+    weight: strong
+    how_to_observe: "Any period where the stage was idle waiting for input, across the window."
+    why_decisive: "A stage that starves has capacity the release rule is failing to use. That is an
+      upstream problem, not a constraint."
+
+  - signature: "Longest ratio of waiting time to working time in the stream"
+    weight: strong
+    how_to_observe: "State-time history per item. Requires state transitions to be recorded; if they
+      are not, that gap is itself the first finding."
+
+  - signature: "Every expedite request routes through it"
+    weight: moderate
+    how_to_observe: "Count expedites by the stage they were aimed at."
+
+  - signature: "Improvements made elsewhere produced no change in delivered output"
+    weight: confirming
+    how_to_observe: "Compare throughput before and after a completed improvement initiative."
+    note: "This is the retrospective signature. It confirms; it cannot locate."
+
+  - signature: "People complain about it"
+    weight: anecdotal
+    how_to_observe: "Listening."
+    warning: "The step everyone apologizes for and the step that sets throughput are frequently
+      different. Verify with queue data before this shapes any conclusion. Constitution Article IV —
+      No Invention: a constraint asserted from intuition is a guess wearing a framework."
+
+# ---------------------------------------------------------------------------
+# What kind of constraint it is — this decides the treatment
+# ---------------------------------------------------------------------------
+constraint_types:
+
+  - type: capacity
+    definition: "A step genuinely cannot process the demand arriving at it."
+    exploit: "Remove misrouted work, upstream-caused rework, interruption and starvation."
+    elevate: "Add capacity — only after exploitation is exhausted."
+    warning: "The type teams assume by default, and the one that costs the most to get wrong."
+
+  - type: policy
+    definition: "A rule, approval, batch size, window or agreement caps flow. Nothing is short of
+      capacity."
+    exploit: "Frequently the removal itself — and it is free."
+    elevate: "Not applicable."
+    warning: "Cheapest to elevate, hardest to see. Usually invented for a good reason that has since
+      expired. Examples in software delivery: fixed release windows, mandatory approval counts,
+      change freezes, mid-sprint intake bans, batch-only handoffs."
+    authority_note: "Release windows, freezes and pipeline gates are @devops policy surface. The
+      finding is this squad's; the change is theirs."
+
+  - type: skill
+    definition: "One person or one narrow skill gates the work."
+    exploit: "Delegate what does not require the skill; document; pair."
+    elevate: "Teach. Slow, and the only durable answer."
+    warning: "Presents as a capacity constraint and is treated as one, which produces a hire who
+      cannot do the gating part."
+
+  - type: dependency
+    definition: "An external party or upstream team gates flow."
+    exploit: "Buffer against it; change batch shape; decouple what can be decoupled."
+    elevate: "Redraw the system boundary — the real constraint is outside the one that was analysed."
+    warning: "Internal optimization inside a dependency-constrained system produces local
+      improvement and no delivery change."
+
+  - type: market
+    definition: "Demand is below internal capacity."
+    exploit: "Not an internal question."
+    elevate: "Not an internal question."
+    warning: "The constraint is not internal, and an internal improvement programme is the wrong
+      project entirely. Say so plainly rather than optimizing to look busy."
+
+# ---------------------------------------------------------------------------
+# Exploit before elevate
+# ---------------------------------------------------------------------------
+exploitation_levers:
+  ordering_rule: "Exploitation costs a decision; elevation costs money. Spend nothing until the
+    constraint's own wasted capacity has been recovered. [SOURCE: Goldratt, focusing steps 2 and 4.]"
+  levers:
+    - lever: "Prevent work reaching it that should have been stopped upstream"
+      typical_recovery: "Often the largest single line. Work that arrives failing an automated check
+        consumes the constraint twice."
+      implemented_by: "@dev builds the check; @devops wires it into the pipeline."
+    - lever: "Eliminate rework caused by upstream quality problems"
+      note: "Fix the upstream feed, not the constraint. Adding capacity here preserves the rework."
+      implemented_by: "@dev"
+    - lever: "Reduce setup, context switching and interruption at the constraint"
+      note: "Frequently self-reported and therefore UNVERIFIED. Say so; do not let it carry the case."
+      implemented_by: "Team sequencing agreement — @sm records it"
+    - lever: "Move off the constraint any work another step could perform"
+      implemented_by: "Team agreement; @dev where tooling is needed"
+    - lever: "Keep a protective buffer so it is never idle waiting for input"
+      implemented_by: "Release rule — see subordination-rules-tmpl.md"
+    - lever: "Reduce the batch size arriving at it so variation is absorbed earlier"
+      implemented_by: "Working agreement — @sm; backlog shape — @po"
+  not_a_lever:
+    - "Weakening or skipping a quality gate. Throughput counts delivered value; defects returning
+       from production re-enter the system as rework, usually at the constraint, with interest.
+       A gate finding goes to @qa as a redesign question."
+    - "Asking the constraint to work longer hours. Not a system change; reverts within a quarter."
+
+# ---------------------------------------------------------------------------
+# The three measures
+# ---------------------------------------------------------------------------
+measures:
+  throughput:
+    definition: "The rate at which the system generates finished, DELIVERED value."
+    note: "Work started, or finished but undelivered, is not throughput. This distinction is what
+      makes an unreleased-changes queue visible as a cost."
+  inventory:
+    definition: "Everything the system has tied up in work not yet delivered."
+    in_this_domain: "Started stories, open branches, unreleased changes, pending reviews, drafted
+      plans that have not begun."
+  operating_expense:
+    definition: "What it costs to turn inventory into throughput."
+  rule: "A proposal that cannot state its effect on all three has not been evaluated."
+  local_optimum_warning: "Resource utilization, individual velocity and per-stage cycle time can all
+    improve while throughput falls."
+
+# ---------------------------------------------------------------------------
+# The utilization trap
+# ---------------------------------------------------------------------------
+utilization_trap:
+  mechanism: "Dependent events plus statistical fluctuation. When every step runs near full
+    utilization, variation in any step cannot be absorbed, so work accumulates in front of every
+    step. The queues are the arithmetic consequence of the utilization, not a sign of insufficient
+    effort."
+  observable_pattern: "Everyone reports being at capacity; little is delivered; adding people made
+    it slower."
+  countermeasure: "Deliberate slack at non-constraints. It looks like waste on every local metric,
+    which is why it is refused, and it is the thing that makes the system faster."
+  reporting_consequence: "Say in writing which local metrics are being abandoned, or the slack will
+    be removed within a quarter by someone acting reasonably on a number nobody told them to stop
+    caring about."
+
+# ---------------------------------------------------------------------------
+# Step 5 — the one that gets skipped
+# ---------------------------------------------------------------------------
+inertia:
+  position: "When a constraint is broken, return to step 1 and do not allow inertia — the rules
+    invented to protect the old constraint — to become the new constraint. [SOURCE: Goldratt, fifth
+    focusing step.]"
+  audit_shape:
+    fields: ["Rule", "What it was built to protect", "Status of that thing now", "Disposition:
+      RETIRE / REVISE / KEEP", "Reason"]
+  common_survivors_in_software_delivery:
+    - rule: "Fixed release window"
+      built_for: "Limiting exposure to a risky manual deploy"
+      typical_disposition: "RETIRE once deploys are automated and reversible — it is frequently the
+        largest remaining queue. The decision and the change are @devops."
+    - rule: "Full regression before every release"
+      built_for: "Compensating for the absence of staged rollout"
+      typical_disposition: "REVISE — scope to the changed surface. @qa decides."
+    - rule: "Change freeze before a window"
+      built_for: "Protecting a manual runbook"
+      typical_disposition: "RETIRE when the runbook is gone. @devops."
+    - rule: "N approvals for any production change"
+      built_for: "Compensating for the absence of a rollback path"
+      typical_disposition: "KEEP until the rollback is actually exercised — an untested rollback is
+        an assertion. Exercising it is @devops."
+  warning: "These rules do not become harmless when the constraint moves. They become the next
+    constraint, and they are hard to see because each of them was once correct."
+
+# ---------------------------------------------------------------------------
+# Later convention, labelled
+# ---------------------------------------------------------------------------
+later_flow_convention:
+  convention: true
+  note: "Useful, widely taught, and NOT from The Goal. Do not attribute these to Goldratt."
+  items:
+    - "Work-in-progress limits as an explicit numeric cap per stage"
+    - "Cumulative flow diagrams and the reading of band widths as queue and cycle time"
+    - "Age-of-work-in-progress as a primary operational signal"
+    - "Little's Law framing of lead time as WIP divided by throughput"
+    - "Buffer banding into green / amber / red zones"
+
+# ---------------------------------------------------------------------------
+# Boundary restated
+# ---------------------------------------------------------------------------
+authority:
+  this_squad_does: "Name the constraint with evidence, state the exploit and subordination rules,
+    build the elevation case, predict where the constraint moves next, and publish it as a versioned
+    file."
+  devops_does: "Every build, CI, pipeline, deploy, rollback, release-cadence and infrastructure
+    change — decision and execution both, exclusively, including when the constraint analysis says
+    that change is the highest-value thing available."
+  dev_does: "Implement whatever exploitation requires."
+  qa_does: "Own any quality gate, including redesigning one that is the constraint."
+  po_sm_do: "Backlog order, story sizing, drafting cadence, working agreements. The flow argument
+    arrives as evidence for their decision, never as a decision."

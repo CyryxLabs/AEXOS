@@ -1,0 +1,152 @@
+# Champion Signals — Real Champion vs Friendly Contact
+# Squad: sales
+# Referenced by: qualification-lead (Sieve, *champion-test); consumed by method-lead for *mobilize-consensus
+# Last updated: 2026-07-30
+
+version: "1.0.0"
+
+purpose: |
+  The most expensive misclassification in a deal record is a friendly contact recorded as a
+  champion. The deal then depends on internal advocacy that never happens, and nothing about that
+  dependency is visible until the approval step. This file holds the observable difference.
+
+  The classifying principle: a champion is defined by what they DO when we are not in the room,
+  never by how they behave when we are.
+
+attribution:
+  discipline: "MEDDIC — the C. Discipline originated at PTC, credited to Dick Dunkel and Jack Napoli; no canonical work by its originators, so nothing here is quoted from a text."
+  related: >-
+    Buying-group behaviour (the Mobilizer concept — stakeholders differentiated by disposition to
+    drive change rather than by accessibility) comes from The Challenger Customer (2015), by
+    Brent Adamson, Matthew Dixon, Pat Spenner and Nick Toman. Cited separately from The Challenger
+    Sale (2011) by Dixon and Adamson, and used by method-lead rather than owned here.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE THREE TESTS
+# ─────────────────────────────────────────────────────────────────────────────
+
+tests:
+
+  influence:
+    question: "Can this person convene the people who matter, and have they ever done it for us?"
+    passing_evidence: "A specific instance, with a date, where they brought others to the table — ideally on our behalf."
+    weak_evidence: "A title. Length of tenure. Being well liked."
+    probe: "Who else did you pull into the room the last time something like this got decided here?"
+
+  personal_benefit:
+    question: "What changes for them if this succeeds, in their own words?"
+    passing_evidence: "A specific personal consequence they articulate unprompted — a recurring conversation they stop having, a risk they stop carrying, a target they hit."
+    weak_evidence: "'It would be good for the company.' Enthusiasm about the product."
+    probe: "Asked directly: what changes for you if this works?"
+    note: "A champion with no personal stake is a well-wisher. Well-wishers do not spend political capital."
+
+  willingness:
+    question: "Will they act on our behalf when we are not in the room?"
+    passing_evidence: "A completed action: an introduction arranged, an internal document shared, our summary presented at their staff meeting."
+    weak_evidence: "Agreement. Warm words. A promise to do it next week, twice."
+    probe: "Ask them to do one concrete thing. Then observe."
+    hard_rule: "Agreement is not the test. Action is."
+    on_repeated_failure: >-
+      If willingness fails twice, look for a second relationship rather than escalating pressure on
+      the first. And ask once, without pressure: 'I have asked twice for that introduction and I do
+      not want to keep asking if it is difficult. Is there something in the way?' That question
+      costs them nothing and usually returns the real answer.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SIGNALS — real champion vs friendly contact
+# ─────────────────────────────────────────────────────────────────────────────
+
+real_champion_signals:
+  - signal: "Takes an action on our behalf without being chased"
+    why_it_matters: "It is the only behaviour that predicts what happens when we are absent."
+  - signal: "Corrects our understanding of their organization"
+    why_it_matters: "Someone protecting the relationship agrees. Someone invested in the outcome corrects."
+  - signal: "Tells us something inconvenient — a competing priority, a budget freeze, an internal opponent"
+    why_it_matters: "Advocacy requires accurate information flowing to us. Politeness suppresses it."
+  - signal: "Asks us for material they can use without us attached to it"
+    why_it_matters: "They are planning to carry this internally."
+  - signal: "Names the person who will object and what they will argue"
+    why_it_matters: "They have already run the internal conversation in their head."
+  - signal: "Has previously driven a change of comparable size in this organization"
+    why_it_matters: "Track record is the cheapest available evidence of influence."
+  - signal: "Asks about what our solution does NOT do"
+    why_it_matters: "They are preparing to defend a recommendation, not to receive a pitch."
+
+friendly_contact_signals:
+  - signal: "Warm, responsive, always available"
+    why_it_misleads: "Accessibility and influence are frequently inversely related. The most available contact is often the least able to move the group."
+  - signal: "Agrees with everything and corrects nothing"
+    why_it_misleads: "Agreement is cheap and it is what a pleasant meeting produces."
+  - signal: "Enthusiastic about features rather than about a consequence they own"
+    why_it_misleads: "Product enthusiasm is not personal stake."
+  - signal: "Promises internal action repeatedly and delivers none"
+    why_it_misleads: "Either their influence is narrower than it appears, or the internal case is weaker than they have told us. Both are findings."
+  - signal: "Cannot describe the approval path"
+    why_it_misleads: "Someone who advocates internally knows the path, because they have walked it."
+  - signal: "Says 'leave it with me' and nothing surfaces"
+    why_it_misleads: "It is the most common way a stalled internal case is reported to a vendor."
+
+risk_signals:
+  - signal: "Blocks or discourages our access to other stakeholders"
+    reading: "Treat access refusal as a signal, not as protectiveness. It may be gatekeeping for their own position."
+    action: "Record it. Do not escalate around them without first asking directly what the obstacle is."
+  - signal: "Asks us to make claims to their leadership that we have not verified"
+    reading: "They are looking for ammunition, and if it fails, the failure lands on them and on us."
+    action: "Decline. Supply only what we can evidence, clearly separated into their numbers and ours."
+  - signal: "Is the only relationship in the account"
+    reading: "Single point of failure. If they leave, the deal collapses."
+    action: "Record it explicitly in the qualification record. Build a second relationship before it is urgent."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CLASSIFICATION
+# ─────────────────────────────────────────────────────────────────────────────
+
+classification:
+  champion: "Influence evidenced, personal benefit stated in their own words, willingness proven by a completed action."
+  candidate_champion: "Influence and benefit evidenced; willingness untested. Run the willingness test before relying on them."
+  coach: "Gives useful information, no influence, no personal stake. Valuable for intelligence, not for movement."
+  contact: "Untested on all three. Recorded as a contact — never promoted on the basis of warmth."
+  access_risk: "Influence present, but used to restrict our access rather than to widen it."
+
+  rule: "An untested contact is recorded as a contact, whatever the deal needs them to be."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ETHICS OF WORKING WITH A CHAMPION
+# ─────────────────────────────────────────────────────────────────────────────
+
+ethics:
+  legitimate:
+    - "Asking a champion to advocate internally"
+    - "Equipping them with evidence they can defend line by line"
+    - "Giving them our explicit not-list — it raises their credibility, because it proves they evaluated rather than were sold"
+    - "Asking directly, without pressure, what is in the way when an action does not happen"
+  prohibited:
+    - move: "Asking a champion to assert a claim we have not verified"
+      why: "It transfers our risk onto their internal credibility. If it is challenged and they cannot defend the derivation, they lose standing and we lose the account."
+    - move: "Using the champion's enthusiasm as evidence of qualification"
+      why: "Champions rarely lie; they routinely overestimate their own internal reach."
+    - move: "Escalating around a champion who is struggling"
+      why: "It wins one round and converts our only advocate into an obstacle. Ask them what is in the way first."
+    - move: "Manufacturing urgency to make them move faster"
+      why: "Fabricated urgency is a false statement, and here it is one the champion has to repeat internally in their own name."
+  separation_rule: >-
+    When equipping an advocate, our modelled figures and the buyer's own figures are presented as
+    clearly separate items. If a colleague challenges a derivation the champion cannot defend, the
+    cost lands on them, not on us.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# WHAT A FAILED CHAMPION TEST MEANS FOR THE DEAL
+# ─────────────────────────────────────────────────────────────────────────────
+
+consequences:
+  - condition: "Willingness untested"
+    forecast_effect: "C scores 2 at best. Any stage that claims internal advocacy is unearned."
+  - condition: "Willingness failed twice, no second relationship"
+    forecast_effect: "Structural disqualification trigger. See data/qualification-evidence-standards.yaml."
+  - condition: "Champion classified from warmth alone"
+    forecast_effect: "The deal depends on advocacy nobody has evidenced. Treat every downstream date as unsupported."
+  - condition: "Champion real, group still not moving"
+    forecast_effect: >-
+      Not a champion problem — a consensus problem. The buying group has not agreed that a problem
+      exists. Route to @sales:method-lead for *mobilize-consensus, and confirm the champion has
+      passed the willingness test before investing in a consensus kit.

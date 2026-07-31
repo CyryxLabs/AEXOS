@@ -1,0 +1,273 @@
+# Risk types, tolerance band forms, escalation dimensions and COSO ERM reference
+# Squad: board
+# Owned by: risk-oversight (Bulwark)
+# Reference knowledge for *appetite, *appetite-breach, *risk-register, *severity, *prioritize,
+# *tail-scan, *portfolio-view, *response-plan, *escalation-thresholds, *substantial-change
+
+version: "1.0.0"
+
+professional_limit: |
+  This file is risk-oversight reference knowledge. It is NOT legal advice, NOT tax advice, NOT
+  actuarial, capital or insurance advice, NOT a statutory-audit instrument and NOT a regulatory
+  filing. No artifact produced from it issues an audit opinion of any kind, and nothing in it
+  verifies that any control actually operates — that is evidence, and it belongs to audit-lead.
+
+  COSO ERM is not a quantitative model. It supplies no loss distributions, no capital requirements,
+  no actuarial estimates and no pricing. Any number appearing in an artifact built from this file
+  is management's, with its basis named.
+
+  Every artifact produced from this file is INPUT FOR REVIEW by the directors themselves and by
+  licensed professionals before adoption. Adoption of a risk appetite is a board decision taken by
+  humans, and nothing produced here discharges it.
+
+# ---------------------------------------------------------------------------
+# PROVENANCE
+# ---------------------------------------------------------------------------
+
+provenance:
+  publisher: "COSO — the Committee of Sponsoring Organizations of the Treadway Commission"
+  sponsoring_organizations:
+    - "American Accounting Association"
+    - "American Institute of Certified Public Accountants"
+    - "Financial Executives International"
+    - "Institute of Management Accountants"
+    - "The Institute of Internal Auditors"
+  primary_framework:
+    title: "Enterprise Risk Management — Integrating with Strategy and Performance"
+    year: 2017
+    updates: "Enterprise Risk Management — Integrated Framework (2004)"
+    structure: "Five interrelated components supported by twenty principles"
+    central_claim: "Enterprise risk management is part of how strategy is selected and performance is pursued, not a separate function applied afterwards."
+  adjacent_but_different:
+    title: "Internal Control — Integrated Framework"
+    year: "originally issued 1992, updated 2013"
+    warning: |
+      A SEPARATE COSO PUBLICATION with a different purpose. It belongs to audit-lead, not to this
+      agent. The two frameworks are never merged, and neither is ever cited for the other's content.
+      Where internal control over reporting is the question, the owner is audit-lead.
+  what_it_is_not: "Not a quantitative model. No loss distributions, capital requirements, actuarial estimates or pricing."
+
+no_invention_rule: |
+  Never invent a principle number, a provision, a title or a year. The component and principle names
+  below are a working reference; where exact wording or numbering matters to a decision, read the
+  source document. A wrong attribution is worse than no attribution.
+
+# ---------------------------------------------------------------------------
+# COMPONENTS AND PRINCIPLES  [SOURCE: COSO ERM, 2017]
+# ---------------------------------------------------------------------------
+
+components_and_principles:
+
+  governance_and_culture:
+    purpose: "Sets the organization's tone, reinforcing the importance of enterprise risk management and establishing oversight responsibilities."
+    principles:
+      - "1. Exercises Board Risk Oversight"
+      - "2. Establishes Operating Structures"
+      - "3. Defines Desired Culture"
+      - "4. Demonstrates Commitment to Core Values"
+      - "5. Attracts, Develops, and Retains Capable Individuals"
+    board_note: "Principle 1 is this agent's seat. It is oversight OF management's risk management — not risk management performed by the board."
+
+  strategy_and_objective_setting:
+    purpose: "Enterprise risk management is integrated into strategic planning; risk appetite is established and aligned with strategy; business objectives put strategy into practice."
+    principles:
+      - "6. Analyzes Business Context"
+      - "7. Defines Risk Appetite"
+      - "8. Evaluates Alternative Strategies"
+      - "9. Formulates Business Objectives"
+    board_note: "Principle 8 is the framework's least-used and most valuable board tool: the alternatives considered, and the risk implications of each, form part of the strategy decision rather than a review of it."
+
+  performance:
+    purpose: "Risks that may affect the achievement of strategy and business objectives are identified and assessed, prioritized by severity in the context of risk appetite, responses are selected, and a portfolio view is developed."
+    principles:
+      - "10. Identifies Risk"
+      - "11. Assesses Severity of Risk"
+      - "12. Prioritizes Risks"
+      - "13. Implements Risk Responses"
+      - "14. Develops Portfolio View"
+    responses: ["Accept", "Avoid", "Pursue", "Reduce", "Share"]
+    response_rule: "Consider all five explicitly. A response plan that reaches for 'reduce' by reflex has not considered whether the exposure should be accepted with eyes open, avoided outright, or shared."
+
+  review_and_revision:
+    purpose: "Reviewing performance and considering how well the enterprise risk management components are functioning over time, and what revisions are needed."
+    principles:
+      - "15. Assesses Substantial Change"
+      - "16. Reviews Risk and Performance"
+      - "17. Pursues Improvement in Enterprise Risk Management"
+    board_note: "Principle 15 is why reassessment is triggered by change rather than by the calendar."
+
+  information_communication_and_reporting:
+    purpose: "Obtaining and sharing the information needed to support enterprise risk management, from both internal and external sources, flowing up, down and across the organization."
+    principles:
+      - "18. Leverages Information and Technology"
+      - "19. Communicates Risk Information"
+      - "20. Reports on Risk, Culture, and Performance"
+
+# ---------------------------------------------------------------------------
+# RISK TYPES AND THE FORM OF THEIR TOLERANCE BANDS
+# Attribution: the type list and the band forms are DERIVED (general practice) and
+# CONSTRUCTION. COSO requires that appetite be defined; it does not prescribe this taxonomy.
+# ---------------------------------------------------------------------------
+
+risk_types:
+  adaptation_rule: "This is a starting set. Adapt it to the organization and STATE WHAT WAS ADAPTED. A taxonomy imported unchanged produces appetite statements about risks the organization does not carry, and silence about the ones it does."
+
+  types:
+
+    - type: strategic
+      what_it_covers: "Failure of the chosen direction itself — the bet is wrong, the market moves, the central assumption does not hold."
+      tolerance_band_form: "Qualitative band against a stated strategic assumption, with a named leading indicator and the point at which the assumption is treated as falsified."
+      common_defect: "Expressed as ambition rather than as a boundary. 'We have a high appetite for strategic risk' forbids nothing."
+      board_question: "What would have to be true for our biggest current bet to be a mistake, and who is watching for it?"
+
+    - type: financial
+      what_it_covers: "Liquidity, funding, credit, currency, counterparty concentration, covenant headroom."
+      tolerance_band_form: "Numeric band around a measure the organization already produces — months of runway, headroom against covenant, single-counterparty share — with a defined breach point."
+      common_defect: "Bands set against measures management controls the definition of. Fix the definition in the statement."
+      board_question: "At what measured point does this stop being management's decision and become the board's?"
+
+    - type: operational
+      what_it_covers: "Delivery failure, process breakdown, supplier failure, quality escape, business interruption."
+      tolerance_band_form: "Band around an outcome measure (incident severity, downtime, defect escape) with a separate band for RECURRENCE — the second occurrence of the same cause is a different finding from the first."
+      common_defect: "Measuring incident count while the severity distribution moves underneath it."
+      board_question: "Which of these has now happened twice from the same cause?"
+
+    - type: technology_and_security
+      what_it_covers: "Data loss and exposure, availability, platform concentration, technical debt that constrains the strategy, third-party access."
+      tolerance_band_form: "Zero-tolerance statements for named classes of outcome (for example, loss of a defined category of data), plus banded tolerance for availability and recovery time."
+      common_defect: "A zero-tolerance statement with no measure attached, which cannot be breached and is therefore never reported."
+      board_question: "What is the worst plausible case, written as a sequence rather than a score?"
+
+    - type: regulatory_and_compliance
+      what_it_covers: "Licence, authorization, reporting obligation, sanction exposure."
+      tolerance_band_form: "Usually zero tolerance for a licence-affecting breach, with a monitored band for lower-order findings and their ageing."
+      common_defect: "Zero tolerance stated by the board while no measure or assurance exists behind it."
+      hard_limit: "Whether an obligation applies at all is a LEGAL question. Refer out. The appetite statement covers what the board will accept, not what the law requires."
+      board_question: "Who has independently confirmed that the control behind this zero-tolerance statement operates?"
+
+    - type: reputational
+      what_it_covers: "Trust of customers, staff, funders, regulators and the public; conduct exposure."
+      tolerance_band_form: "Named classes of conduct or outcome the organization will not accept, plus a velocity threshold — reputational exposure escalates on speed, not on measured size."
+      common_defect: "Treated as a consequence of other risks and therefore never given its own boundary or its own threshold."
+      board_question: "Would this reach the board before it reached everyone else?"
+
+    - type: people_and_key_person
+      what_it_covers: "Concentration of knowledge, authority or relationships in individuals; loss of critical capability; bench depth."
+      tolerance_band_form: "Concentration count — roles with a single point of knowledge — plus a stated maximum acceptable time to cover, per critical role."
+      common_defect: "Held as a succession topic and never carried into the risk portfolio as an exposure with a tolerance."
+      cross_ownership: "The exposure is named here; readiness horizons and bench assessment belong to succession-lead."
+      board_question: "Which roles have exactly one name against them?"
+
+# ---------------------------------------------------------------------------
+# TOLERANCE — THE BINDING RULE
+# ---------------------------------------------------------------------------
+
+tolerance_rule:
+  statement: "Appetite without tolerance cannot be breached, and an unbreachable boundary cannot be monitored."
+  required_fields_per_tolerance:
+    - "Named performance measure"
+    - "Band"
+    - "Breach point"
+    - "Who measures it"
+    - "Measurement cadence"
+    - "Who is told on breach, how fast, and what happens"
+  measurement_gap_handling: "Where no measure exists for a type, report a MEASUREMENT GAP and mark that appetite unmonitorable. Do not substitute a proxy without labelling it a proxy."
+
+appetite_statement_form:
+  form: "For {type}, we are willing to accept {qualitative direction} in pursuit of {objective}, and we are not willing to accept {named class of outcome}."
+  forbidden_decision_test:
+    attribution: CONSTRUCTION
+    rule: "Name a concrete, plausible proposal that this statement would cause the board to REJECT. If none can be named, the statement is not a boundary. Rewrite it or delete it."
+
+# ---------------------------------------------------------------------------
+# BREACH CLASSES  [CONSTRUCTION]
+# ---------------------------------------------------------------------------
+
+breach_classes:
+  attribution: CONSTRUCTION
+  precondition: "Confirm the breach against the stated tolerance, with the measurement and its date. A suspected breach with no measurement is an escalation, not a breach."
+  classes:
+    - class: ONE_OFF_EVENT
+      output: "Response decision, plus a review of the threshold that let it arrive unannounced."
+    - class: DRIFT
+      output: "A portfolio-view problem, not a single-risk problem. Run the portfolio view before responding."
+    - class: DEFINITIONAL
+      description: "The exposure was always outside appetite and was never measured."
+      output: "The finding is the measurement gap, not the exposure."
+    - class: APPETITE_TOO_TIGHT
+      description: "The organization has operated outside for a long time with no consequence."
+      output: "Propose revising the appetite to what the organization actually accepts, so the next breach carries information."
+  binding_rule: "NEVER resolve a breach by silently restating the appetite. Any change is an explicit board decision with a reason, on the record."
+
+# ---------------------------------------------------------------------------
+# ESCALATION DIMENSIONS
+# ---------------------------------------------------------------------------
+
+escalation_dimensions:
+  attribution: CONSTRUCTION
+  dimensions:
+    - dimension: magnitude
+      note: "The only dimension most threshold sets contain, and the one least likely to be the live one."
+    - dimension: velocity
+      note: "Time from onset to full impact. Determines whether any response is available at all."
+    - dimension: reputational
+      note: "Escalates on speed and on who else knows, not on measured size."
+    - dimension: regulatory
+      note: "A finding may be small and still licence-affecting."
+    - dimension: concentration
+      note: "A single point of failure is an exposure whether or not anything is currently wrong with it."
+  backtest_rule: "Take the last three matters the board learned of later than it should have, and test every threshold against them. A threshold that would have caught none of them is untested decoration."
+
+substantial_change_triggers:
+  attribution: "Reassessment on substantial change is a COSO ERM principle (Review and Revision component). The trigger list is DERIVED."
+  triggers:
+    - "Change in strategy"
+    - "Change in scale"
+    - "Change in structure"
+    - "Change in technology"
+    - "Change in funding"
+    - "Change in regulatory posture"
+    - "A breach in any type"
+
+# ---------------------------------------------------------------------------
+# DERIVED TECHNIQUES — used within the framework, not sourced from it
+# ---------------------------------------------------------------------------
+
+derived_techniques:
+  handling_rule: "General risk-management discipline used WITHIN the COSO structure. COSO provides the frame in which they are applied; it is NOT their source, and they are never presented as COSO methods. Declare this at the start of any tail scan."
+  techniques:
+    - "Scenario analysis — narrative construction of plausible adverse sequences"
+    - "Stress testing — assessing performance under deliberately severe assumptions"
+    - "Tail-risk reasoning — attention to low-probability, high-severity outcomes"
+    - "Concentration analysis — single points of failure as exposures in their own right"
+    - "Risk velocity and persistence — time to impact, and duration of impact"
+    - "Correlation clustering — grouping register entries by shared cause"
+  plausibility_rule: "Plausible means a chain of events each of which has happened somewhere — not a physically conceivable maximum."
+
+# ---------------------------------------------------------------------------
+# AGENT CONSTRUCTIONS
+# ---------------------------------------------------------------------------
+
+agent_constructions:
+  note: "This agent's own operational tests. Not COSO provisions and not general discipline. Labelled CONSTRUCTION wherever used."
+  tests:
+    forbidden_decision_test: "An appetite statement must name at least one concrete, plausible proposal it would cause the board to reject. If none can be named, the statement is not a boundary."
+    survivability_override: "Any exposure whose worst plausible case is non-survivable or unrecoverable moves to the top of the priority order regardless of likelihood. Sorting by expected value systematically demotes exactly the exposures a board exists to consider."
+    velocity_override: "Between two exposures of equal severity, the one leaving less time to respond ranks higher."
+    evidence_penalty: "Where a residual position depends on an unevidenced control, rank the risk on its inherent severity. The organization does not currently know the control works."
+
+# ---------------------------------------------------------------------------
+# BOUNDARIES
+# ---------------------------------------------------------------------------
+
+not_this_agent:
+  whether_a_control_operated: "audit-lead — this agent states control EXPECTATIONS; evidence of operation is assurance"
+  reporting_integrity_and_auditor_relationship: "audit-lead"
+  board_composition_delegation_independence: "governance-counsel"
+  bench_depth_and_readiness: "succession-lead — this agent names key-person exposure; readiness assessment is theirs"
+  legal_regulatory_tax_insurance_actuarial: "Qualified external advisers, outside AEXOS entirely"
+  control_implementation: "@dev"
+  test_evidence_and_quality_gates: "@qa"
+  epics_and_prd: "@pm"
+  stories: "@sm"
+  push_pr_mcp_cicd: "@devops (exclusive)"

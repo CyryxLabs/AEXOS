@@ -1,0 +1,237 @@
+# ============================================================================
+# Workflow: Executive Decision Cycle
+# Squad: ceo
+# Version: 1.0.0
+# Purpose: Take one executive request from triage through strategy, capital and
+#          organisation into a single recorded decision, handed to the core.
+# ============================================================================
+
+workflow:
+  id: wf-executive-decision-cycle
+  name: "Executive Decision Cycle"
+  version: "1.0.0"
+  type: executive-decision
+  description: |
+    The forward-looking cycle of the executive chair. An incoming request is triaged
+    and given one owner, a diagnosis and guiding policy are built before any money is
+    committed, the capital decision is made against that policy, and the organisation
+    is designed to carry the coherent actions. It closes with one decision record and
+    a delivery handoff — the squad decides where the company bets and why, it does not
+    build, test or ship the bet.
+
+  trigger: "*exec-cycle"
+  entry_agent: ceo-chief
+  estimated_duration: "3-8 working days (evidence collection dominates)"
+
+  # ────────────────────────────────────────────────────────────────────────
+  # SEQUENCE (canonical execution contract)
+  # ────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Triage ─────────────────────────────────────────────────
+    - id: phase_0
+      name: "Executive Triage"
+      agent: ceo-chief
+      task: executive-request-triage.md
+      creates: triage_brief
+      description: >-
+        Restate the request in the vocabulary of the discipline that owns it, classify
+        its reversibility, name exactly one owning specialist, and write the handoff
+        brief so no specialist re-elicits context.
+      outputs:
+        - restated_request: "string — the request in the owning discipline's terms"
+        - reversibility_class: "reversible-cheap | reversible-costly | irreversible"
+        - owning_specialist: "one squad agent id, with the near-misses excluded"
+        - engagement_order: "ordered specialist list when more than one is required"
+        - handoff_brief: "written context for the receiving specialist"
+      checkpoint:
+        gate: "Request captured verbatim, reversibility classified, exactly one owner named"
+        veto: >-
+          If the request is delivery work — implementation, testing, release — stop here
+          and route it to the core (@pm, @sm, @dev, @qa, @devops). This squad does not
+          take delivery requests.
+
+    # ─── PHASE 1: Strategy Kernel ────────────────────────────────────────
+    - id: phase_1
+      name: "Strategy Kernel"
+      agent: strategy-lead
+      task: strategy-kernel.md
+      depends_on: [phase_0]
+      requires: triage_brief
+      creates: strategy_kernel
+      description: >-
+        Build the kernel — diagnosis, guiding policy, coherent action — with the rival
+        diagnosis considered in full, the exclusion list, the inertia budget and one
+        falsifiable prediction. Nothing downstream has a criterion until this exists.
+      outputs:
+        - diagnosis: "falsifiable claim with its evidence table"
+        - guiding_policy: "the approach, and what it rules out"
+        - coherent_actions: "coordinated action set with owners"
+        - exclusion_list: "what stops, with exit cost"
+        - inertia_budget: "cost of overcoming existing commitments, as a line item"
+        - prediction: "indicator, disconfirming observation, check date"
+        - strategy_doc_path: "path of the captured kernel document"
+      checkpoint:
+        gate: "Kernel complete and clear of the four bad-strategy hallmarks"
+        veto: >-
+          If the diagnosis cannot be stated as a claim a named observation could
+          contradict, do not proceed to capital. Funding an unfalsifiable diagnosis is
+          the failure this workflow exists to prevent.
+
+    # ─── PHASE 2: Capital Allocation ─────────────────────────────────────
+    - id: phase_2
+      name: "Capital Allocation"
+      agent: capital-allocator
+      task: capital-allocation-review.md
+      depends_on: [phase_1]
+      parallel: true
+      parallel_group: post_strategy
+      requires: strategy_kernel
+      creates: capital_plan
+      description: >-
+        Open all five doors against one published hurdle, compare after tax over a
+        common horizon in per-share terms, state the opportunity cost of the leading
+        option, and rank with confidence stated separately from the estimate.
+      outputs:
+        - position_statement: "cash position, every figure sourced and dated"
+        - hurdle: "the rate, its derivation, its horizon, the anti-drift rule"
+        - five_doors: "one row per use of cash, including doors nobody proposed"
+        - ranked_recommendation: "ranked options with confidence stated separately"
+        - opportunity_cost: "best foregone alternative, quantified in the same units"
+        - adviser_flags: "items requiring qualified human tax, legal or regulatory review"
+        - capital_plan_path: "path of the captured capital plan"
+      checkpoint:
+        gate: "One hurdle published, all five doors opened, downside case modelled first"
+        veto: >-
+          If the hurdle moved during the evaluation, the review is void — restate the
+          hurdle and re-run. Tax, legal and securities items are flagged for qualified
+          humans and never opined on here.
+
+    # ─── PHASE 3: Organisation Design ────────────────────────────────────
+    - id: phase_3
+      name: "Organisation Design"
+      agent: org-designer
+      task: org-design-plan.md
+      depends_on: [phase_1]
+      parallel: true
+      parallel_group: post_strategy
+      requires: strategy_kernel
+      creates: org_plan
+      description: >-
+        Turn the coherent actions into owners, decision rights, paired indicators and
+        a cadence, on observed calendar and decision-log data, with the transition cost
+        budgeted as a line item rather than listed as a risk.
+      outputs:
+        - output_definitions: "team output plus neighbouring output, per role"
+        - limiting_steps: "per key process, with evidence"
+        - indicator_set: "paired indicators with owner, frequency, triggered action"
+        - decision_rights: "recurring decisions: current level, proposed level, reason"
+        - cadence: "meeting portfolio, each stating what it replaces"
+        - transition_cost: "the budgeted period of degraded output"
+        - org_plan_path: "path of the captured org plan"
+      checkpoint:
+        gate: "Leverage audit run on observed data; every recurring decision has a level and an owner"
+        veto: >-
+          If the plan assesses any named individual, strip it — this task designs the
+          system, not the people in it.
+
+    # ─── PHASE 4: Decision Record and Delivery Handoff ───────────────────
+    - id: phase_4
+      name: "Decision Record and Delivery Handoff"
+      agent: ceo-chief
+      depends_on: [phase_2, phase_3]
+      requires: [strategy_kernel, capital_plan, org_plan]
+      action: >-
+        Run *coherence-check across the kernel, the capital plan and the org plan;
+        arbitrate contradictions with *conflict-resolve; capture the result with
+        *decision-record; then *handoff-to-delivery.
+      creates: executive_decision_package
+      description: >-
+        Check the chain — diagnosis, policy, action, capital, organisation — for breaks,
+        resolve the contradictions rather than noting them, and record the decision with
+        its options, what was given up, the evidence, the named human owner, the review
+        date and the reversal trigger.
+      outputs:
+        - coherence_report: "breaks in the chain, with the upstream repair order"
+        - decision_record: "question, options, what was given up, evidence, owner, review date, reversal trigger"
+        - delivery_brief: "the evidenced decision, framed for the core"
+      checkpoint:
+        gate: "Coherence chain unbroken, decision recorded, named human owner accepted it"
+        veto: >-
+          Do not hand off with an unresolved contradiction between the capital plan and
+          the org plan — the core would implement the contradiction.
+      handoff_to_core:
+        '@pm': "Receives the evidenced decision and frames the epic and PRD"
+        '@po': "Reprioritises the backlog where strategy or capital changed"
+        '@sm': "Drafts the stories once epic framing is complete"
+      terminates: >-
+        This workflow ends at the handoff. Implementation (@dev), quality gates (@qa)
+        and release or push (@devops, exclusive) are outside this squad.
+
+  # ────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    ceo_chief_to_strategy_lead: >-
+      Here is the restated request, its reversibility class and the evidence already on
+      hand. Build the kernel. Do not price anything and do not design the team — those
+      come after the policy exists.
+    strategy_lead_to_capital_allocator: >-
+      Here is the diagnosis, the guiding policy and the exclusion list. The exclusions
+      free capital; the policy is the criterion. Publish one hurdle before comparing.
+    strategy_lead_to_org_designer: >-
+      Here are the coherent actions and the inertia budget. Give each action an owner, a
+      decision level and an indicator, and price the transition as a line item.
+    capital_allocator_to_ceo_chief: >-
+      Here is the ranked recommendation, the opportunity cost of the leading option, the
+      downside case and the adviser flags. Confidence is stated separately from every
+      estimate — do not merge them in the decision record.
+    org_designer_to_ceo_chief: >-
+      Here is the decision-rights table, the cadence and the transition cost. Where this
+      disagrees with the capital plan on headcount or timing, the disagreement is real
+      and needs arbitration, not averaging.
+    ceo_chief_to_core: >-
+      Here is the recorded decision with its evidence, its named human owner and its
+      review date. @pm frames the epic, @po reprioritises, @sm drafts. This squad stops
+      here — it does not implement, test or publish.
+
+  # ────────────────────────────────────────────────────────────────────────
+  # FLOW DIAGRAM
+  # ────────────────────────────────────────────────────────────────────────
+
+  flow_diagram: |
+    graph TD
+      REQ[Executive request] --> P0[phase_0 Triage - ceo-chief]
+      P0 --> P1[phase_1 Strategy kernel - strategy-lead]
+      P1 --> P2[phase_2 Capital allocation - capital-allocator]
+      P1 --> P3[phase_3 Organisation design - org-designer]
+      P2 --> P4[phase_4 Decision record - ceo-chief]
+      P3 --> P4
+      P4 --> CORE[Handoff to core - pm, po, sm]
+      P0 -.-> OUT[Delivery request - routed to core, workflow ends]
+
+# ────────────────────────────────────────────────────────────────────────────
+# VETO CONDITIONS (workflow-level)
+# ────────────────────────────────────────────────────────────────────────────
+
+veto_conditions:
+  - "Request is delivery work — belongs to the core, not this squad"
+  - "Diagnosis is not falsifiable — no capital is committed against it"
+  - "Hurdle rate moved inside a live evaluation — the review is void"
+  - "Capital plan and org plan contradict each other and the contradiction is unresolved"
+  - "No named human owner accepted the decision"
+
+# ────────────────────────────────────────────────────────────────────────────
+# COMPLETION CRITERIA
+# ────────────────────────────────────────────────────────────────────────────
+
+completion_criteria:
+  - "Triage brief recorded with exactly one owning specialist"
+  - "Kernel captured with exclusion list, inertia budget and falsifiable prediction"
+  - "Capital plan captured with one hurdle, five doors and stated opportunity cost"
+  - "Org plan captured with decision rights, paired indicators and transition cost"
+  - "Coherence chain checked and any break repaired upstream"
+  - "Decision record written with owner, review date and reversal trigger"
+  - "Delivery brief handed to @pm / @po / @sm — and the squad stops there"

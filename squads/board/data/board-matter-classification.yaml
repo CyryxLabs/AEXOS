@@ -1,0 +1,255 @@
+# Board Matter Classification — reserved, delegated, or not a board matter
+# Squad: board
+# Owned by: board-chief (Chair)
+# Reference knowledge for *triage, *charge-check, *escalation-test, *sequence, *coherence-check
+
+version: "1.0.0"
+
+professional_limit: |
+  This file is governance reference knowledge. It is NOT legal advice, NOT tax advice, NOT a
+  statutory-audit instrument and NOT a regulatory determination. Whether a particular matter must
+  be reserved to a board as a matter of law, a listing rule, a constitution or a shareholder
+  agreement is a legal question for qualified counsel — this file addresses only governance
+  practice.
+
+  Every artifact produced using this file is INPUT FOR REVIEW by the directors themselves and by
+  licensed professionals. It is never the final decision instrument, and no agent using it issues
+  an audit opinion of any kind.
+
+attribution:
+  summary: |
+    The reserved/delegated distinction and the requirement for a written schedule of reserved
+    matters trace to a named source. The three boundary tests, the reframing patterns, the
+    escalation failure classes and the coherence chain are this squad's own CONSTRUCTION and are
+    labelled as such wherever used. Nothing here is presented as a code provision that is not one.
+  named_source:
+    document: "Report of the Committee on the Financial Aspects of Corporate Governance (the Cadbury Report), United Kingdom, December 1992, and its Code of Best Practice"
+    provisions_relied_on_here:
+      - "The board should meet regularly, retain full and effective control over the company, and monitor the executive management."
+      - "The board should have a formal schedule of matters specifically reserved to it for decision."
+      - "There should be a clearly accepted division of responsibilities at the head of the company, such that no one individual has unfettered powers of decision."
+    original_scope: "The boards of listed companies registered in the United Kingdom."
+    adaptation_rule: "Applying this to a private company, a non-UK entity, a non-corporate body or an internal product organization is an ANALOGY. Declare the adaptation in the body of every artifact, not in a footnote."
+    fuller_treatment: "squads/board/data/cadbury-code-provisions.yaml (owned by governance-counsel)"
+  no_invention_rule: |
+    No provision, title, year or author may be invented. Where the exact wording of a provision
+    matters to a decision, read it in the source document. An incorrect attribution is worse than
+    no attribution, because it is relied upon exactly as if it were verified.
+
+# ---------------------------------------------------------------------------
+# THE THREE CLASSES
+# ---------------------------------------------------------------------------
+
+classes:
+
+  reserved_to_the_board:
+    definition: "The board itself decides. Delegation would leave nobody able to hold anyone to account for the outcome."
+    typical_matters:
+      - "Appointment, assessment and removal of the chief executive"
+      - "Approval of strategy, and of material changes to it"
+      - "Approval of the risk appetite within which strategy is pursued, and of any breach of it"
+      - "Approval of the annual reported figures and the assurance position behind them"
+      - "Board and committee composition, terms of reference and delegation limits"
+      - "Related-party transactions, with no de minimis"
+      - "Capital commitments and contracts above the delegated limit"
+      - "Entry into or exit from a market, segment or jurisdiction"
+      - "Adoption of, or a declared departure from, a governance code"
+      - "Anything that would breach an approved policy"
+      - "Anything the board has written into its own schedule of reserved matters"
+    caution: "This list is a starting set, not a constitution. The organization's own schedule governs, and where the two differ the schedule wins and the difference is itself a finding."
+
+  delegated_with_oversight:
+    definition: "Management decides inside a written limit; the board checks that it was decided well and receives a report."
+    typical_matters:
+      - "Execution of the approved strategy"
+      - "Operation of controls and day-to-day risk management"
+      - "Hiring, development and management of everyone below the executive team"
+      - "Supplier, product and pricing decisions inside delegated limits"
+    required_attributes:
+      - "A written authority naming who decides"
+      - "An explicit limit — value, scope or duration"
+      - "A reporting obligation back to the board, tested SEPARATELY from the authority"
+      - "An escalation point at which the matter returns to the board"
+    note: "A delegation with a limit but no report back is unmonitored. Monitoring is the board's retained duty and does not travel with the delegation."
+
+  not_a_board_matter:
+    definition: "Neither decided nor overseen at board level, absent a control failure or a threshold breach."
+    typical_matters:
+      - "Operational decisions inside delegation"
+      - "Implementation choices, technical design and tooling"
+      - "Individual performance management below the executive team"
+      - "Recruitment execution, interviewing and candidate sourcing"
+
+  undefined:
+    definition: "No delegation covers the matter, and it is not on the reserved schedule."
+    handling: "The gap is the finding. Do not resolve it by defaulting to 'reserved'. Route to governance-counsel to produce the covering instrument, and record which decisions were taken in the interval without authority."
+
+# ---------------------------------------------------------------------------
+# BOUNDARY TESTS  [CONSTRUCTION — this squad's own tests]
+# ---------------------------------------------------------------------------
+
+boundary_tests:
+  attribution: CONSTRUCTION
+  tests:
+    - id: BT1
+      question: "Would a reasonable person say the board DECIDED this, or that the board CHECKED that management decided it well?"
+      rule: "Only the first is a reserved matter."
+    - id: BT2
+      question: "If the board takes this decision, who is left to hold anyone accountable for it?"
+      rule: "If the answer is nobody, the board has absorbed a management function and destroyed the accountability it exists to enforce."
+    - id: BT3
+      question: "Is the board being asked to APPROVE, or to BE INFORMED? Is there a real delegated alternative?"
+      rule: "Approval with no alternative is rubber-stamping. Information framed as approval is agenda capture."
+  application_rule: "Run all three and show every result. A classification presented without the three results is an opinion, not a test."
+
+# ---------------------------------------------------------------------------
+# RESERVATION TEST  [source: derived from the Cadbury requirement for a formal schedule;
+#                    the five limbs themselves are CONSTRUCTION]
+# ---------------------------------------------------------------------------
+
+reservation_test:
+  attribution: "The requirement for a formal schedule of reserved matters is a Cadbury Code provision. The five limbs below are this squad's CONSTRUCTION for populating it."
+  limbs:
+    - "Irreversible, or expensive to reverse?"
+    - "Commits the organization beyond the delegated threshold?"
+    - "Changes the risk profile the board approved?"
+    - "Touches the board's own composition, remuneration or independence?"
+    - "Would delegating it leave nobody able to hold anyone accountable?"
+  logic: "Disjunctive by design. Any single yes reserves the matter. A matter that is merely large is reserved on threshold alone; a matter that is small but irreversible is reserved on reversibility alone."
+  threshold_decay_rule: |
+    Express every value threshold with an indexation or annual-review rule. A nominal threshold
+    never revisited delegates progressively more authority as the organization grows, with no
+    visible moment of failure and no decision anyone can point to.
+
+# ---------------------------------------------------------------------------
+# REFRAMING PATTERNS — the stated matter is often not the owned matter
+# [CONSTRUCTION]
+# ---------------------------------------------------------------------------
+
+reframing_patterns:
+  attribution: CONSTRUCTION
+  patterns:
+    - stated: "We were blindsided by this."
+      owned_by: "risk-oversight first, then governance-counsel"
+      why: "Surprise at board level is an escalation-threshold failure before it is a judgement failure. The owned question is what threshold existed and why this did not cross it — then whether the reporting line was structurally capable of carrying it."
+    - stated: "We need better reporting from management."
+      owned_by: "audit-lead, with risk-oversight if the gap concerns exposures"
+      why: "Reporting quality is an assurance question — what is asserted, by whom, verified how. More pages without more assurance produces thicker packs and no more insight."
+    - stated: "Should we approve this acquisition?"
+      owned_by: "governance-counsel for the reserved-matter and conflict test, then risk-oversight for the exposure"
+      why: "Two questions are tangled: is this properly the board's decision and is the process clean, and does the resulting exposure sit inside stated appetite. Answering the second first approves a decision that may be procedurally void."
+    - stated: "The CEO is doing too much."
+      owned_by: "succession-lead, with governance-counsel if roles at the head are combined"
+      why: "Concentration in one person is a key-person and bench-depth question. If that person also chairs the board, it becomes a separation-of-roles question as well."
+    - stated: "The numbers moved and nobody can explain why."
+      owned_by: "audit-lead, then risk-oversight if the cause is an exposure rather than a control"
+      why: "Unexplained movement is a control-and-evidence question first. Only once the figure is trusted does the exposure behind it become a risk conversation."
+    - stated: "Our board meetings are all presentation and no decision."
+      owned_by: "board-chief directly, with governance-counsel if the cause is structural"
+      why: "This is agenda design. If the cause is that management sets the agenda and no committee has terms of reference, it becomes a governance-structure matter."
+    - stated: "Is this legal?"
+      owned_by: "nobody in this squad"
+      why: "Refer to qualified counsel. What remains for the board is the governance question underneath — who decided, under what delegation, with what record — and that returns to governance-counsel."
+
+# ---------------------------------------------------------------------------
+# ESCALATION FAILURE CLASSES  [CONSTRUCTION]
+# ---------------------------------------------------------------------------
+
+escalation_failure_classes:
+  attribution: CONSTRUCTION
+  method: "Reconstruct the timeline: when it became knowable inside the organization, when first documented, when it reached the executive, when it reached the board. Then classify."
+  classes:
+    - class: NO_THRESHOLD_EXISTED
+      owner: risk-oversight
+      output: "The threshold that should now exist, expressed against a measurable band."
+    - class: THRESHOLD_EXISTED_AND_WAS_NOT_TRIGGERED
+      owner: risk-oversight
+      output: "Whether the threshold is calibrated for magnitude only, when velocity, reputational or concentration exposure was the live dimension."
+    - class: TRIGGERED_AND_NOT_ESCALATED
+      owner: "governance-counsel if the reporting line is structurally broken; audit-lead if the evidence was misreported"
+      output: "The structural defect in the reporting line, or the reporting-integrity finding."
+    - class: ESCALATED_AND_NOT_ACTED_ON
+      owner: board-chief
+      output: "A board self-assessment item. This class is the only one the board cannot attribute to management."
+  threshold_dimensions:
+    - magnitude
+    - velocity
+    - reputational exposure
+    - regulatory exposure
+    - concentration
+  common_defect: "Thresholds defined for magnitude but not for velocity or reputational exposure. The surprise that arrives fast is the one that is never caught by a size test."
+
+# ---------------------------------------------------------------------------
+# COHERENCE CHAIN  [CONSTRUCTION]
+# ---------------------------------------------------------------------------
+
+coherence_chain:
+  attribution: CONSTRUCTION
+  links:
+    - link: mandate
+      owner: governance-counsel
+      question: "What is reserved to the board, delegated to whom, and recorded where?"
+    - link: appetite
+      owner: risk-oversight
+      question: "How much of what kind of risk are we willing to carry, expressed how?"
+    - link: control
+      owner: risk-oversight
+      question: "What is supposed to keep exposure inside appetite?"
+    - link: evidence
+      owner: audit-lead
+      question: "How do we know the control operated, and who says so?"
+    - link: capacity
+      owner: succession-lead
+      question: "Do we have the leadership to carry this, now and after a departure?"
+    - link: accountability
+      owner: governance-counsel
+      question: "Who answers if it fails, and does the record show it?"
+  propagation_rule: |
+    A break in any link invalidates every link downstream of it, not only the adjacent one. Repair
+    upstream first. Commissioning assurance over a control that is defective by design produces
+    assurance that faithfully confirms the defect.
+  contradiction_checks:
+    - name: "Appetite drift"
+      test: "Does the risk appetite the board approved match the exposure the current strategy actually creates?"
+      typical_cause: "Strategy revised after the appetite statement; the appetite never revisited."
+    - name: "Unevidenced control"
+      test: "Does every control the board relies on for a material exposure have named assurance behind it?"
+      typical_cause: "A control described in a policy document, never tested, reported as though operating."
+    - name: "Delegation gap"
+      test: "Is every decision being taken somewhere covered by an explicit delegation, and is every reserved matter actually reaching the board?"
+      typical_cause: "Nominal thresholds set years ago and never indexed, so material decisions now fall below them."
+    - name: "Capacity mismatch"
+      test: "Does the leadership bench support the approved strategy, including under a sudden departure?"
+      typical_cause: "Succession criteria derived from the incumbent's profile rather than from where the strategy is going."
+    - name: "Escalation blindness"
+      test: "Would the last three surprises have crossed a defined escalation threshold before reaching the board?"
+      typical_cause: "Thresholds defined for magnitude but not for velocity or reputational exposure."
+    - name: "Accountability vacuum"
+      test: "For each material decision in the record, can a single accountable name be produced?"
+      typical_cause: "Decisions taken with no minute, or minuted as collective with no owner."
+
+# ---------------------------------------------------------------------------
+# HARD LIMITS — matters this squad refuses rather than approximates
+# ---------------------------------------------------------------------------
+
+referred_out:
+  rule: "State the limit, refer to qualified external advice, and isolate the governance question that remains. An approximate legal view is worse than none, because it is relied upon exactly as if it were real."
+  categories:
+    - "Interpretation of any statute, listing rule, regulation or filing obligation"
+    - "Directors' duties, breach or liability as questions of law"
+    - "Contract terms, termination rights, notice, severance"
+    - "Tax treatment"
+    - "Statutory audit opinion, accounting-policy determination"
+    - "Employment law, discrimination, immigration"
+    - "Psychological or personality assessment of individuals"
+  never: "A misconduct, fraud or retaliation allegation is never summarized into a caveat. It is surfaced in the open, immediately, and routed to audit-lead for the whistleblowing channel."
+
+agent_authority_boundary:
+  note: "No board resolution overrides AEXOS agent authority."
+  rules:
+    - "git push, PRs, MCP configuration and CI/CD -> @devops, exclusively"
+    - "Epic framing and PRD -> @pm"
+    - "Story drafting -> @sm"
+    - "Story validation and backlog -> @po"
+    - "Implementation -> @dev"
+    - "Quality gates and test evidence -> @qa"

@@ -1,0 +1,306 @@
+template:
+  id: switch-timeline-template-v1
+  name: Switch Timeline
+  version: 1.0
+  squad: products
+  agent: jobs-analyst
+  output:
+    format: markdown
+    filename: docs/product/jobs/switches/switch-{{transcript_id}}-{{slug}}.md
+    title: "Switch Timeline — {{transcript_id}} — {{slug}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+  custom_elicitation:
+    title: "Switch Timeline Elicitation Actions"
+    options:
+      - "Anchor a stage — recover time, place and who was present"
+      - "Walk them back — they jumped ahead to the purchase"
+      - "Isolate the deciding event — what made that day different"
+      - "Recover what was fired — 'nothing' means the probe was missed"
+      - "Probe non-consumption — how long was doing nothing the option"
+      - "Recover what almost stopped the purchase"
+      - "Mark a stage as not recovered rather than inferring it"
+      - "Replace a paraphrase with the verbatim quote"
+      - "Flag an anti-probe that slipped in and quarantine the answer"
+      - "Proceed to next section"
+
+sections:
+  - id: preamble
+    instruction: |
+      One artifact per interview, written immediately after the call while the sequence is still
+      fresh. This template captures evidence. It does not analyse: no forces mapping, no job
+      statement, no conclusions. Analysis runs against the whole set of transcripts, not one.
+
+      Three capture rules govern every field below.
+      1. Verbatim quotes only for anything used as evidence. A paraphrase is the interviewer's
+         summary and cannot support a causal claim.
+      2. Mark gaps as gaps. An unrecovered stage is `not recovered`, never inferred. Constitution
+         Article IV — No Invention.
+      3. Keep the interviewee's vocabulary. Translating "I got caught out in front of my VP" into
+         "visibility gap" destroys the finding.
+
+      Method: the switch interview was developed by Bob Moesta and Chris Spiek within the JTBD
+      tradition; see Bob Moesta with Greg Engle, *Demand-Side Sales 101* (2020).
+
+  - id: interview-header
+    title: Interview
+    instruction: |
+      The id must have been assigned before the call, because every downstream clause cites it.
+      Record the recruit source honestly and attach its limitation — a reader must be able to tell
+      whether they are reading a win, a churn, a closed-lost or a mined sales call without opening
+      the transcript.
+      Bad answer: leaving `recruit_source` as "customer". That is not a source, and it hides the
+      limitation.
+    template: |
+      **Transcript id:** {{SW-NN}}
+      **Interview date:** {{YYYY-MM-DD}}
+      **Switch date:** {{YYYY-MM-DD}}
+      **Days since switch:** {{n}} (target window: 60 to 90 days)
+      **Recruit source:** {{recent win | recent churn | closed-lost | mined sales call}}
+      **Limitation of this source:** {{limitation, or "none — recent win inside window"}}
+      **Role of interviewee:** {{role — recorded for context only, never used as a causal explanation}}
+      **Recording available:** {{yes / no}}
+      **Raw transcript:** {{path}}
+
+  - id: switch-summary
+    title: The Switch
+    instruction: |
+      One line: what was fired, what was hired, how long it took. Elapsed time from first thought
+      to purchase is diagnostic on its own — a long delay after a strong push is usually anxiety or
+      habit spending the time.
+      Bad answer: "they bought our product". That records the outcome and loses the switch.
+    template: |
+      **From:** {{what was fired}}
+      **To:** {{what was hired}}
+      **Elapsed, first thought to purchase:** {{duration}}
+      **Elapsed, active looking to purchase:** {{duration}}
+
+  - id: timeline
+    title: Timeline — Six Stages
+    instruction: |
+      Walk all six. Anchor each in time, place and who was present — anchoring is what separates a
+      recovered memory from a plausible story. If a stage cannot be anchored, write `not recovered`
+      in every field of that stage rather than filling any of them.
+
+      The big hire is stage 5, the purchase. The little hire is stage 6, the repeated decision to
+      actually use it. A big hire with no little hires is churn in waiting, which is why stage 6 is
+      not optional.
+
+      Per-stage failure modes:
+      - First thought — bad answer: the day they contacted sales. That is stage 3 at the earliest.
+        Walk them back: "before that — when did you first think about this at all?"
+      - Passive looking — bad answer: skipped entirely. It is the stage nobody volunteers, and it
+        is where the competitive set first appears.
+      - Active looking — bad answer: a vendor list with no sequence. Ask what they did first.
+      - Deciding event — bad answer: a reason ("we needed it"). A deciding event has a date and
+        usually another person in it. This is the single highest-value answer in the interview.
+      - Purchase — bad answer: only the buyer named. Ask who else had to say yes and what they said.
+      - First use — bad answer: "it went fine". Ask what they actually did on day one and what they
+        stopped doing.
+    sections:
+      - id: stage-1-first-thought
+        title: "1. First thought"
+        template: |
+          **What happened:** {{description}}
+          **Verbatim:** "{{quote}}"
+          **When:** {{date or "months before, roughly {{period}}"}}
+          **Where:** {{place}}
+          **Who was present:** {{people}}
+          **Recovered:** {{yes / not recovered}}
+      - id: stage-2-passive-looking
+        title: "2. Passive looking"
+        template: |
+          **What they noticed, without searching:** {{description}}
+          **Verbatim:** "{{quote}}"
+          **When:** {{period}}
+          **Where:** {{place or channel}}
+          **Who was present:** {{people}}
+          **Recovered:** {{yes / not recovered}}
+      - id: stage-3-active-looking
+        title: "3. Active looking"
+        template: |
+          **What turned it into a search:** {{description}}
+          **First thing they actually did:** {{action}}
+          **Verbatim:** "{{quote}}"
+          **When:** {{date}}
+          **Who was present:** {{people}}
+          **Recovered:** {{yes / not recovered}}
+      - id: stage-4-deciding-event
+        title: "4. Deciding event"
+        template: |
+          **What made that day different from the week before:** {{event}}
+          **Verbatim:** "{{quote}}"
+          **When:** {{date}}
+          **Where:** {{place}}
+          **Who was present:** {{people}}
+          **Recovered:** {{yes / not recovered — push may be weak, record as a finding}}
+      - id: stage-5-purchase
+        title: "5. Purchase (big hire)"
+        template: |
+          **The transaction:** {{description}}
+          **Who else had to say yes, and what they said:** {{people and quotes}}
+          **What almost stopped it:** {{near-miss}}
+          **Verbatim:** "{{quote}}"
+          **When:** {{date}}
+          **Recovered:** {{yes / not recovered}}
+      - id: stage-6-first-use
+        title: "6. First use (little hire)"
+        template: |
+          **What they did on day one:** {{description}}
+          **What they stopped doing:** {{what was fired in practice}}
+          **What surprised them:** {{surprise}}
+          **Little hire happened:** {{yes / no / too early to tell}}
+          **Verbatim:** "{{quote}}"
+          **When:** {{date}}
+          **Recovered:** {{yes / not recovered}}
+
+  - id: struggling-moment
+    title: Struggling Moment
+    instruction: |
+      The moment that started the search, in their words. If it cannot be named from this
+      transcript, there is no job here — only a description of a user. Record that and either
+      interview again or stop.
+      Bad answer: a condition with no date. If it was equally true a year earlier, it did not start
+      the search — it is background, and the push is elsewhere or absent.
+    template: |
+      **In their words:** "{{verbatim_quote}}"
+      **When:** {{date or position in the sequence}}
+      **Where:** {{place}}
+      **Who was present:** {{people}}
+      **Recurs:** {{how often, from the transcript}}
+      **Named or inferred:** {{named — quote above | not recovered}}
+
+  - id: alternatives
+    title: Alternatives Considered and Rejected
+    instruction: |
+      The rejected options define the competitive set more honestly than any market report. Probe
+      past the same-category vendors: spreadsheets, internal tools, an agency, a contractor, a
+      colleague, and doing nothing.
+      Bad answer: only same-category vendors listed. That is a supplier list, not the alternative
+      set, and it means the probe stopped early.
+      Bad answer under "why rejected": "too expensive" with no comparison named. Expensive against
+      what?
+    template: |
+      | Alternative | Class | Considered at which stage | Why rejected (verbatim where possible) |
+      |---|---|---|---|
+      | {{alternative}} | {{same-category / adjacent category / manual workaround / human alternative / non-consumption}} | {{stage}} | "{{quote}}" |
+
+  - id: non-consumption
+    title: Non-Consumption
+    instruction: |
+      Ask explicitly before ending the call if it has not come up. Doing nothing and tolerating the
+      struggle is usually the largest competitor and appears on no market map, because no vendor
+      reports revenue from it.
+      Bad answer: this section left blank. Blank means unasked, not absent — mark it `not asked` so
+      the gap is visible.
+    template: |
+      **Was doing nothing an option:** {{yes / no / not asked}}
+      **How long it remained the option:** {{duration}}
+      **What ended it:** {{the event that made tolerating the struggle stop working}}
+      **Verbatim:** "{{quote}}"
+
+  - id: hire-fire
+    title: Hire and Fire
+    instruction: |
+      Always record what was fired. The fired alternative names the real competitive set and the
+      real hiring criteria.
+      Bad answer: "nothing was fired". Something always stops — a spreadsheet, a person, a habit, a
+      tolerated struggle. If the transcript truly has no answer, mark `not recovered` and treat it
+      as a probe that was missed.
+      Bad answer under criteria: a feature list. Criteria are conditions that had to be true, not
+      capabilities that had to exist.
+    template: |
+      **What was hired:** {{hired}}
+      **What was fired:** {{fired}}
+      **Hiring criteria — what had to be true to go ahead:** {{criteria}}
+      **Firing criteria — what would make them stop:** {{criteria}}
+      **Evidence:** "{{quote}}"
+
+  - id: force-signals
+    title: Raw Force Signals
+    instruction: |
+      Capture only. Do not weigh the forces here and do not name a binding force — that is
+      *map-forces, run against the full evidence set.
+      Record the quote that gestures at each force, or `not recovered`. Anxiety is the most
+      under-recorded, because it is rarely volunteered and never appears in a feature request.
+      Habit is recorded as what the old way did WELL — bad answer: "they were resistant to change",
+      which is contempt disguised as analysis and tells you nothing you can build against.
+    template: |
+      | Force | Direction | Raw quote from this transcript | Recovered |
+      |---|---|---|---|
+      | Push of the situation | toward change | "{{quote}}" | {{yes / not recovered}} |
+      | Pull of the new solution | toward change | "{{quote}}" | {{yes / not recovered}} |
+      | Anxiety of the new solution | against change | "{{quote}}" | {{yes / not recovered}} |
+      | Habit of the present | against change | "{{quote}}" | {{yes / not recovered}} |
+
+  - id: dimension-signals
+    title: Raw Dimension Signals
+    instruction: |
+      Capture only, one quote per dimension. The functional dimension is the easy one and the one
+      that shows up in feature requests; social and emotional usually decide the purchase and are
+      usually missing.
+      Bad answer under social: "wants to look good". Name the audience and the perception.
+      Bad answer under emotional: "wants confidence". Name the feeling being escaped.
+    template: |
+      | Dimension | Raw quote | Recovered |
+      |---|---|---|
+      | Functional — the practical work | "{{quote}}" | {{yes / not recovered}} |
+      | Social — perception, and by whom | "{{quote}}" | {{yes / not recovered}} |
+      | Emotional — feeling sought or escaped | "{{quote}}" | {{yes / not recovered}} |
+
+  - id: interview-hygiene
+    title: Interview Hygiene
+    instruction: |
+      Self-audit, recorded honestly. An anti-probe produces a fluent answer with no evidentiary
+      value, which is why it is dangerous rather than merely useless. If one slipped out, log it
+      and quarantine the answer that followed rather than quietly keeping it.
+      Bad answer: an empty table on an interview that ran long. Long interviews drift.
+    template: |
+      | Anti-probe | Occurred? | Answer quarantined? |
+      |---|---|---|
+      | "Why did you buy it?" — invites a rationalization constructed after the fact | {{yes/no}} | {{yes/no/NA}} |
+      | "What features matter most to you?" — invites a wish list, not a history | {{yes/no}} | {{yes/no/NA}} |
+      | "Would you recommend it?" — opinion with no timeline | {{yes/no}} | {{yes/no/NA}} |
+      | Any leading question naming our solution | {{yes/no}} | {{yes/no/NA}} |
+      | Any question asking for a typical or average behaviour | {{yes/no}} | {{yes/no/NA}} |
+
+      **Interviewer supplied a word the interviewee was groping for:** {{yes/no — if yes, mark the affected quote unusable}}
+      **Stages not recovered:** {{list, or "none"}}
+      **Follow-up needed:** {{what to recover in a second call, or "none"}}
+
+  - id: attribution
+    title: Method Attribution
+    instruction: |
+      Keep this section. Never add a citation that is not on this list, and never attach a number
+      to a published finding unless it is verified at the source.
+    content: |
+      - Bob Moesta with Greg Engle, *Demand-Side Sales 101: Stop Selling and Help Your Customers
+        Make Progress* (2020) — the switch interview method, timeline reconstruction and the four
+        forces of progress. The interview method was developed by Bob Moesta and Chris Spiek within
+        the JTBD tradition.
+      - Clayton M. Christensen, Taddy Hall, Karen Dillon and David S. Duncan, *Competing Against
+        Luck: The Story of Innovation and Customer Choice* (2016) — the job as progress in a
+        circumstance, hiring and firing, the job dimensions, the milkshake case.
+      - Clayton M. Christensen, Taddy Hall, Karen Dillon and David S. Duncan, "Know Your Customers'
+        Jobs to Be Done", *Harvard Business Review* (September 2016) — the job spec and
+        organizational integration around the job.
+
+      `@jobs-analyst` (Plumb) is a specialist applying these methods.
+
+  - id: next
+    title: Next
+    instruction: |
+      This artifact is evidence, not a decision. It does not become a story, a ticket or a
+      requirement here. Nothing in this squad implements (@dev), tests code (@qa), creates stories
+      (@sm), writes epics or PRDs (@pm), or pushes (@devops — exclusive).
+    template: |
+      | Next step | Owner | Trigger |
+      |---|---|---|
+      | Map the four forces for this switch | `*map-forces {{SW-NN}}` | This timeline is captured |
+      | Write or repair the job statement | `*job-statement` | Enough transcripts exist across the segment |
+      | Rebuild the competitive set by job | `*job-competition` | The alternatives table has non-category entries |
+      | Follow-up interview | `*switch-interview` | Any stage marked `not recovered` |
+      | Continuous cadence and opportunity tree | `@discovery-lead` | The job needs to stay current |
+      | Epic-level requirements | `@pm` | A validated job spec exists — not from this artifact alone |

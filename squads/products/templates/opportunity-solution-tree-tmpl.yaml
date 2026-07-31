@@ -1,0 +1,334 @@
+template:
+  id: opportunity-solution-tree-template-v1
+  name: Opportunity Solution Tree
+  version: 1.0
+  squad: products
+  owner: discovery-lead
+  output:
+    format: markdown
+    filename: docs/product/discovery/opportunity-tree-{{outcome_slug}}.md
+    title: "Opportunity Solution Tree: {{outcome_slug}}"
+  attribution: |
+    The opportunity solution tree is Teresa Torres's structure, published in
+    "Continuous Discovery Habits: Discover Products that Create Customer Value and Business
+    Value" (2021): a desired product outcome at the root, opportunities as branches, solutions
+    under the target opportunity, and assumption tests under the solutions. The assumption test
+    layer draws on David J. Bland and Alexander Osterwalder, "Testing Business Ideas" (2019),
+    which Torres integrates into the tree. Outcome-over-output framing follows Marty Cagan,
+    "INSPIRED", 2nd edition (2018) and Marty Cagan with Chris Jones, "EMPOWERED" (2020).
+    This template applies the published method and attributes it.
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+  custom_elicitation:
+    title: "Opportunity Solution Tree Elicitation Actions"
+    options:
+      - "Re-read the snapshots and check whether this opportunity is in the customer's words"
+      - "Test this node: need/pain/desire, or a thing we would build?"
+      - "Split an overlapping sibling pair at a different altitude"
+      - "Collapse two branches that are the same signal wearing different words"
+      - "Challenge an opportunity that cites only one snapshot"
+      - "Re-size the top-level opportunities and defend the target out loud"
+      - "List what this tree says we are deliberately NOT pursuing"
+      - "Trace a shipped feature back up the tree and see if it lands anywhere"
+      - "Proceed to next section"
+
+sections:
+  - id: preamble
+    instruction: |
+      This template produces the versioned tree artifact. It is filled by
+      `squads/products/tasks/build-opportunity-tree.md`, normally inside the trio's weekly
+      synthesis ritual.
+
+      Two hard rules govern the whole document and are enforced at every section below:
+      1. Every opportunity cites at least one interview snapshot id. Constitution Article IV,
+         No Invention: an opportunity with no provenance is deleted, not debated.
+      2. Nothing on an opportunity branch names a thing we would build. Those are solutions and
+         they belong under the target opportunity only.
+
+      Before starting, confirm you have: the outcome with a baseline and a target, the filed
+      snapshots, and the named trio. Missing snapshots means this is a brainstorm — stop and run
+      the weekly touchpoint first.
+
+  - id: header
+    title: Header
+    instruction: |
+      Identify the tree so a reader six months later knows what was true when it was written.
+      Bad answer: an undated file with no snapshot range — nobody can tell whether it reflects
+      twelve interviews or two.
+    template: |
+      **Date:** {{yyyy_mm_dd}}
+      **Trio:** {{pm_name}} (PM), {{designer_name}} (design), {{engineer_name}} (engineering)
+      **Snapshots in scope:** {{snapshot_id_range}} ({{snapshot_count}} interviews)
+      **Tree version:** {{version}} — supersedes {{previous_version_or_none}}
+      **Next touchpoint:** {{next_interview_date}}
+
+  - id: outcome
+    title: Outcome (Root)
+    instruction: |
+      The root is exactly one measurable product outcome, with a baseline and a target, that the
+      trio can move by changing the product.
+
+      Test it against three conditions before writing it down:
+      - Measurable: it names a number, a baseline and a target.
+      - Product-level: the trio can move it through the product.
+      - Laddered: it connects to a stated business outcome.
+
+      Bad answers, and what each one actually is:
+      - "Improve onboarding" — no number. That is a direction, not an outcome.
+      - "Ship the new template gallery" — an output. Ask what number it was meant to move.
+      - "Increase company revenue 20%" — the trio cannot move it directly. That is a business
+        outcome; hand it to @product-strategist for decomposition and stop.
+      - "Increase activation" with no baseline — unfalsifiable, and every result will be claimed
+        as progress.
+    sections:
+      - id: product-outcome
+        title: Product Outcome
+        template: |
+          {{outcome_statement}}
+          **Baseline:** {{baseline_value}} as of {{baseline_date}}
+          **Target:** {{target_value}} by {{target_date}}
+          **Measured by:** {{metric_definition_and_source}}
+      - id: business-ladder
+        title: Ladder to Business Outcome
+        instruction: |
+          State the business outcome this product outcome serves and the causal link between
+          them, in one sentence each. A bad answer asserts the link without stating it — if you
+          cannot say why moving the product number moves the business number, the ladder is
+          decoration.
+        template: |
+          **Business outcome:** {{business_outcome}}
+          **Link:** {{why_moving_the_product_number_moves_the_business_number}}
+      - id: influence-check
+        title: Influence Check
+        instruction: |
+          Record explicitly whether the trio can move this number through the product, and name
+          the levers. If the honest answer is no, stop the tree and escalate.
+        template: |
+          **Trio can influence:** yes | no
+          **Levers available to the trio:** {{levers}}
+          **If no — escalated to:** @product-strategist on {{date}}
+
+  - id: opportunity-space
+    title: Opportunity Space
+    instruction: |
+      Opportunities are customer needs, pains and desires, written in the customer's language,
+      extracted from stories in the snapshots. Not features. Not solutions. Not internal
+      vocabulary.
+
+      Classification test, applied to every node before it goes on the tree:
+      | The item names | It is | Where it goes |
+      | A need, pain or desire in the customer's words | Opportunity | A branch |
+      | A thing we would build | Solution | Under the target opportunity, later |
+      | A number we want to move | Outcome | The root |
+      | Something that must be true | Assumption | Under a solution, later |
+      | Nothing traceable to a snapshot | Not evidence | Deleted |
+
+      Bad answers:
+      - "Add a preview button" — a solution wearing an opportunity costume. The opportunity
+        underneath is "I could not predict what it would do."
+      - "Users need better onboarding" — the team's summary, not the customer's words, and it is
+        so broad that every solution fits under it.
+      - "Poor discoverability" — internal jargon. No customer said this.
+      - An opportunity with an empty snapshot column — an orphan. Delete it or interview for it.
+    sections:
+      - id: tree-diagram
+        title: The Tree
+        instruction: |
+          Render the tree as text so it versions and diffs in the repository. A tree that only
+          exists in a SaaS board is invisible to the framework.
+
+          Mark the selected target with [TARGET]. Solutions appear under the target opportunity
+          only — if solutions are hanging off three branches, the target has not been chosen.
+        type: code-block
+        template: |
+          OUTCOME: {{outcome_short}} ({{baseline}} -> {{target}})
+          |
+          +-- OPPORTUNITY: "{{opportunity_1}}"                 [{{snapshot_ids}}]
+          |   +-- OPPORTUNITY: "{{sub_opportunity_1a}}"        [{{snapshot_ids}}]
+          |   +-- OPPORTUNITY: "{{sub_opportunity_1b}}"        [{{snapshot_ids}}]
+          |
+          +-- OPPORTUNITY: "{{opportunity_2}}"  [TARGET]       [{{snapshot_ids}}]
+          |   +-- SOLUTION: {{solution_a}}
+          |   |   +-- ASSUMPTION TEST: {{test_a1}}
+          |   +-- SOLUTION: {{solution_b}}
+          |   +-- SOLUTION: {{solution_c}}
+          |
+          +-- OPPORTUNITY: "{{opportunity_3}}"                 [{{snapshot_ids}}]
+      - id: opportunity-register
+        title: Opportunity Register
+        instruction: |
+          One row per opportunity on the tree. The snapshot column is the provenance check and is
+          not optional — every id must resolve against the snapshot index.
+
+          The verbatim quote column is what stops an opportunity drifting into the team's
+          vocabulary over successive edits. If you cannot find a quote, the opportunity is an
+          inference; mark it as such and interview for it.
+        type: table
+        template: |
+          | ID | Opportunity (customer's words) | Parent | Snapshot ids | Verbatim quote | Need/pain/desire |
+          |---|---|---|---|---|---|
+          | O-{{n}} | {{opportunity}} | {{parent_id_or_root}} | {{snapshot_ids}} | "{{quote}}" | {{type}} |
+      - id: orphans-removed
+        title: Orphans Removed
+        instruction: |
+          Every opportunity deleted for having no snapshot behind it, with where it came from.
+          Recording the deletion is what stops it being re-added next month by the person who
+          proposed it. An empty table here on a tree built from a workshop is a warning sign, not
+          a clean bill of health.
+        type: table
+        template: |
+          | Proposed opportunity | Where it came from | Why removed | Interview for it? |
+          |---|---|---|---|
+          | {{item}} | {{source}} | no snapshot provenance | yes/no — {{plan}} |
+      - id: solutions-relocated
+        title: Solutions Relocated
+        instruction: |
+          Items that arrived as opportunities but named something to build, and the opportunity
+          found underneath each one. This table is the audit trail of the most common structural
+          error, and it teaches the pattern faster than any rule.
+        type: table
+        template: |
+          | Arrived as | Recognised as | Opportunity underneath it | Snapshot ids |
+          |---|---|---|---|
+
+  - id: structural-report
+    title: Structural Report
+    instruction: |
+      Run all five checks and record a result for each, with the specific nodes involved. A
+      report that says "all checks passed" with no node references was not run.
+    sections:
+      - id: checks
+        title: Checks
+        type: table
+        template: |
+          | Check | Rule | Result | Nodes involved | Action taken |
+          |---|---|---|---|---|
+          | Single parent | Each opportunity has exactly one parent | pass/fail | {{nodes}} | {{action}} |
+          | Sibling distinctness | Siblings do not overlap | pass/fail | {{nodes}} | {{action}} |
+          | Subset not sequence | Children are subsets of the parent, not steps in a process | pass/fail | {{nodes}} | {{action}} |
+          | No solution leakage | No opportunity branch names a thing we would build | pass/fail | {{nodes}} | {{action}} |
+          | Provenance | Every opportunity cites a resolvable snapshot id | pass/fail | {{nodes}} | {{action}} |
+      - id: failure-notes
+        title: Failure Notes
+        instruction: |
+          For each failed check, say what it means rather than just that it failed. An
+          opportunity appearing twice means the branch was cut at the wrong altitude. Overlapping
+          siblings mean the same signal was written down twice in different words. A vertical
+          relationship that reads as a sequence means a process was mapped instead of a need.
+        template: "{{failure_diagnosis_and_repair}}"
+
+  - id: sizing-and-target
+    title: Sizing and Target Selection
+    instruction: |
+      Size the top-level opportunities on the four assessment criteria and select exactly one
+      target. Record the reasoning per cell — a table of high/medium/low with no reasoning is a
+      vote, not an assessment.
+
+      Bad answers: sizing every opportunity as "high"; selecting a target that happens to match
+      what was already being built; selecting two targets. A tree with five simultaneous targets
+      is a team with no focus, and focus is the entire point of selecting one.
+    sections:
+      - id: sizing-table
+        title: Sizing
+        type: table
+        template: |
+          | Opportunity | Opportunity sizing (how many, how often, how severely) | Market factors | Company factors | Customer factors | Verdict |
+          |---|---|---|---|---|---|
+          | {{opportunity}} | {{n_of_m_snapshots}}, {{frequency}}, {{severity}} | {{market}} | {{company}} | {{customer}} | TARGET / next / park |
+      - id: target
+        title: Selected Target
+        instruction: |
+          One opportunity. State why it beat the runners-up, not just that it won.
+        template: |
+          **Target:** "{{target_opportunity}}" [{{snapshot_ids}}]
+          **Why it beat the runners-up:** {{reasoning}}
+          **Revisit date:** {{date}}
+      - id: deliberately-not
+        title: Deliberately Not Pursued
+        instruction: |
+          The tree's primary job is to make visible what is being chosen against. List the
+          deferred opportunities with the reason and the condition that would bring each back.
+          Leaving this section empty converts the tree into a backlog, which is the failure mode
+          this section exists to prevent.
+        type: table
+        template: |
+          | Opportunity | Deferred as | Reason | What would bring it back |
+          |---|---|---|---|
+          | {{opportunity}} | next / park | {{reason}} | {{trigger}} |
+
+  - id: solutions-under-target
+    title: Solutions Under the Target Opportunity
+    instruction: |
+      Minimum three distinct solutions for the target opportunity. A solution evaluated alone is
+      always judged good enough because there is nothing for it to lose to; comparison is what
+      exposes the tradeoffs isolation hides.
+
+      Bad answers: three variants of the same idea; two real options plus a straw man; one
+      solution plus "do nothing". Distinct means they could fail for different reasons.
+
+      Leave this section empty until a target is selected. Solutions hanging under three
+      different opportunities means no target was chosen.
+    type: table
+    template: |
+      | # | Solution | How it addresses the target opportunity | Main tradeoff | Rough cost | Assumption map |
+      |---|---|---|---|---|---|
+      | S-{{n}} | {{solution}} | {{mechanism}} | {{tradeoff}} | {{person_days}} | {{path_or_pending}} |
+
+  - id: assumption-tests
+    title: Assumption Tests Under Solutions
+    instruction: |
+      Index only. The tests themselves are designed in
+      `squads/products/tasks/design-assumption-test.md` and mapped in
+      `squads/products/templates/assumption-map-tmpl.yaml`.
+
+      Every row must show a threshold that was declared before the test ran. A row with a result
+      and no pre-declared threshold is not evidence — it is a number that was interpreted after
+      the fact.
+    type: table
+    template: |
+      | Solution | Leap-of-faith assumption | Test method | Threshold (declared before) | Result | Verdict |
+      |---|---|---|---|---|---|
+
+  - id: traceability
+    title: Traceability
+    instruction: |
+      Shipped work must trace up the tree to an outcome. Anything that does not is a
+      build-without-evidence incident and belongs in the discovery health read, not hidden here.
+    type: table
+    template: |
+      | Shipped item | Solution | Target opportunity | Outcome | Traces? |
+      |---|---|---|---|---|
+
+  - id: handoff
+    title: Handoff
+    instruction: |
+      Record where each thread goes next. This squad decides what to build; it does not
+      implement, test code, draft stories, write epics or push. Route those outward explicitly.
+    type: table
+    template: |
+      | Item | Destination | Condition |
+      |---|---|---|
+      | {{validated opportunity + evidence}} | @pm | Ready for epic framing |
+      | {{epic framing complete}} | @sm | Stories need drafting |
+      | {{feasibility assumption}} | @architect | Needs a technical spike |
+      | {{usability assumption}} | @ux-design-expert | Needs prototype fidelity beyond a mockup |
+      | {{willingness-to-pay signal}} | @pricing-strategist | Desirability is really price |
+      | {{statistical question}} | @experimentation-lead | Needs power, guardrails or live traffic |
+      | {{switching story}} | @jobs-analyst | The causal job needs formalizing |
+      | {{category mismatch}} | @positioning-lead | Customers name a category we are not in |
+      | {{uninfluenceable outcome}} | @product-strategist | Needs decomposition into a portfolio bet |
+      | {{ethical assumption or direction conflict}} | @products-chief | A call above the trio |
+      | {{commit and push}} | @devops | Exclusive authority, no exceptions |
+
+  - id: next-touchpoint
+    title: Next Touchpoint
+    instruction: |
+      A tree without a next interview date is a dead tree. Record the date, the trio members
+      attending, and the recruiting channel. Do not close the document without this.
+    template: |
+      **Date:** {{date}}
+      **Attending:** {{trio_members}}
+      **Recruiting channel:** {{channel}}
+      **Recruiting automated into the product:** yes | no — {{plan_if_no}}

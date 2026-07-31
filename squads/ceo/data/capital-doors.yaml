@@ -1,0 +1,317 @@
+# Capital Doors — allocation reference for capital-allocator (Ledger)
+# Squad: ceo
+#
+# Method source: William N. Thorndike Jr., "The Outsiders: Eight Unconventional CEOs and
+# Their Radically Rational Blueprint for Success" (2012).
+#
+# ATTRIBUTION RULE FOR THIS FILE
+# The five uses of cash, the three sources of cash, the per-share measure, the two-jobs
+# framing and the opportunistic-repurchase pattern are documented in the book and are
+# marked `source: thorndike`. Every procedure, test, threshold and worked example below is
+# this squad's operating detail and is marked `source: squad`.
+#
+# NO FIGURES FROM THE BOOK ARE REPRODUCED HERE. No compound annual return, no holding
+# period, no company result and no executive's record is quoted, because a misquoted
+# financial figure is worse than no figure. Where a mechanism matters, the mechanism is
+# described without a number attached to it.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# THE TWO JOBS
+# ---------------------------------------------------------------------------
+two_jobs:
+  source: thorndike
+  premise: "A chief executive has two distinct jobs: running the operations, and deploying the cash those operations generate."
+  observation: "The second is systematically underweighted, despite compounding into the larger share of long-run per-share value."
+  corollary:
+    source: thorndike
+    text: "Capital allocation is centralised even where operations are decentralised. Operating autonomy and allocation discipline are complements, not opposites."
+  operating_consequence:
+    source: squad
+    text: "When allocation is delegated to a budgeting process, it stops being a decision and becomes an aggregation of requests. The symptom is a budget in which every department's line moves by a similar percentage."
+
+# ---------------------------------------------------------------------------
+# THE FIVE DOORS — uses of cash
+# ---------------------------------------------------------------------------
+five_doors:
+  source: thorndike
+  comparison_rule:
+    source: thorndike
+    text: "The destinations are compared against one another rather than approved individually."
+  comparison_rule_operational:
+    source: squad
+    text: "The question is never 'is this good' but 'is this the best available use of this cash'. A proposal that is good in isolation and second-best against the alternatives is not approved — it is second place."
+
+  doors:
+    - id: reinvest
+      name: "Reinvest in existing operations"
+      tests:
+        source: squad
+        items:
+          - id: incremental_not_average
+            test: "What does the NEXT unit of capital earn, not what the business earns overall?"
+            why: "Average returns hide a saturated core. A business earning well on its installed base can earn nothing on the next unit."
+          - id: constraint_relieved
+            test: "What limit does this spend remove, and what is the evidence the limit is currently binding?"
+            cross_check: "Compare with any chain-link or limiting-step analysis from @ceo:strategy-lead and @ceo:org-designer. Spending on a non-limiting link produces no system gain."
+          - id: saturation_point
+            test: "At what level of spend does the return fall below the hurdle?"
+            why: "Report the point, not only the answer at the proposed level. The proposed level is usually the level someone asked for."
+          - id: displacement
+            test: "What does this consume that another action requires?"
+      failure_modes:
+        source: squad
+        items:
+          - "Average return presented as incremental return."
+          - "Spend directed at a stage that is not the limiting one, producing local improvement and no system gain."
+          - "The proposed level accepted as the analysed level, so the saturation point is never found."
+
+    - id: acquire
+      name: "Acquisition"
+      tests:
+        source: squad
+        items:
+          - id: price_against_value
+            test: "What is being paid, and what defensible estimate of the target's free cash flow justifies it? Show the estimate's inputs and their sources."
+          - id: return_at_purchase_price
+            test: "Return computed at the purchase price, after tax, over a stated horizon — not at a synergised future state."
+          - id: synergy_separation
+            test: "Cost synergies (usually estimable) separated from revenue synergies (usually not). Show the result WITHOUT revenue synergies as well as with them."
+          - id: integration_cost
+            test: "Management attention estimated in the same units as everything else."
+            why: "It is the scarcest input in an integration and is almost never priced, which makes every acquisition look cheaper than it is."
+          - id: downside_first
+            test: "What does the company owe, and what has it foregone, if the target underperforms by a stated margin?"
+          - id: other_four_doors
+            test: "Compared against the other four at the same hurdle."
+          - id: sunk_cost_guard
+            test: "Diligence already spent is not an input."
+          - id: peer_guard
+            test: "Any 'everyone is consolidating' argument recorded separately. It is not a return case and must not substitute for one."
+      adviser_flags:
+        source: squad
+        required: [tax, competition_law, employment, securities_disclosure, contractual]
+
+    - id: dividend
+      name: "Dividend"
+      tests:
+        source: squad
+        items:
+          - id: after_tax_to_holder
+            test: "After-tax return to the holder, compared with the after-tax return of the alternatives."
+          - id: commitment_cost
+            test: "Holders treat a dividend as a promise. Model the cost of reducing it later, including the signalling consequence."
+            route: "@ceo:stakeholder-lead owns the communication dimension. Do not draft it here."
+          - id: flexibility_removed
+            test: "What future option is foreclosed by the recurring obligation?"
+          - id: versus_repurchase
+            test: "Compared explicitly against repurchase, including the tax-treatment difference."
+            note: "The tax-treatment difference usually dominates this comparison, and it varies by jurisdiction and by holder. Flag it; do not opine on it."
+      adviser_flags:
+        source: squad
+        required: [tax, securities_disclosure]
+
+    - id: debt_paydown
+      name: "Debt paydown"
+      tests:
+        source: squad
+        items:
+          - id: current_position
+            test: "Outstanding debt, rates, maturities, covenants."
+          - id: coverage_downside
+            test: "Coverage under the base case AND a stated downside case."
+            why: "The base case never triggers a covenant. The downside case is the only one that tests anything."
+          - id: maturity_wall
+            test: "When does refinancing occur, and what happens if credit conditions are poor at that moment?"
+          - id: what_leverage_forecloses
+            test: "Which doors close if conditions turn?"
+            observation: "Typically reinvestment and opportunistic repurchase — at exactly the moment both become cheapest. That coincidence is the real cost of leverage and rarely appears in a coverage ratio."
+
+    - id: repurchase
+      name: "Share repurchase"
+      framing:
+        source: thorndike
+        text: "Repurchase is an investment decision. The documented pattern among the executives studied is opportunistic, price-driven repurchase rather than a calendar programme."
+      tests:
+        source: squad
+        items:
+          - id: intrinsic_value_estimate
+            test: "State the estimate, its inputs, and its uncertainty range."
+            blocking: true
+            why: "Without an intrinsic-value estimate there is no test — only a share-count reduction described as a return."
+          - id: implied_return
+            test: "Implied return at the current price, compared directly to the other four doors."
+          - id: asymmetry
+            test: "Repurchase above intrinsic value destroys value for continuing holders, and is invisible in reported per-share figures for some time."
+          - id: funding_source
+            test: "Surplus cash or debt? If debt, run the debt-capacity test and model coverage in the downside case first."
+          - id: dilution_check
+            test: "Is share count actually falling, or is issuance from equity compensation being offset?"
+            why: "These are different decisions and are frequently conflated. Offsetting dilution is a compensation-cost decision presented as a capital-allocation decision."
+          - id: timing_discipline
+            test: "Opportunistic (price-driven) or programmatic (calendar-driven)?"
+            verdict: "A calendar-driven programme is not an investment decision and is labelled a distribution policy."
+      adviser_flags:
+        source: squad
+        required: [securities_disclosure, tax, contractual]
+
+    - id: hold
+      name: "Do nothing (hold cash)"
+      source: squad
+      framing: "Doing nothing is a legitimate allocation, not indecision — provided the hurdle is written down and the review date is set."
+      requires:
+        - "A stated return on held cash."
+        - "The hurdle that nothing currently clears."
+        - "A review date."
+        - "The condition that would end the hold."
+      related:
+        source: thorndike
+        text: "Patience punctuated by decisiveness — long periods of no action, then large action when the price is right — is the documented pattern among the executives studied."
+      operating_note:
+        source: squad
+        text: "Patience without a written trigger is indistinguishable from avoidance after the fact. Write the trigger at the time the hold is chosen."
+
+# ---------------------------------------------------------------------------
+# THE THREE SOURCES OF CASH
+# ---------------------------------------------------------------------------
+three_sources:
+  source: thorndike
+  premise: "Cash has three sources, each carrying a different price."
+  sources:
+    - id: internal_cash_flow
+      name: "Internal cash flow"
+      price:
+        source: squad
+        text: "Its opportunity cost — the best alternative use of the same money. This is the cheapest source in accounting terms and the one most often spent without comparison, precisely because no external party prices it."
+    - id: debt
+      name: "Debt"
+      price:
+        source: squad
+        text: "Interest, covenants, and the doors that close if conditions turn. Leverage magnifies both directions; model both."
+      required_analysis: [coverage_base_case, coverage_downside_case, maturity_wall, foreclosed_doors]
+    - id: equity
+      name: "Equity"
+      price:
+        source: squad
+        text: "Dilution, stated in per-share terms, plus the difference between the issue price and a defensible intrinsic-value estimate."
+      warning:
+        source: squad
+        text: "Equity issued below intrinsic value is the most expensive money a company can raise and the least visible, because the transfer of value from existing holders appears on no line of any statement."
+
+# ---------------------------------------------------------------------------
+# HURDLE DISCIPLINE
+# ---------------------------------------------------------------------------
+hurdle:
+  source: squad
+  principle: "One hurdle rate, written down, applied to every door."
+  acceptable_derivations:
+    - "The return available from the best passive alternative use of the same cash."
+    - "The company's own cost of capital, with the inputs shown."
+    - "An explicitly chosen threshold, with the reasoning recorded."
+  required_fields: [rate, derivation, inputs_and_sources, horizon, risk_adjustment_rule, anti_drift_rule, published_to]
+  anti_drift_rule: "The hurdle may be revised on a schedule, or on a stated change in conditions. It may never be revised inside a live proposal evaluation. If it moves during one, the evaluation is void."
+  publication_rule: "A hurdle known only to the person applying it cannot discipline anyone else."
+  horizon_rule: "A rate without a horizon is not comparable to anything."
+
+opportunity_cost:
+  source: squad
+  principle: "The cost of a use of cash is not its price; it is the best alternative use of the same money, foregone."
+  procedure:
+    - "Identify the best alternative among the five doors."
+    - "Quantify it: after tax, same horizon, same units."
+    - "State the difference. That difference, not the price, is the cost of the proposal."
+    - "If the difference falls inside the uncertainty of the estimates, say so. The honest output is 'indistinguishable on the evidence', and the choice then turns on reversibility rather than on return."
+
+# ---------------------------------------------------------------------------
+# THE MEASURE
+# ---------------------------------------------------------------------------
+measure:
+  source: thorndike
+  principle: "Value per share, not size."
+  corollary: "Growth in revenue, headcount or total earnings that does not raise per-share value is expansion, not progress."
+  denominator_rule:
+    source: squad
+    text: "Shares outstanding is half of every per-share figure and the half most often ignored in planning. Count issuance from equity compensation, convertible instruments, and any equity issued to fund the proposal."
+  presentation_rule:
+    source: squad
+    text: "Show numerator and denominator effects separately. A combined figure hides a numerator gain that is masking a denominator loss."
+
+cash_versus_earnings:
+  source: thorndike
+  principle: "Free cash flow is the object; reported earnings are an accounting representation of it."
+  procedure:
+    source: squad
+    steps:
+      - "Start from reported earnings."
+      - "Walk to free cash flow line by line: non-cash charges, working-capital movement, capital expenditure, capitalised cost."
+      - "Flag every material divergence and explain it before either figure enters a decision."
+      - "State which figure the proposal's return case depends on."
+    verdict_rule: "A case that works on earnings and fails on cash is a case about accounting."
+
+# ---------------------------------------------------------------------------
+# GUARDS — the recurring ways a comparison gets corrupted
+# ---------------------------------------------------------------------------
+guards:
+  source: squad
+  items:
+    - id: sunk_cost
+      trap: "What has already been spent is offered as a reason to spend more."
+      rule: "Sunk cost bears on the accounting, not on whether the next unit should go there."
+      detection: "Look for the phrase 'we have already invested' anywhere in the return case."
+    - id: peer_argument
+      trap: "'Everyone is consolidating' / 'every company our size buys back stock.'"
+      rule: "Record it separately from the return case so it cannot contaminate it. It is not a return case."
+      detection: "If removing the peer sentence leaves no argument, there was no return case."
+    - id: moving_hurdle
+      trap: "The bar is lowered to admit a favoured proposal."
+      rule: "The evaluation is void, not adjusted."
+    - id: single_door
+      trap: "One proposal evaluated on its own merits and approved."
+      rule: "That is sequencing, not allocation."
+    - id: unpriced_management_attention
+      trap: "Integration, migration or programme cost counted in cash only."
+      rule: "Price attention in the same units as everything else. It is the scarcest input."
+    - id: false_precision
+      trap: "A model output reported to more precision than its inputs support."
+      rule: "An admitted range is safer than a precise figure, because the precise figure survives being quoted and the caveat does not."
+    - id: revenue_synergies_as_fact
+      trap: "Revenue synergies carried at the same confidence as cost synergies."
+      rule: "Separate them, discount revenue synergies, and show the result without them."
+    - id: size_as_progress
+      trap: "Growth in totals presented as value creation."
+      rule: "Test it per share. If per-share value falls, name it expansion."
+
+# ---------------------------------------------------------------------------
+# BOUNDARY AND ADVISER FLAGS
+# ---------------------------------------------------------------------------
+boundary:
+  source: squad
+  produces: "Decision analysis: comparisons, returns, downside cases, opportunity costs, capital plans."
+  does_not_produce: "Financial advice, tax opinion, legal opinion, securities or disclosure determination, accounting treatment, bookkeeping."
+  escalation_rule: "Anything with a fiduciary, regulatory or tax consequence is flagged for a qualified human adviser and marked as requiring one. It is never resolved inside this squad."
+  upstream_dependency:
+    text: "Allocation serves a strategy; it does not create one. With no diagnosis and guiding policy there is no criterion, and the work returns to @ceo:strategy-lead."
+  divergence_rule:
+    text: "The budget is the strategy. When the allocation and the stated strategy diverge, report the divergence to @ceo:ceo-chief rather than quietly funding the stated strategy's opposite."
+  downstream_handoffs:
+    "@ceo:org-designer": "Who decides this allocation, at what cadence, and with what information."
+    "@ceo:stakeholder-lead": "How the allocation and anything it stops are explained, and what commitment level attaches to it."
+    "@pm": "Epic framing of what the allocation funds — after the decision, never as part of it."
+
+adviser_flag_catalogue:
+  source: squad
+  note: "Flag, never resolve. Each entry names the kind of review required."
+  items:
+    - trigger: "Any distribution to holders (dividend, repurchase)"
+      review: [tax, securities_disclosure, contractual]
+    - trigger: "Any raise or issuance"
+      review: [securities_disclosure, contractual, tax]
+    - trigger: "Any acquisition or disposal"
+      review: [competition_law, tax, employment, contractual, securities_disclosure]
+    - trigger: "Any new debt, refinancing or covenant change"
+      review: [contractual, accounting, tax]
+    - trigger: "Any figure not sourced from the system of record"
+      review: [accounting]
+    - trigger: "Any statement that could be read as financial guidance"
+      review: [securities_disclosure]

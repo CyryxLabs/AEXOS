@@ -1,0 +1,669 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# AEXOS Products Squad — Routing Data
+# Owner: @products-chief (Helm)
+#
+# Machine-readable keyword -> specialist mapping, reframing patterns, escalation
+# rules, outward boundary map, and the coherence chain.
+#
+# Consumed by:
+#   squads/products/tasks/triage-product-request.md      (*diagnose)
+#   squads/products/tasks/coherence-review.md            (*coherence-check)
+#   squads/products/tasks/resolve-specialist-conflict.md (*conflict-resolve)
+#   squads/products/checklists/squad-intake-checklist.md (PRD-CL-012)
+#   squads/products/templates/triage-record-tmpl.yaml
+#
+# SOURCE OF TRUTH: squads/products/agents/products-chief.md, section
+# `triage.routing_matrix`. Persona names and tiers that the agent file leaves as
+# "(assigned in squad config)" are resolved from squads/products/squad.yaml.
+# There is no config.yaml in this squad.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+version: "1.0.0"
+squad: products
+entry_agent: products-chief
+manifest: squads/products/squad.yaml
+last_updated: "2026-07-30"
+
+orchestrator:
+  agent: products-chief
+  persona: Helm
+  icon: "🎛️"
+  tier: 0
+  based_on: "Original (Orchestrator)"
+  attribution_note: |
+    Helm carries no external product methodology. Triage, sequencing, coherence auditing and
+    arbitration are original AEXOS orchestration mechanics and are attributed to no author.
+    Every published method in this file belongs to a specialist, not to the orchestrator.
+  covers: "Request triage and routing, discipline boundaries, multi-specialist sequencing, coherence auditing, contradiction arbitration, consolidated briefs, and the boundary between this squad and the AEXOS core agents"
+  not_theirs: "Any answer that requires applying a product method. Strategy, discovery, jobs, positioning, pricing and experiment content all belong to the specialists below."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 1. SPECIALIST ROUTING MATRIX
+# ═══════════════════════════════════════════════════════════════════════════════
+# Matching guidance for consumers:
+#   - Keywords are a first pass, not the decision. A keyword hit is a candidate;
+#     the routing is only settled once the near misses' `not_theirs` lists have
+#     been checked against the request.
+#   - When two domains both match, consult `disambiguation` (section 2) before
+#     `reframing_patterns` (section 3).
+#   - Exactly one owner is emitted. Multiple matches produce a SEQUENCE, ordered
+#     by `coherence_chain` (section 6), never a broadcast.
+
+specialists:
+
+  # ---------------------------------------------------------------------------
+  strategy:
+    route_to: product-strategist
+    persona: Lodestar
+    persona_source: "agents/products-chief.md triage.routing_matrix; confirmed in squad.yaml"
+    icon: "🌟"
+    tier: 1
+    based_on: "Marty Cagan (INSPIRED / EMPOWERED)"
+    activation: "@products:product-strategist"
+    chain_links: [segment, outcome]
+    keywords:
+      - vision
+      - strategy
+      - roadmap
+      - okr
+      - objective
+      - key result
+      - outcome
+      - empowered team
+      - feature team
+      - product/market fit
+      - pmf
+      - four risks
+      - value risk
+      - feasibility
+      - business viability
+      - focus
+      - bet
+      - operating model
+      - missionaries
+    covers: "Product vision and principles, product strategy (focus/insights/action/management), the four product risks, delivery vs feature vs empowered teams, outcome-based objectives, feature-roadmap conversion, product/market fit, product operating model"
+    not_theirs: "Interview cadence and opportunity trees (discovery-lead). Causal switching theory (jobs-analyst). Market narrative (positioning-lead). Price points (pricing-strategist). Statistical design (experimentation-lead)."
+    applies_when: |
+      The request is about which problem is worth solving, for whom, and why now — or about how the
+      team is organised to solve it. Route here whenever the segment or the outcome is being chosen,
+      changed or contested, including when the request arrives dressed as a feature question.
+      Route here FIRST when a coherence audit finds segment drift: segment is the top of the chain
+      and every downstream repair depends on this answer.
+    does_not_apply_when: |
+      The segment and outcome are already fixed and written down, and the question is how to execute
+      inside them. Executing inside a fixed strategy belongs to discovery, jobs, positioning,
+      pricing or experimentation depending on the link.
+
+  # ---------------------------------------------------------------------------
+  discovery:
+    route_to: discovery-lead
+    persona: Sonar
+    persona_source: "agents/products-chief.md triage.routing_matrix; confirmed in squad.yaml"
+    icon: "📡"
+    tier: 1
+    based_on: "Teresa Torres (Continuous Discovery Habits)"
+    activation: "@products:discovery-lead"
+    chain_links: [solution]
+    keywords:
+      - discovery
+      - interview
+      - opportunity
+      - opportunity solution tree
+      - assumption
+      - assumption test
+      - snapshot
+      - cadence
+      - trio
+      - experience map
+      - prototype test
+      - leap of faith
+      - continuous discovery
+      - user research
+    covers: "Opportunity solution trees, weekly customer interview cadence, story-based interviewing, interview snapshots, experience mapping, opportunity sizing, assumption mapping and small assumption tests"
+    not_theirs: "Which problems the company should pursue (product-strategist). Causal job formalization (jobs-analyst). Willingness to pay (pricing-strategist). Statistical experiment design on live traffic (experimentation-lead)."
+    applies_when: |
+      A solution direction needs validating before it is built, or the team needs a repeatable habit
+      of contact with customers. Route here for small, cheap, pre-build assumption tests, and when
+      the fastest read on a problem is customer stories rather than instrumentation — an adoption
+      failure is usually cheaper to diagnose in interviews than in an A/B test.
+    does_not_apply_when: |
+      The test needs live traffic, sample size or statistical power (experimentation-lead). The
+      question is which problem to pursue at all (product-strategist). The question is the causal
+      account of why customers switched (jobs-analyst).
+
+  # ---------------------------------------------------------------------------
+  jobs:
+    route_to: jobs-analyst
+    persona: Plumb
+    persona_source: "agents/products-chief.md triage.routing_matrix; confirmed in squad.yaml"
+    icon: "🔬"
+    tier: 2
+    based_on: "Clayton M. Christensen, with Taddy Hall, Karen Dillon and David S. Duncan (Jobs to Be Done / Competing Against Luck)"
+    activation: "@products:jobs-analyst"
+    chain_links: [job]
+    keywords:
+      - jobs to be done
+      - jtbd
+      - job
+      - switch
+      - switching
+      - hire
+      - fire
+      - progress
+      - struggling moment
+      - causal
+      - forces
+      - timeline interview
+      - competing against luck
+      - non-consumption
+    covers: "The causal job customers hire the product to do, switching interviews and timelines, the forces of progress, struggling moments, non-consumption, job-based competitive set"
+    not_theirs: "Weekly discovery cadence (discovery-lead). Category and message wording (positioning-lead). Portfolio focus (product-strategist). Price sensitivity by job (pricing-strategist)."
+    applies_when: |
+      The question is why customers switched — in either direction. Route here when the competitive
+      set is unclear or suspected wrong, when churn needs a causal account rather than a magnitude,
+      and before positioning whenever the alternative customers are actually leaving behind has not
+      been established. The job defines the real competitive set; positioning built without it
+      benchmarks against the wrong things.
+    does_not_apply_when: |
+      The question is how to phrase the message (positioning-lead), how often to talk to customers
+      (discovery-lead), or how large the churn is (experimentation-lead).
+
+  # ---------------------------------------------------------------------------
+  positioning:
+    route_to: positioning-lead
+    persona: Datum
+    persona_source: "squad.yaml — agents/products-chief.md defers this name to the squad manifest"
+    icon: "🗺️"
+    icon_note: |
+      Icon taken from agents/products-chief.md triage.routing_matrix. squads/products/squad.yaml
+      records "📐" for this agent. The two files disagree; neither was modified to reconcile it.
+      Consumers that need a single icon should prefer squad.yaml, which is the manifest.
+    tier: 1
+    based_on: "April Dunford (Obviously Awesome / Sales Pitch)"
+    activation: "@products:positioning-lead"
+    chain_links: [narrative]
+    keywords:
+      - positioning
+      - category
+      - narrative
+      - messaging
+      - differentiation
+      - competitive alternative
+      - market frame
+      - story
+      - launch narrative
+      - product marketing
+      - obviously awesome
+      - who it is for
+    covers: "Positioning: competitive alternatives, unique attributes, value, target segment, market category and frame of reference, and the narrative built on top of it"
+    not_theirs: "Which problem to pursue (product-strategist). Why customers switch, causally (jobs-analyst). Price and packaging (pricing-strategist). Interface copy and flows (@ux-design-expert)."
+    applies_when: |
+      The market frame is the question: what this is compared against, what category it is
+      understood in, and what makes it different in that frame. Route here BEFORE pricing whenever
+      no competitive alternative is named — a price is only defensible against a frame of reference,
+      and without one the first customer objection wins.
+    does_not_apply_when: |
+      The audience itself is unknown or contested — route to jobs-analyst or product-strategist
+      first, or the narrative gets rewritten. Also not here: button labels, onboarding copy and
+      in-product wording, which are @ux-design-expert.
+
+  # ---------------------------------------------------------------------------
+  pricing:
+    route_to: pricing-strategist
+    persona: Assay
+    persona_source: "squad.yaml — agents/products-chief.md defers this name to the squad manifest"
+    icon: "💰"
+    tier: 2
+    based_on: "Madhavan Ramanujam and Georg Tacke (Monetizing Innovation)"
+    activation: "@products:pricing-strategist"
+    chain_links: [price]
+    keywords:
+      - price
+      - pricing
+      - packaging
+      - willingness to pay
+      - monetization
+      - tier
+      - plan
+      - discount
+      - value metric
+      - revenue model
+      - van westendorp
+      - per seat
+      - usage based
+      - monetizing innovation
+    covers: "Willingness-to-pay research, value metric selection, packaging and tiering, price structure and level, monetization model, discount and migration policy"
+    not_theirs: "Category and narrative (positioning-lead). Portfolio focus (product-strategist). Test statistics for a pricing experiment (experimentation-lead). Billing implementation (@dev)."
+    applies_when: |
+      The segment is fixed and a frame of reference exists, and the question is what to charge, on
+      what unit, in what packages. Route here for value metric selection, for willingness-to-pay
+      work, and whenever a coherence audit finds the value metric not scaling with the delivered
+      value.
+    does_not_apply_when: |
+      No competitive alternative has been named (positioning-lead first). The segment is contested
+      (product-strategist first). The question is the statistics of a pricing test
+      (experimentation-lead). The question is how billing is implemented (@dev).
+
+  # ---------------------------------------------------------------------------
+  experimentation:
+    route_to: experimentation-lead
+    persona: Vernier
+    persona_source: "squad.yaml — agents/products-chief.md defers this name to the squad manifest"
+    icon: "🧪"
+    tier: 2
+    based_on: "Ron Kohavi, Diane Tang and Ya Xu (Trustworthy Online Controlled Experiments)"
+    activation: "@products:experimentation-lead"
+    chain_links: [measure]
+    keywords:
+      - experiment
+      - a/b test
+      - ab test
+      - sample size
+      - significance
+      - power
+      - metric
+      - guardrail
+      - holdout
+      - control
+      - variant
+      - instrumentation
+      - readout
+      - false positive
+      - sequential testing
+    covers: "Experiment design, hypothesis and metric definition, sample size and power, guardrail metrics, instrumentation requirements, readout and interpretation, experiment governance"
+    not_theirs: "Small qualitative assumption tests before build (discovery-lead). Which outcome matters (product-strategist). Interpreting a job story (jobs-analyst)."
+    applies_when: |
+      A change needs to be measured on live traffic with a stated confidence, or an existing metric
+      needs to be checked against the outcome it claims to measure. Route here when a magnitude is
+      needed — how big the drop is, how much the change moved things — and when guardrails are
+      missing from a measurement plan.
+    does_not_apply_when: |
+      The cheapest read is customer stories rather than instrumentation (discovery-lead). The
+      outcome itself is in dispute (product-strategist). The instrumentation has to be built —
+      implementation is @data-engineer, not this squad.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 2. DISAMBIGUATION — when two domains both match
+# ═══════════════════════════════════════════════════════════════════════════════
+disambiguation:
+  - pair: [discovery, experimentation]
+    tie_breaker: "Pre-build and qualitative -> discovery-lead. Live traffic, sample size or stated confidence -> experimentation-lead."
+    applies_when: "The request contains 'test' with no indication of whether it runs on real traffic."
+
+  - pair: [discovery, jobs]
+    tie_breaker: "How to keep learning from customers, on a cadence -> discovery-lead. Why a specific customer switched, causally -> jobs-analyst."
+    applies_when: "The request mentions interviews without saying what the interview must establish."
+
+  - pair: [jobs, positioning]
+    tie_breaker: "Who they are and what they are leaving behind -> jobs-analyst. How to describe it in the market once that is known -> positioning-lead. Jobs runs first when the alternative is unknown."
+    applies_when: "The request is about the competitive set or 'who this is for'."
+
+  - pair: [positioning, pricing]
+    tie_breaker: "Positioning always precedes pricing when no competitive alternative is named. Once a frame of reference exists, pricing owns the metric, packages and level."
+    applies_when: "The request is 'what should we charge' and no alternative has been named."
+
+  - pair: [strategy, discovery]
+    tie_breaker: "Which problem is worth pursuing -> product-strategist. Which solution to a chosen problem, and validated how -> discovery-lead."
+    applies_when: "The request is a feature-order question ('which one next')."
+
+  - pair: [strategy, pricing]
+    tie_breaker: "Which segment and which bets -> product-strategist. What the model implies commercially, once the segment is fixed -> pricing-strategist."
+    applies_when: "The request is 'enterprise or self-serve' or otherwise a segment-and-model question."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 3. REFRAMING PATTERNS — the stated question is often not the owned question
+# ═══════════════════════════════════════════════════════════════════════════════
+# Usage: check every incoming request against this list before naming an owner.
+# The reframe must be stated OUT LOUD and confirmed. A silent reframe answers a
+# question the requester did not ask.
+
+reframing_patterns:
+  - stated: "What should we charge for this?"
+    often_owned_by: "positioning-lead first, then pricing-strategist"
+    why: "A price is only defensible against a frame of reference. Without a named competitive alternative, the price has nothing to anchor to."
+    applies_when: "No competitive alternative is named in any existing artifact. If positioning already names one, this is a plain pricing request and routes straight to pricing-strategist."
+
+  - stated: "Which feature should we build next?"
+    often_owned_by: "product-strategist, then discovery-lead"
+    why: "Feature sequencing is a symptom. The owned questions are which problem is worth solving and what evidence supports the solution."
+    applies_when: "The request presents a list of candidate features with no stated outcome to choose between them."
+
+  - stated: "Users are not adopting the new flow."
+    often_owned_by: "discovery-lead, with experimentation-lead if the drop needs quantifying"
+    why: "Adoption failure is a value or usability risk, and the cheapest read is customer stories before instrumentation."
+    applies_when: "The cause is unknown. If the cause is already known and only the magnitude is missing, route directly to experimentation-lead."
+
+  - stated: "We need a better message for the launch."
+    often_owned_by: "positioning-lead, with jobs-analyst if the audience is unclear"
+    why: "Messaging is downstream of positioning, which is downstream of who the customer is and what they are hiring the product for."
+    applies_when: "Always check whether the audience is established. If it is not, jobs-analyst runs first or the message gets rewritten."
+
+  - stated: "Should we build for enterprise or stay self-serve?"
+    often_owned_by: "product-strategist, with pricing-strategist on the model implications"
+    why: "This is a focus decision about segment and bets, not a feature decision."
+    applies_when: "The request compares two customer populations, however it is phrased."
+
+  - stated: "Our churn is rising."
+    often_owned_by: "jobs-analyst for the firing story, experimentation-lead for the measure"
+    why: "Churn is a switching event in reverse. The causal account comes from switch interviews; the magnitude comes from instrumentation."
+    applies_when: "Both halves are usually needed. Sequence them: the causal account first, because it tells the measurement what to segment by."
+
+reframe_protocol:
+  - "Restate the request in the owning discipline's vocabulary and show the restatement to the requester."
+  - "State the reframe out loud, with the reason, and record whether the requester confirmed it."
+  - "If the requester rejects the reframe, record that, and record what was routed instead and on whose call."
+  - "Record 'no reframe needed' explicitly — it is a legitimate result, and its absence is indistinguishable from a skipped step."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 4. ESCALATION RULES
+# ═══════════════════════════════════════════════════════════════════════════════
+escalation_rules:
+  - trigger: "Specialist cannot complete the request within its discipline"
+    action: "Return to @products-chief for re-routing"
+    applies_when: "The specialist reports the request depends on an input their discipline does not produce. Re-triage, do not push back."
+
+  - trigger: "Two specialists produce contradictory recommendations"
+    action: "@products-chief runs *conflict-resolve"
+    applies_when: "Both artifacts are current and address the same initiative and decision. If one is superseded, it is a stale artifact — run *coherence-check instead."
+
+  - trigger: "Request has left the product-discipline surface"
+    action: "Route to the AEXOS core agent that owns it (see section 5)"
+    applies_when: "The remaining work is design, architecture, research beyond a squad cycle, delivery or implementation."
+
+  - trigger: "Ethical concern raised by any specialist"
+    action: "@products-chief surfaces it explicitly before the decision proceeds, never as a footnote"
+    applies_when: "Always. Compressing an ethical objection into a closing caveat is an anti-pattern of severity 'high' in the agent definition."
+
+  - trigger: "Request requires git push, PR, MCP or CI/CD"
+    action: "Route to @devops"
+    applies_when: "Always, without exception. No squad command overrides Agent Authority."
+
+  - trigger: "Three or more artifacts disagree"
+    action: "Run *coherence-check before any arbitration"
+    applies_when: "Arbitration takes two positions at a time; a three-way disagreement is usually a chain break, not a conflict."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 5. OUTWARD BOUNDARY — AEXOS core agents
+# ═══════════════════════════════════════════════════════════════════════════════
+# Squad scope:     which problem is worth solving, for whom, why now, with what
+#                  evidence, described how, priced how, measured how.
+# Squad stops at:  the evidenced problem, packaged as a brief.
+#
+# AGENT AUTHORITY IS NOT NEGOTIABLE. No routing decision in this squad overrides
+# the exclusive authorities recorded below.
+
+outward_boundary:
+  "@pm":
+    owns: "Epic framing, PRD authoring, requirements gathering, epic execution"
+    exclusive: ["*execute-epic", "*create-epic", "EPIC-{ID}-EXECUTION.yaml", "spec writing"]
+    applies_when: "The problem is chosen, evidenced, and the remaining question is how to structure the work. Hand over with the consolidated brief, open questions and unretired risks stated, so nothing arrives looking more certain than it is."
+    squad_must_not: "Write epics, PRDs or requirements documents."
+
+  "@po":
+    owns: "Story validation, backlog prioritization, epic context"
+    exclusive: ["*validate-story-draft", "backlog prioritization", "epic context management"]
+    applies_when: "Squad evidence changed enough that the backlog order is now wrong."
+    squad_must_not: "Reprioritize the backlog or validate story drafts."
+
+  "@sm":
+    owns: "Story creation and drafting"
+    exclusive: ["*draft", "*create-story", "story template selection"]
+    applies_when: "Epic framing is complete and stories need drafting."
+    squad_must_not: "Create or draft stories."
+
+  "@dev":
+    owns: "Implementation"
+    applies_when: "The decision is made and code must be written — including billing implementation for a pricing model this squad specified."
+    squad_must_not: "Write implementation plans or code."
+
+  "@qa":
+    owns: "Quality gates and review"
+    applies_when: "Implemented work needs testing and a quality verdict."
+    squad_must_not: "Run quality gates on code."
+
+  "@analyst":
+    owns: "Deep market and competitive research"
+    applies_when: "Resolving a question needs market or competitor research beyond what a squad cycle can absorb. The squad's own competitive work is framing (positioning-lead) and causal switching evidence (jobs-analyst), not market surveys."
+    squad_must_not: "Substitute a squad cycle for research that needs a research cycle."
+
+  "@ux-design-expert":
+    owns: "Interface design, flows, prototypes beyond assumption-test fidelity"
+    applies_when: "The request has become interaction detail, screen design or in-product copy. Note the seam: discovery-lead builds prototypes at assumption-test fidelity; anything beyond that is here."
+    squad_must_not: "Design interfaces or write interface copy."
+
+  "@architect":
+    owns: "System architecture, technology selection, feasibility spikes"
+    applies_when: "The request has become system design, or a feasibility risk needs a spike to retire."
+    squad_must_not: "Make architecture or technology decisions."
+
+  "@data-engineer":
+    owns: "Schema, queries and instrumentation implementation"
+    applies_when: "experimentation-lead has specified instrumentation requirements and something must be built to satisfy them. The squad specifies; @data-engineer implements."
+    squad_must_not: "Write schema, migrations or queries."
+
+  "@devops":
+    owns: "Git push, PRs, MCP configuration, CI/CD"
+    exclusive: ["git push", "git push --force", "gh pr create", "gh pr merge", "MCP add/remove/configure", "CI/CD pipeline management", "release management"]
+    applies_when: "Always, for any of the above. EXCLUSIVE AUTHORITY, NO EXCEPTIONS."
+    squad_must_not: "Push, open or merge PRs, configure MCP, or touch CI/CD — under any framing."
+
+constitution_notes:
+  article_I: "CLI First — squad artifacts are versioned files in the repository, not slides or SaaS boards. A decision that lives only in a transcript did not happen."
+  article_II: "Agent Authority — no squad command overrides the exclusive authorities of @devops, @sm or @po."
+  article_III: "Story-Driven Development — squad output feeds the story pipeline through @pm, never bypasses it."
+  article_IV: "No Invention — consolidated briefs contain no statement that does not trace to a specialist artifact."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 6. COHERENCE CHAIN
+# ═══════════════════════════════════════════════════════════════════════════════
+# Order is dependency order. Sequencing several specialists follows this list;
+# a coherence audit reads artifacts against it; repairs run upstream-first.
+
+coherence_chain:
+  order: [segment, job, outcome, solution, narrative, price, measure]
+
+  links:
+    - link: segment
+      owner: product-strategist
+      question: "Who exactly is this for?"
+      needs_from_upstream: "nothing — this is the top of the chain"
+      breaks_look_like: "The positioning, the pricing and the experiment name different populations. Usually visible in the pricing model first, because the assumed buyer has to be concrete."
+
+    - link: job
+      owner: jobs-analyst
+      question: "What are they hiring it to do, and what are they firing?"
+      needs_from_upstream: "the segment"
+      breaks_look_like: "The competitive alternative in the positioning is not something a customer in this job would consider — commonly a category rival when customers are switching from a spreadsheet or from nothing."
+
+    - link: outcome
+      owner: product-strategist
+      question: "What measurable change are we accountable for?"
+      needs_from_upstream: "the segment and the job"
+      breaks_look_like: "An output or a shipping milestone standing in for an outcome, or a target with no baseline."
+
+    - link: solution
+      owner: discovery-lead
+      question: "Which solution, validated against which assumptions?"
+      needs_from_upstream: "the job and the outcome"
+      breaks_look_like: "A solution described as validated with no assumption list, or an assumption list with no result per assumption."
+
+    - link: narrative
+      owner: positioning-lead
+      question: "Against which alternative, in which category, described how?"
+      needs_from_upstream: "the segment, the job and the solution"
+      breaks_look_like: "A category claim with no named alternative, or a target customer that is not the strategy's segment."
+
+    - link: price
+      owner: pricing-strategist
+      question: "What value metric, what packaging, what level?"
+      needs_from_upstream: "the segment and the narrative"
+      breaks_look_like: "Per-seat pricing on a product whose value is per-workflow, or the reverse. Also: a metric that penalises the behaviour the outcome is trying to increase."
+
+    - link: measure
+      owner: experimentation-lead
+      question: "How do we know it worked, with what confidence?"
+      needs_from_upstream: "the outcome, and the segment for the population"
+      breaks_look_like: "A primary metric chosen because the instrumentation already existed, rather than because it measures the outcome."
+
+  propagation_rule: "A break in any link invalidates every link downstream of it, not only the adjacent one. Repair upstream first."
+
+  break_classification:
+    INDEPENDENT:
+      test: "Repairing the nearest upstream break would NOT make this break disappear."
+      action: "Parallel-safe. Start immediately."
+    INHERITED:
+      test: "Repairing the nearest upstream break WOULD make this break disappear."
+      action: "Do not repair yet. The artifact is a correct answer to a broken input; repairing now buys a second rewrite."
+
+  repair_direction:
+    DOWNSTREAM_REPAIR:
+      default: true
+      applies_when: "The upstream artifact is the most recently revised and carries the stronger evidence."
+      action: "Repair downstream links in chain order."
+    UPSTREAM_REPAIR:
+      applies_when: "Downstream artifacts are newer, cite evidence gathered after the upstream artifact was written, or independently converge on a different segment or job."
+      action: "The upstream artifact is the stale one. Do NOT rewrite downstream to match it. Route the upstream link to its owner as a decision, and hold every downstream artifact until that answer exists."
+    UNDECIDABLE:
+      applies_when: "The evidence does not settle which direction is correct."
+      action: "Record both readings, name the decision, route it upstream to be made and written down. An audit that guesses the direction manufactures a strategy."
+
+  contradiction_checks:
+    - id: 1
+      name: "Segment drift"
+      test: "Does the strategy's target segment match the positioning's target customer, the pricing's assumed buyer, and the experiment's population?"
+      typical_cause: "Positioning or pricing written after the strategy changed segment, and never revisited."
+      first_owner_on_failure: product-strategist
+    - id: 2
+      name: "Job mismatch"
+      test: "Does the job in the JTBD analysis explain the competitive alternative named in the positioning?"
+      typical_cause: "Positioning benchmarked against category competitors while customers are actually switching from a spreadsheet or from nothing."
+      first_owner_on_failure: positioning-lead
+    - id: 3
+      name: "Outcome and measure divergence"
+      test: "Does the experiment's primary metric measure the outcome named in the team objective?"
+      typical_cause: "Instrumentation chosen for availability rather than for the outcome."
+      first_owner_on_failure: experimentation-lead
+    - id: 4
+      name: "Value metric conflict"
+      test: "Does the pricing value metric scale with the value described in the positioning and delivered by the solution?"
+      typical_cause: "Per-seat pricing on a product whose value is per-workflow, or the reverse."
+      first_owner_on_failure: pricing-strategist
+    - id: 5
+      name: "Evidence inversion"
+      test: "Is any downstream artifact more confident than the evidence upstream of it?"
+      typical_cause: "A validated-sounding narrative built on an untested assumption."
+      first_owner_on_failure: "the owner of the untested upstream assumption"
+    - id: 6
+      name: "Orphan artifact"
+      test: "Does every squad artifact trace to a named problem in the current strategy?"
+      typical_cause: "Work that outlived the strategy revision that made it irrelevant."
+      first_owner_on_failure: product-strategist
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 7. ARBITRATION RULES
+# ═══════════════════════════════════════════════════════════════════════════════
+arbitration_rules:
+  - condition: "One side has named, checkable evidence and the other does not"
+    outcome: EVIDENCE_WINS
+    resolution: "Evidence wins this round. The unevidenced side is not wrong — it is unevidenced. Record what evidence would reopen it."
+    applies_when: "Evidence is named, retrievable, dated and its population is defined. A confident assertion with no source fails all four."
+
+  - condition: "Both have evidence, but about different populations"
+    outcome: SEGMENT_SPLIT
+    resolution: "Not a contradiction. Route upstream to product-strategist for the focus decision. If the answer is 'both, in different segments', it returns downstream as two models, not one compromise."
+    applies_when: "The two evidence bases describe customers who would not both fit either description."
+
+  - condition: "Both have checkable evidence about the same population and it genuinely conflicts"
+    outcome: ESCALATE_AND_TEST
+    resolution: "Escalate the assumption; design the deciding test with a decision rule agreed in advance."
+    applies_when: "Neither evidence base can be discounted on population, recency or checkability."
+
+  - condition: "Neither has checkable evidence"
+    outcome: TEST_SPECIFICATION
+    resolution: "The output is a test specification, not a decision. Say plainly that the squad does not currently know."
+    applies_when: "Always, when both sides fail the checkability audit."
+
+  - condition: "The disagreement is about values, not facts"
+    outcome: VALUES_DECISION
+    resolution: "Surface as a human decision. Evidence does not settle values."
+    applies_when: "Both sides would accept the other's evidence and still recommend the same thing, or an ethical objection has been raised."
+
+forbidden_resolutions:
+  - name: "Compromise arbitration"
+    description: "Averaging two positions into an unevidenced third — a midpoint price, a blended segment, a hybrid metric nobody researched."
+    why: "Two supported claims are traded for one unsupported one, and the unsupported one carries the authority of a resolution. It violates Constitution Article IV the moment it reaches a brief."
+    severity: critical
+    instead: "Pick the evidenced side, split the segment, or specify the test. A hybrid may enter a test as a third arm; it may never enter a record as a decision."
+
+  - name: "Broadcast routing"
+    description: "Sending one request to several specialists in parallel."
+    why: "Produces partial answers built on different unstated assumptions, and no decision. Overlapping answers are not corroboration when the inputs differ."
+    severity: high
+    instead: "Sequence by dependency using coherence_chain.order."
+
+  - name: "Chief answering as specialist"
+    description: "@products-chief producing a strategy, a positioning statement or a price because the answer seemed obvious."
+    why: "Bypasses the method that makes the answer defensible and creates an artifact no specialist owns."
+    severity: critical
+    instead: "Give the short, explicitly non-defensible answer, then route."
+
+  - name: "Authority bypass"
+    description: "Routing a git push, story creation or backlog decision inside the squad."
+    why: "Violates the Agent Authority matrix."
+    severity: critical
+    instead: "@devops, @sm and @po respectively."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 8. DIRECT-ANSWER DOMAINS — @products-chief answers these without routing
+# ═══════════════════════════════════════════════════════════════════════════════
+direct_answer_domains:
+  - domain: "Which specialist owns a given question, and why"
+    applies_when: "Always — this is the orchestrator's own subject."
+  - domain: "What each specialist covers and explicitly does not cover"
+    applies_when: "Always."
+  - domain: "The order in which specialists should be engaged for a given situation"
+    applies_when: "Always."
+  - domain: "Contradictions between existing squad artifacts, and what evidence would resolve them"
+    applies_when: "The artifacts exist. Naming the evidence that would resolve it is orchestration; gathering it is the specialist's."
+  - domain: "The boundary between this squad and the AEXOS core agents"
+    applies_when: "Always."
+  - domain: "Squad navigation, activation syntax, and artifact locations"
+    applies_when: "Always."
+
+answer_or_route:
+  - rule: "Question is about who owns what, or how the squad works -> answer directly"
+  - rule: "Question needs a definition or a comparison across disciplines -> answer directly"
+  - rule: "Question requires applying a method, a framework, or generating an artifact -> route"
+  - rule: "Question requires evidence the specialist would gather -> route"
+  - rule: "Unsure -> route, and say why the specialist is better placed"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 9. ATTRIBUTION
+# ═══════════════════════════════════════════════════════════════════════════════
+attribution:
+  orchestrator: "products-chief (Helm) carries no external product methodology. Routing, sequencing, coherence and arbitration mechanics in this file are original AEXOS orchestration routines, attributed to no author."
+  specialists:
+    product-strategist: "Marty Cagan (INSPIRED / EMPOWERED)"
+    discovery-lead: "Teresa Torres (Continuous Discovery Habits)"
+    positioning-lead: "April Dunford (Obviously Awesome / Sales Pitch)"
+    jobs-analyst: "Clayton M. Christensen, with Taddy Hall, Karen Dillon and David S. Duncan (Jobs to Be Done / Competing Against Luck)"
+    pricing-strategist: "Madhavan Ramanujam and Georg Tacke (Monetizing Innovation)"
+    experimentation-lead: "Ron Kohavi, Diane Tang and Ya Xu (Trustworthy Online Controlled Experiments)"
+  rule: |
+    Attributions are reproduced from the specialist agent files. Do not add a title, edition, year
+    or statistic that those files do not carry. Where a detail is uncertain, name the mechanism
+    without the detail and mark it [verify against source]. These agents apply published methods.
+
+related:
+  agent: squads/products/agents/products-chief.md
+  manifest: squads/products/squad.yaml
+  tasks:
+    - squads/products/tasks/triage-product-request.md
+    - squads/products/tasks/coherence-review.md
+    - squads/products/tasks/resolve-specialist-conflict.md
+  templates:
+    - squads/products/templates/triage-record-tmpl.yaml
+    - squads/products/templates/product-brief-tmpl.yaml
+  checklists:
+    - squads/products/checklists/coherence-checklist.md
+    - squads/products/checklists/squad-intake-checklist.md

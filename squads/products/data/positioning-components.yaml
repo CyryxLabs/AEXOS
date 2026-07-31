@@ -1,0 +1,539 @@
+# Positioning Components — Definitions and Elicitation Prompts
+# Squad: products
+# Owner agent: @positioning-lead (Datum)
+# Consumed by: *positioning-canvas, *list-alternatives, *isolate-attributes, *map-value,
+#              *find-segment, *choose-category, *trend-layer, *ten-step, *pressure-test
+# Companion data file: market-category-styles.yaml
+# Companion artifacts: templates/positioning-canvas-tmpl.md,
+#                      templates/positioning-document-tmpl.md,
+#                      checklists/positioning-quality-checklist.md
+
+version: "1.0.0"
+
+attribution:
+  framework: >-
+    The five positioning components, the ten-step process, the three market category styles and
+    the concept of positioning baggage are published by April Dunford in "Obviously Awesome: How
+    to Nail Product Positioning so Customers Get It, Buy It, Love It" (2019). The sales narrative
+    built on top of a settled position is treated in "Sales Pitch" (2023).
+  application: >-
+    @positioning-lead (Datum) applies this framework with attribution. Elicitation prompts,
+    evidence rules and AEXOS integration below are this squad's operational layer over the published
+    method, not claims from the source.
+  citation_discipline: >-
+    Only the two titles above are cited by this squad. No chapter numbers, page numbers, statistics
+    or step numbers beyond the ten listed here are asserted. Where a numeric detail from the
+    published work is uncertain, the mechanism is described without the number.
+
+boundary:
+  this_squad_decides: "What is built and how it is framed."
+  not_here:
+    copywriting_and_campaigns: "Downstream messaging work. Positioning is its input, not its output."
+    interface_copy: "@ux-design-expert"
+    price_and_packaging: "@pricing-strategist"
+    roadmap_and_portfolio: "@product-strategist"
+    customer_job_discovery: "@jobs-analyst, @discovery-lead"
+    implementation: "@dev"
+    code_testing: "@qa"
+    stories: "@sm"
+    epics_and_prds: "@pm"
+    publish_and_push: "@devops (exclusive)"
+
+# ---------------------------------------------------------------------------
+# ARTICLE IV GATE — applies to every component below
+# ---------------------------------------------------------------------------
+evidence_gate:
+  rule: >-
+    Constitution Article IV (No Invention). Every attribute, value claim and segment characteristic
+    must trace to a customer interview, a win/loss or no-decision record, a usage datum, or a cited
+    source. Unsourced claims are tagged UNVERIFIED and do not enter the positioning document.
+  accepted_evidence_types:
+    - id: interview
+      description: "Customer or prospect interview, best-fit or win/loss."
+      minimum_record: "Interview identifier, date, role of the person, and the verbatim line relied on."
+    - id: win_loss_record
+      description: "Won, lost or no-decision deal record."
+      minimum_record: "Record identifier, date, outcome, stated reason, and who recorded it."
+    - id: usage_datum
+      description: "Product telemetry or account metric."
+      minimum_record: "Measure, population, denominator, extraction date, and query or export reference."
+    - id: cited_source
+      description: "Third-party document, audit result, analyst note, or dated public vendor documentation."
+      minimum_record: "Title, publisher, date, and the specific claim supported."
+  not_accepted:
+    - "Internal impression, however senior the person holding it."
+    - "Our own competitor comparison page."
+    - "'Everyone knows' or 'it is obvious in the market'."
+    - "A number with no denominator or no source."
+    - "Evidence predating the last material product or market change, unless that is stated."
+  handling_unverified:
+    keep_visible: "UNVERIFIED rows stay on the canvas. Deleting them loses the record that the question was asked."
+    exclude_from_document: "They never cross into the positioning document."
+    register_required: "Each needs: what evidence would settle it, who owns getting it, by when."
+    escalation: "If a whole component rests on UNVERIFIED rows, route the gap to @discovery-lead as a research request."
+
+# ---------------------------------------------------------------------------
+# COMPONENT 1 — COMPETITIVE ALTERNATIVES
+# ---------------------------------------------------------------------------
+components:
+
+  - id: competitive_alternatives
+    order: 1
+    name: "Competitive alternatives"
+    question_it_answers: "What would the customer do if we did not exist?"
+    definition: >-
+      What customers would do if this product did not exist. Not the funded-competitor list.
+      This component comes first because every component below is measured against it.
+    why_first: >-
+      Differentiation is only meaningful relative to what the customer would otherwise do. Change
+      the alternatives list and the attribute verdicts, the value themes and the category all change.
+
+    includes:
+      - "Do nothing / status quo / defer"
+      - "Manual process — spreadsheet, email, shared drive"
+      - "Internal build"
+      - "Adjacent tool used off-label"
+      - "Service provider or agency"
+      - "Direct competitor"
+
+    what_counts_as_evidence:
+      - "Win/loss interviews, with record identifiers."
+      - "Lost-deal and no-decision reasons recorded in CRM."
+      - "What the customer used before onboarding, stated by the customer."
+      - "Which budget line funds the purchase — the incumbent on that line is an alternative."
+    what_does_not_count:
+      - "A competitor grid or analyst quadrant."
+      - "The vendor list marketing tracks."
+      - "Threat perception inside the company."
+
+    qualification_test: >-
+      Would a real buyer in the evidence window plausibly have chosen this instead of us, and does
+      at least one record show that happening or being considered? If not, it is not an alternative —
+      it is a company we watch.
+
+    ranking_rule: >-
+      Rank by frequency in real deals within the stated evidence window, showing the denominator
+      (N of M). Never rank by how threatening an alternative feels internally. If the most-cited
+      direct competitor appears in a small fraction of deals while a spreadsheet or a deferral
+      decides most of them, the go-to-market is aimed at the wrong frame — and that is the finding.
+
+    failure_mode: >-
+      Listing only funded competitors and missing the alternatives that actually win most deals.
+
+    secondary_failure_modes:
+      - "Accepting 'we have no competitors'. The alternative is always something, most often doing nothing, which has no procurement cycle and is the hardest to beat."
+      - "Omitting no-decision because the CRM buries it as 'closed lost — other'."
+      - "Recording the alternative in company vocabulary instead of the buyer's words."
+
+    elicitation_prompts:
+      identification:
+        - "What did this customer use before us? Not what category they were in — what they actually did on a Tuesday."
+        - "What do lost deals go to? Pull the list, including no-decision, and read the stated reasons rather than the disposition codes."
+        - "What would they build internally or do manually if we disappeared tomorrow?"
+        - "What budget line does the purchase come out of? Who or what is the incumbent on that line?"
+      probing:
+        - "When the deal went to no-decision, what did the problem cost them for another quarter? If nothing, doing nothing is a strong alternative and must be ranked as one."
+        - "Which team member's time is the current manual alternative? That person is a stakeholder in the alternative surviving."
+        - "Has any account run the alternative and us side by side? What did they say decided it?"
+        - "Which alternative do we lose to that is not on our competitor list? That gap is the component's whole point."
+      per_row_capture:
+        - "Alternative name, in the customer's words."
+        - "Type — one of the six categories above."
+        - "Frequency in real deals, with denominator."
+        - "Why customers pick it — verbatim quote."
+        - "Evidence source identifier and date."
+      closing:
+        - "Which of the six types is missing from the table, and is it missing because it does not apply or because we did not look?"
+        - "Say in one sentence what this ranking implies about where the go-to-market is currently aimed."
+
+  # -------------------------------------------------------------------------
+  # COMPONENT 2 — UNIQUE ATTRIBUTES
+  # -------------------------------------------------------------------------
+  - id: unique_attributes
+    order: 2
+    name: "Unique attributes"
+    question_it_answers: "What do we have that those alternatives lack?"
+    definition: >-
+      Features and capabilities the alternatives listed in component 1 do not have. Uniqueness is
+      relative to that list and to nothing else.
+
+    what_counts_as_evidence:
+      - "Dated public documentation or capability page of the alternative showing the absence."
+      - "A head-to-head evaluation the customer ran, described by the customer."
+      - "A customer statement that they could not do it with the alternative."
+      - "A third-party, analyst or audit document."
+    what_does_not_count:
+      - "'Everyone knows they cannot do that.'"
+      - "A sales rep's impression from a call."
+      - "Our own comparison page."
+      - "A competitor's roadmap promise, in either direction."
+
+    qualification_test: >-
+      Name the alternatives from component 1 that lack it, and state how that absence was verified.
+      If either half is missing, the attribute does not qualify.
+
+    decision_table:
+      - condition: "All alternatives have it"
+        verdict: "table stakes"
+        action: "Move to the category definition. Strike it through on the canvas rather than deleting it, so the decision stays visible and is not relitigated next quarter."
+        note: "Being better at a table stake is not uniqueness. It is a claim that needs a proof point and usually loses to the buyer's assumption that everyone says that."
+      - condition: "Some alternatives have it"
+        verdict: "weak differentiator"
+        action: "Survives only if it carries a value theme in component 3. Otherwise drop it and record the drop."
+      - condition: "No alternative has it, and we can prove it"
+        verdict: "unique attribute"
+        action: "Keep. This is what component 3 maps to value."
+      - condition: "No alternative has it and nobody cares"
+        verdict: "trivia"
+        action: "Drop, and record that it was dropped so it does not resurface."
+
+    failure_mode: >-
+      Treating a well-executed table-stakes feature as a differentiator. The buyer hears nothing
+      distinguishing and falls back to price.
+
+    secondary_failure_modes:
+      - "Writing attributes in internal vocabulary the customer does not use."
+      - "Verifying absence against the direct competitor only, while the top-ranked alternative is a spreadsheet."
+      - "Keeping an attribute because a senior stakeholder is attached to it."
+
+    elicitation_prompts:
+      identification:
+        - "Take the top-ranked alternative, not the most famous one. What can we do that it cannot?"
+        - "What do best-fit customers say they could not do before, in their own words?"
+        - "What shows up in renewal notes as the reason they stayed?"
+      verification:
+        - "For this attribute, which alternatives lack it — by name from the component 1 table?"
+        - "How do we know they lack it? Name the document, the evaluation, or the customer who said so, with a date."
+        - "If the alternative shipped this next quarter, what would still be true about us?"
+      pruning:
+        - "If every alternative has this, why is it in the differentiation section rather than the category definition?"
+        - "Nobody has this. Has any customer ever mentioned it unprompted? If not, it is trivia."
+        - "Which attribute here would we defend in front of a buyer who has already evaluated the top two alternatives?"
+
+  # -------------------------------------------------------------------------
+  # COMPONENT 3 — VALUE AND PROOF
+  # -------------------------------------------------------------------------
+  - id: value_and_proof
+    order: 3
+    name: "Value and proof"
+    question_it_answers: "So what? What outcome, and how do we know?"
+    definition: >-
+      The benefit the unique attributes enable for the customer, grouped into themes, each theme
+      carrying proof. Attributes are not value.
+    structure: "attribute -> enabled outcome -> value theme -> proof point"
+
+    what_counts_as_evidence:
+      proof_types:
+        - id: usage_metric
+          description: "A measure of what customers do or achieve in the product."
+          minimum_record: "Measure, population, denominator, extraction date."
+        - id: customer_stated_outcome
+          description: "The customer describing the outcome in an interview or renewal note."
+          minimum_record: "Quote, account, role, date."
+        - id: third_party_validation
+          description: "Audit result, certification, or independent assessment."
+          minimum_record: "Issuing body, document reference, date."
+        - id: benchmark_vs_alternative
+          description: "A comparison against a named alternative from component 1."
+          minimum_record: "Method, both sides measured, who ran it, date."
+    what_does_not_count:
+      - "An adjective — powerful, seamless, enterprise-grade."
+      - "A measure of our activity rather than the customer's outcome."
+      - "A number without denominator or source."
+      - "A case study whose outcome sentence was written by us and never confirmed by the customer."
+
+    qualification_test: >-
+      Does the theme trace back to at least one unique attribute ID, and does it carry at least one
+      proof point a person outside the room could check? Both, or it is a claim.
+
+    theme_count_rule: >-
+      Two to three themes. Two themes with proof beats six themes with adjectives. More than three
+      means either duplicates or an undecided position.
+
+    failure_mode: >-
+      Value themes stated as adjectives with no proof attached.
+
+    secondary_failure_modes:
+      - "A theme that would survive unchanged if the product changed — it describes an aspiration, not what the attributes enable."
+      - "Proof that exists but whose attribute traceability is missing, so nobody can tell whether the theme survives when an alternative matches the attribute."
+      - "Sliding from value into copy. The theme is a decision about what matters; the words are downstream messaging work."
+
+    elicitation_prompts:
+      laddering:
+        - "That is an attribute. What outcome does it enable for the customer?"
+        - "And what does that outcome let them do that they could not do before?"
+        - "Who inside the customer notices when this outcome happens? What changes for that person?"
+        - "Stop when the answer stops changing. That is the value theme."
+      proof:
+        - "What is the proof for this theme? Name the measure, the population and the source."
+        - "Could someone outside this room check that number? If not, it is not proof."
+        - "Which named alternative does this theme beat, and on what dimension?"
+        - "If the proof is pending, mark the theme UNVERIFIED and name who is getting the evidence, by when."
+      pruning:
+        - "We have six themes. Which two would we keep if we could only say two things?"
+        - "Which of these themes are the same theme wearing different clothes?"
+
+  # -------------------------------------------------------------------------
+  # COMPONENT 4 — TARGET MARKET CHARACTERISTICS
+  # -------------------------------------------------------------------------
+  - id: target_market_characteristics
+    order: 4
+    name: "Best-fit segment characteristics"
+    question_it_answers: "Who cares a lot, and how do we spot them early?"
+    definition: >-
+      The characteristics of customers who care a lot about the value. The segment is defined by
+      who cares, not by firmographics.
+    good_characteristic: "Predicts fast close and low churn; identifiable before first contact."
+    weak_characteristic: "Merely describes current customers; correlation without a causal story."
+
+    what_counts_as_evidence:
+      - "Patterns across the best-fit customer set, with the accounts named."
+      - "Churn analysis showing where the characteristic is absent."
+      - "Sales cycle length segmented by the characteristic."
+      - "Customer statements about why the value mattered to them specifically."
+    what_does_not_count:
+      - "The market we want to be in."
+      - "A firmographic band used as the definition rather than as a proxy."
+      - "A characteristic with no causal story linking it to the value themes."
+
+    qualification_tests:
+      - test: "Does this characteristic predict who buys fast and stays?"
+        yes: "Keep."
+        no: "Likely correlation. Mark for testing; do not build the position on it."
+      - test: "Is it merely descriptive of current customers?"
+        yes: "Correlation, not a driver. Test it before relying on it."
+        no: "Good — it has a causal story."
+      - test: "Is the segment large enough to sustain the business at current pricing?"
+        yes: "Proceed."
+        no: "Finding for @pricing-strategist and @product-strategist. Not a reason to widen the claim."
+      - test: "Can sales identify a prospect in this segment before the first call?"
+        yes: "Usable."
+        no: "Unusable in practice however true it is. Find an observable proxy or drop it."
+
+    pre_contact_signal_examples:
+      note: "Illustrative shapes of an observable signal, not prescriptions."
+      shapes:
+        - "A public obligation the company is subject to on a fixed cadence."
+        - "A role the company is hiring for, visible in job postings."
+        - "A technology footprint detectable without contact."
+        - "A published filing, disclosure or accreditation."
+        - "A publicly announced event that starts the clock on the problem."
+
+    failure_mode: >-
+      Substituting firmographics for the characteristics that actually drive caring.
+
+    secondary_failure_modes:
+      - "An aspirational segment drawn from the market wanted rather than from customers who already love the product. Nobody can execute against it."
+      - "A characteristic that is true and undetectable — the position cannot be aimed."
+      - "Widening the segment because it feels small, instead of recording the size finding and routing it."
+
+    elicitation_prompts:
+      derivation:
+        - "List the customers who already love this. What is true of all of them that is not true of the ones who churned?"
+        - "For each of these, why did the value theme matter to them more than to an average buyer?"
+        - "What was happening in their business the month they started looking?"
+      qualification:
+        - "Does this characteristic predict a fast close and a low churn risk, or does it just describe who we happen to have?"
+        - "Could a rep tell whether a prospect has this characteristic before the first call? How, specifically?"
+        - "If they cannot, what observable proxy stands in for it?"
+        - "Is this a driver or a coincidence? What would falsify it?"
+      sizing:
+        - "How many companies plausibly have this characteristic? Is that enough at current pricing?"
+        - "If not, that goes to @pricing-strategist and @product-strategist as a finding. What we do not do is widen the claim to make the number look better."
+      objection_handling:
+        - "'Our segment is too narrow, we will limit growth' — narrowing the segment narrows who you talk to first, not who can buy. Widening a pond later is a decision you can make from a position of proof; retreating from a broad claim you could not defend costs more."
+
+  # -------------------------------------------------------------------------
+  # COMPONENT 5 — MARKET CATEGORY
+  # -------------------------------------------------------------------------
+  - id: market_category
+    order: 5
+    name: "Market category"
+    question_it_answers: "In what context is our value obvious?"
+    definition: "The market frame of reference that makes your value obvious."
+    function: "A shortcut into the customer's head that triggers a set of assumptions before you say anything."
+    detail_reference: "market-category-styles.yaml"
+
+    what_counts_as_evidence:
+      - "What prospects call the product unprompted on first contact."
+      - "The search terms and budget lines buyers use."
+      - "Which assumptions buyers arrive with, recorded from discovery calls."
+      - "Where the purchase sits in the buyer's approval process."
+    what_does_not_count:
+      - "The category we would like to lead."
+      - "The category the last funding deck used."
+      - "An analyst category with no buyer using the words."
+
+    qualification_test: >-
+      Are the assumptions the category triggers mostly correct and mostly favourable? If they must
+      be corrected during the sales cycle, it is the wrong category.
+
+    style_selection_heuristic:
+      - "Existing category, our strengths already win on its terms -> Head to Head"
+      - "Existing category, we win only for a defensible slice of it -> Big Fish Small Pond"
+      - "No existing category can carry our strengths without misleading the buyer -> Create a New Game"
+      - "Unsure -> Big Fish Small Pond. It is the cheapest defensible position and can be widened later."
+
+    failure_mode: >-
+      Choosing a category whose assumptions you then spend the whole sales cycle undoing.
+
+    secondary_failure_modes:
+      - "Proposing a category without stating its style, cost and proof burden — which makes it an aesthetic preference rather than a decision."
+      - "Choosing Create a New Game with no budget line for market education. Category creation requires teaching the market the problem exists before the solution can be sold, and that education is funded by you alone."
+      - "Choosing the category first and reverse-engineering the components to fit it."
+
+    elicitation_prompts:
+      discovery:
+        - "When a prospect first hears the name, what do they think this is? Where does that come from?"
+        - "What do they compare us to in the first five minutes of a call?"
+        - "What budget does this come out of, and what else is on that line?"
+      assumption_testing:
+        - "Write down the assumptions this candidate category triggers. Now mark each mostly correct or not, and mostly favourable or not."
+        - "Which of those assumptions do we currently spend sales cycle time correcting?"
+        - "If a buyer heard only the category name and nothing else, would they be closer to or further from understanding us?"
+      style_and_cost:
+        - "Which of the three styles is this? State the cost and the proof burden before stating the preference."
+        - "If Create a New Game: what is the education budget, who owns it, and what do we teach first — the problem or the solution?"
+        - "How expensive is it to change this category in a year? Cheap to reverse beats impressive to announce."
+
+  # -------------------------------------------------------------------------
+  # COMPONENT 6 — RELEVANT TREND (OPTIONAL)
+  # -------------------------------------------------------------------------
+  - id: relevant_trend
+    order: 6
+    optional: true
+    default_decision: "OMIT"
+    name: "Relevant trend"
+    question_it_answers: "Does a trend make this urgent — genuinely?"
+    definition: "Optional sixth component. A market trend that makes the value more urgent."
+    constraint: "Must be genuinely connected to the value themes."
+
+    what_counts_as_evidence:
+      - "Buyers naming the trend unprompted in interviews, in their own words."
+      - "A dated external obligation or event that changes urgency for the segment."
+      - "A change in the segment's budget or approval behaviour attributable to the trend."
+    what_does_not_count:
+      - "The trend appearing in the trade press."
+      - "Competitors using the trend in their decks."
+      - "Internal enthusiasm for the trend."
+
+    qualification_test: >-
+      Can the connection be stated as a mechanism in one sentence, without the word "and" joining
+      two independent claims? If the sentence only places the trend next to the value, there is no
+      connection.
+
+    failure_mode: >-
+      Trend tourism — attaching a hot trend that dates the positioning and dilutes the frame.
+
+    elicitation_prompts:
+      - "Which specific value theme does this trend make more urgent, and by what mechanism?"
+      - "Have buyers in the best-fit segment raised this themselves? Quote one."
+      - "What happens to the position when this trend passes?"
+      - "If we deleted the trend, would anything in the position weaken? If not, delete it."
+      - "Record the decision either way. Omission is the default and needs no defence."
+
+# ---------------------------------------------------------------------------
+# TEN-STEP PROCESS — the sequence these components are filled in
+# ---------------------------------------------------------------------------
+ten_step_process:
+  attribution: "April Dunford, Obviously Awesome (2019). Ten steps as listed; no additional steps are asserted."
+  steps:
+    - step: 1
+      name: "Understand the customers who love your product"
+      output: "Best-fit customer list with the pattern that makes them best-fit"
+      opening_prompt: "Which accounts already love this, and why was each selected? Positioning derived from aspiration instead of from happy customers is fiction."
+    - step: 2
+      name: "Form a cross-functional positioning team"
+      output: "Named participants from product, marketing, sales and success"
+      opening_prompt: "Name a person per function. Sales holds the alternatives and lost-deal reasons; success holds the churn pattern and the best-fit profile; product holds the attribute truth; marketing holds the category signal. A missing function is a named evidence gap, not a scheduling detail."
+    - step: 3
+      name: "Align vocabulary and let go of positioning baggage"
+      output: "Shared definitions; explicit list of baggage being set down"
+      opening_prompt: "Which of these are we defending — the founding story, the original category, legacy naming, the investor narrative? Name it so it can be set down deliberately rather than defended unconsciously in every review."
+    - step: 4
+      name: "List true competitive alternatives"
+      output: "Ranked alternatives with deal frequency and evidence source"
+      component: competitive_alternatives
+    - step: 5
+      name: "Isolate unique attributes"
+      output: "Attribute table with the alternatives that lack each attribute"
+      component: unique_attributes
+    - step: 6
+      name: "Map attributes to value themes"
+      output: "Value themes with attribute traceability and proof points"
+      component: value_and_proof
+    - step: 7
+      name: "Determine who cares a lot"
+      output: "Segment characteristics that predict caring, usable pre-contact"
+      component: target_market_characteristics
+    - step: 8
+      name: "Find the market frame of reference and position within it"
+      output: "Chosen category and style with cost and proof burden"
+      component: market_category
+    - step: 9
+      name: "Layer on a trend (optional)"
+      output: "Either a connected trend with rationale, or an explicit decision to omit"
+      component: relevant_trend
+    - step: 10
+      name: "Capture the positioning so it can be shared"
+      output: "Positioning document with per-function actions and review date"
+      opening_prompt: "Who executes what differently on Monday? Positioning that lives in one person's head is not positioning."
+
+# ---------------------------------------------------------------------------
+# BAGGAGE CHECK — step 3 instrument
+# ---------------------------------------------------------------------------
+baggage_check:
+  purpose: >-
+    Surface what the team is defending before it distorts the components. The founding story
+    describes where the product came from; positioning describes where it wins now.
+  items:
+    - id: founding_story
+      prompt: "What did we originally set out to build, and does any current component exist mainly to stay faithful to that?"
+      typical_distortion: "Alternatives and category inherited from the original problem rather than the current one."
+    - id: original_category
+      prompt: "What category did we first announce ourselves in? Who still uses that word internally?"
+      typical_distortion: "A category kept because changing it feels like admitting error."
+    - id: legacy_naming
+      prompt: "Which product, feature or internal names carry meaning from an earlier position?"
+      typical_distortion: "Vocabulary the customer does not use, surviving into the position."
+    - id: investor_narrative
+      prompt: "What does the last deck claim about our market, and does any component exist to keep that claim true?"
+      typical_distortion: "Category creation chosen for narrative reasons rather than because no existing frame carries the strengths."
+  output_row: "Baggage | Present? | Disposition (keep / set down) | Why | Who is most likely to pick it back up"
+  failure_mode: "Declaring 'no baggage' without running the check. Baggage is usually invisible to the people carrying it."
+
+# ---------------------------------------------------------------------------
+# DIAGNOSIS — when to run this at all
+# ---------------------------------------------------------------------------
+repositioning_triggers:
+  - "Prospects consistently mis-categorize the product on first contact"
+  - "Sales cycles lengthen without a change in price or product"
+  - "Churn concentrates in a segment that closed quickly"
+  - "Win/loss shows losses to alternatives that are not tracked as competitors"
+  - "A new capability shifts where the product genuinely wins"
+  - "The market category itself shifts, splits or collapses"
+
+quality_criteria:
+  alternatives: "Real, sourced from win/loss and interviews, include do-nothing"
+  attributes: "Each verified absent in the listed alternatives"
+  value: "Each theme traced to attributes and backed by proof"
+  segment: "Characteristics that predict caring, identifiable before first contact"
+  category: "Triggers assumptions that are mostly correct and favourable"
+  trend: "Absent, or explicitly connected to a value theme"
+  capture: "One document, agreed by product, marketing, sales and success"
+  testability: "At least one claim expressed as a falsifiable hypothesis"
+
+distinctions:
+  positioning_vs_messaging: "Positioning is the strategic context decision. Messaging is the words used to express it. Messaging cannot repair broken positioning."
+  positioning_vs_branding: "Branding is identity and perception over time. Positioning is the frame of reference for evaluation right now."
+  positioning_vs_segmentation: "Segmentation divides the market. Positioning selects the frame in which one segment finds you obviously correct."
+  positioning_vs_category_creation: "Category creation is one of three positioning styles, not a synonym for positioning."
+
+handoffs:
+  "@pricing-strategist": "Best-fit segment and value themes are settled; packaging, willingness to pay and value-based segmentation are next"
+  "@product-strategist": "The chosen position implies roadmap or portfolio changes"
+  "@discovery-lead": "Alternatives or segment characteristics lack evidence and need structured research"
+  "@jobs-analyst": "Value themes must be grounded in the job the customer hires the product to do"
+  "@experimentation-lead": "A frame-of-reference claim should be tested rather than argued"
+  "@products-chief": "The position conflicts with squad-level direction and needs arbitration"
+  "@pm": "The position is captured and an evidenced problem now needs epic framing"

@@ -1,0 +1,298 @@
+# Handoff and Queue Patterns — Reference Knowledge
+# Squad: business-admin
+# Agent: process-lead (Sluice)
+#
+# Where elapsed time actually goes in an administrative process, what each pattern costs, and
+# what the smallest honest repair is. A catalogue for mapping and for the value test — not a
+# set of changes to apply.
+#
+# ATTRIBUTION: The framework applied here is published by Michael Hammer & James Champy in
+# "Reengineering the Corporation: A Manifesto for Business Revolution" (1993), and by Michael
+# Hammer in "Reengineering Work: Don't Automate, Obliterate", Harvard Business Review,
+# July-August 1990. Applied with attribution and not spoken as the authors.
+#
+# THE METHOD'S RECORD IS PART OF THE ATTRIBUTION, NOT A DISCLAIMER ATTACHED TO IT:
+#   - The authors were themselves explicit that a large share of reengineering efforts fail to
+#     achieve their intended results.
+#   - Through the 1990s the label was widely applied to headcount-reduction programmes. That
+#     damaged both the method's standing and the participation of the people whose knowledge
+#     the redesign depends on.
+#   - Therefore: default to INCREMENTAL improvement. Radical redesign requires an explicit
+#     structural justification. Never run a headcount programme under a process label.
+#
+# PROFESSIONAL LIMIT — APPLIES TO EVERY ENTRY BELOW: this file supports process DESIGN. It
+# removes no control, changes no segregation of duties, determines no records retention, decides
+# no personal-data question, states nothing about compliance or lawfulness, and designs no role,
+# headcount or location change. Each of those belongs to a named licensed owner and is routed,
+# never absorbed. Every artefact built from this file carries a named-reviewer block for each
+# review it triggers, with a date.
+
+version: "1.0.0"
+last_reviewed: "2026-07-30"
+
+required_reviews:
+  rule: "Listed prominently near the front of any artefact, never as a footnote. A redesign that reads as approved and carries its constraints at the end will be implemented without them."
+  reviews:
+    control_change:
+      owner: "The accountant, auditor or counsel who owns the specific control"
+      this_agent_does: "Proposes with evidence, phrased as a question"
+      this_agent_never_does: "Removes, weakens or retimes"
+    segregation_of_duties:
+      owner: "Control owner"
+      status: "EXCLUDED FROM ANALYSIS ENTIRELY"
+      why: "It exists to prevent something that a cycle-time study cannot see. Its cost is visible; what it prevents is not."
+    records_retention:
+      owner: "Counsel"
+      why: "What must be retained, for how long, in what form, is a legal and regulatory matter"
+    data_protection:
+      owner: "Counsel"
+      trigger: "Any design that widens access to personal data, merges data sets, or changes retention"
+      note: "A capture-once design frequently does all three. Data protection is not a process-convenience decision."
+    role_headcount_location:
+      owner: "Qualified HR and employment counsel"
+      timing: "Routed at the point the consequence first appears, not at the end of the design"
+      note: "Consultation obligations are a lawfulness question and are not assessed here"
+    financial_effect:
+      owner: "@business-admin:finance-lead for the reading; a licensed accountant for any treatment"
+
+# ---------------------------------------------------------------------------
+# 1. WAIT TYPES — the distinction that decides the fix
+# ---------------------------------------------------------------------------
+
+wait_types:
+  premise: |
+    Elapsed time and working time are different measurements and the gap between them is the
+    finding. When three weeks of elapsed time contains four hours of work, the problem is not
+    effort, speed or diligence. It is queues and handoffs, and working harder will not touch it.
+  types:
+    - type: waiting_for_capacity
+      signature: "Work sits in a shared queue behind other work"
+      fix_family: "Reduce arrivals, reduce variability, or add capacity at the specific constraint — not everywhere"
+      misdiagnosis: "Read as 'the team is slow'. The team's working time is usually fine."
+    - type: waiting_for_a_scheduled_event
+      signature: "Work waits for a weekly meeting, a monthly run, a batch, a committee"
+      fix_family: "Increase frequency, or remove the event from the critical path entirely"
+      note: "Often the single largest contributor and the easiest to overlook, because nobody experiences it as waiting"
+    - type: waiting_for_a_decision
+      signature: "Work waits for an approval or a judgement"
+      fix_family: "Move the decision to where the work is performed, IF the blocker is information or authority. If the blocker is a control requirement, STOP and route."
+      caution: "This is where a process improvement most easily removes something valuable"
+  conflation_warning: "These three are conflated constantly and have different fixes. Measure them separately or the redesign addresses the wrong one."
+
+# ---------------------------------------------------------------------------
+# 2. HANDOFF PATTERNS
+# ---------------------------------------------------------------------------
+# Each: what it looks like, what it costs, the smallest repair, and what it must NOT become.
+
+handoff_patterns:
+
+  - pattern: org_chart_handoff
+    looks_like: "Work changes hands because two steps belong to different departments, not because the work requires it"
+    costs: "A full queue wait, plus context loss, plus a round-trip risk"
+    detection: "Ask what the receiving function adds that the sending function could not have done"
+    repair: "Organise around the outcome — one person or team accountable for the whole. [SOURCE: Hammer, HBR 1990]"
+    must_not_become: "A headcount conclusion. Consolidating steps changes what people do, and that routes to qualified HR and employment counsel before the design proceeds."
+
+  - pattern: request_and_wait
+    looks_like: "One party requests something from another that the requester could have obtained or completed directly"
+    costs: "Two queue waits — the request and the response — plus the elapsed time of both"
+    repair: "Have those who use the output perform the process, where feasible. [SOURCE: Hammer, HBR 1990]"
+    blocker_analysis: "What prevents the requester doing it: information, authority, capability, or a control requirement? The first three are design questions. The fourth is routed."
+
+  - pattern: collect_then_pass_to_process
+    looks_like: "One department collects information and hands it to another whose only function is to process what someone else collected"
+    costs: "A handoff, a re-entry, and a divergence between two copies"
+    repair: "Subsume information-processing work into the work that produces the information. [SOURCE: Hammer, HBR 1990]"
+
+  - pattern: re_entry
+    looks_like: "The same data typed into a second system, spreadsheet or form"
+    costs: "The keying time, plus every reconciliation that exists downstream because the copies disagree"
+    repair: "Capture information once, at the source; consume downstream by reference rather than by copy. [SOURCE: Hammer, HBR 1990]"
+    stop_condition: "If single capture widens access to personal data, merges data sets, or changes retention — STOP and route to counsel before proposing it."
+
+  - pattern: reconciliation
+    looks_like: "A periodic exercise comparing two records that should agree"
+    what_it_actually_is: "A symptom. It exists because the same information was captured more than once and the copies diverge."
+    repair: "Fix the capture. The reconciliation then stops being necessary."
+    hard_constraint: "CONFIRM WITH THE CONTROL OWNER BEFORE REMOVING IT. Some reconciliations are controls. This analysis cannot tell which from cycle time alone, and effort released may only be counted after the owner confirms."
+
+  - pattern: serial_approval_chain
+    looks_like: "Three or four approvals in sequence, each a separate queue"
+    costs: "The sum of every wait, and the chain's total is usually most of the elapsed time"
+    repair: "Parallelise approvals with no dependency between them; move decisions to where the work is performed where the blocker is information or authority"
+    hard_constraint: "Any change to WHEN a control operates is flagged and routed to the control owner before it is proposed. Segregation of duties is untouched."
+
+  - pattern: approval_that_never_rejects
+    looks_like: "An approval step with no observed rejection over a meaningful volume"
+    state_as: "A QUESTION, not a conclusion"
+    why: "An approval may DETER rather than reject, and deterrence does not appear in a rejection count. The absence of rejections is not evidence that everything was correct."
+    repair: "Route to the owner with the evidence: volume reviewed, rejections observed, and the question of what it is intended to catch."
+    if_removed: "State what replaces its visibility. Removing an approval without replacing its visibility is how a control disappears unnoticed."
+
+  - pattern: round_trip
+    looks_like: "Work returning to a previous holder for correction or missing information"
+    what_it_signals: "A defect — something was wrong or missing when it was sent"
+    measurement: "Rate matters more than duration"
+    repair: "Fix the upstream completeness — validation at entry, required fields, a definition of ready"
+
+  - pattern: chasing
+    looks_like: "The customer, or an internal requester, contacting several people to find out where their request is"
+    what_it_actually_is: "The customer performing the integration the process failed to perform"
+    repair: "A case owner as single point of contact. [SOURCE: Hammer & Champy, 1993]"
+    caution: "Design the escalation path so escalation does not become a handoff that recreates the original problem"
+
+  - pattern: status_meeting_as_integration
+    looks_like: "A recurring meeting whose function is to find out where things are"
+    what_it_actually_is: "Class D — compensating for the absence of visible status"
+    repair: "Make status a property of the work: entry and exit conditions per stage, so status is a fact rather than an opinion"
+
+  - pattern: parallel_streams_merged_at_the_end
+    looks_like: "Two workstreams that only meet at the finish"
+    costs: "An incompatible finish, then rework on both sides"
+    repair: "Link parallel activities as they proceed rather than integrating their results at the end. [SOURCE: Hammer, HBR 1990]"
+
+  - pattern: undocumented_step
+    looks_like: "A check somebody performs that appears on no diagram"
+    what_it_usually_is: "Institutional memory — a check added after something went wrong"
+    repair: "Investigate, find who added it and what incident caused it. DO NOT delete it for being undocumented."
+    note: "This is the single strongest argument for walking the process with the people who perform it. A redesign built without them is a diagram; a redesign built with them is a design."
+
+  - pattern: batch_boundary
+    looks_like: "Work waits for a run that happens weekly, monthly or at period end"
+    costs: "On average half the batch interval per item, and the full interval for the unlucky"
+    repair: "Increase frequency, or remove the item from the batch's critical path"
+    note: "Frequently invisible because nobody is waiting at their desk. It still shows up in elapsed time."
+
+  - pattern: single_person_dependency
+    looks_like: "One named individual is the only route through a step"
+    costs: "The step's elapsed time becomes that person's calendar"
+    repair: "A process question — coverage and access. Any change to what that person does routes to qualified HR and @business-admin:people-lead."
+    caution: "Never framed as being about the individual. This is a design finding about a single point of failure."
+
+# ---------------------------------------------------------------------------
+# 3. STEP VALUE CLASSES
+# ---------------------------------------------------------------------------
+
+value_classes:
+  rule: "Every step goes into exactly one class. Classification is not deletion."
+  classes:
+    - class: A
+      definition: "Directly serves the outcome the customer wants"
+    - class: B
+      definition: "Produces evidence that is genuinely required"
+      requirement: "The requirer must be NAMED — a specific control owner, counsel, or regulator"
+      if_unnameable: "'Compliance' as an unnamed abstraction is not a source. The step is unclassified and goes to counsel as a question."
+    - class: C
+      definition: "Prevents a known, documented failure"
+      requirement: "The failure must be named AND the date it last occurred stated"
+      if_undescribable: "A step preventing a failure that has never occurred and cannot be described is a class D candidate — routed to whoever introduced it, not deleted"
+    - class: D
+      definition: "Compensates for a defect elsewhere in the process"
+      examples: ["reconciliations", "re-entry", "chasing", "status meetings", "checking someone else's work", "reformatting between systems"]
+      requirement: "Trace each to the specific upstream defect"
+      why_it_matters: "Class D share of total working time is the argument for the redesign"
+  routing: "Classes B and C go to their named owners for confirmation. Nothing is deleted at the classification stage."
+  overhead_test: "A step that does not remove a decision, prevent a known failure, or produce required evidence is overhead. Process exists to remove repeated decisions, not to add steps."
+
+# ---------------------------------------------------------------------------
+# 4. DESIGN PRINCIPLES, WITH SOURCE SEPARATION
+# ---------------------------------------------------------------------------
+
+design_principles:
+  from_hbr_1990:
+    source: "Michael Hammer, 'Reengineering Work: Don't Automate, Obliterate', Harvard Business Review, July-August 1990"
+    principles:
+      - "Organise around outcomes, not tasks"
+      - "Have those who use the output of the process perform the process"
+      - "Subsume information-processing work into the real work that produces the information"
+      - "Treat geographically dispersed resources as though they were centralised"
+      - "Link parallel activities instead of integrating their results at the end"
+      - "Put the decision point where the work is performed, and build control into the process"
+      - "Capture information once, and at the source"
+  from_the_1993_book:
+    source: "Hammer & Champy, Reengineering the Corporation (1993) — recurring characteristics of redesigned processes described in the book"
+    items:
+      - "Several jobs combined into one"
+      - "Workers make decisions"
+      - "Steps performed in natural order"
+      - "Processes have multiple versions for different cases"
+      - "Work performed where it makes the most sense"
+      - "Checks and controls reduced"
+      - "Reconciliation minimised"
+      - "A case manager provides a single point of contact"
+      - "Hybrid centralised and decentralised operations"
+    aexos_caveat: |
+      "Checks and controls reduced" is the item this squad will not act on alone. Reducing a
+      control is the control owner's decision — accountant, auditor or counsel. This agent
+      proposes with evidence and routes. Segregation of duties is excluded entirely.
+  definitions:
+    process: "A set of activities that takes one or more kinds of input and creates an output of value to the customer. [SOURCE: Hammer & Champy]"
+    reengineering: "The fundamental rethinking and radical redesign of business processes to achieve dramatic improvements in critical, contemporary measures of performance such as cost, quality, service and speed. [SOURCE: Hammer & Champy, 1993]"
+    core_observation: "Organisations manage functions and tasks; customers experience processes. The damage accumulates in the seams between departments, where nobody is accountable for the whole."
+
+# ---------------------------------------------------------------------------
+# 5. RADICAL VERSUS INCREMENTAL
+# ---------------------------------------------------------------------------
+
+radical_vs_incremental:
+  default: INCREMENTAL
+  sequence:
+    - "State the required outcome numerically — a target, not a direction"
+    - "Compute the incremental ceiling: what is reachable by removing waits, parallelising, and fixing the largest class D items inside the current design"
+    - "If the ceiling reaches the target, recommend incremental plainly — including when a radical programme has already been proposed and has sponsors"
+    - "If it does not, name the SPECIFIC structural blocker"
+    - "State the honest cost of radical, including the method's documented failure record"
+    - "Run the motive check"
+  structural_blockers_that_genuinely_justify_radical:
+    - "Fragmentation across functions such that no incremental change can reach the outcome"
+    - "An information architecture that structurally forces re-entry"
+    - "A control model that requires sequential approval by design"
+  motive_check:
+    question: "Is the actual objective headcount reduction?"
+    if_yes: "STOP. Say so plainly. That is a qualified HR and employment-counsel matter and it must not be run as a process programme."
+    why: "This is what damaged the method's reputation, and it destroys the participation of the people who hold the knowledge the redesign depends on."
+  honest_costs_of_radical: ["disruption to a running process", "temporary performance loss during migration", "external time consumed by the required professional reviews", "the documented failure record of reengineering programmes generally"]
+
+# ---------------------------------------------------------------------------
+# 6. AUTOMATION GATE
+# ---------------------------------------------------------------------------
+
+automation_gate:
+  principle: "Do not automate, obliterate. [SOURCE: Hammer, HBR 1990]"
+  order:
+    - "Ask what this process is for, and whether it would exist if designed today from the outcome backwards"
+    - "Run the value test BEFORE evaluating any tool"
+    - "State what automating the current design would lock in: the current handoffs, sequence, data model, and the reconciliations that exist because of re-entry"
+    - "Design the process as it should be, THEN ask what of that design needs automating"
+    - "State the reversal cost"
+  why_the_order_matters: "Automating a process that is largely class D makes the wrong thing faster, cheaper to keep, and much harder to remove later."
+  reversal_cost: "Automated processes are markedly harder to change than manual ones, which is precisely why the design must be right first."
+  expect_resistance: "Automation proposals usually arrive with a sponsor and a budget already attached. Saying the process should not exist is the least popular correct answer available to this role."
+
+# ---------------------------------------------------------------------------
+# 7. BOUNDARY, RESTATED WHERE IT IS ACTUALLY CROSSED
+# ---------------------------------------------------------------------------
+
+boundary:
+  this_file_supports:
+    - "Mapping end to end across every function a process crosses"
+    - "Measuring elapsed against working time"
+    - "Inventorying handoffs, queues and controls with cost, catch rate and named owner"
+    - "Classifying steps by purpose and quantifying the class D share"
+    - "Resequencing into natural order and quantifying the elapsed time released"
+    - "Testing an automation proposal before it is built"
+    - "Writing the question for the professional who owns each constraint"
+  this_file_never_supports:
+    - "Removing or weakening any control"
+    - "Changing segregation of duties"
+    - "Determining records retention"
+    - "Deciding what personal data may be captured, moved, merged or accessed"
+    - "Stating that anything is compliant or lawful"
+    - "Designing role, headcount or location changes"
+    - "Determining accounting or tax effect"
+    - "Implementing or testing software — @dev and @qa; push is @devops exclusive"
+  borderline_rule: "When in doubt, licensed territory. A process improvement that quietly removed a control is the most expensive thing this role can produce."
+  honest_outcome: |
+    Concluding that the process is fine and the problem is somewhere else is a legitimate and
+    frequent result — more frequent than the method's reputation suggests. Reporting it is not a
+    failure of the engagement.

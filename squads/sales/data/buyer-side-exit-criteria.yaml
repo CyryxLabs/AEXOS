@@ -1,0 +1,176 @@
+# Buyer-Side Exit Criteria — Stage Definitions From The Buyer's Side Of The Table
+# Squad: sales
+# Referenced by: pipeline-ops (Conveyor); evidence standard shared with qualification-lead
+# Last updated: 2026-07-30
+
+version: "1.0.0"
+
+attribution:
+  work: "The Sales Acceleration Formula: Using Data, Technology, and Inbound Selling to go from $0 to $100 Million"
+  author: "Mark Roberge"
+  year: 2015
+  agent_stance: >-
+    This squad applies the published framework with attribution. It is not Mark Roberge and does not
+    speak as him. No claim, phrase, figure or date is attributed on the basis of inference.
+  enforced_warning: >-
+    The methodology's own central warning is enforced here: there is no universal ideal
+    representative, ramp period or stage model. Any stage model, ramp curve, conversion rate or
+    trait list reported in a published source describes one organization's data. It is a hypothesis
+    to validate against our outcomes, never a conclusion, and it is never presented as our number.
+  status_of_this_file: >-
+    The criteria below are a STARTING MODEL, not our numbers. No rate, ratio or duration appears
+    here. Rates live in the instrumented data with their denominators attached.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE FOUR TESTS EVERY EXIT CRITERION MUST PASS
+# ─────────────────────────────────────────────────────────────────────────────
+
+criterion_tests:
+  - test: "Buyer action, not seller activity"
+    question: "Does the stage name describe something the BUYER did?"
+    fails: "Demo delivered. Proposal sent. Discovery call held. All of these are things we did."
+    passes: "Buyer named the decision process and the approvers."
+  - test: "Buyer-produced evidence"
+    question: "Is there a document, message or meeting produced or confirmed by the buyer?"
+    fails: "A CRM note summarizing what we concluded."
+    passes: "The buyer's email, their evaluation sheet, a calendar record with the right person on it."
+  - test: "The field test"
+    question: "Can a rep satisfy this criterion by updating a CRM field?"
+    rule: "If yes, it is not a criterion. If a stage can be advanced by updating a field, it will be, and the funnel becomes a record of optimism."
+  - test: "Third-party observable"
+    question: "Could someone who was not on the call verify it?"
+    fails: "The rep is confident."
+  - test: "One standard with qualification"
+    question: "Does this criterion use the same evidence standard as the qualification record?"
+    rule: "Two standards produce two truths and a monthly argument about which is real. See data/qualification-evidence-standards.yaml."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STARTING STAGE MODEL — to be validated against local data, never adopted as given
+# ─────────────────────────────────────────────────────────────────────────────
+
+stages:
+
+  - stage: "Problem confirmed"
+    buyer_action: "The buyer has stated the consequence they are living with, and a number for it."
+    exit_criterion: "A consequence stated in the buyer's own words, with a dated instance, a cost and a named owner inside the buyer organization."
+    evidence_artifact: "Meeting note containing a verbatim quote with speaker and date, or a buyer email."
+    field_test: "Cannot be satisfied by a field update — it requires a quote attributable to a named buyer-side person."
+    qualification_link: "MEDDIC I (pain) at score 2 or above; M (metrics) buyer-stated where a figure exists."
+    common_false_advance: "Recording the seller's restatement of the problem. The product quietly becomes the problem definition and the buyer stops recognizing their own situation."
+
+  - stage: "Evaluating"
+    buyer_action: "The buyer has named the criteria they will score against and who owns each."
+    exit_criterion: "Criteria in the buyer's formulation, grouped technical / business / relationship-risk, with a buyer-side owner per criterion."
+    evidence_artifact: "A buyer-supplied list or evaluation sheet, or written confirmation from the buyer of criteria we drafted — with our influence disclosed."
+    field_test: "Passes — requires an artifact from the buyer or their written confirmation."
+    qualification_link: "MEDDIC D (decision criteria) at score 2 or above."
+    common_false_advance: "Counting criteria we authored as independent buyer evidence. Influence is legitimate; counting it as their evidence is not."
+    mandatory_disclosure: "Any criterion we cannot satisfy is recorded plainly at this stage. Concealing one is a material omission and a disqualification signal, not a gap to manage."
+
+  - stage: "Process mapped"
+    buyer_action: "The buyer has walked the sequence from today to signature, with approvers and durations."
+    exit_criterion: "A dated sequence with named buyer-side owners per step, including the paper process — security, legal, privacy, procurement, insurance, PO — and the signature authority threshold."
+    evidence_artifact: "A written process summary confirmed by the buyer, or the buyer's own email describing it."
+    field_test: "Passes."
+    qualification_link: "MEDDIC D (decision process) at score 2 or above. Paper process is the MEDDPICC extension and is flagged as an extension."
+    the_question_that_produces_it: "Walk me through what happens between a yes from you and a signed contract — who touches it, and roughly how long does each step take?"
+    why_it_goes_unasked: "The answer is often inconvenient because it moves the close date. Learning it early is cheap; learning it at quarter end is a missed quarter."
+    close_date_rule: "From this stage on, the close date is derived from this sequence. A close date taken from our quarter boundary is not accepted."
+
+  - stage: "Economic buyer engaged"
+    buyer_action: "The person who can release the funds has been in a conversation and has stated their own criteria."
+    exit_criterion: "A conversation held with the releaser — not the requester, not the approver — with their own success criteria recorded."
+    evidence_artifact: "Calendar record with that person on it, plus their stated criteria in notes or in writing."
+    field_test: "Passes."
+    qualification_link: "MEDDIC E (economic buyer) at score 2 or above."
+    common_false_advance: "A name from an org chart. A forwarded email treated as access. Neither is a conversation."
+
+  - stage: "Commit"
+    buyer_action: "All of the above, plus the paper process has started on the buyer's side."
+    exit_criterion: "Every prior criterion satisfied, AND at least one paper-process step actually underway."
+    evidence_artifact: "A redline exchange, a security questionnaire received, a vendor onboarding form, or a PO request."
+    field_test: "Passes."
+    qualification_link: "All six MEDDIC letters at score 2 or above, with pain, economic buyer and process at 2 or above, and no concealed unmet criterion."
+    common_false_advance: "Rep confidence. 'They said yes.' A yes with no attached mechanism — who does what, by when, through which approval — is a delay, not a commitment."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# MIGRATION
+# ─────────────────────────────────────────────────────────────────────────────
+
+migration:
+  expectation: "Mapping an existing pipeline onto buyer-side criteria usually moves a substantial number of deals backwards, several of them out of the top forecast category."
+  interpretation: "That is the finding, not a migration error. It is the size of the gap between what the pipeline claimed and what it could evidence."
+  reporting_rule: "Report the count of deals moving backwards, the count leaving the top category, and the value that was in the top category with no buyer-side evidence behind it."
+  what_not_to_do: "Do not soften the new criteria to reduce the backwards movement. That reinstates the defect the redesign exists to remove."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FORECAST ERROR SOURCES
+# ─────────────────────────────────────────────────────────────────────────────
+
+forecast_error_sources:
+  sources:
+    - source: "Close date not derived from the buyer's decision process"
+      note: "Usually the largest single source."
+      fix: "Stage criteria require a mapped, dated process before any late stage."
+    - source: "Stage exceeds evidence"
+      fix: "Enforce exit criteria. Move deals backwards at review rather than adjusting the total."
+    - source: "Deal size collapse at close"
+      fix: "Route the pattern to @products:pricing-strategist — usually a packaging or scope structure issue, not a rep issue."
+    - source: "Systematic under-forecast (sandbagging)"
+      fix: "Track error direction. Sandbagging is a misrepresentation equal in kind to inflation and damages planning equally."
+    - source: "Genuine external event"
+      fix: "Record it. Do not generalize from a single instance."
+  prohibited_fix:
+    move: "A blanket haircut or uplift applied to the total"
+    why: "It replaces one unreliable number with another and makes the error untraceable — next quarter nobody knows whether the adjustment was too much or too little, because the output was adjusted instead of the input."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# REPORTING RULES
+# ─────────────────────────────────────────────────────────────────────────────
+
+reporting_rules:
+  - "Every conversion rate carries its denominator. A 40% conversion on five deals is a rumour."
+  - "Rates computed on samples too small to distinguish from noise are marked UNVERIFIED, with the count stated, and nothing is decided on them alone."
+  - "Segment by at least two dimensions before drawing a conclusion — typically rep cohort by tenure, and source or segment. Aggregates hide causes."
+  - "Rank transitions by recoverable value (volume entering × the gap to the best-performing cohort), not by the worst percentage."
+  - "Name confounds where they exist. A tenure split that is also a territory split is checkable, and it is checked before anyone concludes anything about a cohort."
+  - "Distinguish a conversion problem from a cycle time problem. Different causes, different fixes."
+  - "Coverage ratios are derived from actual conversion, never assumed from a conventional multiple."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ETHICS
+# ─────────────────────────────────────────────────────────────────────────────
+
+ethics:
+  measurement:
+    - "Every rep-level datum collected must be justifiable as a coaching input. Anything that is not, is not specified."
+    - "Everything collected is disclosed to the person it describes, without them having to ask."
+    - "The output of a rep-level funnel is one development focus with a review date, never a leaderboard."
+    - "A conversion gap producing a coaching plan is diagnosis. The same gap producing a ranking email is surveillance, and it reliably produces data manipulation rather than improvement."
+  incentives:
+    screen:
+      - "Does it pay more when a buyer is misled?"
+      - "Does it pay more for pulling a deal forward against the buyer's process?"
+      - "Does it pay more for overselling scope?"
+      - "Does it pay for commitments delivery cannot meet?"
+      - "Can a rep compute their own earnings without a spreadsheet?"
+    rule: "Any mechanic failing the screen is flagged for removal with the behaviour it produces and the cost that behaviour carries at renewal. The plan is the cause, not the rep."
+    boundary: "Plan level, total spend and compensation philosophy are a human business decision. This squad evaluates mechanics and their behavioural consequences only."
+  forecasting:
+    - "The number is derived from evidence, never adjusted toward a desired result."
+    - "Error is tracked in both directions. Sandbagging is treated as seriously as inflation."
+  stage_design:
+    - "No criterion may create an incentive to pressure a buyer, pull a deal forward against their process, or record something the buyer did not do."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# BOUNDARY
+# ─────────────────────────────────────────────────────────────────────────────
+
+boundary:
+  specification_vs_implementation: "This squad specifies stages, metrics, fields and reports. @dev and @data-engineer build them; @qa gates; @devops releases and pushes, exclusively."
+  deal_vs_pipeline: "One deal's qualification gap is @sales:qualification-lead. The same gap across the pipeline is a stage-design defect and belongs here."
+  conversation: "A leak tracing to the selling conversation is @sales:method-lead."
+  terms: "A pattern of end-of-period discounting or late procurement is @sales:negotiation-lead."
+  price: "Deal size collapsing at close as a pattern is @products:pricing-strategist."
+  fit: "Conversion varying sharply by segment is a fit or frame-of-reference question for @products:positioning-lead, not a skill question."
+  delivery: "A system change entering the delivery pipeline is framed by @pm. No stories are created here (@sm), validated here (@po), or implemented here (@dev)."

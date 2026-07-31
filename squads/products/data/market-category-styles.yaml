@@ -1,0 +1,372 @@
+# Market Category Styles — Head to Head / Big Fish Small Pond / Create a New Game
+# Squad: products
+# Owner agent: @positioning-lead (Datum)
+# Consumed by: *choose-category, *pressure-test, *ten-step, *reposition-plan
+# Companion data file: positioning-components.yaml (component 5)
+# Companion artifacts: templates/positioning-canvas-tmpl.md (Component 5 table),
+#                      checklists/positioning-quality-checklist.md (section 5)
+
+version: "1.0.0"
+
+attribution:
+  framework: >-
+    The three market category styles — Head to Head, Big Fish Small Pond, Create a New Game — and
+    the treatment of the market category as a frame of reference are published by April Dunford in
+    "Obviously Awesome: How to Nail Product Positioning so Customers Get It, Buy It, Love It"
+    (2019). The sales narrative built on a settled position is treated in "Sales Pitch" (2023).
+  application: >-
+    @positioning-lead (Datum) applies this framework with attribution. The wrong-choice signals,
+    reversibility notes and AEXOS routing below are this squad's operational layer, not claims from
+    the source.
+  citation_discipline: >-
+    No chapter numbers, page numbers, statistics or percentages are attributed to the published
+    work. Cost levels are stated comparatively (low / moderate / highest), never as figures, because
+    no figure from the source is being relied on.
+
+boundary:
+  decides: "The market frame of reference and its style. What is built and how it is framed."
+  does_not_decide:
+    - "Campaign copy or taglines — downstream messaging work"
+    - "Interface copy — @ux-design-expert"
+    - "Price and packaging — @pricing-strategist"
+    - "Roadmap sequencing — @product-strategist"
+    - "Stories — @sm; epics and PRDs — @pm; implementation — @dev; push — @devops (exclusive)"
+
+# ---------------------------------------------------------------------------
+# THE CATEGORY TEST — applied to every candidate before style is discussed
+# ---------------------------------------------------------------------------
+category_test:
+  statement: >-
+    The category is a shortcut into the customer's head. It should trigger a set of assumptions
+    that are mostly correct and mostly favourable. If you must correct the assumptions the category
+    triggers, it is the wrong category.
+  procedure:
+    - "Write out the assumptions a buyer forms on hearing the candidate category name, before you say anything else."
+    - "Mark each assumption mostly correct / partly / not correct."
+    - "Mark each assumption mostly favourable / partly / not favourable."
+    - "Count how many the sales cycle currently spends time undoing. Each one is a recurring cost paid in every deal."
+  evidence_for_the_assumption_list:
+    - "What prospects call the product unprompted on first contact"
+    - "The comparisons raised in the first minutes of a discovery call"
+    - "The budget line the purchase comes from, and what else sits on it"
+  failure_if_skipped: >-
+    A category chosen on aesthetics. It will read well in a deck and cost sales cycle time in every
+    deal until the position is redone.
+
+# ---------------------------------------------------------------------------
+# DEFAULT RULE
+# ---------------------------------------------------------------------------
+default_rule:
+  rule: "Unsure -> Big Fish Small Pond."
+  reasoning: >-
+    It is the cheapest defensible position and the pond can be widened later from a position of
+    proof. Widening a narrow frame after accumulating proof is cheaper than retreating from a broad
+    claim that could not be defended, and far cheaper than abandoning an announced category.
+  applies_when:
+    - "Two styles score similarly on the category test."
+    - "The evidence window is short or the best-fit set is small."
+    - "The team is split and the split is about ambition rather than about evidence."
+    - "Category creation is attractive but no education budget line exists."
+  does_not_apply_when:
+    - "The existing category already rewards the strengths outright — then Head to Head is simply correct."
+    - "Every existing frame provably misleads the buyer about what the product does, and education is funded — then the narrow pond does not exist to be won."
+
+selection_heuristic:
+  - condition: "Existing category, our strengths already win on its terms"
+    choose: head_to_head
+  - condition: "Existing category, we win only for a defensible slice of it"
+    choose: big_fish_small_pond
+  - condition: "No existing category can carry our strengths without misleading the buyer"
+    choose: create_a_new_game
+  - condition: "Unsure"
+    choose: big_fish_small_pond
+
+# ---------------------------------------------------------------------------
+# THE THREE STYLES
+# ---------------------------------------------------------------------------
+styles:
+
+  # =========================================================================
+  - id: head_to_head
+    name: "Head to Head"
+    description: "Compete to win an existing market on its established terms."
+
+    when_to_choose:
+      - "Your strengths are the ones the existing category already rewards."
+      - "The category's accepted evaluation criteria are criteria you win on, verifiably, against the incumbents named in your alternatives list."
+      - "Buyers already have budget on this line and an approval path for it."
+      - "You can sustain a comparison you did not author, because prospects will run it whether you invite it or not."
+
+    when_not_to_choose:
+      - "You lose the category's own headline comparison — usually breadth or coverage — and the position would depend on the buyer not running it."
+      - "Your unique attributes are invisible under the category's evaluation criteria."
+      - "The incumbents define the criteria and can change them faster than you can respond."
+      - "Your best-fit segment is a slice of the category and the rest of it churns; Head to Head invites the rest in."
+      - "You are choosing it because narrowing feels like shrinking. That is a feeling, not an evaluation."
+
+    cost: "Low education cost, high competitive cost. The buyer already knows the category, so nothing must be taught; everything must be won."
+    proof_burden: "Match or beat incumbents on the category's accepted evaluation criteria."
+    risk: "You are compared on criteria you did not choose."
+
+    assumptions_triggered:
+      - "This is one of the vendors in a known category, and the known comparison applies."
+      - "Pricing is in the band the category has established."
+      - "Feature coverage should be comparable to the incumbents' coverage."
+      - "The buying process, approvals and procurement path are the category's usual ones."
+      - "The product should be evaluated with the category's standard checklist."
+    assumption_note: >-
+      These assumptions are the cheapest part of this style when they are correct and the most
+      expensive part when they are not. Check each against the category test before choosing.
+
+    reversibility:
+      rating: "moderate"
+      note: >-
+        Retreating from a broad claim is more expensive than narrowing from a position of proof.
+        You can narrow into Big Fish Small Pond later, but the market has already met you as a
+        general contender and the sales team has already built the general comparison.
+
+    wrong_choice_signals:
+      - signal: "Every deal comes down to price"
+        reading: "The differentiation being led with is table stakes inside this category; the buyer sees interchangeable options."
+        next: "Return to component 2 and re-qualify attributes against the ranked alternatives. Consider narrowing to Big Fish Small Pond."
+      - signal: "Deals stall in a feature-matrix comparison you did not create"
+        reading: "You are being evaluated on the incumbents' criteria, which is the defining risk of this style."
+        next: "Either prove you win those criteria or change the frame."
+      - signal: "Wins concentrate in one identifiable slice while losses spread across the rest"
+        reading: "The slice is a pond. You are paying category-wide competitive cost to win a subsegment."
+        next: "Move to Big Fish Small Pond and describe the slice by the characteristics that predict caring."
+      - signal: "Sales asks for features that only matter to accounts that churn"
+        reading: "The broad frame is pulling in wrong-fit demand, and the roadmap is following it."
+        next: "Narrow the frame; route the roadmap consequence to @product-strategist."
+
+  # =========================================================================
+  - id: big_fish_small_pond
+    name: "Big Fish Small Pond"
+    description: "Win a defensible subsegment of an existing market."
+
+    when_to_choose:
+      - "Your strengths decide the outcome for a slice of the market but not for all of it."
+      - "The slice can be described by segment characteristics that predict caring and are identifiable before first contact."
+      - "The parent category is familiar enough that the frame needs narrowing, not teaching."
+      - "You can prove dominance inside the slice with the proof points you already have."
+      - "You are unsure between the other two. This is the default."
+
+    when_not_to_choose:
+      - "The subsegment cannot be described in the buyer's words — a pond nobody can name is not a pond."
+      - "The narrowing is arbitrary rather than derived from where the value themes decide the outcome."
+      - "The slice cannot sustain the business at current pricing, and the response is to pretend it is bigger rather than to route the finding to @pricing-strategist and @product-strategist."
+      - "Sales cannot identify a prospect as being in the pond before the first call."
+      - "The parent category itself triggers assumptions that must be corrected; narrowing a broken frame inherits the breakage."
+
+    cost: "Moderate. The frame is familiar but must be narrowed credibly."
+    proof_burden: "Prove dominance within the subsegment, not breadth across the category."
+    risk: "Perceived ceiling on market size; mitigated because the pond can be widened later."
+
+    assumptions_triggered:
+      - "This is a specialist within a category I recognise."
+      - "Scope is narrower than the general vendors, and deliberately so."
+      - "Depth of fit for my specific situation should be higher than a generalist's."
+      - "It may not be the right answer for a company unlike mine — which is fine if I am in the pond, and a fast disqualification if I am not."
+      - "Pricing may sit outside the category's general band, either way, because the scope is different."
+    assumption_note: >-
+      The fast disqualification is a feature. A frame where you are obviously the right answer for
+      the right buyer converts faster and churns less than a frame where you are one plausible
+      option among many.
+
+    reversibility:
+      rating: "high"
+      note: >-
+        The cheapest defensible position. Widening the pond later, from accumulated proof, is a
+        normal move and costs little. This is the main reason it is the default when undecided.
+
+    wrong_choice_signals:
+      - signal: "The pond is won and growth stops well below plan"
+        reading: "The subsegment may genuinely be too small at current pricing."
+        next: "This is a finding for @pricing-strategist and @product-strategist, and a candidate to widen the pond from proof — not a reason to have claimed more at the start."
+      - signal: "Prospects inside the defined pond do not recognise the description of themselves"
+        reading: "The segment characteristics are internal constructs, not the buyer's words."
+        next: "Return to component 4; rewrite characteristics from customer language and re-test pre-contact identifiability."
+      - signal: "Sales keeps taking deals outside the pond and they close slowly and churn"
+        reading: "The pond is defined on paper and not enforced in qualification."
+        next: "The per-function actions in the positioning document are not being executed. Check at review; strengthen the qualification question, not the copy."
+      - signal: "Buyers hear the narrow frame and assume you cannot handle their scale or scope"
+        reading: "The narrowing was expressed as a limitation rather than as a fit."
+        next: "The frame is right; the expression is downstream messaging work. Do not repair positioning by re-broadening it."
+
+  # =========================================================================
+  - id: create_a_new_game
+    name: "Create a New Game"
+    description: "Define and lead a new market category."
+
+    when_to_choose:
+      - "No existing frame carries your strengths without misleading the buyer."
+      - "Every candidate existing category fails the category test — its assumptions are wrong, unfavourable, or must be corrected mid-cycle."
+      - "There is a named, funded education budget with an owner, because the education is funded by you alone."
+      - "You can prove the problem exists to a buyer who has not yet named it, before you prove the solution works."
+      - "The organisation can sustain a longer path to revenue while the market learns the words."
+
+    when_not_to_choose:
+      - "It is being chosen because it sounds ambitious, or because the investor narrative already claims it."
+      - "No education budget line exists, or it exists without an owner."
+      - "An existing category would work with a narrowing — Big Fish Small Pond is cheaper, reversible and widenable."
+      - "The proof available is about the solution rather than about the problem's existence."
+      - "The sales team must both teach the problem and close the deal in the same conversation, with no supporting material and no time."
+      - "The category name is a product description dressed as a market. A category the buyer cannot place is not a shortcut; it is a detour."
+
+    cost: "Highest. Market education is funded entirely by you."
+    proof_burden: "Prove the problem exists before proving the solution works."
+    risk: "Buyers who cannot categorize you default to the nearest familiar frame anyway — usually the worst one for you."
+
+    assumptions_triggered:
+      - "I do not know what this is, so I will map it to the nearest thing I do know."
+      - "There is no budget line for this yet, so someone must create one."
+      - "There is no established evaluation checklist, so I must invent criteria or borrow the adjacent category's."
+      - "If nobody else is doing this, either it is early or it does not work."
+      - "Internal approval will require me to explain the category before I can explain the purchase."
+    assumption_note: >-
+      The first assumption is the decisive one and it is not optional. Buyers who cannot categorize
+      you default to the nearest familiar frame anyway. Category creation is the work of making the
+      new frame arrive before the default does.
+
+    reversibility:
+      rating: "low"
+      note: >-
+        Announced categories are expensive to abandon. The company has published the words, sales
+        has learned them, and retreat reads externally as failure of the thesis. Treat the choice as
+        near-irreversible for planning purposes even though positioning is in principle a reversible
+        decision.
+
+    wrong_choice_signals:
+      - signal: "Prospects consistently place you in an adjacent category despite the new name"
+        reading: "The default frame arrived before yours. The education is not landing, or is not funded."
+        next: "Either fund the education properly or fall back to a defensible pond in the frame buyers already use."
+      - signal: "Sales cycles include a long unpaid teaching phase before evaluation begins"
+        reading: "This is the cost of the style, arriving as predicted. The question is whether it was budgeted."
+        next: "If it was not budgeted, this is the wrong style for the current resources, not a sales execution problem."
+      - signal: "Deals need an internal champion to invent a budget line"
+        reading: "There is no approval path yet — a structural feature of a new category."
+        next: "Assess whether the education budget covers creating that path. If not, reconsider the frame."
+      - signal: "The category name only appears in your own materials"
+        reading: "A category with one member and no external usage is a product description, not a market."
+        next: "Re-run the category test against existing frames; Big Fish Small Pond is usually available and cheaper."
+
+# ---------------------------------------------------------------------------
+# COMPARISON — for the canvas Component 5 table
+# ---------------------------------------------------------------------------
+comparison_table:
+  columns: [style, education_cost, competitive_cost, proof_burden, primary_risk, reversibility]
+  rows:
+    - style: "Head to Head"
+      education_cost: "low"
+      competitive_cost: "high"
+      proof_burden: "Match or beat incumbents on the category's own criteria"
+      primary_risk: "Compared on criteria you did not choose"
+      reversibility: "moderate"
+    - style: "Big Fish Small Pond"
+      education_cost: "moderate"
+      competitive_cost: "moderate — narrowed to the slice"
+      proof_burden: "Prove dominance inside the subsegment"
+      primary_risk: "Perceived ceiling on market size"
+      reversibility: "high — the pond widens later from proof"
+    - style: "Create a New Game"
+      education_cost: "highest — funded entirely by you"
+      competitive_cost: "low initially, rising as the category attracts entrants"
+      proof_burden: "Prove the problem exists before the solution works"
+      primary_risk: "Buyers who cannot categorize you default to the nearest familiar frame"
+      reversibility: "low — announced categories are expensive to abandon"
+  note: "Cost columns are comparative levels only. No figures are attributed to the published work."
+
+# ---------------------------------------------------------------------------
+# FAILURE SYMPTOM -> LIKELY CAUSE
+# ---------------------------------------------------------------------------
+failure_symptoms:
+  usage: >-
+    Entry point for *audit-positioning. A symptom points at a likely cause and a component to
+    reopen; it is not a diagnosis on its own. Confirm the cause from evidence before acting.
+  table:
+    - symptom: "Prospects say they do not get it"
+      likely_cause: "Wrong or missing market category — no frame of reference"
+      component_to_reopen: "market_category"
+      style_implication: "Often a Create a New Game chosen without education budget, or a category name that exists only in your own materials."
+    - symptom: "Sales cycles lengthening without product or price change"
+      likely_cause: "Category triggers assumptions that must be corrected mid-cycle"
+      component_to_reopen: "market_category"
+      style_implication: "Run the category test again and count the assumptions being undone per deal."
+    - symptom: "Churn concentrated in fast-closing accounts"
+      likely_cause: "Segment definition attracts customers who do not care about the value"
+      component_to_reopen: "target_market_characteristics"
+      style_implication: "A frame that is broader than the slice where you actually win. Narrowing to Big Fish Small Pond usually follows."
+    - symptom: "Losing to alternatives not tracked as competitors"
+      likely_cause: "Competitive alternatives list built from a competitor grid"
+      component_to_reopen: "competitive_alternatives"
+      style_implication: "The style may be right and the comparison wrong. Rebuild the alternatives list from win/loss before touching the category."
+    - symptom: "Internal functions describe the product differently"
+      likely_cause: "Positioning never captured, or captured and not rolled out"
+      component_to_reopen: "capture"
+      style_implication: "Not a style problem. Check the per-function actions and the review date in the positioning document."
+    - symptom: "Every deal comes down to price"
+      likely_cause: "Differentiation is table stakes; buyer sees interchangeable options"
+      component_to_reopen: "unique_attributes"
+      style_implication: "Classic Head to Head failure — you are inside a category whose criteria you do not win."
+    - symptom: "Prospects place you in a category you did not choose"
+      likely_cause: "The default frame arrived before yours"
+      component_to_reopen: "market_category"
+      style_implication: "Create a New Game without sufficient education funding. Fall back to a defensible pond in the frame buyers already use."
+    - symptom: "Growth stalls after the target segment is saturated"
+      likely_cause: "The pond may be genuinely too small at current pricing"
+      component_to_reopen: "target_market_characteristics"
+      style_implication: "Big Fish Small Pond working as intended and reaching its edge. Widen from proof; route to @pricing-strategist and @product-strategist."
+
+# ---------------------------------------------------------------------------
+# PRESSURE TEST — questions for *pressure-test against a chosen style
+# ---------------------------------------------------------------------------
+pressure_test_questions:
+  all_styles:
+    - "Could a competitor claim this same category and this same position tomorrow? If yes, the frame is not doing work."
+    - "Which assumptions does this category trigger that we would have to correct? Count them; each is a per-deal cost."
+    - "Does the segment exist at scale, at current pricing, with the characteristics as defined?"
+    - "What does this position exclude? A position that excludes nothing is not a decision."
+    - "What would we see in six months if this were the wrong style? Write it down now so it is recognisable later."
+  head_to_head:
+    - "Name the incumbents' evaluation criteria. Which do we lose? What happens in the deal when the buyer runs that comparison unprompted?"
+    - "Are our wins spread across the category or concentrated in an identifiable slice?"
+  big_fish_small_pond:
+    - "Can a rep tell before the first call whether a prospect is in the pond? By what observable signal?"
+    - "Would a buyer inside the pond recognise our description of them in their own words?"
+    - "What is the widening path, and what proof would have to accumulate first?"
+  create_a_new_game:
+    - "What is the education budget, who owns it, and what is taught first — the problem or the solution?"
+    - "Does our proof establish that the problem exists, or only that our solution works?"
+    - "Where does the money come from in the buyer's organisation before a budget line exists?"
+    - "If buyers default to the nearest familiar frame anyway, which frame is that, and how bad is it for us?"
+
+# ---------------------------------------------------------------------------
+# WORKED SIGNALS — illustrative only
+# ---------------------------------------------------------------------------
+worked_example:
+  disclaimer: >-
+    Illustrative only. All names and figures below are invented placeholders showing the shape of a
+    filled comparison. They are not findings, not benchmarks, and not drawn from any published source.
+  situation: "A product whose unique attributes concern audit evidence, whose top-ranked alternative by deal frequency is a spreadsheet."
+  options:
+    - style: "Head to Head"
+      candidate_category: "General platform category"
+      triggers: "Buyer expects broad coverage and platform-band pricing"
+      cost: "Low education, high competition"
+      proof_burden: "Match incumbents on coverage"
+      verdict: "Reject — the headline comparison is coverage, which we lose."
+    - style: "Big Fish Small Pond"
+      candidate_category: "A named specialism within that category, scoped to the segment characteristic"
+      triggers: "Buyer expects narrow scope and deep fit for their specific obligation"
+      cost: "Moderate"
+      proof_burden: "Prove dominance inside the slice"
+      verdict: "Choose — both value themes decide the outcome inside this frame, and the pond can be widened later."
+    - style: "Create a New Game"
+      candidate_category: "A new category name for the mechanism"
+      triggers: "Buyer expects nothing and must be taught the problem"
+      cost: "Highest"
+      proof_burden: "Prove the problem exists first"
+      verdict: "Reject — no education budget line exists, and an existing frame works once narrowed."
+  read: >-
+    The decisive input was not the category names. It was the alternatives ranking: a frame built
+    against the least frequent alternative loses the comparison the buyer actually runs.

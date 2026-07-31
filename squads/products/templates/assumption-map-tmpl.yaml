@@ -1,0 +1,265 @@
+template:
+  id: assumption-map-template-v1
+  name: Assumption Map
+  version: 1.0
+  squad: products
+  owner: discovery-lead
+  output:
+    format: markdown
+    filename: docs/product/discovery/assumption-map-{{solution_slug}}.md
+    title: "Assumption Map: {{solution_slug}}"
+  attribution: |
+    The assumption categories and the importance-by-evidence prioritization plot are developed in
+    David J. Bland and Alexander Osterwalder, "Testing Business Ideas" (2019), together with the
+    library of tests those authors document. Teresa Torres integrates assumption mapping into the
+    opportunity solution tree — assumptions sit under solutions, and tests sit under assumptions —
+    in "Continuous Discovery Habits: Discover Products that Create Customer Value and Business
+    Value" (2021), along with the rules that the test must simulate rather than build and that the
+    pass threshold is declared before the test runs. The product risk categories draw on Marty
+    Cagan, "INSPIRED", 2nd edition (2018) and Marty Cagan with Chris Jones, "EMPOWERED" (2020).
+    This template applies the published methods and attributes them.
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+  custom_elicitation:
+    title: "Assumption Map Elicitation Actions"
+    options:
+      - "Split a compound assumption into the two claims it is hiding"
+      - "Restate an assumption as something that could be false"
+      - "Challenge an evidence rating: name the snapshot or the log query behind it"
+      - "Challenge an importance rating: what breaks if this is false?"
+      - "Find the assumption nobody wrote down because everyone agrees with it"
+      - "Check the ethical quadrant — it is the one most often left empty"
+      - "Compare this map against the map for the competing solution"
+      - "Shrink the proposed test by one order of magnitude"
+      - "Proceed to next section"
+
+sections:
+  - id: preamble
+    instruction: |
+      This map decomposes ONE solution into the assumptions that must be true for it to work, then
+      isolates the leap-of-faith ones — high importance, low evidence — which are the only ones
+      worth a test.
+
+      Two preconditions the map does not repair:
+      - The solution must be one of at least three compared for the same target opportunity. A
+        solution evaluated alone always clears the bar, and mapping its assumptions carefully does
+        not fix that.
+      - The target opportunity must trace to interview snapshots. A rigorous map of an invented
+        problem is a rigorous waste.
+
+      One map per solution. Comparing solutions means comparing their maps, so do not merge them.
+
+  - id: header
+    title: Header
+    instruction: |
+      Anchor the map to the tree. A map that does not name its opportunity and its snapshot ids
+      cannot be checked against the tree's provenance rule.
+    template: |
+      **Date:** {{yyyy_mm_dd}}
+      **Trio:** {{pm_name}}, {{designer_name}}, {{engineer_name}}
+      **Outcome:** {{outcome_with_baseline_and_target}}
+      **Target opportunity:** "{{opportunity_in_customers_words}}" [{{snapshot_ids}}]
+      **Solution under mapping:** {{solution}}
+      **Compared against:** {{other_candidate_solutions}}
+      **Rough build cost of this solution:** {{person_days_or_weeks}}
+      **Tree file:** {{path}}
+
+  - id: solution-statement
+    title: Solution Statement
+    instruction: |
+      State the solution in one or two sentences, concretely enough that the assumptions are
+      derivable from it. A vague solution produces vague assumptions and an untestable map.
+
+      Bad answers: "improve the template experience" — no mechanism, so nothing must be true for
+      it specifically; a statement that is really three solutions bundled.
+    template: |
+      {{solution_statement}}
+      **How it addresses the target opportunity:** {{mechanism}}
+      **Main tradeoff versus the other candidates:** {{tradeoff}}
+
+  - id: assumption-inventory
+    title: Assumption Inventory
+    instruction: |
+      List everything that must be true for this solution to deliver the outcome. Work through all
+      five categories deliberately — teams reliably populate desirability and feasibility and
+      leave viability, usability and ethics empty, and the empty categories are where the
+      unpleasant surprises live.
+
+      Categories and the question each asks:
+      | Category | Question |
+      | desirability | Do they want it? |
+      | viability | Does it work for the business? |
+      | feasibility | Can we build it? |
+      | usability | Can they use it? |
+      | ethical | Should we build it? |
+
+      How to state an assumption:
+      - As a claim that could be false. "Users can predict what a template will do from a static
+        preview alone."
+      - Singular. "Users want a preview and will pay more for it" is two assumptions; a failure
+        would not say which half failed. Split it.
+      - Not a question. "Will users understand the preview?" is not falsifiable as written.
+      - Not a feature. "We need a preview screen" is the solution restated.
+
+      Deliberately hunt the assumption nobody wrote down because everyone agrees with it. Shared
+      confidence is not evidence, and unanimity is exactly what makes an assumption invisible.
+    type: table
+    template: |
+      | ID | Assumption (falsifiable claim) | Category | Derived from |
+      |---|---|---|---|
+      | A{{n}} | {{claim}} | desirability / viability / feasibility / usability / ethical | {{where_it_comes_from}} |
+
+  - id: rating
+    title: Importance and Evidence Rating
+    instruction: |
+      Rate each assumption on two axes. Rate them separately and in that order — rating them
+      together produces a single "riskiness" feeling that collapses the plot.
+
+      IMPORTANCE — what happens if this is false?
+      - high: the solution does not deliver the outcome at all, or causes harm
+      - low: the solution still substantially works; this is a detail or an optimisation
+      The test question is "what breaks if this is false?" If the answer is "not much", it is low
+      regardless of how much airtime it has had.
+
+      EVIDENCE — what do we actually hold, right now?
+      - high: named snapshots, a log query with its result, a completed test with a pre-declared
+        threshold, or published research you can cite
+      - low: reasoning, analogy, a competitor doing it, unanimous team confidence, one anecdote
+      The evidence column MUST name the source. "We know this" is not evidence, it is a rating
+      with nothing behind it, and it is the most common way a leap-of-faith assumption disappears
+      from the map.
+
+      Bad answers: rating everything high importance (nothing is prioritized); rating team
+      consensus as high evidence; leaving the evidence source blank; a competitor's product cited
+      as evidence that customers want it — it is evidence that a competitor believes so.
+    type: table
+    template: |
+      | ID | Assumption | Category | Importance (high/low) | What breaks if false | Evidence (high/low) | Evidence source — named | Class |
+      |---|---|---|---|---|---|---|---|
+      | A{{n}} | {{claim}} | {{category}} | {{importance}} | {{consequence}} | {{evidence}} | {{snapshot_ids / query / test / citation / NONE}} | {{class}} |
+
+  - id: plot
+    title: Importance x Evidence Plot
+    instruction: |
+      Place every assumption id in the quadrant its ratings put it in. Importance runs vertical,
+      evidence horizontal. The top-left quadrant — high importance, low evidence — is the
+      leap-of-faith set, and it is the only quadrant that earns a test.
+
+      A plot with an empty top-left quadrant on a solution nobody has built before is not a safe
+      solution; it is an under-interrogated map. Go back to the inventory.
+    sections:
+      - id: quadrants
+        title: Quadrants
+        type: code-block
+        template: |
+          IMPORTANCE
+             high |  LEAP-OF-FAITH              |  SUPPORTED
+                  |  test now, threshold first  |  proceed, cite the evidence
+                  |  {{ids}}                    |  {{ids}}
+                  |-----------------------------|----------------------------
+              low |  NOISE                      |  SETTLED
+                  |  ignore unless scope changes|  ignore entirely
+                  |  {{ids}}                    |  {{ids}}
+                  +-----------------------------+----------------------------
+                       low evidence                  high evidence
+      - id: actions
+        title: Action per Class
+        type: table
+        template: |
+          | Class | Assumptions | Action |
+          |---|---|---|
+          | Leap-of-faith | {{ids}} | Test now, pass threshold declared before running |
+          | Supported | {{ids}} | Proceed, and cite the evidence source in the handoff |
+          | Noise | {{ids}} | Ignore unless scope changes; record so it is not re-litigated |
+          | Settled | {{ids}} | Ignore entirely |
+
+  - id: routing
+    title: Routing by Category
+    instruction: |
+      Only desirability and usability assumptions are tested by @discovery-lead. The rest have
+      owners, and routing them is part of this map's output — an untested feasibility assumption
+      that nobody was told about is the one that surfaces mid-implementation.
+
+      Leave a row out when it does not apply. Do not route a whole category to an agent as a
+      formality; route named assumption ids.
+    type: table
+    template: |
+      | Assumption id | Category | Destination | Why |
+      |---|---|---|---|
+      | {{id}} | feasibility | @architect | Needs a technical spike — ask the people who would build it, do not simulate it |
+      | {{id}} | usability | @ux-design-expert | Needs prototype fidelity beyond a static mockup |
+      | {{id}} | viability | @pricing-strategist | It is willingness to pay, value metric or packaging |
+      | {{id}} | viability | @product-strategist | It is business model or portfolio fit, not price |
+      | {{id}} | ethical | @products-chief | A call above the trio, and not settled by a sample of eight |
+      | {{id}} | any | @experimentation-lead | Needs statistical design, power, guardrails or live traffic |
+      | {{id}} | desirability | @discovery-lead | Retained — proceed to design-assumption-test |
+
+  - id: test-queue
+    title: Test Queue for the Leap-of-Faith Set
+    instruction: |
+      Index only — each test is designed in `squads/products/tasks/design-assumption-test.md`,
+      which is where the threshold, sample, duration and cost ratio are fixed and committed
+      before the test runs.
+
+      Two rules this table makes visible:
+      - The threshold column must be filled BEFORE the result column. A result recorded next to
+        an empty threshold is a number that was interpreted after the fact, and it is not
+        evidence.
+      - The cost ratio column must show the test at roughly an order of magnitude below the
+        solution's build cost. If it does not, the test is a build with a different name — shrink
+        it or record plainly that this assumption cannot be tested more cheaply than building.
+
+      Order the queue by importance, then by what would be most expensive to discover late.
+    type: table
+    template: |
+      | Order | Assumption id | Method | Sample | Duration | Threshold (declared before) | Test cost | Ratio vs solution | Result | Verdict |
+      |---|---|---|---|---|---|---|---|---|---|
+      | {{n}} | A{{n}} | {{method}} | {{n_participants}} | {{days}} | {{threshold}} | {{cost}} | {{ratio}} | {{observed}} | pass / fail / inconclusive |
+
+  - id: decision
+    title: Decision
+    instruction: |
+      What the map plus its test results led to. Record the decision even when it is "park this
+      solution" — a disconfirmed solution recorded as disconfirmed is what stops it returning in
+      three weeks as a fresh idea.
+
+      Do not renegotiate a threshold here. A missed threshold is a result.
+    template: |
+      **Leap-of-faith assumptions tested:** {{n}} of {{m}}
+      **Outcome of the tests:** {{summary}}
+      **Decision:** proceed with this solution | return to the comparison set | redesign the test | escalate
+      **Reasoning:** {{reasoning}}
+      **If proceeding — remaining untested assumptions and why that is acceptable:** {{residual_risk}}
+      **Next:** {{next_assumption / next_solution / handoff}}
+
+  - id: handoff
+    title: Handoff
+    instruction: |
+      Where this map goes next. This squad decides what to build; it does not implement, test
+      code, draft stories, write epics or push.
+    type: table
+    template: |
+      | Item | Destination | Condition |
+      |---|---|---|
+      | {{validated solution + test evidence}} | @pm | Every leap-of-faith assumption cleared its threshold; ready for epic framing |
+      | {{epic framing complete}} | @sm | Stories need drafting from the discovery brief |
+      | {{feasibility assumptions}} | @architect | Technical spike |
+      | {{usability assumptions}} | @ux-design-expert | Prototype fidelity |
+      | {{viability assumptions}} | @pricing-strategist or @product-strategist | Price versus model |
+      | {{statistical questions}} | @experimentation-lead | Power, guardrails, live traffic |
+      | {{ethical assumptions}} | @products-chief | Above the trio |
+      | {{implementation}} | @dev | Build — not this squad |
+      | {{code testing}} | @qa | Testing shipped code, distinct from testing an assumption |
+      | {{commit and push}} | @devops | Exclusive authority, no exceptions |
+
+  - id: next-touchpoint
+    title: Next Touchpoint
+    instruction: |
+      The loop does not stop for delivery. Record the next interview date — the interviews for
+      the next target opportunity happen during the build of the current one.
+    template: |
+      **Date:** {{date}}
+      **Attending:** {{trio_members}}
+      **Recruiting channel:** {{channel}}

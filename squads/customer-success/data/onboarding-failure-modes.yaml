@@ -1,0 +1,228 @@
+# Onboarding Failure Modes — early-life diagnosis reference
+# Squad: customer-success
+# Owner: onboarding-lead (Threshold)
+# Last updated: 2026-07-30
+#
+# Purpose: diagnostic reference for early-life failure. Each entry names a symptom, what it looks
+# like in data, the cause classes it is compatible with, the test that distinguishes them, the
+# remedy for each class, the WRONG remedy, and what the symptom does NOT prove on its own.
+#
+# METHOD ATTRIBUTION — read before using this file.
+# Time-to-first-value and activation in subscription products is a PRACTITIONER DISCIPLINE with NO
+# single canonical published work. This file deliberately attaches no author, no book and no year to
+# the discipline, because inventing that attribution would be worse than having none. Constructs
+# with a documented source are attributed at the point of use; every construct in this file without
+# such a marker is practitioner convention and is labelled as such by this note.
+#
+# Adjacent attributions that may arrive with a handoff, carried with their caveats:
+#   - retention-lead applies Nick Mehta, Dan Steinman & Lincoln Murphy, "Customer Success: How
+#     Innovative Companies Are Reducing Churn and Growing Recurring Revenue" (Wiley, 2016). Do NOT
+#     reproduce the canonical wording, numbering or ordering of that source's laws from memory —
+#     VERIFY against the book before quoting.
+#   - advocacy-lead applies Fred Reichheld, "The Ultimate Question" (2006) and related works. VERIFY
+#     exact question wording, trademark attribution and the contested predictive claim before citing.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# CAUSE CLASSES — three causes, three opposite remedies
+# ---------------------------------------------------------------------------
+cause_classes:
+  prerequisite:
+    description: "The account lacks data, access, an internal decision or a named owner."
+    control: "Customer-side."
+    tell: "No vendor step is blocked. Vendor working time is near zero while elapsed time grows."
+    remedy: "Move it into the handover contract as a start condition. An account without it is not ready to start."
+    wrong_remedy: "Adding vendor touches or assigning a human. Nothing vendor-side is blocked, so vendor effort changes nothing and the cost scales with the failure rate."
+  friction:
+    description: "The step exists and the account attempted it, but it is slow, buried, unprompted or error-prone."
+    control: "Vendor-side."
+    tell: "Accounts started the behaviour and stopped, or repeated it and failed."
+    remedy: "Path redesign, resequencing, prompting. Interface changes go to @ux-design-expert; this squad specifies the path, not the screens."
+    wrong_remedy: "Assigning a human to walk every account through it. Per-account effective, cohort-level masking — the defect is never funded because the heroics make it look survivable."
+  wrong_fit:
+    description: "The account does not have the problem the product solves."
+    control: "Neither — the defect is upstream of onboarding."
+    tell: "No workflow ever established; the use case recorded at handover does not match what the product does."
+    remedy: "Escalate the pattern to @cs-chief. Stop investing — the effort belongs to an account that can activate."
+    wrong_remedy: "More onboarding. It cannot create a problem the customer does not have, and it delays the qualification finding."
+
+# ---------------------------------------------------------------------------
+# FAILURE MODES
+# ---------------------------------------------------------------------------
+failure_modes:
+
+  - name: "Accounts go quiet after kickoff"
+    looks_like: "Kickoff completed, no milestone progress, no tickets, no responses."
+    compatible_causes: [prerequisite, wrong_fit]
+    distinguishing_test: >
+      Locate the furthest milestone reached and the date progress stopped. Then ask what the account
+      is waiting on. If it is data access, an internal approval or a decision nobody asked them to
+      make, it is a prerequisite. If the use case at handover does not match what the product does,
+      it is wrong fit.
+    does_not_prove: "Silence is not disengagement and not satisfaction. Most early-life silence is an account blocked on something it cannot resolve and has never been asked about."
+    escalation: "If wrong fit repeats across a cohort from the same acquisition channel, escalate to @cs-chief — that is a qualification signal for the sales squad and a segment question for @products, and neither is this squad's to answer."
+
+  - name: "Implementation timelines stretch with no clear finish"
+    looks_like: "Elapsed time grows, checklist items keep being added, nobody can state what done means."
+    compatible_causes: [friction]
+    distinguishing_test: "Ask what the completion criterion is. If the answer is a checklist rather than a customer outcome, first value has never been defined."
+    does_not_prove: "A long implementation does not prove complexity. It usually proves the destination was never fixed, so nothing marks arrival."
+    remedy_note: "Define first value before touching the path. Then every step must name the milestone it unlocks; steps that unlock nothing are removal candidates and the cheapest acceleration available."
+
+  - name: "Checklist complete, customer unchanged"
+    looks_like: "Implementation reported successful; the customer still does the work manually."
+    compatible_causes: [friction]
+    distinguishing_test: "Apply the test-4 question: can an account complete every checklist item without the bought outcome occurring? It almost always can."
+    does_not_prove: "Checklist completion proves vendor effort was applied. It is a project-management artifact, useful for coordination and useless as an activation measure."
+    remedy_note: "Keep the checklist. Add a first-value definition beside it and test historically whether checklist completion separated retained accounts from early churns. Usually it does not, and that comparison settles the argument faster than any assertion."
+
+  - name: "Champion activated, nobody else did"
+    looks_like: "First value reached; distinct weekly users equals one; enthusiasm high."
+    compatible_causes: [friction]
+    distinguishing_test: >
+      Classify the gap: never invited, invited and never started, or started and stopped. The third
+      points at a specific step in the workflow rather than at general disengagement, and that step
+      is usually fixable.
+    does_not_prove: "Champion activation does not prove account activation. It is the most common false positive in early life and stays invisible until the champion changes role."
+    escalation: "Hand the single-champion dependency to @retention-lead — expansion on such an account multiplies a dependency on one person's continued employment."
+
+  - name: "High activation, low renewal"
+    looks_like: "Activation metric healthy across the cohort; renewals do not follow."
+    compatible_causes: [friction]
+    distinguishing_test: "Check whether the activation event is a vendor completion event, and whether it was reached by the champion alone."
+    does_not_prove: "A high activation rate does not prove value was delivered when the metric is a vendor event or a champion-only event."
+    remedy_note: "Re-run the historical separation test on the current definition. A definition met by 10 of 10 retained AND 10 of 10 early-churned accounts separates nothing and never predicted anything."
+
+  - name: "Churn concentrates before the median time-to-first-value"
+    looks_like: "Losses cluster in accounts younger than the typical time to reach first value."
+    compatible_causes: [prerequisite, wrong_fit]
+    distinguishing_test: "Cross the churned list with furthest milestone reached. Accounts that never reached first value are activation failures, not renewal failures."
+    does_not_prove: "This churn is not evidence about the renewal motion. Those accounts were lost before anyone had a renewal conversation with them."
+    escalation: "Route the finding to @retention-lead so the health model does not attempt to score a cohort whose failure it structurally cannot detect — a young account cannot break a habit criterion it never established."
+
+  - name: "The same stall recurs across cohorts"
+    looks_like: "A stall location repeats each cohort at similar counts, absorbed each time by human effort."
+    compatible_causes: [prerequisite, friction]
+    distinguishing_test: "Ask what the human is actually doing. Obtaining credentials and chasing internal approvals is a handover gap. Walking a customer through a buried step is a path defect."
+    does_not_prove: "A recurring stall that is always resolved does not prove the process works. It proves the defect is being paid for repeatedly and never fixed."
+    escalation: "@cs-chief. One stall is an account; the same stall each cohort is a design defect and belongs upstream."
+
+  - name: "A segment activates far slower than the rest"
+    looks_like: "One segment's median and p90 both sit well above the base."
+    compatible_causes: [prerequisite, friction, wrong_fit]
+    distinguishing_test: "Check whether the segment's first-value definition is its own or borrowed from another segment. A borrowed definition is wrong for that segment by construction."
+    does_not_prove: "Slow activation in a segment does not prove that segment is harder. It frequently proves it is being measured against someone else's destination."
+
+  - name: "Adoption stalls at one user"
+    looks_like: "Distinct users never rises above the initial implementer."
+    compatible_causes: [friction]
+    distinguishing_test: "Does the path contain an invite or expansion step at all? Many do not."
+    does_not_prove: "Low distinct-user counts do not prove low demand; they usually prove the path ends at the person who configured it."
+
+# ---------------------------------------------------------------------------
+# ACCELERATION LEVERS — cheapest first
+# ---------------------------------------------------------------------------
+acceleration_levers:
+  - lever: "Remove a step that unlocks no milestone"
+    cost: "Lowest"
+    typical_effect: "Immediate elapsed-time reduction, no customer-facing change required"
+  - lever: "Move a customer decision into handover"
+    cost: "Low"
+    typical_effect: "Large — unmade customer decisions usually dominate elapsed time"
+  - lever: "Narrow the first configuration to the shortest credible path"
+    cost: "Medium — requires scope agreement"
+    typical_effect: "Large, and reduces the never-activated rate as well as the median"
+  - lever: "Prompt or resequence an existing but buried step"
+    cost: "Medium — involves @ux-design-expert"
+    typical_effect: "Moderate, concentrated on specific friction stalls"
+  - lever: "Automate a vendor step"
+    cost: "High — requires @dev"
+    typical_effect: "Often small, because vendor working time is rarely the constraint"
+  - lever: "Add human attention to every stall"
+    cost: "Scales linearly with the failure rate"
+    typical_effect: "Per-account effective, cohort-level counterproductive; masks the defect it compensates for"
+
+# ---------------------------------------------------------------------------
+# METRIC TRAPS — what each common measure does not prove
+# ---------------------------------------------------------------------------
+metric_traps:
+  - metric: "Logins / sessions / page views"
+    does_not_prove: "That any outcome occurred. The metric can move fully while the customer receives nothing."
+    verdict: "Convenience metric. Never an activation metric."
+  - metric: "Mean time-to-first-value"
+    does_not_prove: "Anything about the tail, which is where the model breaks and where interventions belong."
+    verdict: "Report the distribution — median, p75, p90 — never the mean alone."
+  - metric: "TTFV over activated accounts only"
+    does_not_prove: "How long activation takes. It excludes the population that never arrives, which churns first."
+    verdict: "Survivorship bias. Always report the never-activated rate beside it."
+  - metric: "Implementation checklist completion"
+    does_not_prove: "That the customer's outcome occurred. Every item is completable while nothing changes for them."
+    verdict: "Coordination artifact, not a measure."
+  - metric: "Champion satisfaction"
+    does_not_prove: "Account adoption, or that a renewal decision-maker sees value."
+    verdict: "One respondent. Distinguish activation from adoption explicitly."
+  - metric: "Ticket volume during onboarding"
+    does_not_prove: "Where accounts are stuck. It tracks ticket-opening propensity; accounts that gave up open nothing."
+    verdict: "Corroboration only, never the primary stall locator."
+
+# ---------------------------------------------------------------------------
+# HANDOVER — what must arrive for onboarding to start
+# ---------------------------------------------------------------------------
+handover_requirements:
+  - item: "Outcome promised, in the customer's words, with a date if one was given"
+    why: "Onboarding drives to this. A mismatch found later is expensive and is a promise defect, not an implementation delay."
+    blocking: true
+  - item: "Primary use case and segment"
+    why: "Determines which first-value definition applies"
+    blocking: true
+  - item: "Named customer-side owner ROLE with authority to make configuration decisions"
+    why: "Elapsed time is dominated by unmade customer decisions"
+    blocking: true
+    data_note: "Record the ROLE and the account, never the person's name or contact details."
+  - item: "Intended daily users, by role and count"
+    why: "Prevents champion-only activation from being reported as success"
+    blocking: false
+  - item: "Data access confirmed obtainable, with the internal approver ROLE named"
+    why: "The most common blocking prerequisite"
+    blocking: true
+    data_note: "Never record the credential, token or connection string itself — only that access is required and which role grants it."
+refusal_condition: >
+  An account missing any blocking item does not start. It enters a named pre-start state with the
+  missing item and its owner role, and the elapsed time is attributed there rather than to
+  onboarding. This is not obstruction — it stops an account consuming an onboarding slot while
+  being structurally unable to progress.
+promise_mismatch: >
+  If the promised outcome cannot be reached by any path this product supports, onboarding does not
+  compensate with additional touches. It returns the mismatch to @cs-chief and the sales squad as a
+  promise defect on the day it is identified. The commercial consequence of that return is the sales
+  squad's decision, never this squad's.
+
+# ---------------------------------------------------------------------------
+# CUSTOMER DATA — binding on every use of this file
+# ---------------------------------------------------------------------------
+customer_data_rules:
+  default_granularity: "Account and cohort level. Individual identity is rarely needed to locate a stall."
+  minimization: "Store no personal data beyond what the activation question requires."
+  records: "Reference customer records by id. Never reproduce contact records, interview transcripts, internal customer documents or identified verbatims in a repository artifact."
+  credentials: "NEVER handle or record credentials, tokens, access secrets or connection strings. Name the prerequisite and the customer-side role that grants it; the secret stays in the customer's own process."
+  anonymity: "Anonymous feedback used as an input is never re-identified."
+  individuals: "No named individual is characterized. Activation and adoption are properties of accounts."
+  special_category: "Special-category personal data is out of scope. Stop and escalate to the human owner."
+
+# ---------------------------------------------------------------------------
+# BOUNDARY
+# ---------------------------------------------------------------------------
+boundary:
+  owned_here: "First-value definition, activation path, habit criterion, TTFV measurement, stall diagnosis, handover contract, adoption expansion."
+  not_owned:
+    "@customer-success:retention-lead": "Ongoing health, renewal risk, save plays. This file's outputs are its INPUTS."
+    "@customer-success:advocacy-lead": "Loyalty instrument, promoters and detractors, references."
+    "@customer-success:voice-lead": "Feedback taxonomy, evidence weighting, signal routing."
+    "@products:jobs-analyst": "What job the customer hires the product to do; switching causality."
+    "@products:discovery-lead": "Structured discovery programs."
+    "@ux-design-expert": "Screens, flows, copy — this file specifies the path, not the interface."
+    "@data-engineer": "Telemetry implementation."
+    "sales squad": "Contract terms, implementation fees, commercial scope."
+    "@pm / @sm / @po / @dev / @qa": "Epics, stories, backlog, implementation, quality gates."
+    "@devops": "Git push, PRs, MCP, CI/CD — exclusive authority, no exception."

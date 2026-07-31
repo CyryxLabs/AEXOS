@@ -1,0 +1,309 @@
+# ============================================================================
+# Workflow: Loyalty Wave to Routed Customer Signal
+# Squad: customer-success
+# Version: 1.0.0
+# Purpose: Chain triage -> loyalty wave read -> cross-channel signal aggregation
+#          -> health revision, so a score becomes routed, owned evidence instead
+#          of a number with a story attached to it.
+# ============================================================================
+
+workflow:
+  id: wf-loyalty-to-routed-signal
+  name: "Loyalty Wave to Routed Customer Signal"
+  version: "1.0.0"
+  type: customer-success
+
+  description: |
+    The advocacy and voice-of-the-customer chain. A completed loyalty wave is read
+    sample-first and reported as a range; its verbatim themes — the actual finding —
+    are then aggregated with every other channel into problems weighted by distinct
+    accounts; the account-risk themes are fed back into the health model; and each
+    theme leaves the squad with exactly one owner and no attached priority.
+
+    Run this after a loyalty wave closes, when feedback is arriving across channels
+    that never meet, or when a score is being asked to carry a decision it cannot
+    support. The failure this workflow exists to prevent is a movement smaller than
+    the sampling error acquiring a causal explanation, and teams being sent to fix
+    something that did not happen.
+
+  trigger: "*loyalty-to-routed-signal"
+  entry_agent: cs-chief
+  estimated_duration: "2-4 working sessions per wave, plus the loop-closure window"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE
+  # ──────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Triage and stage attribution ─────────────────────────────
+    - id: phase_0
+      name: "Triage and Instrument Attribution"
+      agent: cs-chief
+      command: "*diagnose"
+      task: cs-chief-diagnose.md
+      action: "Restate the request in lifecycle terms, date the symptom, name the population, and decide whether the question is about the instrument or about the customers it measured."
+      creates: triage_record
+      description: |
+        A score that moved with no behaviour movement is a measurement question, not an
+        experience question. This phase separates the two before anyone starts explaining
+        the movement, and names exactly one owner.
+      outputs:
+        - triage_record: "Request as stated and as owned, origin stage, population, dated"
+        - owner: "Exactly one owning specialist id, with the excluded near misses and the reason for each"
+        - handoff_brief: "Symptom, date, population, evidence inventory, and the single open question"
+        - data_constraints: "What may be referenced in artifacts and what must stay in the system of record"
+      data_rules:
+        - "Account level or cohort level by default; individual identity is almost never required for a routing decision."
+        - "No personal data beyond what the routing decision requires."
+        - "Reference records, do not reproduce them: no contact records, support transcripts, contract terms or identified verbatims in the triage record."
+        - "Never re-identify anonymous feedback, and never instruct a specialist to."
+        - "Health, financial, credential or other special-category personal data: stop and escalate to the human owner."
+      checkpoint:
+        gate: "Population named with a size; the question classified as instrument, experience or account risk; exactly one owner named with the near misses excluded and reasoned."
+        veto: "If the question is what job the customer hires the product to do, route to @products:jobs-analyst or @products:discovery-lead and stop. If it is renewal negotiation, discounting or contract terms, route to the sales squad and stop."
+
+    # ─── PHASE 1: Read the loyalty wave ────────────────────────────────────
+    - id: phase_1
+      name: "Read the Loyalty Wave"
+      agent: advocacy-lead
+      command: "*score-read"
+      task: advocacy-lead-score-read.md
+      depends_on: [phase_0]
+      requires: triage_record
+      action: "Report sample and composition before the score, express the score as a range with its distribution, check composition shift first, and extract the verbatim themes."
+      creates: loyalty_wave_read
+      description: |
+        The sample is reported before the number, deliberately, so nobody forms an
+        explanation before seeing who actually answered. Movements smaller than the
+        sampling error are stated as such and left unexplained. The reasons are the
+        finding; the score is an index.
+      outputs:
+        - composition_report: "Invited, responded, response rate, and composition by segment and respondent role — reported before any score"
+        - score_with_uncertainty: "The net score as a range for this sample size, with the underlying distribution"
+        - composition_attribution: "Whether the movement is explained by mix before any experiential explanation"
+        - verbatim_themes: "De-identified themes with counts — the finding"
+        - conclusion_limits: "What this wave does and does not support, including the contested predictive status"
+        - loyalty_wave_read: "The wave read, with each theme carrying exactly one destination owner and no priority"
+      data_rules:
+        - "Survey responses are personal data. Store no identifier beyond what closing the loop requires."
+        - "Never reproduce an identified verbatim in a repository artifact — themes travel, verbatims and identifiers stay in the survey system, cited by response id."
+        - "Honour the confidentiality promise made at collection: a wave presented as anonymous is never re-identified through account matching and never followed up."
+        - "Account and cohort level for exposure; no individual is characterized."
+        - "Special-category personal data is out of scope — escalate to the human owner."
+      checkpoint:
+        gate: "Composition appears before the score; the score is a range with its distribution; a segment-stable comparison exists wherever the aggregate moved; method changes since the previous wave are declared; conclusion limits sit in the same document as the result."
+        veto: "Relationship and transactional framings are never pooled — their mixture is uninterpretable. No movement below the sampling error carries an explanation. Any instrument gaming — selective sampling, surveying after a success moment, excluding difficult segments, coaching toward a score — invalidates the whole series, not just the affected wave, and stops this workflow. The read is not finished work until the loop is closed via `*close-loop`."
+      attribution:
+        source: "Fred Reichheld, *The Ultimate Question: Driving Good Profits and True Growth* (Harvard Business School Press, 2006), developing \"The One Number You Need to Grow\" (*Harvard Business Review*, 2003), revised as *The Ultimate Question 2.0* (2011, with Rob Markey)."
+        limits:
+          - "VERIFY the exact wording of the recommendation question against the edition being followed before publishing it — the canonical wording varies across sources and implementations."
+          - "VERIFY current trademark attribution requirements before any external publication using the Net Promoter or NPS marks — registered trademarks associated with Bain & Company, Satmetrix Systems and Fred Reichheld."
+          - "The strong claim that this single measure predicts company growth better than alternative satisfaction and loyalty measures is CONTESTED in the peer-reviewed marketing literature. State the contested status wherever the score supports a decision; VERIFY any specific critique citation before naming it."
+          - "Reichheld's later work with Darci Darnell and Maureen Burns, *Winning on Purpose* (Harvard Business Review Press, 2021), proposes an accounting-based measure of customer-earned growth. VERIFY that measure's exact name and definition against the source before citing it."
+          - "Sampling-error thresholds for reporting movements, loop latency as a first-class metric, and reference qualification gated on realized-value evidence are the agent's operating conventions, not the source's content."
+
+    # ─── PHASE 2: Aggregate signal across channels ─────────────────────────
+    - id: phase_2
+      name: "Aggregate Signal Into Weighted Themes"
+      agent: voice-lead
+      command: "*aggregate-signal"
+      task: voice-lead-aggregate-signal.md
+      depends_on: [phase_1]
+      requires: loyalty_wave_read
+      action: "Restate requests as problems, deduplicate by account, cluster into themes, and compute distinct accounts, channel mix, date range, exposure and strength."
+      creates: theme_table
+      description: |
+        The wave themes join support, sales and success channels in one table. Counts are
+        distinct accounts, never mentions. Solicited and unsolicited signal are split and
+        never pooled. The silence is examined: a quiet, high-churn segment is an intake
+        defect, and it is frequently the most important finding on the page.
+      outputs:
+        - restatement_table: "Each item restated as the problem it implies, with the original request kept only as a source reference"
+        - theme_table: "Per theme — restated problem, distinct accounts, raise count, channel mix, date range, exposure band"
+        - strength_classification: "STRONG, MODERATE or WEAK per theme, with the conditions that would raise or lower it"
+        - trend_read: "Growing, flat or decaying against the equal preceding window, with decay interpreted rather than ignored"
+        - absence_notes: "Conspicuously silent segments or roles, assessed as possible intake defects"
+        - register_entries: "Draft register entries, each with exactly one candidate owner and no priority"
+      data_rules:
+        - "Verbatims are personal data; themes are not. Aggregate and de-identify before anything leaves the source system."
+        - "No personal data beyond what aggregation, routing and loop closure require — account-level references and record ids suffice."
+        - "Honour the collection terms per channel: anonymous feedback is never re-identified, and confidential channels are not aggregated into attributable findings."
+        - "Reference records; do not reproduce them."
+        - "Special-category personal data is out of scope — escalate to the human owner."
+      checkpoint:
+        gate: "Every counted item was restated as a problem before being counted; counts are distinct accounts with raise count in a separate column; channel mix, solicited/unsolicited split, date range and exposure band appear on every theme; behavioural claims are corroborated against telemetry where telemetry exists."
+        veto: "A theme resting on one account or one channel is WEAK regardless of how forcefully it was expressed — intensity is not evidence. Exactly one candidate owner per theme; if two apply, it is two themes. No priority and no roadmap position is attached: that belongs to @products and @pm, and no volume of feedback overrides it. If capture is inconsistent or a segment has no channel at all, stop and run `*intake-design` — this phase consolidates what arrives, it does not fix what is never recorded."
+
+    # ─── PHASE 3: Feed account risk back into the health model ─────────────
+    - id: phase_3
+      name: "Revise the Health Model With Unresolved-Issue Patterns"
+      agent: retention-lead
+      command: "*health-model"
+      task: retention-lead-health-model.md
+      depends_on: [phase_2]
+      requires: theme_table
+      condition: themes_indicate_account_risk
+      action: "Re-test the health model against the unresolved-issue patterns and detractor themes, and re-validate backwards against the completed period."
+      creates: health_model_revision
+      description: |
+        Runs only when phase 2 produced themes classified as account risk or unresolved-issue
+        patterns. Candidate signals arriving from feedback are qualified exactly like any
+        other: measured lead time, hit rate against the base rate, loss coverage, and a
+        backward validation — a theme is not a signal because it is loud.
+      outputs:
+        - health_model_revision: "The revised model with the admitted feedback-derived signals and the rejected ones"
+        - signal_table: "Per candidate signal — measured lead time, hit rate, loss coverage, segment validity, verdict"
+        - backward_validation: "Renewal rate by health state over the completed period, with the separation reported"
+        - instrumentation_gaps: "Inputs marked UNMEASURED or PROXIED, with named requirements for @data-engineer"
+      data_rules:
+        - "Health is a property of an account: never characterize a named individual in a health artifact."
+        - "Account and cohort level only; store no personal data beyond what the retention question requires."
+        - "Reference records, do not reproduce them: contacts, contract terms, support transcripts and identified verbatims stay in the system of record."
+        - "Never re-identify anonymous feedback used as a signal input."
+        - "Special-category personal data is out of scope — escalate to the human owner."
+      checkpoint:
+        gate: "Every admitted signal carries a measured lead time, a hit rate against the base rate and stated loss coverage; backward validation is republished, including a negative result."
+        veto: "The health model is built on the first-value definitions owned by onboarding-lead. If they do not exist, stop and run wf-first-value-to-health first — a model built without them is a model built on convenience metrics. Without a completed renewal period there is no backward validation and no revision is published. No price, discount or contract term appears in the output: that is the sales squad's, and this phase supplies evidence only."
+      attribution:
+        source: "Nick Mehta, Dan Steinman and Lincoln Murphy, *Customer Success: How Innovative Companies Are Reducing Churn and Growing Recurring Revenue* (Wiley, 2016)."
+        limits:
+          - "The source organizes its guidance as a set of laws of customer success. Do NOT reproduce the canonical wording, numbering or ordering of those laws from memory. VERIFY against the book before publishing any quotation, law number or page reference."
+          - "Restatements in this workflow's own words are paraphrase, not quotation, and are labelled as such."
+          - "Retention metrics — gross and net revenue retention, logo churn, cohort retention curves — are standard industry measures and are attributed to no source."
+
+    # ─── PHASE 4: Route and close ──────────────────────────────────────────
+    - id: phase_4
+      name: "Route the Signal and Close the Loop"
+      agent: cs-chief
+      command: "*handoff-to-product"
+      depends_on: [phase_3]
+      requires: theme_table
+      action: "Arbitrate conflicting reads of the same account, package each evidenced problem for exactly one destination with its explicit non-claims, and confirm the loop was closed with the customers who spoke."
+      creates: product_handoff_register
+      description: |
+        No task file backs this phase; it runs as the cs-chief `*conflict-resolve` and
+        `*handoff-to-product` commands over the artifacts phases 0-3 produced, and it
+        generates no new customer claim. A healthy score and a detractor response on the
+        same account means one of the two instruments is measuring the wrong person — that
+        is named, not averaged. Collection without return is the failure mode that kills the
+        next wave's response rate, so loop closure is verified here, including the honest no.
+      outputs:
+        - contradiction_log: "Conflicting loyalty and health reads of the same account, with the differing assumption named"
+        - loop_status: "Themes and responses followed up, by severity and age, including the declines communicated"
+        - product_handoff_register: "Each evidenced problem with exposure, sources, exactly one destination and its explicit non-claims"
+      data_rules:
+        - "Account and cohort level only; no verbatim, identifier or contact record enters the register."
+        - "Reference records; do not reproduce them."
+        - "Never re-identify anonymous feedback — anonymous responses are never followed up."
+        - "Special-category personal data: stop and escalate to the human owner."
+      checkpoint:
+        gate: "Every register entry has exactly one destination, no attached priority, its exposure stated and its non-claims explicit; loop closure is recorded, including where the answer was no."
+        veto: "Routing a theme is not prioritizing it — the roadmap decision belongs to @products and @pm. If the register contains a story, an epic, a PRD, an implementation plan, a price or a contract term, strip it and route to the owner instead."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    cs_chief_to_advocacy_lead: |
+      Triage complete. The question concerns the loyalty instrument and the wave that
+      measured it. Attached: symptom with date, population and size, evidence inventory,
+      data constraints, and the single open question. Report the sample before the score,
+      and do not explain a movement smaller than the sampling error.
+    advocacy_lead_to_voice_lead: |
+      Wave read attached: composition, score as a range with its distribution, the
+      composition-shift check, the segment-stable comparison, declared method drift, and the
+      de-identified verbatim themes with counts. The themes are the finding. Aggregate them
+      with support, sales and success channels — do not pool solicited with unsolicited, and
+      count distinct accounts, not mentions.
+    voice_lead_to_retention_lead: |
+      Theme table attached, with distinct-account counts, channel mix, date range, exposure
+      band, strength and the conditions that would change it. The themes classified as
+      account risk or unresolved-issue patterns are yours. Qualify them as signals the way
+      you qualify any other — measured lead time, hit rate against the base rate, backward
+      validation. Loudness is not evidence.
+    retention_lead_to_cs_chief: |
+      Health model revision attached, with the feedback-derived signals admitted or rejected
+      and the reason for each, plus the republished backward validation. Contradictions
+      between the loyalty read and the health read of the same account are flagged for your
+      arbitration, not averaged.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # FLOW DIAGRAM
+  # ──────────────────────────────────────────────────────────────────────────
+
+  flow_diagram: |
+    graph TD
+      A[cs-chief: diagnose] --> B[advocacy-lead: score-read]
+      B --> C[voice-lead: aggregate-signal]
+      C -->|account risk themes| D[retention-lead: health-model revision]
+      C --> E[cs-chief: route and close the loop]
+      D --> E
+      E --> F[Out of squad: @products, @pm, sales squad, @ux-design-expert, @data-engineer]
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # VETO CONDITIONS (workflow-level)
+  # ──────────────────────────────────────────────────────────────────────────
+
+  veto_conditions:
+    - "Relationship and transactional framings pooled in one read — the mixture is uninterpretable."
+    - "A score reported without its sample, or as a point value without its distribution."
+    - "An explanation attached to a movement smaller than the sampling error."
+    - "Instrument gaming of any kind — selective sampling, timing after a success moment, excluding difficult segments, coaching toward a score."
+    - "Re-identification of an anonymous respondent, or an identified verbatim reproduced in a repository artifact."
+    - "A theme routed to more than one owner, or routed with a priority attached."
+    - "A health revision attempted without the first-value definitions from wf-first-value-to-health, or without a completed renewal period."
+    - "Any price, discount, contract term or referral incentive appearing in an output — that belongs to the sales squad."
+    - "Special-category personal data required to continue — stop and escalate to the human owner."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # CUSTOMER DATA RULES (binding on every phase)
+  # ──────────────────────────────────────────────────────────────────────────
+
+  customer_data_rules:
+    - "Work at account or cohort level by default. Themes travel; verbatims and identifiers stay where they were collected."
+    - "Request and store no personal data beyond what the decision, the routing and the loop closure require."
+    - "Reference records; do not reproduce them. Survey verbatims, support transcripts, contact records and contract terms stay in the authorized system of record; artifacts carry the finding and the record id."
+    - "Never re-identify anonymous feedback, and never ask another agent to. The confidentiality promise made at collection binds everything downstream, including follow-up."
+    - "Health, financial, credential or other special-category personal data is out of scope — stop and escalate to the human owner."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # BOUNDARIES
+  # ──────────────────────────────────────────────────────────────────────────
+
+  boundaries:
+    owned_here:
+      - "The loyalty instrument, the closed loop, cross-channel feedback aggregation, and the route from customer signal to a single owner."
+    routed_out:
+      "@products:jobs-analyst": "Why customers switch, causally, and the job the product is hired to do."
+      "@products:discovery-lead": "Themes needing a deliberate research program."
+      "@products and @pm": "Prioritization and roadmap position. Routing a theme is not prioritizing it."
+      "sales squad": "Expectations set during the sale, pricing and packaging confusion, renewal negotiation, discounts, contract terms and referral incentives."
+      "@ux-design-expert": "Interaction and comprehension problems."
+      "@data-engineer": "Survey delivery, response storage, capture, deduplication and loop-tracking instrumentation."
+      "@sm": "Story drafting — exclusive authority."
+      "@po": "Story validation and backlog."
+      "@dev": "Implementation."
+      "@qa": "Quality gates."
+      "@devops": "Git push, PRs and CI/CD — exclusive authority."
+    never_produced_here:
+      - "Stories, epics, PRDs and implementation plans."
+      - "Code, tests and releases."
+      - "Case studies and campaigns — those belong to the marketing squad."
+      - "Prices, discounts, contract terms and referral incentives."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # COMPLETION CRITERIA
+  # ──────────────────────────────────────────────────────────────────────────
+
+  completion_criteria:
+    - "A dated triage record exists with one owner and the excluded near misses."
+    - "A wave read with composition before the score, the score as a range with its distribution, declared method drift and stated conclusion limits."
+    - "A theme table with distinct-account counts, channel mix, solicited/unsolicited split, date range, exposure band and auditable strength."
+    - "Conspicuous absences reported as possible intake defects."
+    - "Where account risk was indicated, a republished health model revision with backward validation."
+    - "Every theme routed to exactly one owner, with no priority attached and its non-claims explicit."
+    - "Loop closure recorded, including where the answer to the customer was no."
+    - "Every artifact versioned in the repository under squads/customer-success/data/ with its window and next review date."
+    - "No verbatim, identifier or re-identified anonymous item anywhere in the chain."

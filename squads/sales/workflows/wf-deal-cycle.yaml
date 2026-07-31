@@ -1,0 +1,241 @@
+# ============================================================================
+# Workflow: Deal Cycle — Triage to Negotiation Plan
+# Squad: sales
+# Version: 1.0.0
+# Purpose: Chain the four deal-level tasks in the order the coherence chain
+#          requires: fit and pain, then insight, then commercial terms.
+# ============================================================================
+
+workflow:
+  id: wf-deal-cycle
+  name: "Deal Cycle — Triage To Negotiation Plan"
+  version: "1.0.0"
+  type: sales
+  description: |
+    Runs one named deal from an unstructured request to a prepared negotiation,
+    in the only order that does not force rework: route it, establish whether it
+    is real, build the insight that justifies the price, and only then design
+    what is traded.
+
+    Every phase is evidence-bearing. A phase that cannot produce its artifact
+    from buyer-side evidence returns the deal upstream rather than proceeding on
+    inference.
+
+    Method attribution per phase is carried by the task that runs it. MEDDIC is a
+    qualification discipline originated at Parametric Technology Corporation and
+    commonly credited to Dick Dunkel and Jack Napoli; it circulated as internal
+    practice and through training organizations rather than through a canonical
+    book by its originators, and this workflow treats it as a named discipline
+    rather than a text to quote. The method phase applies the Challenger model
+    published by Matthew Dixon and Brent Adamson (The Challenger Sale, 2011). The
+    negotiation phase applies the methodology published by Chris Voss (Never Split
+    the Difference, 2016), excluding the 7-38-55 communication ratio it cites,
+    which is contested in the broader literature and carries no recommendation here.
+
+  trigger: "*intake"
+  entry_agent: sales-chief
+  estimated_duration: "2-5 working days, paced by buyer-side evidence gathering"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE
+  # ──────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Triage And Route ──────────────────────────────────────────
+    - id: phase_0
+      name: "Triage And Route"
+      agent: sales-chief
+      task: sales-chief-diagnose.md
+      parallel: false
+      action: "Restate the request in the owning discipline's vocabulary, screen it for commercial-integrity risk, name exactly one owner, and write the handoff brief."
+      creates: triage_brief
+      description: |
+        The most expensive commercial failure is the right question answered by
+        the wrong discipline. This phase decides which discipline owns the
+        request before any method runs.
+      outputs:
+        - restated_request: "string — the request in the owning discipline's terms, confirmed with the requester"
+        - owner: "string — exactly one specialist id"
+        - near_misses: "array — the two nearest non-owners with the reason each was excluded"
+        - handoff_brief: "markdown — evidence available, evidence missing, the specialist question, the deadline and whose it is"
+        - integrity_flag: "string or absent — any commercial-integrity concern, stated first"
+      checkpoint:
+        gate: "The restatement was confirmed by the requester, exactly one owner is named, and the handoff brief separates evidence available from evidence missing."
+        veto: "Block the request as framed if it presupposes fabricated urgency, invented scarcity, a bluffed alternative, an unshipped capability claimed as available, or the omission of a known limitation or total cost. Do not soften it, do not append it as a caveat, and do not route it. Produce the compliant alternative that names our real constraint and asks for theirs, or state that no legitimate goal survives and stop. Block equally if the request asks this squad to set a price, a package or a market category — those belong to @products:pricing-strategist and @products:positioning-lead."
+
+    # ─── PHASE 1: Qualify ───────────────────────────────────────────────────
+    - id: phase_1
+      name: "Qualify The Deal"
+      agent: qualification-lead
+      task: qualification-lead-qualify.md
+      depends_on: [phase_0]
+      parallel: false
+      requires: triage_brief
+      action: "Score the six letters against the 0-3 evidence scale with a named source and date per letter, write one verification step per gap, derive the close date from the buyer decision process, and issue the verdict."
+      creates: qualification_record
+      description: |
+        Establishes whether the deal is real and, if it is, exactly what is
+        missing before it can close. A disqualification produced here is a
+        deliverable, not a failure — it returns capacity and carries an
+        observable re-entry condition.
+      outputs:
+        - meddic_table: "table — one row per letter with finding, source, date and evidence score"
+        - unverified_block: "array — every field below evidence score 2, listed separately and visibly"
+        - verdict: "enum — QUALIFIED | QUALIFIED WITH GAPS | NOT QUALIFIED | DISQUALIFIED, with the rule that produced it"
+        - derived_close_date: "date or explicit placeholder derived from the buyer decision process"
+        - top_two_verifications: "array — the two highest impact-to-cost verification steps, ranked"
+      checkpoint:
+        gate: "All six letters carry an evidence score with a named source and date; pain and decision criteria are in the buyer's own words; the UNVERIFIED block is present and visible; the close date is derived from the buyer's process or declared a placeholder."
+        veto: "Block any step that manufactures urgency, invents scarcity or allocation, bluffs a competing offer or internal deadline, weaponizes the champion to carry an unverified claim, or conceals a criterion we cannot satisfy. Buyer silence about a decision process is qualification data and is recorded as such — it is never converted into a deadline. On NOT QUALIFIED, stop the workflow and run the two highest-yield verifications before any later phase. On DISQUALIFIED, end the workflow with the re-entry condition recorded."
+
+    # ─── PHASE 2: Build The Insight ─────────────────────────────────────────
+    - id: phase_2
+      name: "Build The Commercial Insight"
+      agent: method-lead
+      task: method-lead-build-insight.md
+      depends_on: [phase_1]
+      parallel: false
+      requires: qualification_record
+      condition: qualification_verdict_is_qualified_or_qualified_with_gaps
+      inputs:
+        - qualification_record
+        - triage_brief
+      action: "Capture what the segment believes, evidence what we know that they do not, quantify the status-quo cost in the buyer's units, run the four-rule test, and write the four-line reframe."
+      creates: insight_record
+      description: |
+        The insight is the value of the conversation. If the buyer learns
+        nothing, the meeting was a status update — and price becomes the only
+        remaining variable, which is a method defect discovered at the worst
+        possible moment.
+      outputs:
+        - insight: "string — the assumption being challenged and what is true instead"
+        - evidence_table: "table — one row per claim with its named source; UNVERIFIED where the only source is our own marketing"
+        - status_quo_cost: "string — in the buyer's units, labelled buyer-stated or seller-constructed"
+        - reframe: "markdown — four lines, the fourth being why the gap was invisible from where they sit"
+        - four_rule_result: "table — pass or fail per rule, with the rebuild or abandonment decision"
+        - honest_direction_note: "string — where the honest reframe leads, including away from our solution"
+      checkpoint:
+        gate: "Every claim carries a named source; claims sourced only to our own marketing are marked UNVERIFIED and do not carry the insight; all four rules were run and any failure produced a rebuild or an abandonment; the competitor, honesty and provability tests were run."
+        veto: "Block any delivery plan that introduces a deadline created for effect, implies allocation or an expiring structure that does not exist, states a consequence we could not defend if challenged, implies a reference or statistic that is not real and attributable, presents roadmap as shipped, or leaves a known limitation, integration gap or total cost outside the teaching conversation. Reversal test: if the buyer saw exactly how this was constructed, would they still consider the conversation fair? A no is a block. Route to @products:positioning-lead if rule 1 keeps failing — unique attributes are theirs to define, not ours."
+
+    # ─── PHASE 3: Prepare The Negotiation ───────────────────────────────────
+    - id: phase_3
+      name: "Prepare The Negotiation"
+      agent: negotiation-lead
+      task: negotiation-lead-prep.md
+      depends_on: [phase_2]
+      parallel: false
+      requires: insight_record
+      inputs:
+        - qualification_record
+        - insight_record
+        - approved_commercial_structure_from_products_pricing_strategist
+      action: "Map interests beneath positions, write the walk-away before the ladder, read leverage and deadlines honestly, build decreasing concessions inside the approved structure, and draft the exact wording."
+      creates: negotiation_plan
+      description: |
+        A negotiation prepared in advance is a plan; a negotiation improvised is a
+        series of concessions. This phase trades inside a commercial structure it
+        does not own and never sets.
+      outputs:
+        - interest_map: "table — each stated position with at least two candidate interests, marked VERIFIED or INFERRED"
+        - walk_away: "markdown — written before the ladder, naming who may change it and under what documented circumstance"
+        - leverage_read: "markdown — alternatives on both sides, our weak points stated plainly, who needs this more"
+        - concession_ladder: "table — decreasing steps inside the approved structure, each naming the non-price item it buys, final number non-round"
+        - labels_and_questions: "markdown — three labels and five calibrated questions in exact wording"
+        - accusation_audit: "markdown — the real objection named first, in their terms, not a decoy"
+        - escalations: "array — any step outside the approved structure, marked ESCALATE and unused until escalated"
+      checkpoint:
+        gate: "The qualification gate was checked — economic buyer and decision process at evidence score 2 or above — and the approved commercial structure is present. The walk-away was written before the ladder. Our own deadline is stated as ours."
+        veto: "Remove — never soften and never reword — any move that states a fabricated deadline or presents our deadline as theirs, implies scarcity or an expiring structure that is not real, bluffs a competing offer or internal mandate, states a walk-away we would not take, withholds a known limitation, implementation cost or renewal uplift mechanic, uses an understanding of the counterparty's fear to exploit rather than serve it, or produces an agreement the counterparty could not defend internally if they understood everything we understand. If the deal is not qualified, stop and return to phase_1: preparing concessions for a buyer who cannot sign teaches the account that pressure produces price. If price level, packaging or discount policy is the real question, route to @products:pricing-strategist — this phase never sets one."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    phase_0_to_phase_1: |
+      sales-chief → qualification-lead: "Here is the triage brief with the request
+      as restated and confirmed, the evidence available with dates, the evidence
+      missing, and the specific question you are being asked. Score the six letters
+      against the evidence scale. A disqualification is an acceptable answer."
+    phase_1_to_phase_2: |
+      qualification-lead → method-lead: "The record is sound and the deal is real,
+      but the buyer does not yet see the problem. The gap is an insight gap, not an
+      evidence gap. Here is the qualification record with the pain in the buyer's
+      own words and the UNVERIFIED block. Build the insight against what they
+      currently believe — not against what we wish they believed."
+    phase_2_to_phase_3: |
+      method-lead → negotiation-lead: "Here is the insight record. It defines what
+      the buyer loses by not proceeding, which is what price is defended against.
+      Confirm the qualification gate and the approved commercial structure before
+      drafting any number."
+    phase_1_to_phase_0_on_failure: |
+      qualification-lead → sales-chief: "Verdict is NOT QUALIFIED or DISQUALIFIED.
+      Returning the deal with the structural reason, the capacity it frees, and the
+      observable re-entry condition. No insight or concession work should start."
+    phase_3_to_products_on_boundary: |
+      negotiation-lead → @products:pricing-strategist: "The approved structure is
+      repeatedly the binding constraint across deals. This is pricing evidence, sent
+      as a pattern and not as one account. This squad does not set price."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # FLOW DIAGRAM
+  # ──────────────────────────────────────────────────────────────────────────
+
+  flow_diagram: |
+    flowchart TD
+        P0[Phase 0 — sales-chief triage] --> P1[Phase 1 — qualification-lead MEDDIC read]
+        P1 -->|QUALIFIED or QUALIFIED WITH GAPS| P2[Phase 2 — method-lead insight]
+        P1 -->|NOT QUALIFIED| V[Run the two highest-yield verifications first]
+        P1 -->|DISQUALIFIED| X[End with re-entry condition recorded]
+        P2 --> P3[Phase 3 — negotiation-lead plan]
+        P3 --> OUT[Negotiation plan inside the approved structure]
+        P2 -.->|rule 1 keeps failing| POS[Route to products positioning-lead]
+        P3 -.->|structure is the binding constraint| PRI[Route to products pricing-strategist]
+
+# ────────────────────────────────────────────────────────────────────────────
+# VETO CONDITIONS (workflow-level)
+# ────────────────────────────────────────────────────────────────────────────
+
+veto_conditions:
+  - "Fabricated urgency — any deadline invented for effect, or ours presented as theirs"
+  - "Invented scarcity — allocation, capacity or an expiring structure that is not real"
+  - "Bluffed alternative — a competing offer, another buyer or an internal mandate implied and untrue"
+  - "Material omission — a known limitation, integration gap, implementation cost or renewal mechanic withheld"
+  - "Unshipped capability presented as available — roadmap is disclosed as roadmap"
+  - "Durability failure — the buyer could not defend the agreement internally if they knew what we know"
+  - "Price, packaging or discount policy set inside this workflow — that belongs to @products:pricing-strategist"
+  - "Market category or competitive frame of reference set inside this workflow — that belongs to @products:positioning-lead"
+  - "Any implementation, test, CRM change, release or git push — @dev, @qa and @devops own those, and push is @devops exclusive"
+
+# ────────────────────────────────────────────────────────────────────────────
+# BOUNDARY
+# ────────────────────────────────────────────────────────────────────────────
+
+boundary:
+  owns:
+    - "Whether the deal is real, and what evidence says so"
+    - "The selling conversation and the insight inside it"
+    - "What is traded inside an approved commercial structure"
+  defers_to:
+    "@products:pricing-strategist": "Price level, packaging, value metric, discount policy"
+    "@products:positioning-lead": "Category, competitive alternatives, frame of reference"
+    "@pm": "Epic framing and PRD"
+    "@sm": "Story drafting — exclusive"
+    "@po": "Story validation and backlog"
+    "@dev": "Implementation"
+    "@qa": "Quality gates"
+    "@devops": "Git push, PRs and CI/CD — exclusive authority, no exceptions"
+
+# ────────────────────────────────────────────────────────────────────────────
+# COMPLETION CRITERIA
+# ────────────────────────────────────────────────────────────────────────────
+
+completion_criteria:
+  - "A triage brief exists naming exactly one owner and the evidence gap"
+  - "A qualification record exists with an evidence score, source and date per letter, and a visible UNVERIFIED block"
+  - "An insight record exists whose claims are verifiable by the buyer outside our own marketing"
+  - "A negotiation plan exists with a walk-away written before the concession ladder"
+  - "Every phase checkpoint ran, and no vetoed move survives in any artifact"
+  - "Every artifact is written under squads/sales/ with its date"

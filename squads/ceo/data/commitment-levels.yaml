@@ -1,0 +1,365 @@
+# Commitment Levels, Audiences and Counsel Flags — for stakeholder-lead (Herald)
+# Squad: ceo
+#
+# ATTRIBUTION NOTICE — READ BEFORE USING THIS FILE
+#
+# Unlike the other specialists in this squad, this role rests on NO single canonical work,
+# and this file claims none. It encodes the observable conventions of a documented
+# professional genre — annual shareholder letters, board reporting packs and management
+# reports — which has a long practice history but no single defining text and no single
+# author whose method is being followed.
+#
+# Every rule, level definition, register schema, euphemism entry and flag below is THIS
+# SQUAD'S OWN and is marked `source: squad`. Nothing here is attributed to any named person.
+# No shareholder letter is quoted or paraphrased. No executive's voice, cadence or signature
+# phrasing is reproduced, because imitation is detectable and discredits the content.
+#
+# One external fact is stated, and only as evidence that the genre has formal conventions:
+# in some jurisdictions parts of this practice are codified for public companies — United
+# States securities filings, for example, require a narrative discussion section alongside
+# the financial statements. That is `source: external_fact`. It is NOT a standard this squad
+# applies or interprets, and nothing in this file is a disclosure determination.
+
+version: "1.0.0"
+
+genre_note:
+  source: external_fact
+  text: "In some jurisdictions parts of this reporting practice are codified for public companies — United States securities filings require a narrative management discussion section alongside the financial statements. Cited as evidence that the genre has formal conventions, not as a standard applied here."
+  scope_limit:
+    source: squad
+    text: "This squad does not determine what must be disclosed, when, in what form, or to whom. Those questions are flagged for qualified human counsel and are never answered here."
+
+# ---------------------------------------------------------------------------
+# WHAT THE DISCIPLINE REQUIRES
+# ---------------------------------------------------------------------------
+# These are narrow, checkable, and can be stated without inventing a source.
+durable_requirements:
+  source: squad
+  items:
+    - "Record the commitment before the period."
+    - "Report against it afterwards in the same terms."
+    - "Give misses the same prominence as successes."
+    - "Separate what is known from what is estimated and from what is hoped."
+    - "Explain variance with a mechanism rather than a mood."
+    - "Keep the record so that a reader can compare what was said with what happened."
+
+core_asymmetry:
+  source: squad
+  text: "Candour compounds. The value of an honest report is not in the single report; it is in the fact that the next one is believed. That asset takes years to build and one evasive paragraph to damage."
+
+# ---------------------------------------------------------------------------
+# COMMITMENT LEVELS
+# ---------------------------------------------------------------------------
+commitment_levels:
+  source: squad
+  purpose: "Every forward statement carries exactly one level, in language distinct enough that the level survives being quoted out of context."
+
+  levels:
+    - id: COMMITTED
+      meaning: "We will do this; hold us to it."
+      admission_tests:
+        - test: within_our_control
+          question: "Can we deliver this without a third party's decision going our way?"
+          fail_action: "Relabel as FORECAST. A commitment contingent on someone else's choice is a forecast wearing a commitment's language."
+        - test: measurable
+          question: "Is there a metric or observable that settles whether it happened?"
+          fail_action: "Relabel or define the metric. An unmeasurable commitment is UNCHECKABLE and will be argued about later."
+        - test: dated
+          question: "Is there a due date, not a quarter or a horizon?"
+          fail_action: "Relabel or set the date."
+      language_pattern: "We will [action] by [date], measured by [observable]."
+      counting_rule: "Count them. A long list of commitments is a long list of future misses. Recommend the smallest set that conveys the direction."
+
+    - id: FORECAST
+      meaning: "Our best estimate."
+      required_fields: [range, assumptions]
+      language_pattern: "We expect [outcome] in the range [low]–[high], assuming [assumptions]."
+      failure_mode: "A forecast without a range is read as a commitment, and will be quoted back as one."
+
+    - id: ASPIRATION
+      meaning: "What we are aiming at. Not a commitment."
+      language_pattern: "We are aiming at [outcome]. This is not a commitment."
+      failure_mode: "An aspiration expressed in the same register as a commitment becomes a commitment in the reader's memory and a forecast in the company's."
+
+    - id: AMBIGUOUS
+      meaning: "The level was never stated at the time."
+      status: "A FINDING, not a level to be used going forward."
+      why_it_matters: "An ambiguous statement is remembered by the audience as a commitment and by the company as a forecast. The gap surfaces at the account, when both sides are certain and neither is lying."
+      handling: "Record it in the register as AMBIGUOUS. Account for it at the level the AUDIENCE would reasonably have understood, not the level the company intended."
+
+    - id: UNCHECKABLE
+      meaning: "The metric is undefined or unmeasurable."
+      status: "A FINDING. Flagged in the register and excluded from future forward statements."
+
+  register_rule:
+    source: squad
+    text: "Every forward statement is written to the promise register BEFORE it is communicated. A statement not in the register cannot be accounted for later, which is how records become unreadable."
+
+# ---------------------------------------------------------------------------
+# PROMISE REGISTER SCHEMA
+# ---------------------------------------------------------------------------
+promise_register:
+  source: squad
+  storage_rule: "A versioned file in the repository. A register that is not versioned cannot be audited, which defeats its purpose."
+  fields:
+    - name: original_wording
+      required: true
+      note: "The statement as made, verbatim. Never a paraphrase — the paraphrase is where the softening enters."
+    - name: audience
+      required: true
+    - name: date_made
+      required: true
+    - name: made_by
+      required: true
+    - name: metric_or_observable
+      required: true
+      note: "If undefined, mark UNCHECKABLE."
+    - name: due_date
+      required: true
+    - name: commitment_level
+      required: true
+      note: "As expressed AT THE TIME. If not expressed, AMBIGUOUS."
+    - name: source_artifact
+      required: true
+      note: "Board minutes, packet, investor update, all-hands material, decision record."
+    - name: accounted_for
+      required: false
+      note: "Filled at the account. Empty after the due date is itself a finding."
+    - name: outcome
+      required: false
+    - name: variance
+      required: false
+
+  track_record_flags:
+    source: squad
+    items:
+      - id: RESTATED
+        definition: "Reported in different terms than promised."
+      - id: DISAPPEARED
+        definition: "Promised and never accounted for."
+      - id: REDEFINED
+        definition: "The metric changed mid-flight."
+      - id: CONTRADICTED
+        definition: "A current statement is inconsistent with an earlier one."
+  track_record_rule:
+    source: squad
+    quoting: "For each contradiction, quote BOTH statements with their dates. Do not characterise; quote."
+    pattern_over_instance: "A single restatement is noise. A pattern of restating exactly the promises that were missed is the finding — and it is the thing external readers detect first."
+    ratios: [promises_made, promises_accounted_for, promises_met, promises_missed_and_reported_as_missed]
+
+# ---------------------------------------------------------------------------
+# THE ACCOUNT — FIXED ORDER
+# ---------------------------------------------------------------------------
+account_order:
+  source: squad
+  note: "The ordering is what makes the account credible. Reordering it is the most common way a report becomes an argument."
+  sequence:
+    - THE_ORIGINAL_WORDING
+    - WHAT_HAPPENED
+    - THE_VARIANCE
+    - THE_CAUSE
+    - WHAT_CHANGES
+  rules:
+    - "Use the ORIGINAL terms and units. If the metric was redefined, report both and say it was redefined, when, and by whom. Never report only the new one."
+    - "Misses get the same section, the same voice, the same prominence. Not a subordinate clause, not an appendix, not a sentence beginning with a success."
+    - "Explain variance with a MECHANISM, not a mood."
+    - "State what changes. An account with no consequence teaches the reader that the promises do not matter."
+
+mechanism_versus_mood:
+  source: squad
+  note: "The distinction is testable: a mechanism names a countable thing that moved. A mood names a feeling about the environment."
+  items:
+    - mood: "Demand softened."
+      mechanism: "Two of four concentrated renewals slipped a quarter."
+    - mood: "We faced headwinds."
+      mechanism: "The two largest accounts deferred expansion decisions pending their own budget cycles, which move in [month]."
+    - mood: "Execution was slower than hoped."
+      mechanism: "The migration stalled at the cutover step in three consecutive attempts, each time on the same dependency."
+    - mood: "Market conditions were challenging."
+      mechanism: "Average sales cycle lengthened from [x] to [y] days, measured on closed-won deals in the period."
+    - mood: "We under-invested in the area."
+      mechanism: "The initiative received [x]% of discretionary effort against a threshold of [y]% estimated as necessary to move its own outcome."
+
+miss_report_structure:
+  source: squad
+  note: "Fixed. Do not reorder — the ordering is what makes it credible."
+  sequence:
+    - WHAT_WE_SAID: "The original wording, quoted, with its date."
+    - WHAT_HAPPENED: "The observable outcome, in the original units."
+    - THE_GAP: "Stated numerically where possible, without qualifiers."
+    - WHY: "The mechanism. Distinguish what we controlled from what we did not, and do not overweight the second."
+    - WHAT_WE_LEARNED: "Specifically, and only if something was actually learned. A generic lesson is worse than none."
+    - WHAT_CHANGES: "The decision or process that is different now, with an owner."
+    - WHAT_WE_NOW_EXPECT: "The replacement commitment, at a labelled level."
+  prohibited:
+    - "Leading with mitigating context."
+    - "Burying the gap in a subordinate clause."
+    - "Describing a miss as a delay when the underlying assumption was wrong."
+  externalisation_warning: "A report attributing everything to external conditions is read as an evasion even when it is true. State what was controlled alongside what was not."
+
+# ---------------------------------------------------------------------------
+# REVERSALS AND EUPHEMISM
+# ---------------------------------------------------------------------------
+reversal:
+  source: squad
+  first_sentence_rule: "State the reversal in the first sentence: 'We said X. We are now doing the opposite of X.'"
+  required_elements:
+    - "Quote the earlier statement with its date, so the reader does not have to find it."
+    - "What changed — the evidence or condition that made the earlier position wrong."
+    - "Distinguish 'we were wrong then' from 'the world changed' honestly. Readers can usually tell which it was and will resent the wrong one being claimed."
+    - "What this costs: sunk effort, affected commitments, people affected."
+    - "What is now true, with the commitment level labelled."
+  prohibited_words: [refinement, evolution, clarification, pivot]
+  prohibition_rationale: "If it changes what the company does, it is a change of direction. Presenting one as a refinement is the specific move that destroys a track record, because readers who remember the original conclude they cannot trust the current one."
+
+euphemism_table:
+  source: squad
+  note: "Detection aid, not a blocklist. The test is always whether the plain replacement says something the original concealed."
+  items:
+    - written: "We are refining our approach to X."
+      usually_means: "We stopped doing X."
+      replacement: "We said we would do X. We are no longer doing X, because [evidence]."
+    - written: "X has been deprioritised."
+      usually_means: "X was cancelled and nobody wants to say so."
+      replacement: "X is cancelled. It consumed [resource]; it will not resume in this period."
+    - written: "The target was not met."
+      usually_means: "Nobody is named."
+      replacement: "We committed to [target] by [date]. We reached [actual], a gap of [variance]. [Owner] holds this."
+    - written: "Delays were experienced."
+      usually_means: "The actor is hidden."
+      replacement: "[Named step] took [duration] against [planned], because [mechanism]."
+    - written: "We continue to focus on X."
+      usually_means: "X did not progress."
+      replacement: "'X moved from [state] to [state] this period.' — or, if it did not move: 'X did not progress this period. [Reason.]'"
+    - written: "We are working towards X."
+      usually_means: "X is not a commitment, but the sentence reads like one."
+      replacement: "Label it: ASPIRATION, or make it COMMITTED with a metric and a date."
+    - written: "Results were in line with our revised expectations."
+      usually_means: "The expectations were revised because the original ones would not be met."
+      replacement: "We committed to [original]. We revised to [revised] on [date] because [reason]. We reached [actual]."
+    - written: "A strategic decision was taken to exit X."
+      usually_means: "The passive voice is doing the work."
+      replacement: "[Named decider] decided to exit X on [date], giving up [what], because [evidence]."
+
+# ---------------------------------------------------------------------------
+# AUDIENCES
+# ---------------------------------------------------------------------------
+audiences:
+  source: squad
+  core_rule: "Different audiences need different DEPTH, never different FACTS."
+  consistency_test: "If all audiences compared what they received, would any conclude something incompatible with another? If yes, the set is dishonest and must be REBUILT, not resequenced."
+
+  registers:
+    - id: board
+      needs: "Decisions taken and the evidence behind them; decisions requested; unretired risks; open questions; the account against prior commitments."
+      depth: "Full, including dissent recorded verbatim and downside cases."
+      must_not_conclude: "That a recommendation carries more evidential weight than it does."
+      packet_order: [account, decisions_taken, decisions_requested, risks_unretired, open_questions, appendix]
+      packet_order_note: "The account comes first. A packet that opens with new plans and defers the account trains the board to expect that."
+    - id: investors
+      needs: "Observable results in consistent units; the account against anything previously stated to this audience; what changed and why; what is next with levels labelled; what is being asked for."
+      depth: "Substantial, with every figure sourced and every estimate marked."
+      must_not_conclude: "That a forecast is a commitment, or that an estimate carries no uncertainty."
+      counsel_review: "MANDATORY without exception. Investor communication frequently carries securities, disclosure and contractual consequences that vary by jurisdiction, by company stage and by existing agreements."
+    - id: employees
+      needs: "What was decided, why, what it means for the work, what is NOT decided, what will NOT change, where to ask questions."
+      depth: "Enough to act on. Never a simplification that would lead a reader to a different conclusion than the board received."
+      must_not_conclude: "That everything is in play. In the absence of an explicit 'what will not change', everything is assumed to be."
+      sequence_rule: "Anyone directly affected hears it from their own manager, not from a broadcast. Where roles or employment are affected, individual conversations belong to qualified human managers with HR counsel and happen FIRST."
+    - id: customers
+      needs: "What changes for them, when, and what they must do."
+      depth: "Operational."
+      must_not_conclude: "That a change in one product line implies a change in commitments to them that has not been made."
+      counsel_review: "Required where contractual obligations or service commitments are touched."
+    - id: partners
+      needs: "What changes in the relationship and the commitments on both sides."
+      depth: "Operational and contractual."
+      counsel_review: "Required where contractual obligations are touched."
+    - id: regulator_or_counterparty
+      needs: "Determined entirely by qualified human counsel."
+      depth: "Determined entirely by qualified human counsel."
+      hard_stop: "This squad drafts nothing for a regulator and determines no filing obligation. Route the whole item out."
+
+  sequencing:
+    source: squad
+    ordering_rule: "Order by the cost of learning it second-hand. Those most affected and least able to absorb it publicly go first."
+    interval_rule: "Too long between first and last opens a leak window; too short prevents individual conversations from happening properly."
+    deliverer_rule: "Name a deliverer for each step. Cascades fail at the step where nobody is named."
+    stop_rule: "Where the announcement carries market, contractual or regulatory sensitivity, STOP and route sequencing to qualified human counsel before anything is scheduled."
+
+# ---------------------------------------------------------------------------
+# COUNSEL FLAGS
+# ---------------------------------------------------------------------------
+counsel_flags:
+  source: squad
+  rule: "Identify and flag. Never resolve. For each item, state what kind of review it needs and name a human reviewer."
+  triggers:
+    - id: forward_looking_to_investors
+      trigger: "Any forward-looking statement to investors or prospective investors."
+      review: [securities, disclosure]
+    - id: guidance
+      trigger: "Any figure that could be characterised as financial guidance."
+      review: [securities, disclosure]
+    - id: transaction
+      trigger: "Any statement about a transaction, a raise, a distribution or a repurchase."
+      review: [securities, disclosure, contractual, tax]
+    - id: employment
+      trigger: "Any statement about individuals' employment, departures or restructuring."
+      review: [employment_law, hr]
+    - id: named_counterparty
+      trigger: "Any statement about a customer, partner or counterparty by name."
+      review: [contractual, privacy]
+    - id: contractual
+      trigger: "Any statement touching a contractual obligation, covenant or regulatory filing."
+      review: [contractual, regulatory]
+    - id: competitor_comparison
+      trigger: "Any comparison to a competitor."
+      review: [advertising_and_competition, legal]
+    - id: accounting_figure
+      trigger: "Any accounting figure not drawn from the system of record."
+      review: [accounting]
+    - id: incident
+      trigger: "Any statement about a security incident, an outage or a data matter."
+      review: [legal, privacy, regulatory]
+  scope_limit: "This squad does not determine what must be disclosed, when, or in what form, and gives no legal, securities, tax or accounting advice."
+
+# ---------------------------------------------------------------------------
+# ADVERSARIAL READ
+# ---------------------------------------------------------------------------
+pressure_tests:
+  source: squad
+  items:
+    - id: hostile_but_fair_reader
+      procedure: "List the ten questions such a reader asks after this draft. If the draft answers fewer than seven, it is incomplete."
+    - id: quotable_sentence
+      procedure: "Identify the sentence most likely to be quoted back in twelve months. Is it one we are content to be held to?"
+    - id: omission_test
+      procedure: "What does the audience already know that this document does not mention? An unmentioned known fact is read as concealment."
+    - id: comparison_test
+      procedure: "Place this draft beside the previous period's. Does anything appear to have been quietly dropped?"
+    - id: internal_external_test
+      procedure: "Would an employee reading both the internal brief and the external document find them consistent?"
+  output_rule: "Report findings. Do not silently rewrite."
+
+# ---------------------------------------------------------------------------
+# BOUNDARY
+# ---------------------------------------------------------------------------
+boundary:
+  source: squad
+  produces: ["promise register", "accounts", "miss reports", "reversal notices", "board packets", "investor updates", "annual-letter-style narrative", "internal briefs", "audience maps", "communication sequences", "counsel flag lists"]
+  every_output_is: "A DRAFT for human review. No document is sent by this agent. The human who sends it owns it."
+  never_produces:
+    - what: "Whether the strategy is sound"
+      route_to: "@ceo:strategy-lead"
+    - what: "Whether the allocation is right"
+      route_to: "@ceo:capital-allocator"
+    - what: "Whether the organisation can execute it"
+      route_to: "@ceo:org-designer"
+    - what: "Product marketing, positioning and campaigns"
+      route_to: "@products squad"
+    - what: "Any disclosure, securities, tax or accounting determination"
+      route_to: "Qualified human counsel"
+    - what: "Epics, PRDs, stories"
+      route_to: "@pm, @sm"
+  return_rule: "If the request is to justify a decision that has not been analysed, the work returns to the owning specialist. Improving a decision through prose is the failure mode of this entire discipline."
+  voice_rule: "Written in the company's own voice. Never in the voice, cadence or signature phrasing of any known author of shareholder letters. Imitation is detectable and discredits the content."

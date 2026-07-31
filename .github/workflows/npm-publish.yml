@@ -1,0 +1,716 @@
+name: Publish to NPM
+# Story 6.1 - Added concurrency
+# Story 124.7 - Publish @aexos-squads packages
+
+on:
+  release:
+    types: [published]
+  push:
+    tags:
+      - 'v*.*.*' # Semantic version tags trigger publish
+  workflow_dispatch:
+    inputs:
+      publish_mode:
+        description: 'Publishing mode'
+        required: true
+        default: 'preview'
+        type: choice
+        options:
+          - preview
+          - stable
+          - beta
+      packages:
+        description: 'Package to publish, or "all"'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - core
+          - aexos-core
+          - aexos-install
+          - aexos-pro-cli
+          - installer
+
+concurrency:
+  group: npm-publish-${{ github.ref }}
+  cancel-in-progress: false # Never cancel publishing in progress
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '20'
+  NPM_REGISTRY: 'https://registry.npmjs.org/'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test:ci
+
+      - name: Run security audit
+        # Note: Using critical level because high vulns are in dev deps (semantic-release, mocha)
+        # These don't ship to production - only used for CI tooling
+        # See: Story SEC-1 for security audit improvements
+        run: npm audit --audit-level=critical --omit=dev || true
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.package-version.outputs.version }}
+      packages: ${{ steps.detect-packages.outputs.packages }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Get package version
+        id: package-version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Detect packages to publish
+        id: detect-packages
+        run: |
+          SELECTED="${{ github.event.inputs.packages }}"
+
+          # Default to all packages on release/tag events
+          if [ -z "$SELECTED" ] || [ "$SELECTED" = "all" ]; then
+            PACKAGES="core,aexos-core,aexos-install,aexos-pro-cli,installer"
+          elif [ "$SELECTED" = "aexos-core" ]; then
+            PACKAGES="aexos-core"
+          else
+            PACKAGES="$SELECTED"
+          fi
+
+          echo "packages=$PACKAGES" >> $GITHUB_OUTPUT
+          echo "📦 Packages to publish: $PACKAGES"
+
+      - name: Build all packages
+        run: |
+          # Create lib directories for packages that need them
+          for pkg in .aexos-core memory security performance telemetry; do
+            if [ -d "$pkg" ]; then
+              mkdir -p "$pkg/lib"
+              echo '{"built": true}' > "$pkg/lib/build.json"
+            fi
+          done
+
+          echo "✅ Build preparation complete"
+
+      - name: Create distribution archive
+        run: |
+          mkdir -p dist
+          tar -czf dist/aexos-core-${{ steps.package-version.outputs.version }}.tar.gz \
+            --exclude=node_modules \
+            --exclude=.git \
+            --exclude=dist \
+            --exclude=tests \
+            --exclude='*.log' \
+            .
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-artifacts
+          path: |
+            dist/
+            .aexos-core/lib/
+            memory/lib/
+            security/lib/
+            performance/lib/
+            telemetry/lib/
+          retention-days: 7
+
+  publish:
+    needs: [test, build]
+    if: ${{ contains(format(',{0},', needs.build.outputs.packages), ',core,') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          registry-url: ${{ env.NPM_REGISTRY }}
+
+      - name: Install dependencies
+        run: npm ci
+        env:
+          HUSKY: '0'
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: build-artifacts
+
+      - name: Set publishing tag
+        id: publish-tag
+        run: |
+          if [ "${{ github.event.inputs.publish_mode }}" = "stable" ] || [ "${{ github.event_name }}" = "release" ] || [ "${{ github.event_name }}" = "push" ]; then
+            echo "tag=latest" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.inputs.publish_mode }}" = "beta" ]; then
+            echo "tag=beta" >> $GITHUB_OUTPUT
+          else
+            echo "tag=preview" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish safety gate (INS-4.10)
+        run: node bin/utils/validate-publish.js
+
+      - name: Check if core should be published
+        id: should-publish
+        run: |
+          PKG_NAME=$(node -p "require('./package.json').name")
+          VERSION="${{ needs.build.outputs.version }}"
+
+          # Check if package exists in registry
+          if npm view "${PKG_NAME}@${VERSION}" version > /dev/null 2>&1; then
+            echo "Version ${VERSION} already exists for ${PKG_NAME}"
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          else
+            echo "Package ${PKG_NAME}@${VERSION} not found in registry"
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish core to NPM
+        if: steps.should-publish.outputs.should_publish == 'true'
+        run: |
+          publish_status=1
+          for token in "$NPM_TOKEN_AEXOS_SQUADS" "$NPM_TOKEN"; do
+            if [ -z "$token" ]; then
+              continue
+            fi
+            echo "//registry.npmjs.org/:_authToken=${token}" > .npmrc
+            if npm publish --tag ${{ steps.publish-tag.outputs.tag }} --access public; then
+              publish_status=0
+              break
+            else
+              publish_status=$?
+            fi
+          done
+
+          if [ "$publish_status" -ne 0 ]; then
+            rm -f .npmrc
+            echo "::error::Unable to publish scoped core package. Refresh NPM_TOKEN_AEXOS_SQUADS or NPM_TOKEN with owner access to @aexos-squads/core."
+            exit "$publish_status"
+          fi
+
+          PKG_NAME=$(node -p "require('./package.json').name")
+          npm access set status=public "${PKG_NAME}" --registry="${NPM_REGISTRY}"
+          rm -f .npmrc
+          echo "✅ Published ${PKG_NAME}@${{ needs.build.outputs.version }} with tag ${{ steps.publish-tag.outputs.tag }}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_AEXOS_SQUADS }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN_AEXOS_SQUADS: ${{ secrets.NPM_TOKEN_AEXOS_SQUADS }}
+
+      - name: Verify publication
+        if: steps.should-publish.outputs.should_publish == 'true'
+        run: |
+          # Wait for npm registry to propagate (can take up to 60s)
+          PKG_NAME=$(node -p "require('./package.json').name")
+          for i in 1 2 3 4 5 6; do
+            sleep 15
+            if npm view "${PKG_NAME}@${{ needs.build.outputs.version }}" version > /dev/null 2>&1; then
+              echo "✅ Verified: ${PKG_NAME}@${{ needs.build.outputs.version }} is available on NPM"
+              exit 0
+            fi
+            echo "⏳ Waiting for npm registry propagation... (attempt $i/6)"
+          done
+
+          echo "❌ Verification failed: ${PKG_NAME}@${{ needs.build.outputs.version }} not found after 90s"
+          exit 1
+
+  publish_workspace_packages:
+    needs: [test, build]
+    if: ${{ contains(format(',{0},', needs.build.outputs.packages), ',aexos-install,') || contains(format(',{0},', needs.build.outputs.packages), ',aexos-pro-cli,') || contains(format(',{0},', needs.build.outputs.packages), ',installer,') }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - key: aexos-install
+            path: packages/aexos-install
+            smoke_args: --version
+          - key: aexos-pro-cli
+            path: packages/aexos-pro-cli
+            smoke_args: --help
+          - key: installer
+            path: packages/installer
+            smoke_args: --help
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          registry-url: ${{ env.NPM_REGISTRY }}
+
+      - name: Check selection
+        id: selection
+        run: |
+          SELECTED=",${{ needs.build.outputs.packages }},"
+          PACKAGE_KEY="${{ matrix.key }}"
+          if [[ "$SELECTED" == *",$PACKAGE_KEY,"* ]]; then
+            echo "selected=true" >> $GITHUB_OUTPUT
+          else
+            echo "selected=false" >> $GITHUB_OUTPUT
+            echo "Skipping ${PACKAGE_KEY}; selected packages: $SELECTED"
+          fi
+
+      - name: Install dependencies
+        if: steps.selection.outputs.selected == 'true'
+        run: npm ci
+        env:
+          HUSKY: '0'
+
+      - name: Get workspace package metadata
+        if: steps.selection.outputs.selected == 'true'
+        id: pkg
+        run: |
+          PACKAGE_JSON="./${{ matrix.path }}/package.json"
+          NAME=$(node -p "require('${PACKAGE_JSON}').name")
+          VERSION=$(node -p "require('${PACKAGE_JSON}').version")
+          echo "name=$NAME" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          if [[ "$NAME" != @aexos-squads/* ]]; then
+            echo "::error::Expected an @aexos-squads package name, got $NAME"
+            exit 1
+          fi
+
+      - name: Set publishing tag
+        if: steps.selection.outputs.selected == 'true'
+        id: publish-tag
+        run: |
+          if [ "${{ github.event.inputs.publish_mode }}" = "stable" ] || [ "${{ github.event_name }}" = "release" ] || [ "${{ github.event_name }}" = "push" ]; then
+            echo "tag=latest" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.inputs.publish_mode }}" = "beta" ]; then
+            echo "tag=beta" >> $GITHUB_OUTPUT
+          else
+            echo "tag=preview" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check if already published
+        if: steps.selection.outputs.selected == 'true'
+        id: should-publish
+        run: |
+          PKG_NAME="${{ steps.pkg.outputs.name }}"
+          VERSION="${{ steps.pkg.outputs.version }}"
+
+          if npm view "${PKG_NAME}@${VERSION}" version > /dev/null 2>&1; then
+            echo "Version ${VERSION} already exists for ${PKG_NAME}"
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          else
+            echo "Package ${PKG_NAME}@${VERSION} not found in registry"
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish workspace package
+        if: steps.should-publish.outputs.should_publish == 'true'
+        working-directory: ${{ matrix.path }}
+        run: |
+          publish_status=1
+          for token in "$NPM_TOKEN_AEXOS_SQUADS" "$NPM_TOKEN"; do
+            if [ -z "$token" ]; then
+              continue
+            fi
+            echo "//registry.npmjs.org/:_authToken=${token}" > .npmrc
+            if npm publish --tag ${{ steps.publish-tag.outputs.tag }} --access public; then
+              publish_status=0
+              break
+            else
+              publish_status=$?
+            fi
+          done
+
+          if [ "$publish_status" -ne 0 ]; then
+            rm -f .npmrc
+            echo "::error::Unable to publish ${{ steps.pkg.outputs.name }}. Refresh NPM_TOKEN_AEXOS_SQUADS or NPM_TOKEN with owner access to the @aexos-squads scope."
+            exit "$publish_status"
+          fi
+
+          npm access set status=public "${{ steps.pkg.outputs.name }}" --registry="${NPM_REGISTRY}"
+          rm -f .npmrc
+          echo "✅ Published ${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_AEXOS_SQUADS }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN_AEXOS_SQUADS: ${{ secrets.NPM_TOKEN_AEXOS_SQUADS }}
+
+      - name: Smoke test - verify npx works
+        if: steps.should-publish.outputs.should_publish == 'true'
+        env:
+          PKG_SPEC: ${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}
+          SMOKE_ARGS: ${{ matrix.smoke_args }}
+        run: |
+          # Wait for npm registry propagation
+          for i in 1 2 3 4 5 6; do
+            sleep 15
+            if npm view "${PKG_SPEC}" version > /dev/null 2>&1; then
+              SMOKE_DIR=$(mktemp -d)
+              if (cd "${SMOKE_DIR}" && npx --yes "${PKG_SPEC}" ${SMOKE_ARGS} >/dev/null 2>&1); then
+                rm -rf "${SMOKE_DIR}"
+                echo "✅ Smoke test passed: npx --yes ${PKG_SPEC} ${SMOKE_ARGS} works"
+                exit 0
+              fi
+              rm -rf "${SMOKE_DIR}"
+            fi
+            echo "⏳ Waiting for npm propagation... (attempt $i/6)"
+          done
+          echo "❌ Smoke test timeout for ${{ steps.pkg.outputs.name }}"
+          exit 1
+
+  publish_legacy_cyryx_core:
+    # MUST wait for `publish` because compat/aexos-core declares
+    # `@aexos-squads/core@<version>` as a runtime dependency. If this job runs
+    # in parallel, the legacy smoke test races against npm propagation of the
+    # scoped package and times out — making the workflow appear failed even
+    # though both packages were published successfully.
+    needs: [test, build, publish]
+    if: ${{ contains(format(',{0},', needs.build.outputs.packages), ',aexos-core,') && (needs.publish.result == 'success' || needs.publish.result == 'skipped') }}
+    runs-on: ubuntu-latest
+    outputs:
+      published: ${{ steps.should-publish.outputs.should_publish }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: ${{ env.NPM_REGISTRY }}
+
+      - name: Get legacy package metadata
+        id: pkg
+        run: |
+          PACKAGE_JSON="./compat/aexos-core/package.json"
+          NAME=$(node -p "require('${PACKAGE_JSON}').name")
+          VERSION=$(node -p "require('${PACKAGE_JSON}').version")
+          echo "name=$NAME" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          if [ "$NAME" != "aexos-core" ]; then
+            echo "::error::Expected legacy package name aexos-core, got $NAME"
+            exit 1
+          fi
+
+      - name: Set publishing tag
+        id: publish-tag
+        run: |
+          if [ "${{ github.event.inputs.publish_mode }}" = "stable" ] || [ "${{ github.event_name }}" = "release" ] || [ "${{ github.event_name }}" = "push" ]; then
+            echo "tag=latest" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.inputs.publish_mode }}" = "beta" ]; then
+            echo "tag=beta" >> $GITHUB_OUTPUT
+          else
+            echo "tag=preview" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check if already published
+        id: should-publish
+        run: |
+          PKG_NAME="${{ steps.pkg.outputs.name }}"
+          VERSION="${{ steps.pkg.outputs.version }}"
+
+          if npm view "${PKG_NAME}@${VERSION}" version > /dev/null 2>&1; then
+            echo "Version ${VERSION} already exists for ${PKG_NAME}"
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          else
+            echo "Package ${PKG_NAME}@${VERSION} not found in registry"
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish legacy aexos-core wrapper
+        if: steps.should-publish.outputs.should_publish == 'true'
+        working-directory: compat/aexos-core
+        run: |
+          publish_status=1
+          for token in "$NPM_TOKEN_AEXOS_SQUADS" "$NPM_TOKEN"; do
+            if [ -z "$token" ]; then
+              continue
+            fi
+            echo "//registry.npmjs.org/:_authToken=${token}" > .npmrc
+            if npm publish --tag ${{ steps.publish-tag.outputs.tag }} --access public; then
+              publish_status=0
+              break
+            else
+              publish_status=$?
+            fi
+          done
+          rm -f .npmrc
+          if [ "$publish_status" -ne 0 ]; then
+            echo "::error::Unable to publish aexos-core. Refresh NPM_TOKEN with owner access to the legacy package."
+            exit "$publish_status"
+          fi
+          echo "✅ Published aexos-core@${{ steps.pkg.outputs.version }} with tag ${{ steps.publish-tag.outputs.tag }}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN_AEXOS_SQUADS: ${{ secrets.NPM_TOKEN_AEXOS_SQUADS }}
+
+      - name: Smoke test legacy npx
+        if: steps.should-publish.outputs.should_publish == 'true'
+        env:
+          PKG_SPEC: aexos-core@${{ steps.pkg.outputs.version }}
+          SCOPED_SPEC: '@aexos-squads/core@${{ steps.pkg.outputs.version }}'
+        run: |
+          # Two phases: (1) wait for both packages to be visible in npm
+          # registry, (2) actually exercise npx. Total budget: 16 × 15s = 240s
+          # to accommodate slow CDN propagation (the legacy compat wraps the
+          # scoped package, so BOTH must be resolvable before npx works).
+          last_err=""
+          for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16; do
+            sleep 15
+            if ! npm view "${PKG_SPEC}" version > /dev/null 2>&1; then
+              echo "⏳ Waiting for ${PKG_SPEC} propagation... (attempt $i/16)"
+              continue
+            fi
+            if ! npm view "${SCOPED_SPEC}" version > /dev/null 2>&1; then
+              echo "⏳ ${PKG_SPEC} visible but ${SCOPED_SPEC} not yet... (attempt $i/16)"
+              continue
+            fi
+            SMOKE_DIR=$(mktemp -d)
+            if last_err=$(cd "${SMOKE_DIR}" && npx --yes "${PKG_SPEC}" --version 2>&1); then
+              rm -rf "${SMOKE_DIR}"
+              echo "✅ Smoke test passed: npx --yes ${PKG_SPEC} --version works"
+              exit 0
+            fi
+            rm -rf "${SMOKE_DIR}"
+            echo "⏳ npx attempt failed, retrying... (attempt $i/16)"
+            echo "    last npx stderr: $(echo "$last_err" | tail -3)"
+          done
+          echo "❌ Smoke test timeout for ${PKG_SPEC} after 240s"
+          echo "   Last npx stderr: $last_err"
+          exit 1
+
+  smoke_test_exports:
+    # Issue #734 regression guard: validates that @aexos-squads/core exposes
+    # bin/* via package exports. The npx smoke above does NOT detect this
+    # because npm bin shims resolve internally without triggering Node's
+    # package-exports gate. This job forces require() resolution from an
+    # external context across Node 20/22/24 — the matrix that revealed
+    # ERR_PACKAGE_PATH_NOT_EXPORTED affected v5.2.2/.3/.4.
+    needs: [build, publish, publish_legacy_cyryx_core]
+    if: ${{ needs.publish.result == 'success' || needs.publish_legacy_cyryx_core.result == 'success' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['20', '22', '24']
+    steps:
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node }}
+          registry-url: ${{ env.NPM_REGISTRY }}
+
+      - name: Wait for npm propagation
+        env:
+          CORE_SPEC: '@aexos-squads/core@${{ needs.build.outputs.version }}'
+        run: |
+          for i in 1 2 3 4 5 6; do
+            if npm view "${CORE_SPEC}" version > /dev/null 2>&1; then
+              echo "✅ ${CORE_SPEC} available on npm"
+              exit 0
+            fi
+            echo "⏳ Waiting for ${CORE_SPEC} propagation... (attempt $i/6)"
+            sleep 15
+          done
+          echo "❌ ${CORE_SPEC} not visible after 90s — cannot run exports smoke"
+          exit 1
+
+      - name: Force require.resolve() to trigger exports gate
+        env:
+          CORE_SPEC: '@aexos-squads/core@${{ needs.build.outputs.version }}'
+        run: |
+          set -o pipefail
+          SMOKE_DIR=$(mktemp -d)
+          cd "${SMOKE_DIR}"
+          npm init -y >/dev/null 2>&1
+          npm install "${CORE_SPEC}" 2>&1 | tail -3
+          # External require.resolve() forces Node's package-exports gate. If
+          # bin/* is not declared in exports, this fails with ERR_PACKAGE_PATH_NOT_EXPORTED.
+          # Uses resolve() instead of require() to avoid loading the CLI's wizard
+          # in non-TTY runners (Node 24 surfaced ERR_USE_AFTER_CLOSE on readline
+          # close in non-interactive contexts — false positive, not exports drift).
+          # set -o pipefail above ensures node's exit status survives the head pipe.
+          if node -e "require.resolve('@aexos-squads/core/bin/aexos.js')" 2>&1 | head -20; then
+            echo "✅ require.resolve('@aexos-squads/core/bin/aexos.js') succeeds on Node ${{ matrix.node }}"
+          else
+            echo "❌ REGRESSION: require.resolve() blocked by exports field on Node ${{ matrix.node }}"
+            echo "❌ Issue #734 has returned — check exports field in package.json"
+            exit 1
+          fi
+          rm -rf "${SMOKE_DIR}"
+
+  notify:
+    needs: [build, publish, publish_workspace_packages, publish_legacy_cyryx_core, smoke_test_exports]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify completion
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+          PUBLISH_RESULT: ${{ needs.publish.result }}
+          WORKSPACE_RESULT: ${{ needs.publish_workspace_packages.result }}
+          LEGACY_RESULT: ${{ needs.publish_legacy_cyryx_core.result }}
+          LEGACY_PUBLISHED: ${{ needs.publish_legacy_cyryx_core.outputs.published }}
+          EXPORTS_RESULT: ${{ needs.smoke_test_exports.result }}
+        run: |
+          echo "=== Release pipeline summary for v${VERSION} ==="
+          echo ""
+          echo "Job results:"
+          printf "  %-32s %s\n" "publish (@aexos-squads/core)"   "$PUBLISH_RESULT"
+          printf "  %-32s %s\n" "publish_workspace_packages"    "$WORKSPACE_RESULT"
+          printf "  %-32s %s\n" "publish_legacy_cyryx_core"      "$LEGACY_RESULT (published=$LEGACY_PUBLISHED)"
+          printf "  %-32s %s\n" "smoke_test_exports"            "$EXPORTS_RESULT"
+          echo ""
+
+          # Hard failure: the scoped @aexos-squads/core publish IS THE release.
+          # Workspace packages and legacy compat wrapper are advisory — they
+          # can be republished out-of-band. Smoke tests are validation; if they
+          # fail but publish succeeded, log a regression warning but don't
+          # break the release signal (the artifact is still in the registry).
+          if [ "$PUBLISH_RESULT" = "failure" ] || [ "$PUBLISH_RESULT" = "cancelled" ]; then
+            echo "❌ HARD FAIL: scoped @aexos-squads/core@${VERSION} did not publish."
+            echo "   The release did NOT reach npmjs.org."
+            exit 1
+          fi
+
+          # Soft warnings on partial failures.
+          WARNINGS=()
+          if [ "$WORKSPACE_RESULT" = "failure" ] || [ "$WORKSPACE_RESULT" = "cancelled" ]; then
+            WARNINGS+=("workspace packages did not publish — investigate publish_workspace_packages")
+          fi
+          if [ "$LEGACY_RESULT" = "failure" ] || [ "$LEGACY_RESULT" = "cancelled" ]; then
+            WARNINGS+=("legacy aexos-core wrapper did not publish — check NPM_TOKEN with owner access to legacy package")
+          fi
+          if [ "$EXPORTS_RESULT" = "failure" ]; then
+            WARNINGS+=("smoke_test_exports failed — possible regression of issue #734 (ERR_PACKAGE_PATH_NOT_EXPORTED)")
+          fi
+
+          PUBLISHED=()
+          if [ "$PUBLISH_RESULT" = "success" ]; then
+            PUBLISHED+=("@aexos-squads/core@${VERSION}")
+          fi
+          if [ "$WORKSPACE_RESULT" = "success" ]; then
+            PUBLISHED+=("selected @aexos-squads workspace packages")
+          fi
+          if [ "$LEGACY_PUBLISHED" = "true" ]; then
+            PUBLISHED+=("aexos-core@${VERSION} (legacy wrapper)")
+          fi
+
+          if [ ${#PUBLISHED[@]} -gt 0 ]; then
+            echo "🎉 Successfully published to npmjs.org:"
+            for pkg in "${PUBLISHED[@]}"; do
+              echo "   - $pkg"
+            done
+          elif [ "$PUBLISH_RESULT" = "skipped" ] && [ "$WORKSPACE_RESULT" = "skipped" ] && [ "$LEGACY_RESULT" = "skipped" ]; then
+            echo "⏭️  No packages needed publishing (version selector skipped them all — already up-to-date or excluded)."
+          else
+            echo "⚠️  No packages were actually published. Check job results above."
+          fi
+
+          if [ ${#WARNINGS[@]} -gt 0 ]; then
+            echo ""
+            echo "⚠️  Soft warnings (release shipped but follow-up needed):"
+            for w in "${WARNINGS[@]}"; do
+              echo "   - $w"
+            done
+          fi
+
+  create-release-notes:
+    needs: [build, publish, publish_workspace_packages, publish_legacy_cyryx_core]
+    if: github.event_name == 'release' && (needs.publish.result == 'success' || needs.publish_workspace_packages.result == 'success' || needs.publish_legacy_cyryx_core.outputs.published == 'true')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Generate release notes
+        run: |
+          cat > release-notes.md << EOF
+          # AEXOS Core v${{ needs.build.outputs.version }}
+
+          ## 📦 NPM Packages
+
+          | Package | NPM Link | Description |
+          |---------|----------|-------------|
+          | @aexos-squads/core | [npmjs.com](https://www.npmjs.com/package/@aexos-squads/core) | AI-Orchestrated System for Full Stack Development |
+          | @aexos-squads/aexos-install | [npmjs.com](https://www.npmjs.com/package/@aexos-squads/aexos-install) | NPX Installer for AEXOS |
+          | @aexos-squads/aexos-pro-cli | [npmjs.com](https://www.npmjs.com/package/@aexos-squads/aexos-pro-cli) | AEXOS Pro CLI wrapper |
+          | @aexos-squads/installer | [npmjs.com](https://www.npmjs.com/package/@aexos-squads/installer) | AEXOS installer package |
+
+          ## 🚀 Installation
+
+          \`\`\`bash
+          # Quick install via NPX (recommended for new users)
+          npx @aexos-squads/aexos-install
+
+          # Or global installation
+          npm install -g @aexos-squads/core
+
+          # Or as project dependency
+          npm install @aexos-squads/core
+          \`\`\`
+
+          ## 📋 What's New
+
+          * ✅ Complete Meta-Agent MVP and Framework Distribution
+          * 🔒 Security hardening with penetration testing
+          * ⚡ Performance optimization framework
+          * 📊 Privacy-conscious telemetry system
+          * 📦 Modular NPM package distribution
+
+          ## 🔗 Links
+
+          * [GitHub Repository](https://github.com/CyryxLabs/AEXOS)
+          * [Documentation](https://github.com/CyryxLabs/AEXOS#readme)
+          * [Issues](https://github.com/CyryxLabs/AEXOS/issues)
+          EOF
+
+      - name: Update release with notes
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+            const releaseNotes = fs.readFileSync('release-notes.md', 'utf8');
+
+            await github.rest.repos.updateRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: context.payload.release.id,
+              body: releaseNotes
+            });

@@ -1,0 +1,314 @@
+# ============================================================================
+# Workflow: Incident Response and Learning
+# Squad: ops
+# Version: 1.0.0
+# Purpose: Put structure around an active failure — declaration, command,
+#          record — and carry its findings into reliability policy, process
+#          countermeasures and, where relevant, the delivery constraint.
+#          Every mechanical action in the response belongs to @devops.
+# ----------------------------------------------------------------------------
+# workflow.sequence is the canonical execution contract read by
+# .aexos-core/development/scripts/workflow-validator.js. Each entry carries the
+# phase vocabulary used across AEXOS workflows: id, name, agent, task,
+# depends_on, parallel, outputs, checkpoint{gate,veto}.
+# ============================================================================
+
+workflow:
+  id: wf-incident-response
+  name: "Incident Response and Learning"
+  version: "1.0.0"
+  type: operations-incident
+  description: |
+    For active failures. Entry is @ops:incident-lead directly, not @ops-chief — triage
+    ceremony during an outage is itself a failure mode, and the squad's own routing task
+    short-circuits to this workflow when something is failing right now.
+
+    The response is coordinated here and executed by @devops. That separation is the
+    point: an incident where the coordinator is also the one changing production is an
+    incident with no reliable record of what changed. Urgency is the argument made for
+    crossing that line, and it is exactly why the line exists.
+
+  trigger: "*declare"
+  entry_agent: incident-lead
+  estimated_duration: "Declaration in ~90 seconds; analysis within days; corrective actions closed over 1-2 weeks"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # BOUNDARY — read before running any phase, and again during the incident
+  # ──────────────────────────────────────────────────────────────────────────
+  boundary:
+    principle: >-
+      This squad coordinates, records and analyses. @devops mitigates and operates.
+      Coordination is not execution, and urgency is not an exception.
+    this_workflow_produces:
+      - "An incident record, severity classification and named command structure"
+      - "A contemporaneous timeline separating observation, inference, confirmation and action"
+      - "Drafted internal updates and drafted external ones, for approval elsewhere"
+      - "Contributing factors, corrective actions and their routing"
+      - "A written instruction packet naming @devops as the executor"
+    this_workflow_never_does:
+      - "Deploy, roll back, fail over, restart, scale or change configuration"
+      - "Change pipelines, releases or infrastructure"
+      - "Publish anything customer-facing or to a status page"
+      - "Hold a gate, execute a freeze or manage a release"
+      - "git push, open or merge PRs, configure MCP"
+    exclusive_authority:
+      "@devops": >-
+        Every deploy, rollback, failover, restart, scaling, infrastructure and
+        configuration change, release, status-page publication and push — including during
+        an active incident, no exceptions
+    also_deferred_to:
+      "@dev": "Implementation of corrective actions and instrumentation"
+      "@qa": "Corrective actions that change verification, gate scope or test strategy"
+      "@architect": "Contributing factors that are structural — coupling, missing isolation, no failure domain"
+      "@po / @sm": "Backlog space for corrective actions; response expectations becoming working agreements"
+    accountable_human: >-
+      Approval of any customer-facing statement. Drafted here, approved by them, published
+      by @devops.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE (phases)
+  # ──────────────────────────────────────────────────────────────────────────
+  sequence:
+
+    # ─── PHASE 0: Declare and command ──────────────────────────────────────
+    - id: phase_0
+      name: "Declaration, Severity and Command"
+      agent: incident-lead
+      task: incident-declare.md
+      command: "*declare"
+      parallel: false
+      action: "Open the record, classify severity, name one commander, and open the timeline"
+      creates: incident_record
+      description: >-
+        Ninety seconds of structure: what is observed, how severe it is, who is commanding,
+        and where the record lives. Declaring early costs minutes; not declaring costs the
+        first hour, in which nobody coordinated and nothing was recorded. When two severity
+        levels are arguable, take the higher and reclassify downward with a recorded reason.
+      boundary: >-
+        This phase performs no mitigation. The commander coordinates and does not have
+        their hands in the system. Every mechanical authority the response may need is
+        assigned to @devops by name, and the timeline records their name against each
+        action taken.
+      outputs:
+        - incident_record: "file — declaration time, observed impact, population, severity and its reason"
+        - severity: "string — classified against written criteria, or with the gap recorded if no matrix exists"
+        - command_structure: "table — commander, operations, communications, scribe, plus @devops holding mechanical authority"
+        - timeline: "log — time, type, content, and the executing agent for every action"
+        - comms_cadence: "string — interval, audiences, and who approves and publishes anything external"
+        - next_checkpoint: "timestamp — the next update, whether or not anything has changed"
+      checkpoint:
+        gate: "One commander named out loud and not executing; @devops named as holder of every mechanical authority; the record is a versioned file, not a chat channel"
+        veto: "If the commander is also executing mitigation, reassign one of the two roles before continuing — the timeline is the first thing lost otherwise"
+
+    # ─── PHASE 1: Stand-down and blameless analysis ────────────────────────
+    - id: phase_1
+      name: "Stand-Down and Blameless Analysis"
+      agent: incident-lead
+      command: "*stand-down → *postmortem → *contributing-factors"
+      depends_on: [phase_0]
+      parallel: false
+      requires: incident_record
+      action: "Close the response against stated criteria and enumerate contributing factors from the timeline"
+      creates: contributing_factors
+      description: >-
+        Runs after service is restored. Enumerates contributing factors rather than a single
+        root cause, writes what was known at the time rather than what was knowable, and
+        removes counterfactuals. Every corrective action gets an owner, a date, a verifiable
+        change and the agent whose authority covers it.
+      boundary: >-
+        No task file backs this phase — it is executed through the agent's own commands
+        against the record produced in phase 0, and nothing in this squad may perform the
+        mitigation being analysed. Structural findings route to @architect; implementation
+        to @dev; verification changes to @qa; every mechanical action to @devops.
+      outputs:
+        - contributing_factors: "array — multiple factors, each traced to a timeline entry"
+        - counterfactual_removals: "array — statements removed for describing what was knowable rather than known"
+        - corrective_actions: "array — owner, date, verifiable change, and the agent whose authority covers it"
+        - accepted_risks: "array — risks knowingly carried forward, for the risk register"
+      checkpoint:
+        gate: "Contributing factors trace to timeline entries; no factor terminates on a person; every corrective action names its executing agent"
+        veto: "If the analysis names a single root cause, reopen it — a single cause in a complex system is a stopping rule, not a finding"
+
+    # ─── PHASE 2: Reliability consequences ─────────────────────────────────
+    - id: phase_2
+      name: "Reliability Consequences"
+      agent: reliability-lead
+      task: reliability-slo-design.md
+      command: "*slo-design"
+      depends_on: [phase_1]
+      parallel: false
+      requires: contributing_factors
+      action: "Turn contributing factors into indicators, objectives, budget and signal specifications"
+      creates: slo_and_budget_update
+      description: >-
+        Contributing factors that imply a target, a budget, a signal or an alerting change
+        are converted into specification here, with the burn rate reported against the
+        window rather than as a remaining balance. Accepted risks from phase 1 land in the
+        risk register.
+      boundary: >-
+        Specification only. Monitoring, alert routing and paging configuration are @devops,
+        exclusively; instrumentation is @dev. Any gate, freeze or release consequence of
+        the budget policy names @devops as its executor inside the document.
+      outputs:
+        - sli_table: "table — event definition, valid-event denominator, data source"
+        - slo_table: "table — target, window, and a perceptibility or cost justification"
+        - error_budget: "string — the objective's complement over the window"
+        - signal_specification: "array — signals and thresholds specified for @devops to configure"
+        - unverified_register: "array — figures not traced to measured data, marked UNVERIFIED with a review date"
+      checkpoint:
+        gate: "Every objective has an indicator, a window and a justification; downstream gate, freeze and release consequences name @devops as executor"
+        veto: "If a target is being raised on a system that repeats this failure, stop — a raised target commits to something nothing has changed to support"
+
+    # ─── PHASE 3: Process countermeasures ──────────────────────────────────
+    - id: phase_3
+      name: "Process Countermeasures"
+      agent: lean-lead
+      task: lean-waste-walk.md
+      command: "*waste-walk"
+      depends_on: [phase_2]
+      parallel: false
+      requires: slo_and_budget_update
+      action: "Walk the process behind the contributing factors and design countermeasures at the condition"
+      creates: countermeasure_register
+      description: >-
+        Contributing factors that are process conditions rather than technical ones get
+        countermeasure design here: five-why chains ending on changeable conditions, standard
+        work where the documented and actual processes diverged, and a stop rule where the
+        failure should have halted the line.
+      boundary: >-
+        A stop-the-line rule written here is a document; the halt is @devops, exclusively.
+        The rule states who may call it, the trigger, what happens during it, what resumes
+        it, and the agent executing each mechanical consequence. No countermeasure removes
+        verification and calls the result waste reduction.
+      outputs:
+        - waste_register: "table — waste by category behind the recurring failure, with evidence"
+        - five_why_chains: "array — each terminating on a changeable condition, never on a person"
+        - countermeasure_candidates: "array — ordered by preference, each with a dated confirming check"
+        - stop_rule_policy: "document — trigger, caller, consequences, resumption, and @devops as executor of each mechanical step"
+      checkpoint:
+        gate: "Countermeasures act on conditions; any stop rule names its caller, trigger, resumption and the executing agent for every mechanical consequence"
+        veto: "If a countermeasure only adds a check, a form or a review, return to removal — an improvement that adds a step is suspect"
+
+    # ─── PHASE 4: Flow impact, when the load is chronic ────────────────────
+    - id: phase_4
+      name: "Flow Impact of Incident Load"
+      agent: flow-lead
+      task: flow-find-constraint.md
+      command: "*find-constraint"
+      depends_on: [phase_3]
+      parallel: false
+      condition: incident_load_is_consuming_the_delivery_constraint
+      requires: countermeasure_register
+      action: "Test whether recurring incident load is consuming the constraint's own capacity"
+      creates: constraint_finding
+      description: >-
+        Conditional. Runs when the frequency of incidents is itself the chronic problem, or
+        when response work is eating the capacity of the step that sets throughput. Skipped
+        when the incident is genuinely isolated.
+      boundary: >-
+        Produces a finding and an exploit rule. Build, CI, pipeline and release changes are
+        written as instructions for @devops. Gate findings go to @qa as a redesign question.
+        Sequencing arguments go to @po as evidence, never as a priority order issued here.
+      outputs:
+        - constraint: "string — the step that sets throughput, with evidence"
+        - constraint_type: "enum — capacity | policy | skill | dependency | market"
+        - exploit_options: "array — capacity recoverable inside the constraint, quantified"
+        - throughput_verdict: "string — incident load scored against throughput, inventory and operating expense"
+      checkpoint:
+        gate: "The constraint claim rests on queue or state-time evidence, and rival candidates were tested for starvation"
+        veto: "If the incident was isolated rather than recurring, skip this phase — a constraint analysis run on a single event manufactures a chronic condition that does not exist"
+
+    # ─── PHASE 5: Terminal handoff — instruction only ──────────────────────
+    - id: phase_5
+      name: "Corrective Action Handoff to @devops"
+      agent: ops-chief
+      command: "*handoff-to-core"
+      depends_on: [phase_3, phase_4]
+      parallel: false
+      requires: countermeasure_register
+      action: "Assemble every mechanical corrective action into one written instruction packet and name @devops as the executor"
+      creates: devops_corrective_action_packet
+      executor: "@devops"
+      description: >-
+        The terminal phase is a handoff, not an execution. Monitoring and alerting changes,
+        pipeline and release changes, gates, freezes, status-page and external
+        communication, and any push — all of it is written down with rationale and expected
+        effect, and handed to @devops. The rest is routed to @dev, @qa, @architect, @po and
+        @sm by owner.
+      boundary: >-
+        No task file backs this phase because no task in this squad may execute
+        infrastructure work. Nothing in the packet may read as an action already taken, and
+        no customer-facing message is issued from here — it is drafted in phase 0, approved
+        by the accountable human, and published by @devops.
+      outputs:
+        - instruction_packet: "markdown — one entry per mechanical corrective action, each naming @devops as executor"
+        - executor: "string — @devops, exclusive authority, stated per entry"
+        - non_mechanical_routing: "array — actions belonging to @dev, @qa, @architect, @po or @sm, with the reason for each"
+        - recurrence_watch: "array — what would indicate this failure is returning, and by when it should be checked"
+      checkpoint:
+        gate: "Every mechanical corrective action names @devops as executor, and every non-mechanical action names its owning agent"
+        veto: "If any phase mitigated, configured, published, released or pushed anything, the run is void — record it as a boundary violation in the incident record"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+  handoff_prompts:
+    incident_lead_internal: >-
+      "Service restored and the response stood down against stated criteria. Move from the
+      contemporaneous timeline to contributing factors: what was known at the time, no
+      counterfactuals, no single root cause, and an executing agent named against every
+      corrective action."
+    incident_lead_to_reliability_lead: >-
+      "Contributing factors and accepted risks attached. Convert the ones implying targets,
+      budgets, signals or alerting into specification. Monitoring configuration itself is
+      @devops — specify it, do not configure it."
+    reliability_lead_to_lean_lead: >-
+      "Objective, budget and signal specification attached. The remaining contributing
+      factors are process conditions. Design countermeasures at the condition, and if you
+      write a stop rule, name @devops as the executor of every mechanical consequence."
+    lean_lead_to_flow_lead: >-
+      "Countermeasure register attached. Run only if incident load is recurring: test
+      whether response work is consuming the capacity of the step that sets throughput.
+      Skip this if the incident was isolated."
+    to_ops_chief: >-
+      "All corrective actions attached with owners and dates. Assemble the mechanical ones
+      into a single instruction packet for @devops and route the rest by owner."
+    ops_chief_to_devops: >-
+      "Corrective action packet attached. Each entry states rationale and expected effect.
+      Nothing here has been executed, and nothing here may be read as authorization already
+      given — including the items dated during the incident itself."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # FLOW DIAGRAM
+  # ──────────────────────────────────────────────────────────────────────────
+  flow_diagram: |
+    graph TD
+      A[phase_0 incident-lead: declare + command] --> B[phase_1 incident-lead: stand-down + factors]
+      B --> C[phase_2 reliability-lead: targets + budget + signals]
+      C --> D[phase_3 lean-lead: countermeasures + stop rule]
+      D --> E[phase_4 flow-lead: constraint - conditional]
+      D --> F[phase_5 ops-chief: instruction packet]
+      E --> F
+      F --> G[@devops executes - outside this squad]
+
+# ────────────────────────────────────────────────────────────────────────────
+# VETO CONDITIONS (workflow-level)
+# ────────────────────────────────────────────────────────────────────────────
+
+veto_conditions:
+  - "The incident commander is also executing mitigation — reassign before continuing"
+  - "Any phase performs a mechanical action instead of naming @devops as the executor"
+  - "A customer-facing statement is issued from inside this workflow rather than drafted, approved and published by @devops"
+  - "The analysis terminates on a single root cause, or on a person"
+  - "The timeline is reconstructed from memory after the fact rather than written during the response"
+
+# ────────────────────────────────────────────────────────────────────────────
+# COMPLETION CRITERIA
+# ────────────────────────────────────────────────────────────────────────────
+
+completion_criteria:
+  - "Incident record, severity, command structure and timeline persisted as versioned files"
+  - "Contributing factors enumerated with counterfactuals removed"
+  - "Reliability consequences specified, with @devops named for every mechanical consequence"
+  - "Process countermeasures designed at the condition, each with a dated confirming check"
+  - "Every corrective action has an owner, a date, a verifiable change and an executing agent"

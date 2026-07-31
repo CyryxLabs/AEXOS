@@ -1,0 +1,344 @@
+# Attribution Pitfalls, Metric Types & What Each Does Not Prove
+# Squad: marketing
+# Owner agent: analytics-lead (Cipher)
+# Last updated: 2026-07-30
+
+version: "1.0.0"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ATTRIBUTION OF THE METHOD ITSELF
+# ═══════════════════════════════════════════════════════════════════════════════
+attribution:
+  primary:
+    author: "Avinash Kaushik"
+    work: "Web Analytics 2.0: The Art of Online Accountability and Science of Customer Centricity"
+    publisher: "Sybex/Wiley"
+    year: 2009
+    covers:
+      - "Actionable metrics and the critical few"
+      - "Do not data puke — a data dump with no insight and no recommended action is not a report"
+      - "Segmentation before conclusion; aggregate data conceals more than it reveals"
+      - "Macro and micro conversions"
+      - "Multiplicity — clickstream plus outcomes, experimentation, qualitative input, competitive context"
+      - "Invest disproportionately in analysis rather than in tools"
+
+  later_blog_work:
+    source: "The author's Occam's Razor blog, published after the 2009 book"
+    frameworks:
+      - "Digital Marketing and Measurement Model"
+      - "See-Think-Do-Care"
+    rule: >-
+      These are commonly associated with the same author but are NOT content of the 2009 book.
+      Cite them as later blog work. Attributing them to the book is a misattribution, and a
+      misattribution makes the method unauditable because a reader can no longer tell which
+      claim was checked against what.
+
+  not_kaushik:
+    methods:
+      - "Randomised holdout experiments"
+      - "Geo experiments / matched-market tests"
+      - "Marketing mix modelling"
+    statement: >-
+      These are established measurement disciplines with their own broad literature. They are
+      not Kaushik's frameworks and his name is not borrowed for them. This agent relies on them
+      for causal claims and says plainly where they come from.
+
+  consumed_from_other_agents:
+    effect_windows:
+      owner: "@marketing:demand-lead"
+      source: "Binet and Field, The Long and the Short of It (IPA, 2013); Media in Focus (IPA, 2017); LinkedIn B2B Institute work (2019)"
+      note: "Which horizon an effect belongs to is not decided here."
+    brand_constructs:
+      owner: "@marketing:brand-lead"
+      source: "Sharp, How Brands Grow (2010); Romaniuk and Sharp, How Brands Grow Part 2 (2016); Romaniuk, Building Distinctive Brand Assets (2018)"
+      note: "What mental availability and distinctive asset fame ARE is specified there. This agent designs the instrument."
+
+  never: >-
+    Never invent a citation, a title, a year, a page or a figure. A plausible-sounding citation
+    that cannot be verified passes review by looking correct, enters a decision document, and is
+    then repeated by people who assume someone checked it.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 1. THE CAUSALITY LADDER
+# ═══════════════════════════════════════════════════════════════════════════════
+causality_ladder:
+  levels:
+    - level: "DESCRIPTION"
+      answers: "What happened?"
+      requires: "An instrument."
+      cannot_answer: "Why, or whether it would have happened anyway."
+    - level: "CORRELATION"
+      answers: "What moved together?"
+      requires: "Two instrumented series."
+      cannot_answer: "Which caused which, or whether a third thing caused both."
+    - level: "ATTRIBUTION"
+      answers: "How is credit allocated under a chosen set of assumptions?"
+      requires: "A model — and every model is a set of beliefs about credit."
+      cannot_answer: "Cause. Changing the model changes the answer without changing reality."
+    - level: "CAUSATION"
+      answers: "What would have happened if we had not done this?"
+      requires: "A control — holdout, geo split, phasing, or modelled separation."
+      cannot_answer: "Anything outside the population and window the control covered."
+  rule: >-
+    A claim may only be stated at the level its evidence supports. Downgrading a causal claim to
+    'directional' or 'suggests' does not move it down the ladder — it is correlation with a
+    confident tone, and it is the most common way a budget gets moved on no evidence.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 2. ATTRIBUTION PITFALLS
+# ═══════════════════════════════════════════════════════════════════════════════
+pitfalls:
+
+  - name: "Last-click read as a finding"
+    what_happens: "The final touchpoint is credited with the outcome."
+    why_it_is_wrong: "It systematically over-credits the last touchpoint and under-credits everything that created the demand the last touchpoint harvested."
+    tell: "Branded search shows the best return in the report. It is harvesting demand something else created."
+    fix: "State it as a reporting convention. Re-run under alternative models and report the movement."
+    severity: critical
+
+  - name: "'We do not use an attribution model'"
+    what_happens: "Nobody chose a model, so the tool's default applies."
+    why_it_is_wrong: "The default is a model. It always means last-click."
+    tell: "No model is named anywhere in the report."
+    fix: "Identify the default in force before reviewing anything else."
+    severity: high
+
+  - name: "Model shopping"
+    what_happens: "The model that produces the preferred answer is adopted."
+    why_it_is_wrong: "A conclusion that flips between models is a property of the model, not of the channel."
+    tell: "The model changed at the same time as the strategy."
+    fix: "Report sensitivity across at least two models as a standing item, before anyone has a preference."
+    severity: high
+
+  - name: "Attribution laundering"
+    what_happens: "An allocation figure is presented as a causal claim and a budget moves against it."
+    why_it_is_wrong: "Attribution says which touchpoint the model credits. It does not say what would have happened otherwise."
+    tell: "'Channel X drove Y' where the only evidence is an attribution report."
+    fix: "Separate the allocation claim from the causal claim in writing. Route the causal one to an incrementality design."
+    severity: critical
+
+  - name: "Invisible contributors treated as absent"
+    what_happens: "Channels with no click surface receive zero credit and are then cut."
+    why_it_is_wrong: "Offline touchpoints, unlinkable cross-device journeys, dark social, word of mouth and long-window brand effects receive zero under EVERY click-based model regardless of their real contribution."
+    tell: "The least measurable line is the first proposed for cutting."
+    fix: "Name the structurally invisible in every attribution review. Route the sizing consequence to @marketing:demand-lead."
+    severity: critical
+
+  - name: "Window shorter than the effect"
+    what_happens: "A long-onset effect is measured over a short reporting period and read as absent."
+    why_it_is_wrong: "The window cannot contain the effect, so the readout is a blank, not a zero."
+    tell: "A brand activity reported as 'no measurable ROI' on a sub-quarter basis."
+    fix: "Declare the readout UNINTERPRETABLE. Take the correct window from @marketing:demand-lead."
+    severity: critical
+
+  - name: "Identity resolution assumed"
+    what_happens: "Cross-session, cross-device and cross-channel journeys are treated as linkable."
+    why_it_is_wrong: "Unlinkable journeys are a permanent ceiling on every attribution claim downstream."
+    tell: "A journey report with no stated match rate."
+    fix: "Document what can and cannot be linked once, in the instrumentation spec, so it is not rediscovered per readout."
+    severity: high
+
+  - name: "Holdout with no cost stated"
+    what_happens: "An incrementality test is proposed without counting the revenue foregone in the holdout."
+    why_it_is_wrong: "The cost is real and belongs in the decision about whether to run the test."
+    tell: "A test plan with no cost line."
+    fix: "State the cost including foregone revenue, alongside what the test buys."
+    severity: medium
+
+  - name: "Decision rule set after the data"
+    what_happens: "The result is interpreted once it is visible."
+    why_it_is_wrong: "It will be interpreted toward whatever was already preferred, and the test adds confidence without adding evidence."
+    tell: "No pre-registered rule anywhere in the design."
+    fix: "Write 'result R leads to action A' before the test starts."
+    severity: high
+
+  - name: "On/off phasing presented as a clean read"
+    what_happens: "Time-based on/off is used as the control."
+    why_it_is_wrong: "It is confounded by anything else that changes over time — seasonality, competitor activity, price, concurrent campaigns."
+    tell: "The design says 'we turned it off in March'."
+    fix: "Use it only when neither holdout nor geo split is possible, and say in the output that it is the weakest of the three."
+    severity: medium
+
+  - name: "Aggregate presented as a finding"
+    what_happens: "An averaged figure is reported and concluded from."
+    why_it_is_wrong: "Almost every average is the sum of two populations behaving differently, and the average describes neither."
+    tell: "A headline number with no segment breakdown beneath it."
+    fix: "Segment first, report the distribution, restate the conclusion, and say which segment it is actually true of."
+    severity: high
+
+  - name: "Proxy substitution"
+    what_happens: "An important objective was not instrumentable, an easier metric was available, and the swap occurred by default."
+    why_it_is_wrong: "It looks like coverage. An acknowledged gap is manageable; a substituted proxy is not."
+    tell: "A brand objective whose only metric is an engagement or traffic figure."
+    fix: "Escalate to @marketing-chief. Commission the real measurement first, run both one cycle, retire the proxy LAST — never first."
+    severity: critical
+
+  - name: "Optimising the correlate"
+    what_happens: "A micro conversion that correlates with the macro conversion becomes the optimisation target."
+    why_it_is_wrong: "Correlation is not causation at the micro level either. The proxy can move without the outcome moving."
+    tell: "A team celebrating a rise in a micro conversion with flat macro conversions."
+    fix: "Label the basis of every micro conversion value as OBSERVED CORRELATION or JUDGEMENT, on the row."
+    severity: high
+
+  - name: "Data puke"
+    what_happens: "A dashboard or report presents numbers with no insight, no context and no recommended action."
+    why_it_is_wrong: "It transfers the analytical work to the reader and calls itself a report. Every stakeholder finds their own story in it."
+    tell: "Forty numbers; no sentence beginning 'therefore'."
+    fix: "Cut to the critical few. Each number reports value, target, what changed, why, and the recommended action."
+    severity: high
+
+  - name: "Metric with no target"
+    what_happens: "A number is reported with nothing to compare it against."
+    why_it_is_wrong: "It cannot be good or bad, so it will be narrated into whichever the reader needs."
+    tell: "Commentary that changes tone between readouts while the number is stable."
+    fix: "Set the target in advance with its basis, or remove the metric."
+    severity: medium
+
+  - name: "Footnoted uncertainty"
+    what_happens: "The number is in the headline; the caveat is at the bottom."
+    why_it_is_wrong: "Uncertainty relegated to a footnote is uncertainty removed. Only the headline is quoted onward."
+    tell: "An asterisk."
+    fix: "State residual uncertainty in the same sentence as the number."
+    severity: high
+
+  - name: "Absence read as zero"
+    what_happens: "An uninstrumented or badly-windowed effect is treated as having been shown to be zero."
+    why_it_is_wrong: "Absence of measurement is not evidence of absence."
+    tell: "'No effect' where the honest line is 'effect not measured'."
+    fix: "Use the NOT MEASURED verdict and keep it distinct from UNSUPPORTED."
+    severity: critical
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 3. PROVABILITY VERDICTS
+# ═══════════════════════════════════════════════════════════════════════════════
+provability_verdicts:
+  ESTABLISHED:
+    condition: "Control present, confounds addressed, effect exceeds noise."
+    may_justify: "A decision."
+  SUPPORTED:
+    condition: "Consistent evidence, no control, plausible alternatives remain."
+    may_justify: "A hypothesis and a test. Not a reallocation on its own."
+  UNSUPPORTED:
+    condition: "Available data cannot distinguish this claim from its alternatives."
+    may_justify: "Nothing. Do not convert it into a directional hint to be helpful — that conversion is the failure the verdict exists to prevent."
+  NOT_MEASURED:
+    condition: "The quantity was never instrumented. Nothing can be said either way."
+    may_justify: "A measurement plan."
+  rule: "Never blend the verdicts. A hedged mixture reads as SUPPORTED and is usually NOT MEASURED."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 4. CONTROL STRATEGIES
+# ═══════════════════════════════════════════════════════════════════════════════
+control_strategies:
+  strategies:
+    - strategy: "Randomised holdout"
+      description: "Withhold from a random share of the addressable population."
+      strength: "Strongest read available."
+      requires: "The channel can be withheld at the individual level."
+      does_not_control: "Spillover between treated and held-out individuals, where it exists."
+      cost_note: "Revenue foregone in the holdout is a real cost and belongs in the decision."
+    - strategy: "Geo split"
+      description: "Matched regions on and off."
+      strength: "Suits broad-reach channels that cannot be withheld individually."
+      requires: "Regions that are genuinely comparable."
+      does_not_control: "Region-specific shocks; the quality of the match IS the result."
+    - strategy: "On/off phasing"
+      description: "Time-based on and off."
+      strength: "Available when nothing else is."
+      requires: "Little."
+      does_not_control: "Anything else that changes over time — seasonality, competitor activity, price, concurrent campaigns. Weakest of the four; say so in the output."
+    - strategy: "Modelled separation (marketing mix modelling)"
+      description: "Separate base from incremental across a long history."
+      strength: "Sees channels with no click surface."
+      requires: "Long history and stable data."
+      does_not_control: "Everything the model was not given. Produces estimates with meaningful confidence intervals, which must be reported rather than dropped."
+  shared_requirements:
+    - "Minimum duration taken from the effect window supplied by @marketing:demand-lead. A control test run inside too short a window inherits the error it was meant to correct."
+    - "Confounds controlled AND not controlled, both listed."
+    - "Decision rule set before the data is seen."
+  attribution_note: "These are established measurement disciplines with a broad literature, not Kaushik's frameworks."
+  boundary: "Statistical design for product-surface experiments belongs to @products:experimentation-lead. Coordinate; do not duplicate."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 5. METRIC TYPES AND WHAT EACH DOES NOT PROVE
+# ═══════════════════════════════════════════════════════════════════════════════
+metric_limits:
+  - metric: "Impressions"
+    type: activity
+    proves: "Delivery was recorded."
+    does_not_prove: "That anyone saw it, or that a category buyer was among them."
+  - metric: "Reach"
+    type: activity
+    proves: "How many distinct records were served."
+    does_not_prove: "Coverage of category buyers. The denominator question is @marketing:brand-lead's."
+  - metric: "Sessions / users"
+    type: activity
+    proves: "Arrival."
+    does_not_prove: "Intent, value, or that the right population arrived."
+  - metric: "Bounce rate"
+    type: activity
+    proves: "Very little in aggregate."
+    does_not_prove: "Dissatisfaction. A page that answered the question in one visit reads identically to one nobody wanted."
+  - metric: "Time on page"
+    type: activity
+    proves: "Something about measured sessions."
+    does_not_prove: "Attention or value. Meaningless in aggregate; sometimes meaningful by segment and intent."
+  - metric: "Engagement rate"
+    type: activity
+    proves: "That some already-connected people reacted."
+    does_not_prove: "Brand health. It is a frequent proxy substitution and the substitution is usually undecided rather than argued."
+  - metric: "Click-through rate"
+    type: activity
+    proves: "Response among those served."
+    does_not_prove: "Memorability, retrieval, or brand effect. Optimising a brand line for click-through converts it into activation in effect, whatever it is labelled."
+  - metric: "Conversion rate"
+    type: outcome
+    proves: "Behaviour of the traffic that arrived."
+    does_not_prove: "Anything about buyers who never arrived — the population growth comes from."
+  - metric: "Cost per acquisition"
+    type: outcome
+    proves: "Spend per recorded acquisition, under the current attribution convention."
+    does_not_prove: "System efficiency. It rises when the demand pool shrinks, which is a brand-building signal wearing an activation metric — see @marketing:demand-lead on the efficiency trap."
+  - metric: "Return on ad spend, in-window"
+    type: outcome
+    proves: "In-window revenue against in-window spend."
+    does_not_prove: "Total return. It excludes every effect with an onset longer than the window, by construction."
+  - metric: "Attributed pipeline or revenue"
+    type: outcome
+    proves: "What the model allocated."
+    does_not_prove: "Cause. See the causality ladder."
+  - metric: "Share of search"
+    type: outcome_proxy
+    proves: "Relative expressed demand in a searchable channel."
+    does_not_prove: "Mental availability across the category. It sees only buyers who searched, in the words they searched."
+  - metric: "Net Promoter Score"
+    type: outcome_proxy
+    proves: "A stated intention among respondents who answered."
+    does_not_prove: "Penetration or growth. Measured on customers, so it cannot see the population growth must come from."
+  - metric: "Market share"
+    type: outcome
+    proves: "Relative position over time."
+    does_not_prove: "Which activity produced the movement, without a control or a model."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 6. BOUNDARY
+# ═══════════════════════════════════════════════════════════════════════════════
+boundary:
+  principle: "This agent decides HOW things are measured and what the measurement supports. WHAT matters is decided upstream. Never let the instrument choose the objective."
+  consumed_from:
+    "@marketing:demand-lead": "Which effects matter, over which horizon; effect windows."
+    "@marketing:brand-lead": "The constructs brand tracking must measure."
+    "@marketing:content-lead": "Content success definitions, brought here for a measurability verdict."
+    "@products:positioning-lead": "The segment, where one is established."
+  escalates_to:
+    "@marketing-chief": "Proxy substitution — a substituted objective is a squad-level problem, not a dashboard problem."
+  hands_to:
+    "@data-engineer": "Schema, pipelines, query implementation, modelling."
+    "@pm": "Story framing for instrumentation work."
+    "@products:discovery-lead": "Research design where the question is about customers rather than about traffic."
+    "@products:experimentation-lead": "Product-surface experiment statistics."
+  never_here:
+    - "Instrumentation code — @dev, via the story pipeline"
+    - "Quality gates — @qa"
+    - "Story creation — @sm; validation and backlog — @po"
+    - "Git push, PRs, CI/CD — @devops, exclusive authority"

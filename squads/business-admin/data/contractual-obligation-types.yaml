@@ -1,0 +1,257 @@
+# Contractual Obligation Types — Reference Knowledge
+# Squad: business-admin
+# Agent: legal-ops (Codex)
+#
+# What can be extracted from an executed agreement ADMINISTRATIVELY, what cannot, and where the
+# line between the two actually falls. A catalogue for building an obligation register, not a
+# guide to reading contracts.
+#
+# ATTRIBUTION — STATED PRECISELY BECAUSE PRECISION IS THE POINT: legal operations is a
+# professional DISCIPLINE rather than one author's methodology. Its most widely used organising
+# reference is the core competency model published by CLOC (Corporate Legal Operations
+# Consortium), a professional association of legal operations practitioners. That model is a
+# COMMUNITY FRAMEWORK, NOT AN AUTHORED WORK, and it has been revised since first publication.
+# The competency naming and grouping below is how this file understands the model to organise
+# the field; the authoritative list is CLOC's own. Anyone citing it externally must read the
+# CURRENT published version from CLOC's own materials rather than relying on this description.
+#
+# BOUNDARY — APPLIES TO EVERY ENTRY BELOW: legal operations is not the practice of law. Nothing
+# here interprets a clause, assesses enforceability, validity, compliance, lawfulness or risk,
+# proposes a position, or drafts or redlines anything. Every entry describes what a register may
+# RECORD and names the point at which extraction must stop and route to a qualified lawyer.
+#
+# NOTHING PRODUCED USING THIS FILE IS PRIVILEGED. Privilege attaches to lawyers and its
+# operation depends on jurisdiction and circumstance — itself a counsel question. Assume every
+# operational record is disclosable. If a matter is or could become contentious, stop
+# documenting and ask counsel how they want it recorded from that point forward.
+
+version: "1.0.0"
+last_reviewed: "2026-07-30"
+
+counsel_review:
+  required: true
+  reviewer_must_be_named: "A lawyer, by name and firm. 'Our lawyer' and 'legal' are not names."
+  what_counsel_owns_absolutely:
+    - "What any clause means, permits or triggers"
+    - "Enforceability, validity, compliance, lawfulness"
+    - "Risk assessment of any term"
+    - "Positions, fallbacks, drafting, redlining"
+    - "Every item on an AMBIGUOUS list"
+    - "Records retention periods and data protection over the register itself"
+    - "Whether a signature delegation binds the organisation"
+    - "Anything contentious, novel, or involving a regulator or authority"
+  what_operations_owns:
+    - "Where a matter is, who owns it, what stage it is in, what it costs, when a date falls"
+    - "Whether the counsel-approved template was used and whether a deviation was routed"
+    - "Whether the process was followed, and how the function is performing"
+    - "Extraction of dates and duties that are READ rather than INTERPRETED"
+  the_line: |
+    Recording that a clause says "ninety (90) days' written notice prior to the end of the
+    Initial Term" is administration. Saying what that notice period requires the organisation to
+    do, when it starts running, or whether an email satisfies "written" is law. The register
+    stops at the first of those and routes the second.
+
+# ---------------------------------------------------------------------------
+# 1. EXTRACTABLE OBLIGATION TYPES
+# ---------------------------------------------------------------------------
+# Each: what it is, what a register records, what it must never record, the ambiguity marker
+# that sends it to counsel, and the operational failure it prevents.
+
+extractable_types:
+
+  - type: term_and_expiry
+    records: ["stated effective date", "stated term length", "stated expiry date where fixed"]
+    never_records: ["whether the term has in fact commenced", "the effect of expiry"]
+    ambiguity_marker: "Term runs from an event whose occurrence is not determinable from the document — 'the Effective Date shall be the date of first deployment'."
+    lead_time_guidance: "Long. Expiry forces a decision that usually needs a commercial conversation, not a signature."
+    failure_prevented: "Discovering an agreement has expired from the counterparty rather than from the calendar."
+
+  - type: auto_renewal
+    records: ["renewal mechanic exactly as stated", "renewal length as stated", "the notice window as stated"]
+    never_records: ["whether the renewal has been validly triggered", "what happens if notice is late"]
+    ambiguity_marker: "The window is expressed relative to a date that itself must be derived, or the renewal interacts with another clause."
+    priority: "HIGHEST. Flag prominently in every register."
+    failure_prevented: |
+      The most common single expensive administrative failure in contract management: a year of
+      commitment acquired by nobody doing anything. The register looked complete throughout.
+
+  - type: notice_period
+    records: ["duration as stated", "the stated method of notice", "the stated notice address or contact"]
+    never_records: ["whether a given communication would constitute notice", "whether the method is satisfied by email"]
+    ambiguity_marker: "Method or addressee stated in general terms, or the period expressed relative to an interpretive trigger."
+    lead_time_guidance: "Action date = deadline minus notice period minus decision time. Two subtractions, and the second is the one people forget."
+
+  - type: deliverable
+    records: ["the deliverable as described", "its stated due date or stated cadence", "the stated recipient"]
+    never_records: ["whether a deliverable has been met", "the consequence of missing it"]
+    ambiguity_marker: "Deliverable defined by a standard, an acceptance test, or a reference to another document not in the extraction set."
+    cross_reference: "Missed deliverables are usually a process problem — route to @business-admin:process-lead for the queue, never for the contractual consequence."
+
+  - type: reporting_duty
+    records: ["what report, to whom, at what stated cadence, in what stated form"]
+    never_records: ["whether a report satisfies the duty"]
+    ambiguity_marker: "Cadence tied to an event, or content described by reference to a regulation."
+    note: "Reporting duties to a regulator or authority are a hard escalation trigger regardless of how administratively clear the date looks."
+
+  - type: payment_milestone
+    records: ["stated amount", "stated date or stated trigger", "stated currency", "stated payment terms in days"]
+    never_records: ["whether the amount is due", "set-off, disputed-invoice or late-payment consequences"]
+    ambiguity_marker: "Amount computed by formula, indexed, or contingent on performance."
+    cross_reference: "Payment terms in the register must be reconciled against actual receivable days in the financial reading — @business-admin:finance-lead. A divergence is a finding, not a discrepancy to smooth."
+
+  - type: price_change_or_indexation_date
+    records: ["the stated date on which a price may change", "the stated notice required for it"]
+    never_records: ["whether an increase is permitted", "whether an index applies"]
+    ambiguity_marker: "Almost always ambiguous. Indexation clauses very rarely survive administrative extraction intact."
+
+  - type: volume_or_minimum_commitment_date
+    records: ["stated minimum, stated measurement period, stated review date"]
+    never_records: ["whether a shortfall triggers anything"]
+    ambiguity_marker: "Measurement period boundaries not stated explicitly."
+    failure_prevented: "A minimum-commitment shortfall discovered at true-up rather than in time to consume against it."
+
+  - type: insurance_or_certification_maintenance_date
+    records: ["what must be maintained, the stated level, and any stated evidence date"]
+    never_records: ["whether current cover satisfies the requirement"]
+    ambiguity_marker: "Requirement stated by reference to a standard or to 'industry practice'."
+
+  - type: audit_or_inspection_window
+    records: ["the stated window, the stated notice, the stated frequency"]
+    never_records: ["scope of what may be audited"]
+
+  - type: stated_point_of_contact_and_notice_address
+    records: ["names, roles and addresses exactly as written"]
+    never_records: ["whether notice to a different address would be effective"]
+    failure_prevented: "Notice served correctly and to the wrong place, which is indistinguishable from notice not served."
+
+  - type: change_of_control_or_assignment_notification_date
+    records: ["that a notification obligation exists and its stated timing", "clause reference"]
+    never_records: ["what constitutes a change of control", "whether consent is required or would be withheld"]
+    ambiguity_marker: "Almost always. Record the existence and the date; route the meaning."
+    note: "Frequently a hard escalation trigger in its own right — surface it to counsel on discovery rather than at the date."
+
+  - type: governing_law_and_forum_clause_reference
+    records: ["the clause reference ONLY, so counsel can find it"]
+    never_records: ["anything about what it means or implies"]
+    note: "This row exists so an instruction pack can point counsel at it in seconds. It is a pointer, not an extraction."
+
+# ---------------------------------------------------------------------------
+# 2. WHAT A REGISTER NEVER RECORDS
+# ---------------------------------------------------------------------------
+
+never_recorded:
+  characterisations:
+    forbidden_words: ["onerous", "standard", "market", "favourable", "unfavourable", "boilerplate", "low risk", "high risk", "aggressive", "reasonable", "unusual"]
+    why: "Each is a legal assessment wearing an administrative label. A register that grades terms has started advising."
+  interpretations:
+    - "What a clause means, permits, requires or triggers"
+    - "Whether an obligation has been met"
+    - "The consequence of a breach"
+    - "Whether a term is enforceable or valid"
+    - "Whether the organisation is compliant with anything"
+  summaries:
+    rule: "No précis of the agreement. A précis is an interpretation with the working removed."
+  inferred_facts:
+    rule: "No date filled in from what a similar contract usually says. No duration computed from an undeterminable start. Constitution Article IV — No Invention."
+  provisional_entries:
+    rule: |
+      An ambiguous item never enters the register as a provisional row with a caveat. The caveat
+      is invisible to the person reading the register in a hurry, which is every person reading a
+      register. Ambiguous items live only on the AMBIGUOUS list.
+
+# ---------------------------------------------------------------------------
+# 3. AMBIGUITY MARKERS — where extraction stops
+# ---------------------------------------------------------------------------
+
+ambiguity_markers:
+  rule: "If the entry requires INTERPRETING the wording rather than READING it, it is AMBIGUOUS. Ambiguity is the boundary marker."
+  common_markers:
+    - "The date depends on an event whose occurrence cannot be determined from the document"
+    - "The clause refers to another document not in the extraction set"
+    - "Two clauses appear to address the same subject and the register would have to choose"
+    - "The obligation is conditional and the condition is qualitative"
+    - "A defined term is used in a way that differs from its definition"
+    - "The duration is expressed in a way that could count from more than one starting point"
+    - "Handwritten, struck-through or initialled amendments on the executed copy"
+    - "An amendment appears to change a date and the register would have to decide which governs"
+  routing:
+    to: "A qualified lawyer"
+    format: "One sentence per item that counsel can answer directly, plus what it blocks, the deadline, and the documents attached"
+    forbidden_resolutions:
+      - "Choosing the reading that seems obvious"
+      - "Adopting what similar contracts usually say"
+      - "Asking another squad agent — routing a clause question inward is the same violation with an intermediary attached, and the intermediary makes it look sanctioned"
+      - "Recording it provisionally and moving on"
+
+# ---------------------------------------------------------------------------
+# 4. HARD ESCALATION TRIGGERS
+# ---------------------------------------------------------------------------
+# These override everything, including a clean administrative extraction.
+
+hard_escalation_triggers:
+  principle: "Escalate by default. A rule enumerates what may proceed WITHOUT counsel, never what must reach them."
+  authorship: "Drafted by operations, APPROVED BY COUNSEL with a date, executed by operations, audited by counsel. The rule does not go live without the approval."
+  triggers:
+    - "Any dispute, claim, threat or demand — stop, raise the privilege warning, freeze documentation"
+    - "Any regulator, authority or tax contact"
+    - "Counterparty paper rather than the approved template"
+    - "Any deviation from an approved template"
+    - "Anything touching personal data, employment or safety"
+    - "New jurisdiction, entity type or corporate structure"
+    - "Change of control, assignment or novation"
+    - "Any guarantee, indemnity or security"
+    - "Anything unfamiliar to the triager"
+  recording_rule: "Every 'proceeds without counsel' decision is recorded with its basis, so the rule itself can be audited."
+
+# ---------------------------------------------------------------------------
+# 5. OWNERSHIP AND LEAD TIME
+# ---------------------------------------------------------------------------
+
+ownership:
+  rule: "Every obligation has a named individual owner and a lead time."
+  not_an_owner: ["the company", "the team", "operations", "legal", "finance", "whoever signed it"]
+  why: "An obligation owned by nobody surfaces late, and the register looks complete the entire time it is failing."
+  departure_check: "Audit for entries owned by people who have left. This is the most predictable way a tracked obligation becomes untracked."
+
+lead_time:
+  definition: "How far ahead the owner must be warned so a DECISION can be run, not so the date can be observed."
+  action_date: "deadline − lead time. The action date is the real date."
+  two_stage_alerting:
+    alert_1: "Early enough to run the decision, including any commercial conversation it requires"
+    alert_2: "Before the window closes"
+    why_not_one: "A single alert on the deadline records the miss rather than preventing it."
+
+# ---------------------------------------------------------------------------
+# 6. LIFECYCLE CONTEXT
+# ---------------------------------------------------------------------------
+
+lifecycle:
+  stages: ["request", "triage", "draft", "negotiate", "approve", "sign", "store", "obligate", "renew or terminate"]
+  operations_owns: ["intake", "triage against the counsel-approved rule", "routing", "status", "storage", "obligation tracking", "calendar", "metrics", "spend attribution"]
+  counsel_owns: ["drafting", "negotiating legal content", "positions and fallbacks", "interpretation", "risk assessment", "approval of legal terms", "the escalation rule itself", "retention periods"]
+  common_failure: |
+    The lifecycle stops at signature. Obligations are never extracted, owners never assigned,
+    renewals happen by default rather than by decision. Most organisations manage the middle of
+    the lifecycle well and lose both ends, and the expensive failures are at the ends.
+  completeness_reconciliation: |
+    Verify the register against finance's supplier and customer records. That is how agreements
+    nobody registered are found, and it is the only check that discovers what is absent rather
+    than checking what is present.
+
+# ---------------------------------------------------------------------------
+# 7. BOUNDARY, RESTATED WHERE IT IS ACTUALLY CROSSED
+# ---------------------------------------------------------------------------
+
+boundary:
+  the_request_this_role_gets_most: "'Just tell me roughly what this clause means — you read contracts all day.'"
+  the_answer: |
+    A clean refusal, in full, plus an offer to assemble the counsel instruction pack. Reading a
+    contractual term and stating its effect is legal work. A partial legal answer is the failure
+    mode of this role, and a hedged one is worse than a plain one because it gets relied on
+    precisely for sounding careful. There is no small version of practising law.
+  what_is_genuinely_available_instead:
+    - "Whether this clause has any dated obligation attached to it, and who owns it — today"
+    - "A complete instruction pack: executed agreement, all amendments, factual chronology, the specific question written so counsel can answer directly, the decision it supports, the deadline, and a budget expectation"
+    - "The observation that a matter instructed that way is usually a short, cheap answer, and instructed as a forwarded email thread is neither"
+  privilege_warning_timing: "Raised BEFORE anything sensitive is written, and immediately whenever a matter is or could become contentious — not after."
+  borderline_rule: "A borderline question is a legal question. Over-referring costs an email; under-referring costs a case."

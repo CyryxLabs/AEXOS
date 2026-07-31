@@ -1,0 +1,182 @@
+# Service Level Indicator Types — and where each one lies
+# Squad: ops · Owner: @ops:reliability-lead (Keel)
+# Reference knowledge. Not executable, not a configuration file.
+#
+# ATTRIBUTION
+#   The SLI/SLO/error-budget model is published in "Site Reliability Engineering"
+#   (O'Reilly, 2016), eds. Beyer, Jones, Petoff & Murphy — Ch. 3 "Embracing Risk",
+#   Ch. 4 "Service Level Objectives", Ch. 6 "Monitoring Distributed Systems" — and
+#   extended in "The Site Reliability Workbook" (O'Reilly, 2018). Applied with
+#   attribution. Entries marked `convention: true` are common industry practice with no canonical
+#   citation in those volumes and are NOT attributed to them.
+#
+# BOUNDARY — @devops
+#   Nothing in this file configures anything. Choosing an indicator is a policy decision
+#   owned by @ops:reliability-lead. Emitting the data is @dev. Collecting, storing,
+#   routing, thresholding, alerting and paging on it is @devops, exclusively.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# The shape every indicator must have
+# ---------------------------------------------------------------------------
+indicator_contract:
+  form: "good events / valid events, over a stated window"
+  mandatory_fields:
+    - good_event_definition: "What counts as success. Stated as a predicate over an event, not as a feeling."
+    - valid_event_denominator: "What counts as an attempt. Without it the ratio is arithmetic over an undefined set."
+    - data_source: "The log, stream or metric it is computed from. Must exist today, or the objective is provisional."
+  rejection_tests:
+    - "Requires a human to interpret before it means anything -> not an indicator yet"
+    - "Moves for reasons no user experiences -> measuring the machine"
+    - "Does not move during a failure users would notice -> incomplete; record the blind spot or replace it"
+    - "Denominator undefined -> not computable, whatever number is currently displayed"
+
+# ---------------------------------------------------------------------------
+# The indicator catalogue — and the specific way each one misleads
+# ---------------------------------------------------------------------------
+indicator_types:
+
+  - name: Availability
+    form: "successful requests / valid requests"
+    measures: "Whether the journey completes at all"
+    typical_source: "Edge access logs, load balancer logs, gateway telemetry"
+    how_it_lies:
+      - "Counts a 200 carrying wrong or empty content as success. An empty cart returned cleanly is a
+         failure the user experiences and this indicator does not."
+      - "Client 4xx handling decides the number. Excluding all 4xx hides real failures caused by the
+         service breaking its own contract; including all 4xx punishes the service for user typos.
+         The rule must be written down, whichever way it goes."
+      - "Measured at the edge, it misses everything after the edge accepted the request — async work
+         that never completes still reads as available."
+      - "Retries inflate both numerator and denominator, so a service failing half the time with a
+         retrying client can read healthy."
+    guard: "Name the specific failure this SLI would not see, in the document, before publishing."
+
+  - name: Latency
+    form: "requests served under a threshold / valid requests"
+    measures: "Whether the journey completes fast enough to be usable"
+    typical_source: "Same source as availability; server-side or edge timing"
+    how_it_lies:
+      - "Failed requests are usually fast. Mixing them into the distribution makes a degrading service
+         look faster. Successful and failed latency must be separated."
+      - "Averages hide the shape entirely. A threshold-ratio SLI ('served under Nms') is the form that
+         survives; a mean latency target is not an SLI in this model."
+      - "Server-side timing excludes the network, the client and the render. The user's experienced
+         latency is larger and this indicator will never show the gap."
+      - "Timeouts cap the observable distribution: a request killed at 30s is recorded as 30s, not as
+         the 90s it would have taken."
+    guard: "State where the clock starts and stops. A latency figure without that is not comparable
+      to itself across releases."
+
+  - name: Quality
+    form: "correct or complete responses / valid responses"
+    measures: "Whether what was returned was right, not merely returned"
+    typical_source: "Application-level validation, sampled verification, downstream reconciliation"
+    how_it_lies:
+      - "Almost always the hardest to instrument, so it is almost always the one omitted — which means
+         the failure mode it covers is invisible rather than absent."
+      - "Sampling rates that are fine for a headline figure are useless for a rare-but-severe
+         correctness fault."
+      - "Degraded-mode responses (a cached price, a partial result) are correct by the code's
+         definition and wrong by the user's."
+    guard: "If quality is not instrumented, say so explicitly. Omitting it silently implies coverage
+      that does not exist."
+
+  - name: Freshness
+    form: "data younger than a threshold / data served"
+    measures: "Whether what the user sees reflects reality closely enough"
+    typical_source: "Event streams, pipeline watermarks, replication lag metrics"
+    how_it_lies:
+      - "Lag metrics measure the pipeline's opinion of itself. A stalled producer can show zero lag
+         because nothing is arriving to be late."
+      - "Averaged freshness hides a single stuck partition entirely."
+      - "Reports staleness of data that arrived, never of data that never arrived at all."
+    guard: "Pair any freshness SLI with a volume or heartbeat check, or it cannot distinguish fresh
+      from empty."
+
+  - name: Durability
+    form: "records retained / records written"
+    measures: "Whether committed data is still there"
+    typical_source: "Reconciliation jobs, checksum sweeps, backup restore tests"
+    how_it_lies:
+      - "Reads healthy right up until the moment it does not. Loss is usually discovered by an
+         unrelated query, long after the window in which it occurred."
+      - "Backup existence is not durability. An unrestored backup is an untested assertion."
+    guard: "The only evidence for a durability figure is a restore that was actually performed.
+      Scheduling and executing that restore is @devops."
+
+  - name: Coverage
+    form: "items processed / items that should have been processed"
+    measures: "Whether batch or asynchronous work completed for everything it was supposed to"
+    typical_source: "Job ledgers, reconciliation against the source of record"
+    convention: true
+    convention_note: "Common practice for batch and pipeline services; not a named category in the
+      cited volumes. Labelled as convention, not attributed."
+    how_it_lies:
+      - "A job that exits zero having processed nothing scores perfectly on any success-rate metric.
+         Coverage is the indicator that catches it, and it needs an independent denominator — one the
+         job itself does not compute."
+
+# ---------------------------------------------------------------------------
+# The failure mode that outranks all of the above
+# ---------------------------------------------------------------------------
+component_metrics_are_not_indicators:
+  position: "Component uptime commonly reads one to two nines higher than the journey the user
+    experiences, because it counts the process as alive while requests fail, queue or time out."
+  never_use_as_a_user_facing_figure:
+    - "Host or container uptime"
+    - "Process liveness / health-endpoint success"
+    - "CPU, memory or disk headroom"
+    - "Pod restart count"
+    - "Successful deploy rate"
+  legitimate_use: "As saturation or cause-level signals routed to tickets, never as the availability
+    figure quoted to a customer or written into a contract."
+
+# ---------------------------------------------------------------------------
+# Error budget arithmetic
+# ---------------------------------------------------------------------------
+error_budget:
+  derivation: "budget = 1 - SLO, expressed over the measurement window"
+  thirty_day_window:
+    "99.0%":  "approximately 7h 12m"
+    "99.5%":  "approximately 3h 36m"
+    "99.9%":  "approximately 43m 12s"
+    "99.95%": "approximately 21m 36s"
+    "99.99%": "approximately 4m 19s"
+  reporting_rule: "Report burn rate against the window. Remaining balance alone cannot distinguish a
+    budget spent evenly across thirty days from one spent in a single afternoon."
+  purpose: "A quantified, shared allowance for risk: releases, migrations, experiments and drills are
+    funded from it."
+  failure_modes:
+    - "Driving the budget to zero converts a velocity mechanism into a fear mechanism."
+    - "A window closing with the budget untouched usually means the target is too loose or
+       reliability is being over-bought against velocity."
+    - "A budget with no written policy is decoration — the response gets decided mid-incident by
+       whoever is loudest."
+  execution_boundary: "Every consequence a budget policy defines — gate, freeze, hold, release
+    posture — is executed by @devops, exclusively. @ops:reliability-lead reports the burn and writes
+    the rule."
+
+# ---------------------------------------------------------------------------
+# Golden signals
+# ---------------------------------------------------------------------------
+golden_signals:
+  source: "SRE book, Ch. 6 'Monitoring Distributed Systems'"
+  signals:
+    latency: "Time to serve a request. Separate successful from failed, or fast failures flatter the
+      distribution."
+    traffic: "Demand in units meaningful to the service."
+    errors: "Rate of failing requests, explicit and implicit. Implicit includes wrong content served
+      with a success code."
+    saturation: "How full the most constrained resource is. Frequently the earliest leading indicator
+      of the other three."
+  alerting_posture:
+    page: "User-visible symptom requiring human action now, tied to budget burn. Must have a
+      documented action."
+    ticket: "Requires action but not immediately. All cause-level signals live here."
+    log_only: "Diagnostic detail consulted during investigation, never routed to a human."
+  failure_mode: "Alerting on causes rather than symptoms generates volume, trains dismissal, and
+    converts alerting into decorative coverage that is believed to be protection."
+  execution_boundary: "Specification here; configuration of collection, routing, thresholds and
+    paging is @devops, exclusively. Emitting the underlying data is @dev."

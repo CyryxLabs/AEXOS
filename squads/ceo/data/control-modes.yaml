@@ -1,0 +1,457 @@
+# Control Modes and Managerial Reference — for org-designer (Lattice)
+# Squad: ceo
+#
+# Method source: Andrew S. Grove, "High Output Management" (1983).
+#
+# ATTRIBUTION RULE FOR THIS FILE
+# The three modes of control, the definition of managerial output and leverage, the four
+# managerial activities, the production view with its limiting step, paired indicators, the
+# six decision questions, the free-discussion / clear-decision / full-support sequence,
+# peer-group syndrome, the process-oriented versus mission-oriented meeting distinction,
+# the two-question form of management by objectives, task-relevant maturity, and the
+# cannot-do / will-not-do distinction are from that work and are marked `source: grove`.
+# Every procedure, threshold, detection rule and worked example is this squad's operating
+# detail and is marked `source: squad`.
+#
+# NO SENTENCE IN THIS FILE IS A QUOTATION. Grove's framework is described, not reproduced.
+#
+# HARD SCOPE LIMIT: nothing in this file supports assessing a named individual. Task-relevant
+# maturity in particular is a property of a task, not a rating of a person, and any use of it
+# that narrows to an individual is out of scope and routes to a qualified human manager with
+# HR or legal counsel.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# THREE MODES OF CONTROL
+# ---------------------------------------------------------------------------
+modes_of_control:
+  source: grove
+  selection_variables:
+    - "Complexity, uncertainty and ambiguity of the environment."
+    - "Whether individual interests and group interests are aligned for the work in question."
+  selection_is_not_a_preference:
+    source: squad
+    text: "The mode follows the assessment. Choosing a mode first and then describing the environment to justify it is the common failure, and it produces contractual control over uncertain work."
+
+  modes:
+    - id: free_market_forces
+      name: "Free-market forces"
+      mechanism: "Price and transaction. The unit of work is defined, priced, and exchanged."
+      fits_when:
+        source: grove
+        text: "Low complexity, and individual interests are self-serving."
+      requires:
+        source: squad
+        items:
+          - "A definable unit of work."
+          - "A price for that unit that both sides accept."
+          - "Low cost of specifying what was delivered."
+      cost:
+        source: squad
+        text: "Everything not in the priced unit is externalised. Quality dimensions that are hard to price are the first to degrade."
+      examples_of_fit:
+        source: squad
+        items:
+          - "Commodity procurement where the specification is complete."
+          - "Standardised, high-volume transactional work with an unambiguous acceptance test."
+
+    - id: contractual_obligations
+      name: "Contractual obligations"
+      mechanism: "Rules, specifications, defined scope, agreed standards."
+      fits_when:
+        source: grove
+        text: "Moderate complexity, and interests are mixed."
+      requires:
+        source: squad
+        items:
+          - "The situations that will arise can largely be anticipated in advance."
+          - "Compliance is observable."
+      cost:
+        source: squad
+        text: "Cannot anticipate situations outside the specification. Under genuine uncertainty it produces compliance with the letter and failure of the outcome — which is the single most common control mismatch and is usually mistaken for a people problem."
+      mismatch_signal:
+        source: squad
+        items:
+          - "The specification is amended more often than the work changes."
+          - "Escalations are about whether something was in scope, rather than about what to do."
+          - "People can point to the rule they followed while the outcome failed."
+
+    - id: cultural_values
+      name: "Cultural values"
+      mechanism: "Shared aims, so that people act correctly in situations no rule anticipated."
+      fits_when:
+        source: grove
+        text: "High complexity and uncertainty, and shared interests."
+      unique_property:
+        source: grove
+        text: "It is the only mode that functions when uncertainty is high, because rules cannot anticipate the situations that will arise."
+      cost:
+        source: grove
+        text: "It takes a long time to establish and is easily damaged."
+      cost_operational:
+        source: squad
+        text: "It cannot be installed quickly, and it cannot be installed by announcement. Where a company under high uncertainty has no established shared aims, the honest finding is that the required mode is not currently available — not that it should be declared."
+      evidence_rule:
+        source: squad
+        text: "Claims about culture must cite an observable referent: a decision made without escalation, a trade-off taken consistently across teams, a documented instance. Assertions about values with no observable referent are marked UNVERIFIED."
+
+  mismatch_table:
+    source: squad
+    items:
+      - environment: "High uncertainty"
+        mode_applied: "Contractual obligations"
+        result: "Compliance with the letter, failure of the outcome. Escalation volume rises and decision quality falls."
+        repair: "Move to shared aims where they exist; where they do not, narrow the work until it becomes specifiable, and say that is what is being done."
+      - environment: "Low complexity, definable units"
+        mode_applied: "Cultural values"
+        result: "Ambiguity where a specification would have been cheaper. Effort spent on alignment that a price would have settled."
+        repair: "Specify and price the unit."
+      - environment: "Mixed interests"
+        mode_applied: "Cultural values"
+        result: "The mode assumes an alignment that does not exist; the gap is filled by whoever is most persistent."
+        repair: "Contractual obligations for the parts where interests diverge; shared aims only where they genuinely converge."
+
+# ---------------------------------------------------------------------------
+# MANAGERIAL OUTPUT AND LEVERAGE
+# ---------------------------------------------------------------------------
+managerial_output:
+  source: grove
+  definition: "A manager's output is the output of the organisation under their supervision, plus the output of the neighbouring organisations they influence."
+  corollary: "Personal activity is an input, not the output."
+  operating_test:
+    source: squad
+    text: "Ask what the role currently reports as its accomplishments. Where those are activities — meetings held, documents produced, hours worked — the activity-versus-output gap is the finding. State it without contempt; the confusion is structural."
+
+leverage:
+  source: grove
+  definition: "Output produced per unit of managerial time invested."
+  key_property: "Leverage can be negative."
+  four_managerial_activities:
+    source: grove
+    items:
+      - id: information_gathering
+        note: "The base on which the rest rests. Most of it arrives through informal channels rather than through reports."
+      - id: decision_making
+      - id: nudging
+      - id: role_modelling
+  negative_leverage_patterns:
+    source: grove
+    items:
+      - "Waffling on a decision, so that many people wait."
+      - "Interfering at low value in work already well handled."
+      - "Transmitting a bad mood to a large team."
+  negative_leverage_detection:
+    source: squad
+    items:
+      - signal: "A decision listed as open in two consecutive reviews with no new information gathered between them."
+        reading: "The delay is not evidence-gathering; it is avoidance, and it is multiplied by everyone waiting."
+      - signal: "A manager attending a recurring meeting with no role — neither deciding, nor consulted, nor informing."
+        reading: "Attendance as insurance. Cost is the attendance multiplied by the frequency."
+      - signal: "Review of finished work rather than sampling at a low-value stage."
+        reading: "Inspection placed late is inspection placed expensively, and it teaches the team to defer completion rather than surface problems."
+  time_data_rule:
+    source: squad
+    text: "Use two to four weeks of OBSERVED calendar and task data. Recalled time allocation is not admissible — the gap between recalled and observed is itself one of the most reliable findings this audit produces."
+  recommendation_rule:
+    source: squad
+    text: "Every recommended shift states what stops to make room. A recommendation that adds without removing is not implementable and will be abandoned."
+
+delegation:
+  source: grove
+  principle: "Delegation without follow-through is abdication. Delegating a task does not delegate accountability for the outcome."
+  tests:
+    source: squad
+    items:
+      - "Was the TASK delegated, or the OUTCOME? They require different monitoring."
+      - "Does monitoring sample the work at a low-value stage, or review the finished result?"
+      - "Does monitoring frequency match task-relevant maturity for this specific task?"
+      - "Is accountability for the outcome still held by the delegator? It should be."
+
+# ---------------------------------------------------------------------------
+# PRODUCTION VIEW
+# ---------------------------------------------------------------------------
+production_view:
+  source: grove
+  principle: "Any work process can be viewed as production. Find the limiting step — the longest, most expensive, or least flexible — and build the rest of the process around it."
+  limiting_step_procedure:
+    source: squad
+    steps:
+      - "Map the process as stages with input, output and OBSERVED duration."
+      - "Identify the candidate limiting step."
+      - "Confirmation test: would improving any other stage change the total? If not, the limiting step is confirmed and effort elsewhere is currently wasted."
+      - "State what building the process around it requires: reordering, staging work earlier, or accepting idle capacity elsewhere."
+      - "Cross-check against any chain-link analysis from @ceo:strategy-lead. The two should agree; if they do not, one is looking at the wrong process."
+  headcount_rule:
+    source: squad
+    text: "Adding people to a non-limiting step produces cost and no throughput. Any proposal to add capacity must first name the limiting step and show that the addition lands on it."
+
+early_detection:
+  source: grove
+  principle: "Detect and fix problems at the lowest-value stage possible; the cost of a defect rises as work moves downstream."
+  corollary:
+    source: squad
+    text: "Inspection placed late is inspection placed expensively. But inspection is not free: where a check costs more than the defects it catches, say so and leave it alone."
+
+indicators:
+  source: grove
+  principle: "Indicators are how you see inside the black box. Prefer leading indicators, and pair every indicator with a counter-indicator so that optimising one exposes damage to the other."
+  pairing_patterns:
+    source: grove
+    items:
+      - [volume, defect_rate]
+      - [speed, rework]
+      - [throughput, backlog_age]
+      - [utilisation, queue_time]
+  required_fields:
+    source: squad
+    fields: [indicator, counter_indicator, leading_or_lagging, source, collection_cost, frequency, owner, action_triggered]
+  action_rule:
+    source: squad
+    text: "An indicator nobody acts on is a report, not an indicator. A row with no triggered action is removed or given one."
+  gaming_test:
+    source: squad
+    procedure: "For each pair, describe how a reasonable person under pressure would move the indicator without improving the output. If the counter-indicator does not catch that, the pair is wrong."
+    note: "Gaming is usually unintentional. The person is responding correctly to the measure they were given; the measure is the defect."
+  set_size_rule:
+    source: squad
+    text: "More indicators means less attention per indicator. State why the set is the size it is."
+  black_box_rule:
+    source: squad
+    text: "Specify new instrumentation only where no existing system already records something correlated with the unknown, and route implementation to @data-engineer. A window that changes no decision is not worth cutting."
+  reports_note:
+    source: grove
+    text: "Reports have value largely as a discipline for the person writing them; the act of composing the report is often worth more than the act of reading it."
+
+# ---------------------------------------------------------------------------
+# DECISIONS
+# ---------------------------------------------------------------------------
+decision_six_questions:
+  source: grove
+  note: "Ambiguity in any one of the six is the usual cause of a stalled decision."
+  questions:
+    - id: what
+      text: "What decision is to be made — stated so a reader could tell whether it has been."
+    - id: by_when
+      text: "By when — a date, not a quarter."
+    - id: who_decides
+      text: "Who decides — one named person or one named body."
+    - id: who_consulted
+      text: "Who must be consulted before, because they hold knowledge that would change it."
+    - id: who_ratifies
+      text: "Who ratifies or can veto, and on what grounds, stated in advance."
+    - id: who_informed
+      text: "Who must be informed after, and through what channel."
+  diagnostic_use:
+    source: squad
+    text: "An unanswerable question IS the reason the decision is stalled. Report it as the finding rather than designing a structure around it."
+
+decision_sequence:
+  source: grove
+  stages: [free_discussion, clear_decision, full_support]
+  full_support_definition: "Full support does not require agreement. It requires that the decision is executed as if it were one's own."
+  operating_detail:
+    source: squad
+    items:
+      - "Free discussion needs a stated MECHANISM by which dissent surfaces, not an intention to welcome it. Note who has spoken least in recent instances."
+      - "A process with no fallback to a named decider by a named date defaults to the status quo — a decision made by nobody."
+      - "Full support must be stated explicitly as expected behaviour, or it will not happen."
+
+decision_placement:
+  source: grove
+  principle: "Decisions belong at the lowest level where the knowledge and the responsibility meet. Where technical knowledge sits low and organisational responsibility sits high, the two must be brought into the same room rather than one deferring to the other."
+  mechanisms:
+    source: squad
+    items: [delegated_authority, standing_forum, escalation_with_a_clock]
+  failure_classes:
+    source: squad
+    items:
+      - id: over_escalated
+        definition: "Made above the level where both knowledge and responsibility exist."
+        symptom: "The decider asks for a recommendation and approves it unchanged, at a delay."
+      - id: orphaned
+        definition: "No assigned decider."
+        symptom: "Resolved by whoever is most persistent, and re-opened whenever someone else becomes persistent."
+  evidence_rule:
+    source: squad
+    text: "Build the decision-rights table from the last quarter of decision logs, tickets or escalations — never from the org chart. The chart records intent; the logs record what happens."
+
+peer_group_syndrome:
+  source: grove
+  observation: "A group of equals will avoid the exposure of taking a position; a senior person present to call the decision resolves it."
+  arrangement: "peer-plus-one"
+  operating_rule:
+    source: squad
+    text: "If the deciding body is a group of equals, name the senior person present to call it. Without one, the meeting produces a further meeting."
+
+# ---------------------------------------------------------------------------
+# MEETINGS
+# ---------------------------------------------------------------------------
+meetings:
+  source: grove
+  premise: "Meetings are the medium of managerial work, not a symptom of its failure. The question is never whether to meet but which kind the work requires."
+  kinds:
+    - id: process_oriented
+      description: "Scheduled and regular: one-on-ones, staff meetings, operation reviews."
+    - id: mission_oriented
+      description: "Ad hoc, existing to produce a specific decision."
+  ratio_reading:
+    source: grove
+    text: "A calendar dominated by ad hoc meetings indicates that the regular ones are missing or failing."
+  ratio_repair:
+    source: squad
+    text: "The repair is upstream of the ad hoc meetings, not a cull of them. Culling ad hoc meetings without fixing the regular ones removes the only place decisions were being made."
+  mission_meeting_requirements:
+    source: squad
+    items: [named_chair, stated_decision, pre_circulated_purpose]
+  mission_meeting_failure:
+    source: squad
+    text: "A mission-oriented meeting without those three produces a further meeting. That is its most common output; count how many did exactly that last quarter."
+  cadence_rule:
+    source: squad
+    text: "Cadence follows decisions. Start from the decisions the work generates and their frequency, not from a calendar template."
+  replacement_rule:
+    source: squad
+    text: "Every new meeting states what it replaces. A cadence that only adds will be abandoned."
+
+one_on_one:
+  source: grove
+  ownership: "The one-on-one belongs to the subordinate. They set the agenda; the manager listens and asks."
+  frequency_rule: "Frequency follows task-relevant maturity, increasing when maturity is low or the work has changed."
+  operating_detail:
+    source: squad
+    items:
+      - "A person new to a task needs more, regardless of tenure."
+      - "Content is what the manager needs to hear, not what the manager wants to say."
+      - "It is not a status report a document could carry, not a performance review, and not a substitute for a decision forum."
+      - "Follow-up is held where both can see it."
+  scope_limit:
+    source: squad
+    text: "This squad designs the practice. It does not conduct, attend, transcribe or evaluate any individual's one-on-one."
+
+# ---------------------------------------------------------------------------
+# OBJECTIVES
+# ---------------------------------------------------------------------------
+objectives:
+  source: grove
+  two_questions:
+    - "Where do I want to go? — the objective."
+    - "How will I pace myself to know whether I am getting there? — the key results."
+  key_results_definition: "Milestones and measures, not a restatement of the objective."
+  horizon_rule: "Short enough to steer by. A system that only reports at the end of the period cannot correct anything during it."
+  compensation_guard:
+    source: grove
+    text: "Objectives should not be mechanically coupled to compensation; coupling converts the objective-setting conversation into a negotiation about the target."
+  compensation_scope:
+    source: squad
+    text: "Compensation decisions themselves are outside this squad entirely and belong to human management."
+  planning_definition:
+    source: grove
+    text: "Planning asks what the environment demands, what our present status is, and what we must do today to close the gap that will appear tomorrow. Today's actions are the only thing planning can change."
+
+# ---------------------------------------------------------------------------
+# STRUCTURE
+# ---------------------------------------------------------------------------
+structure:
+  source: grove
+  range:
+    mission_oriented: "Responsive; duplicates effort."
+    functional: "Gains scale; loses responsiveness."
+    observation: "Most useful organisations are hybrids."
+  dual_reporting:
+    source: grove
+    text: "Dual reporting is the price of a hybrid organisation. It is uncomfortable and it works, provided both reporting lines are explicit about which decisions each one owns."
+    failure_mode:
+      source: squad
+      text: "The failure mode is UNSPECIFIED dual reporting, not dual reporting itself. Specify it decision by decision, with a conflict-resolution route."
+  design_procedure:
+    source: squad
+    steps:
+      - "For each unit, state which decisions it must be able to make ALONE to be responsive."
+      - "Identify functions where scale genuinely pays and duplication is genuinely wasteful."
+      - "Distinguish those from functions centralised out of habit."
+      - "State the cost of the chosen position honestly. Every position on the range gives something up."
+
+reorganisation_test:
+  source: squad
+  note: "Grove's material supports the components; this ordering and its blocking rule are this squad's."
+  tests:
+    - id: moves_a_decision
+      question: "Which decisions does it move, and to where?"
+      blocking: true
+      fail_verdict: "If it moves no decision, it is a chart change. Report it as one."
+    - id: names_the_problem
+      question: "What problem does it solve, expressed as a decision that is currently slow or unowned?"
+    - id: cheaper_alternatives_first
+      question: "Could a cadence change or a decision-rights change achieve the same result?"
+      note: "Both are far cheaper and reversible. Test them first and say that you did."
+    - id: transition_cost
+      question: "What period of degraded output while relationships, context and ownership are re-established?"
+      rule: "Budget it explicitly. A risk might happen; a transition cost will."
+    - id: current_policy
+      question: "Does the proposed structure follow the CURRENT guiding policy, or the previous one?"
+    - id: people_consequences
+      route: "Qualified human management and HR or legal counsel. Not designed here."
+    - id: announcement
+      route: "@ceo:stakeholder-lead. Not drafted here."
+
+# ---------------------------------------------------------------------------
+# TASK-RELEVANT MATURITY
+# ---------------------------------------------------------------------------
+task_relevant_maturity:
+  source: grove
+  definition: "A property of a person's experience AT A SPECIFIC TASK, not a rating of the person."
+  reset_rule: "A capable person moved to a new task returns to low maturity for that task."
+  levels:
+    - level: low
+      style: "Structured and task-oriented: what, when, how, checked frequently."
+    - level: medium
+      style: "Two-way communication, support and reasoning; the manager explains why."
+    - level: high
+      style: "Involvement with minimal intervention; the manager sets objectives and monitors."
+  operating_rules:
+    source: squad
+    items:
+      - "Name the task precisely. 'Owns the migration' is not a task; 'designs the cutover plan' is."
+      - "Assess from observable evidence: prior instances completed, decisions made unaided, errors and their type."
+      - "State the transition trigger — what evidence would move the task to the next level."
+      - "The reset is expected and is not a judgement about anyone."
+  hard_stop:
+    source: squad
+    text: "If the conversation turns to an individual's performance, compensation or standing, STOP and route to a qualified human manager. This squad designs the system, not the verdict."
+
+underperformance:
+  source: grove
+  question: "Can the person not do it, or will they not?"
+  cannot_do:
+    remedy: "Training — which is the manager's own job and one of the highest-leverage activities available."
+    specify:
+      source: squad
+      items: [what_training, delivered_by_whom, how_its_effect_will_be_observed]
+  will_not_do:
+    remedy: "A motivation question about the design of the work, its measures and its consequences."
+  warning:
+    source: grove
+    text: "Treating one as the other reliably fails."
+  scope_limit:
+    source: squad
+    text: "Operate at the level of a role or a repeating team pattern. If the analysis narrows to a named individual, route to a qualified human manager and to HR or legal counsel where employment consequences are in view. Produce no assessment of any named person."
+
+# ---------------------------------------------------------------------------
+# BOUNDARY
+# ---------------------------------------------------------------------------
+boundary:
+  source: squad
+  produces: ["output definitions", "leverage audits", "limiting-step analyses", "paired indicator sets", "decision rights", "decision processes", "meeting cadence", "objectives structure", "control-mode selection", "structure and dual-reporting specification", "transition cost budget"]
+  never_produces:
+    - what: "The diagnosis of the company's challenge, or the guiding policy"
+      route_to: "@ceo:strategy-lead"
+    - what: "Whether headcount is the right use of capital; budgets; hurdle rates"
+      route_to: "@ceo:capital-allocator"
+    - what: "The announcement of an org change, to the board or the team"
+      route_to: "@ceo:stakeholder-lead"
+    - what: "Any assessment of a named individual, compensation, discipline, employment or accommodation"
+      route_to: "Qualified human manager with HR or legal counsel"
+    - what: "Instrumentation implementation, queries, schema"
+      route_to: "@data-engineer"
+  upstream_dependency: "Structure follows the guiding policy. Without a diagnosis and policy, the design has no criterion and the work returns to @ceo:strategy-lead."

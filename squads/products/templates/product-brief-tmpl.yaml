@@ -1,0 +1,509 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# AEXOS Products Squad — Consolidated Product Brief
+# Owner: @products-chief (Helm)  |  Materializes: *product-brief {initiative}
+#
+# DEFINING CONSTRAINT: THIS TEMPLATE GENERATES NOTHING NEW.
+# It assembles what the specialists already wrote. Every statement in the output
+# carries a `source_artifact` naming the specialist artifact it came from, and
+# that artifact in turn names its evidence. A line with no source artifact is
+# deleted, not softened.
+#
+# Constitution Article IV (No Invention) is enforced here as a blocking gate,
+# not as a reminder.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+template:
+  id: products-squad-brief-v1
+  name: Consolidated Product Brief (Products Squad)
+  version: 1.0
+  owner: products-chief
+  output:
+    format: markdown
+    filename: docs/product/briefs/brief-{{initiative_slug}}-{{date}}.md
+    title: "Products Squad Brief: {{initiative_name}}"
+
+workflow:
+  mode: assembly-only
+  elicitation: none
+  elicitation_rationale: |
+    This template does not elicit product content from the user. Eliciting content here
+    would create a statement with no source artifact, which is exactly what the template
+    exists to prevent. If a section has no source, the correct action is to route the gap
+    to the owning specialist — not to ask the user to fill it in.
+
+    The only questions asked while filling this template are locating questions:
+    "which artifact says this?" and "where is that artifact?".
+
+  # -----------------------------------------------------------------------------
+  # THE RULE THAT GOVERNS EVERY SECTION BELOW
+  # -----------------------------------------------------------------------------
+  rejection_rule:
+    statement: "Every line in this brief names the specialist artifact it came from. No exceptions."
+    field_required: source_artifact
+    on_missing_source:
+      action: DELETE_AND_ROUTE
+      procedure: |
+        1. Remove the line from the brief. Do not rephrase it into a hedge
+           ("we believe", "it seems likely that") — hedged invention is still invention.
+        2. Record the removed line verbatim in the `gaps` section, under the chain link
+           it belonged to.
+        3. Name the specialist who owns that link and route the gap to them.
+        4. If the gap blocks the handoff to @pm, say so in `handoff_to_pm.blocked_by`.
+      forbidden_alternatives:
+        - "Softening the claim so it sounds like an inference rather than an assertion"
+        - "Attributing it to 'the squad' or to @products-chief"
+        - "Citing this brief, a triage record, or an arbitration record as the source"
+        - "Citing a chat transcript, a meeting, or a conversation with no written artifact"
+        - "Merging two sourced statements into a third statement neither artifact makes"
+    valid_sources:
+      - "A specialist artifact in the repository, at a stated path, with a stated revision date"
+      - "A named section within such an artifact, when the artifact is long"
+    invalid_sources:
+      - "This brief"
+      - "A chat transcript or a verbal decision that was never written to the repository"
+      - "@products-chief's own reasoning — Helm carries no product methodology and generates no product claims"
+      - "An artifact belonging to a different initiative"
+
+  gates:
+    - id: article-iv-gate
+      name: "No Invention gate (Constitution Article IV)"
+      blocking: true
+      runs: before_output_is_written
+      test: |
+        Walk the assembled brief line by line. For each substantive statement, confirm:
+        (a) a `source_artifact` path is present,
+        (b) the path resolves to a file that exists in the repository,
+        (c) the cited artifact actually contains the claim — not merely a related claim,
+        (d) the cited artifact belongs to this initiative.
+      on_fail: |
+        BLOCK the brief. Do not emit a partial brief with unsourced lines flagged for later —
+        a flagged invention still travels downstream and arrives at @pm looking like a finding.
+        Remove the failing lines, record them as gaps, route them, and re-run the gate.
+      failure_name: "Brief with new claims"
+      severity: critical
+
+    - id: coherence-gate
+      name: "Chain coherence gate"
+      blocking: false
+      runs: before_output_is_written
+      test: |
+        Has *coherence-check been run on this initiative since the most recent artifact revision?
+        If yes, are there unrepaired breaks?
+      on_fail: |
+        Do not block, but the brief MUST state the unrepaired breaks in `coherence_status`
+        and mark every downstream link as SUSPECT. A brief assembled over a known break is
+        legitimate only if the break is visible in it.
+
+    - id: boundary-gate
+      name: "Squad boundary gate"
+      blocking: true
+      runs: before_output_is_written
+      test: |
+        Does the brief contain epics, user stories, acceptance criteria, PRD sections,
+        implementation plans, schema, or sprint scope?
+      on_fail: |
+        BLOCK. This squad stops at the evidenced problem. Epic framing and PRD authoring
+        belong to @pm; story drafting to @sm; story validation and backlog to @po;
+        implementation to @dev; quality gates to @qa; git push, PRs, MCP and CI/CD to
+        @devops (exclusive). Strip the content and hand the brief over instead.
+
+sections:
+  # ---------------------------------------------------------------------------
+  - id: instructions
+    instruction: |
+      ASSEMBLY PROCEDURE — read before filling anything.
+
+      1. Collect every artifact the squad has written for this initiative. Include artifacts
+         that look obsolete; deciding they are obsolete is a finding, not a filter.
+      2. Map each artifact to exactly one chain link:
+         segment -> job -> outcome -> solution -> narrative -> price -> measure.
+      3. Fill each section below ONLY from those artifacts. Quote or compress; never extend.
+      4. Where a link has no artifact, write `NOT ESTABLISHED` in the section and record the
+         gap. Do not fill the hole with a plausible sentence.
+      5. Run the three gates above. The Article IV gate and the boundary gate are blocking.
+      6. Emit the brief. Then run `*handoff-to-delivery` to package it for @pm.
+
+      WHAT THIS BRIEF IS FOR: giving @pm an evidenced problem with its uncertainty intact,
+      so nothing arrives at epic framing looking more certain than it is.
+
+  # ---------------------------------------------------------------------------
+  - id: header
+    title: Brief Header
+    instruction: |
+      Identify the brief and make it auditable. `assembled_from` must list every artifact
+      consulted, including ones that contributed nothing — a reader needs to know what was
+      looked at, not only what was used.
+    bad_answer: |
+      An `assembled_from` list containing only the artifacts that agreed with each other, or
+      artifact names without paths and dates. Both make the brief impossible to re-verify.
+    template: |
+      **Initiative:** {{initiative_name}}
+      **Assembled:** {{date}} by @products-chief (Helm)
+      **Coherence audit:** {{coherence_report_path}} ({{coherence_report_date}}) | not run
+      **Assembled from:**
+
+      | Artifact | Owning specialist | Chain link | Last revised | Used |
+      |---|---|---|---|---|
+      | {{artifact_path}} | {{agent_id}} | {{link}} | {{date}} | yes / no — {{reason}} |
+
+  # ---------------------------------------------------------------------------
+  - id: article-iv-declaration
+    title: Source Declaration
+    instruction: |
+      A fixed statement, reproduced verbatim in every brief. It is not decoration: it tells the
+      receiving agent what standard the document was held to, and therefore how to read a line
+      that lacks a source (as a defect, not as a nuance).
+    template: |
+      This brief generates nothing new. Every statement below names the specialist artifact it
+      came from; that artifact names its evidence. Statements with no source artifact were
+      removed and are listed under Gaps, not softened into the text.
+
+      `@products-chief` (Helm) carries no product methodology and contributes no product claims
+      to this document. Helm's contribution is assembly, traceability and coherence.
+
+  # ---------------------------------------------------------------------------
+  - id: coherence-status
+    title: Coherence Status
+    instruction: |
+      State whether the chain holds. Take this directly from the most recent coherence report
+      (`*coherence-check`). If no audit has been run since the newest artifact was revised, say
+      so — an unaudited brief is not the same as a coherent one.
+      For each unrepaired break, state the link, whether it is INDEPENDENT or INHERITED, and
+      which links downstream of it are therefore SUSPECT.
+    bad_answer: |
+      "Broadly consistent." Coherence is per-link and binary at each link. A summary adjective
+      here is coherence smoothing, and the break it hides propagates into every downstream
+      section of this brief.
+    template: |
+      **Chain status:** COHERENT | BREAKS UNREPAIRED | NOT AUDITED
+
+      | Link | Status | Class | Source |
+      |---|---|---|---|
+      | segment | consistent / BREAK / SUSPECT / MISSING | INDEPENDENT / INHERITED / — | {{source_artifact}} |
+      | job | | | |
+      | outcome | | | |
+      | solution | | | |
+      | narrative | | | |
+      | price | | | |
+      | measure | | | |
+
+      **Unrepaired breaks and their consequence for this brief:** {{consequence}}
+
+  # ---------------------------------------------------------------------------
+  - id: segment
+    title: "1. Segment — who exactly this is for"
+    instruction: |
+      Take the target segment from the strategy artifact, in the strategy's own words. Include
+      the exclusions: who this is explicitly NOT for. Exclusions are what make a segment usable
+      downstream, and they are the first thing positioning and pricing need.
+      Owner of this link: product-strategist.
+    bad_answer: |
+      "Teams that need better collaboration." A segment that excludes nobody is not a segment;
+      it is a market. If the source artifact is this vague, that is the finding — record it as
+      a gap against product-strategist rather than sharpening it here.
+    source_required: true
+    template: |
+      **Segment:** {{segment_statement}}
+      **Explicitly not for:** {{exclusions}}
+      **Source artifact:** `{{source_artifact}}` ({{date}}) — {{section_within_artifact}}
+      **Evidence named in that artifact:** {{evidence_summary}}
+
+  # ---------------------------------------------------------------------------
+  - id: job
+    title: "2. Job — what they are hiring it to do"
+    instruction: |
+      Take the job statement and the firing story from the jobs artifact, in that artifact's own
+      words. Include the struggling moment and what the customer is switching away from — those
+      define the real competitive set, and the narrative section downstream must be consistent
+      with them.
+      Owner of this link: jobs-analyst.
+    bad_answer: |
+      A feature list dressed as a job ("they hire it to share templates"). Also bad: a job with
+      no firing story, which leaves the competitive set undefined and lets positioning benchmark
+      against the wrong alternative.
+    source_required: true
+    template: |
+      **Job:** {{job_statement}}
+      **Firing:** {{what_is_being_replaced}}
+      **Struggling moment:** {{circumstance}}
+      **Source artifact:** `{{source_artifact}}` ({{date}})
+      **Evidence named in that artifact:** {{evidence_summary}}
+
+  # ---------------------------------------------------------------------------
+  - id: outcome
+    title: "3. Outcome — the measurable change we are accountable for"
+    instruction: |
+      Take the outcome from the objectives artifact. It must be a change in customer or business
+      behaviour with a baseline and a target, not an output or a shipping milestone.
+      Owner of this link: product-strategist.
+    bad_answer: |
+      "Ship the sharing feature in Q3." That is an output. Also bad: a target with no baseline —
+      it cannot be measured against anything, and the measure link downstream will inherit the
+      problem.
+    source_required: true
+    template: |
+      **Outcome:** {{outcome_statement}}
+      **Baseline:** {{baseline}} → **Target:** {{target}} by {{horizon}}
+      **Source artifact:** `{{source_artifact}}` ({{date}})
+
+  # ---------------------------------------------------------------------------
+  - id: solution
+    title: "4. Solution — what was validated, and against which assumptions"
+    instruction: |
+      Take the solution direction from the discovery artifact, together with the assumptions
+      that were tested and the ones that were not. The untested assumptions matter more than the
+      tested ones here: they are what @pm needs in order to scope risk honestly.
+      Owner of this link: discovery-lead.
+    bad_answer: |
+      A solution described with no assumption list, or an assumption list with no result per
+      assumption. Both let a solution arrive downstream sounding validated when only part of it
+      was tested.
+    source_required: true
+    template: |
+      **Solution direction:** {{solution_statement}}
+      **Source artifact:** `{{source_artifact}}` ({{date}})
+
+      | Assumption | Tested? | How | Result |
+      |---|---|---|---|
+      | {{assumption}} | yes / no | {{method}} | {{result}} |
+
+      **Assumptions still untested:** {{untested_list}}
+
+  # ---------------------------------------------------------------------------
+  - id: narrative
+    title: "5. Narrative — the alternative, the category, the description"
+    instruction: |
+      Take the competitive alternative, the frame of reference, the unique attributes and the
+      resulting value from the positioning artifact. The alternative must be consistent with the
+      firing story in section 2; if it is not, that is check #2 (job mismatch) failing and it
+      belongs in Coherence Status, not smoothed over here.
+      Owner of this link: positioning-lead.
+    bad_answer: |
+      A category claim with no named alternative ("the leading workflow platform"). Without an
+      alternative there is no frame of reference, and the price in section 6 has nothing to
+      anchor to.
+    source_required: true
+    template: |
+      **Competitive alternative:** {{alternative}}
+      **Frame of reference / category:** {{category}}
+      **Unique attributes:** {{attributes}}
+      **Value those attributes enable:** {{value}}
+      **Target customer, as stated in the positioning:** {{positioning_target}}
+      **Source artifact:** `{{source_artifact}}` ({{date}})
+      **Consistency with the job in section 2:** consistent | DIVERGENT — {{detail}}
+
+  # ---------------------------------------------------------------------------
+  - id: price
+    title: "6. Price — value metric, packaging, level"
+    instruction: |
+      Take the value metric, the packaging and the price level from the pricing artifact,
+      together with the willingness-to-pay evidence behind them. State the assumed buyer
+      explicitly — it is the field where segment drift most often shows first.
+      Owner of this link: pricing-strategist.
+    bad_answer: |
+      A price with no value metric, or a value metric that does not scale with the value in
+      section 5. Also bad: an assumed buyer that differs from the segment in section 1 without
+      being flagged — that is check #1 (segment drift) failing.
+    source_required: true
+    template: |
+      **Value metric:** {{value_metric}}
+      **Packaging:** {{packaging}}
+      **Level / structure:** {{price_level}}
+      **Assumed buyer:** {{buyer}}
+      **Willingness-to-pay evidence:** {{wtp_evidence}}
+      **Source artifact:** `{{source_artifact}}` ({{date}})
+      **Consistency with section 1 segment and section 5 value:** consistent | DIVERGENT — {{detail}}
+
+  # ---------------------------------------------------------------------------
+  - id: measure
+    title: "7. Measure — how we will know it worked"
+    instruction: |
+      Take the primary metric, guardrails, population and readout plan from the experimentation
+      artifact. The primary metric must measure the outcome in section 3. If it measures
+      something merely correlated or merely available, that is check #3 failing.
+      Owner of this link: experimentation-lead.
+    bad_answer: |
+      A metric chosen because the instrumentation already exists. Also bad: a primary metric with
+      no guardrails, which cannot distinguish a win from a win that damaged something else.
+    source_required: true
+    template: |
+      **Primary metric:** {{primary_metric}}
+      **Guardrail metrics:** {{guardrails}}
+      **Population:** {{population}}
+      **Readout plan:** {{readout}}
+      **Source artifact:** `{{source_artifact}}` ({{date}})
+      **Measures the section 3 outcome:** yes | NO — {{detail}}
+
+  # ---------------------------------------------------------------------------
+  - id: evidence-confidence
+    title: Evidence Confidence per Link
+    instruction: |
+      One row per chain link. Confidence is a property of the evidence named in the source
+      artifact, not of how well the section reads. Use the ladder below and apply it strictly —
+      this table is what stops a confident narrative from travelling on an untested assumption
+      (check #5, evidence inversion).
+
+      MEASURED    — instrumented or quantitative data, named, retrievable, dated, current
+      EVIDENCED   — named qualitative evidence: interviews, WTP conversations, win/loss, with N and date
+      INFERRED    — reasoned from evidence about an adjacent population or an earlier period
+      ASSUMED     — no evidence named in the source artifact; a working assumption
+      ABSENT      — the link has no artifact at all
+
+      Then check monotonicity: no link may be more confident than the link upstream of it. Where
+      it is, flag it — that is evidence inversion and it is a real finding, not a rounding issue.
+    bad_answer: |
+      Marking a link EVIDENCED because the artifact reads confidently. Confidence comes from the
+      evidence the artifact names, and an artifact that names none is ASSUMED however well it is
+      written.
+    template: |
+      | Link | Confidence | Evidence named | N / date | Source artifact |
+      |---|---|---|---|---|
+      | segment | MEASURED / EVIDENCED / INFERRED / ASSUMED / ABSENT | {{what}} | {{n_and_date}} | `{{path}}` |
+      | job | | | | |
+      | outcome | | | | |
+      | solution | | | | |
+      | narrative | | | | |
+      | price | | | | |
+      | measure | | | | |
+
+      **Evidence inversion detected:** none | {{link}} is {{confidence}} while {{upstream_link}}
+      upstream of it is only {{upstream_confidence}}
+
+  # ---------------------------------------------------------------------------
+  - id: open-questions
+    title: Open Questions
+    instruction: |
+      Questions the squad could not answer and that @pm must not assume away. Each one names the
+      specialist who would answer it and what it blocks. A question with no owner is a wish; a
+      question with no consequence is trivia.
+    bad_answer: |
+      "Need more research." Not answerable, not ownable, not blocking anything specific. Write
+      the question someone could actually go and answer.
+    template: |
+      | # | Question | Owner | Blocks | Cheapest way to answer |
+      |---|---|---|---|---|
+      | {{n}} | {{question}} | `@products:{{agent_id}}` | {{what_it_blocks}} | {{method}} |
+
+  # ---------------------------------------------------------------------------
+  - id: unretired-risks
+    title: Unretired Risks
+    instruction: |
+      Risks a specialist named and that no evidence has retired. Carry them forward with the
+      specialist's own framing and the artifact that raised them. A risk that was raised and then
+      quietly dropped between artifacts is exactly what this section exists to catch.
+      State what would retire each risk — that is what makes it actionable rather than decorative.
+    bad_answer: |
+      A generic risk register ("adoption risk", "technical risk") with no source artifact and no
+      retirement condition. If no specialist artifact raised it, it does not belong in this brief
+      at all — see the rejection rule.
+    source_required: true
+    template: |
+      | Risk | Raised by | Source artifact | What would retire it | Still open? |
+      |---|---|---|---|---|
+      | {{risk}} | `@products:{{agent_id}}` | `{{path}}` | {{retirement_condition}} | yes / no |
+
+  # ---------------------------------------------------------------------------
+  - id: ethical-concerns
+    title: Ethical Concerns
+    instruction: |
+      Any ethical objection raised by any specialist, reproduced in that specialist's own words,
+      before the handoff — never compressed into a caveat at the end of the document. If none was
+      raised, say so explicitly; silence and absence must be distinguishable.
+    bad_answer: |
+      Summarising an objection into a single softened clause, or moving it to an appendix. An
+      ethical concern is surfaced before the decision proceeds, not appended after it.
+    template: |
+      **Concerns raised:** none | as follows
+
+      > {{concern_verbatim}}
+      > — `@products:{{agent_id}}`, `{{source_artifact}}` ({{date}})
+
+      **Status:** unresolved | addressed in `{{artifact}}` | requires a human decision
+
+  # ---------------------------------------------------------------------------
+  - id: gaps
+    title: Gaps — Links Not Established, and Lines Removed
+    instruction: |
+      Two lists, both required.
+      (a) Chain links with no artifact — the work that has not been done.
+      (b) Lines removed by the Article IV gate — statements that were proposed for this brief and
+          had no source artifact. Record them verbatim so the reader can see what was almost
+          asserted, and route each to the owning specialist.
+      An empty (b) is a legitimate result. An absent (b) is not.
+    bad_answer: |
+      Omitting section (b) because nothing was removed. Write "none removed" — the reader cannot
+      tell an unenforced gate from a clean pass otherwise.
+    template: |
+      **(a) Links not established**
+
+      | Link | Owner | Why it matters downstream | Routed? |
+      |---|---|---|---|
+
+      **(b) Lines removed for having no source artifact** — none removed | as follows
+
+      | Removed line (verbatim) | Intended link | Routed to |
+      |---|---|---|
+
+  # ---------------------------------------------------------------------------
+  - id: handoff-to-pm
+    title: Handoff to @pm
+    instruction: |
+      Package the brief for epic framing. State plainly what is evidenced, what is assumed, and
+      what is missing, so nothing arrives at @pm looking more certain than it is.
+
+      Do NOT write epic scope, stories, acceptance criteria or a PRD outline here. The squad's
+      output stops at the evidenced problem. @pm frames the epic and authors the PRD; @sm drafts
+      stories; @po validates stories and owns the backlog; @dev implements; @qa runs quality
+      gates; @devops holds exclusive authority for git push, PRs, MCP and CI/CD. No line in this
+      brief overrides Agent Authority.
+    bad_answer: |
+      "Ready to build." It hides the assumed links and the unretired risks, and it commits the
+      squad to a certainty its evidence does not support. Also bad: a proposed epic breakdown —
+      that is @pm's work, and writing it here is squad overreach into delivery.
+    template: |
+      **Ready for epic framing:** yes | yes, with the reservations below | no — {{blocker}}
+
+      **What is evidenced:** {{measured_and_evidenced_links}}
+      **What is assumed:** {{assumed_links}}
+      **What is missing:** {{absent_links}}
+      **Blocked by:** {{open_question_ids}} | nothing
+
+      **@pm should know before framing the epic:**
+      - {{point}} (source: `{{artifact}}`)
+
+      **Boundary reminder:** this squad decided WHAT is worth building and for whom, and stopped
+      at the evidenced problem. Epic framing and PRD authoring are `@pm`. Story drafting is `@sm`.
+      Story validation and backlog are `@po`. Implementation is `@dev`. Quality gates are `@qa`.
+      Git push, PRs, MCP and CI/CD are `@devops`, exclusively.
+
+  # ---------------------------------------------------------------------------
+  - id: attribution
+    title: Method Attribution
+    instruction: |
+      Fixed block, reproduced verbatim. Name only the methodology sources the specialist agent
+      files carry. Never add a title, year, edition or statistic that is not in the source agent
+      file — if a detail is uncertain, name the mechanism without the detail.
+    template: |
+      `@products-chief` (Helm) carries no external product methodology; the orchestration,
+      traceability and coherence mechanics in this brief are original AEXOS routines and are not
+      attributed to any author.
+
+      The published methods live in the specialists whose artifacts this brief assembles:
+      Marty Cagan (product-strategist), Teresa Torres (discovery-lead), April Dunford
+      (positioning-lead), Clayton M. Christensen with Taddy Hall, Karen Dillon and
+      David S. Duncan (jobs-analyst), Madhavan Ramanujam and Georg Tacke (pricing-strategist),
+      and Ron Kohavi, Diane Tang and Ya Xu (experimentation-lead).
+
+related:
+  agent: squads/products/agents/products-chief.md
+  squad_manifest: squads/products/squad.yaml
+  base_template: .aexos-core/product/templates/project-brief-tmpl.yaml
+  tasks:
+    - squads/products/tasks/triage-product-request.md
+    - squads/products/tasks/coherence-review.md
+    - squads/products/tasks/resolve-specialist-conflict.md
+  checklists:
+    - squads/products/checklists/coherence-checklist.md
+    - squads/products/checklists/squad-intake-checklist.md
+  data:
+    - squads/products/data/product-squad-routing.yaml

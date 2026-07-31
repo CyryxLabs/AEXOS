@@ -1,0 +1,6 @@
+# AEXOS aexos-pm — subagent role defaults
+description = "Product Manager (Janus)"
+default_capability_mode = "all"
+reasoning_effort = "high"
+default_fork_context = true
+prompt_file = ".grok/agents/aexos-pm.md"

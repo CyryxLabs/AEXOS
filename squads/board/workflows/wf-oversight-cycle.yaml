@@ -1,0 +1,255 @@
+# ============================================================================
+# Workflow: Board Oversight Cycle
+# Squad: board
+# Version: 1.0.0
+# Purpose: Chain the squad's oversight tasks along the coherence chain —
+#          mandate, appetite, evidence, accountability — for a single matter.
+# ============================================================================
+#
+# PROFESSIONAL LIMIT — binding on every phase below.
+# Nothing produced by this workflow is legal advice, tax advice, a statutory
+# audit opinion, or a regulatory determination. Every phase produces INPUT FOR
+# REVIEW BY QUALIFIED HUMANS — the directors themselves, licensed counsel, and
+# the appointed external auditor — and never the final instrument. No phase may
+# issue an audit opinion. Where a matter turns on a statute, a listing rule, a
+# contract or a filing obligation, the phase stops, records the limit, and
+# refers out.
+#
+# BOUNDARY — this workflow does not implement, test or publish anything.
+# Implementation is @dev, quality gates are @qa, epics are @pm, stories are @sm,
+# backlog is @po, and git push, PRs, MCP and CI/CD belong exclusively to
+# @devops. A board disposition is not an exception to any of those.
+# ============================================================================
+
+workflow:
+  id: wf-oversight-cycle
+  name: "Board Oversight Cycle"
+  version: "1.0.0"
+  type: oversight
+  description: |
+    End-to-end oversight pass over one board matter. The sequence follows the
+    coherence chain the Chair keeps: a matter is classified before its content
+    is engaged, the mandate to decide it is tested, appetite is set against
+    that mandate, the figures the decision rests on are challenged, and the
+    residue is re-triaged so nothing is left owned by nobody.
+
+    Each phase reads the artifact the previous phase wrote. A break anywhere in
+    the chain is repaired upstream, never patched downstream.
+
+    The output of the whole workflow is a board-ready evidence pack. It is
+    input for licensed human review — director, counsel or appointed auditor —
+    and is never the final governance, risk or assurance position.
+
+  trigger: "*oversight-cycle"
+  entry_agent: board-chief
+  estimated_duration: "60-120 minutes"
+
+  professional_limit: |
+    Not legal, tax, regulatory or statutory-audit advice. No audit opinion is
+    issued by any phase. Every artifact is input for review by qualified
+    humans and never the final instrument. Legal, tax, listing-rule and
+    filing questions are referred out unmodified.
+
+  boundary: |
+    No phase implements, tests, deploys or publishes. No phase drafts an epic,
+    a PRD, a story or a backlog change. Push and PR authority remains
+    exclusively with @devops.
+
+  attribution: |
+    Phase 1 applies the Report of the Committee on the Financial Aspects of
+    Corporate Governance — the Cadbury Report, United Kingdom, December 1992 —
+    and its Code of Best Practice. Phase 2 applies the COSO Enterprise Risk
+    Management framework. Phase 3 draws on audit committee discipline, which
+    has no single canonical work and is attributed source by source inside the
+    task itself. Executing agents speak as none of these bodies or authors, and
+    the adaptation from each source's original scope is declared in the output
+    rather than assumed.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # SEQUENCE
+  # ──────────────────────────────────────────────────────────────────────────
+
+  sequence:
+
+    # ─── PHASE 0: Matter Triage ────────────────────────────────────────────
+    - id: phase_0
+      name: "Matter Triage"
+      agent: board-chief
+      task: board-matter-triage.md
+      parallel: false
+      creates: board_triage_record
+      description: |
+        Classify the matter before engaging its content, run the legal/tax/
+        statutory-audit limit check, and name exactly one owning specialist.
+        Misrouting is the failure this phase exists to prevent.
+      outputs:
+        - classification: "RESERVED | DELEGATED WITH OVERSIGHT | NOT A BOARD MATTER | UNDEFINED"
+        - limit_note: "string — anything refused and referred to qualified external advice"
+        - owning_specialist: "one of board-chief, governance-counsel, risk-oversight, audit-lead, succession-lead"
+        - handoff_brief: "markdown — evidence held, evidence missing, the question, the date needed"
+      checkpoint:
+        gate: "Classification produced with all three boundary tests shown, and exactly one owning specialist named"
+        veto: "If the matter turns on a statute, listing rule, contract, tax treatment or statutory-audit opinion, stop, record the limit, refer out, and continue only on the governance residue"
+
+    # ─── PHASE 1: Mandate ──────────────────────────────────────────────────
+    - id: phase_1
+      name: "Mandate — Governance Audit"
+      agent: governance-counsel
+      task: governance-audit.md
+      depends_on: [phase_0]
+      parallel: false
+      requires: board_triage_record
+      creates: governance_audit_record
+      condition: matter_classified_as_reserved_or_undefined
+      description: |
+        Test whether the authority to take this decision actually exists or is
+        merely asserted. Every provision is marked PRESENT, ASSERTED, ABSENT or
+        NOT APPLICABLE, and every PRESENT mark must survive the operated test.
+        Adaptation from the Cadbury Code's original scope is declared in the
+        output body, not in a footnote.
+      outputs:
+        - provision_table: "per provision — PRESENT | ASSERTED | ABSENT | NOT APPLICABLE"
+        - gap_ranking: "gaps ordered by structural consequence, not by effort"
+        - remediation_list: "per gap — provision, source, closing artifact, named owner"
+        - attribution_map: "each item marked Cadbury Code provision, DERIVED, or CONSTRUCTION"
+      checkpoint:
+        gate: "Adaptation note present, no provision left unmarked, every gap carries a closing artifact and an owner"
+        veto: "No compliance claim may be written that the examined artifacts do not support; an ASSERTED provision is reported as a departure. No legal, statutory or listing-rule conclusion is offered here"
+
+    # ─── PHASE 2: Appetite ─────────────────────────────────────────────────
+    - id: phase_2
+      name: "Appetite — Risk Boundary"
+      agent: risk-oversight
+      task: risk-appetite-statement.md
+      depends_on: [phase_1]
+      parallel: false
+      requires: governance_audit_record
+      creates: risk_appetite_record
+      description: |
+        Set appetite per risk type against the authority Phase 1 established.
+        An appetite that forbids nothing describes enthusiasm, not a boundary,
+        so every statement carries a concrete proposal it would cause the board
+        to reject, a tolerance band on a named measure, and a stated escalation
+        consequence. Figures without a stated basis are marked UNVERIFIED and
+        kept out of the statement — Constitution Article IV, No Invention.
+      outputs:
+        - appetite_statements: "one per risk type, never one for the whole organization"
+        - forbidden_decision_tests: "per statement, the named proposal it would reject"
+        - tolerance_bands: "measure, source, breach point"
+        - breach_consequences: "who is told, how fast, what happens"
+        - unverified_list: "every figure with no stated basis"
+      checkpoint:
+        gate: "One statement per risk type, each with a forbidden-decision test, a tolerance and an escalation consequence"
+        veto: "Halt if strategy and objectives are absent — return the missing input as the finding rather than drafting an appetite nobody can apply. Where the mandate is ASSERTED or ABSENT in Phase 1, approval is blocked until governance-counsel confirms the approving authority"
+
+    # ─── PHASE 3: Evidence ─────────────────────────────────────────────────
+    - id: phase_3
+      name: "Evidence — Figure Challenge"
+      agent: audit-lead
+      task: figure-challenge.md
+      depends_on: [phase_2]
+      parallel: false
+      requires: risk_appetite_record
+      creates: figure_challenge_record
+      condition: decision_rests_on_a_reported_figure
+      description: |
+        Establish whether the figures the decision rests on can be relied on
+        for the purpose at hand. Judgements are reported as a range with a
+        direction finding, never as a point. Where nobody independent has
+        tested the figure, NO ASSURANCE is recorded in those words.
+
+        This phase is not a statutory audit and produces no audit opinion. It
+        produces a question set the board can put to management and to its
+        appointed auditors.
+      outputs:
+        - restated_assertion: "the figure as a precise assertion, with basis and comparative basis"
+        - basis_classification: "MEASURED | COMPUTED | ESTIMATED | JUDGED"
+        - judgements_range: "conservative and aggressive ends, plus the direction finding"
+        - assurance_status: "party, scope and date — or NO ASSURANCE, verbatim"
+        - verdict: "RELIABLE FOR THE PURPOSE | RELIABLE WITH STATED LIMITS | NOT ESTABLISHED"
+      checkpoint:
+        gate: "A named assertor is identified, definition stability is reported, and the verdict is one of the three permitted values"
+        veto: "Any allegation of fraud, misconduct or retaliation is surfaced immediately and in the open to the confidential channel and to board-chief — never summarized into a caveat. No audit opinion is issued here under any circumstance"
+
+    # ─── PHASE 4: Accountability ───────────────────────────────────────────
+    - id: phase_4
+      name: "Accountability — Residual Routing"
+      agent: board-chief
+      task: board-matter-triage.md
+      depends_on: [phase_3]
+      parallel: false
+      requires: figure_challenge_record
+      creates: board_disposition_pack
+      description: |
+        Re-triage what the cycle surfaced. Gaps, unverified figures and
+        exposures that arrived as by-products of the pass are classified and
+        given exactly one owner each, so nothing closes the cycle owned by
+        nobody. The pack states, on its face, that it is input for licensed
+        human review.
+      outputs:
+        - residual_matters: "each with a classification and exactly one owning specialist"
+        - referred_out: "every legal, tax, statutory-audit and regulatory question, unmodified"
+        - human_review_clause: "the pack is input for director, counsel and auditor review, never the final instrument"
+        - disposition_pack: "path to the versioned pack under squads/board/data/"
+      checkpoint:
+        gate: "Every residual matter has exactly one owner, and the human-review clause is present in the pack"
+        veto: "The pack authorizes no git push, PR, story draft, backlog change or implementation — those remain with @devops, @sm, @po and @dev regardless of any board disposition"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # HANDOFF PROMPTS
+  # ──────────────────────────────────────────────────────────────────────────
+
+  handoff_prompts:
+    board-chief_to_governance-counsel: |
+      Matter, classification and the three boundary tests are in
+      board_triage_record. Confirm whether the authority to take this decision
+      exists as an artifact or only as an assertion. Do not answer the merits
+      of the matter — state whether the board may decide it and on what record.
+    governance-counsel_to_risk-oversight: |
+      governance_audit_record states whether a mandate exists. Set appetite
+      against that mandate. If the mandate is ASSERTED or ABSENT, draft the
+      appetite but block its approval and say why.
+    risk-oversight_to_audit-lead: |
+      risk_appetite_record lists the control expectations each appetite
+      implies. Challenge the figures the board would use to know whether those
+      expectations are being met. Do not design a control and do not opine.
+    audit-lead_to_board-chief: |
+      figure_challenge_record carries the verdict and the judgements range.
+      Place it on the agenda where the range, not the point, changes the
+      decision, and re-triage everything the pass surfaced as a by-product.
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # FLOW
+  # ──────────────────────────────────────────────────────────────────────────
+
+  flow_diagram: |
+    graph TD
+      P0[Phase 0: Matter Triage — board-chief] --> P1[Phase 1: Mandate — governance-counsel]
+      P1 --> P2[Phase 2: Appetite — risk-oversight]
+      P2 --> P3[Phase 3: Evidence — audit-lead]
+      P3 --> P4[Phase 4: Residual Routing — board-chief]
+      P4 --> HR[Human review: directors, counsel, appointed auditor]
+      P0 --> EXT[Referred out: legal, tax, statutory audit, regulatory]
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # VETO CONDITIONS (workflow-level)
+  # ──────────────────────────────────────────────────────────────────────────
+
+  veto_conditions:
+    - "The matter turns on a statute, listing rule, contract, tax treatment or statutory-audit opinion — refer out, continue only on the governance residue"
+    - "Strategy and objectives absent at Phase 2 — halt and return the missing input as the finding"
+    - "Any phase drifting into an audit opinion, a legal conclusion or a regulatory determination — stop the phase"
+    - "Any phase drafting an epic, story, implementation, test or release — outside the board's charge entirely"
+    - "An allegation of fraud, misconduct or retaliation — surfaced immediately and in the open, never folded into a caveat"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # COMPLETION CRITERIA
+  # ──────────────────────────────────────────────────────────────────────────
+
+  completion_criteria:
+    - "Every phase artifact written to a versioned file under squads/board/data/"
+    - "Coherence chain unbroken: mandate, appetite, evidence and accountability each traceable to the phase before it"
+    - "Every figure carries a stated basis, or is listed as UNVERIFIED"
+    - "Attribution declared per phase, with the adaptation from each source's original scope stated"
+    - "The human-review clause appears in the disposition pack and in every phase artifact"
+    - "Nothing implemented, tested, pushed or published by any phase"

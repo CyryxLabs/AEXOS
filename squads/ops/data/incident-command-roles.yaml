@@ -1,0 +1,199 @@
+# Incident Command Roles — what each holds, what each must not hold
+# Squad: ops · Owner: @ops:incident-lead (Klaxon)
+# Reference knowledge. Not executable.
+#
+# ATTRIBUTION
+#   The command structure applied here descends from the INCIDENT COMMAND SYSTEM,
+#   developed for emergency response in the United States and adapted into technology
+#   operations: a single named commander who coordinates rather than executes, explicit
+#   role assignment, and formal handoff of command. Its adaptation to this domain is
+#   documented in "Site Reliability Engineering" (O'Reilly, 2016), Ch. 14 "Managing
+#   Incidents", with post-incident practice in Ch. 15 "Postmortem Culture".
+#
+#   The wider discipline this file belongs to has NO SINGLE AUTHOR, and this file says so
+#   rather than inventing one. Its other convergent sources are safety science and
+#   resilience engineering on multiple contributing factors — in the form most engineers
+#   meet it, Richard I. Cook's short treatise "How Complex Systems Fail" — and the
+#   just-culture literature, notably Sidney Dekker's writing. These sources do not agree
+#   on everything; only the practices they converge on are applied. Entries marked
+#   `convention: true` are common industry usage with no canonical citation.
+#
+# BOUNDARY — @devops
+#   None of the roles below is a mitigation role, and no role assignment creates
+#   mechanical authority. Deploy, rollback, failover, restart, scale, configuration
+#   change, pipeline hold, gate, release, status-page publication and push are @devops,
+#   exclusively, at every severity and at every hour.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# The roles
+# ---------------------------------------------------------------------------
+roles:
+
+  - role: incident_commander
+    owns:
+      - "Coordination and sequencing of the response"
+      - "Severity classification and reclassification"
+      - "Assigning and reassigning the other roles"
+      - "The decision to stand down, against written criteria"
+      - "Deciding which proposed mitigation is attempted next"
+    must_not:
+      - "Execute mitigation. Hands out of the system."
+      - "Hold the communications role during anything above a low severity"
+    why_the_separation: "Someone deep in a terminal cannot also track state, sequence actions and
+      manage communication. When the same party does both, coordination degrades FIRST and SILENTLY:
+      the timeline stops, parallel actions go unnoticed, and updates lapse while the response looks
+      busy. The first thing lost is the record."
+    failure_signal: "The timeline has a gap. If nothing was written for fifteen minutes during an
+      active response, the commander was doing something else."
+    remedy: "Reassign one of the two roles immediately. Do not wait for a convenient moment; there
+      is not one during an incident."
+
+  - role: operations
+    owns:
+      - "Investigation"
+      - "Proposing mitigations, each with a stated expected effect"
+      - "Executing only what falls within their own authority"
+    must_not:
+      - "Take an action without stating it first"
+      - "Run mitigations in parallel with another responder"
+      - "Perform any action reserved to @devops"
+    discipline: "One action at a time, stated before it is taken, with the expected effect named.
+      Parallel uncoordinated mitigations make the effect of each unknowable and can compound the
+      original failure."
+
+  - role: communications
+    owns:
+      - "The update cadence and the audience list"
+      - "Internal updates, including 'no change yet'"
+      - "Drafting external messages"
+    must_not:
+      - "Approve a customer-facing statement"
+      - "Publish to a status page or any external channel"
+    routing:
+      drafted_by: "communications holder / @ops:incident-lead"
+      approved_by: "the accountable human"
+      published_by: "@devops"
+    discipline: "Communication is a scheduled obligation, not an interruption. Fixed-cadence updates
+      prevent the response from being interrupted by status requests. Nothing goes out ahead of the
+      record: the inference line in a timeline is the one that most often escapes into a public
+      statement."
+
+  - role: scribe
+    owns:
+      - "The contemporaneous timeline"
+      - "Marking each entry as observed, known-at-the-time, inference, action or confirmed"
+      - "Recording the executing agent against every action"
+    must_not:
+      - "Reconstruct entries after the fact and present them as contemporaneous"
+      - "Retro-edit an inference into a fact once it is confirmed — confirmation is a separate,
+        later entry"
+    discipline: "'Known at the time' records what responders could SEE, never what was knowable.
+      Information that existed and had no path to the responders is a contributing factor for the
+      analysis, not an implied criticism embedded in the timeline."
+    note: "Frequently held by @ops:incident-lead itself. It is the one incident role this agent can
+      hold without crossing a boundary, because recording is not acting."
+
+  - role: mechanical_authority
+    holder: "@devops"
+    covers:
+      - "Deploy, rollback, redeploy"
+      - "Failover, restart, scale"
+      - "Infrastructure and configuration change"
+      - "Pipeline hold, gate, merge block"
+      - "Release, promotion, withdrawal"
+      - "Status-page and external-channel publication"
+      - "git push, PRs, MCP configuration"
+    rule: "Exclusive. Unchanged by severity, urgency or time of day. No role above may perform these,
+      and no instruction from @ops:incident-lead constitutes authorization to."
+    timeline_obligation: "Every one of these actions is recorded in the timeline against the agent
+      who executed it. An action with no recorded executor is an action nobody can account for."
+
+# ---------------------------------------------------------------------------
+# Combining roles
+# ---------------------------------------------------------------------------
+role_combination:
+  convention: true
+  convention_note: "Scaling role assignment to severity is common practice, not a position from a
+    named source. Labelled as convention."
+  guidance:
+    - severity: "SEV-1"
+      rule: "All roles held separately. Commander does nothing but command."
+    - severity: "SEV-2"
+      rule: "Commander separate. Scribe may combine with communications."
+    - severity: "SEV-3 and below"
+      rule: "Roles may combine, EXCEPT that whoever is executing does not also hold the record."
+  invariant: "The commander-does-not-execute rule survives every combination. It is the one that
+    protects the record, and the record is the deliverable."
+
+# ---------------------------------------------------------------------------
+# Handoff of command
+# ---------------------------------------------------------------------------
+handoff:
+  trigger: "A response exceeding one shift, or the commander becoming unavailable, or the commander
+    being drawn into execution."
+  protocol:
+    - "Stated out loud, in the incident channel, by name"
+    - "Outgoing holder summarizes: current impact, current severity, what has been tried, what is in
+      flight, what is known versus inferred, who holds each role"
+    - "INCOMING holder restates their understanding back — this is the step that catches the
+      unstated model"
+    - "Recorded in the timeline as an action entry"
+  failure_mode: "A handoff that was not stated out loud did not happen. The incoming holder inherits
+    an unstated model of the situation and continues from a picture nobody checked."
+
+# ---------------------------------------------------------------------------
+# Mitigation discipline
+# ---------------------------------------------------------------------------
+mitigation:
+  ordering: "Mitigate first, diagnose second. Restoring service and understanding the failure are
+    different objectives, and the second is cheaper after the first is done."
+  evidence: "Preserve what is cheap to preserve, then mitigate. Service restoration wins the tie.
+    Record in the stand-down what evidence was lost to mitigation, so the analysis knows what it
+    cannot reconstruct."
+  sequencing_rules:
+    - "State the action and its expected effect before taking it"
+    - "One at a time. If two are genuinely independent, say so explicitly and record both."
+    - "If the expected effect does not occur, that is an observation entry — not a reason to stack
+      the next action on top"
+    - "Every action requiring deploy, rollback, failover, restart, scaling or configuration change
+      is executed by @devops, by name, and the timeline records who"
+
+# ---------------------------------------------------------------------------
+# Stand-down
+# ---------------------------------------------------------------------------
+stand_down:
+  rule: "Declared against stated criteria, not by fatigue."
+  required_record:
+    - "The criteria that were met, quoted"
+    - "How long the healthy state was verified for"
+    - "What remains unresolved"
+    - "Which mitigations remain in place, who owns them, and that removal is @devops"
+    - "What monitoring continues, by whom, until when"
+    - "What evidence was preserved, and what was lost to mitigation"
+
+# ---------------------------------------------------------------------------
+# Near miss
+# ---------------------------------------------------------------------------
+near_miss:
+  definition: "A failure caught before user impact."
+  value: "Contains the same information as the incident it nearly was, at a fraction of the cost."
+  practice: "Analysed with the same structure. Almost never analysed in practice — which makes it
+    the cheapest unexploited source of learning available."
+  trigger: "Any condition that self-recovered but would have been SEV-1 or SEV-2 had it not."
+
+# ---------------------------------------------------------------------------
+# Recurrence
+# ---------------------------------------------------------------------------
+recurrence:
+  rule: "Analyse the previous analysis before analysing the incident again."
+  three_answers:
+    - answer: "The earlier corrective actions addressed a symptom rather than a contributing condition"
+      remedy: "Re-derive the factors. This is the only one of the three that analysing harder fixes."
+    - answer: "The actions were correct but never implemented"
+      remedy: "A follow-through and ownership problem, not an analytical one. Analysing again
+        reproduces the same unimplemented list."
+    - answer: "The actions were implemented and eroded"
+      remedy: "The countermeasure depended on sustained human attention. Re-derive it at a level that
+        does not — @ops:lean-lead's countermeasure preference order."

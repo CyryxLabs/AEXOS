@@ -1,0 +1,334 @@
+# Metric Taxonomy — Goal, Driver, Guardrail and Trust Metrics
+# Squad: products
+# Owner: @experimentation-lead (Vernier)
+# Last updated: 2026-07-30
+#
+# Attribution: the goal / driver / guardrail / trust taxonomy, the OEC requirements
+#   and the guardrail categories applied here are published method —
+#   Ron Kohavi, Diane Tang and Ya Xu, "Trustworthy Online Controlled Experiments:
+#   A Practical Guide to A/B Testing" (2020).
+# @experimentation-lead (Vernier) applies this framework with attribution.
+#
+# Boundary: this file defines what to measure and why. Metric implementation — event
+# pipeline, warehouse tables, the canonical metric definitions themselves — is
+# @data-engineer. Implementation is @dev. CI quality gates are @qa. Publishing and
+# pushing is @devops (exclusive).
+#
+# HOW TO USE THIS FILE
+#   - Section `metric_types` is the taxonomy: every experiment carries all four types.
+#   - Section `oec` is the registration contract for the single deciding metric.
+#   - Section `guardrail_library` is the menu to select from at design time.
+#   - Section `selection_criteria` is the procedure for choosing.
+#   Metric taxonomy is not decoration: goal metrics state what success means, driver
+#   metrics explain the mechanism, guardrail metrics state what must not break, and
+#   trust metrics state whether the experiment itself is valid.
+#
+# NUMERIC POLICY
+#   Only constants stated by the agent definition appear here: alpha conventionally
+#   0.05, power conventionally 0.80, the SRM investigation threshold p = 0.001, and the
+#   "approximately 16 x variance / squared absolute effect size" rule of thumb. Guardrail
+#   breach thresholds are deliberately NOT given as constants — they are organisation
+#   specific and are set per experiment. Every figure inside an example is an
+#   ILLUSTRATIVE PLACEHOLDER.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# THE FOUR METRIC TYPES
+# ---------------------------------------------------------------------------
+metric_types:
+
+  goal:
+    definition: "What success ultimately means for the organization or the product area."
+    characteristics:
+      - "Often long-term"
+      - "Low sensitivity — hard to move within a single experiment"
+      - "Close to what the business actually cares about, and therefore rarely measurable in the experiment horizon"
+    what_it_is_for: "Naming the destination. The goal metric is the thing the OEC is a proxy FOR; without it, the causal-link check on the OEC has nothing to point at."
+    examples:
+      - "Retained active users at 90 days"
+      - "Lifetime value"
+    use_when:
+      - "Stating what the OEC is believed to predict"
+      - "Framing a programme of experiments, or a quarter of work, rather than one test"
+      - "Setting up a long-horizon holdback where the organization genuinely can measure it"
+    do_not_use_when:
+      - "As the OEC of a single experiment — it will not move detectably in the horizon and the test will be unfalsifiable"
+      - "As a guardrail — it is too insensitive to catch harm within the run"
+    common_error: "Registering the goal metric as the OEC because it is the metric leadership names. The result is an underpowered test whose null tells nobody anything."
+
+  driver:
+    definition: "Shorter-term metrics causally believed to drive the goal metrics."
+    characteristics:
+      - "More sensitive than goal metrics"
+      - "Explain the mechanism behind an OEC movement"
+      - "Move within the experiment horizon"
+    what_it_is_for: "Explanation, not decision. When the OEC moves, drivers say through which step it moved; when the OEC does not move, drivers say which link in the mechanism failed."
+    examples:
+      - "Successful task completions per active user"
+      - "Time to first value"
+    use_when:
+      - "Building the mechanism section of a hypothesis"
+      - "Diagnosing a null OEC — a driver that moved while the OEC did not localises the break"
+      - "Constructing a candidate OEC, where a driver is sensitive enough and its causal link to the goal metric can be argued"
+    do_not_use_when:
+      - "As a substitute deciding metric once the OEC comes back null — that is choosing the OEC after seeing the data"
+      - "As a guardrail without a stated threshold and direction"
+    common_error: "Promoting a driver to the headline because it moved and the OEC did not. Report it as an explanation of a null, not as a win."
+
+  guardrail:
+    definition: "Metrics that must not degrade, regardless of movement in the OEC."
+    characteristics:
+      - "Defined up front, with a numeric breach threshold and a direction"
+      - "Monitored continuously throughout the run, unlike the OEC"
+      - "Asymmetric: only harm matters, so a breach triggers an abort rather than a claim"
+    subtypes:
+      organizational: "Latency, error and crash rate, revenue per unit, unsubscribe rate, support contact rate — the things a win on the primary metric commonly harms."
+      trust: "Sample ratio, telemetry loss rate, cache hit rate, assignment consistency — whether the experiment itself is valid."
+    rule: "A breach blocks the ship and does not require a significance test to trigger an abort."
+    what_it_is_for: "Answering, before launch, the question 'what result would make you not ship this?' — and making that answer binding rather than negotiable at readout."
+    use_when:
+      - "Every experiment. There is no experiment without guardrails."
+      - "Especially where the OEC can be moved by degrading something the OEC does not measure"
+    do_not_use_when:
+      - "As a way to smuggle a second OEC into the design — a guardrail says what must not break, not what would count as success"
+      - "Without a threshold. 'Monitor latency' is not a guardrail."
+    common_error: "Listing guardrails without thresholds, so that at readout the breach becomes a conversation about how much degradation is acceptable, held by people who now know the OEC result."
+
+  trust:
+    definition: "Metrics that state whether the experiment itself is valid, independent of what it measured."
+    characteristics:
+      - "Computed before any effect is computed"
+      - "Binary in consequence: a failure voids rather than qualifies"
+      - "About the instrument, not about the product"
+    what_it_is_for: "Establishing that the arms are comparable populations and that the data describes what it claims to describe. The hard part of A/B testing is not running the test; it is establishing that the result is trustworthy."
+    examples:
+      - "Sample ratio (observed split vs designed split)"
+      - "Telemetry loss rate per arm"
+      - "Assignment consistency — units switching arm mid-run"
+      - "Cache hit rate per arm"
+      - "Trigger rate per arm (triggering symmetry)"
+    use_when:
+      - "Every experiment, at every ramp step, and before every analysis"
+    do_not_use_when:
+      - "As a product signal. A trust metric moving is a defect report, not a finding."
+      - "As a metric to 'weigh' alongside the OEC — trust is a gate, not a factor"
+    common_error: "Reporting trust checks after the effect, in an appendix. By then the effect has already been believed."
+
+# ---------------------------------------------------------------------------
+# THE OEC
+# ---------------------------------------------------------------------------
+oec:
+  definition: "The single metric, or explicitly weighted combination, on which the ship decision turns."
+
+  requirements:
+    - id: registered-before-exposure
+      requirement: "Registered before exposure."
+      why: "Choosing it after seeing the data converts an experiment into a search across metrics, which guarantees a finding."
+      how_to_verify: "A committed design document whose commit predates first exposure. PRD-CL-008 marks this CRITICAL."
+    - id: sensitive-within-horizon
+      requirement: "Sensitive enough to move within the experiment horizon."
+      why: "An OEC that cannot move detectably in the available window produces an unfalsifiable null."
+      how_to_verify: "The power calculation reaches the required n within the planned duration at the registered MDE."
+    - id: causally-predicts-long-term-value
+      requirement: "Causally believed to predict long-term value."
+      why: "The OEC is a short-term measurable proxy. Without a stated causal argument to a goal metric, it is a number the organization has agreed to chase."
+      how_to_verify: "A written argument naming the goal metric and the evidence for the link — a prior experiment, a longitudinal relationship with its caveat stated, or a documented mechanism."
+    - id: hard-to-game
+      requirement: "Hard to game — degrading the product must not be the cheapest way to move it."
+      why: "If the cheapest way to move it is a dark pattern, the metric will eventually select for dark patterns regardless of anyone's intent."
+      how_to_verify: "Answer the question 'what is the cheapest way to move this metric?' with an actual degradation you can think of. 'Nothing' is not an answer; it is a failure to run the check."
+
+  weighted_combination:
+    allowed: true
+    condition: "Only with the weights stated explicitly in the design, before exposure, along with the rationale for each weight."
+    caution: "A weighted combination is one metric with internal structure, not permission to report whichever component moved. If the weights cannot be justified, the combination is a way of avoiding the choice."
+
+  worked_examples:
+    - context: "ILLUSTRATIVE — checkout simplification"
+      oec: "Completed-purchase rate per triggered user"
+      goal_metric_it_proxies: "Revenue and retained purchasing customers"
+      sensitivity: "Baseline 12.4%; moves within a two-week horizon at the registered MDE"
+      causal_argument: "Completed purchases are the mechanism by which this surface contributes to revenue; the link is direct rather than inferred"
+      gameability_check: "Cheapest degradation would be pre-selecting add-ons or hiding the exit. Guarded by refund rate and support contact rate as guardrails. Verdict: PASS with those guardrails."
+      note: "Every number here is an illustrative placeholder."
+    - context: "ILLUSTRATIVE — a navigation redesign"
+      oec: "Task completion rate per triggered user"
+      goal_metric_it_proxies: "Retained active users at 90 days"
+      sensitivity: "Moves within the horizon; the driver metric (search usage) explains the mechanism"
+      causal_argument: "Users who complete their task return; the link rests on a prior study and is stated as such"
+      gameability_check: "Cheapest degradation would be narrowing the definition of 'task' to the easy ones. Guarded by fixing the task definition in the metric definition before launch. Verdict: PASS."
+      note: "Every number here is an illustrative placeholder."
+
+  anti_patterns:
+    - "Multiple co-equal 'primary metrics' — a search across metrics wearing a design's clothing"
+    - "An OEC selected after the data is visible"
+    - "An OEC chosen for sensitivity alone, with the gameability check filled in as 'N/A'"
+    - "A goal metric registered as the OEC, producing an underpowered and unfalsifiable test"
+    - "A driver metric promoted to OEC at readout because it moved"
+
+# ---------------------------------------------------------------------------
+# GUARDRAIL LIBRARY
+# ---------------------------------------------------------------------------
+guardrail_library:
+
+  threshold_guidance:
+    principle: "A guardrail is a metric plus a numeric threshold plus a direction plus an action. Any of the four missing and it is not a guardrail."
+    how_to_set_a_threshold:
+      - "Set it from what the organization can absorb, not from what the change is expected to cost. A threshold fitted to the expected cost never binds."
+      - "Ask the decision owner directly: 'what result would make you not ship this?' Record the answer verbatim; that answer IS the threshold."
+      - "State the direction explicitly. Some metrics are harmful in one direction only; a few (revenue in a pricing test) are watched in both."
+      - "State the action: abort the run, or block the ship, or both."
+      - "Prefer an absolute threshold where the metric has an operational meaning (latency in ms, error rate in percentage points) and a relative one where it scales with volume (revenue per unit)."
+      - "Set the threshold at a level the experiment can actually detect. A guardrail whose threshold sits far below the detectable effect is decorative — say so in the design rather than pretending it is protective."
+    deliberately_not_specified: |
+      No default numeric thresholds are given in this file. Thresholds are organisation
+      specific and must be set per experiment by the decision owner. Any number appearing
+      in an example below is an ILLUSTRATIVE PLACEHOLDER and must be replaced.
+      This omission is deliberate: the published source is cited here for the guardrail
+      CATEGORIES and the breach RULE, not for numeric thresholds. [verify against source]
+      before attributing any specific threshold value to the published work.
+    breach_rule: "A breach blocks the ship even when the OEC moves, and aborts the run without requiring a significance test."
+
+  organizational:
+    - id: latency
+      metric: "Latency, typically at a high percentile (for example p95)"
+      what_it_catches: "A change that improves the experience conceptually while making it slower in practice."
+      applies_when: "Any change touching a rendering path, a request path, added client work, or an extra network call."
+      does_not_apply_when: "Purely copy or static-asset changes with no added work — but say so in the design rather than omitting the row silently."
+      direction: "Increase is harmful"
+      threshold_example: "ILLUSTRATIVE: +50ms at p95"
+      note: "Percentile matters. A mean latency guardrail can pass while the tail degrades badly, and the tail is where users abandon."
+      owner_of_definition: "@data-engineer"
+    - id: error-and-crash-rate
+      metric: "Error rate and crash rate per unit or per session"
+      what_it_catches: "A change that breaks a path for some population while the aggregate OEC still moves."
+      applies_when: "Every experiment with a code change. This is the closest thing to a universal guardrail."
+      does_not_apply_when: "Configuration-only experiments with no new code path — rare; justify the omission."
+      direction: "Increase is harmful"
+      threshold_example: "ILLUSTRATIVE: +0.1 percentage points absolute"
+      handoff: "A breach traceable to a defect rather than to the change under test goes to @qa."
+    - id: unsubscribe-rate
+      metric: "Unsubscribe, opt-out or notification-disable rate"
+      what_it_catches: "Engagement bought by increased contact frequency, where the cost lands later as a permanently unreachable user."
+      applies_when: "Any messaging, notification, email or re-engagement experiment."
+      does_not_apply_when: "Changes with no communication component."
+      direction: "Increase is harmful"
+      note: "The harm is long-horizon and the metric is often insensitive within the run. Where it cannot be powered, say so and pair it with a longer-horizon follow-up rather than dropping it."
+    - id: revenue-per-unit
+      metric: "Revenue per unit (per triggered user, or per visitor — state which)"
+      what_it_catches: "A conversion win that lowers revenue per visitor. That is not a win."
+      applies_when: "Every revenue-affecting change. For pricing and packaging tests it is mandatory, guarded in BOTH directions alongside conversion."
+      does_not_apply_when: "Changes with no plausible monetisation path — justify the omission in the design."
+      direction: "Decrease is harmful; for pricing tests, watched in both directions"
+      threshold_example: "ILLUSTRATIVE: must not fall more than 1% relative"
+      caution: "Heavy-tailed. Declare the capping or winsorizing rule before launch and use the capped variance in the power calculation."
+      collaboration: "Designed together with @pricing-strategist for price and packaging tests, before launch."
+    - id: support-contact-rate
+      metric: "Support contacts per unit"
+      what_it_catches: "Confusion that does not show up in the OEC because the user eventually completes the task — after asking for help."
+      applies_when: "Changes to flows, terminology, pricing presentation, or anything with a plausible confusion cost."
+      does_not_apply_when: "Backend changes invisible to users."
+      direction: "Increase is harmful"
+      note: "Often lagging by days. State the lag in the design so the readout window covers it, or state that it does not and treat the reading as partial."
+    - id: refund-rate
+      metric: "Refund or chargeback rate over a stated post-purchase window"
+      what_it_catches: "Purchases created by pressure rather than by fit, which reverse later."
+      applies_when: "Checkout, pricing, packaging and upsell experiments."
+      does_not_apply_when: "Non-transactional surfaces."
+      direction: "Increase is harmful"
+      note: "Requires a post-purchase window that may extend past the experiment horizon. State the window; a refund guardrail read too early reads as clean by construction."
+
+  trust:
+    - id: sample-ratio
+      metric: "Observed unit split per arm against the designed split"
+      test: "Chi-square at the randomization unit, computed from assignment logs"
+      threshold: "Investigate below p = 0.001"
+      action_on_breach: "VOID — do not analyze, do not caveat, find the cause"
+      applies_when: "Every experiment, at every ramp step, and before every analysis. This is check 1 of PRD-CL-007."
+      does_not_apply_when: "Never. There is no experiment exempt from this check."
+      note: "Counts must come from assignment logs, not from a downstream metric table that may itself filter asymmetrically."
+    - id: telemetry-loss-rate
+      metric: "Missing-event rate per arm for the events feeding the OEC"
+      threshold: "Comparable across arms; the tolerance is declared in the design"
+      action_on_breach: "Investigate; likely void. An arm-correlated loss is simultaneously a coverage failure and a likely SRM cause."
+      applies_when: "Every experiment. Especially where events are client-side and a heavier or slower variant can lose more beacons."
+      does_not_apply_when: "Never, though the measurement is easier where all events are server-side."
+      note: "The absolute level matters less than the difference between arms. A high but symmetric loss rate costs power; an asymmetric one costs validity."
+    - id: cache-hit-rate
+      metric: "Cache hit rate per arm"
+      threshold: "Declared per experiment"
+      action_on_breach: "Investigate"
+      applies_when: "Changes that alter cacheability, add a variant-specific asset, or where arms share a cache."
+      does_not_apply_when: "No shared cache and no cacheability change."
+      note: "A shared cache is also an interference channel: treatment can warm a cache that control then benefits from. Where that is plausible, the randomization unit is the fix, not the guardrail."
+    - id: assignment-consistency
+      metric: "Rate of units observed in more than one arm during the run"
+      threshold: "Declared per experiment"
+      action_on_breach: "Investigate; likely void"
+      applies_when: "Any experiment where identity can change mid-run — login events, ID migrations, cross-device use, cookie churn."
+      does_not_apply_when: "Server-side assignment on a stable identifier with no login transition inside the flow."
+      note: "Mid-experiment reassignment is on the SRM cause list. Consistency failures and sample ratio failures frequently share a root cause."
+    - id: trigger-rate-symmetry
+      metric: "Trigger rate per arm"
+      threshold: "Comparable across arms; the tolerance is declared in the design"
+      action_on_breach: "VOID — the analysis populations differ by construction"
+      applies_when: "Every experiment with a triggering condition. This is check 2 of PRD-CL-007."
+      does_not_apply_when: "Only where effectively all eligible units trigger — and even then, verify rather than assume."
+      note: "The control-arm trigger must be logged as its own event, not inferred from the absence of a treatment event."
+
+# ---------------------------------------------------------------------------
+# SELECTION CRITERIA
+# ---------------------------------------------------------------------------
+selection_criteria:
+
+  procedure:
+    - step: 1
+      action: "Name the goal metric this experiment ultimately serves, even though it will not be the OEC."
+    - step: 2
+      action: "List candidate OECs that are sensitive within the horizon and are plausible proxies for that goal metric."
+    - step: 3
+      action: "Run the three OEC checks on each candidate: sensitivity, causal link, gameability. Discard any candidate that fails gameability — sensitivity does not compensate for it."
+    - step: 4
+      action: "Register exactly one, or one explicitly weighted combination with stated weights."
+    - step: 5
+      action: "Record the driver metrics that would explain a movement in the OEC. They explain; they do not decide."
+    - step: 6
+      action: "Ask the decision owner 'what result would make you not ship this?' and convert the verbatim answer into guardrails with thresholds, directions and actions."
+    - step: 7
+      action: "Add the organizational guardrails from the library that apply to this change, and justify in writing any that are omitted."
+    - step: 8
+      action: "Add the trust guardrails. Sample ratio and trigger-rate symmetry are never omitted."
+    - step: 9
+      action: "Check that the OEC's variance at the analysis unit is known, since the sample size depends on it and cannot be computed from a mean alone."
+    - step: 10
+      action: "Verify every metric named above resolves to a metric definition that exists and is queryable. Anything that does not is a handoff to @data-engineer BEFORE launch."
+
+  sensitivity_versus_validity:
+    rule: "Sensitivity is necessary but not sufficient. A more sensitive proxy is worth using only when its causal link to the goal metric can be argued, and only when it is not easier to move by degrading the product."
+    trade_off: "Where traffic is short, a more sensitive proxy is a legitimate option — but it is chosen at design time with the causal argument written down, not substituted at analysis time when the OEC comes back null."
+
+  variance_and_power_link:
+    rule_of_thumb: "For a two-arm test comparing means at 80% power and alpha 0.05, required n per arm is approximately sixteen times the metric variance divided by the squared absolute effect size."
+    conventions: "Alpha conventionally 0.05; target power conventionally 0.80. State and justify any departure."
+    implication: "Metric choice is a power decision. A high-variance metric can make an otherwise feasible experiment infeasible, and the correct response is to say so before running rather than to run it underpowered."
+    variance_reduction: "Where a strong pre-period covariate exists, covariate adjustment using pre-period data (CUPED-style) can substantially cut the required sample size. Declare it in the design; do not adopt it once the data is visible."
+    unit_rule: "Compute variance at the analysis unit, which must match or be coarser than the randomization unit. For ratio metrics with a varying denominator, declare the delta method or bootstrap in the design."
+
+  every_experiment_carries_all_four:
+    goal: "Named, even though it is not the OEC"
+    driver: "At least one, to explain a movement or localise a null"
+    guardrail: "Organizational and trust, each with a threshold, a direction and an action"
+    trust: "Sample ratio and trigger-rate symmetry at minimum, checked before any effect is computed"
+
+  article_iv_no_invention:
+    rule: "Every metric value used in a design or a readout traces to a query, a metric definition or a documented method. A baseline with no source is not a baseline, and an effect without an interval and a stated analysis window is marked UNVERIFIED and does not enter a ship decision."
+
+  related_files:
+    - "squads/products/templates/experiment-design-tmpl.md"
+    - "squads/products/templates/experiment-readout-tmpl.md"
+    - "squads/products/checklists/experiment-launch-checklist.md (PRD-CL-008)"
+    - "squads/products/checklists/experiment-trust-checklist.md (PRD-CL-007)"
+    - "squads/products/data/experiment-pitfalls.yaml"
+    - "squads/products/tasks/design-controlled-experiment.md"
+    - "squads/products/agents/experimentation-lead.md"

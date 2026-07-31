@@ -1,0 +1,213 @@
+# Teaching Choreography Reference — Rules, Steps, Failure Patterns
+# Squad: sales
+# Referenced by: method-lead (Forge)
+# Last updated: 2026-07-30
+
+version: "1.0.0"
+
+attribution:
+  primary:
+    work: "The Challenger Sale: Taking Control of the Customer Conversation"
+    authors: "Matthew Dixon & Brent Adamson"
+    year: 2011
+    basis: "Reports research conducted at the Corporate Executive Board across thousands of sales representatives."
+  buying_group:
+    work: "The Challenger Customer"
+    authors: "Brent Adamson, Matthew Dixon, Pat Spenner & Nick Toman"
+    year: 2015
+    note: "Cited separately. Buying-group and Mobilizer material comes from here, never blended into the 2011 book."
+  agent_stance: >-
+    This squad applies the published framework with attribution. It is not Dixon or Adamson and does
+    not speak as either. No sentence, figure, title or year is attributed on the basis of inference.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE THREE BEHAVIOURS
+# ─────────────────────────────────────────────────────────────────────────────
+
+three_behaviours:
+  teach:
+    definition: "Deliver insight about the customer's own business that they did not have, and that leads to our unique strengths."
+    failure_mode: "Product education presented as insight."
+  tailor:
+    definition: "Adjust the message to the individual stakeholder's economics, risks and vocabulary while keeping the reframe constant."
+    failure_mode: "Different problem statements for different people, which the buying group later compares."
+  take_control:
+    definition: "Direct the conversation toward the decision, hold the buyer to their stated goals, and discuss money directly and early."
+    failure_mode: "Assertiveness applied as pressure on the person instead of as direction for the conversation."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE FIVE PROFILES
+# ─────────────────────────────────────────────────────────────────────────────
+# Descriptive behaviour patterns identified in the CEB research. Used to name a behaviour to
+# change, NEVER as a label applied to a person.
+
+five_profiles:
+  usage_rule: "Describe observed behaviours. Do not assign a person a profile. A profile is not an identity and not a performance review category."
+  hard_worker:
+    behaviour: "High activity, persistent, self-motivated, responsive to feedback."
+  challenger:
+    behaviour: "Teaches the customer about their business, tailors to the individual's economics, takes control of the conversation including money."
+    research_finding: "Overrepresented among high performers, and the gap widened with the complexity of the sale. [SOURCE: Dixon & Adamson]"
+  relationship_builder:
+    behaviour: "Builds strong personal advocates, generous with time, works to make relationships comfortable."
+    research_finding: "Underrepresented among high performers in complex sales, despite scoring highest on customer rapport. [SOURCE: Dixon & Adamson]"
+  lone_wolf:
+    behaviour: "Self-confident, follows own instincts, hard to manage, sometimes highly effective."
+  reactive_problem_solver:
+    behaviour: "Detail-oriented, reliable follow-through, focused on ensuring existing commitments are met."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FOUR RULES OF COMMERCIAL TEACHING — each a stop, not a score
+# ─────────────────────────────────────────────────────────────────────────────
+
+four_rules:
+  - rule: "Lead to your unique strengths"
+    test: "Could a competitor deliver this identical insight and benefit equally? If yes, rebuild it."
+    failure_cost: "Highest of the four. A category-generic insight educates the buyer to run a market evaluation at our expense."
+  - rule: "Challenge customers' assumptions"
+    test: "Does it contradict something the buyer currently believes, stated in their language?"
+    failure_cost: "Confirming what they already believe produces agreement and no action."
+  - rule: "Catalyze action"
+    test: "Does it change what the buyer would do next week, or only what they think?"
+    failure_cost: "An interesting idea that redirects no decision is a conversation, not a commercial insight."
+  - rule: "Scale across customers"
+    test: "Does it apply across the segment, or only to this one account?"
+    failure_cost: "A reframe that works for exactly one account is not a method."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE SIX-PART CHOREOGRAPHY
+# ─────────────────────────────────────────────────────────────────────────────
+
+choreography:
+  - step: 1
+    name: "The Warmer"
+    purpose: "Demonstrate context by naming the problems commonly seen in accounts like theirs, before asking any questions."
+    success_signal: "They correct one of the named problems. The correction is the most useful data in the meeting."
+    weak_signal: "They agree with everything — the warmer was too generic and the reframe will land weakly."
+  - step: 2
+    name: "The Reframe"
+    purpose: "Introduce the surprising element: the real problem is not the one they named."
+    success_signal: "Engagement with the substance, including disagreement."
+    weak_signal: "Polite agreement."
+    mandatory_element: "The why-it-was-invisible line. Without it the reframe reads as an accusation of carelessness."
+  - step: 3
+    name: "Rational Drowning"
+    purpose: "Quantify the consequences rigorously, in the buyer's units, using their figures wherever possible."
+    success_signal: "The buyer supplies or corrects a number, making the case partly theirs."
+    note: "This step should be uncomfortable. The discomfort comes from evidence about their own operation, never from anything invented."
+    also_here: "The money conversation — order of magnitude, what moves it, what their approval process must accommodate."
+  - step: 4
+    name: "Emotional Impact"
+    purpose: "Connect the quantified consequence to their own situation so it stops being an industry statistic."
+    success_signal: "They describe a specific instance unprompted."
+    constraint: "Uses their described experience, with a date. Never a manufactured scenario."
+  - step: 5
+    name: "A New Way"
+    purpose: "Describe the required capabilities, solution-agnostic."
+    success_signal: "The buyer adds a requirement of their own to the list."
+    hard_rule: "We are not named in this step. If we are, the sequence has collapsed into a pitch. The discipline here is most of the method."
+  - step: 6
+    name: "Your Solution"
+    purpose: "Show how we deliver those capabilities better than the alternatives, and state plainly what we do not do."
+    success_signal: "The buyer asks about the not-list rather than about the feature list."
+    note: "The not-list is the single element of a pitch buyers most consistently believe. Omitting it wins evaluations that become churn."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# BUYING GROUP
+# ─────────────────────────────────────────────────────────────────────────────
+
+buying_group:
+  source: "The Challenger Customer (2015) — Adamson, Dixon, Spenner & Toman. Cited separately from the 2011 book."
+  core_finding: >-
+    Complex purchases are decided by groups that must reach agreement without the supplier present.
+    Supplier-driven individual persuasion frequently fails at that internal step.
+  mobilizer_concept: >-
+    Stakeholders differ in disposition to drive change. Those who act to build internal consensus
+    matter more than those who are merely accessible or agreeable — and the two groups often do not
+    overlap. Accessibility and influence are frequently inversely related.
+  collective_learning: >-
+    The productive intervention is giving the group a shared understanding of the problem, so their
+    internal debate is about the solution rather than about whether a problem exists.
+  practical_rule: "Equip the advocate with materials usable without us in the room, containing nothing we have not verified."
+  advocate_kit:
+    - "A one-paragraph problem statement circulable with our name off it"
+    - "An objection map: each stakeholder's concern in their words, with a two-line answer"
+    - "The explicit not-list — it raises the advocate's credibility by proving they evaluated rather than were sold"
+    - "Our modelled figures and the buyer's own figures clearly separated"
+  prerequisite: "Confirm with @sales:qualification-lead that the advocate passed the willingness test before building any of this."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FAILURE PATTERNS — symptom to first check
+# ─────────────────────────────────────────────────────────────────────────────
+
+failure_patterns:
+  - symptom: "Polite interest, no disagreement, nothing moves"
+    likely_cause: "No insight — there is nothing to disagree with"
+    first_check: "insight-audit"
+  - symptom: "Buyer runs a feature comparison"
+    likely_cause: "The insight is category-generic, so the buyer evaluates the category"
+    first_check: "build-insight, uniqueness rule"
+  - symptom: "Buyer defensive about their own competence"
+    likely_cause: "Reframe missing the why-it-was-invisible line"
+    first_check: "build-reframe"
+  - symptom: "Champion convinced, group not moving"
+    likely_cause: "Consensus problem — the group has not agreed a problem exists"
+    first_check: "mobilize-consensus"
+  - symptom: "Buyer challenges the data"
+    likely_cause: "The reframe is landing. Proof needs strengthening on a specific point"
+    first_check: "build-insight, evidence table — do not soften before finding out which of the three causes applies"
+  - symptom: "Conversation excellent, deal does not advance"
+    likely_cause: "A qualification gap wearing a method costume"
+    first_check: "route to @sales:qualification-lead"
+  - symptom: "Same objection across many accounts"
+    likely_cause: "Positioning defect, not a conversation defect"
+    first_check: "route to @products:positioning-lead"
+
+diagnosis_order:
+  note: "Test in this order and stop at the first failure. Later tests are meaningless if an earlier one fails."
+  sequence:
+    - "Is there an insight at all, or only capability description?"
+    - "Is the insight provable outside our marketing?"
+    - "Does it lead to our unique strengths or to the whole category?"
+    - "Is it landing with someone who can act?"
+    - "Is the tension constructive or coercive?"
+    - "Is this actually a qualification gap?"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ETHICS OF CONSTRUCTIVE TENSION
+# ─────────────────────────────────────────────────────────────────────────────
+
+ethics:
+  principle: "The method exists to make a real problem visible, not to manufacture one."
+  prohibited:
+    - move: "Fabricated urgency or an invented deadline"
+      why: "A false statement. The premise is the problem, not the pressure."
+    - move: "Invented scarcity"
+      why: "Checkable and it collapses when the scarcity never materializes."
+    - move: "Manufactured social proof — 'most of your peers have already solved this'"
+      why: "Unsubstantiable, and it attacks competence. A buyer defending their competence stops evaluating the problem."
+    - move: "Implied competitive risk we cannot evidence"
+      why: "It is a claim, not tension, and it fails the reversal test."
+    - move: "Capability claimed that does not exist today"
+      why: "Roadmap is disclosed as roadmap. Selling roadmap as present is misrepresentation."
+    - move: "Material omission of limitations, integration gaps or total cost"
+      why: "A failure of the method, not a technique within it. It costs a deal we would have lost at renewal anyway."
+    - move: "Asking an advocate to assert something we have not verified"
+      why: "It transfers our risk onto their internal credibility."
+  reversal_test: "If the buyer saw exactly how this move was constructed, would they still consider the conversation fair?"
+  honest_direction: >-
+    If the honest reframe points away from our solution, say so and route to
+    @sales:qualification-lead. A reframe is a claim about the buyer's business; it does not become
+    false because it is commercially inconvenient.
+  compliant_alternative_rule: "State our real constraint, attribute it to us, and ask for theirs."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DISTINCTIONS
+# ─────────────────────────────────────────────────────────────────────────────
+
+distinctions:
+  insight_vs_information: "Information tells the buyer something about our product. Insight tells them something about their own business that changes what they should do."
+  tension_vs_pressure: "Tension is disagreement with the status quo, created by evidence, in service of the buyer's stated goal. Pressure is discomfort created for our timeline."
+  control_vs_dominance: "Control directs the conversation toward the decision. Dominance directs the person toward our conclusion. The first is the method; the second is its misuse."
+  teaching_vs_positioning: "Positioning defines the frame of reference and the unique attributes — owned by @products:positioning-lead, upstream and not owned here. Teaching applies that frame to one account's situation with their numbers."
+  method_vs_qualification: "Method determines whether the buyer understands the problem. Qualification determines whether they can act on it. Neither substitutes for the other."

@@ -1,0 +1,257 @@
+# Objection & Position Catalog — Interests Beneath Positions, With Integrity-Compliant Responses
+# Squad: sales
+# Referenced by: negotiation-lead (Tether)
+# Last updated: 2026-07-30
+
+version: "1.0.0"
+
+attribution:
+  work: "Never Split the Difference: Negotiating As If Your Life Depended On It"
+  author: "Chris Voss, written with Tahl Raz"
+  year: 2016
+  agent_stance: >-
+    This squad applies the published framework with attribution. It is not Chris Voss and does not
+    speak as him. No phrase, figure, title or date is attributed on the basis of inference.
+  contested_claim:
+    claim: "The book cites the widely quoted 7-38-55 ratio for words, tone and body language, attributed to research by Albert Mehrabian."
+    status: "Contested in the wider literature and routinely generalized far beyond the narrow experimental conditions that produced it."
+    policy: "No entry in this catalog rests on it. The dispute is stated rather than the figure repeated as settled."
+
+usage: |
+  A stated position is the visible end of an interest that has not been said yet. This catalog maps
+  common positions to CANDIDATE interests — always at least two, because settling on the first is
+  how a plan gets built against a counterparty we invented.
+
+  Every candidate interest is a HYPOTHESIS to test with a label, never a fact to negotiate against.
+  Mark each VERIFIED (they said it) or INFERRED (we deduced it) in the plan.
+
+  Every response below is integrity-compliant by construction: it states our real constraint,
+  attributes it to us, and ends by handing the counterparty the problem to solve with us.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# POSITIONS
+# ─────────────────────────────────────────────────────────────────────────────
+
+positions:
+
+  - stated: "We need 20% off to move forward."
+    candidate_interests:
+      - "A hard budget ceiling set before we arrived"
+      - "Procurement measured on a savings percentage — they need a number to report, separable from the number paid"
+      - "An internal comparison to a cheaper alternative"
+      - "Fear of overpaying relative to peers"
+      - "A number someone must justify upward to a person we have not met"
+    test_first:
+      type: label
+      wording: "It sounds like the number you can report matters as much as the number you pay."
+      then: "Stop. A correction tells us the ceiling is real and hard. An elaboration tells us where the currency is."
+    non_price_currency:
+      - "Longer term at a locked rate — serves their risk metric and our predictability"
+      - "Annual payment in advance — serves our cash position and can fund a real discount"
+      - "Documented reference plus one case study — near-zero cost to them"
+      - "Phased onboarding — reduces year-one outlay without reducing contract value"
+    prohibited_response:
+      move: "Imply the price rises after a date we invented"
+      why: "A fabricated deadline. Checkable, and remembered at renewal."
+    upstream_check: "If the economic buyer is unknown or the decision process is unmapped, this is a qualification signal, not a negotiation. Route to @sales:qualification-lead first."
+
+  - stated: "We need it signed by the 30th."
+    candidate_interests:
+      - "A fiscal or contractual date with a documented consequence"
+      - "A dependent project with named downstream owners"
+      - "A lever with nothing behind it"
+    test_first:
+      type: calibrated_question
+      wording: "What happens on the 1st if it is not signed?"
+      reading: "A specific consequence means a real constraint we can plan around. Nothing specific means a lever, read as such and not feared."
+    our_side_rule: >-
+      Do the same honestly for our deadline. If ours is our quarter, that is our constraint and not
+      their problem. It is stated accurately or not at all — never inflated into a threat.
+
+  - stated: "Legal will never accept that."
+    candidate_interests:
+      - "A real, documented policy"
+      - "An unexplored precedent nobody has tested"
+      - "A person avoiding an internal conversation"
+    test_first:
+      type: calibrated_question
+      wording: "What would legal need to see to be comfortable? Has this ever been made to work here before?"
+    note: "Checklist items and real requirements are treated differently. Unlimited liability is nearly always a checklist item; net payment terms are nearly always policy. Treating them identically spends the credibility needed for the one that is genuinely non-negotiable."
+
+  - stated: "We are also looking at other options."
+    candidate_interests:
+      - "A genuine alternative under evaluation"
+      - "A due-diligence obligation requiring three quotes"
+      - "A negotiating posture"
+    test_first:
+      type: calibrated_question
+      wording: "What are they strong at, in your view? And what would you do if you did nothing about this at all?"
+      note: "Include do-nothing. It is the most common competitor and the least tracked."
+    prohibited_response:
+      move: "Imply we have another buyer waiting for the same terms"
+      why: "A bluffed alternative. The cheapest possible counter is simply to wait."
+    routing: "If the same untracked alternative appears across several deals, that is a positioning finding for @products:positioning-lead, not a deal finding."
+
+  - stated: "Send your best and final now."
+    candidate_interests:
+      - "A genuine process constraint — a committee meets once"
+      - "A compression tactic to skip the ladder"
+      - "Someone who needs to demonstrate they extracted a final concession"
+    response_construction: >-
+      Give the anchor with its rationale, and be explicit that the structure moves against named
+      non-price items rather than on request. "Here is the number for this scope, and here is
+      exactly what moves it — term, payment timing, reference. Which of those is available to you?"
+    prohibited_response:
+      move: "Present a number as final that we intend to move from"
+      why: "It is a false statement, and once discovered every subsequent limit is discounted."
+
+  - stated: "Your competitor is 30% cheaper."
+    candidate_interests:
+      - "It is true, and the comparison is like-for-like"
+      - "It is true, and the comparison is not like-for-like — different scope, term or support"
+      - "It is a lever with no quote behind it"
+    test_first:
+      type: calibrated_question
+      wording: "What is included in that number? I want to make sure I am comparing the same thing before I respond to it."
+    prohibited_response:
+      move: "Make an unsourced claim about what the competitor cannot do"
+      why: "Any claim about a competitor needs a source outside our own marketing, or it is not made."
+    routing: "If price loses repeatedly across the funnel, that is a pattern for @products:pricing-strategist and @products:positioning-lead, not a deal-by-deal decision."
+
+  - stated: "We just need to think about it."
+    candidate_interests:
+      - "An unstated objection nobody has surfaced"
+      - "An internal step we have not mapped"
+      - "A stakeholder we have not met who is not convinced"
+    reading: "A yes without a how is a delay wearing a suit. Agreement in principle with no mechanism — who does what, by when, through which approval — is not a commitment."
+    test_first:
+      type: label
+      wording: "It seems like there is something about this that is not settled yet."
+    upstream_check: "Frequently a decision-process gap. Route to @sales:qualification-lead."
+
+  - stated: "Procurement has taken this over. Opening demand: 25% down, net-90, unlimited liability."
+    reading: "This is a mandate, not a position. Arguing against the demand argues against her job."
+    candidate_interests:
+      - "A savings target she is genuinely measured on"
+      - "A risk checklist she must clear"
+      - "Cycle time — she is measured on closing procurement events"
+    opening_move:
+      type: accusation_audit
+      wording: >-
+        "Before you tell me your position, let me say what you are probably thinking. You came into
+        this late, the business has already decided they want us, and that puts you in the worst
+        possible negotiating position. You are probably expecting me to use that."
+      then: "Stop. She either minimizes it, which lowers the temperature, or confirms it, which tells us exactly what she needs to walk away with."
+    demand_separation:
+      - demand: "25% reduction"
+        read: "Savings metric, genuinely measured"
+        response: "Servable in part, and partly through non-price items she can report"
+      - demand: "Net-90"
+        read: "Working capital policy, likely standard"
+        response: "Tradeable — costs us cash timing, buys term or price"
+      - demand: "Unlimited liability"
+        read: "Checklist item, almost never a real requirement"
+        response: "Genuinely non-negotiable. Stated once, calmly, with the actual reason. Repeating it under pressure signals it might move."
+    calibrated_question: "How am I supposed to get to a number like that and still keep the implementation team on this account? Genuinely — what have other suppliers done that worked for you?"
+    sponsor_reengagement:
+      compliant: "It would help me to understand which of these matters most to the business. Would a short call with the three of us be useful?"
+      prohibited: "Going around procurement to the sponsor. Wins one round, creates a permanent adversary at every renewal."
+    upstream_check: "Procurement arriving late with this much leverage usually means the decision process was never mapped. Route to @sales:qualification-lead — it prevents the next instance rather than fixing this one."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# INTERNAL OBJECTIONS — raised by our own side, not the buyer
+# ─────────────────────────────────────────────────────────────────────────────
+
+internal_objections:
+
+  - objection: "Just give them the discount, we need the quarter."
+    response: >-
+      That may still be the right decision, and it is the human's to make. What is not acceptable is
+      making it silently, because the price is not the only thing being paid: the account learns
+      that pressure works and applies it at renewal; other accounts hear the number, because buyers
+      in the same industry talk; and the quarter closes on revenue we could partly have bought with
+      term, payment timing or a reference. If it must close this week, the fastest legitimate move
+      is the reserve item and the shortest defensible ladder — not a bigger discount. If the answer
+      is still the discount, take it deliberately and record the precedent so renewal is prepared.
+
+  - objection: "Splitting the difference is fair."
+    response: >-
+      A midpoint is not fairness; it is the abandonment of two reasoned positions in favour of one
+      nobody argued for and neither side can defend internally. Watch what happens afterward: their
+      approver asks how the number was reached, "we met in the middle" reads as arbitrary, and
+      another round follows. A concession tied to a term change, a payment schedule or a reference
+      has a story attached and survives internal review.
+
+  - objection: "Tactical empathy sounds like manipulation."
+    response: >-
+      It becomes manipulation the moment the understanding is used against the counterparty's
+      interest, and that use is explicitly prohibited here as empathy inversion. The method itself
+      is the opposite: demonstrating accurate understanding so they will tell us the rest. A label
+      invites a correction, and corrections are how we discover we were wrong. The practical test is
+      durability — could they defend the resulting agreement to their own organization knowing what
+      we know? If yes, we found alignment. If no, we extracted something, and it gets renegotiated
+      at renewal by someone less friendly.
+
+  - objection: "Tell them we are walking. That will move them."
+    response: >-
+      Only if we would actually walk. A stated walk-away we do not mean is a false statement, and it
+      is one of the few that gets tested directly. When it is called we either walk unwillingly or
+      reveal that our limits are theatre, and every limit after that is discounted. If the terms are
+      genuinely below the line, say so plainly and without drama. If they are not, we do not have a
+      walk-away to announce and what we actually need is a calibrated question.
+
+  - objection: "Can we imply we have another offer?"
+    response: >-
+      No. If it does not exist, it is a false statement, and it sits with fabricated deadlines and
+      invented scarcity on the prohibited list. It is also weak — the counterparty simply waits. What
+      is available and true is our real alternatives: if pipeline coverage means we genuinely do not
+      need this deal this quarter, that changes our tone honestly and they read it. If it does not,
+      then we need the deal, and pretending otherwise is a posture that will not survive a test.
+
+  - objection: "Procurement is being unreasonable."
+    response: >-
+      Procurement is doing the job they were given, which usually includes a savings target and a
+      risk checklist. Find out what they are measured on — most will say if asked — and serve that
+      metric with non-price currency. Then separate checklist items from real requirements, so the
+      credibility is available for the one that is genuinely non-negotiable.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PROHIBITED MOVES — the complete list
+# ─────────────────────────────────────────────────────────────────────────────
+
+prohibited_moves:
+  - move: "Fabricated deadline"
+    why: "A false statement. Checkable, and remembered at renewal when we have least leverage."
+  - move: "Invented scarcity or allocated slot"
+    why: "A false statement that collapses when the scarcity never materializes."
+  - move: "Bluffed competing offer or alternative buyer"
+    why: "A false statement, and the cheapest possible counter is simply to wait."
+  - move: "Walk-away we would not take"
+    why: "When called, it either forces an unwanted walk or reveals our limits are theatre."
+  - move: "Exploding offer with an untrue justification"
+    why: "Pressure built on a false premise. The premise is the problem, not the pressure."
+  - move: "Material omission — limitation, integration gap, implementation cost, renewal mechanic"
+    why: "Converts a signature into churn and destroys the reference."
+  - move: "Empathy inversion — pressing a discovered fear"
+    why: "The exact inversion of tactical empathy, and the clearest line in this discipline."
+  - move: "Concession that buys nothing"
+    why: "Teaches the counterparty that pressure works and guarantees another request before signature."
+  - move: "Selling roadmap as present capability"
+    why: "Misrepresentation. Roadmap is disclosed as roadmap."
+
+compliant_alternative_rule: >-
+  Every blocked move is replaced by the version that states our real constraint, attributes it to
+  us, and ends with a question that hands the counterparty the problem to solve with us rather than
+  a claim that pressures them. If their answer is that nothing can happen in the timeframe, that is
+  information the forecast needs, and it is worth more than the pressure would have been.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# BOUNDARY
+# ─────────────────────────────────────────────────────────────────────────────
+
+boundary:
+  pricing: "Price level, packaging, value metric and discount policy are @products:pricing-strategist. This catalog trades inside an approved structure and escalates rather than improvises."
+  positioning: "Market category and competitive alternatives are @products:positioning-lead. Repeated losses to an untracked alternative are routed there as a pattern."
+  qualification: "Whether the deal should be negotiated at all is @sales:qualification-lead, and it runs first."
+  value: "If price is the only variable because value was never established, that is an insight gap for @sales:method-lead, not a negotiation gap."
+  patterns: "Repeated late procurement or end-of-period discounting is a funnel finding for @sales:pipeline-ops."
