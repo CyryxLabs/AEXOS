@@ -31,6 +31,11 @@ npx github:CyryxLabs/AEXOS init my-project
 cd my-project
 ```
 
+> **Run this outside the framework repository.** `init` writes a full copy of AEXOS
+> into the target directory. Run inside this repository, that nested install is
+> swept by ESLint and Jest (`roots: [<rootDir>]`), producing hundreds of errors and
+> phantom suites that belong to no project code.
+
 ### Option B: Clone Repository (Development)
 
 ```bash

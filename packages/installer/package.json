@@ -30,7 +30,7 @@
     "brownfield"
   ],
   "author": "Cyryx Labs LLC",
-  "license": "UNLICENSED",
+  "license": "SEE LICENSE IN LICENSE",
   "engines": {
     "node": ">=18.0.0"
   },

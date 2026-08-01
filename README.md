@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/node-%3E%3D18.0.0-8C949E?style=flat-square&labelColor=11161A" alt="Node 18 or later" />
   <img src="https://img.shields.io/badge/tests-9%2C306%20passing-10B981?style=flat-square&labelColor=11161A" alt="9,306 tests passing" />
   <img src="https://img.shields.io/badge/agents-64%20in%209%20squads-0F6B68?style=flat-square&labelColor=11161A" alt="64 agents across 9 squads" />
-  <img src="https://img.shields.io/badge/licence-Proprietary-8C949E?style=flat-square&labelColor=11161A" alt="Proprietary licence" />
+  <img src="https://img.shields.io/badge/licence-AEXOS%20v1.0-8C949E?style=flat-square&labelColor=11161A" alt="AEXOS Licence v1.0 — Core free, Pro commercial" />
 </p>
 
 <p align="center">
@@ -240,8 +240,9 @@ The three contexts are genuinely different, and a command from one will not work
 | Contributing to AEXOS itself | `git clone` → `npm install` → `npm link` | Works today |
 
 `@aexos-squads/core` is **not published to the public npm registry** — both `aexos-core` and
-`@aexos-squads/core` return 404 there, which is consistent with the proprietary
-[LICENSE](LICENSE). So `npx github:CyryxLabs/AEXOS install` is the documented form for reinstalling or updating
+`@aexos-squads/core` return 404 there. That is a distribution decision, not a licensing one: the
+[LICENSE](LICENSE) grants the Core Edition free of charge, and Section 2 expressly permits
+installing it from a package registry. So `npx github:CyryxLabs/AEXOS install` is the documented form for reinstalling or updating
 inside a project that already resolves the package (it is what `docs/installation/` uses), not a
 first-run command.
 
@@ -652,7 +653,13 @@ only `@devops` opens pull requests and pushes to the remote.
 
 ## Licence
 
-[Proprietary](LICENSE) © 2026 Cyryx Labs LLC. All rights reserved.
+[AEXOS Licence v1.0](LICENSE) © 2026 Cyryx Labs LLC. All rights reserved.
+
+The Core Edition is free of charge for personal, internal and commercial use,
+including work you deliver commercially to third parties. You are not required to
+disclose or share what you build with it. The Pro Edition requires a separate
+paid agreement. Redistributing AEXOS itself — forks, mirrors, or hosted products
+whose value is AEXOS's own functionality — is not permitted; see Section 3.
 
 <p align="center">
   <sub><b>AEXOS</b> by <b>Cyryx Labs</b> · CLI First · Observability Second · UI Third</sub>
