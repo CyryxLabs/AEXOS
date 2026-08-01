@@ -1,6 +1,6 @@
 # Terms of Use
 
-**Last updated:** 2026-07-30
+**Last updated:** 2026-08-01
 
 ## Acceptance of Terms
 
@@ -9,29 +9,38 @@ you do not agree to these terms, do not use the Software.
 
 ## License
 
-AEXOS is **proprietary software of Cyryx Labs LLC. All rights reserved.** See the
-[LICENSE](../../LICENSE) file for the full license text.
+AEXOS is licensed under the **AEXOS License v1.0**. See the
+[LICENSE](../../LICENSE) file for the full license text, which controls wherever
+this summary and it differ.
 
-There is no open-source grant. Any earlier statement describing AEXOS, or any part
-of it, as MIT-licensed or open source is superseded by these terms and by
-`LICENSE`.
+AEXOS is not open source, but the Core Edition is free: no fee and no prior
+written permission are required to use it. Any earlier statement describing
+AEXOS as MIT-licensed, and any earlier statement describing it as usable only by
+prior written permission, is superseded by these terms and by `LICENSE`.
 
 For the licensing relationship between the core framework and the Pro modules, see
 [License Clarification (Core and Pro)](./license-clarification.md).
 
 ### Scope of Rights
 
-You have **no rights** in the Software except those Cyryx Labs LLC grants you in
-writing. Absent such a grant, you may **NOT**:
+Under Section 2 of `LICENSE`, the Core Edition is granted to you free of charge.
+You **MAY**:
 
-- ❌ Use the Software for personal or commercial purposes
-- ❌ Reproduce, copy, or distribute the Software in whole or in part
-- ❌ Modify the Software or create derivative works
-- ❌ Sublicense, rent, lease, sell, or otherwise transfer the Software
-- ❌ Incorporate the Software into another product or service
+- ✅ Install and run the Core Edition on any number of machines, for personal,
+  internal, educational, or commercial purposes
+- ✅ Build, operate, and deliver your own work with it, including work delivered
+  commercially to third parties
+- ✅ Modify the Core Edition for your own internal use and run those modifications
+- ✅ Create and distribute squads, agents, tasks, templates, and other add-ons
+  built on top of it
 
-Where Cyryx Labs LLC has granted you a written permission or commercial
-entitlement, your rights are exactly those the grant states, and you **MUST**:
+You are not required to disclose, license, or share the work you build with
+AEXOS. Absent a separate paid commercial agreement, you may **NOT**:
+
+- ❌ Use, access, or reproduce the Pro Edition
+
+Where Cyryx Labs LLC has granted you a Pro entitlement or other commercial
+agreement, your rights are exactly those the grant states, and you **MUST**:
 
 - ✅ Keep all copyright, license, and attribution notices intact
 - ✅ Stay within the scope, term, and seat count of your grant
@@ -39,8 +48,14 @@ entitlement, your rights are exactly those the grant states, and you **MUST**:
 
 ## Restrictions
 
-Regardless of any grant, you may **NOT**:
+Regardless of any grant, and per Section 3 of `LICENSE`, you may **NOT**:
 
+- ❌ Redistribute, publish, mirror, sublicense, sell, rent, lease, or lend the
+  Software or any substantial portion of it, modified or not
+- ❌ Publish a fork, clone, or derivative of the Software, or host a public
+  repository containing a substantial portion of it
+- ❌ Offer the Software, or a derivative, to third parties as a hosted, managed,
+  or embedded product whose primary value is the Software's own functionality
 - ❌ Remove or alter copyright, license, or attribution notices
 - ❌ Reverse engineer, decompile, or disassemble the Software, except where such a
   restriction is unenforceable under applicable law

@@ -1,22 +1,191 @@
+AEXOS LICENSE
+Version 1.0 — 2026
+
 Copyright (c) 2026 Cyryx Labs LLC. All rights reserved.
 
-AEXOS, including this software and its associated documentation files (the
-"Software"), is the proprietary property of Cyryx Labs LLC.
+This license governs use of the AEXOS framework and its accompanying
+documentation. By installing, copying, or otherwise using the Software, You
+accept the terms below. If You do not accept them, do not use the Software.
 
-No licence is granted except by explicit written permission of Cyryx Labs LLC.
-Without such permission, any use, reproduction, copying, distribution,
-modification, derivative work, sublicensing, sale, or transfer of the Software,
-in whole or in part, is strictly prohibited. All copyright, licence, and
-attribution notices must be preserved in any authorised copy.
 
-Third-party components included with the Software remain subject to their own
-licence terms, which this notice does not alter. See docs/legal/terms.md.
+1. DEFINITIONS
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL CYRYX LABS LLC BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
-CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+   "Licensor" means Cyryx Labs LLC.
 
-Licensing inquiries: legal@cyryxlabs.com
+   "Software" means the AEXOS framework, including its source code, agent and
+   task definitions, templates, configuration, and documentation, in any form.
+
+   "Core Edition" means the portion of the Software distributed by Licensor at
+   no charge.
+
+   "Pro Edition" means any component, module, or capability that Licensor
+   designates as Pro, Enterprise, or otherwise commercial, whether distributed
+   separately or gated within the Core Edition.
+
+   "You" means the individual or legal entity exercising rights under this
+   license. If You are acting on behalf of an entity, "You" includes that
+   entity and its affiliates.
+
+   "Your Work" means software, services, or content that You develop, operate,
+   or deliver using the Software, and that is not itself a distribution of the
+   Software.
+
+
+2. CORE EDITION — GRANT OF USE
+
+   Subject to Your compliance with this license, Licensor grants You a
+   worldwide, royalty-free, non-exclusive, non-transferable, revocable license
+   to:
+
+   (a) install and run the Core Edition on any number of machines, for personal,
+       internal, educational, or commercial purposes;
+
+   (b) use the Core Edition to build, operate, and deliver Your Work, including
+       Your Work delivered commercially to third parties;
+
+   (c) modify the Core Edition for Your own internal use, and run those
+       modifications;
+
+   (d) create and distribute extensions, squads, agents, tasks, templates, and
+       other add-ons that build on the Core Edition, provided they do not
+       include a substantial portion of the Software itself.
+
+   No fee is required for the rights granted in this Section 2.
+
+
+3. RESTRICTIONS
+
+   Except as expressly permitted in Section 2, You may not:
+
+   (a) copy or reproduce the Software, except as strictly necessary to exercise
+       the rights granted in Section 2 (installation, execution, and backup);
+
+   (b) redistribute, publish, mirror, sublicense, sell, rent, lease, or lend the
+       Software or any substantial portion of it, whether modified or not, and
+       whether or not for a fee;
+
+   (c) publish or distribute a fork, clone, or derivative of the Software, or
+       host a public repository containing a substantial portion of it;
+
+   (d) offer the Software, or a derivative of it, to third parties as a hosted,
+       managed, or embedded product or service whose primary value is the
+       Software's own functionality;
+
+   (e) remove, obscure, or alter any copyright, license, or attribution notice
+       contained in the Software;
+
+   (f) use Licensor's names, logos, or trademarks to endorse or promote Your
+       Work, or in a manner that implies affiliation or endorsement, without
+       Licensor's prior written permission;
+
+   (g) circumvent, disable, or interfere with any licensing, entitlement, or
+       feature-gating mechanism in the Software, or access Pro Edition
+       functionality without a valid commercial license.
+
+   Clauses (a) through (d) restrict copying and distribution of the Software as
+   a product. They do not restrict Your Work, and they do not require You to
+   disclose, license, or share Your Work. Installing the Core Edition from a
+   package registry, running it, and keeping backup copies for Your own use are
+   expressly permitted under Section 2 and are not restricted by clause (a).
+
+
+4. PRO EDITION — SEPARATE COMMERCIAL LICENSE
+
+   The Pro Edition is licensed separately and is not covered by the grant in
+   Section 2. Use of the Pro Edition requires a valid, paid commercial
+   agreement with Licensor, and is governed by the terms of that agreement. In
+   the event of a conflict between that agreement and this license with respect
+   to the Pro Edition, that agreement controls.
+
+   Nothing in this license grants any right to use, access, or reproduce the
+   Pro Edition.
+
+
+5. OWNERSHIP
+
+   The Software is licensed, not sold. Licensor retains all right, title, and
+   interest in and to the Software, including all intellectual property rights.
+   You retain all right, title, and interest in and to Your Work.
+
+
+6. CONTRIBUTIONS
+
+   If You submit any contribution to the Software, You grant Licensor a
+   perpetual, worldwide, royalty-free, irrevocable license to use, reproduce,
+   modify, distribute, sublicense, and otherwise exploit that contribution as
+   part of the Software or any edition of it, including the Pro Edition. You
+   represent that You have the right to grant that license.
+
+
+7. TERM AND TERMINATION
+
+   This license is effective until terminated. It terminates automatically and
+   immediately if You breach any of its terms. Upon termination You must cease
+   all use of the Software and destroy all copies in Your possession or
+   control. Sections 3, 5, 6, 8, 9, 10, and 11 survive termination.
+
+   Termination of this license does not affect Your Work already delivered
+   under it prior to termination.
+
+
+8. DISCLAIMER OF WARRANTY
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NONINFRINGEMENT. LICENSOR DOES
+   NOT WARRANT THAT THE SOFTWARE WILL BE UNINTERRUPTED, ERROR-FREE, OR THAT ITS
+   OUTPUT WILL BE ACCURATE OR SUITABLE FOR ANY PARTICULAR PURPOSE.
+
+   THE SOFTWARE ORCHESTRATES AUTOMATED AGENTS THAT MAY READ, WRITE, AND EXECUTE
+   CODE. YOU ARE SOLELY RESPONSIBLE FOR REVIEWING AND VALIDATING ALL OUTPUT AND
+   FOR ANY ACTION TAKEN ON THE BASIS OF IT.
+
+
+9. LIMITATION OF LIABILITY
+
+   TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL
+   LICENSOR BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+   CONSEQUENTIAL DAMAGES, OR FOR ANY LOSS OF PROFITS, REVENUE, DATA, OR
+   BUSINESS, ARISING OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THIS LICENSE,
+   WHETHER IN CONTRACT, TORT, OR OTHERWISE, EVEN IF ADVISED OF THE POSSIBILITY
+   OF SUCH DAMAGES.
+
+   LICENSOR'S TOTAL AGGREGATE LIABILITY UNDER THIS LICENSE SHALL NOT EXCEED THE
+   AMOUNT YOU PAID TO LICENSOR FOR THE SOFTWARE IN THE TWELVE MONTHS PRECEDING
+   THE EVENT GIVING RISE TO THE CLAIM, OR ZERO IF YOU PAID NOTHING.
+
+
+10. THIRD-PARTY COMPONENTS
+
+    Third-party components included with or depended upon by the Software remain
+    subject to their own license terms, which this license does not alter. See
+    docs/legal/terms.md.
+
+
+11. GOVERNING LAW
+
+    This license is governed by the laws of the State of Florida, United States
+    of America, without regard to its conflict-of-law provisions. The exclusive
+    venue for any dispute arising under this license shall be the state and
+    federal courts located in Pinellas County, Florida, and You consent to the
+    personal jurisdiction of those courts.
+
+
+12. ENTIRE AGREEMENT
+
+    This license constitutes the entire agreement between You and Licensor
+    regarding the Core Edition and supersedes all prior understandings on that
+    subject. If any provision is held unenforceable, it shall be modified to
+    the minimum extent necessary to make it enforceable, and the remaining
+    provisions shall remain in full force.
+
+
+For commercial licensing, Pro Edition access, or permissions beyond the scope
+of this license, contact:
+
+    Cyryx Labs LLC
+    7901 4th St N, Ste 300
+    St. Petersburg, FL 33702
+    United States
+
+    legal@cyryxlabs.com

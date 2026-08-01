@@ -32,6 +32,11 @@ cd my-first-project
 # npx github:CyryxLabs/AEXOS install
 ```
 
+> **Run this outside the framework repository.** `init` writes a full copy of AEXOS
+> into the target directory. Run inside this repository, that nested install is
+> swept by ESLint and Jest (`roots: [<rootDir>]`), producing hundreds of errors and
+> phantom suites that belong to no project code.
+
 ### Step 2: Pick your IDE activation path
 
 - Claude Code: `/agent-name`

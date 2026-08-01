@@ -34,10 +34,27 @@ web-bundles/
 # Nested framework installs created by installer/e2e tests.
 # These are full framework copies; without this they pollute ESLint and Jest
 # (roots: [<rootDir>]) with phantom files, and a single `git add .` would commit them.
+#
+# Every project name our own documentation suggests to `init` is listed here.
+# The list only had /my-project/, so any reader who followed a different page
+# ended up with an untracked ~8,600-file framework copy that ESLint and Jest
+# (roots: [<rootDir>]) swept — the gates then reported hundreds of errors and
+# phantom suites against a tree whose own code has none.
+#
+# Sourced from: git grep -oE "init [a-z][a-z0-9-]{2,30}" -- docs/ README*.md
+# Re-run that after adding an install page, or this hole reopens.
 /AEXOS/
-/my-project/
+/my-project/          # README.md, docs/installation/*, 12 occurrences
+/my-first-project/    # docs/getting-started.md
+/myapp/               # docs/troubleshooting.md
+/test/                # docs/troubleshooting.md — no root test/ exists (tests/ does)
 /.aexos-test/
 .test-temp*/
+#
+# Deliberately NOT listed: /pro/. The grep also matches "init pro", but those
+# are `git submodule update --init pro` in docs/guides/workflows/ — not a
+# project name — and pro/ is a real submodule directory. Ignoring it would hide
+# the Pro edition from git.
 
 # Python bytecode from the .claude/hooks/*.py governance hooks.
 # Six .pyc files were committed during the rebrand; untracked and ignored here.
