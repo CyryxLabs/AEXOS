@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-08-01T04:27:26.452Z'
+  lastUpdated: '2026-08-01T04:47:16.387Z'
   entityCount: 846
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -15878,7 +15878,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:<self-reference>
-      lastVerified: '2026-08-01T04:27:26.452Z'
+      lastVerified: '2026-08-01T04:47:16.387Z'
     learned-patterns:
       path: .aexos-core/data/learned-patterns.yaml
       layer: L3
@@ -18947,8 +18947,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:bad256b201943fc63a9fbfe6025793ee5582eaecd3c73b25906087cf5de404f9
-      lastVerified: '2026-07-31T23:10:11.792Z'
+      checksum: sha256:64cf0e74992d32d148a6f5288d593713c1b68d86e46e99af20663029d0a4e054
+      lastVerified: '2026-08-01T04:47:15.774Z'
     cursor:
       path: .aexos-core/infrastructure/scripts/ide-sync/transformers/cursor.js
       layer: L2
