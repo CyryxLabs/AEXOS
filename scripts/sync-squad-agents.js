@@ -19,16 +19,25 @@
  * Generation is byte-idempotent: a file whose content has not changed is left
  * untouched, so re-running produces no diff.
  *
+ * Runs against any project, not just this repo: a user who creates a squad in
+ * their own project needs its agents reachable the same way, and their squads
+ * are not in this repository.
+ *
  * Usage:
- *   node scripts/sync-squad-agents.js            # write
- *   node scripts/sync-squad-agents.js --check    # fail if out of date
+ *   node scripts/sync-squad-agents.js                  # write, this repo
+ *   node scripts/sync-squad-agents.js --check          # fail if out of date
+ *   node scripts/sync-squad-agents.js --root <dir>     # another project
  */
 'use strict';
 
 const fs = require('fs');
 const path = require('path');
 
-const ROOT = path.resolve(__dirname, '..');
+const rootFlag = process.argv.indexOf('--root');
+const ROOT =
+  rootFlag !== -1 && process.argv[rootFlag + 1]
+    ? path.resolve(process.argv[rootFlag + 1])
+    : path.resolve(__dirname, '..');
 const SQUADS_DIR = path.join(ROOT, 'squads');
 const COMMANDS_ROOT = path.join(ROOT, '.claude', 'commands', 'AEXOS', 'squads');
 const SKILLS_ROOT = path.join(ROOT, '.claude', 'skills', 'AEXOS', 'squads');
@@ -60,7 +69,7 @@ function writeIfChanged(file, content) {
   return 'changed';
 }
 
-const stats = { squads: 0, agents: 0, written: 0, unchanged: 0, failed: [] };
+const stats = { squads: 0, agents: 0, written: 0, unchanged: 0, failed: [], skipped: [] };
 const expected = { commands: new Set(), skills: new Set() };
 
 for (const { squad, dir } of discoverSquads()) {
@@ -79,6 +88,26 @@ for (const { squad, dir } of discoverSquads()) {
     }
     if (!agentData || !agentData.id) {
       stats.failed.push(`${squad}/${file}: sem id de agente`);
+      continue;
+    }
+
+    // A squad's agents/ directory also holds files that are not activatable:
+    // coverage placeholders, and definitions written in another framework's
+    // format. The `agent:` block is what makes a file activatable — without
+    // one the generated skill would carry a placeholder persona and appear in
+    // the `/` list as something the user cannot actually use.
+    //
+    // Distinguish the two causes, because they need different answers: a file
+    // with no `agent:` key at all is not an agent, while one whose `agent:`
+    // key sits outside a ```yaml fence is an agent the parser cannot read.
+    if (!agentData.agent || !agentData.agent.name) {
+      const hasAgentKey = /^agent\s*:/m.test(fs.readFileSync(sourcePath, 'utf8'));
+      stats.skipped.push(
+        `${squad}/${file}` +
+          (hasAgentKey
+            ? '  — bloco `agent:` existe mas esta fora de um fence ```yaml'
+            : '  — sem bloco `agent:` (nao e um agente)'),
+      );
       continue;
     }
 
@@ -128,6 +157,10 @@ const label = CHECK ? '[check] ' : '';
 console.log(`${label}squads: ${stats.squads}  agentes: ${stats.agents}`);
 console.log(`${label}arquivos escritos: ${stats.written}  inalterados: ${stats.unchanged}`);
 if (stale.length) console.log(`${label}obsoletos removidos: ${stale.length}`);
+if (stats.skipped.length) {
+  console.log(`${label}pulados (nao ativaveis): ${stats.skipped.length}`);
+  stats.skipped.forEach((s) => console.log(`    ${s}`));
+}
 if (stats.failed.length) {
   console.log(`\nFALHAS (${stats.failed.length}):`);
   stats.failed.forEach((f) => console.log(`  ${f}`));
