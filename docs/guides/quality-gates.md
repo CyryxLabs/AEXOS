@@ -1,5 +1,13 @@
 # AEXOS Quality Gate System Guide
 
+<!-- AEXOS-DOC-STATUS: unimplemented-cli -->
+> [!WARNING]
+> **This guide documents a CLI that is not implemented.** The `aexos qa ...` commands below do not exist; running them returns an unknown-command error.
+>
+> The quality gates that exist are npm scripts: `npm run lint`, `npm run typecheck`, `npm test`, plus the `npm run validate:*` family. For a story-level review, activate `@qa` from your IDE.
+>
+> The guide is kept for its concepts and for the design it describes. Treat every command block in it as a proposal, not as instructions.
+
 ---
 
 > Comprehensive guide to the 3-layer quality gate system for AEXOS (Cyryx).

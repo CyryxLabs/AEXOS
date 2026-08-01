@@ -1,5 +1,13 @@
 # AEXOS MCP Global Setup Guide
 
+<!-- AEXOS-DOC-STATUS: unimplemented-cli -->
+> [!WARNING]
+> **This guide documents a CLI that is not implemented.** The `aexos mcp ...` commands below do not exist; running them returns an unknown-command error.
+>
+> MCP servers are configured through Claude Code itself — `claude mcp add`, or a `.mcp.json` in the project. In AEXOS, `@devops` owns MCP setup; see `.claude/rules/mcp-usage.md`.
+>
+> The guide is kept for its concepts and for the design it describes. Treat every command block in it as a proposal, not as instructions.
+
 ---
 
 > Configure global MCP (Model Context Protocol) servers for AEXOS (Cyryx).

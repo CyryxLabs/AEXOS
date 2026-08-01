@@ -71,6 +71,8 @@
 
 Before execution, @aexos-master MUST check whether an exclusive agent owns the request. Delegation is the default for specialized work; direct execution is limited to framework governance, orchestration, workflow-engine mode, and explicit `--force-execute` framework debugging.
 
+**Delegation executes as persona adoption, in-session.** The orchestrator reads the target agent's definition and continues as that agent — it does not spawn a subagent. Subagent spawning is the opt-in `--mode=engine` path only. A session that restricts subagent tools therefore does not restrict delegation, and is never a reason to do specialized work ungoverned. Routing is automatic: the user should not have to ask for a hand-off the authority check already required.
+
 | Direct Execution | Delegate By Default | Blocked |
 |------------------|---------------------|---------|
 | Framework governance and constitutional enforcement | Story creation → @sm (`create-next-story.md`, `*draft`, `*create-story`) | `git push` / `gh pr create` / `gh pr merge` → @devops only |

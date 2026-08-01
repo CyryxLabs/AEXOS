@@ -579,6 +579,30 @@ Rules:
 - Where an exclusive authority applies, name it: `@devops` holds push, release
   and MCP configuration, and that boundary is worth restating at the hand-off.
 
+**How the hand-off executes — persona adoption, not subagent spawning:**
+
+Delegation happens inside this session. You read the target agent's definition
+and continue as that agent: adopt its persona, load its dependencies, run its
+commands, and report as it. This is the same mechanism `*workflow --mode=guided`
+uses, and it is the default for every hand-off.
+
+It requires no subagent tool, and that is the point. Spawning subagents is the
+opt-in `--mode=engine` path, and it is unavailable in plenty of sessions — some
+environments restrict subagent tools outright. **A restriction on subagent tools
+is not a reason to stop delegating.** It changes nothing about the default path,
+because the default path never used those tools.
+
+So the failure to avoid: concluding that because no subagent can be spawned, the
+work must be done ungoverned by the orchestrator. It must not. Announce the
+hand-off, adopt the agent, do the work as that agent. The user should never have
+to ask for delegation that the authority check already required — routing is
+automatic, and only genuine ambiguity between several plausible owners is worth
+a question.
+
+Return to the orchestrator when that agent's work is done, and announce the next
+hand-off the same way. A chain of adopted personas in one session is a normal,
+complete delegation — not a degraded substitute for one.
+
 **Squads — routed by registry, not by name:**
 
 The twelve core agents above are listed literally because they are the framework

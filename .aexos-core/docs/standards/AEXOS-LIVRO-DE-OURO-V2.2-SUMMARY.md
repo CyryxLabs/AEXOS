@@ -1,5 +1,17 @@
 # 📘 AEXOS v2.2 - Livro de Ouro (Future Vision)
 
+<!-- AEXOS-DOC-STATUS: unimplemented-cli -->
+> [!WARNING]
+> **Parts of this document describe a CLI that is not implemented.** The `aexos memory`, `aexos lightning`, `aexos analytics` e `aexos clone`
+> commands do not exist; running them returns an unknown-command error.
+>
+> Agents are the interface. Activate them from your IDE — in Claude Code, type `/`
+> and pick one (`/AEXOS:agents:dev`), then use `*help` to list its commands.
+>
+> The document is kept for the architecture it records. Treat its command blocks
+> as design, not as instructions.
+
+
 **Version:** 2.2.0-with-memory-layer  
 **Date:** June 2026 (as-if-implemented)  
 **Status:** Production Release  

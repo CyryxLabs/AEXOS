@@ -1,5 +1,17 @@
 # AEXOS Framework - Livro de Ouro v4.2 (Complete)
 
+<!-- AEXOS-DOC-STATUS: unimplemented-cli -->
+> [!WARNING]
+> **Parts of this document describe a CLI that is not implemented.** The `aexos workflow ...`
+> commands do not exist; running them returns an unknown-command error.
+>
+> Agents are the interface. Activate them from your IDE — in Claude Code, type `/`
+> and pick one (`/AEXOS:agents:dev`), then use `*help` to list its commands.
+>
+> The document is kept for the architecture it records. Treat its command blocks
+> as design, not as instructions.
+
+
 ## O Sistema Operacional Definitivo para Orquestração de Agentes IA
 
 **Versão:** 2.1.0
@@ -615,18 +627,24 @@ $ npx @CyryxLabs/aexos migrate v2.0-to-v4.0.4
 ### First Steps
 
 ```bash
-# List available agents
-$ aexos agents list
+# Confirm the installation is healthy
+$ aexos doctor
 
-# List available Squads
-$ aexos squads list
-
-# Create your first story
-$ aexos stories create
-
-# Execute a task
-$ aexos task develop-story --story=1.1
+# Show the installed version and resolved paths
+$ aexos info
 ```
+
+Agents are the interface, not the CLI. Once installed, activate them from your
+IDE — in Claude Code, type `/` and pick one:
+
+```text
+/AEXOS:agents:sm                     draft a story
+/AEXOS:agents:dev                    implement it
+/AEXOS:agents:qa                     review it
+/AEXOS:squads:marketing:offer-lead   a squad agent
+```
+
+Inside an active agent, `*` runs its commands — `*help` lists them.
 
 ### Local Development (Multi-Repo)
 

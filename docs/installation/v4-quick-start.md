@@ -171,7 +171,7 @@ npx github:CyryxLabs/AEXOS info      # Show system info
 npm run lint                           # Check code style
 npm run typecheck                      # Check TypeScript types
 npm test                               # Run unit tests
-npm run validate:structure             # Validate AEXOS structure
+npm run validate:paths                 # Validate AEXOS path references
 ```
 
 ### Project Structure

@@ -215,15 +215,23 @@ class WorkflowExecutor {
    * @returns {Promise<Object>} Core configuration
    */
   async loadConfig() {
+    const defaults = { coderabbit_integration: { enabled: false } };
+
     try {
       const content = await fs.readFile(this.configPath, 'utf8');
-      this.config = yaml.load(content);
+      const parsed = yaml.load(content);
+
+      // `yaml.load` returns undefined for an empty or comment-only file, and
+      // that path never threw, so the defaults below were skipped and every
+      // caller crashed on `config.coderabbit_integration`. An empty config is
+      // the same situation as a missing one: fall back.
+      this.config = parsed && typeof parsed === 'object' ? parsed : defaults;
     } catch (error) {
       if (this.options.debug) {
         console.log(`[WorkflowExecutor] Config not found at ${this.configPath}, using defaults`);
         console.log(`[WorkflowExecutor] Error: ${error.message}`);
       }
-      this.config = { coderabbit_integration: { enabled: false } };
+      this.config = defaults;
     }
     return this.config;
   }

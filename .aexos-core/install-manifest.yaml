@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.3.0
-generated_at: "2026-07-31T23:10:16.809Z"
+generated_at: "2026-08-01T04:26:04.760Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1167
 files:
@@ -1021,9 +1021,9 @@ files:
     type: core
     size: 32760
   - path: core/orchestration/workflow-executor.js
-    hash: sha256:848984ac84e81965c788dd6fd10a4f4499e4d11e4a6ec9ca444640a71409d2cd
+    hash: sha256:4ceb68dfffbb9d8b1421abdd74dd77b2d00a3acc10d52c39b9a58f38fecb0748
     type: core
-    size: 38676
+    size: 39079
   - path: core/orchestration/workflow-orchestrator.js
     hash: sha256:a8054ef041657b2214896af9e821ca99e788b8fef82bae7e7e4d621fd2b5c1f9
     type: core
@@ -1125,9 +1125,9 @@ files:
     type: core
     size: 13187
   - path: core/registry/README.md
-    hash: sha256:0783d48a9f4b096b0cd9f52a45c7892a0e8b885f1ee7d88f262dfe0ae80133b5
+    hash: sha256:31cee2588f587d3d2407754b30146f8990fd6c84b8c9690f0b5b3c2598782844
     type: core
-    size: 4802
+    size: 4861
   - path: core/registry/registry-loader.js
     hash: sha256:a34c47005c06a6716f282613563b5b397a6485f44e8f91a5a99009ea2ef3f5c7
     type: core
@@ -1397,7 +1397,7 @@ files:
     type: data
     size: 9595
   - path: data/entity-registry.yaml
-    hash: sha256:22d564f12b5455cc6cea196f4bbcdc5fe9663d0f0a7eeeeea67773af094a160d
+    hash: sha256:0642838fbee4ed8ae8a1aa1b0c6fa5043b0afe694f21f14b6f182f6dd939dc20
     type: data
     size: 597601
   - path: data/learned-patterns.yaml
@@ -1501,9 +1501,9 @@ files:
     type: development
     size: 5012
   - path: development/agents/aexos-master.md
-    hash: sha256:852959fa73aee29d3e5e8ff512eae7cab5f6a95541ba20d82ee7382a7f316842
+    hash: sha256:521e62257d934ca4ac6aa920ade34b05fcc9cb59245e1dbda019b249a8de44c9
     type: agent
-    size: 25040
+    size: 26406
   - path: development/agents/analyst.md
     hash: sha256:239b693b41bb0e275419232c405fd2349785a66adc6c2fe7f2dab6266034ef99
     type: agent
@@ -1773,9 +1773,9 @@ files:
     type: script
     size: 23411
   - path: development/scripts/populate-entity-registry.js
-    hash: sha256:58f83a3a38eb97517aa6856336cb1d8005cdbb10975081190ea2114a99afc3ab
+    hash: sha256:15a0289dbee47c8fb3814881abe2dc480932fa2d343f6a88e0525dd4e59f3d5a
     type: script
-    size: 34789
+    size: 35510
   - path: development/scripts/refactoring-suggester.js
     hash: sha256:d50ea6b609c9cf8385979386fee4b4385d11ebcde15460260f66d04c705f6cd9
     type: script
@@ -3209,9 +3209,9 @@ files:
     type: script
     size: 15333
   - path: infrastructure/scripts/cicd-discovery.js
-    hash: sha256:bda9d71fe4a343e8aa3366b5e31710af02a8734eb6ea5526caafadebc2221ab5
+    hash: sha256:b1ece671b8a6d4f9f50404b40c7c05109a2adc8062902d6d5f21bba7796b8a75
     type: script
-    size: 33800
+    size: 33282
   - path: infrastructure/scripts/clickup-helpers.js
     hash: sha256:b13975d4ac0fad6a68b5476d7020bda37666b279c95c3fd8c5e8580a9d03bdfa
     type: script

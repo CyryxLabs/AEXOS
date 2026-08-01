@@ -175,7 +175,7 @@ npm run lint
 npm run typecheck
 
 # Validate project structure
-npm run validate:structure
+npm run validate:paths
 ```
 
 ### Step 4: IDE Integration (Optional)
@@ -876,7 +876,7 @@ npm run lint
 npm run typecheck
 
 # Validate structure
-npm run validate:structure
+npm run validate:paths
 ```
 
 ### Step 4: Commit and Push

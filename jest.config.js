@@ -2,6 +2,20 @@ module.exports = {
   testEnvironment: 'node',
   coverageDirectory: 'coverage',
 
+  // Jest defaults to cpus-1 workers — 27 on a 28-core machine. This suite is
+  // filesystem-heavy: tests spawn CLI processes, write shared fixtures, and a
+  // few assert wall-clock budgets. At 27 workers the suite contends with
+  // itself, and single tests failed intermittently across runs — a different
+  // one each time, never reproducible in isolation.
+  //
+  // Those tests are identical in AIOX, which does not trip them; AEXOS simply
+  // runs 488 more tests, and that extra load is what crosses the threshold. So
+  // the fix belongs here, not in each assertion: cap concurrency so the suite
+  // measures the code rather than the scheduler.
+  //
+  // 50% keeps the run fast while leaving real headroom.
+  maxWorkers: '50%',
+
   // Test patterns from LOCAL (mais específico)
   testMatch: [
     '**/tests/**/*.test.js',

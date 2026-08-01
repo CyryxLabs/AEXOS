@@ -166,7 +166,8 @@ The registry loader implements:
 ## Integration
 
 The registry integrates with:
-- **Discovery CLI** (Story 2.7-2.9): `aexos search`, `aexos info`, `aexos list`
+- **Discovery CLI**: `aexos info` (shipped). `aexos search` and `aexos list`
+  are planned in Stories 2.7-2.9 and are not implemented yet.
 - **Manifest System** (Story 2.13): Worker dependencies
 - **Agent Loading**: Worker assignment to agents
 

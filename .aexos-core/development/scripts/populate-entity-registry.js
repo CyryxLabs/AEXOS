@@ -829,9 +829,22 @@ function populate(options = {}) {
     console.log('[IDS] No content change detected — registry output is byte-identical.');
   }
 
+  // Write atomically. `writeFileSync` truncates first and fills after, so any
+  // concurrent reader can observe the registry empty or half-written — which
+  // is exactly what the byte-idempotence test caught intermittently, reading
+  // back an empty first line. The registry is also read at runtime while hooks
+  // regenerate it, where a truncated read is worse than a failed test.
+  // Writing to a sibling temp file and renaming makes the swap atomic.
+  const tempPath = `${REGISTRY_PATH}.${process.pid}.tmp`;
   try {
-    fs.writeFileSync(REGISTRY_PATH, yamlContent, 'utf8');
+    fs.writeFileSync(tempPath, yamlContent, 'utf8');
+    fs.renameSync(tempPath, REGISTRY_PATH);
   } catch (err) {
+    try {
+      if (fs.existsSync(tempPath)) fs.rmSync(tempPath);
+    } catch {
+      // Losing the temp file matters less than reporting the write failure.
+    }
     throw new Error(`[IDS] Failed to write registry to ${REGISTRY_PATH}: ${err.message}`);
   }
   console.log(`[IDS] Registry written to ${path.relative(REPO_ROOT, REGISTRY_PATH)}`);

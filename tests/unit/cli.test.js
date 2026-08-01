@@ -98,7 +98,11 @@ describe('CLI Entry Point', () => {
         expect(combined).toContain('AEXOS Doctor');
         done();
       });
-    });
+      // 15s, matching the other spawn tests in this file. This one relied on
+      // the 10s default and exceeded it under full-suite parallel load: doctor
+      // spawns a node process that scans the project, and that is slow when a
+      // dozen workers are already running.
+    }, 15000);
 
     it('should load packaged worker registry outside a project cwd', async () => {
       const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'aexos-cli-registry-'));

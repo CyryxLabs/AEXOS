@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-07-31T23:10:12.348Z'
+  lastUpdated: '2026-08-01T04:17:36.601Z'
   entityCount: 846
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -7722,8 +7722,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:58f83a3a38eb97517aa6856336cb1d8005cdbb10975081190ea2114a99afc3ab
-      lastVerified: '2026-07-30T19:49:19.531Z'
+      checksum: sha256:15a0289dbee47c8fb3814881abe2dc480932fa2d343f6a88e0525dd4e59f3d5a
+      lastVerified: '2026-08-01T04:17:36.309Z'
     refactoring-suggester:
       path: .aexos-core/development/scripts/refactoring-suggester.js
       layer: L2
@@ -10763,8 +10763,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:848984ac84e81965c788dd6fd10a4f4499e4d11e4a6ec9ca444640a71409d2cd
-      lastVerified: '2026-07-30T19:35:41.548Z'
+      checksum: sha256:4ceb68dfffbb9d8b1421abdd74dd77b2d00a3acc10d52c39b9a58f38fecb0748
+      lastVerified: '2026-08-01T03:44:25.571Z'
     workflow-orchestrator:
       path: .aexos-core/core/orchestration/workflow-orchestrator.js
       layer: L1
@@ -14730,8 +14730,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:852959fa73aee29d3e5e8ff512eae7cab5f6a95541ba20d82ee7382a7f316842
-      lastVerified: '2026-07-31T17:44:12.425Z'
+      checksum: sha256:521e62257d934ca4ac6aa920ade34b05fcc9cb59245e1dbda019b249a8de44c9
+      lastVerified: '2026-08-01T03:42:59.876Z'
     analyst:
       path: .aexos-core/development/agents/analyst.md
       layer: L2
@@ -15878,7 +15878,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:<self-reference>
-      lastVerified: '2026-07-31T23:10:12.348Z'
+      lastVerified: '2026-08-01T04:17:36.601Z'
     learned-patterns:
       path: .aexos-core/data/learned-patterns.yaml
       layer: L3
@@ -16847,8 +16847,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:bda9d71fe4a343e8aa3366b5e31710af02a8734eb6ea5526caafadebc2221ab5
-      lastVerified: '2026-07-30T19:35:41.868Z'
+      checksum: sha256:b1ece671b8a6d4f9f50404b40c7c05109a2adc8062902d6d5f21bba7796b8a75
+      lastVerified: '2026-08-01T03:25:44.713Z'
     clickup-helpers:
       path: .aexos-core/infrastructure/scripts/clickup-helpers.js
       layer: L2

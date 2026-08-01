@@ -40,25 +40,52 @@ describe('squad agent Claude surfaces', () => {
     expect(AGENTS.length).toBeGreaterThan(0);
   });
 
-  describe.each(AGENTS)('$squad/$id', ({ squad, id }) => {
-    it('has a slash command', () => {
-      expect(fs.existsSync(path.join(COMMANDS_ROOT, squad, `${id}.md`))).toBe(true);
-    });
+  // Read every surface once, up front, rather than per assertion. As
+  // `describe.each` this was 159 cases each re-reading the disk, and that I/O
+  // ran concurrently with the rest of the suite — enough extra contention to
+  // push unrelated wall-clock assertions elsewhere over their thresholds.
+  // One pass, then assert over the collected result.
+  const surfaces = AGENTS.map(({ squad, id }) => {
+    const commandPath = path.join(COMMANDS_ROOT, squad, `${id}.md`);
+    const skillPath = path.join(SKILLS_ROOT, squad, id, 'SKILL.md');
+    const command = fs.existsSync(commandPath) ? fs.readFileSync(commandPath, 'utf8') : null;
+    const skill = fs.existsSync(skillPath) ? fs.readFileSync(skillPath, 'utf8') : null;
+    return { squad, id, command, skill };
+  });
 
-    it('has a skill whose name is namespaced by squad', () => {
-      const skill = path.join(SKILLS_ROOT, squad, id, 'SKILL.md');
-      expect(fs.existsSync(skill)).toBe(true);
-      const name = fs.readFileSync(skill, 'utf8').match(/^name:\s*(.+)$/m);
-      expect(name).not.toBeNull();
-      expect(name[1].trim()).toBe(`aexos-${squad}-${id}`);
-    });
+  it('gives every squad agent a slash command', () => {
+    const missing = surfaces.filter((s) => s.command === null).map((s) => `${s.squad}/${s.id}`);
+    expect(missing).toEqual([]);
+  });
 
-    it('points its command at the skill that exists', () => {
-      const command = fs.readFileSync(path.join(COMMANDS_ROOT, squad, `${id}.md`), 'utf8');
+  it('gives every squad agent a skill named for its squad', () => {
+    const wrong = [];
+    for (const { squad, id, skill } of surfaces) {
+      if (skill === null) {
+        wrong.push(`${squad}/${id}: skill ausente`);
+        continue;
+      }
+      const name = skill.match(/^name:\s*(.+)$/m);
+      const actual = name && name[1].trim();
+      if (actual !== `aexos-${squad}-${id}`) {
+        wrong.push(`${squad}/${id}: name=${actual}`);
+      }
+    }
+    expect(wrong).toEqual([]);
+  });
+
+  it('points every command at a skill that exists', () => {
+    const broken = [];
+    for (const { squad, id, command } of surfaces) {
+      if (command === null) continue; // already reported above
       const declared = command.match(/Canonical Skill:\s*(\S+)/);
-      expect(declared).not.toBeNull();
-      expect(fs.existsSync(path.join(ROOT, declared[1]))).toBe(true);
-    });
+      if (!declared) {
+        broken.push(`${squad}/${id}: sem "Canonical Skill"`);
+      } else if (!fs.existsSync(path.join(ROOT, declared[1]))) {
+        broken.push(`${squad}/${id} -> ${declared[1]}`);
+      }
+    }
+    expect(broken).toEqual([]);
   });
 
   it('gives every skill in the project a unique name', () => {

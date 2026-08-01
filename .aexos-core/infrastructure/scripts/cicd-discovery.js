@@ -830,14 +830,11 @@ class IntegrationSuggester {
       });
     }
 
-    // Add AEXOS status reporting
-    suggestions.push({
-      type: 'add_step',
-      priority: 'low',
-      title: 'Add AEXOS Status Reporting',
-      description: 'Report build status to AEXOS dashboard',
-      code: this.getStatusStep(provider),
-    });
+    // A status-reporting step was suggested here. It ran
+    // `npx aexos status --report-ci` to report to an "AEXOS dashboard" —
+    // neither the subcommand, the flag, nor the dashboard exists, so the
+    // generated pipeline step failed for every user who adopted it.
+    // Removed rather than repointed: there is no reporting backend to aim at.
 
     return suggestions;
   }
@@ -983,37 +980,6 @@ class IntegrationSuggester {
       \${{ runner.os }}-node-`;
   }
 
-  /**
-   * Get status reporting step
-   */
-  getStatusStep(provider) {
-    const steps = {
-      'github-actions': `- name: Report to AEXOS
-  if: always()
-  run: npx aexos status --report-ci
-  env:
-    AEXOS_BUILD_STATUS: \${{ job.status }}`,
-
-      'gitlab-ci': `report_status:
-  stage: .post
-  script:
-    - npx aexos status --report-ci
-  when: always`,
-
-      jenkins: `post {
-  always {
-    sh 'npx aexos status --report-ci'
-  }
-}`,
-
-      circleci: `- run:
-    name: Report to AEXOS
-    command: npx aexos status --report-ci
-    when: always`,
-    };
-
-    return steps[provider] || steps['github-actions'];
-  }
 }
 
 /**

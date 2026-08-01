@@ -1,5 +1,13 @@
 # Quality Gates Dashboard Guide
 
+<!-- AEXOS-DOC-STATUS: unimplemented-cli -->
+> [!WARNING]
+> **This guide documents a CLI that is not implemented.** The `aexos metrics ...` commands below do not exist; running them returns an unknown-command error.
+>
+> There is no metrics backend in the CLI. The gates that produce real signal today are `npm test -- --coverage` and the `npm run validate:*` family.
+>
+> The guide is kept for its concepts and for the design it describes. Treat every command block in it as a proposal, not as instructions.
+
 ---
 
 > Visual dashboard for monitoring quality metrics across all 3 layers.
