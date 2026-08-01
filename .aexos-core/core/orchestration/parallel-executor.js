@@ -28,13 +28,17 @@ class ParallelExecutor {
    */
   async executeParallel(phases, executePhase, options = {}) {
     const maxConcurrency = options.maxConcurrency || this.maxConcurrency;
+    const phaseList = Array.isArray(phases) ? phases : [];
     const results = [];
     const errors = [];
 
-    console.log(chalk.yellow(`\n⚡ Executing ${phases.length} phases in parallel (max ${maxConcurrency} concurrent)`));
+    console.log(chalk.yellow(`\n⚡ Executing ${phaseList.length} phases in parallel (max ${maxConcurrency} concurrent)`));
 
-    // Use Promise.allSettled for resilient parallel execution
-    const promises = phases.map(async (phase) => {
+    // Build THUNKS, not promises. A thunk does not start work until it is
+    // called, which is what allows _executeWithConcurrencyLimit to actually
+    // gate how many phases run at the same time. Calling `phases.map(async ...)`
+    // here would start every phase immediately and make the limit cosmetic.
+    const tasks = phaseList.map((phase) => async () => {
       const phaseId = phase.phase || phase.step;
       this.runningTasks.set(phaseId, { status: 'running', startTime: Date.now() });
 
@@ -56,16 +60,30 @@ class ParallelExecutor {
       }
     });
 
-    // Execute with concurrency limit
-    const settled = await this._executeWithConcurrencyLimit(promises, maxConcurrency);
+    // Execute with concurrency limit (settled entries stay in input order)
+    const settled = await this._executeWithConcurrencyLimit(tasks, maxConcurrency);
 
     // Process results
-    for (const result of settled) {
-      if (result.status === 'fulfilled') {
-        results.push(result.result);
+    for (let i = 0; i < settled.length; i++) {
+      const entry = settled[i];
+      const phase = phaseList[i];
+      const phaseId = (phase && (phase.phase || phase.step)) || `index-${i}`;
+
+      // Defensive: the thunk catches its own errors, so a rejected entry means
+      // the executor itself failed (e.g. a non-Error throw escaping the catch).
+      if (entry.status === 'rejected') {
+        const message = entry.reason instanceof Error ? entry.reason.message : String(entry.reason);
+        errors.push(message);
+        console.log(chalk.red(`   ❌ Phase ${phaseId} failed: ${message}`));
+        continue;
+      }
+
+      const outcome = entry.value;
+      if (outcome.status === 'fulfilled') {
+        results.push(outcome.result);
       } else {
-        errors.push(result.error);
-        console.log(chalk.red(`   ❌ Phase ${result.phase} failed: ${result.error}`));
+        errors.push(outcome.error);
+        console.log(chalk.red(`   ❌ Phase ${outcome.phase} failed: ${outcome.error}`));
       }
     }
 
@@ -78,7 +96,7 @@ class ParallelExecutor {
       results,
       errors,
       summary: {
-        total: phases.length,
+        total: phaseList.length,
         success: successCount,
         failed: failCount,
       },
@@ -86,28 +104,57 @@ class ParallelExecutor {
   }
 
   /**
-   * Execute promises with concurrency limit
+   * Execute task thunks with a real concurrency limit.
+   *
+   * IMPORTANT: `tasks` MUST be thunks — functions that START the work when
+   * called. A promise handed in here has already begun executing and cannot be
+   * throttled by anything downstream; such entries are awaited and counted, but
+   * they were never gated. This is the distinction that makes `maxConcurrency`
+   * enforceable rather than decorative.
+   *
+   * Order is preserved: `results[i]` always corresponds to `tasks[i]`,
+   * regardless of completion order.
+   *
+   * @param {Array<Function|Promise<*>|*>} tasks - Task thunks to execute
+   * @param {number} limit - Maximum number of tasks running at once
+   * @returns {Promise<Array<{status: string, value?: *, reason?: *}>>}
+   *   Promise.allSettled-shaped entries, in input order
    * @private
    */
   async _executeWithConcurrencyLimit(tasks, limit) {
-    const results = [];
-    const executing = new Set();
+    const list = Array.isArray(tasks) ? tasks : Array.from(tasks || []);
+    const results = new Array(list.length);
 
-    for (const task of tasks) {
-      const p = Promise.resolve().then(() => task);
-      results.push(p);
-
-      if (limit <= tasks.length) {
-        const e = p.then(() => executing.delete(e));
-        executing.add(e);
-
-        if (executing.size >= limit) {
-          await Promise.race(executing);
-        }
-      }
+    if (list.length === 0) {
+      return results;
     }
 
-    return Promise.allSettled(results);
+    const parsedLimit = Number.isFinite(limit) ? Math.floor(limit) : list.length;
+    const poolSize = Math.min(Math.max(1, parsedLimit), list.length);
+
+    let nextIndex = 0;
+
+    // Worker loop: each worker pulls the next index off a shared cursor, so at
+    // most `poolSize` tasks are in flight at any moment.
+    const workerLoop = async () => {
+      for (;;) {
+        const index = nextIndex;
+        nextIndex += 1;
+        if (index >= list.length) return;
+
+        const task = list[index];
+        try {
+          const value = typeof task === 'function' ? await task() : await task;
+          results[index] = { status: 'fulfilled', value };
+        } catch (error) {
+          results[index] = { status: 'rejected', reason: error };
+        }
+      }
+    };
+
+    await Promise.all(Array.from({ length: poolSize }, () => workerLoop()));
+
+    return results;
   }
 
   /**

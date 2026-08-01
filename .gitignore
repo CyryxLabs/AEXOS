@@ -317,6 +317,11 @@ npm-recovery-codes.txt
 .aexos-core/data/.entity-registry.lock
 .aexos-core/data/registry-update-log.jsonl
 
+# Advisory write lock held by greeting-preference-manager while it rewrites
+# core-config.yaml. proper-lockfile creates it as a directory; it is released
+# in a finally block, but a hard kill can leave it behind (it expires as stale).
+.aexos-core/core-config.yaml.lock/
+
 # ============================================
 # .Cyryx Labs-CORE INTERNAL/GENERATED FILES
 # ============================================

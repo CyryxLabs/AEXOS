@@ -3,6 +3,12 @@
 const path = require('path');
 const fs = require('fs');
 
+// Manifest parsing is a pure function of file content, so it is required from
+// this package rather than from `cwd` (unlike session-manager/engine, which are
+// resolved project-side). The manifest *data* still comes from `cwd/.synapse`.
+const { parseManifest } = require('../domain/domain-loader');
+const { resolveSynapsePath } = require('../utils/paths');
+
 const DEFAULT_STALE_TTL_HOURS = 168; // 7 days
 
 /**
@@ -55,8 +61,8 @@ function resolveHookRuntime(input) {
   const sessionId = input && (input.session_id || input.sessionId);
   if (!cwd || typeof cwd !== 'string') return null;
 
-  const synapsePath = path.join(cwd, '.synapse');
-  if (!fs.existsSync(synapsePath)) return null;
+  const { exists, synapsePath, manifestPath } = resolveSynapsePath(cwd);
+  if (!exists) return null;
 
   try {
     const { loadSession, createSession, cleanStaleSessions } = require(
@@ -78,8 +84,16 @@ function resolveHookRuntime(input) {
       session = { prompt_count: 0 };
     }
     const coreConfig = loadCoreConfig(cwd);
+
+    // The manifest is SYNAPSE's domain routing table (KEY=VALUE, not YAML).
+    // Without it, engine.js resolves `manifest: {}` and every manifest-driven
+    // layer degrades: L2 cannot match AGENT_TRIGGER and always returns null.
+    // parseManifest() degrades gracefully to empty domains on a missing file.
+    const manifest = parseManifest(manifestPath);
+
     const engine = new SynapseEngine(synapsePath, {
       synapse: coreConfig.synapse || {},
+      manifest,
     });
 
     // AC3: Run cleanup on first prompt only (fire-and-forget)
