@@ -133,23 +133,23 @@ describe('generate-settings-json', () => {
         expect(permissions.deny.length).toBeGreaterThan(0);
 
         // Core expansion: events/**, utils/**, index.js → 6 deny rules (3 paths x 2 tools)
-        expect(permissions.deny).toContain('Edit(.aexos-core/core/events/**)');
-        expect(permissions.deny).toContain('Write(.aexos-core/core/events/**)');
-        expect(permissions.deny).toContain('Edit(.aexos-core/core/utils/**)');
-        expect(permissions.deny).toContain('Write(.aexos-core/core/utils/**)');
-        expect(permissions.deny).toContain('Edit(.aexos-core/core/index.js)');
-        expect(permissions.deny).toContain('Write(.aexos-core/core/index.js)');
+        expect(permissions.deny).toContain('Edit(./.aexos-core/core/events/**)');
+        expect(permissions.deny).toContain('Write(./.aexos-core/core/events/**)');
+        expect(permissions.deny).toContain('Edit(./.aexos-core/core/utils/**)');
+        expect(permissions.deny).toContain('Write(./.aexos-core/core/utils/**)');
+        expect(permissions.deny).toContain('Edit(./.aexos-core/core/index.js)');
+        expect(permissions.deny).toContain('Write(./.aexos-core/core/index.js)');
 
         // Non-core paths stay as globs
-        expect(permissions.deny).toContain('Edit(.aexos-core/infrastructure/**)');
-        expect(permissions.deny).toContain('Write(.aexos-core/infrastructure/**)');
-        expect(permissions.deny).toContain('Edit(bin/aexos.js)');
-        expect(permissions.deny).toContain('Write(bin/aexos.js)');
+        expect(permissions.deny).toContain('Edit(./.aexos-core/infrastructure/**)');
+        expect(permissions.deny).toContain('Write(./.aexos-core/infrastructure/**)');
+        expect(permissions.deny).toContain('Edit(./bin/aexos.js)');
+        expect(permissions.deny).toContain('Write(./bin/aexos.js)');
 
         // Allow rules from exceptions
-        expect(permissions.allow).toContain('Edit(.aexos-core/data/**)');
-        expect(permissions.allow).toContain('Write(.aexos-core/data/**)');
-        expect(permissions.allow).toContain('Read(.aexos-core/**)');
+        expect(permissions.allow).toContain('Edit(./.aexos-core/data/**)');
+        expect(permissions.allow).toContain('Write(./.aexos-core/data/**)');
+        expect(permissions.allow).toContain('Read(./.aexos-core/**)');
       } finally {
         cleanupTempProject(tmpDir);
       }

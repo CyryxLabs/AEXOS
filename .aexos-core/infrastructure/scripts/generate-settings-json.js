@@ -192,6 +192,27 @@ function expandExceptionPaths(exceptionPaths) {
 /**
  * Generate permissions object from boundary config.
  */
+/**
+ * Anchor a project-relative path so Claude's file-permission matcher accepts it.
+ *
+ * A rule written `Edit(.aexos-core/core/**)` is reported as "not matched by
+ * file permission checks" and silently does nothing — the boundary it is
+ * supposed to enforce is not enforced, and the user gets one warning per rule
+ * at every startup. Claude anchors a relative path only when it begins `./`.
+ *
+ * Absolute paths and `~`-relative paths are already anchored and are returned
+ * untouched.
+ *
+ * @param {string} rulePath - Path from the boundary config
+ * @returns {string} Path Claude can anchor
+ */
+function anchorPath(rulePath) {
+  if (rulePath.startsWith('./') || rulePath.startsWith('~') || rulePath.startsWith('/')) {
+    return rulePath;
+  }
+  return './' + rulePath;
+}
+
 function generatePermissions(boundary, projectRoot) {
   if (!boundary.frameworkProtection) {
     return { deny: [], allow: [] };
@@ -202,7 +223,7 @@ function generatePermissions(boundary, projectRoot) {
   const deny = [];
   for (const denyPath of denyPaths) {
     for (const tool of TOOLS) {
-      deny.push(tool + '(' + denyPath + ')');
+      deny.push(tool + '(' + anchorPath(denyPath) + ')');
     }
   }
 
@@ -211,11 +232,11 @@ function generatePermissions(boundary, projectRoot) {
   const allow = [];
   for (const allowPath of allowPaths) {
     for (const tool of TOOLS) {
-      allow.push(tool + '(' + allowPath + ')');
+      allow.push(tool + '(' + anchorPath(allowPath) + ')');
     }
   }
 
-  allow.push('Read(.aexos-core/**)');
+  allow.push('Read(./.aexos-core/**)');
 
   return { deny, allow };
 }
@@ -257,12 +278,36 @@ function writeSettingsJson(projectRoot, permissions) {
       delete updated.permissions;
     }
   } else {
-    const mergedAllow = Array.from(
-      new Set([...(Array.isArray(existingPermissions.allow) ? existingPermissions.allow : []), ...permissions.allow]),
+    // Merging as a plain union never retires a rule this generator wrote
+    // earlier. When the emitted shape changed — unanchored `Edit(path)` to
+    // anchored `Edit(./path)` — the old form stayed behind forever, so the
+    // project accumulated two rules for every protected path and Claude
+    // warned about the inert half at every startup.
+    //
+    // Drop the unanchored twin of anything being written now. Precise by
+    // construction: it only removes a rule this generator would have produced
+    // for a path it still protects, so hand-written rules are untouched.
+    const supersededBy = (rules) => {
+      const superseded = new Set();
+      for (const rule of rules) {
+        const m = rule.match(/^(\w+)\(\.\/(.*)\)$/);
+        if (m) superseded.add(`${m[1]}(${m[2]})`);
+      }
+      return superseded;
+    };
+
+    const staleDeny = supersededBy(permissions.deny);
+    const staleAllow = supersededBy(permissions.allow);
+
+    const keptDeny = (Array.isArray(existingPermissions.deny) ? existingPermissions.deny : []).filter(
+      (r) => !staleDeny.has(r),
     );
-    const mergedDeny = Array.from(
-      new Set([...(Array.isArray(existingPermissions.deny) ? existingPermissions.deny : []), ...permissions.deny]),
+    const keptAllow = (Array.isArray(existingPermissions.allow) ? existingPermissions.allow : []).filter(
+      (r) => !staleAllow.has(r),
     );
+
+    const mergedAllow = Array.from(new Set([...keptAllow, ...permissions.allow]));
+    const mergedDeny = Array.from(new Set([...keptDeny, ...permissions.deny]));
 
     if (mergedDeny.length > 0 || mergedAllow.length > 0) {
       updated.permissions = {
