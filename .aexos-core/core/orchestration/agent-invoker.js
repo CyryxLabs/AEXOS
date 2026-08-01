@@ -7,7 +7,7 @@
  *
  * Features:
  * - AC1: invokeAgent(agentName, taskPath, inputs) method
- * - AC2: Supports agents: @pm, @architect, @analyst, @dev, @qa
+ * - AC2: Supports every persona in .aexos-core/development/agents/ (12 as of D12)
  * - AC3: Passes structured context to task
  * - AC4: Awaits completion or timeout
  * - AC5: Parses and validates task output
@@ -27,7 +27,29 @@ const EventEmitter = require('events');
 // ═══════════════════════════════════════════════════════════════════════════════════
 
 /**
- * Supported agents for orchestration
+ * Supported agents for orchestration.
+ *
+ * MUST stay at parity with `.aexos-core/development/agents/*.md`, which is the
+ * canonical source of the persona roster. Enforced by
+ * `tests/core/agent-invoker-persona-parity.test.js` — adding a persona file
+ * without adding it here fails the suite.
+ *
+ * Why a literal instead of reading the directory (DIAGNOSTIC D12):
+ *  1. `SUPPORTED_AGENTS` is a module-level synchronous export consumed by
+ *     `orchestration/index.js` and `master-orchestrator.js`, and backs the
+ *     synchronous `isAgentSupported()`. Deriving it would require async fs I/O
+ *     at import time and would break that contract.
+ *  2. The module constant has no `projectRoot`; that is per-AgentInvoker-
+ *     instance. A module-scope constant cannot depend on an instance path.
+ *  3. `displayName` and `capabilities` are not mechanically derivable from the
+ *     agent frontmatter, which carries a prose `whenToUse` rather than
+ *     capability tokens. Synthesising them would be invention (Article IV).
+ *  4. Existing consumers rely on stable `displayName` values that intentionally
+ *     differ from the file `title` (e.g. dev → "Developer", title "Full Stack
+ *     Developer").
+ *
+ * Deriving the registry from the directory is scoped to AEX-1.2, which reworks
+ * the runtime boundary. Until then the literal is complete and parity-checked.
  */
 const SUPPORTED_AGENTS = {
   pm: {
@@ -71,6 +93,41 @@ const SUPPORTED_AGENTS = {
     displayName: 'Product Owner',
     file: 'po.md',
     capabilities: ['backlog', 'prioritization', 'acceptance'],
+  },
+  // D12: the five personas below existed in development/agents/ but were
+  // rejected as "Unknown agent" by the invoker. `sm` owns Phase 1 of the Story
+  // Development Cycle (*draft / *create-story); `data-engineer` and
+  // `ux-design-expert` own Phases 2-3 and 5-6 of Brownfield Discovery — and
+  // subagent-dispatcher already routed `database` → @data-engineer.
+  sm: {
+    name: 'sm',
+    displayName: 'Scrum Master',
+    file: 'sm.md',
+    capabilities: ['story-creation', 'story-refinement', 'sprint-planning'],
+  },
+  'data-engineer': {
+    name: 'data-engineer',
+    displayName: 'Database Architect',
+    file: 'data-engineer.md',
+    capabilities: ['schema-design', 'migrations', 'query-optimization'],
+  },
+  'ux-design-expert': {
+    name: 'ux-design-expert',
+    displayName: 'UX/UI Designer',
+    file: 'ux-design-expert.md',
+    capabilities: ['user-research', 'wireframes', 'design-systems'],
+  },
+  'aexos-master': {
+    name: 'aexos-master',
+    displayName: 'Master Orchestrator',
+    file: 'aexos-master.md',
+    capabilities: ['orchestration', 'framework-governance', 'meta-operations'],
+  },
+  'squad-creator': {
+    name: 'squad-creator',
+    displayName: 'Squad Creator',
+    file: 'squad-creator.md',
+    capabilities: ['squad-creation', 'squad-validation', 'squad-publishing'],
   },
 };
 

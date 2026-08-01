@@ -11,18 +11,33 @@
 
 const path = require('path');
 
-// Mock fs before requiring the module
+// Mock fs before requiring the module.
+// renameSync/unlinkSync/mkdirSync are required by atomicWriteSync, which
+// _saveConfig now uses instead of a bare writeFileSync (write to tmp, then
+// rename over the target). See greeting-preference-manager-atomicity.test.js
+// for the behavioural proof; this suite only needs the surface to exist.
 jest.mock('fs', () => ({
   readFileSync: jest.fn(),
   writeFileSync: jest.fn(),
   existsSync: jest.fn(),
   copyFileSync: jest.fn(),
+  renameSync: jest.fn(),
+  unlinkSync: jest.fn(),
+  mkdirSync: jest.fn(),
 }));
 
 // Mock js-yaml
 jest.mock('js-yaml', () => ({
   load: jest.fn(),
   dump: jest.fn(),
+}));
+
+// proper-lockfile talks to the real filesystem through graceful-fs, which the
+// `fs` mock above breaks. Stub it: the lock's behaviour is covered by
+// greeting-preference-manager-atomicity.test.js against a real filesystem.
+jest.mock('proper-lockfile', () => ({
+  lockSync: jest.fn(() => jest.fn()),
+  checkSync: jest.fn(() => false),
 }));
 
 const fs = require('fs');
@@ -171,6 +186,9 @@ describe('GreetingPreferenceManager', () => {
 
       expect(yaml.dump).toHaveBeenCalled();
       expect(fs.writeFileSync).toHaveBeenCalled();
+      // The durable step is the rename, not the write: the write lands on a
+      // temporary file and only the rename replaces core-config.yaml.
+      expect(fs.renameSync).toHaveBeenCalled();
     });
 
     it('should reject invalid preference values', () => {

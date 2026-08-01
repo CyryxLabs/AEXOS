@@ -60,7 +60,78 @@ describe('hook-runtime', () => {
       expect(result.session).toEqual({ prompt_count: 7, id: 's-1' });
       expect(result.engine).toBeTruthy();
       expect(result.engine.synapsePath).toBe(path.join(cwd, '.synapse'));
-      expect(result.engine.config).toEqual({ synapse: {} });
+      // No manifest file in this fixture — parseManifest degrades to an empty
+      // routing table rather than being omitted entirely.
+      expect(result.engine.config).toEqual({
+        synapse: {},
+        manifest: { devmode: false, globalExclude: [], domains: {} },
+      });
+    } finally {
+      fs.rmSync(cwd, { recursive: true, force: true });
+    }
+  });
+
+  it('parses .synapse/manifest and passes it to SynapseEngine', () => {
+    const cwd = makeTempDir();
+    try {
+      fs.mkdirSync(path.join(cwd, '.synapse', 'sessions'), { recursive: true });
+
+      // The manifest is KEY=VALUE (CARL-compatible), not YAML.
+      writeFile(
+        path.join(cwd, '.synapse', 'manifest'),
+        [
+          '# comment line',
+          'DEVMODE=false',
+          'CONSTITUTION_STATE=active',
+          'CONSTITUTION_NON_NEGOTIABLE=true',
+          'AGENT_DEV_STATE=active',
+          'AGENT_DEV_AGENT_TRIGGER=dev',
+          'AGENT_UX_STATE=active',
+          'AGENT_UX_AGENT_TRIGGER=ux-design-expert',
+        ].join('\n'),
+      );
+      writeFile(
+        path.join(cwd, '.aexos-core/core/synapse/session/session-manager.js'),
+        "module.exports = { loadSession: () => ({ prompt_count: 7, id: 's-1' }), cleanStaleSessions: () => 0 };",
+      );
+      writeFile(
+        path.join(cwd, '.aexos-core/core/synapse/engine.js'),
+        [
+          'class SynapseEngine {',
+          '  constructor(synapsePath, config) {',
+          '    this.synapsePath = synapsePath;',
+          '    this.config = config;',
+          '  }',
+          '}',
+          'module.exports = { SynapseEngine };',
+        ].join('\n'),
+      );
+
+      const result = resolveHookRuntime({ cwd, sessionId: 's-1' });
+
+      expect(result).toBeTruthy();
+      const { manifest } = result.engine.config;
+
+      // Fails against the pre-fix runtime: `manifest` was never passed, so
+      // engine.js resolved `manifest: {}` and every manifest-driven layer was
+      // inert regardless of what .synapse/manifest contained.
+      expect(manifest).toBeTruthy();
+
+      // L2 resolves its domain via agentTrigger — without this the layer is inert.
+      expect(manifest.domains.AGENT_DEV).toEqual({
+        file: 'agent-dev',
+        state: 'active',
+        agentTrigger: 'dev',
+      });
+
+      // AGENT_UX proves the manifest is load-bearing: the L2 fallback path
+      // (`agent-${agentId}`) would look for a nonexistent
+      // `agent-ux-design-expert` file.
+      expect(manifest.domains.AGENT_UX.agentTrigger).toBe('ux-design-expert');
+      expect(manifest.domains.AGENT_UX.file).toBe('agent-ux');
+
+      expect(manifest.domains.CONSTITUTION.nonNegotiable).toBe(true);
+      expect(manifest.devmode).toBe(false);
     } finally {
       fs.rmSync(cwd, { recursive: true, force: true });
     }

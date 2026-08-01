@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.3.0
-generated_at: "2026-08-01T05:27:32.671Z"
+generated_at: "2026-08-01T22:57:01.043Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1167
 files:
@@ -873,9 +873,9 @@ files:
     type: core
     size: 1833
   - path: core/orchestration/agent-invoker.js
-    hash: sha256:ef7296696272953736a726930d7e969ccc1528da8a64a5de415ffb37979e1d20
+    hash: sha256:92b8c8331a6a72e1a22f3b7e61d24a870ae69026bfd689e861ca9a2bdae1700b
     type: core
-    size: 16742
+    size: 19419
   - path: core/orchestration/bob-orchestrator.js
     hash: sha256:2d794c041ad83248c87bed19efbfd1a2d2f42668d87819810238e051fc5ed20d
     type: core
@@ -985,9 +985,9 @@ files:
     type: core
     size: 8343
   - path: core/orchestration/parallel-executor.js
-    hash: sha256:17b9669337d080509cb270eb8564a0f5684b2abbad1056f81b6947bb0b2b594f
+    hash: sha256:3385d37e1b309a4691aab436c0b9bf78125e78a1299d2f07bd6f7e95cda77bf7
     type: core
-    size: 5820
+    size: 8197
   - path: core/orchestration/recovery-handler.js
     hash: sha256:a0ca1a4f49585d67697196a7d0f5a82bf5fc24eaac22dc257ba5d45ca2fb8257
     type: core
@@ -1337,9 +1337,9 @@ files:
     type: core
     size: 16418
   - path: core/synapse/runtime/hook-runtime.js
-    hash: sha256:485dd1e2b3ab71fadc51e858972b0f470da8fe2ae8a344844dbeb5d521e8b8b0
+    hash: sha256:5e7b40d5f7f7ca3a88f452b7e8eae1bd95e0cce66081eeb567a1bd6dea819827
     type: core
-    size: 4125
+    size: 4870
   - path: core/synapse/scripts/generate-constitution.js
     hash: sha256:c093c185850738c748f1f930fd48df8dd484af9fc5b981757124cc22162a2b4a
     type: script
@@ -1397,9 +1397,9 @@ files:
     type: data
     size: 9595
   - path: data/entity-registry.yaml
-    hash: sha256:d25a6cf82857c23e13b3b846d21003e5d131ea5e816a9088dc102d27997a6fa2
+    hash: sha256:03b954b7ed2cb9a6b39849d16d8d4fabdc60afebe7b6671bf5d9f49e73c6077e
     type: data
-    size: 597601
+    size: 597781
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1741,9 +1741,9 @@ files:
     type: script
     size: 3296
   - path: development/scripts/greeting-preference-manager.js
-    hash: sha256:1e5f51eb2d1cce3afbaeb0563b857f0f44bee3b88326cb169ec5c55f2d98fb3a
+    hash: sha256:b7cfe0a42f7fc2d10f32ab4db7abfb3e028c4e2194586b7b672a3cf90aa38b34
     type: script
-    size: 5168
+    size: 8665
   - path: development/scripts/issue-triage.js
     hash: sha256:a9f9741b1426732f19803bf9f292b15d8eed0fb875cf02df70735f48512f2310
     type: script
