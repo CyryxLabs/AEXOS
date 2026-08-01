@@ -20,7 +20,7 @@ class ClaudeProvider extends AIProvider {
   /**
    * Create a Claude provider
    * @param {Object} [config={}] - Provider configuration
-   * @param {string} [config.model='claude-3-5-sonnet'] - Model to use
+   * @param {string} [config.model='claude-sonnet-5'] - Model to use
    * @param {number} [config.timeout=300000] - Execution timeout
    * @param {boolean} [config.dangerouslySkipPermissions=false] - Skip permission prompts
    */
@@ -31,7 +31,7 @@ class ClaudeProvider extends AIProvider {
       timeout: config.timeout || 300000,
       maxRetries: config.maxRetries || 3,
       options: {
-        model: config.model || 'claude-3-5-sonnet',
+        model: config.model || 'claude-sonnet-5',
         dangerouslySkipPermissions: config.dangerouslySkipPermissions || false,
         ...config,
       },

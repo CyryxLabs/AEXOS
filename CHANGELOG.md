@@ -5,6 +5,119 @@ All notable changes to AEXOS (Cyryx) will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.0] - 2026-08-01
+
+The CYRYX → AEXOS rebrand, and the repairs it made necessary. Covers `a141f22`
+through `a342513`. This entry was overdue: the version was bumped to 5.3.0 on
+2026-07-31 and nothing was written here, despite line 3 of this file promising
+otherwise.
+
+### Changed
+
+- **Renamed the published package to `@cyryxlabs/aexos`.** `@aexos-squads/core`
+  read as though the squads were the product; they are not — Cyryx Labs is the
+  company and AEXOS is the product. npm infers the binary from the unscoped
+  name, so under the old name `npx github:CyryxLabs/AEXOS install` fetched the
+  package and then could not choose an executable. The rename makes npm infer
+  `aexos`, which is a real bin. All prior package names are still recognised by
+  the resolvers so the upgrade path keeps working.
+- **The repository is English-only.** 394 locale files removed, 47 Portuguese
+  files in the primary documentation translated with structure preserved 1:1,
+  and 94 stale language selectors and `docs/pt/` links cleaned up. The wizard no
+  longer asks for a language; a `language` already set in Claude Code's own
+  settings is read and left alone.
+- **Finished the persona rename in the documentation** — 133 occurrences across
+  67 files where documents headed "Owner: Vega" still signed off "-- Aria".
+- **Task schema fields renamed from Portuguese to English** (`responsavel` →
+  `owner`, `Entrada`/`Saida` → `inputs`/`outputs`, and the nested item fields).
+  Applied in three layers so nothing breaks: readers accept both spellings, 350
+  data files migrated, writers emit only the canonical names.
+- **Jest now runs at `maxWorkers: '50%'`.** The suite spawns CLI processes and
+  asserts wall-clock budgets; at the default of cpus-1 it was measuring the
+  scheduler, producing a different intermittent failure on each full run.
+
+### Added
+
+- **All 52 squad agents are exposed to Claude.** They installed to disk and were
+  invisible — `/` listed only the twelve core agents. Surfaces are namespaced by
+  squad (`.claude/skills/AEXOS/squads/{squad}/{agent}`), which is load-bearing:
+  `content-lead` exists in more than one squad and Claude resolves skills by
+  name, so a flat layout would have one squad silently shadow another.
+- `aexos uninstall --legacy` and `--legacy-only`, for migrating off an earlier
+  AIOX or CYRYX install without tearing down the current one.
+- `npm run sync:squad-agents` / `validate:squad-agents` gates.
+
+### Fixed
+
+- **Install from a non-terminal no longer dies on a stack trace.** Piped to a
+  log, run from a script, or executed in CI, the wizard reached inquirer with a
+  closed stdin and aborted with `ERR_USE_AFTER_CLOSE`. Defaults are now applied
+  and announced rather than silently assumed.
+- **Installing over an earlier AIOX/CYRYX install now detects it** and offers to
+  remove it, instead of leaving both frameworks' slash commands registered — the
+  old ones win, which reads as "the new install did not work". `uninstall` now
+  also removes the IDE surfaces it wrote.
+- **The build no longer pulls an unpublished package from the registry.**
+  `packages/installer` declared a registry-range dependency on the root package,
+  which is not a workspace member. The lockfile shows it previously resolved to
+  an unpublished, MIT-licensed `5.1.0` tarball.
+- **`prepare: husky` fails soft**, so installing from a git dependency can
+  prepare on a machine where husky is not on PATH.
+- **Generated permission rules are anchored (`./path`).** Claude only applies a
+  relative file-permission path beginning `./`, so all ~96 generated rules were
+  inert and the L1-L4 boundary they exist to enforce was not being enforced. The
+  merge step also now retires the unanchored twin of each rule it rewrites.
+- **The parallel concurrency limiter actually limits.** `executeParallel` built
+  its work with `phases.map(async ...)`, starting every phase immediately, so
+  the `Promise.race` throttle applied backpressure to work already in flight —
+  measured: 9 phases ran at once with `maxConcurrency: 3`. It now takes thunks
+  drained by a worker pool. The same function was double-wrapping its per-phase
+  descriptors, so every result came back `undefined` and a phase that threw was
+  reported as a success.
+- **The persona registry recognised 7 of 12 agents.** `sm`, `data-engineer`,
+  `ux-design-expert`, `aexos-master` and `squad-creator` were missing — the
+  exclusive owners of SDC Phase 1 and Brownfield Discovery Phases 2-3 and 5-6.
+- **The SYNAPSE manifest reaches the layers.** The hook runtime constructed the
+  engine without one, so the 19-domain routing table on disk was never read.
+- **`populate-entity-registry` no longer truncates the registry it is writing.**
+  It used `writeFileSync`; the registry is read at runtime while hooks
+  regenerate it, so a concurrent reader saw an empty file. Now writes to a temp
+  file and renames.
+- **`resolvePackageJson` no longer reports the framework as installed in an
+  empty directory** — Node's self-reference resolution ignores the `paths`
+  option, so it was finding the running package itself.
+- The agent command shim no longer forces a redundant skill read on activation.
+
+### Fixed — version identity and model registry
+
+- **`package.json` is the single source of truth for the framework version.**
+  Five sources disagreed: `package.json` 5.3.0, `framework-config.yaml` 4.0.0,
+  `core-config.yaml` 2.1.0, the config-split CLI 3.12.0, the installer template
+  2.1.0. Each was a frozen literal, which is why they all drifted and nothing
+  noticed. `framework_version` now matches; the config-split CLI and the
+  installer resolve it at runtime instead of carrying a copy.
+- **`core-config.yaml`'s `project.version` renamed to
+  `installedFrameworkVersion`.** It meant three different things across the
+  installer (framework version installed here), the L2 override guide (project
+  config version) and this file — and was read by no code. Renamed rather than
+  aligned, because aligning it would have picked one of three meanings silently.
+- **The model registry names the current generation.** `models.active` was
+  `claude-sonnet-4-6` and the provider factory defaulted to `claude-3-5-sonnet`.
+  The registry is now `claude-opus-5` / `claude-sonnet-5` / `claude-fable-5` /
+  `claude-haiku-4-5-20251001`.
+- **`contextWindow` corrected from 1000000 to 200000.** 1M is a separate opt-in
+  long-context variant, not the default for a base identifier; declaring it on a
+  base id made the context tracker under-report depletion by 5x. Long-context
+  users override in `project-config.yaml`.
+- Non-Anthropic identifiers (Gemini, OpenAI, Kimi) are left at their last-known
+  values and marked `TODO: verify current model id`. A stale-but-true default
+  beats a plausible invented one — Constitution Article IV.
+- The roadmap's MoE routing table was removed rather than updated: it named
+  three-generation-old models and claimed "up to 60% cost reduction" with no
+  measurement behind it.
+- Added `tests/version-identity.test.js` and `tests/model-registry.test.js` so
+  neither drift can recur silently.
+
 ## [5.2.9] - 2026-05-21
 
 ### Fixed

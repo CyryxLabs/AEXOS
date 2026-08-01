@@ -88,7 +88,7 @@ This appends `my-custom-helper` to the L1 default helpers array.
 | Key | Type | Default | Override Level | Description |
 |-----|------|---------|---------------|-------------|
 | `metadata.name` | string | `"AEXOS (Cyryx)"` | Never | Framework name |
-| `metadata.framework_version` | string | `"4.0.0"` | Never | Framework version |
+| `metadata.framework_version` | string | matches root `package.json` `version` | Never | Framework version — single source of truth is `package.json`; enforced by `tests/version-identity.test.js` |
 | `markdownExploder` | boolean | `true` | L2+ | Enable markdown exploder |
 | `resource_locations.agents_dir` | string | `.aexos-core/development/agents` | L2+ | Agent definitions path |
 | `resource_locations.tasks_dir` | string | `.aexos-core/development/tasks` | L2+ | Task definitions path |
@@ -110,7 +110,7 @@ This appends `my-custom-helper` to the L1 default helpers array.
 | Key | Type | Description |
 |-----|------|-------------|
 | `project.type` | string | `EXISTING_CYRYX`, `NEW_PROJECT`, `BROWNFIELD` |
-| `project.version` | string | Project config version |
+| `project.installedFrameworkVersion` | string | Framework version present at install time — a snapshot, not the live framework version (AEX-0.6). Formerly `project.version`, which read as "project config version" while the installer wrote the framework version into it. |
 | `documentation_paths.stories_dir` | string | Stories directory |
 | `documentation_paths.dev_load_always_files` | array | Files loaded on dev activation |
 | `github_integration.enabled` | boolean | GitHub CLI integration toggle |

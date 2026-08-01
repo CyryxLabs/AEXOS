@@ -45,7 +45,7 @@ const provider = getProviderForTask('security'); // Returns Claude (deeper reaso
 const { ClaudeProvider, GeminiProvider, OpenAICompatibleProvider } = require('./ai-providers');
 
 // Claude
-const claude = new ClaudeProvider({ model: 'claude-3-5-sonnet' });
+const claude = new ClaudeProvider({ model: 'claude-sonnet-5' });
 const response = await claude.execute('Explain this function');
 
 // Gemini with JSON output
@@ -88,11 +88,11 @@ ai_providers:
     complex_tasks: claude
 
 claude:
-  model: claude-3-5-sonnet
+  model: claude-sonnet-5
   timeout: 300000
 
 gemini:
-  model: gemini-2.0-flash
+  model: gemini-2.0-flash # TODO: verify current model id
   previewFeatures: true
 
 kimi:

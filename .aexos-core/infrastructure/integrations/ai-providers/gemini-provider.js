@@ -34,6 +34,7 @@ class GeminiProvider extends AIProvider {
       timeout: config.timeout || 300000,
       maxRetries: config.maxRetries || 3,
       options: {
+        // TODO: verify current model id
         model: config.model || 'gemini-2.0-flash',
         previewFeatures: config.previewFeatures !== false, // Default true
         jsonOutput: config.jsonOutput || false,

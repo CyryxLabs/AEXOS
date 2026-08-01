@@ -9,6 +9,11 @@ const { TaskComplexityClassifier } = require('./task-complexity-classifier');
 
 /**
  * Model configuration
+ *
+ * TODO: verify current model ids — AEX-0.7 refreshed the Anthropic identifiers
+ * to the current generation but deliberately left Google identifiers untouched
+ * rather than guess at their successors (Constitution Article IV, No Invention).
+ * Costs and token limits below are equally unverified.
  */
 const MODELS = {
   flash: {

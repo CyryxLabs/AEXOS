@@ -230,7 +230,8 @@ async function configureEnvironment(options = {}) {
       selectedIDEs,
       mcpServers,
       userProfile,
-      cyryxVersion: '2.1.0',
+      // cyryxVersion intentionally omitted — the template resolves it from the
+      // framework package.json (AEX-0.6). Passing a literal froze it at 2.1.0.
     });
 
     // Validate YAML syntax

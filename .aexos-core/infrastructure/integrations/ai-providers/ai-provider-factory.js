@@ -40,6 +40,12 @@ let cachedConfig = null;
 
 /**
  * Default configuration
+ *
+ * Model identifiers are the fallback used when a project supplies no
+ * `aexos-ai-config.yaml`. Anthropic identifiers track the current generation
+ * (AEX-0.7). Non-Anthropic identifiers are left at their last-known value and
+ * marked TODO rather than guessed — Constitution Article IV (No Invention)
+ * makes a stale-but-true default preferable to a plausible-but-invented one.
  */
 const DEFAULT_CONFIG = {
   ai_providers: {
@@ -51,11 +57,12 @@ const DEFAULT_CONFIG = {
     },
   },
   claude: {
-    model: 'claude-3-5-sonnet',
+    model: 'claude-sonnet-5',
     timeout: 300000,
     dangerouslySkipPermissions: false,
   },
   gemini: {
+    // TODO: verify current model id
     model: 'gemini-2.0-flash',
     timeout: 300000,
     previewFeatures: true,
@@ -66,6 +73,7 @@ const DEFAULT_CONFIG = {
     baseURL: 'https://api.openai.com/v1',
     endpoint: '/chat/completions',
     apiKeyEnv: 'OPENAI_API_KEY',
+    // TODO: verify current model id
     model: 'gpt-4o-mini',
     timeout: 300000,
   },
@@ -74,6 +82,7 @@ const DEFAULT_CONFIG = {
     baseURL: 'https://api.moonshot.ai/v1',
     endpoint: '/chat/completions',
     apiKeyEnv: 'MOONSHOT_API_KEY',
+    // TODO: verify current model id
     model: 'kimi-k2.5',
     timeout: 300000,
   },

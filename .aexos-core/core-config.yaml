@@ -2,7 +2,12 @@ markdownExploder: true
 project:
   type: EXISTING_CYRYX
   installedAt: '2025-01-14T00:00:00Z'
-  version: 2.1.0
+  # Framework version present at install time — a snapshot, not the live
+  # framework version. The live version is package.json / framework-config.yaml
+  # `metadata.framework_version`. Renamed from the ambiguous `version` key
+  # (AEX-0.6) because it was read by no code and meant three different things
+  # across the installer, the L2 override guide and this file.
+  installedFrameworkVersion: 5.3.0
 user_profile: advanced
 qa:
   qaLocation: docs/qa
@@ -397,15 +402,26 @@ boundary:
 
 # Context-tracker dynamic model registry (Issue #605).
 # Consumed by .aexos-core/core/synapse/context/context-tracker.js.
+#
+# contextWindow is the STANDARD window for the identifier. The 1M-token
+# long-context mode is a separate opt-in variant of the same model, not the
+# default for a base identifier. The previous Opus entry declared 1000000 for a
+# base id, which made the context tracker under-report depletion by 5x for
+# anyone not on the long-context variant (AEX-0.7). If you run a long-context
+# variant, override contextWindow in project-config.yaml rather than editing
+# this file.
 models:
-  active: claude-sonnet-4-6
+  active: claude-sonnet-5
   registry:
-    claude-opus-4-6:
-      contextWindow: 1000000
-      avgTokensPerPrompt: 1500
-    claude-sonnet-4-6:
+    claude-opus-5:
       contextWindow: 200000
       avgTokensPerPrompt: 1500
-    claude-haiku-4-5:
+    claude-sonnet-5:
+      contextWindow: 200000
+      avgTokensPerPrompt: 1500
+    claude-fable-5:
+      contextWindow: 200000
+      avgTokensPerPrompt: 1500
+    claude-haiku-4-5-20251001:
       contextWindow: 200000
       avgTokensPerPrompt: 1200

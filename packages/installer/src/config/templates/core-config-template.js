@@ -9,6 +9,25 @@
 
 const yaml = require('js-yaml');
 
+const { getCyryxCoreVersion } = require('../../utils/package-paths');
+
+/**
+ * Resolve the framework version being installed.
+ *
+ * Derived from the framework package.json — never a literal. A frozen literal
+ * is why every project installed since 2.1.0 recorded the wrong version
+ * (AEX-0.6).
+ *
+ * @returns {string} Semantic version, or 'unknown' if it cannot be resolved
+ */
+function resolveFrameworkVersion() {
+  try {
+    return getCyryxCoreVersion() || 'unknown';
+  } catch {
+    return 'unknown';
+  }
+}
+
 /**
  * Generate core-config.yaml content
  *
@@ -16,7 +35,7 @@ const yaml = require('js-yaml');
  * @param {string} options.projectType - Project type from Story 1.3 (GREENFIELD|BROWNFIELD|EXISTING_CYRYX)
  * @param {Array<string>} [options.selectedIDEs] - Selected IDEs from Story 1.4
  * @param {Array<Object>} [options.mcpServers] - MCP server configurations from Story 1.5
- * @param {string} [options.cyryxVersion] - AEXOS version (default: 2.1.0)
+ * @param {string} [options.cyryxVersion] - Framework version being installed (default: resolved from package.json)
  * @param {string} [options.userProfile] - User profile from Story 10.2 (bob|advanced)
  * @returns {string} core-config.yaml content
  */
@@ -25,7 +44,7 @@ function generateCoreConfig(options = {}) {
     projectType = 'GREENFIELD',
     selectedIDEs = [],
     mcpServers = [],
-    cyryxVersion = '2.1.0',
+    cyryxVersion = resolveFrameworkVersion(),
     userProfile = 'advanced', // Default for backward compatibility (Story 10.2)
   } = options;
 
@@ -34,10 +53,13 @@ function generateCoreConfig(options = {}) {
     markdownExploder: true,
 
     // Project Configuration (from Story 1.3)
+    // `installedFrameworkVersion` is a snapshot of the framework version at
+    // install time — it is deliberately NOT named `version`, which previously
+    // read as "project config version" in the L2 override guide (AEX-0.6).
     project: {
       type: projectType,
       installedAt: new Date().toISOString(),
-      version: cyryxVersion,
+      installedFrameworkVersion: cyryxVersion,
     },
 
     // User Profile Configuration (Story 10.2 - Epic 10: User Profile System)

@@ -40,7 +40,8 @@ ai_providers:
 # Claude Code Configuration
 claude:
   # Model to use
-  model: claude-3-5-sonnet # Options: claude-3-5-sonnet, claude-3-opus, etc.
+  # Options: claude-opus-5, claude-sonnet-5, claude-fable-5, claude-haiku-4-5-20251001
+  model: claude-sonnet-5
 
   # Execution timeout (ms)
   timeout: 300000 # 5 minutes
@@ -54,7 +55,7 @@ claude:
 # Gemini CLI Configuration
 gemini:
   # Model to use
-  model: gemini-2.0-flash # Options: gemini-2.0-flash, gemini-2.0-pro
+  model: gemini-2.0-flash # TODO: verify current model id
 
   # Execution timeout (ms)
   timeout: 300000 # 5 minutes
@@ -94,7 +95,7 @@ openai_compatible:
 # Automatic selection between Flash and Pro based on task complexity
 model_switching:
   enabled: false # Enable when Story 16 is complete
-  default_model: gemini-2.0-flash
+  default_model: gemini-2.0-flash # TODO: verify current model id
   complexity_threshold:
     simple: 0.3 # < 0.3 = Flash
     medium: 0.7 # 0.3-0.7 = Flash
