@@ -86,7 +86,7 @@ location: .aexos-core/core-config.yaml
 
 extract:
   - project.type # EXISTING_CYRYX, GREENFIELD, etc.
-  - project.version # Framework version
+  - project.installedFrameworkVersion # Framework version snapshot taken at install time
   - ide.selected # Active IDEs
   - github.semantic_release.enabled
   - autoClaude.version # ADE version

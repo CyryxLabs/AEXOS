@@ -13,11 +13,11 @@ An actionable engineering and product blueprint for evolving **AEXOS / MAAX Stud
 
 ### 🔀 Dynamic Multi-Model MoE Routing (Margin Governor)
 - **Concept:** Route sub-tasks dynamically to the optimal model based on task complexity, cost, and latency thresholds.
-- **Routing Logic:**
-  - Complex System Architecture & Spec Review: **Claude 3.7 Sonnet** / **GPT-o3-mini**
-  - High-Volume Code Generation: **GPT-4o** / **Claude 3.5 Haiku**
-  - Logic Verification & Security Audits: **DeepSeek-R1**
-- **Impact:** Reduces LLM API costs by up to 60% while improving reasoning depth on complex tasks.
+- **Routing Logic:** Deliberately unspecified here. The previous routing table named
+  models from three generations ago and claimed "up to 60% cost reduction" with no
+  measurement behind it. A concrete table belongs next to the router that implements
+  it — `.aexos-core/core-config.yaml` → `models.registry` is the live registry — not
+  in a strategy document that nothing validates. See AEX-0.7.
 
 ---
 

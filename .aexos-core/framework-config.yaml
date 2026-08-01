@@ -11,9 +11,12 @@
 # ============================================
 
 # --- Metadata (framework portion) ---
+# framework_version MUST equal the root package.json version. It is the same
+# artifact expressed twice (npm package == framework release), NOT a config
+# schema version. tests/version-identity.test.js enforces the equality.
 metadata:
   name: "AEXOS (Cyryx)"
-  framework_version: "4.0.0"
+  framework_version: "5.3.0"
 
 markdownExploder: true
 

@@ -28,6 +28,27 @@ const mergeUtilsPath = path.resolve(__dirname, '..', '..', '..', 'core', 'config
 const envInterpolatorPath = path.resolve(__dirname, '..', '..', '..', 'core', 'config', 'env-interpolator');
 
 /**
+ * Resolve the canonical framework version.
+ *
+ * Single source of truth is the root package.json shipped with the framework
+ * (`@cyryxlabs/aexos`). Never hardcode a literal here — a frozen literal is
+ * exactly how `framework_version` drifted to 3.12.0 while the package was 5.3.0
+ * (AEX-0.6).
+ *
+ * @returns {string} Semantic version, or 'unknown' if package.json is unreadable
+ */
+function resolveFrameworkVersion() {
+  try {
+    // .aexos-core/cli/commands/config/ → repo root
+    const pkgPath = path.resolve(__dirname, '..', '..', '..', '..', 'package.json');
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+    return pkg.version || 'unknown';
+  } catch {
+    return 'unknown';
+  }
+}
+
+/**
  * Lazy-load config modules (avoids failing at import time if yaml not installed)
  */
 function loadModules() {
@@ -295,7 +316,7 @@ function splitL1(config) {
 
   // metadata (framework portion)
   if (config.markdownExploder !== undefined) l1.markdownExploder = config.markdownExploder;
-  l1.metadata = { name: 'AEXOS (Cyryx)', framework_version: '3.12.0' };
+  l1.metadata = { name: 'AEXOS (Cyryx)', framework_version: resolveFrameworkVersion() };
 
   // resource_locations (Section 3)
   if (config.toolsLocation) l1.resource_locations = { tools_dir: config.toolsLocation };

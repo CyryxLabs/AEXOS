@@ -53,4 +53,4 @@ const checklistPath = '.aexos-core/product/checklists/story-dod-checklist.md';
 Created as part of [Story 2.4](../../../docs/stories/v4.0.4/sprint-2/story-2.4-product-module.md) in Sprint 2.
 
 ---
-*AEXOS (Cyryx) v4 - Product Module*
+*AEXOS (Cyryx) — Product Module*

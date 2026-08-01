@@ -16,7 +16,24 @@ const { spawnSync } = require('child_process');
 const { getIDEConfig } = require('../config/ide-configs');
 const { validateProjectName } = require('./validators');
 const { getMergeStrategy, hasMergeStrategy } = require('../merger/index.js');
-const { requireCyryxCoreModule, resolveCyryxCorePath } = require('../utils/package-paths');
+const {
+  requireCyryxCoreModule,
+  resolveCyryxCorePath,
+  getCyryxCoreVersion,
+} = require('../utils/package-paths');
+
+/**
+ * Resolve the framework version from the framework package.json (AEX-0.6).
+ *
+ * @returns {string} Semantic version, or 'unknown' if it cannot be resolved
+ */
+function resolveFrameworkVersion() {
+  try {
+    return getCyryxCoreVersion() || 'unknown';
+  } catch {
+    return 'unknown';
+  }
+}
 
 function loadCodexSkillsSync() {
   return requireCyryxCoreModule('.aexos-core', 'infrastructure', 'scripts', 'codex-skills-sync', 'index');
@@ -262,7 +279,7 @@ function generateTemplateVariables(wizardState) {
     projectName,
     projectType: wizardState.projectType || 'greenfield',
     timestamp,
-    cyryxVersion: '2.1.0', // From package.json in real implementation
+    cyryxVersion: resolveFrameworkVersion(),
   };
 }
 
