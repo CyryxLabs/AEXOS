@@ -46,9 +46,17 @@ const REQUIRED_PATHS = [
   '.aexos-core/constitution.md',
   '.aexos-core/development/agents/',
   '.aexos-core/development/tasks/',
-  // Pro entitlement runtime is intentionally shipped with core.
-  'pro/license/license-api.js',
 ];
+
+// NOTE: `pro/` is deliberately NOT required here.
+// The Pro tier ships as its own package (`@cyryx-squads/pro`, private, proprietary)
+// living in a separate directory that is absent from `files[]` and not reliably
+// present in a fresh clone — .github/workflows/ci.yml checks out without
+// submodules on purpose. Core resolves Pro at runtime instead (see
+// resolveLicensePath() in .aexos-core/cli/commands/pro/index.js and
+// bin/utils/pro-detector.js), with a local branch for framework-dev and an npm
+// branch for everyone else. Requiring pro/ in the Core tarball would make the
+// tarball non-deterministic and ship commercial code inside the free Core tier.
 
 /**
  * Paths that MUST NOT appear in the tarball (leak prevention).
@@ -74,8 +82,14 @@ const REQUIRED_FILES_ENTRIES = [
 
 /**
  * Bin entries that must point to existing files.
+ *
+ * `aexos` is the canonical product binary — npm infers it from the unscoped
+ * package name, so dropping it breaks `npx github:CyryxLabs/AEXOS` (see 6cf4ea3).
+ * `cyryx` was removed from package.json by that same rename and is no longer
+ * required here. Phase 3 only checks shebangs of whatever bins happen to exist,
+ * so this list is what catches a bin entry disappearing from package.json.
  */
-const REQUIRED_BIN_ENTRIES = ['cyryx', 'aexos-core', 'aexos-delegate'];
+const REQUIRED_BIN_ENTRIES = ['aexos', 'aexos-core', 'aexos-delegate'];
 
 /**
  * Runtime dependencies that must be present.
@@ -117,10 +131,16 @@ function check(description, passed, detail) {
 
 function getTarballContents() {
   try {
-    const output = execSync('npm pack --dry-run --json 2>&1', {
+    // stderr is discarded rather than merged with `2>&1`: npm runs the `prepare`
+    // lifecycle script before packing and its banner landed inside the captured
+    // stream, so JSON.parse always threw and every run silently fell through to
+    // the regex fallback below. The fallback works, but a gate that never
+    // exercises its primary path is a gate that has not been tested.
+    const output = execSync('npm pack --dry-run --json', {
       cwd: ROOT,
       encoding: 'utf8',
-      timeout: 30000,
+      timeout: 120000,
+      stdio: ['ignore', 'pipe', 'ignore'],
     });
 
     // npm pack --json outputs a JSON array
@@ -138,7 +158,7 @@ function getTarballContents() {
       const output = execSync('npm pack --dry-run 2>&1', {
         cwd: ROOT,
         encoding: 'utf8',
-        timeout: 30000,
+        timeout: 120000,
       });
 
       // Text output has lines like "npm notice 1.2kB .claude/hooks/synapse-engine.cjs"

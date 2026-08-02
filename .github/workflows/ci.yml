@@ -200,6 +200,45 @@ jobs:
           echo "the remote-push authority guard must deny fail-closed while allowing @devops."
           echo "Reproduce locally with: npm run validate:hooks"
 
+  # The tarball is the product. This asserts what `npm pack` actually produces —
+  # required files present, private content not leaked, bin/deps intact — rather
+  # than grepping package.json for three strings (installer-smoke-test does that).
+  # Deliberately unconditional: REQUIRED_PATHS covers .claude/**, which no
+  # paths-filter above matches, so a gated job would miss exactly the regressions
+  # this gate exists to catch (v4.0.0 shipped without its hooks).
+  package-completeness:
+    name: Package Completeness
+    needs: changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      # `npm pack` runs the `prepare` lifecycle (husky), so devDeps must exist.
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate package completeness
+        run: npm run validate:package-completeness
+
+      - name: Report remediation guidance
+        if: failure()
+        run: |
+          echo "::error::npm tarball is incomplete or leaks private content — do not publish."
+          echo "Reproduce locally with: npm run validate:package-completeness"
+          echo "Inspect the tarball with: npm pack --dry-run"
+
   lint:
     name: ESLint
     needs: changes
@@ -542,6 +581,7 @@ jobs:
         story-validation,
         manifest-validation,
         port-denylist,
+        package-completeness,
         registry-determinism,
         ide-sync-validation,
         installer-smoke-test,
@@ -570,6 +610,7 @@ jobs:
           echo "  Story Validation: ${{ needs.story-validation.result }}"
           echo "  Manifest Validation: ${{ needs.manifest-validation.result }}"
           echo "  Port Denylist: ${{ needs.port-denylist.result }}"
+          echo "  Package Completeness: ${{ needs.package-completeness.result }}"
           echo "  Registry Determinism: ${{ needs.registry-determinism.result }}"
           echo "  IDE Sync Validation: ${{ needs.ide-sync-validation.result }}"
           echo "  Installer Smoke Test: ${{ needs.installer-smoke-test.result }}"
@@ -620,6 +661,13 @@ jobs:
           if [ "${{ needs.port-denylist.result }}" == "failure" ]; then
             echo "❌ Framework port denylist failed - remove reported forbidden paths/content"
             echo "   Reproduce locally: npm run validate:port-denylist"
+            FAILED=true
+          fi
+
+          # Package Completeness: fail on an incomplete or leaking tarball
+          if [ "${{ needs.package-completeness.result }}" == "failure" ]; then
+            echo "❌ Package completeness failed - the npm tarball is not safe to publish"
+            echo "   Reproduce locally: npm run validate:package-completeness"
             FAILED=true
           fi
 

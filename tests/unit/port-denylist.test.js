@@ -1,13 +1,29 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
+const os = require('os');
+const { execFileSync } = require('child_process');
 const {
   scanContent,
   scanProject,
   isAllowlisted,
+  isLocalOnlyFile,
+  filterScannableFiles,
   DENY_PATTERNS,
   DEFAULT_SCAN_ROOTS,
 } = require('../../.aexos-core/core/security/port-denylist');
+
+const MACHINE_PATH_LINE = 'const p = "/Users/alan/Code/secret";';
+
+function hasGit() {
+  try {
+    execFileSync('git', ['--version'], { stdio: 'ignore' });
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 describe('port-denylist (CORE-SU.A4)', () => {
   it('exposes deny patterns including workspace product and sinkra', () => {
@@ -180,5 +196,104 @@ describe('port-denylist (CORE-SU.A4)', () => {
       throw new Error(`Unexpected denylist hits:\n${sample}`);
     }
     expect(result.ok).toBe(true);
+  });
+
+  describe('gitignore awareness', () => {
+    // The denylist protects what we ship. A gitignored file is never committed
+    // and never published, so scanning it makes the gate depend on the
+    // developer's local state (.claude/settings.local.json is rewritten with
+    // absolute host paths on every permission grant, which is what made this
+    // gate fail on every real workstation).
+    let repoRoot;
+
+    beforeEach(() => {
+      // NOT prefixed "port-denylist" — that substring is in the allowlist and
+      // would exempt the whole fixture tree.
+      repoRoot = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'aexos-denyscan-')));
+      fs.writeFileSync(path.join(repoRoot, 'ignored.json'), MACHINE_PATH_LINE);
+      fs.writeFileSync(path.join(repoRoot, 'tracked.json'), MACHINE_PATH_LINE);
+      fs.writeFileSync(path.join(repoRoot, '.gitignore'), 'ignored.json\n');
+    });
+
+    afterEach(() => {
+      fs.rmSync(repoRoot, { recursive: true, force: true });
+    });
+
+    const gitIt = hasGit() ? it : it.skip;
+
+    gitIt('does not fail the scan for a gitignored file carrying a denied pattern', () => {
+      execFileSync('git', ['init', '-q'], { cwd: repoRoot, stdio: 'ignore' });
+      fs.rmSync(path.join(repoRoot, 'tracked.json'));
+
+      const result = scanProject({ projectRoot: repoRoot, roots: ['.'] });
+
+      expect(result.findings).toEqual([]);
+      expect(result.ok).toBe(true);
+      expect(result.filesScanned).toBe(0);
+    });
+
+    gitIt('still fails the scan for a tracked file carrying the same pattern', () => {
+      execFileSync('git', ['init', '-q'], { cwd: repoRoot, stdio: 'ignore' });
+
+      const result = scanProject({ projectRoot: repoRoot, roots: ['.'] });
+
+      expect(result.ok).toBe(false);
+      expect(result.findings).toEqual([
+        expect.objectContaining({ file: 'tracked.json', id: 'machine-path-users' }),
+      ]);
+    });
+
+    gitIt('scans untracked-but-not-ignored files, which are about to be committed', () => {
+      execFileSync('git', ['init', '-q'], { cwd: repoRoot, stdio: 'ignore' });
+      // tracked.json is never `git add`ed here: ignore status, not index
+      // membership, is what excludes a file from the gate.
+      expect(
+        execFileSync('git', ['status', '--porcelain', '--', 'tracked.json'], {
+          cwd: repoRoot,
+          encoding: 'utf8',
+        }).trim(),
+      ).toMatch(/^\?\?/);
+
+      const result = scanProject({ projectRoot: repoRoot, roots: ['.'] });
+
+      expect(result.findings).toEqual([
+        expect.objectContaining({ file: 'tracked.json', id: 'machine-path-users' }),
+      ]);
+    });
+
+    it('skips *.local.* files even when git cannot answer', () => {
+      // No `git init`: outside a work tree check-ignore fails and the naming
+      // convention is the only fallback left.
+      fs.writeFileSync(path.join(repoRoot, 'settings.local.json'), MACHINE_PATH_LINE);
+      fs.rmSync(path.join(repoRoot, 'ignored.json'));
+
+      const result = scanProject({ projectRoot: repoRoot, roots: ['.'] });
+
+      expect(result.findings).toEqual([
+        expect.objectContaining({ file: 'tracked.json', id: 'machine-path-users' }),
+      ]);
+    });
+
+    it('classifies machine-local filenames by convention', () => {
+      expect(isLocalOnlyFile(path.join('.claude', 'settings.local.json'))).toBe(true);
+      expect(isLocalOnlyFile('config.local.yaml')).toBe(true);
+      expect(isLocalOnlyFile(path.join('.claude', 'settings.json'))).toBe(false);
+      expect(isLocalOnlyFile('local.json')).toBe(false);
+    });
+
+    gitIt('honors explicit --files even when the path is gitignored', () => {
+      execFileSync('git', ['init', '-q'], { cwd: repoRoot, stdio: 'ignore' });
+      const explicit = [path.join(repoRoot, 'ignored.json')];
+
+      // The walk-based path drops it...
+      expect(filterScannableFiles(repoRoot, explicit)).toEqual([]);
+
+      // ...but naming a file is explicit intent, so scanProject({ files })
+      // never silently discards it.
+      const result = scanProject({ projectRoot: repoRoot, files: ['ignored.json'] });
+      expect(result.findings).toEqual([
+        expect.objectContaining({ file: 'ignored.json', id: 'machine-path-users' }),
+      ]);
+    });
   });
 });

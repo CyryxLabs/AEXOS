@@ -9,6 +9,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
 
 const CREDENTIAL_KEYS = new Set([
   'apikey',
@@ -141,6 +142,100 @@ const SCAN_EXTENSIONS = new Set([
   '.md',
   '.sh',
 ]);
+
+/**
+ * Machine-local convention: `*.local.<ext>` never ships.
+ *
+ * Used as the fallback when git cannot answer (no git binary, scanning an
+ * extracted tarball, scanning a node_modules copy). `.claude/settings.local.json`
+ * is the canonical case: Claude Code rewrites it with absolute host paths on
+ * every permission grant, so it trips `machine-path-*` on any real workstation.
+ */
+const LOCAL_ONLY_FILE_RE = /\.local\.(?:jsonc?|ya?ml|[cm]?js|tsx?|sh)$/i;
+
+/**
+ * Max bytes accepted from `git check-ignore` (~1 path per line, large monorepos).
+ */
+const GIT_CHECK_IGNORE_MAX_BUFFER = 32 * 1024 * 1024;
+
+/**
+ * @param {string} filePath
+ * @returns {boolean} true when the file is machine-local by naming convention
+ */
+function isLocalOnlyFile(filePath) {
+  return LOCAL_ONLY_FILE_RE.test(path.basename(filePath));
+}
+
+/**
+ * Normalize to a repo-relative POSIX path — the form git speaks on every OS.
+ *
+ * @param {string} projectRoot
+ * @param {string} filePath
+ * @returns {string}
+ */
+function toRepoRelative(projectRoot, filePath) {
+  return path.relative(projectRoot, filePath).split(path.sep).join('/');
+}
+
+/**
+ * Ask git which of `files` are ignored.
+ *
+ * One batched `git check-ignore --stdin` for the whole file list, so the cost is
+ * a single subprocess regardless of repo size. Honors every ignore layer git
+ * knows about (repo `.gitignore`, nested ones, `.git/info/exclude`, the global
+ * excludesFile) rather than re-implementing the matching rules here.
+ *
+ * @param {string} projectRoot
+ * @param {string[]} files - absolute paths
+ * @returns {Set<string>|null} repo-relative ignored paths, or null when git
+ *   could not answer (not a work tree, git missing) so callers can degrade
+ */
+function listGitIgnoredFiles(projectRoot, files) {
+  if (!Array.isArray(files) || files.length === 0) {
+    return new Set();
+  }
+
+  const relative = files.map((file) => toRepoRelative(projectRoot, file));
+
+  try {
+    const stdout = execFileSync('git', ['-C', projectRoot, 'check-ignore', '-z', '--stdin'], {
+      input: `${relative.join('\0')}\0`,
+      encoding: 'utf8',
+      maxBuffer: GIT_CHECK_IGNORE_MAX_BUFFER,
+      stdio: ['pipe', 'pipe', 'ignore'],
+    });
+    return new Set(stdout.split('\0').filter(Boolean));
+  } catch (error) {
+    // check-ignore exits 1 when *none* of the paths are ignored — a valid answer.
+    if (error && error.status === 1) {
+      return new Set();
+    }
+    // 128 (not a work tree) / ENOENT (no git) — caller falls back.
+    return null;
+  }
+}
+
+/**
+ * Drop files that cannot reach the OSS distribution.
+ *
+ * The denylist exists to keep product/machine-specific tokens out of what we
+ * ship. A gitignored file is never committed and never published, so scanning it
+ * only produces failures that depend on the developer's local state. Untracked
+ * but *non*-ignored files are still scanned — those are the ones about to be
+ * committed, which is exactly when the denylist must fire.
+ *
+ * @param {string} projectRoot
+ * @param {string[]} files - absolute paths
+ * @returns {string[]} the subset worth scanning
+ */
+function filterScannableFiles(projectRoot, files) {
+  const candidates = files.filter((file) => !isLocalOnlyFile(file));
+  const ignored = listGitIgnoredFiles(projectRoot, candidates);
+  if (!ignored || ignored.size === 0) {
+    return candidates;
+  }
+  return candidates.filter((file) => !ignored.has(toRepoRelative(projectRoot, file)));
+}
 
 /**
  * @param {string} filePath
@@ -386,7 +481,9 @@ function walkFiles(dir, acc = [], findings = []) {
  * @param {object} [options]
  * @param {string} [options.projectRoot]
  * @param {string[]} [options.roots]
- * @param {string[]} [options.files] - explicit file list (absolute or relative)
+ * @param {string[]} [options.files] - explicit file list (absolute or relative).
+ *   Explicit files are always scanned: passing a path is an explicit intent, and
+ *   the staged-file callers already pass tracked paths only.
  * @returns {{ ok: boolean, findings: Array, filesScanned: number }}
  */
 function scanProject(options = {}) {
@@ -398,12 +495,14 @@ function scanProject(options = {}) {
     files = options.files.map((f) => (path.isAbsolute(f) ? f : path.join(projectRoot, f)));
   } else {
     const roots = options.roots || DEFAULT_SCAN_ROOTS;
+    const walked = [];
     for (const root of roots) {
       const abs = path.join(projectRoot, root);
       if (fs.existsSync(abs)) {
-        walkFiles(abs, files, findings);
+        walkFiles(abs, walked, findings);
       }
     }
+    files = filterScannableFiles(projectRoot, walked);
   }
 
   for (const file of files) {
@@ -441,8 +540,12 @@ module.exports = {
   DENY_PATTERNS,
   DEFAULT_ALLOW_PATH_SUBSTRINGS,
   DEFAULT_SCAN_ROOTS,
+  LOCAL_ONLY_FILE_RE,
   scanContent,
   scanProject,
   isAllowlisted,
+  isLocalOnlyFile,
+  listGitIgnoredFiles,
+  filterScannableFiles,
   walkFiles,
 };
