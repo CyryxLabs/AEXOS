@@ -1,6 +1,36 @@
 name: Publish to NPM
 # Story 6.1 - Added concurrency
 # Story 124.7 - Publish @aexos-squads packages
+#
+# ─────────────────────────────────────────────────────────────────────────────
+# AUTHENTICATION: dual-path (OIDC Trusted Publishing + legacy token fallback)
+# ─────────────────────────────────────────────────────────────────────────────
+# As of 2026-08, npm no longer allows the "Bypass 2FA" flag on Granular Access
+# Tokens. The publishing account has 2FA set to "authorization and publishing",
+# so a token WITHOUT bypass cannot publish from CI — npm blocks waiting for an
+# OTP that no runner can supply.
+#
+# The supported path forward is Trusted Publishing (OIDC):
+#   - requires `id-token: write` on the publishing job (declared per-job below)
+#   - requires npm CLI >= 11.5.1  (enforced by the "Ensure npm" step)
+#   - requires Node.js >= 22.14.0 (NODE_VERSION is '24')
+#   - requires a trusted publisher registered on npmjs.com for EACH package
+#     (org: CyryxLabs, repo: AEXOS, workflow: npm-publish.yml)
+#
+# Until every package has its publisher registered, each publish job tries OIDC
+# first and falls back to NPM_TOKEN_AEXOS_SQUADS / NPM_TOKEN. The fallback is
+# expected to fail while 2FA-on-publish is enforced — it exists so that a
+# manually-issued bypass token (or a legacy classic token) still works if one is
+# provisioned out-of-band.
+#
+# REMOVE THE TOKEN FALLBACK when either condition is met (whichever comes first):
+#   (a) trusted publishers are registered for @cyryxlabs/aexos,
+#       @aexos-squads/aexos-install, @aexos-squads/aexos-pro-cli,
+#       @aexos-squads/installer and aexos-core, and one release has shipped
+#       green via OIDC; or
+#   (b) 2027-01 — at which point NPM_TOKEN_AEXOS_SQUADS and NPM_TOKEN are dead
+#       anyway and the fallback is pure noise.
+# Removal = delete the "(fallback)" steps and their `env:` token blocks.
 
 on:
   release:
@@ -40,7 +70,11 @@ permissions:
   contents: read
 
 env:
-  NODE_VERSION: '20'
+  # Node 24 — Trusted Publishing requires >= 22.14.0.
+  # Safe to bump: ci.yml already runs the full suite on 18/20/22/24/25.
+  # `engines` in package.json stays at >=18 — this is the CI runtime, not the
+  # supported consumer floor. smoke_test_exports keeps its own 20/22/24 matrix.
+  NODE_VERSION: '24'
   NPM_REGISTRY: 'https://registry.npmjs.org/'
 
 jobs:
@@ -150,6 +184,13 @@ jobs:
     needs: [test, build]
     if: ${{ contains(format(',{0},', needs.build.outputs.packages), ',core,') }}
     runs-on: ubuntu-latest
+    # Job-scoped permissions (least privilege). Declaring `permissions` here
+    # REPLACES the workflow-level block, so `contents: read` must be restated.
+    # `id-token: write` is what lets npm exchange a GitHub OIDC token for a
+    # short-lived publish credential (Trusted Publishing).
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -200,9 +241,39 @@ jobs:
             echo "should_publish=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Publish core to NPM
+      - name: Ensure npm >= 11.5.1 (Trusted Publishing requirement)
         if: steps.should-publish.outputs.should_publish == 'true'
         run: |
+          REQUIRED="11.5.1"
+          CURRENT="$(npm --version)"
+          # sort -V puts the lower version first; if that is not REQUIRED then
+          # CURRENT is below the floor and must be upgraded.
+          if [ "$(printf '%s\n%s\n' "$REQUIRED" "$CURRENT" | sort -V | head -n1)" != "$REQUIRED" ]; then
+            echo "npm ${CURRENT} < ${REQUIRED} — upgrading for OIDC support"
+            npm install -g npm@latest
+          else
+            echo "npm ${CURRENT} already satisfies >= ${REQUIRED}"
+          fi
+          echo "npm in use: $(npm --version) / node $(node --version)"
+
+      # PRIMARY PATH — Trusted Publishing. No token is exported here on purpose:
+      # with no _authToken present, npm 11.5.1+ uses the OIDC id-token from the
+      # runner. Fails cleanly (and cheaply) until the publisher is registered on
+      # npmjs.com, at which point the fallback step below stops running.
+      - name: Publish core to NPM via Trusted Publishing (OIDC)
+        id: oidc-publish
+        if: steps.should-publish.outputs.should_publish == 'true'
+        continue-on-error: true
+        run: |
+          rm -f .npmrc
+          npm publish --tag ${{ steps.publish-tag.outputs.tag }} --access public
+
+      # FALLBACK — legacy token auth. See the header block for the removal
+      # criteria (publisher registered, or 2027-01, whichever comes first).
+      - name: Publish core to NPM via token (fallback)
+        if: steps.should-publish.outputs.should_publish == 'true' && steps.oidc-publish.outcome == 'failure'
+        run: |
+          echo "::warning::Trusted Publishing (OIDC) did not succeed for the core package — falling back to token auth. Register the trusted publisher on npmjs.com to remove this path."
           publish_status=1
           for token in "$NPM_TOKEN_AEXOS_SQUADS" "$NPM_TOKEN"; do
             if [ -z "$token" ]; then
@@ -219,11 +290,14 @@ jobs:
 
           if [ "$publish_status" -ne 0 ]; then
             rm -f .npmrc
-            echo "::error::Unable to publish scoped core package. Refresh NPM_TOKEN_AEXOS_SQUADS or NPM_TOKEN with owner access to @aexos-squads/core."
+            echo "::error::Unable to publish scoped core package via OIDC or token. Register a trusted publisher for @cyryxlabs/aexos (CyryxLabs/AEXOS -> npm-publish.yml), or refresh NPM_TOKEN_AEXOS_SQUADS / NPM_TOKEN with owner access."
             exit "$publish_status"
           fi
 
           PKG_NAME=$(node -p "require('./package.json').name")
+          # Only reachable on the token path: `npm access` needs a long-lived
+          # credential. On the OIDC path `npm publish --access public` already
+          # settles visibility, so no equivalent step is needed there.
           npm access set status=public "${PKG_NAME}" --registry="${NPM_REGISTRY}"
           rm -f .npmrc
           echo "✅ Published ${PKG_NAME}@${{ needs.build.outputs.version }} with tag ${{ steps.publish-tag.outputs.tag }}"
@@ -253,6 +327,11 @@ jobs:
     needs: [test, build]
     if: ${{ contains(format(',{0},', needs.build.outputs.packages), ',aexos-install,') || contains(format(',{0},', needs.build.outputs.packages), ',aexos-pro-cli,') || contains(format(',{0},', needs.build.outputs.packages), ',installer,') }}
     runs-on: ubuntu-latest
+    # Job-scoped permissions (least privilege) — see the `publish` job.
+    # Each matrix package needs its OWN trusted publisher registered on npm.
+    permissions:
+      contents: read
+      id-token: write
     strategy:
       fail-fast: false
       matrix:
@@ -336,10 +415,35 @@ jobs:
             echo "should_publish=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Publish workspace package
+      - name: Ensure npm >= 11.5.1 (Trusted Publishing requirement)
         if: steps.should-publish.outputs.should_publish == 'true'
+        run: |
+          REQUIRED="11.5.1"
+          CURRENT="$(npm --version)"
+          if [ "$(printf '%s\n%s\n' "$REQUIRED" "$CURRENT" | sort -V | head -n1)" != "$REQUIRED" ]; then
+            echo "npm ${CURRENT} < ${REQUIRED} — upgrading for OIDC support"
+            npm install -g npm@latest
+          else
+            echo "npm ${CURRENT} already satisfies >= ${REQUIRED}"
+          fi
+          echo "npm in use: $(npm --version) / node $(node --version)"
+
+      # PRIMARY PATH — Trusted Publishing (no token exported on purpose).
+      - name: Publish workspace package via Trusted Publishing (OIDC)
+        id: oidc-publish
+        if: steps.should-publish.outputs.should_publish == 'true'
+        continue-on-error: true
         working-directory: ${{ matrix.path }}
         run: |
+          rm -f .npmrc
+          npm publish --tag ${{ steps.publish-tag.outputs.tag }} --access public
+
+      # FALLBACK — legacy token auth. See the header block for removal criteria.
+      - name: Publish workspace package via token (fallback)
+        if: steps.should-publish.outputs.should_publish == 'true' && steps.oidc-publish.outcome == 'failure'
+        working-directory: ${{ matrix.path }}
+        run: |
+          echo "::warning::Trusted Publishing (OIDC) did not succeed for ${{ steps.pkg.outputs.name }} — falling back to token auth. Register the trusted publisher on npmjs.com to remove this path."
           publish_status=1
           for token in "$NPM_TOKEN_AEXOS_SQUADS" "$NPM_TOKEN"; do
             if [ -z "$token" ]; then
@@ -356,10 +460,11 @@ jobs:
 
           if [ "$publish_status" -ne 0 ]; then
             rm -f .npmrc
-            echo "::error::Unable to publish ${{ steps.pkg.outputs.name }}. Refresh NPM_TOKEN_AEXOS_SQUADS or NPM_TOKEN with owner access to the @aexos-squads scope."
+            echo "::error::Unable to publish ${{ steps.pkg.outputs.name }} via OIDC or token. Register a trusted publisher for it (CyryxLabs/AEXOS -> npm-publish.yml), or refresh NPM_TOKEN_AEXOS_SQUADS / NPM_TOKEN with owner access to the @aexos-squads scope."
             exit "$publish_status"
           fi
 
+          # Token path only — `npm access` needs a long-lived credential.
           npm access set status=public "${{ steps.pkg.outputs.name }}" --registry="${NPM_REGISTRY}"
           rm -f .npmrc
           echo "✅ Published ${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}"
@@ -400,6 +505,12 @@ jobs:
     needs: [test, build, publish]
     if: ${{ contains(format(',{0},', needs.build.outputs.packages), ',aexos-core,') && (needs.publish.result == 'success' || needs.publish.result == 'skipped') }}
     runs-on: ubuntu-latest
+    # Job-scoped permissions (least privilege) — see the `publish` job.
+    # NOTE: `aexos-core` is UNSCOPED and needs its own trusted publisher entry
+    # on npmjs.com, separate from the scoped packages.
+    permissions:
+      contents: read
+      id-token: write
     outputs:
       published: ${{ steps.should-publish.outputs.should_publish }}
     steps:
@@ -450,10 +561,35 @@ jobs:
             echo "should_publish=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Publish legacy aexos-core wrapper
+      - name: Ensure npm >= 11.5.1 (Trusted Publishing requirement)
         if: steps.should-publish.outputs.should_publish == 'true'
+        run: |
+          REQUIRED="11.5.1"
+          CURRENT="$(npm --version)"
+          if [ "$(printf '%s\n%s\n' "$REQUIRED" "$CURRENT" | sort -V | head -n1)" != "$REQUIRED" ]; then
+            echo "npm ${CURRENT} < ${REQUIRED} — upgrading for OIDC support"
+            npm install -g npm@latest
+          else
+            echo "npm ${CURRENT} already satisfies >= ${REQUIRED}"
+          fi
+          echo "npm in use: $(npm --version) / node $(node --version)"
+
+      # PRIMARY PATH — Trusted Publishing (no token exported on purpose).
+      - name: Publish legacy aexos-core via Trusted Publishing (OIDC)
+        id: oidc-publish
+        if: steps.should-publish.outputs.should_publish == 'true'
+        continue-on-error: true
         working-directory: compat/aexos-core
         run: |
+          rm -f .npmrc
+          npm publish --tag ${{ steps.publish-tag.outputs.tag }} --access public
+
+      # FALLBACK — legacy token auth. See the header block for removal criteria.
+      - name: Publish legacy aexos-core wrapper via token (fallback)
+        if: steps.should-publish.outputs.should_publish == 'true' && steps.oidc-publish.outcome == 'failure'
+        working-directory: compat/aexos-core
+        run: |
+          echo "::warning::Trusted Publishing (OIDC) did not succeed for aexos-core — falling back to token auth. Register the trusted publisher on npmjs.com to remove this path."
           publish_status=1
           for token in "$NPM_TOKEN_AEXOS_SQUADS" "$NPM_TOKEN"; do
             if [ -z "$token" ]; then
@@ -469,7 +605,7 @@ jobs:
           done
           rm -f .npmrc
           if [ "$publish_status" -ne 0 ]; then
-            echo "::error::Unable to publish aexos-core. Refresh NPM_TOKEN with owner access to the legacy package."
+            echo "::error::Unable to publish aexos-core via OIDC or token. Register a trusted publisher for aexos-core (CyryxLabs/AEXOS -> npm-publish.yml), or refresh NPM_TOKEN with owner access to the legacy package."
             exit "$publish_status"
           fi
           echo "✅ Published aexos-core@${{ steps.pkg.outputs.version }} with tag ${{ steps.publish-tag.outputs.tag }}"

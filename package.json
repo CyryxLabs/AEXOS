@@ -99,6 +99,7 @@
     "validate:paths": "node .aexos-core/infrastructure/scripts/validate-paths.js",
     "validate:parity": "node .aexos-core/infrastructure/scripts/validate-parity.js",
     "validate:hooks": "node scripts/validate-hooks.js",
+    "validate:package-completeness": "node scripts/validate-package-completeness.js",
     "validate:semantic-lint": "node scripts/semantic-lint.js",
     "manifest:ensure": "node scripts/ensure-manifest.js",
     "sync:ide:cursor": "node .aexos-core/infrastructure/scripts/ide-sync/index.js sync --ide cursor",
