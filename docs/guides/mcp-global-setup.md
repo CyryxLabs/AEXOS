@@ -10,7 +10,7 @@
 
 ---
 
-> Configure global MCP (Model Context Protocol) servers for AEXOS (Cyryx).
+> Configure global MCP (Model Context Protocol) servers for AEXOS.
 
 **Version:** 2.1.1
 **Last Updated:** 2025-12-23
@@ -699,4 +699,4 @@ Create `.mcp.json` in project root to override global settings:
 
 ---
 
-_AEXOS (Cyryx) v4 MCP Global Setup Guide_
+_AEXOS v4 MCP Global Setup Guide_

@@ -1,4 +1,4 @@
-# AEXOS (Cyryx) FAQ
+# AEXOS FAQ
 
 **Version:** 2.1.0
 **Last Updated:** 2025-01-24

@@ -459,7 +459,7 @@ knowledge_base:
 
   # ── LAYER 4: AEXOS Integration ──────────────────────
 
-  cyryx_subagent_patterns:
+  aexos_subagent_patterns:
     description: |
       Within the AEXOS framework, the Agent tool (formerly Task tool) can spawn
       subagents using the subagent_type parameter. AEXOS agents can delegate to

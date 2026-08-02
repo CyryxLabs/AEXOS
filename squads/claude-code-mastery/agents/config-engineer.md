@@ -395,7 +395,7 @@ dependencies:
       - "Set CLAUDE_AUTOCOMPACT_PCT_OVERRIDE=50 for large projects"
       - "Monitor context_window.used_percentage in status line"
 
-  cyryx_boundary_protection:
+  aexos_boundary_protection:
     description: "AEXOS L1-L4 layer model for framework vs project boundary"
     layers:
       L1_framework_core:

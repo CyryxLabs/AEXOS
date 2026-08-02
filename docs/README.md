@@ -1,4 +1,4 @@
-# AEXOS (Cyryx) Documentation
+# AEXOS Documentation
 
 > **AI-Orchestrated System for Full-Stack Development**
 
@@ -123,8 +123,8 @@ We follow industry-standard i18n practices:
 
 ## 📄 License
 
-This documentation is part of AEXOS (Cyryx), proprietary property of Cyryx Labs. All rights reserved. See [LICENSE](../LICENSE).
+This documentation is part of AEXOS, proprietary property of Cyryx Labs. All rights reserved. See [LICENSE](../LICENSE).
 
 ---
 
-_AEXOS (Cyryx) - Orchestrating AI for Better Software Development_
+_AEXOS - Orchestrating AI for Better Software Development_

@@ -2,7 +2,7 @@
 
 ---
 
-Complete guide for developers who want to contribute to the AEXOS (Cyryx) project.
+Complete guide for developers who want to contribute to the AEXOS project.
 
 **Version:** 1.0.0
 **Last Updated:** 2026-01-29
@@ -1108,5 +1108,5 @@ node --inspect node_modules/.bin/jest
 
 ---
 
-_AEXOS (Cyryx) Development Setup Guide v1.0.0_
+_AEXOS Development Setup Guide v1.0.0_
 _Last Updated: 2026-01-29_

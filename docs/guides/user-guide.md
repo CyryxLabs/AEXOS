@@ -4,7 +4,7 @@
 
 ---
 
-Complete guide for using AEXOS (Cyryx) - the AI-Orchestrated System for Full Stack Development.
+Complete guide for using AEXOS - the AI-Orchestrated System for Full Stack Development.
 
 **Version:** 2.1.0
 **Last Updated:** 2026-01-28
@@ -484,4 +484,4 @@ cyryx squads search {keyword}
 
 ---
 
-_AEXOS (Cyryx) User Guide v4.2.11_
+_AEXOS User Guide v4.2.11_

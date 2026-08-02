@@ -884,7 +884,7 @@ flowchart TD
 ### Documentacao Relacionada
 
 - [ADR-025: Estrutura de Documentacao](../../architecture/ADR-025-DOCUMENTATION-STRUCTURE.md)
-- [Guia de Workflows AEXOS](../CYRYX-WORKFLOWS-GUIDE.md)
+- [Guia de Workflows AEXOS](../../aexos-workflows/README.md)
 - [Padrao de Stories](../templates/STORY-TEMPLATE.md)
 
 ---

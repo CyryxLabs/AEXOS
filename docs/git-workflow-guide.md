@@ -18,7 +18,7 @@ _Story: 2.2-git-workflow-implementation.yaml_
 
 ## Overview
 
-AEXOS (Cyryx) implements a **Defense in Depth** validation strategy with three progressive layers that catch issues early and ensure code quality before merge.
+AEXOS implements a **Defense in Depth** validation strategy with three progressive layers that catch issues early and ensure code quality before merge.
 
 ### Why Three Layers?
 

@@ -83,7 +83,7 @@ flowchart TB
         S_AGENT_MEM[".claude/agent-memory/"]
     end
 
-    subgraph STORAGE_CYRYX["Storage AEXOS (.aexos/)"]
+    subgraph STORAGE_AEXOS["Storage AEXOS (.aexos/)"]
         S_GOTCHAS[".aexos/gotchas.json + .md"]
         S_ERRORS[".aexos/error-tracking.json"]
         S_SNAPSHOTS[".aexos/snapshots/"]
@@ -108,7 +108,7 @@ flowchart TB
     style CLAUDE_NATIVE fill:#E3F2FD,stroke:#1565C0
     style AEXOS_FRAMEWORK fill:#FFF3E0,stroke:#E65100
     style STORAGE_CLAUDE fill:#E8F5E9,stroke:#2E7D32
-    style STORAGE_CYRYX fill:#FCE4EC,stroke:#C62828
+    style STORAGE_AEXOS fill:#FCE4EC,stroke:#C62828
 ```
 
 ### Relacionamento entre Scripts

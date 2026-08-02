@@ -4,7 +4,7 @@
  * Story 1.4: IDE Selection
  * Tests complete flow from selection to config generation
  *
- * AEXOS (Cyryx) v2.1 supports 6 IDEs:
+ * AEXOS v2.1 supports 6 IDEs:
  * - Claude Code, Codex CLI, Gemini CLI, Cursor, GitHub Copilot, AntiGravity
  */
 
@@ -54,7 +54,7 @@ describe('Wizard IDE Flow Integration', () => {
 
       // Verify content has AEXOS branding
       const content = await fs.readFile(configPath, 'utf8');
-      expect(content).toContain('AEXOS (Cyryx)');
+      expect(content).toContain('AEXOS');
       expect(content).toContain('Development Rules');
       expect(content).toContain('alwaysApply: true');
     });
@@ -174,13 +174,13 @@ describe('Wizard IDE Flow Integration', () => {
         path.join(testDir, '.cursor', 'rules', 'aexos-global.mdc'),
         'utf8',
       );
-      expect(cursorContent).toContain('AEXOS (Cyryx)');
+      expect(cursorContent).toContain('AEXOS');
       expect(cursorContent).toContain('Story-Driven Development');
       expect(cursorContent).toContain('alwaysApply: true');
 
       // Check Gemini content
       const geminiContent = await fs.readFile(path.join(testDir, '.gemini', 'rules.md'), 'utf8');
-      expect(geminiContent).toContain('AEXOS (Cyryx)');
+      expect(geminiContent).toContain('AEXOS');
     });
 
     it('should generate Claude Code config as recommended', async () => {
@@ -200,7 +200,7 @@ describe('Wizard IDE Flow Integration', () => {
       expect(await fs.pathExists(claudePath)).toBe(true);
 
       const content = await fs.readFile(claudePath, 'utf8');
-      expect(content).toContain('AEXOS (Cyryx)');
+      expect(content).toContain('AEXOS');
     });
 
     it('should generate Gemini settings and hooks for lifecycle integration', async () => {
@@ -296,7 +296,7 @@ describe('Wizard IDE Flow Integration', () => {
       const content = await fs.readFile(configPath, 'utf8');
 
       // Template should be generated with AEXOS content
-      expect(content).toContain('AEXOS (Cyryx)');
+      expect(content).toContain('AEXOS');
       expect(content).toContain('Development Rules');
       expect(content).toContain('Story-Driven Development');
       expect(content).toContain('alwaysApply: true');
@@ -316,7 +316,7 @@ describe('Wizard IDE Flow Integration', () => {
       const content = await fs.readFile(configPath, 'utf8');
 
       // Template should be generated without errors
-      expect(content).toContain('AEXOS (Cyryx)');
+      expect(content).toContain('AEXOS');
       expect(content).toContain('Development Rules');
     });
   });

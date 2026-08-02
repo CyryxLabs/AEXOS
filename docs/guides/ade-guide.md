@@ -443,4 +443,4 @@ cat docs/stories/STORY-42/spec-critique.json
 
 ---
 
-_CYRYX Autonomous Development Engine - Turning Ideas into Code Autonomously_
+_AEXOS Autonomous Development Engine - Turning Ideas into Code Autonomously_

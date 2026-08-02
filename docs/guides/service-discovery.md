@@ -513,4 +513,4 @@ await registry.load(true);
 
 ---
 
-_AEXOS (Cyryx) v4 Service Discovery Guide_
+_AEXOS v4 Service Discovery Guide_

@@ -310,7 +310,7 @@ project_types:
       - directory: .claude/commands/AEXOS/
         description: "AEXOS agent commands for Claude"
       - file: .claude/settings.json
-        contains: "CYRYX"
+        contains: "synapse-wrapper.cjs"
     recommended_claude_md_template: null
     note: "AEXOS projects already have CLAUDE.md managed by the framework"
     recommended_rules:

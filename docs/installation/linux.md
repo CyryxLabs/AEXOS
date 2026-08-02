@@ -1,4 +1,4 @@
-# Linux Installation Guide for AEXOS (Cyryx)
+# Linux Installation Guide for AEXOS
 
 ---
 
@@ -338,7 +338,7 @@ export EDITOR=vim  # or code, nano, etc.
 
 ### XDG Base Directory Compliance
 
-AEXOS (Cyryx) respects XDG directories:
+AEXOS respects XDG directories:
 
 ```bash
 # Data files: ~/.local/share/cyryx/

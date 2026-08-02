@@ -1,4 +1,4 @@
-# AEXOS (Cyryx) Troubleshooting Guide
+# AEXOS Troubleshooting Guide
 
 **Version:** 2.1.0
 **Last Updated:** 2025-01-24
@@ -71,7 +71,7 @@ npm --version
 
 Current directory: /Users/username
 
-AEXOS (Cyryx) should be installed in your project directory,
+AEXOS should be installed in your project directory,
 not in your home directory or temporary locations.
 ```
 
@@ -119,7 +119,7 @@ npx github:CyryxLabs/AEXOS install
 **Symptoms:**
 
 ```
-Error: AEXOS (Cyryx) requires Node.js 18.0.0 or higher
+Error: AEXOS requires Node.js 18.0.0 or higher
 Current version: 14.17.0
 ```
 

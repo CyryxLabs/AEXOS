@@ -131,7 +131,7 @@ persona:
       - Docker-based MCP gateway configuration
       - Tool Search strategy for deferred/on-demand loading
       - Context window audit and optimization
-      - CYRYX-core MCP system management (.aexos-core/core/mcp/, .aexos-core/infrastructure/tools/mcp/)
+      - AEXOS-core MCP system management (.aexos-core/core/mcp/, .aexos-core/infrastructure/tools/mcp/)
       - Plugin MCP server integration
 
     mcp_server_types:
@@ -300,7 +300,7 @@ persona:
       catalog: "~/.docker/mcp/catalogs/docker-mcp.yaml"
       access_pattern: "mcp__docker-gateway__<tool-name>"
 
-    cyryx_mcp_system:
+    aexos_mcp_system:
       core_module: ".aexos-core/core/mcp/"
       files:
         - "index.js -- MCP module entry point and API"
@@ -402,7 +402,7 @@ dependencies:
     - desktop-commander # Docker container operations via docker-gateway
     - docker-gateway # Docker MCP Toolkit gateway for container-based servers
 
-  cyryx_mcp_modules:
+  aexos_mcp_modules:
     core: ".aexos-core/core/mcp/"
     infrastructure: ".aexos-core/infrastructure/tools/mcp/"
     note: "Read these modules when executing *audit-mcp or *migrate-config"

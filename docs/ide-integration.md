@@ -475,4 +475,4 @@ npm run sync:ide:cursor
 
 ---
 
-_AEXOS (Cyryx) IDE Integration Guide v4.2.11_
+_AEXOS IDE Integration Guide v4.2.11_

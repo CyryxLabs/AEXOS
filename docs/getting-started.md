@@ -1,4 +1,4 @@
-# Getting Started with AEXOS (Cyryx)
+# Getting Started with AEXOS
 
 ---
 
@@ -311,4 +311,4 @@ npm run validate:parity
 
 ---
 
-_AEXOS (Cyryx) Getting Started Guide_
+_AEXOS Getting Started Guide_

@@ -52,4 +52,4 @@ We welcome contributions! Check out our:
 
 ---
 
-**Tagline:** _CYRYX: AI-Orchestrated System for Full Stack Development_ 🚀
+**Tagline:** _AEXOS: AI-Orchestrated System for Full Stack Development_ 🚀

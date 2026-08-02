@@ -496,7 +496,7 @@ dependencies:
         - Party Mode: Multi-agent collaboration in single session
         - Project-Context.md: Persistent context file for technology stack, conventions, patterns
 
-      cyryx_mapping: |
+      aexos_mapping: |
         AEXOS tasks (.aexos-core/development/tasks/) map to Claude Code skills (.claude/skills/)
         AEXOS agents (.claude/commands/AEXOS/agents/) map to Claude Code subagents (.claude/agents/)
         AEXOS workflows map to Claude Code command sequences

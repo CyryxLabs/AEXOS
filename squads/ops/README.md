@@ -204,5 +204,5 @@ node -e "const {SquadValidator}=require('./.aexos-core/development/scripts/squad
 
 ---
 
-*Operations Squad v1.0.0 — AEXOS (Cyryx)*
+*Operations Squad v1.0.0 — AEXOS*
 *"Optimize the whole, not the part." The bottleneck sets the system's capacity; improving anywhere else is waste.*

@@ -2,7 +2,7 @@
 
 ---
 
-Complete API reference for AEXOS (Cyryx) - the AI-Orchestrated System for Full Stack Development.
+Complete API reference for AEXOS - the AI-Orchestrated System for Full Stack Development.
 
 **Version:** 2.1.0
 **Last Updated:** 2026-01-29
@@ -893,4 +893,4 @@ For parallel development:
 
 ---
 
-_AEXOS (Cyryx) API Reference v4.0.4_
+_AEXOS API Reference v4.0.4_

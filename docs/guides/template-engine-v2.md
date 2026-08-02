@@ -2,7 +2,7 @@
 
 ---
 
-> Document generation and variable substitution engine for AEXOS (Cyryx).
+> Document generation and variable substitution engine for AEXOS.
 
 **Version:** 2.0
 **Last Updated:** 2025-12-05
@@ -473,4 +473,4 @@ console.log('Validation result:', validation);
 
 ---
 
-_AEXOS (Cyryx) Template Engine v2.0_
+_AEXOS Template Engine v2.0_

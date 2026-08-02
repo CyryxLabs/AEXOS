@@ -4,7 +4,7 @@
 
 ## Overview
 
-AEXOS (Cyryx) can be installed via NPX for quick setup without global installation. This guide covers proper usage and troubleshooting for NPX-based installations.
+AEXOS can be installed via NPX for quick setup without global installation. This guide covers proper usage and troubleshooting for NPX-based installations.
 
 ## Quick Start
 
@@ -36,7 +36,7 @@ npx github:CyryxLabs/AEXOS install
 
 ## Why This Matters
 
-NPX executes packages in **temporary directories** (e.g., `/private/var/folders/.../npx-xxx/` on macOS). When AEXOS (Cyryx) runs from these temporary locations, it cannot:
+NPX executes packages in **temporary directories** (e.g., `/private/var/folders/.../npx-xxx/` on macOS). When AEXOS runs from these temporary locations, it cannot:
 
 - Detect your IDE configuration correctly
 - Install files to the right project directory
@@ -44,7 +44,7 @@ NPX executes packages in **temporary directories** (e.g., `/private/var/folders/
 
 ## NPX Temporary Directory Detection
 
-As of version 4.31.1, AEXOS (Cyryx) automatically detects when it's running from an NPX temporary directory and displays a helpful error message:
+As of version 4.31.1, AEXOS automatically detects when it's running from an NPX temporary directory and displays a helpful error message:
 
 ```
 ⚠️  NPX Temporary Directory Detected
@@ -93,7 +93,7 @@ NPX temporary directories typically appear at:
 - `/private/var/folders/[hash]/T/npx-[random]/`
 - `/Users/[user]/.npm/_npx/[hash]/`
 
-AEXOS (Cyryx) detects these patterns and prevents incorrect installation.
+AEXOS detects these patterns and prevents incorrect installation.
 
 ### Linux
 
@@ -182,7 +182,7 @@ On **Windows**, prefer this path over pure `npx` when you hit `ECOMPROMISED` ([#
 
 ### Defense in Depth Architecture
 
-AEXOS (Cyryx) v4.31.1+ implements two-layer detection:
+AEXOS v4.31.1+ implements two-layer detection:
 
 1. **PRIMARY Layer** (`tools/aexos-npx-wrapper.js`):
    - Checks `__dirname` (where NPX extracts the package)

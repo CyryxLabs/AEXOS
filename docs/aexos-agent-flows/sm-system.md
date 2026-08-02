@@ -406,7 +406,7 @@ dependencies:
 
 **Solution:**
 1. Copy from `GITHUB aexos-core/core-config.yaml`
-2. Or run the AEXOS installer: `npm run cyryx:install`
+2. Or run the AEXOS installer: `npx github:CyryxLabs/AEXOS install`
 3. Configure `devStoryLocation`, `prdSharded`, etc.
 
 ### Checklist returns FAIL in multiple categories

@@ -531,7 +531,7 @@ agent:
 
 ### Standards and Documentation
 
-- [AEXOS Framework Master](.aexos-core/docs/standards/CYRYX-FRAMEWORK-MASTER.md)
+- [AEXOS Framework Master](.aexos-core/docs/standards/AEXOS-LIVRO-DE-OURO-V2.1-COMPLETE.md)
 - [AEXOS Golden Book](.aexos-core/docs/standards/AEXOS-LIVRO-DE-OURO.md)
 - [Agent Personalization Standard](.aexos-core/docs/standards/AGENT-PERSONALIZATION-STANDARD-V1.md)
 

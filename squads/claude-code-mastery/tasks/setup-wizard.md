@@ -116,7 +116,7 @@ Analyze the project to determine its type:
 | library | main/module in package.json | askAlways |
 | cli | bin/ field in package.json | askAlways |
 | python | pyproject.toml, src/ | acceptEdits |
-| cyryx | .aexos-core/ directory | acceptEdits |
+| aexos-project | .aexos-core/ directory | acceptEdits |
 
 ### Phase 2: Generate CLAUDE.md
 

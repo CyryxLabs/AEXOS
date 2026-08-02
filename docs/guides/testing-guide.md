@@ -1,8 +1,8 @@
-# AEXOS (Cyryx) Testing Guide
+# AEXOS Testing Guide
 
 ---
 
-> Comprehensive guide to the testing strategy, tools, and best practices for AEXOS (Cyryx).
+> Comprehensive guide to the testing strategy, tools, and best practices for AEXOS.
 
 **Version:** 2.1.0
 **Last Updated:** 2026-01-29
@@ -1210,4 +1210,4 @@ module.exports = {
 
 ---
 
-_AEXOS (Cyryx) v4 Testing Guide_
+_AEXOS v4 Testing Guide_

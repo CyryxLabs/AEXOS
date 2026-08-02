@@ -205,5 +205,5 @@ are not live and are not referenced by any task or workflow.
 
 ---
 
-*Products Squad v1.0.0 — AEXOS (Cyryx)*
+*Products Squad v1.0.0 — AEXOS*
 *Philosophy: "Evidence before conviction."*
