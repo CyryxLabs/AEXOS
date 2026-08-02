@@ -60,15 +60,25 @@ tar -czf aexos-backup-$(date +%Y%m%d).tar.gz \
 The fastest way to uninstall AEXOS:
 
 ```bash
-# Basic uninstall (preserves user data)
+# Basic uninstall (interactive, removes the AEXOS footprint)
 npx github:CyryxLabs/AEXOS uninstall
 
-# Complete uninstall (removes everything)
-npx github:CyryxLabs/AEXOS uninstall --complete
+# Preview what would be removed, change nothing
+npx github:CyryxLabs/AEXOS uninstall --dry-run
 
-# Uninstall with data preservation
+# Keep .aexos/ (project settings and agent history)
 npx github:CyryxLabs/AEXOS uninstall --keep-data
+
+# Also remove installs from earlier generations (AIOX, and CYRYX when it was
+# the product name) — this is what clears leftover .cyryx-core/ directories
+# and the stale slash commands your editor still offers
+npx github:CyryxLabs/AEXOS uninstall --legacy
 ```
+
+Run `npx github:CyryxLabs/AEXOS uninstall --help` for the authoritative flag
+list. The removal set itself is defined in one place —
+`packages/installer/src/installer/install-footprint.js` — so the uninstaller
+removes exactly what the installer wrote.
 
 ### Interactive Uninstall
 
@@ -118,9 +128,13 @@ This will prompt you for:
 ### Step 3: Run Uninstaller
 
 ```bash
-# Complete removal
-npx github:CyryxLabs/AEXOS uninstall --complete --no-backup
+# Complete removal, no confirmation prompt, including earlier frameworks
+npx github:CyryxLabs/AEXOS uninstall --force --legacy
 ```
+
+> The uninstaller has no `--complete` or `--no-backup` flag. Omitting
+> `--keep-data` is what makes the removal complete; `--force` is what skips the
+> prompt. See `uninstall --help`.
 
 ### Step 4: Remove Global Installation
 
@@ -337,7 +351,8 @@ $newPath = ($path.Split(';') | Where-Object { $_ -notmatch 'aexos-core' }) -join
 Remove-ItemProperty -Path "HKCU:\Environment" -Name "AEXOS_*" -ErrorAction SilentlyContinue
 
 # Remove file associations
-Remove-Item -Path "HKCU:\Software\Classes\.cyryx" -Recurse -ErrorAction SilentlyContinue
+Remove-Item -Path "HKCU:\Software\Classes\.aexos" -Recurse -ErrorAction SilentlyContinue
+Remove-Item -Path "HKCU:\Software\Classes\.cyryx" -Recurse -ErrorAction SilentlyContinue   # old product name
 
 Write-Host "Registry cleanup complete!"
 ```
@@ -374,18 +389,18 @@ taskkill /F /IM aexos-core.exe
 ```bash
 # Find processes using files
 # Linux/macOS
-lsof | grep cyryx
+lsof | grep -E "aexos|cyryx"   # cyryx: leftovers from the old product name
 
 # Windows (PowerShell)
-Get-Process | Where-Object {$_.Path -like "*cyryx*"}
+Get-Process | Where-Object {$_.Path -like "*aexos*" -or $_.Path -like "*cyryx*"}
 ```
 
 #### 4. Incomplete Removal
 
 ```bash
 # Manual cleanup
-find . -name "*cyryx*" -type d -exec rm -rf {} +
-find . -name "*.cyryx*" -type f -delete
+find . -name "*aexos*" -o -name "*cyryx*" -type d -exec rm -rf {} +
+find . -name "*.aexos*" -o -name "*.cyryx*" -type f -delete
 ```
 
 ### Force Uninstall
@@ -398,13 +413,15 @@ If normal uninstall fails:
 echo "Force uninstalling AEXOS..."
 
 # Kill all related processes
-pkill -9 -f cyryx || true
+pkill -9 -f aexos || true
+pkill -9 -f cyryx || true   # old product name
 
 # Remove all files
-rm -rf .cyryx* cyryx* *cyryx*
+rm -rf .aexos* aexos* .cyryx* cyryx*
 rm -rf agents workflows tasks templates
 rm -rf node_modules/aexos-core
-rm -rf ~/.cyryx* ~/.config/cyryx* ~/.cache/cyryx*
+rm -rf ~/.aexos* ~/.config/aexos* ~/.cache/aexos*
+rm -rf ~/.cyryx* ~/.config/cyryx* ~/.cache/cyryx*   # old product name
 
 # Clean npm
 npm cache clean --force
@@ -419,15 +436,15 @@ echo "Force uninstall complete!"
 
 ```bash
 # Check for remaining files
-find . -name "*cyryx*" 2>/dev/null
-find ~ -name "*cyryx*" 2>/dev/null
+find . -name "*aexos*" -o -name "*cyryx*" 2>/dev/null
+find ~ -name "*aexos*" -o -name "*cyryx*" 2>/dev/null
 
 # Check npm packages
-npm list -g | grep cyryx
-npm list | grep cyryx
+npm list -g | grep -E "aexos|cyryx"
+npm list | grep -E "aexos|cyryx"
 
 # Check running processes
-ps aux | grep cyryx
+ps aux | grep -E "aexos|cyryx"
 ```
 
 ### 2. Clean Environment Variables
@@ -448,6 +465,7 @@ find . -name ".env*" -exec sed -i '/AEXOS_/d' {} \;
 {
   "scripts": {
     // Remove these entries
+    "aexos": "aexos-core",
     "cyryx": "aexos-core",
     "meta-agent": "aexos-core meta-agent"
   }
@@ -458,7 +476,7 @@ find . -name ".env*" -exec sed -i '/AEXOS_/d' {} \;
 
 ```bash
 # Remove AEXOS-specific git hooks
-rm -f .git/hooks/*cyryx*
+rm -f .git/hooks/*aexos* .git/hooks/*cyryx*
 
 # Update .gitignore
 sed -i '/.aexos/d' .gitignore
