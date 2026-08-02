@@ -2,7 +2,7 @@
 # Source: squads/*/{squad,config}.yaml via scripts/generate-squad-registry.js
 registry:
   version: 1.0.0
-  generated_at: '2026-07-31T03:40:57.039Z'
+  generated_at: '2026-08-02T21:49:31.690Z'
   generator: scripts/generate-squad-registry.js
   note: >-
     Generated from squads/*/{squad,config}.yaml. Do not hand-edit — create a squad and regenerate.
@@ -130,7 +130,7 @@ squads:
     description: |-
       Squad especialista em todas as dimensões do Claude Code: hooks, skills,
       subagents, MCP, plugins, agent teams, customização, integração com projetos,
-      roadmap tracking, e CYRYX-core architecture awareness.
+      roadmap tracking, e AEXOS-core architecture awareness.
     keywords:
       - claude-code
       - hooks
@@ -143,7 +143,7 @@ squads:
       - integration
       - context-engineering
       - roadmap
-      - cyryx
+      - aexos
     entry_agent: claude-mastery-chief
     agent_count: 8
     agents:

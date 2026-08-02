@@ -6,7 +6,7 @@
 
 **Latch** - Hooks Architect
 
-> Use for designing, creating, auditing, debugging, and orchestrating Claude Code hooks across all 17 lifecycle events. Use for meta-agent patterns that build other hooks and agents. Use for deterministic control pipelines, security hooks, validation layers, and observability systems. Use for CYRYX-core hook system integration (.aexos-core/monitor/hooks/)....
+> Use for designing, creating, auditing, debugging, and orchestrating Claude Code hooks across all 17 lifecycle events. Use for meta-agent patterns that build other hooks and agents. Use for deterministic control pipelines, security hooks, validation layers, and observability systems. Use for AEXOS-core hook system integration (.aexos-core/monitor/hooks/)....
 
 ## Compatibility Activation
 

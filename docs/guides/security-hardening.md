@@ -2,7 +2,7 @@
 
 ---
 
-> Complete guide to hardening security for AEXOS (Cyryx) deployments - from development to production.
+> Complete guide to hardening security for AEXOS deployments - from development to production.
 
 **Version:** 2.1.0
 **Last Updated:** 2026-01-29
@@ -27,7 +27,7 @@
 
 ## Security Overview
 
-AEXOS (Cyryx) operates at a privileged layer between AI models and your system. This guide covers hardening strategies specific to AI-orchestrated development environments.
+AEXOS operates at a privileged layer between AI models and your system. This guide covers hardening strategies specific to AI-orchestrated development environments.
 
 ### Security Architecture
 
@@ -1281,7 +1281,7 @@ function validateProductionSecurity() {
 
 ### Responsible Disclosure Policy
 
-If you discover a security vulnerability in AEXOS (Cyryx), please follow responsible disclosure practices:
+If you discover a security vulnerability in AEXOS, please follow responsible disclosure practices:
 
 ### Reporting Process
 
@@ -1341,7 +1341,7 @@ Contributors who responsibly disclose vulnerabilities are recognized in our Secu
 
 ### Bug Bounty Program
 
-Currently, AEXOS (Cyryx) does not have a formal bug bounty program. However, significant security contributions are recognized and may receive AEXOS Pro licenses or other recognition.
+Currently, AEXOS does not have a formal bug bounty program. However, significant security contributions are recognized and may receive AEXOS Pro licenses or other recognition.
 
 ---
 
@@ -1354,4 +1354,4 @@ Currently, AEXOS (Cyryx) does not have a formal bug bounty program. However, sig
 
 ---
 
-_AEXOS (Cyryx) Security Hardening Guide v4.0.4_
+_AEXOS Security Hardening Guide v4.0.4_

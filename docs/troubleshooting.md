@@ -1,8 +1,8 @@
-# AEXOS (Cyryx) Troubleshooting Guide
+# AEXOS Troubleshooting Guide
 
 ---
 
-This comprehensive guide helps you diagnose and resolve common issues with AEXOS (Cyryx).
+This comprehensive guide helps you diagnose and resolve common issues with AEXOS.
 
 ## Table of Contents
 

@@ -2,7 +2,7 @@
 
 ---
 
-Complete reference guide for all AEXOS (Cyryx) meta-agent commands.
+Complete reference guide for all AEXOS meta-agent commands.
 
 ## Table of Contents
 
@@ -707,7 +707,7 @@ Examples:
 
 ### *update
 
-Update AEXOS (Cyryx).
+Update AEXOS.
 
 ```bash
 *update [options]

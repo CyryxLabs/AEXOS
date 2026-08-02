@@ -210,5 +210,5 @@ node -e "const {SquadValidator}=require('./.aexos-core/development/scripts/squad
 
 ---
 
-*Customer Success Squad v1.0.0 — AEXOS (Cyryx)*
+*Customer Success Squad v1.0.0 — AEXOS*
 *"Realized value is the unit of account."*

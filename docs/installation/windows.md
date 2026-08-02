@@ -1,4 +1,4 @@
-# Windows Installation Guide for AEXOS (Cyryx)
+# Windows Installation Guide for AEXOS
 
 ---
 

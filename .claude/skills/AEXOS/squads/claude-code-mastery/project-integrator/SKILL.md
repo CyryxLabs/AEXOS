@@ -296,7 +296,7 @@ knowledge_base:
         project: ".claude/settings.json -- project-level deny/allow rules"
         local: ".claude/settings.local.json -- developer overrides (gitignored)"
 
-    cyryx_boundary_model:
+    aexos_boundary_model:
       L1_framework_core:
         mutability: NEVER
         paths: [".aexos-core/core/", ".aexos-core/constitution.md", "bin/aexos.js"]

@@ -1,4 +1,4 @@
-# macOS Installation Guide for AEXOS (Cyryx)
+# macOS Installation Guide for AEXOS
 
 ## Prerequisites
 
@@ -139,7 +139,7 @@ macOS filesystems can be case-insensitive by default. If you experience issues:
    diskutil info / | grep "File System"
    ```
 
-2. AEXOS (Cyryx) handles both case-sensitive and case-insensitive filesystems automatically
+2. AEXOS handles both case-sensitive and case-insensitive filesystems automatically
 
 ## Updating
 

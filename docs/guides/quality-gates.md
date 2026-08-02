@@ -10,7 +10,7 @@
 
 ---
 
-> Comprehensive guide to the 3-layer quality gate system for AEXOS (Cyryx).
+> Comprehensive guide to the 3-layer quality gate system for AEXOS.
 
 **Version:** 2.1.0
 **Last Updated:** 2025-12-01
@@ -611,4 +611,4 @@ verbose:
 
 ---
 
-_AEXOS (Cyryx) v4 Quality Gate System Guide_
+_AEXOS v4 Quality Gate System Guide_

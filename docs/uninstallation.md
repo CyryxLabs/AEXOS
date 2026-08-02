@@ -2,7 +2,7 @@
 
 ---
 
-This guide provides comprehensive instructions for uninstalling AEXOS (Cyryx) from your system.
+This guide provides comprehensive instructions for uninstalling AEXOS from your system.
 
 ## Table of Contents
 
@@ -20,7 +20,7 @@ This guide provides comprehensive instructions for uninstalling AEXOS (Cyryx) fr
 
 ### Important Considerations
 
-⚠️ **Warning**: Uninstalling AEXOS (Cyryx) will:
+⚠️ **Warning**: Uninstalling AEXOS will:
 
 - Remove all framework files
 - Delete agent configurations (unless preserved)
@@ -57,7 +57,7 @@ tar -czf aexos-backup-$(date +%Y%m%d).tar.gz \
 
 ### Using Built-in Uninstaller
 
-The fastest way to uninstall AEXOS (Cyryx):
+The fastest way to uninstall AEXOS:
 
 ```bash
 # Basic uninstall (preserves user data)
@@ -144,7 +144,7 @@ Remove-Item -Recurse -Force "$env:APPDATA\aexos-core"
 Remove-Item -Recurse -Force "$env:TEMP\aexos-*"
 
 # Remove registry entries (if any)
-Remove-Item -Path "HKCU:\Software\AEXOS (Cyryx)" -Recurse
+Remove-Item -Path "HKCU:\Software\AEXOS" -Recurse
 ```
 
 #### macOS/Linux
@@ -274,11 +274,11 @@ Create `clean-uninstall.sh`:
 
 ```bash
 #!/bin/bash
-echo "AEXOS (Cyryx) Complete Uninstall"
+echo "AEXOS Complete Uninstall"
 echo "================================="
 
 # Confirmation
-read -p "This will remove ALL AEXOS (Cyryx) data. Continue? (y/N) " -n 1 -r
+read -p "This will remove ALL AEXOS data. Continue? (y/N) " -n 1 -r
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
@@ -326,7 +326,7 @@ echo "Uninstall complete!"
 
 ```powershell
 # PowerShell script for Windows cleanup
-Write-Host "Cleaning AEXOS (Cyryx) from Windows Registry..."
+Write-Host "Cleaning AEXOS from Windows Registry..."
 
 # Remove from PATH
 $path = [Environment]::GetEnvironmentVariable("PATH", "User")
@@ -395,7 +395,7 @@ If normal uninstall fails:
 ```bash
 #!/bin/bash
 # force-uninstall.sh
-echo "Force uninstalling AEXOS (Cyryx)..."
+echo "Force uninstalling AEXOS..."
 
 # Kill all related processes
 pkill -9 -f cyryx || true
@@ -466,14 +466,14 @@ sed -i '/aexos-/d' .gitignore
 
 # Commit removal
 git add -A
-git commit -m "Remove AEXOS (Cyryx)"
+git commit -m "Remove AEXOS"
 ```
 
 ## Reinstallation
 
 ### After Complete Uninstall
 
-If you want to reinstall AEXOS (Cyryx):
+If you want to reinstall AEXOS:
 
 1. **Wait for cleanup**
 

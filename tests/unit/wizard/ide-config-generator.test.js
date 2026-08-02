@@ -262,8 +262,8 @@ describe('IDE Config Generator', () => {
       const content = await fs.readFile(configPath, 'utf8');
 
       // v2.1 templates use static content from .aexos-core/templates/ide-rules/
-      // They contain AEXOS (Cyryx) standard rules
-      expect(content).toContain('AEXOS (Cyryx)');
+      // They contain AEXOS standard rules
+      expect(content).toContain('AEXOS');
       expect(content).toContain('Development Rules');
       expect(content).toContain('alwaysApply: true');
     });
@@ -283,7 +283,7 @@ describe('IDE Config Generator', () => {
 
       const content = await fs.readFile(configPath, 'utf8');
       // Should contain AEXOS rules content
-      expect(content).toContain('AEXOS (Cyryx)');
+      expect(content).toContain('AEXOS');
     });
 
     it('should create text config files successfully', async () => {

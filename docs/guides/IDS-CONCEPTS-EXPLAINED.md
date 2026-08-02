@@ -686,22 +686,22 @@ Result:
 
 ```bash
 # Query the registry
-cyryx ids:query "automatic deploy"
+aexos ids:query "automatic deploy"
 
 # View statistics
-cyryx ids:stats
+aexos ids:stats
 
 # Check health
-cyryx ids:health
+aexos ids:health
 
 # Fix simple problems
-cyryx ids:health --fix
+aexos ids:health --fix
 
 # Back up the registry
-cyryx ids:backup
+aexos ids:backup
 
 # Force a full sync
-cyryx ids:sync
+aexos ids:sync
 ```
 
 ---

@@ -1,8 +1,8 @@
-# AEXOS (Cyryx) Security Best Practices
+# AEXOS Security Best Practices
 
 ---
 
-This guide provides comprehensive security recommendations for deploying and maintaining AEXOS (Cyryx) in production environments.
+This guide provides comprehensive security recommendations for deploying and maintaining AEXOS in production environments.
 
 ## Table of Contents
 
@@ -19,7 +19,7 @@ This guide provides comprehensive security recommendations for deploying and mai
 
 ## Security Architecture Overview
 
-AEXOS (Cyryx) implements a multi-layered security approach:
+AEXOS implements a multi-layered security approach:
 
 ```
 ┌─────────────────────────────────────────┐

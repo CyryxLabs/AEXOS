@@ -1,4 +1,4 @@
-# AEXOS (Cyryx) Installation Documentation
+# AEXOS Installation Documentation
 
 **Version:** 2.1.0
 **Last Updated:** 2025-01-24
@@ -7,7 +7,7 @@
 
 ## Overview
 
-This directory contains comprehensive installation and setup documentation for AEXOS (Cyryx).
+This directory contains comprehensive installation and setup documentation for AEXOS.
 
 ---
 

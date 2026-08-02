@@ -311,7 +311,7 @@ docs/
 │   └── README.md                      # Migration notice
 │
 ├── stories/                           # Development stories
-│   ├── cyryx migration/                # AEXOS migration stories
+│   ├── aexos-migration/               # AEXOS migration stories
 │   │   ├── story-6.1.2.1.md
 │   │   ├── story-6.1.2.2.md
 │   │   ├── story-6.1.2.3.md
@@ -597,7 +597,7 @@ mmos/
 Directories: kebab-case (lowercase, hyphen-separated)
   ✅ .aexos-core/
   ✅ Squads/
-  ❌ .CYRYX-Core/
+  ❌ .AEXOS-Core/
   ❌ legacy-packs/
 
 Files (Code): kebab-case with extension

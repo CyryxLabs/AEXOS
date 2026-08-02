@@ -364,4 +364,4 @@ The auto-refresh pauses when:
 
 ---
 
-_AEXOS (Cyryx) Quality Dashboard v1.0_
+_AEXOS Quality Dashboard v1.0_

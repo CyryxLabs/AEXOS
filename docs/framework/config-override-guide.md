@@ -87,7 +87,7 @@ This appends `my-custom-helper` to the L1 default helpers array.
 
 | Key | Type | Default | Override Level | Description |
 |-----|------|---------|---------------|-------------|
-| `metadata.name` | string | `"AEXOS (Cyryx)"` | Never | Framework name |
+| `metadata.name` | string | `"AEXOS"` | Never | Framework name |
 | `metadata.framework_version` | string | matches root `package.json` `version` | Never | Framework version — single source of truth is `package.json`; enforced by `tests/version-identity.test.js` |
 | `markdownExploder` | boolean | `true` | L2+ | Enable markdown exploder |
 | `resource_locations.agents_dir` | string | `.aexos-core/development/agents` | L2+ | Agent definitions path |

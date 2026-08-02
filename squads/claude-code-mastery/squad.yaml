@@ -9,7 +9,7 @@ version: 1.0.0
 short-title: Claude Code Mastery Squad
 description: >-
   Squad especialista em todas as dimensões do Claude Code: hooks, skills, subagents, MCP, plugins,
-  agent teams, customização, integração com projetos, roadmap tracking, e CYRYX-core architecture
+  agent teams, customização, integração com projetos, roadmap tracking, e AEXOS-core architecture
   awareness.
 author: Cyryx Labs LLC
 license: UNLICENSED
@@ -26,7 +26,7 @@ tags:
   - integration
   - context-engineering
   - roadmap
-  - cyryx
+  - aexos
 cyryx:
   minVersion: 2.1.0
   type: squad
@@ -103,7 +103,7 @@ squad:
   description: |
     Squad especialista em todas as dimensões do Claude Code: hooks, skills,
     subagents, MCP, plugins, agent teams, customização, integração com projetos,
-    roadmap tracking, e CYRYX-core architecture awareness.
+    roadmap tracking, e AEXOS-core architecture awareness.
   philosophy: |
     "Master the tool to master the craft."
     Cada agent é baseado em elite minds reais com frameworks documentados
@@ -121,7 +121,7 @@ squad:
     - integration
     - context-engineering
     - roadmap
-    - cyryx
+    - aexos
   entry_agent: claude-mastery-chief
   created_by: squad-creator-pro
   created_at: '2026-03-01'
@@ -153,7 +153,7 @@ agents:
     tier: 0
     based_on: Original (Orchestrator)
     icon: 🧠
-    focus: Triage, routing, CYRYX-core awareness
+    focus: Triage, routing, AEXOS-core awareness
   hooks-architect:
     persona: Latch
     file: agents/hooks-architect.md
@@ -195,7 +195,7 @@ agents:
     tier: 2
     based_on: Daniel Miessler (PAI)
     icon: 🛠️
-    focus: Project integration, repository setup, CYRYX-core awareness, Unix philosophy
+    focus: Project integration, repository setup, AEXOS-core awareness, Unix philosophy
   roadmap-sentinel:
     persona: Vigil
     file: agents/roadmap-sentinel.md
@@ -258,8 +258,8 @@ handoffs:
     escalates_to:
       - claude-mastery-chief
 cross_cutting:
-  cyryx_awareness:
-    description: ALL agents understand CYRYX-core architecture
+  aexos_awareness:
+    description: ALL agents understand AEXOS-core architecture
     context_files:
       - .claude/CLAUDE.md
       - .aexos-core/core-config.yaml
@@ -280,7 +280,7 @@ settings:
   greeting:
     level: archetypal
     show_project_status: true
-    show_cyryx_context: true
+    show_aexos_context: true
   activation:
     prefix: claude-code-mastery
     example: '@claude-code-mastery:hooks-architect'

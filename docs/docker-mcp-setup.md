@@ -431,4 +431,4 @@ Only use docker-gateway when:
 
 ---
 
-_AEXOS (Cyryx) Docker MCP Setup Guide v4.2.11_
+_AEXOS Docker MCP Setup Guide v4.2.11_

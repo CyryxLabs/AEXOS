@@ -966,7 +966,7 @@ flowchart TB
 ### 10.3 Related Documentation
 
 - [Workflows YAML Guide](../workflows-yaml-guide.md)
-- [AEXOS Documentation Index](../CYRYX-DOCUMENTATION-INDEX.md)
+- [AEXOS Documentation Index](../README.md)
 - [Backlog Management System](../BACKLOG-MANAGEMENT-SYSTEM.md)
 
 ### 10.4 Quick Commands

@@ -284,7 +284,7 @@ Verified current access:
 Example command pattern:
 
 ```bash
-npm deprecate '@aexos-fullstack/core@4.31.0' 'Cyryx Labs v4.x was consolidated into AEXOS. Migrate to @aexos/core. See docs/MIGRATION-CYRYX-SQUADS.md'
+npm deprecate '@aexos-fullstack/core@4.31.0' 'Cyryx Labs v4.x was consolidated into AEXOS. Migrate to @aexos/core. See docs/PUBLISHING.md#canonical-package-map'
 ```
 
 ### Unscoped `aexos-core`
@@ -299,7 +299,7 @@ pedrovaleriolopez
 Example command pattern:
 
 ```bash
-npm deprecate 'aexos-core' 'Renamed to @aexos/core. Run: npm install @aexos/core. See docs/MIGRATION-CYRYX-SQUADS.md'
+npm deprecate 'aexos-core' 'Renamed to @aexos/core. Run: npm install @aexos/core. See docs/PUBLISHING.md#canonical-package-map'
 ```
 
 ## Rollback

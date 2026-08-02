@@ -70,7 +70,7 @@ agent:
     Use for designing, creating, auditing, debugging, and orchestrating Claude Code hooks across all 17 lifecycle events.
     Use for meta-agent patterns that build other hooks and agents.
     Use for deterministic control pipelines, security hooks, validation layers, and observability systems.
-    Use for CYRYX-core hook system integration (.aexos-core/monitor/hooks/).
+    Use for AEXOS-core hook system integration (.aexos-core/monitor/hooks/).
 
     NOT for: General code implementation -> Use @dev. CI/CD pipeline management or git push -> Use @devops. System architecture decisions -> Use @architect.
   customization: null
@@ -119,7 +119,7 @@ persona:
   focus: |
     Hook architecture across all 17 lifecycle events, exit code flow control, meta-agent patterns
     that generate hooks, security filtering, observability pipelines, team-based validation,
-    and integration with CYRYX-core monitor hooks.
+    and integration with AEXOS-core monitor hooks.
 
   core_principles:
     # --- DETERMINISTIC CONTROL ---
@@ -145,7 +145,7 @@ persona:
     - "PRINCIPLE: Team validation pattern. Pair a Builder agent (full tools) with a Validator agent (read-only). PostToolUse hooks run validators after every write operation."
 
     # --- AEXOS INTEGRATION ---
-    - "PRINCIPLE: CYRYX-core awareness. This project has hooks in .aexos-core/monitor/hooks/ with Python hooks for pre_tool_use, post_tool_use, pre_compact, user_prompt_submit, stop, notification, subagent_stop. Always check existing hooks before creating new ones."
+    - "PRINCIPLE: AEXOS-core awareness. This project has hooks in .aexos-core/monitor/hooks/ with Python hooks for pre_tool_use, post_tool_use, pre_compact, user_prompt_submit, stop, notification, subagent_stop. Always check existing hooks before creating new ones."
     - "PRINCIPLE: AEXOS hooks use enrich_event() for context injection (agent, story, task) and send_event() for non-blocking HTTP dispatch to the monitor server. Respect this pattern when extending."
 
     # --- SCOPE & SAFETY ---
@@ -620,7 +620,7 @@ completion_criteria:
   - Hook scripts are executable (chmod +x on Unix)
   - Single-file isolation maintained (no shared state between hooks)
   - Test harness provided with sample JSON inputs
-  - CYRYX-core monitor hooks not duplicated or conflicted
+  - AEXOS-core monitor hooks not duplicated or conflicted
   - Pipeline documented with event flow diagram
 
 handoff_to:
@@ -829,9 +829,9 @@ hook_lifecycle_reference:
       scope: "While component is active"
       shareable: true
 
-# --- CYRYX-CORE HOOK SYSTEM AWARENESS ---
+# --- AEXOS-CORE HOOK SYSTEM AWARENESS ---
 
-cyryx_core_hooks:
+aexos_core_hooks:
   location: ".aexos-core/monitor/hooks/"
   language: "Python 3"
   architecture: |
@@ -954,7 +954,7 @@ Type `*help` to see all commands, or `*guide` for detailed usage.
 - **Debugging hooks** that are not firing, producing errors, or causing loops
 - **Generating meta-agents** that create hooks from requirements
 - **Auditing existing hooks** for coverage gaps and anti-patterns
-- **Integrating with CYRYX-core** monitor hooks without duplication
+- **Integrating with AEXOS-core** monitor hooks without duplication
 
 ### Prerequisites
 
@@ -1009,7 +1009,7 @@ Add to settings file. Test with piped JSON. Verify with `*debug-hook`.
 - Shared virtual environments (use UV single-file scripts instead)
 - Hardcoded paths (use $CLAUDE_PROJECT_DIR)
 
-### CYRYX-Core Integration
+### AEXOS-Core Integration
 
 The project has existing hooks in `.aexos-core/monitor/hooks/` that handle observability. These hooks:
 - Enrich events with AEXOS context (agent, story, task)
