@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-08-01T05:07:50.812Z'
+  lastUpdated: '2026-08-02T21:56:31.933Z'
   entityCount: 846
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -3253,8 +3253,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:9a05e696eac9c2ab62e6e6a75075f9e27c5cd6117d799045e8819346bb5f77e5
-      lastVerified: '2026-07-30T19:35:41.120Z'
+      checksum: sha256:dd1825682bfd41f6cda8ba0bf2b4cbc478e9707441c7c9b72b541cf11c7f7eca
+      lastVerified: '2026-08-01T23:24:38.497Z'
     plan-create-implementation:
       path: .aexos-core/development/tasks/plan-create-implementation.md
       layer: L2
@@ -3647,8 +3647,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:ddd61dd518d53c62e6c671932f5b4da7c4777df850ec31b876695571acce537b
-      lastVerified: '2026-07-30T19:35:41.134Z'
+      checksum: sha256:c974a274c85922fd296aa87226ced4c40007b1dfc8c66bfe2a84e45e45384a00
+      lastVerified: '2026-08-02T19:12:39.867Z'
     qa-after-creation:
       path: .aexos-core/development/tasks/qa-after-creation.md
       layer: L2
@@ -4211,8 +4211,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:df573b0c173041393ede1ed56cb7da1bebd74b5e7498d5d9e07fd03b3190c3b4
-      lastVerified: '2026-07-30T19:35:41.160Z'
+      checksum: sha256:d2bfcb45ead563b4371281fcb869d8d21f62e1714deedd9dbb3b7f5e419c58e1
+      lastVerified: '2026-08-02T19:12:39.868Z'
     remove-mcp:
       path: .aexos-core/development/tasks/remove-mcp.md
       layer: L2
@@ -5846,8 +5846,8 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:9b5aadaa3883672ad1cf5dc4e111a15ca53fc07fddb59799a479b245b9ae277f
-      lastVerified: '2026-07-30T19:35:41.221Z'
+      checksum: sha256:9d53f5bd18c58ba98d47e3a439f92f5029a5c9f14a4bb9591bc9c3bed73c9aef
+      lastVerified: '2026-08-01T23:19:48.872Z'
     agent-template:
       path: .aexos-core/product/templates/agent-template.yaml
       layer: L2
@@ -6792,12 +6792,11 @@ entities:
       path: .aexos-core/product/templates/ide-rules/antigravity-rules.md
       layer: L2
       type: template
-      purpose: AEXOS (Cyryx) Development Rules for AntiGravity
+      purpose: AEXOS Development Rules for AntiGravity
       keywords:
         - antigravity
         - rules
         - aexos
-        - (cyryx)
         - development
       usedBy: []
       dependencies:
@@ -6815,19 +6814,19 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:31a356d2f41144b1721043409fcb364b66adbd1deac4f9bd72df685987621ebe
-      lastVerified: '2026-07-30T19:35:41.248Z'
+      checksum: sha256:9258c41f859542bd3e5ff3f90bbc71bd3ef4fa78a2df9d1e216b3e9d2c8145f6
+      lastVerified: '2026-08-02T21:42:59.334Z'
     claude-rules:
       path: .aexos-core/product/templates/ide-rules/claude-rules.md
       layer: L2
       type: template
-      purpose: AEXOS (Cyryx) Development Rules for Claude Code
+      purpose: AEXOS Development Rules for Claude Code
       keywords:
         - claude
         - rules
         - aexos
-        - (cyryx)
         - development
+        - code
       usedBy: []
       dependencies:
         - dev
@@ -6848,19 +6847,18 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:6d1bc58128d7920f9a20d0a1e6fe65cafafa772eab983836a7acbc0432e98f7e
-      lastVerified: '2026-07-30T19:35:41.249Z'
+      checksum: sha256:341ecf405acc51f4d374131ff2144e7cd47ebf67ca933330503cd1401461ac7d
+      lastVerified: '2026-08-02T21:42:59.337Z'
     codex-rules:
       path: .aexos-core/product/templates/ide-rules/codex-rules.md
       layer: L2
       type: template
-      purpose: AGENTS.md - AEXOS (Cyryx) (Codex CLI)
+      purpose: AGENTS.md - AEXOS (Codex CLI)
       keywords:
         - codex
         - rules
         - agents.md
         - aexos
-        - (cyryx)
         - (codex
         - cli)
       usedBy: []
@@ -6883,18 +6881,17 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:51987a6b877af12a8f429d1fff09c6f30b731a92a01a70ca7d351940ec7c8a3b
-      lastVerified: '2026-07-30T19:35:41.249Z'
+      checksum: sha256:843f74574bc404e205d01895c02d39c6664081b499b18a069671fe1f8b221d15
+      lastVerified: '2026-08-02T21:42:59.338Z'
     copilot-rules:
       path: .aexos-core/product/templates/ide-rules/copilot-rules.md
       layer: L2
       type: template
-      purpose: AEXOS (Cyryx) Agent for GitHub Copilot
+      purpose: AEXOS Agent for GitHub Copilot
       keywords:
         - copilot
         - rules
         - aexos
-        - (cyryx)
         - agent
         - github
       usedBy: []
@@ -6906,18 +6903,17 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:e0a3bb2f30019f52fd9ebc9edc653ce84a9e125691d57a52464e6ff35149f292
-      lastVerified: '2026-07-30T19:35:41.250Z'
+      checksum: sha256:8d14e761c61240a54109ce0c0f892be8d122700d729d590969201a9adcbcb8bf
+      lastVerified: '2026-08-02T21:42:59.338Z'
     cursor-rules:
       path: .aexos-core/product/templates/ide-rules/cursor-rules.md
       layer: L2
       type: template
-      purpose: AEXOS (Cyryx) global rules loaded on every Cursor conversation
+      purpose: AEXOS global rules loaded on every Cursor conversation
       keywords:
         - cursor
         - rules
         - aexos
-        - (cyryx)
         - development
       usedBy: []
       dependencies:
@@ -6935,18 +6931,17 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:85fc38216a38de2d40becf437e4ca33e8e543da46eff06d0eeeabe6ef7fdfe3b
-      lastVerified: '2026-07-30T19:35:41.250Z'
+      checksum: sha256:87b41447c986a087cbe27848409aad051dd3a78400f1df126d317966ef1b27b0
+      lastVerified: '2026-08-02T21:42:59.339Z'
     gemini-rules:
       path: .aexos-core/product/templates/ide-rules/gemini-rules.md
       layer: L2
       type: template
-      purpose: Gemini Rules - AEXOS (Cyryx)
+      purpose: Gemini Rules - AEXOS
       keywords:
         - gemini
         - rules
         - aexos
-        - (cyryx)
       usedBy: []
       dependencies: []
       externalDeps: []
@@ -6956,8 +6951,8 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:2ab39157630c1bbb5ad28079172ca61f6f6ba5d340cdde67f8be64961676c52f
-      lastVerified: '2026-07-30T19:35:41.250Z'
+      checksum: sha256:f3053cb7c44abfe50a0dfcc38ae08b10bad436bd3d22d6c377a7f609fce4b31c
+      lastVerified: '2026-08-02T21:42:59.340Z'
   scripts:
     activation-runtime:
       path: .aexos-core/development/scripts/activation-runtime.js
@@ -7551,7 +7546,8 @@ entities:
         - greeting-builder
         - greeting-config-cli
         - unified-activation-pipeline
-      dependencies: []
+      dependencies:
+        - atomic-write
       externalDeps: []
       plannedDeps: []
       lifecycle: production
@@ -7559,8 +7555,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:1e5f51eb2d1cce3afbaeb0563b857f0f44bee3b88326cb169ec5c55f2d98fb3a
-      lastVerified: '2026-07-30T19:35:41.297Z'
+      checksum: sha256:b7cfe0a42f7fc2d10f32ab4db7abfb3e028c4e2194586b7b672a3cf90aa38b34
+      lastVerified: '2026-08-01T22:47:02.299Z'
     issue-triage:
       path: .aexos-core/development/scripts/issue-triage.js
       layer: L2
@@ -9855,8 +9851,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:1428dde89fc300d7ded13f337ffc65ea1722a6ec5745b5998d547e2b60b7d397
-      lastVerified: '2026-07-30T19:35:41.484Z'
+      checksum: sha256:df816eec6b57ba16a73ba0b80ded23651ead8782bb1756de31aea7de3ba5e3d3
+      lastVerified: '2026-08-02T19:12:39.862Z'
     manifest-generator:
       path: .aexos-core/core/manifest/manifest-generator.js
       layer: L1
@@ -10049,8 +10045,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:ef7296696272953736a726930d7e969ccc1528da8a64a5de415ffb37979e1d20
-      lastVerified: '2026-07-30T19:35:41.491Z'
+      checksum: sha256:92b8c8331a6a72e1a22f3b7e61d24a870ae69026bfd689e861ca9a2bdae1700b
+      lastVerified: '2026-08-01T22:47:02.354Z'
     bob-orchestrator:
       path: .aexos-core/core/orchestration/bob-orchestrator.js
       layer: L1
@@ -10389,8 +10385,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:2fe54c401ae60c0b5dc07f74c7a464992a0558b10c0b61f183c06943441d0d57
-      lastVerified: '2026-07-30T19:35:41.515Z'
+      checksum: sha256:824ae0d8431ffe15c3262baee658f4a01d9d65eb9378a4d5ea494aa3bd872e5a
+      lastVerified: '2026-08-01T23:19:48.955Z'
     greenfield-handler:
       path: .aexos-core/core/orchestration/greenfield-handler.js
       layer: L1
@@ -10551,8 +10547,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:17b9669337d080509cb270eb8564a0f5684b2abbad1056f81b6947bb0b2b594f
-      lastVerified: '2026-07-30T19:35:41.541Z'
+      checksum: sha256:3385d37e1b309a4691aab436c0b9bf78125e78a1299d2f07bd6f7e95cda77bf7
+      lastVerified: '2026-08-01T22:55:18.711Z'
     recovery-handler:
       path: .aexos-core/core/orchestration/recovery-handler.js
       layer: L1
@@ -10968,8 +10964,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:fc258597d04fb4f68b1e5a0187323e17fff30b1d9ae14d61e9fcad613dd9fec2
-      lastVerified: '2026-07-31T17:42:09.069Z'
+      checksum: sha256:074e8961ea5cf495348bae4c695c8c0f1b7f5bbb7417c8ce616b807fb123c597
+      lastVerified: '2026-08-02T18:55:31.656Z'
     base-layer:
       path: .aexos-core/core/quality-gates/base-layer.js
       layer: L1
@@ -11468,8 +11464,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:e635bf9f60477c9932dc86512006c9f77d9b71363cdf44375a091292c5a54a2d
-      lastVerified: '2026-07-30T19:35:41.579Z'
+      checksum: sha256:fb2f7d557a73474a7af8f45ddfb81aea1ba3092c754cdb31494b7966087d5bc1
+      lastVerified: '2026-08-02T00:05:27.350Z'
     context-detector:
       path: .aexos-core/core/session/context-detector.js
       layer: L1
@@ -12287,8 +12283,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:26379b2e779a5a7f4e1c913dddfde5a89fc8483207f83eac449b96f9fe9c5658
-      lastVerified: '2026-07-30T19:35:41.615Z'
+      checksum: sha256:7f37ba0f0111ef99e37d0faf3f6386181b6430e830eacef05e44f4270682a7a2
+      lastVerified: '2026-08-02T18:55:31.673Z'
     json:
       path: .aexos-core/core/doctor/formatters/json.js
       layer: L1
@@ -13194,6 +13190,7 @@ entities:
         - l5-squad
         - l6-keyword
         - l7-star-command
+        - synapse-runtime-hook-runtime
         - manifest-collector
       dependencies: []
       externalDeps: []
@@ -13474,16 +13471,18 @@ entities:
         - hook
         - runtime
       usedBy: []
-      dependencies: []
+      dependencies:
+        - domain-loader
+        - paths
       externalDeps: []
       plannedDeps: []
-      lifecycle: orphan
+      lifecycle: experimental
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:485dd1e2b3ab71fadc51e858972b0f470da8fe2ae8a344844dbeb5d521e8b8b0
-      lastVerified: '2026-07-30T19:35:41.674Z'
+      checksum: sha256:5e7b40d5f7f7ca3a88f452b7e8eae1bd95e0cce66081eeb567a1bd6dea819827
+      lastVerified: '2026-08-01T22:47:02.416Z'
     generate-constitution:
       path: .aexos-core/core/synapse/scripts/generate-constitution.js
       layer: L1
@@ -13532,6 +13531,7 @@ entities:
         - atomic
         - write
       usedBy:
+        - greeting-preference-manager
         - unified-activation-pipeline
         - context-detector
         - synapse-session-session-manager
@@ -13552,11 +13552,12 @@ entities:
       purpose: Entity at .aexos-core\core\synapse\utils\paths.js
       keywords:
         - paths
-      usedBy: []
+      usedBy:
+        - synapse-runtime-hook-runtime
       dependencies: []
       externalDeps: []
       plannedDeps: []
-      lifecycle: orphan
+      lifecycle: production
       adaptability:
         score: 0.4
         constraints: []
@@ -15132,8 +15133,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:9798dceadc2bdb5f0a790378cedd4b8655275f4b8994ecc1486280ce52525c03
-      lastVerified: '2026-07-30T19:35:41.775Z'
+      checksum: sha256:57cee3c509b9f247dd93926795e13682115e7646270a94bdb1e03d9c70e6cc64
+      lastVerified: '2026-08-02T19:12:39.865Z'
     pm:
       path: .aexos-core/development/agents/pm.md
       layer: L2
@@ -15878,7 +15879,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:<self-reference>
-      lastVerified: '2026-08-01T05:07:50.812Z'
+      lastVerified: '2026-08-02T21:56:31.933Z'
     learned-patterns:
       path: .aexos-core/data/learned-patterns.yaml
       layer: L3
@@ -15940,8 +15941,8 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:1dc45dee2cfa791d7fd910f513cf7530eb37cb15fc4777b6e8a62f96afdd0e40
-      lastVerified: '2026-07-31T03:47:49.335Z'
+      checksum: sha256:e5a710fb4ed3476ee93a9d058625999c26f485e9acc91f46e90dfd86b86dd4bb
+      lastVerified: '2026-08-02T21:56:31.810Z'
     technical-preferences:
       path: .aexos-core/data/technical-preferences.md
       layer: L3

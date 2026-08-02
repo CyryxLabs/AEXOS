@@ -210,7 +210,10 @@ dependencies:
     - git # For checking hook file state and diffs
   reference_files:
     - .claude/settings.json # Project hook definitions
-    - .claude/settings.local.json # Local hook definitions
+    # .claude/settings.local.json is deliberately absent: it is gitignored, so it
+    # exists only on a developer machine and never on a CI runner. Declaring it
+    # made squad-validation fail on every run. Read it opportunistically at
+    # runtime if present; do not declare it as a dependency.
     - .aexos-core/monitor/hooks/pre_tool_use.py # AEXOS PreToolUse hook
     - .aexos-core/monitor/hooks/post_tool_use.py # AEXOS PostToolUse hook
     - .aexos-core/monitor/hooks/pre_compact.py # AEXOS PreCompact hook
