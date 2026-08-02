@@ -738,7 +738,7 @@ export DEBUG=cyryx:memory,cyryx:agent
 
 ```bash
 # View recent logs
-tail -f .aexos/logs/cyryx.log
+tail -f .aexos/logs/agent.log
 
 # Search for errors
 grep -i error .aexos/logs/*.log
