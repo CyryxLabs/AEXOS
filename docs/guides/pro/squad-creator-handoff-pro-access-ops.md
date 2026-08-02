@@ -32,8 +32,8 @@ The following is not speculative. It was validated end-to-end on 2026-04-20:
 
 Validated customer used in this run:
 
-- email: `costa.wanderl@gmail.com`
-- password used for validation: `CyryxPro2026!`
+- email: a real customer address, redacted here
+- password used for validation: redacted — never record credentials in documentation
 
 ---
 
