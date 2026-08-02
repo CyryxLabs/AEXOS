@@ -2,9 +2,22 @@
 
 ## Overview
 
-The manifest (`.synapse/manifest`) is the central registry for all SYNAPSE domains. It uses a KEY=VALUE format and determines which domains are loaded, when they activate, and how they behave.
+The manifest (`.synapse/manifest`) is the central registry for all SYNAPSE domains. It uses a KEY=VALUE format (CARL-compatible — **not YAML**) and declares which domains exist, when they activate, and how they behave.
 
-The manifest is parsed by `domain-loader.js` (`.aexos-core/core/synapse/domain/domain-loader.js`) on every prompt.
+The manifest is parsed by `parseManifest()` in `domain-loader.js`
+(`.aexos-core/core/synapse/domain/domain-loader.js`) on every prompt, from
+`runtime/hook-runtime.js`, and handed to the engine as `config.manifest`.
+
+> **History:** until story AEX-0.8 the hook runtime constructed `SynapseEngine`
+> *without* a manifest, so the engine resolved `manifest: {}` and this file was
+> never read at runtime. Layers fell back to their default file paths, and L2
+> (which has no fallback for a missing `AGENT_TRIGGER` match) was permanently
+> inert. That wiring is fixed; see [runtime-state.md](runtime-state.md).
+
+> **Not every key is enforced.** `parseManifest()` reads all the keys below, but
+> only `AGENT_TRIGGER` affects the default pipeline. `STATE`, `ALWAYS_ON` and
+> `DEVMODE` are parsed and ignored. The table in
+> [runtime-state.md](runtime-state.md) gives the parsed-vs-enforced breakdown.
 
 ## File Format
 
@@ -27,26 +40,26 @@ Every domain is identified by a unique prefix (e.g., `CONSTITUTION`, `GLOBAL`, `
 
 ### Required Keys
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `{PREFIX}_STATE` | `active` \| `inactive` | Whether the domain is loaded. Required for every domain. |
+| Key | Type | Description | Enforced |
+|-----|------|-------------|----------|
+| `{PREFIX}_STATE` | `active` \| `inactive` | Declares whether the domain is loaded. Required by convention for every domain. | **No** — no layer reads it |
 
 ### Optional Keys
 
-| Key | Type | Description | Used By |
-|-----|------|-------------|---------|
-| `{PREFIX}_ALWAYS_ON` | `true` \| `false` | Domain always loaded regardless of context | L0, L1 |
-| `{PREFIX}_NON_NEGOTIABLE` | `true` \| `false` | Rules cannot be overridden by other layers | L0 only |
-| `{PREFIX}_AGENT_TRIGGER` | agent ID string | Activate when this agent is active | L2 |
-| `{PREFIX}_WORKFLOW_TRIGGER` | workflow ID string | Activate when this workflow is active | L3 |
-| `{PREFIX}_RECALL` | comma-separated keywords | Activate when user prompt contains keyword | L6 |
-| `{PREFIX}_EXCLUDE` | comma-separated values | Contexts/agents to exclude domain from | Any |
+| Key | Type | Description | Used By | Enforced |
+|-----|------|-------------|---------|----------|
+| `{PREFIX}_ALWAYS_ON` | `true` \| `false` | Domain always loaded regardless of context | L0, L1 | No — L0/L1 load unconditionally |
+| `{PREFIX}_NON_NEGOTIABLE` | `true` \| `false` | Rules cannot be overridden by other layers | L0 only | Metadata only |
+| `{PREFIX}_AGENT_TRIGGER` | agent ID string | Activate when this agent is active | L2 | **Yes** |
+| `{PREFIX}_WORKFLOW_TRIGGER` | workflow ID string | Activate when this workflow is active | L3 | Legacy mode only |
+| `{PREFIX}_RECALL` | comma-separated keywords | Activate when user prompt contains keyword | L6 | Legacy mode only |
+| `{PREFIX}_EXCLUDE` | comma-separated values | Contexts/agents to exclude domain from | Any | Not read by L0–L2 |
 
 ### Global Key
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `DEVMODE` | `true` \| `false` | Enable debug metrics in output |
+| Key | Type | Description | Enforced |
+|-----|------|-------------|----------|
+| `DEVMODE` | `true` \| `false` | Enable debug metrics in output | **No** — the engine reads `config.devmode`, which the hook never sets from the manifest |
 
 ## Complete Manifest Example
 
@@ -112,11 +125,21 @@ The domain-loader resolves domain prefixes to files in `.synapse/`:
 
 ### Domain Not Loading
 
-1. Check `{PREFIX}_STATE=active` in manifest
-2. Verify the domain file exists in `.synapse/`
-3. For L2 domains: verify `AGENT_TRIGGER` matches the active agent ID
-4. For L3 domains: verify `WORKFLOW_TRIGGER` matches the active workflow
-5. Run `*synapse debug` to see manifest parse results
+1. **Check the layer is active at all.** Only L0–L2 run by default. An L3–L7
+   domain will never load without `SYNAPSE_LEGACY_MODE=true`. Confirm with
+   `cat .synapse/metrics/hook-metrics.json` — skipped layers are listed with a
+   reason.
+2. Verify the domain file exists in `.synapse/` and is non-empty (an empty file
+   makes the layer return `null`, which is reported as `skipped`).
+3. For L2 domains: verify `AGENT_TRIGGER` matches the active agent ID — and note
+   that `session.active_agent.id` is currently never populated, so **no** L2
+   domain loads regardless of its trigger.
+4. For L3 domains: verify `WORKFLOW_TRIGGER` matches `session.active_workflow.id`.
+5. Run `/synapse:tasks:diagnose-synapse` for a full report.
+
+`{PREFIX}_STATE` is deliberately absent from this list: no layer reads it, so
+setting it to `inactive` will not stop a domain from loading, and setting it to
+`active` will not start one.
 
 ### Invalid Format Errors
 
@@ -130,7 +153,8 @@ The domain-loader resolves domain prefixes to files in `.synapse/`:
 Use `*synapse create` or manually:
 1. Create the domain file in `.synapse/` with KEY=VALUE rules
 2. Add the registration keys to `.synapse/manifest`
-3. Run `*synapse reload` to reload from disk
+3. No reload step is needed — the manifest and domain files are read from disk
+   on every prompt. (`*synapse reload` is an L7 star-command and is inert.)
 
 ## Source Files
 

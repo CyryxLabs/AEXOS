@@ -8,6 +8,12 @@ CRUD command router for managing SYNAPSE domains, rules, and star-commands.
 
 When the user requests a SYNAPSE management operation (create domain, add rule, edit rule, toggle domain, create command, or suggest domain), this manager identifies the sub-command and dispatches to the appropriate task file.
 
+> **Two of these operations write files that the engine will not act on.**
+> `toggle` writes `{PREFIX}_STATE`, which no layer reads. `add-command` writes
+> star-command definitions, which L7 cannot parse and does not inject. Warn the
+> user when dispatching either one. Background:
+> `.claude/skills/synapse/references/runtime-state.md`.
+
 ---
 
 ## Sub-Command Detection
@@ -46,9 +52,12 @@ Available operations:
   create <domain-name>           Create a new domain + manifest entry
   add <domain-name> "<rule>"     Add a rule to an existing domain
   edit <domain-name> <index>     Edit or remove a rule by index
-  toggle <domain-name>           Toggle domain active/inactive
-  add-command <command-name>     Create a new star-command
+  toggle <domain-name>           Toggle domain active/inactive  [no runtime effect]
+  add-command <command-name>     Create a new star-command      [L7 inert]
   suggest "<rule text>"          Suggest the best domain for a rule
+
+Note: only L0/L1 domains (constitution, global, context) are injected today.
+See .claude/skills/synapse/references/runtime-state.md
 
 Examples:
   *synapse create my-custom-rules
