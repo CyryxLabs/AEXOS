@@ -632,12 +632,12 @@ npm audit --ignore-advisories=ADVISORY_ID
 @devops *cleanup
 
 # AEXOS Pro
-@devops *pro-access-grant costa.wanderl@gmail.com CyryxPro2026!
-@devops *pro-check-access costa.wanderl@gmail.com
-@devops *pro-request-reset costa.wanderl@gmail.com
-@devops *pro-resend-verification costa.wanderl@gmail.com
-@devops *pro-reset-password costa.wanderl@gmail.com StrongNewPassword2026!
-@devops *pro-validate-login costa.wanderl@gmail.com CyryxPro2026!
+@devops *pro-access-grant user@example.com <PASSWORD>
+@devops *pro-check-access user@example.com
+@devops *pro-request-reset user@example.com
+@devops *pro-resend-verification user@example.com
+@devops *pro-reset-password user@example.com <NEW_PASSWORD>
+@devops *pro-validate-login user@example.com <PASSWORD>
 @devops *pro-verify-status ACCESS_TOKEN
 @devops *pro-activate ACCESS_TOKEN
 
