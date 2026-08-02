@@ -38,6 +38,7 @@ const FILES = {
   'core/layers/l7-star-command.js': '.aexos-core/core/synapse/layers/l7-star-command.js',
   'core/memory/memory-bridge.js': '.aexos-core/core/synapse/memory/memory-bridge.js',
   'core/output/formatter.js': '.aexos-core/core/synapse/output/formatter.js',
+  'core/runtime/hook-runtime.js': '.aexos-core/core/synapse/runtime/hook-runtime.js',
   'core/session/session-manager.js': '.aexos-core/core/synapse/session/session-manager.js',
   'core/scripts/generate-constitution.js': '.aexos-core/core/synapse/scripts/generate-constitution.js',
   'core/utils/paths.js': '.aexos-core/core/synapse/utils/paths.js',
@@ -58,8 +59,10 @@ const FILES = {
   'core/diagnostics/collectors/output-analyzer.js': '.aexos-core/core/synapse/diagnostics/collectors/output-analyzer.js',
   'core/diagnostics/collectors/relevance-matrix.js': '.aexos-core/core/synapse/diagnostics/collectors/relevance-matrix.js',
 
-  // Hook Entry Point
+  // Hook Entry Point — the wrapper is what .claude/settings.json registers;
+  // synapse-engine.cjs is the implementation it spawns. Both are required.
   'hook/synapse-engine.cjs': '.claude/hooks/synapse-engine.cjs',
+  'hook/synapse-wrapper.cjs': '.claude/hooks/synapse-wrapper.cjs',
 
   // Commands
   'commands/manager.md': '.claude/commands/synapse/manager.md',
@@ -81,6 +84,7 @@ const FILES = {
   'skills/references/domains.md': '.claude/skills/synapse/references/domains.md',
   'skills/references/layers.md': '.claude/skills/synapse/references/layers.md',
   'skills/references/manifest.md': '.claude/skills/synapse/references/manifest.md',
+  'skills/references/runtime-state.md': '.claude/skills/synapse/references/runtime-state.md',
   'skills/assets/README.md': '.claude/skills/synapse/assets/README.md',
 
   // Documentation
@@ -210,7 +214,7 @@ cp -r core/ <your-project>/.aexos-core/core/synapse/
 ### 2. Copy Hook Entry Point
 
 \`\`\`
-cp hook/synapse-engine.cjs <your-project>/.claude/hooks/
+cp hook/synapse-engine.cjs hook/synapse-wrapper.cjs <your-project>/.claude/hooks/
 \`\`\`
 
 ### 3. Register the Hook
@@ -223,7 +227,7 @@ Add to \`.claude/settings.local.json\`:
     "UserPromptSubmit": [
       {
         "type": "command",
-        "command": "node \\"$CLAUDE_PROJECT_DIR/.claude/hooks/synapse-engine.cjs\\"",
+        "command": "node \\"$CLAUDE_PROJECT_DIR/.claude/hooks/synapse-wrapper.cjs\\"",
         "timeout": 10
       }
     ]
@@ -256,6 +260,7 @@ Add these lines:
 .synapse/metrics/
 .synapse/cache/
 !.claude/hooks/synapse-engine.cjs
+!.claude/hooks/synapse-wrapper.cjs
 \`\`\`
 
 ## Verification
@@ -300,11 +305,12 @@ synapse-package/
 │   ├── layers/                # L0-L7 layer processors
 │   ├── memory/                # MIS bridge (Pro)
 │   ├── output/                # XML formatter
+│   ├── runtime/               # Hook runtime (config, manifest, session)
 │   ├── session/               # Session manager
 │   ├── diagnostics/           # Observability (10 collectors)
 │   ├── scripts/               # Constitution generator
 │   └── utils/                 # Path + token helpers
-├── hook/                      # .claude/hooks/synapse-engine.cjs
+├── hook/                      # .claude/hooks/synapse-{wrapper,engine}.cjs
 ├── commands/                  # .claude/commands/synapse/
 ├── skills/                    # .claude/skills/synapse/
 ├── runtime/                   # .synapse/ domain files (manifest, domains)

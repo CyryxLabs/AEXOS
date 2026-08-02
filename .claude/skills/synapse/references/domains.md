@@ -8,16 +8,25 @@ Domains live in `.synapse/` and use a simple KEY=VALUE format with comments.
 
 ## Domain Types by Layer
 
-| Layer | Type | Trigger | Example Files |
-|-------|------|---------|---------------|
-| L0 | Constitution | Always active (`ALWAYS_ON=true`, `NON_NEGOTIABLE=true`) | `constitution` |
-| L1 | Global | Always active (`ALWAYS_ON=true`) | `global`, `context` |
-| L2 | Agent-scoped | Active agent matches `AGENT_TRIGGER` | `agent-dev`, `agent-qa`, `agent-architect` |
-| L3 | Workflow-scoped | Active workflow matches `WORKFLOW_TRIGGER` | `workflow-story-dev`, `workflow-epic-create` |
-| L4 | Task context | Active task detected in session | (injected dynamically) |
-| L5 | Squad discovery | Squad is active in session | (squad domains) |
-| L6 | Keyword (RECALL) | User prompt contains keyword from `RECALL` field | (keyword-triggered domains) |
-| L7 | Star-commands | User types `*command` in prompt | `commands` |
+> Only L0–L2 layers run by default (**NOG-18**). Domains registered for L3–L7
+> are parsed and resolvable but never loaded unless `SYNAPSE_LEGACY_MODE=true`.
+> See [runtime-state.md](runtime-state.md).
+
+| Layer | Type | Trigger | Example Files | Runs by default |
+|-------|------|---------|---------------|-----------------|
+| L0 | Constitution | Always active (`ALWAYS_ON=true`, `NON_NEGOTIABLE=true`) | `constitution` | Yes |
+| L1 | Global | Always active (`ALWAYS_ON=true`) | `global`, `context` | Yes |
+| L2 | Agent-scoped | Active agent matches `AGENT_TRIGGER` | `agent-dev`, `agent-qa`, `agent-architect` | Yes, but never matches — see below |
+| L3 | Workflow-scoped | Active workflow matches `WORKFLOW_TRIGGER` | `workflow-story-dev`, `workflow-epic-create` | No |
+| L4 | Task context | Active task detected in session | (injected dynamically) | No |
+| L5 | Squad discovery | Squad is active in session | (squad domains) | No |
+| L6 | Keyword (RECALL) | User prompt contains keyword from `RECALL` field | (keyword-triggered domains) | No |
+| L7 | Star-commands | User types `*command` in prompt | `commands` | No |
+
+**Practical consequence for domain authors:** a new domain only produces output
+today if it is registered as an L0 or L1 domain (`constitution`, `global`,
+`context`). Agent, workflow, squad and keyword domains can be authored and will
+parse correctly, but will not be injected.
 
 ## KEY=VALUE Format
 
@@ -77,27 +86,34 @@ Every domain must be registered in `.synapse/manifest`. The manifest uses the sa
 
 | Key | Purpose | Example |
 |-----|---------|---------|
-| `{PREFIX}_STATE` | Domain active state (`active` or `inactive`) | `AGENT_DEV_STATE=active` |
+| `{PREFIX}_STATE` | Domain active state (`active` or `inactive`) — **parsed but not enforced by any layer** | `AGENT_DEV_STATE=active` |
 
 ### Optional Manifest Keys
 
-| Key | Purpose | Example |
-|-----|---------|---------|
-| `{PREFIX}_ALWAYS_ON` | Domain always loaded (L0, L1) | `CONSTITUTION_ALWAYS_ON=true` |
-| `{PREFIX}_NON_NEGOTIABLE` | Cannot be overridden (L0 only) | `CONSTITUTION_NON_NEGOTIABLE=true` |
-| `{PREFIX}_AGENT_TRIGGER` | Activate when agent matches (L2) | `AGENT_DEV_AGENT_TRIGGER=dev` |
-| `{PREFIX}_WORKFLOW_TRIGGER` | Activate when workflow matches (L3) | `WORKFLOW_STORY_DEV_WORKFLOW_TRIGGER=story_development` |
-| `{PREFIX}_RECALL` | Keywords that trigger domain (L6) | `MYLIB_RECALL=react,hooks` |
-| `{PREFIX}_EXCLUDE` | Agents/contexts to exclude from | `MYLIB_EXCLUDE=qa` |
+| Key | Purpose | Example | Enforced |
+|-----|---------|---------|----------|
+| `{PREFIX}_ALWAYS_ON` | Domain always loaded (L0, L1) | `CONSTITUTION_ALWAYS_ON=true` | No — L0/L1 are unconditional in code |
+| `{PREFIX}_NON_NEGOTIABLE` | Cannot be overridden (L0 only) | `CONSTITUTION_NON_NEGOTIABLE=true` | Metadata only |
+| `{PREFIX}_AGENT_TRIGGER` | Activate when agent matches (L2) | `AGENT_DEV_AGENT_TRIGGER=dev` | **Yes** |
+| `{PREFIX}_WORKFLOW_TRIGGER` | Activate when workflow matches (L3) | `WORKFLOW_STORY_DEV_WORKFLOW_TRIGGER=story_development` | Legacy mode only |
+| `{PREFIX}_RECALL` | Keywords that trigger domain (L6) | `MYLIB_RECALL=react,hooks` | Legacy mode only |
+| `{PREFIX}_EXCLUDE` | Agents/contexts to exclude from | `MYLIB_EXCLUDE=qa` | Not read by L0–L2 |
+
+`AGENT_TRIGGER` is the one key that changes L0–L2 behaviour. It is also
+load-bearing rather than cosmetic: `AGENT_UX_AGENT_TRIGGER=ux-design-expert`
+maps to the file `agent-ux`, whereas L2's fallback path would look for a
+nonexistent `agent-ux-design-expert`.
 
 ### Current Manifest Domains
 
-The manifest at `.synapse/manifest` registers:
-- 1 Constitution domain (L0, NON_NEGOTIABLE, ALWAYS_ON)
-- 2 Global domains (L1, ALWAYS_ON): `global`, `context`
-- 1 Commands domain (L7): `commands`
-- 12 Agent domains (L2): one per core agent (`agent-dev`, `agent-qa`, etc.)
-- 3 Workflow domains (L3): `workflow-story-dev`, `workflow-epic-create`, `workflow-arch-review`
+The manifest at `.synapse/manifest` registers 19 domains:
+- 1 Constitution domain (L0, NON_NEGOTIABLE, ALWAYS_ON) — **injected**
+- 2 Global domains (L1, ALWAYS_ON): `global`, `context` — **injected**
+- 12 Agent domains (L2): one per core agent (`agent-dev`, `agent-qa`, etc.) — layer runs, never matches
+- 3 Workflow domains (L3): `workflow-story-dev`, `workflow-epic-create`, `workflow-arch-review` — layer off
+- 1 Commands domain (L7): `commands` — layer off and broken
+
+No domain declares `RECALL`, so L6 has nothing to match even in legacy mode.
 
 ## Creating Custom Domains
 

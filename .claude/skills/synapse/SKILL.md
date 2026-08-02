@@ -5,15 +5,20 @@ description: "This skill should be used when users want to understand the SYNAPS
 
 # SYNAPSE Context Engine
 
+> **Read [references/runtime-state.md](references/runtime-state.md) before acting
+> on anything below.** This document describes the designed capability surface.
+> Three of the eight layers run by default, and several documented behaviours
+> (star-commands, `*synapse` queries, domain toggling, `DEVMODE`) are inert.
+
 ## Overview
 
-SYNAPSE (Cyryx Adaptive Processing & State Engine) is the unified context engine for CYRYX. It injects contextual rules into every prompt via an 8-layer processing pipeline, adapting to context window usage through bracket-aware filtering.
+SYNAPSE (AEXOS Adaptive Processing & State Engine) is the unified context engine for AEXOS. It injects contextual rules into every prompt via an 8-layer processing pipeline, adapting to context window usage through bracket-aware filtering.
 
 **What it does:**
 - Injects rules per-prompt via Claude Code's `UserPromptSubmit` hook
-- Processes 8 layers (L0 Constitution through L7 Star-Commands) sequentially
-- Adapts injection volume based on context brackets (FRESH/MODERATE/DEPLETED/CRITICAL)
-- Integrates with agent state (active agent, workflow, task, squad)
+- Defines 8 layers (L0 Constitution through L7 Star-Commands); **L0–L2 execute by default** (NOG-18), L3–L7 need `SYNAPSE_LEGACY_MODE=true`
+- Scales the token budget by context bracket (FRESH/MODERATE/DEPLETED/CRITICAL); bracket-based *layer* filtering is superseded by native `/compact`
+- Reads agent state (active agent, workflow, task, squad) — none of which is currently populated in the session object
 - Outputs `<synapse-rules>` XML block appended to each prompt
 
 **What it replaces:** SYNAPSE replaces the legacy CARL system with full feature parity plus 8 new capabilities including agent-scoped domains, workflow activation, and CRUD management commands.
@@ -24,25 +29,24 @@ SYNAPSE (Cyryx Adaptive Processing & State Engine) is the unified context engine
 
 ### Verify SYNAPSE is Active
 
-SYNAPSE runs automatically via the Claude Code hook. To check status:
+SYNAPSE runs automatically via the Claude Code hook. To inspect what it did:
 
 ```
-*synapse status
+/synapse:tasks:diagnose-synapse
 ```
 
-This shows: active domains, current bracket, session info, and loaded layers.
+This shows: hook status, session state, manifest integrity, pipeline simulation,
+and gaps with recommended fixes. Raw per-layer results land in
+`.synapse/metrics/hook-metrics.json` after every prompt.
 
 ### Basic Commands
 
 | Command | What it does |
 |---------|-------------|
-| `*synapse status` | Show current engine state |
-| `*synapse domains` | List all registered domains |
-| `*synapse debug` | Show detailed debug info (manifest parse, load times, rule counts) |
-| `*synapse help` | Show all available synapse commands |
-| `*brief` | Switch to brief response mode |
-| `*dev` | Switch to developer mode (code-focused) |
-| `*review` | Switch to code review mode |
+| `/synapse:tasks:diagnose-synapse` | Full engine diagnostic (**this is the working status command**) |
+| `*synapse create` / `add` / `edit` / `suggest` | CRUD on domains and rules — dispatched by the manager |
+| `*synapse status` / `domains` / `debug` / `help` | **Inert** — L7 star-commands, see runtime-state.md |
+| `*brief` / `*dev` / `*review` | **Inert** — mode switching is not injected |
 
 ### Create a Custom Domain
 
@@ -57,12 +61,14 @@ This walks you through creating a new domain file + manifest entry. See [referen
 SYNAPSE operates as a 4-layer architecture:
 
 ```
-.claude/hooks/synapse-engine.js          # Layer 1: Hook Entry (~50 lines)
+.claude/hooks/synapse-wrapper.cjs        # Layer 1: Hook Entry (spawns the engine hook)
+`-- .claude/hooks/synapse-engine.cjs     #   Hook implementation (stdin -> stdout)
         |
         v imports
 .aexos-core/core/synapse/                 # Layer 2: Engine Modules
+|-- runtime/hook-runtime.js              #   Config + manifest + session resolution
 |-- engine.js                            #   SynapseEngine class
-|-- layers/                              #   8 layer processors (L0-L7)
+|-- layers/                              #   8 layer processors (L0-L7; L0-L2 active)
 |-- session/session-manager.js           #   Session state (JSON v2.0)
 |-- domain/domain-loader.js              #   Manifest + domain parser
 |-- context/context-tracker.js           #   Bracket calculation
@@ -80,7 +86,7 @@ SYNAPSE operates as a 4-layer architecture:
         v user-invoked
 .claude/commands/synapse/                # Layer 4: CRUD Commands + Skill Docs
 |-- manager.md                           #   Router/dispatcher
-|-- tasks/ (6 tasks)                     #   create, add, edit, toggle, command, suggest
+|-- tasks/ (7 tasks)                     #   create, add, edit, toggle, command, suggest, diagnose
 ```
 
 **Key principle:** SYNAPSE is a **consumer** of existing systems (UAP for session state, MIS for memories). It never rewrites code from other epics.
@@ -91,6 +97,7 @@ SYNAPSE operates as a 4-layer architecture:
 
 | Guide | Description |
 |-------|-------------|
+| [runtime-state.md](references/runtime-state.md) | **What actually runs** — authoritative; overrides the guides below where they disagree |
 | [domains.md](references/domains.md) | Domain types (L0-L7), KEY=VALUE format, creation guide |
 | [commands.md](references/commands.md) | Star-commands, *synapse sub-commands, CRUD operations |
 | [manifest.md](references/manifest.md) | Manifest format specification, all valid keys |
@@ -115,8 +122,8 @@ For domain management operations, use the SYNAPSE manager:
 | `*synapse create` | Create new domain + manifest entry |
 | `*synapse add` | Add rule to existing domain |
 | `*synapse edit` | Edit or remove rule by index |
-| `*synapse toggle` | Toggle domain active/inactive |
-| `*synapse command` | Create new star-command |
+| `*synapse toggle` | Toggle domain active/inactive — writes the manifest, but no layer reads `STATE` |
+| `*synapse command` | Create new star-command — writes correctly, but L7 will not inject it |
 | `*synapse suggest` | Suggest best domain for a rule |
 
 Full details: [references/commands.md](references/commands.md)
@@ -125,7 +132,9 @@ Full details: [references/commands.md](references/commands.md)
 
 | File | Purpose |
 |------|---------|
-| `.claude/hooks/synapse-engine.js` | Hook entry point (UserPromptSubmit) |
+| `.claude/hooks/synapse-wrapper.cjs` | Hook entry point registered in `.claude/settings.json` |
+| `.claude/hooks/synapse-engine.cjs` | Hook implementation, spawned by the wrapper |
+| `.aexos-core/core/synapse/runtime/hook-runtime.js` | Config, manifest and session resolution |
 | `.aexos-core/core/synapse/engine.js` | SynapseEngine orchestrator |
 | `.synapse/manifest` | Domain registry (KEY=VALUE) |
 | `.synapse/commands` | Star-command definitions |
