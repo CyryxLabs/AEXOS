@@ -1,6 +1,6 @@
-# AEXOS (Cyryx) Development Rules for AntiGravity
+# AEXOS Development Rules for AntiGravity
 
-You are working with AEXOS (Cyryx), an AI-Orchestrated System for Full Stack Development.
+You are working with AEXOS, an AI-Orchestrated System for Full Stack Development.
 
 ## Core Development Rules
 
@@ -112,4 +112,4 @@ async function operation() {
 ```
 
 ---
-*AEXOS (Cyryx) AntiGravity Configuration v1.0*
+*AEXOS AntiGravity Configuration v1.0*

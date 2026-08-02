@@ -197,10 +197,13 @@ the public repository, so nothing needs to be installed first. Verified against 
 `npx github:CyryxLabs/AEXOS --version` prints `5.3.0`.
 
 > **Why the short form works.**
-> The package is named `@aexos/core`, so npx infers a binary called `core` from the unscoped
-> half of the name. `package.json` declares an explicit `core` alias in `bin` for exactly that
-> reason; without it npx exits with `could not determine executable to run`. If you ever see
-> that error, name the binary explicitly instead: `npx -p @aexos/core aexos <command>`.
+> npx reads the fetched `package.json`, sees the name `@aexos/core`, and infers a binary called
+> `core` from the unscoped half of the name. `package.json` declares an explicit `core` alias in
+> `bin` for exactly that reason; without it npx exits with `could not determine executable to
+> run`. If you ever see that error, name the binary explicitly against the same spec:
+> `npx -p github:CyryxLabs/AEXOS aexos <command>`. (`npx -p @aexos/core aexos <command>` is the
+> equivalent once the package is published — see [Which install command applies to
+> you](#which-install-command-applies-to-you).)
 
 ### 2. Pick your IDE and activate one agent
 

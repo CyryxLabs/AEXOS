@@ -1,12 +1,12 @@
 ---
 name: aexos-commit
 description: >
-  Create a local conventional commit for CYRYX work. Never pushes.
+  Create a local conventional commit for AEXOS work. Never pushes.
   Use when: committing, /aexos-commit, or local git commit.
 user-invocable: true
 ---
 
-# CYRYX Local Commit
+# AEXOS Local Commit
 
 ## Steps
 

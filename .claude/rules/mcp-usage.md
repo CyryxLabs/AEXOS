@@ -2,7 +2,7 @@
 paths: **/*
 ---
 
-# MCP Server Usage Rules - CYRYX Architecture
+# MCP Server Usage Rules - AEXOS Architecture
 
 ## MCP Governance
 
@@ -22,7 +22,7 @@ Other agents (Dev, Architect, etc.) are MCP **consumers**, not administrators. I
 
 ## MCP Configuration Architecture
 
-CYRYX uses Docker MCP Toolkit as the primary MCP infrastructure:
+AEXOS uses Docker MCP Toolkit as the primary MCP infrastructure:
 
 ### Direct in Claude Code (global ~/.claude.json)
 | MCP | Purpose |

@@ -1,4 +1,4 @@
-# AGENTS.md - AEXOS (Cyryx) (Codex CLI)
+# AGENTS.md - AEXOS (Codex CLI)
 
 Este arquivo define as instrucoes do projeto para o Codex CLI.
 

@@ -9,7 +9,7 @@ Verified on 2026-05-06:
 | Check                                             | Result                                                                          |
 | ------------------------------------------------- | ------------------------------------------------------------------------------- |
 | `npm whoami`                                      | `rafaelscosta`                                                                  |
-| `npm org ls aexos-squads --json`                   | `rafaelscosta` is `owner`                                                       |
+| `npm org ls aexos --json`                   | `rafaelscosta` is `owner`                                                       |
 | `npm access list packages @aexos --json`    | `{}`; org exists and has no published packages yet                              |
 | `npm access list packages @aexos-fullstack --json` | 7 legacy packages visible with `read-write` access                              |
 | `npm owner ls aexos-core --json`                   | `rafaelscosta` and `pedrovaleriolopez` are listed owners                        |
@@ -58,15 +58,23 @@ Reserved external Pro package:
 Preserve user-facing bins:
 
 ```text
-cyryx
-aexos-core
-aexos-minimal
-aexos-graph
-aexos-install
-edmcp
-aexos-pro
-aexos-installer
+core            (@aexos/core — npx short-form alias)
+aexos           (@aexos/core)
+aexos-core      (@aexos/core)
+aexos-minimal   (@aexos/core)
+aexos-graph     (@aexos/core)
+aexos-delegate  (@aexos/core)
+aexos-install   (@aexos/install)
+edmcp           (@aexos/install)
+aexos-pro       (@aexos/pro-cli)
+aexos-installer (@aexos/installer)
 ```
+
+Only `@aexos/core` has a bin whose name npx can infer from the package name
+(`core`). `@aexos/install`, `@aexos/pro-cli` and `@aexos/installer` each ship
+bins under different names, so they must be invoked with an explicit `-p`:
+`npx -p @aexos/install aexos-install`. The bare `npx @aexos/install` form does
+not work and must not be documented.
 
 ## Prerequisites
 
@@ -92,7 +100,7 @@ Run these only from a trusted DevOps terminal. Do not paste tokens into chat or 
 
 ```bash
 npm whoami --registry=https://registry.npmjs.org/
-npm org ls aexos-squads --json
+npm org ls aexos --json
 npm access list packages @aexos --json
 npm access list packages @aexos-fullstack --json
 npm owner ls aexos-core --json
@@ -103,15 +111,15 @@ npm owner ls aexos-core --json
 Use the npm website if the CLI requires browser confirmation or two-factor flow:
 
 ```text
-https://www.npmjs.com/org/aexos-squads/teams
+https://www.npmjs.com/org/aexos/teams
 ```
 
 CLI option, if available in the authenticated npm session:
 
 ```bash
-npm org set aexos-squads Pedrovaleriolopez developer
-npm org set aexos-squads oalanicolas developer
-npm org ls aexos-squads --json
+npm org set aexos Pedrovaleriolopez developer
+npm org set aexos oalanicolas developer
+npm org ls aexos --json
 ```
 
 If npm normalizes usernames to lowercase, preserve the returned canonical casing in the story evidence.
@@ -323,11 +331,11 @@ npm deprecate '<package>@<range>' '<corrected message>'
 | Symptom                                               | Likely cause                                           | Recovery                                                                              |
 | ----------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------- |
 | `npm whoami` fails                                    | npm auth expired                                       | Run `npm login`, then repeat `npm whoami`.                                            |
-| `npm org ls aexos-squads` fails                        | wrong npm account or org access missing                | Confirm account is `rafaelscosta`; verify owner status in npm org settings.           |
+| `npm org ls aexos` fails                        | wrong npm account or org access missing                | Confirm account is `rafaelscosta`; verify owner status in npm org settings.           |
 | `gh secret set` fails                                 | missing repo admin permission or GitHub auth expired   | Run `gh auth status`; confirm `viewerPermission` is `ADMIN`.                          |
 | `npm publish --access public` fails                   | token lacks publish rights or package metadata invalid | Verify automation token scope and run `npm pack --dry-run --json`.                    |
 | `npm publish` prompts for OTP in CI                   | wrong token type                                       | Generate an Automation token, not a classic interactive token.                        |
-| `npx @aexos/installer` fails                    | package bin or entrypoint mismatch                     | Fix `packages/installer` entrypoint before publish.                                   |
+| `npx @aexos/installer` fails                    | bare form cannot infer a bin named `installer`; the package ships `aexos-installer` | Use `npx -p @aexos/installer aexos-installer`. If it still fails, fix the `packages/installer` entrypoint before publish. |
 | `npx @aexos/pro-cli` fails on wizard/setup | relative workspace import leaked into package          | Replace the relative installer import with a package dependency or delegated command. |
 
 ## Secret Hygiene

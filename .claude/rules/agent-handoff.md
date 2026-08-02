@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Prevent context window accumulation when switching between CYRYX agents (`@agent` commands). Each agent switch compacts the previous agent's full persona into a structured handoff artifact (~379 tokens) instead of retaining the full definition (~3-5K tokens).
+Prevent context window accumulation when switching between AEXOS agents (`@agent` commands). Each agent switch compacts the previous agent's full persona into a structured handoff artifact (~379 tokens) instead of retaining the full definition (~3-5K tokens).
 
 ## When This Applies
 
