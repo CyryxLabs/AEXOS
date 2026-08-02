@@ -1,11 +1,11 @@
-# AEXOS (Cyryx) Development Rules for Claude Code
+# AEXOS Development Rules for Claude Code
 
-You are working with AEXOS (Cyryx), an AI-Orchestrated System for Full Stack Development.
+You are working with AEXOS, an AI-Orchestrated System for Full Stack Development.
 
 <!-- AEXOS-MANAGED-START: core-framework -->
 ## Core Framework Understanding
 
-AEXOS (Cyryx) is a meta-framework that orchestrates AI agents to handle complex development workflows. Always recognize and work within this architecture.
+AEXOS is a meta-framework that orchestrates AI agents to handle complex development workflows. Always recognize and work within this architecture.
 <!-- AEXOS-MANAGED-END: core-framework -->
 
 <!-- AEXOS-MANAGED-START: constitution -->
@@ -175,14 +175,14 @@ O CLI `aexos graph` visualiza dependências, estatísticas de entidades e status
 ### Comandos
 
 ```bash
-cyryx graph --deps                        # Dependency tree (ASCII)
-cyryx graph --deps --format=json          # Output como JSON
-cyryx graph --deps --format=html          # Interactive HTML (abre browser)
-cyryx graph --deps --format=mermaid       # Mermaid diagram
-cyryx graph --deps --format=dot           # DOT format (Graphviz)
-cyryx graph --deps --watch                # Live mode com auto-refresh
-cyryx graph --deps --watch --interval=10  # Refresh a cada 10 segundos
-cyryx graph --stats                       # Entity stats e cache metrics
+aexos graph --deps                        # Dependency tree (ASCII)
+aexos graph --deps --format=json          # Output como JSON
+aexos graph --deps --format=html          # Interactive HTML (abre browser)
+aexos graph --deps --format=mermaid       # Mermaid diagram
+aexos graph --deps --format=dot           # DOT format (Graphviz)
+aexos graph --deps --watch                # Live mode com auto-refresh
+aexos graph --deps --watch --interval=10  # Refresh a cada 10 segundos
+aexos graph --stats                       # Entity stats e cache metrics
 ```
 
 **Formatos de saída:** ascii (default), json, dot, mermaid, html
@@ -278,9 +278,9 @@ await story.save();
 - Your preferred package manager (npm/yarn/pnpm)
 
 ### Configuration Files
-- `.aexos/config.yaml` - Framework configuration
+- `.aexos-core/core-config.yaml` - Framework configuration
+- `.aexos-core/project-config.yaml` - Project-specific settings
 - `.env` - Environment variables
-- `cyryx.config.js` - Project-specific settings
 
 <!-- AEXOS-MANAGED-START: common-commands -->
 ## Common Commands
@@ -353,4 +353,4 @@ npm run trace -- workflow-name
 - Document breaking changes prominently
 
 ---
-*AEXOS (Cyryx) Claude Code Configuration v2.0*
+*AEXOS Claude Code Configuration v2.0*

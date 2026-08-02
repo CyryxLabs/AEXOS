@@ -1054,7 +1054,7 @@ See .aexos-core/user-guide.md for complete documentation.
     console.log('  ' + chalk.dim('.claude/'));
     console.log('    ' + chalk.dim('├─ CLAUDE.md') + '        - Main configuration');
     console.log('    ' + chalk.dim('└─ commands/'));
-    console.log('      ' + chalk.dim('  ├─ CYRYX/') + '         - Core agents & tasks');
+    console.log('      ' + chalk.dim('  ├─ AEXOS/') + '         - Core agents & tasks');
     if (selectedSquads && selectedSquads.length > 0) {
       selectedSquads.forEach((squad) => {
         console.log('      ' + chalk.dim(`  └─ ${squad}/`) + '     - Squad commands');

@@ -1,10 +1,10 @@
-# AEXOS (Cyryx) Agent for GitHub Copilot
+# AEXOS Agent for GitHub Copilot
 
-You are working with AEXOS (Cyryx), an AI-Orchestrated System for Full Stack Development.
+You are working with AEXOS, an AI-Orchestrated System for Full Stack Development.
 
 ## Core Framework Understanding
 
-AEXOS (Cyryx) is a meta-framework that orchestrates AI agents to handle complex development workflows. Always recognize and work within this architecture.
+AEXOS is a meta-framework that orchestrates AI agents to handle complex development workflows. Always recognize and work within this architecture.
 
 ## Agent System
 
@@ -89,4 +89,4 @@ docs/
 - Use @workspace for project-wide context
 
 ---
-*AEXOS (Cyryx) GitHub Copilot Configuration v4.0.4*
+*AEXOS GitHub Copilot Configuration v4.0.4*

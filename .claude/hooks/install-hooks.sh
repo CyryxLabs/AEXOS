@@ -1,10 +1,10 @@
 #!/bin/bash
-# Install CYRYX Git Hooks
+# Install AEXOS Git Hooks
 # Version: 1.0
 
 set -e
 
-echo "🔧 Installing CYRYX Git Hooks..."
+echo "🔧 Installing AEXOS Git Hooks..."
 
 # Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

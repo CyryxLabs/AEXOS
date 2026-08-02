@@ -1,11 +1,11 @@
 ---
-description: AEXOS (Cyryx) global rules loaded on every Cursor conversation
+description: AEXOS global rules loaded on every Cursor conversation
 alwaysApply: true
 ---
 
-# AEXOS (Cyryx) Development Rules for Cursor
+# AEXOS Development Rules for Cursor
 
-You are working with AEXOS (Cyryx), an AI-Orchestrated System for Full Stack Development.
+You are working with AEXOS, an AI-Orchestrated System for Full Stack Development.
 
 ## Core Development Rules
 
@@ -117,4 +117,4 @@ async function operation() {
 ```
 
 ---
-*AEXOS (Cyryx) Cursor Configuration v2.0*
+*AEXOS Cursor Configuration v2.0*

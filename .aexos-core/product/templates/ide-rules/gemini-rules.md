@@ -1,4 +1,4 @@
-# Gemini Rules - AEXOS (Cyryx)
+# Gemini Rules - AEXOS
 
 Este arquivo define as instrucoes do projeto para Gemini CLI neste repositorio.
 
