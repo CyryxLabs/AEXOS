@@ -1,5 +1,5 @@
 /**
- * Jest configuration for @aexos-squads/aexos-install package
+ * Jest configuration for @aexos/install package
  */
 
 module.exports = {

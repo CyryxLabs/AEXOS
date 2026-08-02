@@ -1,8 +1,9 @@
 {
-  "name": "@cyryxlabs/aexos",
+  "name": "@aexos/core",
   "version": "5.3.0",
   "description": "AEXOS - Agentic eXecution & Orchestration System: AI-Orchestrated System for Full Stack Development - Core Framework",
   "bin": {
+    "core": "bin/aexos.js",
     "aexos": "bin/aexos.js",
     "aexos-core": "bin/aexos.js",
     "aexos-minimal": "bin/aexos-minimal.js",

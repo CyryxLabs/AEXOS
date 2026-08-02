@@ -112,7 +112,7 @@ Temporary NPX paths:
 **Recommended on Windows:**
 
 ```bash
-npm install -g @aexos-squads/core
+npm install -g @aexos/core
 cd C:\path\to\your\project
 aexos-core install
 ```
@@ -135,7 +135,7 @@ See also: [Installation troubleshooting](./guides/installation-troubleshooting.m
 **Cause:** `libnpmexec` aborts when package download exceeds the npx lock touch timeout (common on cold cache).
 
 **Solutions:**
-1. Global install then local install: `npm install -g @aexos-squads/core` → `aexos-core install`
+1. Global install then local install: `npm install -g @aexos/core` → `aexos-core install`
 2. Warm cache and retry: `npm cache verify` then `npx github:CyryxLabs/AEXOS install`
 3. Clone repo + `npm install` + run `node bin/aexos.js install` from a project directory
 
@@ -171,7 +171,7 @@ If your IDE isn't detected after installation:
 If you prefer not to use NPX, you can install globally:
 
 ```bash
-npm install -g @aexos-squads/core
+npm install -g @aexos/core
 cd /path/to/your/project
 aexos-core install
 ```

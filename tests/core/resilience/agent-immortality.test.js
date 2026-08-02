@@ -54,7 +54,7 @@ describe('Agent Immortality Protocol', () => {
 
   test('exports the core resilience primitives', () => {
     const core = require('../../../.aexos-core/core');
-    const publishedResilience = require('@cyryxlabs/aexos/resilience');
+    const publishedResilience = require('@aexos/core/resilience');
 
     expect(AgentImmortalityProtocol).toBeDefined();
     expect(AutopsyEngine).toBeDefined();

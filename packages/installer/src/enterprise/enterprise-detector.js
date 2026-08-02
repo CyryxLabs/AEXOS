@@ -189,7 +189,7 @@ function detectProInstallation(targetDir = process.cwd()) {
   const versionJsonPath = path.join(root, 'pro-version.json');
   const proConfigPath = path.join(root, '.aexos-core', 'pro-config.yaml');
   const featureRegistryPath = path.join(root, '.aexos-core', 'feature-registry.yaml');
-  const proPackagePath = resolvePackageJson(root, '@aexos-squads/pro');
+  const proPackagePath = resolvePackageJson(root, '@aexos/pro');
   const submodulePackagePath = path.join(root, 'pro', 'package.json');
 
   const manifest = readYamlIfExists(manifestPath);

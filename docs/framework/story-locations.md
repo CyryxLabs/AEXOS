@@ -6,7 +6,7 @@
 
 | Home | Who | Git in **aexos-core** repo | Purpose |
 |------|-----|---------------------------|---------|
-| **`docs/framework/epics/{epic}/`** | Framework contributors | **Versioned** (public OSS) | Framework epics, architecture slices, harvest stories that ship with `@aexos-squads/core` |
+| **`docs/framework/epics/{epic}/`** | Framework contributors | **Versioned** (public OSS) | Framework epics, architecture slices, harvest stories that ship with `@aexos/core` |
 | **`docs/stories/`** | Project / product work | **Gitignored** in this repo template | Runtime SDC for *installed* projects (L4) — local backlog, not published as framework source |
 
 ## Rules

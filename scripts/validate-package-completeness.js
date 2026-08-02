@@ -49,7 +49,7 @@ const REQUIRED_PATHS = [
 ];
 
 // NOTE: `pro/` is deliberately NOT required here.
-// The Pro tier ships as its own package (`@cyryx-squads/pro`, private, proprietary)
+// The Pro tier ships as its own package (`@aexos/pro`, private, proprietary)
 // living in a separate directory that is absent from `files[]` and not reliably
 // present in a fresh clone — .github/workflows/ci.yml checks out without
 // submodules on purpose. Core resolves Pro at runtime instead (see
@@ -83,13 +83,15 @@ const REQUIRED_FILES_ENTRIES = [
 /**
  * Bin entries that must point to existing files.
  *
- * `aexos` is the canonical product binary — npm infers it from the unscoped
- * package name, so dropping it breaks `npx github:CyryxLabs/AEXOS` (see 6cf4ea3).
- * `cyryx` was removed from package.json by that same rename and is no longer
- * required here. Phase 3 only checks shebangs of whatever bins happen to exist,
- * so this list is what catches a bin entry disappearing from package.json.
+ * `aexos` is the canonical product binary. `core` is the alias npm infers from
+ * the unscoped half of `@aexos/core`: without it `npx @aexos/core <command>`
+ * fetches the package and then exits with `could not determine executable to
+ * run`, which is the failure the scope consolidation had to design around.
+ * Both are load-bearing, so both are required here. Phase 3 only checks
+ * shebangs of whatever bins happen to exist, so this list is what catches a bin
+ * entry disappearing from package.json.
  */
-const REQUIRED_BIN_ENTRIES = ['aexos', 'aexos-core', 'aexos-delegate'];
+const REQUIRED_BIN_ENTRIES = ['core', 'aexos', 'aexos-core', 'aexos-delegate'];
 
 /**
  * Runtime dependencies that must be present.

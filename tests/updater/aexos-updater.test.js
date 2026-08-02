@@ -79,11 +79,11 @@ describe('AEXOSUpdater', () => {
 
     it('should read version from namespaced package fallback', async () => {
       await fs.remove(path.join(tempDir, '.aexos-core', 'version.json'));
-      await fs.ensureDir(path.join(tempDir, 'node_modules', '@aexos-squads', 'core'));
+      await fs.ensureDir(path.join(tempDir, 'node_modules', '@aexos', 'core'));
       await fs.writeJson(
-        path.join(tempDir, 'node_modules', '@aexos-squads', 'core', 'package.json'),
+        path.join(tempDir, 'node_modules', '@aexos', 'core', 'package.json'),
         {
-          name: '@cyryxlabs/aexos',
+          name: '@aexos/core',
           version: '5.1.0',
         },
       );

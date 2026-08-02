@@ -210,7 +210,7 @@ governance_map:
     article: "I"
     article_name: "CLI First"
     governance_note: "Windows npx ECOMPROMISED guidance (#773) — advisory install path"
-    remediation: "npm install -g @aexos-squads/core"
+    remediation: "npm install -g @aexos/core"
 
   framework-3way-diff:
     article: "V"

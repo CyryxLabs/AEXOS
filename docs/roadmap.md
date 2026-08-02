@@ -50,11 +50,11 @@ An actionable engineering and product blueprint for evolving **AEXOS / MAAX Stud
 
 ## 4. Ecosystem & Squad Marketplace (Cyryx Hub)
 
-### 📦 Decentralized Squad Registry (`@aexos-squads/*`)
+### 📦 Decentralized Squad Registry (`@aexos/*`)
 - **Concept:** npm-like registry for sharing domain-specific agent teams.
 - **CLI Commands:**
-  - `aexos squad install @aexos-squads/solidity-audit`
-  - `aexos squad install @aexos-squads/aws-infra`
+  - `aexos squad install @aexos/solidity-audit`
+  - `aexos squad install @aexos/aws-infra`
   - `aexos squad publish ./my-squad`
 
 ### ⚡ Automated Documentation-to-Squad Generator

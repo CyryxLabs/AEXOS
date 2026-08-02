@@ -24,11 +24,11 @@ const fs = require('fs');
 const readline = require('readline');
 const { createBuyerCommand } = require('./buyer');
 const { createSeatsCommand } = require('./seats');
-const PRO_PACKAGE = '@aexos-squads/pro';
+const PRO_PACKAGE = '@aexos/pro';
 
 // BUG-6 fix (INS-1): Dynamic licensePath resolution
 // In framework-dev: __dirname = aexos-core/.aexos-core/cli/commands/pro → ../../../../pro/license
-// In project-dev: pro is installed via npm as @aexos-squads/pro
+// In project-dev: pro is installed via npm as @aexos/pro
 function resolveLicensePath() {
   // 1. Try relative path (framework-dev mode)
   const relativePath = path.resolve(__dirname, '..', '..', '..', '..', 'pro', 'license');
@@ -50,7 +50,7 @@ function resolveLicensePath() {
 
   // 3. Try project root node_modules
   const projectRoot = process.cwd();
-  const cwdPath = path.join(projectRoot, 'node_modules', '@aexos-squads', 'pro', 'license');
+  const cwdPath = path.join(projectRoot, 'node_modules', '@aexos', 'pro', 'license');
   if (fs.existsSync(cwdPath)) {
     return cwdPath;
   }
@@ -218,7 +218,7 @@ async function activateAction(options) {
     // Scaffold pro content into project (Story INS-3.1)
     // Lazy-load to avoid crashing if pro-scaffolder or js-yaml is unavailable
     const projectRoot = path.resolve(__dirname, '..', '..', '..', '..');
-    const proSourceDir = path.join(projectRoot, 'node_modules', '@aexos-squads', 'pro');
+    const proSourceDir = path.join(projectRoot, 'node_modules', '@aexos', 'pro');
 
     if (fs.existsSync(proSourceDir)) {
       let scaffoldProContent;
@@ -572,7 +572,7 @@ async function validateAction() {
 function loadProSetupWizard() {
   try {
     try {
-      return require('@aexos-squads/installer/pro-setup');
+      return require('@aexos/installer/pro-setup');
     } catch {
       return require('../../../../packages/installer/src/wizard/pro-setup');
     }
@@ -601,7 +601,7 @@ async function setupAction(options) {
       const packagePath = path.join(
         process.cwd(),
         'node_modules',
-        '@aexos-squads',
+        '@aexos',
         'pro',
         'package.json'
       );
@@ -693,7 +693,7 @@ async function updateAction(options) {
   }
 
   if (options.includeCore) {
-    console.log('Note: --include-core is handled by updating @aexos-squads/core first, then rerunning aexos pro update.');
+    console.log('Note: --include-core is handled by updating @aexos/core first, then rerunning aexos pro update.');
   }
 
   if (options.skipScaffold) {

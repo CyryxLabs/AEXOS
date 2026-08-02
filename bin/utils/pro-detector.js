@@ -33,7 +33,7 @@ const PRO_PACKAGE_PATH = path.join(PRO_DIR, 'package.json');
 /**
  * Canonical npm package name.
  */
-const PRO_PACKAGE_NAME = '@aexos-squads/pro';
+const PRO_PACKAGE_NAME = '@aexos/pro';
 
 /**
  * Resolve the installed npm Pro package path.
@@ -54,7 +54,7 @@ function resolveNpmProPackage() {
  * Check if the AEXOS Pro is available via any source.
  *
  * Detection priority:
- * 1. npm package (@aexos-squads/pro)
+ * 1. npm package (@aexos/pro)
  * 2. pro/ submodule directory
  *
  * @returns {boolean} true if Pro is available
@@ -72,7 +72,7 @@ function isProAvailable() {
  * Safely load a module from the pro package.
  *
  * Resolution order:
- * 1. npm package (@aexos-squads/pro)
+ * 1. npm package (@aexos/pro)
  * 2. pro/ submodule directory
  *
  * @param {string} moduleName - Relative path within pro/ (e.g., 'squads/squad-creator-pro')

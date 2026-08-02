@@ -1,4 +1,4 @@
-# Changelog - @aexos-squads/aexos-install
+# Changelog - @aexos/install
 
 All notable changes to this package will be documented in this file.
 

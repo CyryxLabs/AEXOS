@@ -21,7 +21,7 @@ aexos-core/
 └── package.json
 ```
 
-Published `@aexos-squads/core` packages do not include `pro/` content. Customer Pro setup runs the license gate first, then requests a short-lived signed artifact URL from `aexos-license-server`, verifies the artifact hash, extracts it in a temporary directory, and scaffolds from that verified source.
+Published `@aexos/core` packages do not include `pro/` content. Customer Pro setup runs the license gate first, then requests a short-lived signed artifact URL from `aexos-license-server`, verifies the artifact hash, extracts it in a temporary directory, and scaffolds from that verified source.
 
 Customer Pro updates use the same authenticated artifact channel:
 
@@ -31,7 +31,7 @@ aexos pro update --dry-run
 aexos pro update
 ```
 
-`aexos pro update` validates the Pro login/license before downloading premium content, installs the verified artifact into `node_modules/@aexos-squads/pro` with `--no-save`, and re-scaffolds idempotently. It must not require customer npm org access.
+`aexos pro update` validates the Pro login/license before downloading premium content, installs the verified artifact into `node_modules/@aexos/pro` with `--no-save`, and re-scaffolds idempotently. It must not require customer npm org access.
 
 ---
 
@@ -77,7 +77,7 @@ git push origin feature/my-feature
 ### Important Notes
 
 - The `pro/` directory will NOT exist — this is expected
-- Public npm tarballs for `@aexos-squads/core` must contain zero `pro/` files
+- Public npm tarballs for `@aexos/core` must contain zero `pro/` files
 - All core tests pass without `pro/` present
 - `bin/utils/pro-detector.js` returns `isProAvailable() === false`
 - No features are degraded for core-only developers

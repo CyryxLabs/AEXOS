@@ -8,7 +8,7 @@ Core resilience modules that preserve agent execution continuity after fatal fai
 const {
   AgentImmortalityProtocol,
   CauseOfDeath,
-} = require('@aexos-squads/core/resilience');
+} = require('@aexos/core/resilience');
 
 const protocol = new AgentImmortalityProtocol(process.cwd());
 

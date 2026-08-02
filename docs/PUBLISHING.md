@@ -1,6 +1,6 @@
 # AEXOS Squads Publishing Protocol
 
-This document is the operational protocol for Epic 124: migrating npm packages to the canonical `@aexos-squads/*` scope.
+This document is the operational protocol for Epic 124: migrating npm packages to the canonical `@aexos/*` scope.
 
 ## Current Verified State
 
@@ -10,21 +10,21 @@ Verified on 2026-05-06:
 | ------------------------------------------------- | ------------------------------------------------------------------------------- |
 | `npm whoami`                                      | `rafaelscosta`                                                                  |
 | `npm org ls aexos-squads --json`                   | `rafaelscosta` is `owner`                                                       |
-| `npm access list packages @aexos-squads --json`    | `{}`; org exists and has no published packages yet                              |
+| `npm access list packages @aexos --json`    | `{}`; org exists and has no published packages yet                              |
 | `npm access list packages @aexos-fullstack --json` | 7 legacy packages visible with `read-write` access                              |
 | `npm owner ls aexos-core --json`                   | `rafaelscosta` and `pedrovaleriolopez` are listed owners                        |
 | `gh repo view CyryxLabs/AEXOS`                 | authenticated user has `ADMIN` permission                                       |
 | `gh repo view CyryxLabs/aexos-pro`                  | authenticated user has `ADMIN` permission                                       |
-| `npm token list --json`                           | publish token for `@aexos-squads` visible, `bypass_2fa` true, expires 2026-08-04 |
+| `npm token list --json`                           | publish token for `@aexos` visible, `bypass_2fa` true, expires 2026-08-04 |
 | token smoke test via temporary `.npmrc`           | `npm whoami` returned `rafaelscosta`                                            |
-| `gh secret list --repo CyryxLabs/AEXOS`        | `NPM_TOKEN_AEXOS_SQUADS` present                                                 |
-| `gh secret list --repo CyryxLabs/aexos-pro`         | `NPM_TOKEN_AEXOS_SQUADS` present                                                 |
+| `gh secret list --repo CyryxLabs/AEXOS`        | `NPM_TOKEN_AEXOS` present                                                 |
+| `gh secret list --repo CyryxLabs/aexos-pro`         | `NPM_TOKEN_AEXOS` present                                                 |
 
 Current release state, verified on 2026-05-09:
 
 ```text
-@aexos-squads/core@5.1.17 -> public latest
-@aexos-squads/pro@0.4.3  -> private/restricted release artifact
+@aexos/core@5.1.17 -> public latest
+@aexos/pro@0.4.3  -> private/restricted release artifact
 ```
 
 Customer Pro acquisition does not require direct npm org access. The supported customer path is the authenticated signed-artifact channel served by the historical `aexos-license-server` repo.
@@ -43,16 +43,16 @@ Resolve pending invites through npm org Settings -> Members, or repeat `npm org 
 Approved target names from Story 124.1:
 
 ```text
-aexos-core             -> @aexos-squads/core
-@cyryx/aexos-install -> @aexos-squads/aexos-install
-aexos-pro             -> @aexos-squads/aexos-pro-cli
-@cyryx/installer      -> @aexos-squads/installer
+aexos-core             -> @aexos/core
+@cyryx/aexos-install -> @aexos/install
+aexos-pro             -> @aexos/pro-cli
+@cyryx/installer      -> @aexos/installer
 ```
 
 Reserved external Pro package:
 
 ```text
-@aexos-fullstack/pro or @aexos-fullstack/pro -> @aexos-squads/pro
+@aexos-fullstack/pro or @aexos-fullstack/pro -> @aexos/pro
 ```
 
 Preserve user-facing bins:
@@ -72,14 +72,14 @@ aexos-installer
 
 Before any publish story runs:
 
-1. `rafaelscosta` must remain owner of the npm org `@aexos-squads`.
-2. Maintainers must be invited to `@aexos-squads`:
+1. `rafaelscosta` must remain owner of the npm org `@aexos`.
+2. Maintainers must be invited to `@aexos`:
    - `Pedrovaleriolopez`
    - `oalanicolas`
-3. An npm publish token with read/publish permission for `@aexos-squads` must be available.
+3. An npm publish token with read/publish permission for `@aexos` must be available.
 4. The token must be stored in both GitHub repos:
-   - `CyryxLabs/AEXOS` as `NPM_TOKEN_AEXOS_SQUADS`
-   - `CyryxLabs/aexos-pro` as `NPM_TOKEN_AEXOS_SQUADS`
+   - `CyryxLabs/AEXOS` as `NPM_TOKEN_AEXOS`
+   - `CyryxLabs/aexos-pro` as `NPM_TOKEN_AEXOS`
 5. Existing legacy package access must remain available for deprecation stories:
    - `@aexos-fullstack/*` packages require read/write access for `npm deprecate`.
    - `aexos-core` requires owner or publisher access for `npm deprecate`.
@@ -93,7 +93,7 @@ Run these only from a trusted DevOps terminal. Do not paste tokens into chat or 
 ```bash
 npm whoami --registry=https://registry.npmjs.org/
 npm org ls aexos-squads --json
-npm access list packages @aexos-squads --json
+npm access list packages @aexos --json
 npm access list packages @aexos-fullstack --json
 npm owner ls aexos-core --json
 ```
@@ -127,39 +127,39 @@ Profile -> Access Tokens -> Generate New Token -> Automation
 Scope/purpose:
 
 ```text
-name: NPM_TOKEN_AEXOS_SQUADS
+name: NPM_TOKEN_AEXOS
 permission: Read and Publish
-scope: @aexos-squads
+scope: @aexos
 ```
 
 Smoke test in a temporary shell:
 
 ```bash
-export NPM_TOKEN_AEXOS_SQUADS='paste-token-here'
+export NPM_TOKEN_AEXOS='paste-token-here'
 npm whoami --registry=https://registry.npmjs.org/
 ```
 
 ### Store GitHub Secrets
 
 ```bash
-printf '%s' "$NPM_TOKEN_AEXOS_SQUADS" | gh secret set NPM_TOKEN_AEXOS_SQUADS --repo CyryxLabs/AEXOS
-printf '%s' "$NPM_TOKEN_AEXOS_SQUADS" | gh secret set NPM_TOKEN_AEXOS_SQUADS --repo CyryxLabs/aexos-pro
+printf '%s' "$NPM_TOKEN_AEXOS" | gh secret set NPM_TOKEN_AEXOS --repo CyryxLabs/AEXOS
+printf '%s' "$NPM_TOKEN_AEXOS" | gh secret set NPM_TOKEN_AEXOS --repo CyryxLabs/aexos-pro
 
 gh secret list --repo CyryxLabs/AEXOS
 gh secret list --repo CyryxLabs/aexos-pro
 ```
 
-Expected result: both repos list `NPM_TOKEN_AEXOS_SQUADS`.
+Expected result: both repos list `NPM_TOKEN_AEXOS`.
 
 ## Publish Flow
 
-### Story 124.3 - `@aexos-squads/core`
+### Story 124.3 - `@aexos/core`
 
 Pre-publish checks:
 
 ```bash
 npm view aexos-core version --json
-npm view @aexos-squads/core version --json
+npm view @aexos/core version --json
 npm pack --dry-run --json
 ```
 
@@ -167,21 +167,21 @@ Expected before first publish:
 
 ```text
 aexos-core -> published, currently 5.0.7 in registry
-@aexos-squads/core -> 404
+@aexos/core -> 404
 ```
 
-Historical note: `@aexos-squads/core@5.1.0` was the continuity publish after the last legacy registry version, `aexos-core@5.0.7`. The current operational release baseline is `@aexos-squads/core@5.1.17`; confirm the local root `package.json` remains `@aexos-squads/core` at `5.1.17` before publishing.
+Historical note: `@aexos/core@5.1.0` was the continuity publish after the last legacy registry version, `aexos-core@5.0.7`. The current operational release baseline is `@aexos/core@5.1.17`; confirm the local root `package.json` remains `@aexos/core` at `5.1.17` before publishing.
 
-### Story 124.4 - `@aexos-squads/pro`
+### Story 124.4 - `@aexos/pro`
 
 This package is cross-repo and belongs to `CyryxLabs/aexos-pro`.
 
 Required changes:
 
 ```text
-package name -> @aexos-squads/pro
-peer dependency -> @aexos-squads/core >=5.1.17
-publish token -> NPM_TOKEN_AEXOS_SQUADS in CyryxLabs/aexos-pro
+package name -> @aexos/pro
+peer dependency -> @aexos/core >=5.1.17
+publish token -> NPM_TOKEN_AEXOS in CyryxLabs/aexos-pro
 ```
 
 ### PRO-13.5 - Private Pro Distribution
@@ -199,19 +199,19 @@ node -e "const p=require('./outputs/qa/<date>-pro-13-5-core-pack-dry-run.json')[
 Expected result:
 
 ```text
-@aexos-squads/core public tarball includes 0 files under pro/
-@aexos-squads/pro remains private/restricted and is delivered to customers through signed artifact URLs
+@aexos/core public tarball includes 0 files under pro/
+@aexos/pro remains private/restricted and is delivered to customers through signed artifact URLs
 ```
 
 DevOps artifact channel checks:
 
 ```bash
-npm view @aexos-squads/core version dist-tags --json
-npm view @aexos-squads/pro version dist-tags --json
-npm access get status @aexos-squads/pro --json
+npm view @aexos/core version dist-tags --json
+npm view @aexos/pro version dist-tags --json
+npm access get status @aexos/pro --json
 ```
 
-`@aexos-squads/pro` is allowed to remain private only while all of these checks pass:
+`@aexos/pro` is allowed to remain private only while all of these checks pass:
 
 1. Production `aexos-license-server` has `PRO_ARTIFACT_BUCKET`, `PRO_ARTIFACT_MANIFEST_JSON`, and `PRO_ARTIFACT_SIGNED_URL_TTL_SECONDS`.
 2. A verified Pro user can request `POST /api/v1/pro/artifact-url`, download the `.tgz`, and match manifest `sha256` and `sizeBytes`.
@@ -222,22 +222,22 @@ npm access get status @aexos-squads/pro --json
 Privacy transition command, only if the package is ever found public again after smoke:
 
 ```bash
-npm access set status=private @aexos-squads/pro
-npm access get status @aexos-squads/pro --json
+npm access set status=private @aexos/pro
+npm access get status @aexos/pro --json
 ```
 
 Rollback if valid customers are blocked:
 
 ```bash
-npm access set status=public @aexos-squads/pro
-npm access get status @aexos-squads/pro --json
+npm access set status=public @aexos/pro
+npm access get status @aexos/pro --json
 ```
 
 If a public core publish accidentally omits required core files, correct the package metadata, publish the next patch, and move the `latest` dist-tag to the corrected version:
 
 ```bash
-npm dist-tag add @aexos-squads/core@<corrected-version> latest
-npm view @aexos-squads/core version dist-tags --json
+npm dist-tag add @aexos/core@<corrected-version> latest
+npm view @aexos/core version dist-tags --json
 ```
 
 ### Story 124.5 - Monorepo Packages
@@ -245,9 +245,9 @@ npm view @aexos-squads/core version dist-tags --json
 Target names:
 
 ```text
-packages/aexos-install   -> @aexos-squads/aexos-install
-packages/aexos-pro-cli   -> @aexos-squads/aexos-pro-cli
-packages/installer      -> @aexos-squads/installer
+packages/aexos-install   -> @aexos/install
+packages/aexos-pro-cli   -> @aexos/pro-cli
+packages/installer      -> @aexos/installer
 ```
 
 Publish-readiness risks from Story 124.1:
@@ -276,7 +276,7 @@ Verified current access:
 Example command pattern:
 
 ```bash
-npm deprecate '@aexos-fullstack/core@4.31.0' 'Cyryx Labs v4.x was consolidated into AEXOS. Migrate to @aexos-squads/core. See docs/MIGRATION-CYRYX-SQUADS.md'
+npm deprecate '@aexos-fullstack/core@4.31.0' 'Cyryx Labs v4.x was consolidated into AEXOS. Migrate to @aexos/core. See docs/MIGRATION-CYRYX-SQUADS.md'
 ```
 
 ### Unscoped `aexos-core`
@@ -291,7 +291,7 @@ pedrovaleriolopez
 Example command pattern:
 
 ```bash
-npm deprecate 'aexos-core' 'Renamed to @aexos-squads/core. Run: npm install @aexos-squads/core. See docs/MIGRATION-CYRYX-SQUADS.md'
+npm deprecate 'aexos-core' 'Renamed to @aexos/core. Run: npm install @aexos/core. See docs/MIGRATION-CYRYX-SQUADS.md'
 ```
 
 ## Rollback
@@ -327,12 +327,12 @@ npm deprecate '<package>@<range>' '<corrected message>'
 | `gh secret set` fails                                 | missing repo admin permission or GitHub auth expired   | Run `gh auth status`; confirm `viewerPermission` is `ADMIN`.                          |
 | `npm publish --access public` fails                   | token lacks publish rights or package metadata invalid | Verify automation token scope and run `npm pack --dry-run --json`.                    |
 | `npm publish` prompts for OTP in CI                   | wrong token type                                       | Generate an Automation token, not a classic interactive token.                        |
-| `npx @aexos-squads/installer` fails                    | package bin or entrypoint mismatch                     | Fix `packages/installer` entrypoint before publish.                                   |
-| `npx @aexos-squads/aexos-pro-cli` fails on wizard/setup | relative workspace import leaked into package          | Replace the relative installer import with a package dependency or delegated command. |
+| `npx @aexos/installer` fails                    | package bin or entrypoint mismatch                     | Fix `packages/installer` entrypoint before publish.                                   |
+| `npx @aexos/pro-cli` fails on wizard/setup | relative workspace import leaked into package          | Replace the relative installer import with a package dependency or delegated command. |
 
 ## Secret Hygiene
 
 - Never commit npm tokens, GitHub tokens, `.npmrc` auth lines, or `.env` values.
 - Use `gh secret set` from stdin.
-- Keep token names stable across workflows: `NPM_TOKEN_AEXOS_SQUADS`.
+- Keep token names stable across workflows: `NPM_TOKEN_AEXOS`.
 - Document only verification results, never token values.

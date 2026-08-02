@@ -1,7 +1,7 @@
 {
-  "name": "@aexos-squads/core-internal",
+  "name": "@aexos/core-internal",
   "version": "5.3.0",
-  "description": "Internal package manifest for AEXOS framework — declares runtime dependencies consumed by scripts under .aexos-core/. This is NOT published independently; it ships inside @aexos-squads/core (the top-level package). Kept name-distinct from the parent (`-internal` suffix) to avoid npm registry confusion. Version follows the parent package.",
+  "description": "Internal package manifest for AEXOS framework — declares runtime dependencies consumed by scripts under .aexos-core/. This is NOT published independently; it ships inside @aexos/core (the top-level package). Kept name-distinct from the parent (`-internal` suffix) to avoid npm registry confusion. Version follows the parent package.",
   "private": true,
   "main": "index.js",
   "scripts": {

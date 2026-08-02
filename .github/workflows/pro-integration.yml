@@ -131,7 +131,7 @@ jobs:
       - name: Verify expected Pro package scope
         if: steps.token-check.outputs.skip != 'true'
         run: |
-          EXPECTED="@aexos-squads/pro"
+          EXPECTED="@aexos/pro"
           ACTUAL=$(node -p "require('./pro/package.json').name")
           if [ "$ACTUAL" != "$EXPECTED" ]; then
             echo "::warning::Pro submodule package is $ACTUAL; expected $EXPECTED after Story 124.4 lands."

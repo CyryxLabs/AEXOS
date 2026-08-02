@@ -196,11 +196,11 @@ This is the only command that works from a standing start — it fetches the pac
 the public repository, so nothing needs to be installed first. Verified against this revision:
 `npx github:CyryxLabs/AEXOS --version` prints `5.3.0`.
 
-> **Why `-p ... aexos` and not `npx github:CyryxLabs/AEXOS init my-project`?**
-> Because the shorter form does not currently run. The package is named `@aexos-squads/core`, so
-> npx infers a binary called `core` — which is not in the `bin` map — and exits with
-> `could not determine executable to run`. Naming the binary explicitly with `-p` avoids the
-> inference. Adding a `core` alias to `bin` in `package.json` would make the short form work.
+> **Why the short form works.**
+> The package is named `@aexos/core`, so npx infers a binary called `core` from the unscoped
+> half of the name. `package.json` declares an explicit `core` alias in `bin` for exactly that
+> reason; without it npx exits with `could not determine executable to run`. If you ever see
+> that error, name the binary explicitly instead: `npx -p @aexos/core aexos <command>`.
 
 ### 2. Pick your IDE and activate one agent
 
@@ -239,8 +239,9 @@ The three contexts are genuinely different, and a command from one will not work
 | Package already resolvable (local link, or a registry you have access to) | `npx github:CyryxLabs/AEXOS install` | Needs the package to resolve first |
 | Contributing to AEXOS itself | `git clone` → `npm install` → `npm link` | Works today |
 
-`@aexos-squads/core` is **not published to the public npm registry** — both `aexos-core` and
-`@aexos-squads/core` return 404 there. That is a distribution decision, not a licensing one: the
+`@aexos/core` is **not yet published to the public npm registry** — the earlier names
+`aexos-core` and `@aexos-squads/core` return 404 there. That is a distribution decision, not a
+licensing one: the
 [LICENSE](LICENSE) grants the Core Edition free of charge, and Section 2 expressly permits
 installing it from a package registry. So `npx github:CyryxLabs/AEXOS install` is the documented form for reinstalling or updating
 inside a project that already resolves the package (it is what `docs/installation/` uses), not a

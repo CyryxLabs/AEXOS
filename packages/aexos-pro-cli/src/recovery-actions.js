@@ -11,13 +11,13 @@
 function getCacheCleanCommands(platform = process.platform) {
   if (platform === 'win32') {
     return [
-      'Get-ChildItem -Path . -Recurse -Filter "pro" -Directory -ErrorAction SilentlyContinue | Where-Object { $_.FullName -match "node_modules\\\\@aexos-squads\\\\pro$" } | Remove-Item -Recurse -Force',
+      'Get-ChildItem -Path . -Recurse -Filter "pro" -Directory -ErrorAction SilentlyContinue | Where-Object { $_.FullName -match "node_modules\\\\@aexos\\\\pro$" } | Remove-Item -Recurse -Force',
       'Remove-Item -Recurse -Force $env:USERPROFILE\\.npm\\_npx -ErrorAction SilentlyContinue',
     ];
   }
   // darwin / linux
   return [
-    'find . -maxdepth 5 -path "*/node_modules/@aexos-squads/pro" -type d 2>/dev/null -exec rm -rf {} + 2>/dev/null',
+    'find . -maxdepth 5 -path "*/node_modules/@aexos/pro" -type d 2>/dev/null -exec rm -rf {} + 2>/dev/null',
     'rm -rf ~/.npm/_npx 2>/dev/null',
   ];
 }

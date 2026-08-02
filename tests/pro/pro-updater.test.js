@@ -42,8 +42,8 @@ function mockRegistryResponse(payload, statusCode = 200) {
   });
 }
 
-const PRO_PACKAGE_CANONICAL = '@aexos-squads/pro';
-const CORE_PACKAGE_CANONICAL = '@cyryxlabs/aexos';
+const PRO_PACKAGE_CANONICAL = '@aexos/pro';
+const CORE_PACKAGE_CANONICAL = '@aexos/core';
 const SCAFFOLDER_EXPORT_CANONICAL = `${CORE_PACKAGE_CANONICAL}/installer/pro-scaffolder`;
 
 function samePath(actual, expected) {

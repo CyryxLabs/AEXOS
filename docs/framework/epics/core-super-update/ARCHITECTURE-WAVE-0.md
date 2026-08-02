@@ -15,7 +15,7 @@ Make framework drift visible before every future harvest. The super-update must 
 
 | Repo | Role |
 |------|------|
-| `.` | OSS target, `@aexos-squads/core` |
+| `.` | OSS target, `@aexos/core` |
 | peer hub tree (`AEXOS_HUB_ROOT`) | Lab source for SDC, guards, orchestration, constitution |
 | peer enterprise tree (`AEXOS_ENTERPRISE_ROOT`) | Enterprise source for lean variants and workspace-only exclusions |
 

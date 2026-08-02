@@ -112,7 +112,7 @@ try {
 
 let ensureProjectNodeModulesLink;
 try {
-  ({ ensureProjectNodeModulesLink } = require('@cyryxlabs/aexos/installer/aexos-core-installer'));
+  ({ ensureProjectNodeModulesLink } = require('@aexos/core/installer/aexos-core-installer'));
 } catch (_err) {
   // Module may not be available in older installations
   ensureProjectNodeModulesLink = null;

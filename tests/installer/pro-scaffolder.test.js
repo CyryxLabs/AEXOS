@@ -49,7 +49,7 @@ beforeEach(async () => {
   );
   await fs.writeJson(
     path.join(proSourceDir, 'package.json'),
-    { name: '@aexos-squads/pro', version: '2.0.0' },
+    { name: '@aexos/pro', version: '2.0.0' },
   );
 });
 

@@ -149,7 +149,7 @@ describe('Dependency Validator', () => {
     fs.existsSync.mockImplementation((targetPath) => (
       samePath(targetPath, projectFile(projectPath, 'node_modules'))
     ));
-    fs.readdirSync.mockReturnValue(['@aexos-squads', '.bin']);
+    fs.readdirSync.mockReturnValue(['@aexos', '.bin']);
 
     const result = await validateDependencies({
       success: true,

@@ -36,9 +36,9 @@ Both delegate to the same `docs/guides/release-procedure.md`. The split is prese
 
 ## TL;DR (full detail in the SOP)
 
-1. **Decide bump type** by inspecting commits since the last tag (`git log v<last>..HEAD --oneline`). Patch for bug fixes only. Minor for additive features. Major for breaking changes (rare for `@aexos-squads/core`).
-2. **Pre-flight:** lint, full test suite, registry tokens fresh (`gh secret list -R CyryxLabs/AEXOS` — `NPM_TOKEN_AEXOS_SQUADS` and `NPM_TOKEN`).
-3. **Coordinate version across 4 sites** (root `package.json`, `compat/aexos-core/package.json` and its `@aexos-squads/core` dep, `packages/installer/package.json`, refresh `package-lock.json`) + `CHANGELOG.md` entry under `## [X.Y.Z] - YYYY-MM-DD` (Keep-a-Changelog).
+1. **Decide bump type** by inspecting commits since the last tag (`git log v<last>..HEAD --oneline`). Patch for bug fixes only. Minor for additive features. Major for breaking changes (rare for `@aexos/core`).
+2. **Pre-flight:** lint, full test suite, registry tokens fresh (`gh secret list -R CyryxLabs/AEXOS` — `NPM_TOKEN_AEXOS` and `NPM_TOKEN`).
+3. **Coordinate version across 4 sites** (root `package.json`, `compat/aexos-core/package.json` and its `@aexos/core` dep, `packages/installer/package.json`, refresh `package-lock.json`) + `CHANGELOG.md` entry under `## [X.Y.Z] - YYYY-MM-DD` (Keep-a-Changelog).
 4. **Branch + PR + bypass + merge** following the SOP's atomic block (snapshot ruleset + legacy protection, sanitize payloads via jq, `set -e` + `trap EXIT` to guarantee restore even on failure, merge with `--admin`, validate diff=0 vs original snapshots).
 5. **Tag + push** triggers `.github/workflows/npm-publish.yml` — `git tag -a -m "<notes>" vX.Y.Z origin/main` then `git push origin vX.Y.Z`. (Options before the tag name; `origin/main` is the ref being tagged.)
 6. **Post-publish verification** — every package visible at the expected version, `dist-tags.latest` updated, artifact integrity confirmed by `npm pack` + grep for the fix.

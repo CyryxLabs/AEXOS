@@ -2,7 +2,7 @@
  * Pro Content Scaffolder
  *
  * Copies premium content (squads, configs, feature registry) from
- * node_modules/@aexos-squads/pro/ into the user's project after
+ * node_modules/@aexos/pro/ into the user's project after
  * license activation.
  *
  * @module packages/installer/src/pro/pro-scaffolder
@@ -54,7 +54,7 @@ const SCAFFOLD_ITEMS = [
  * Scaffold pro content into user project.
  *
  * @param {string} targetDir - Project root directory
- * @param {string} proSourceDir - Path to pro package content (node_modules/@aexos-squads/pro, with legacy scopes supported by the resolver)
+ * @param {string} proSourceDir - Path to pro package content (node_modules/@aexos/pro, with legacy scopes supported by the resolver)
  * @param {Object} [options={}] - Scaffold options
  * @param {Function} [options.onProgress] - Progress callback ({item, status, message})
  * @param {boolean} [options.force=false] - Force overwrite even if content exists

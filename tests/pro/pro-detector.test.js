@@ -70,7 +70,7 @@ describe('pro-detector', () => {
 
     it('should return true when npm package exists', () => {
       const tmpDir = realFs.mkdtempSync(path.join(os.tmpdir(), 'aexos-pro-detector-'));
-      const packageDir = path.join(tmpDir, 'node_modules', '@aexos-squads', 'pro');
+      const packageDir = path.join(tmpDir, 'node_modules', '@aexos', 'pro');
       realFs.mkdirSync(packageDir, { recursive: true });
       realFs.writeFileSync(
         path.join(packageDir, 'package.json'),
@@ -103,12 +103,12 @@ describe('pro-detector', () => {
 
   describe('resolveNpmProPackage()', () => {
     it('should export the canonical package name', () => {
-      expect(PRO_PACKAGE_NAME).toBe('@aexos-squads/pro');
+      expect(PRO_PACKAGE_NAME).toBe('@aexos/pro');
     });
 
     it('should resolve the canonical package', () => {
       const tmpDir = realFs.mkdtempSync(path.join(os.tmpdir(), 'aexos-pro-detector-'));
-      const packageDir = path.join(tmpDir, 'node_modules', '@aexos-squads', 'pro');
+      const packageDir = path.join(tmpDir, 'node_modules', '@aexos', 'pro');
       realFs.mkdirSync(packageDir, { recursive: true });
       realFs.writeFileSync(
         path.join(packageDir, 'package.json'),
@@ -182,7 +182,7 @@ describe('pro-detector', () => {
       // Only submodule path exists
       fs.existsSync.mockImplementation((p) => p === _PRO_PACKAGE_PATH);
       fs.readFileSync.mockReturnValue(
-        JSON.stringify({ name: '@aexos-squads/pro', version: '0.4.0' }),
+        JSON.stringify({ name: '@aexos/pro', version: '0.4.0' }),
       );
 
       expect(getProVersion()).toBe('0.4.0');
@@ -190,7 +190,7 @@ describe('pro-detector', () => {
 
     it('should return null when package.json has no version field', () => {
       fs.existsSync.mockImplementation((p) => p === _PRO_PACKAGE_PATH);
-      fs.readFileSync.mockReturnValue(JSON.stringify({ name: '@aexos-squads/pro' }));
+      fs.readFileSync.mockReturnValue(JSON.stringify({ name: '@aexos/pro' }));
 
       expect(getProVersion()).toBeNull();
     });
@@ -225,7 +225,7 @@ describe('pro-detector', () => {
     it('should return full info when pro submodule is available', () => {
       fs.existsSync.mockImplementation((p) => p === _PRO_PACKAGE_PATH);
       fs.readFileSync.mockReturnValue(
-        JSON.stringify({ name: '@aexos-squads/pro', version: '0.4.0' }),
+        JSON.stringify({ name: '@aexos/pro', version: '0.4.0' }),
       );
 
       const info = getProInfo();

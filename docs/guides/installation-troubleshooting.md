@@ -55,7 +55,7 @@ npx github:CyryxLabs/AEXOS install
 ### Method 3: Global Installation (**recommended on Windows**)
 
 ```bash
-npm install -g @aexos-squads/core
+npm install -g @aexos/core
 # or: npm install -g aexos-core
 cd path\to\your\project
 aexos-core install
@@ -98,7 +98,7 @@ npm error Lock compromised
 
 **Solution (preferred on Windows):**
 ```bash
-npm install -g @aexos-squads/core
+npm install -g @aexos/core
 cd C:\path\to\your\project
 aexos-core install
 ```
@@ -286,18 +286,18 @@ npx --ignore-existing aexos-core@latest
 npx github:CyryxLabs/AEXOS
 ```
 
-### Issue 10: "Pro activation failed: Installed Pro artifact did not create node_modules/@aexos-squads/pro"
+### Issue 10: "Pro activation failed: Installed Pro artifact did not create node_modules/@aexos/pro"
 
 **Symptom:** The installer reaches Step 2 (Pro Content Installation), successfully authenticates the buyer email, downloads the Pro tarball — and then prints:
 
 ```text
-⚠️  Pro activation failed: Installed Pro artifact did not create node_modules/@aexos-squads/pro.
+⚠️  Pro activation failed: Installed Pro artifact did not create node_modules/@aexos/pro.
 Continue with Community (free) edition instead? (Y/n)
 ```
 
-**Root cause:** The bug was in installer versions `5.2.5` and earlier. `npm install <tarball>` walked up the directory tree looking for the first ancestor with a `package.json`, then installed `@aexos-squads/pro` there instead of in your chosen target directory. The post-install integrity check then failed because the artifact landed in the wrong place — even though `npm` had exited 0.
+**Root cause:** The bug was in installer versions `5.2.5` and earlier. `npm install <tarball>` walked up the directory tree looking for the first ancestor with a `package.json`, then installed `@aexos/pro` there instead of in your chosen target directory. The post-install integrity check then failed because the artifact landed in the wrong place — even though `npm` had exited 0.
 
-This is **fully fixed in `@aexos-squads/core@5.2.6` and above**. The installer now passes `--prefix` + `--workspaces=false` to `npm install`, which anchors the install to the target directory regardless of ancestor `package.json`/`workspaces` declarations.
+This is **fully fixed in `@aexos/core@5.2.6` and above**. The installer now passes `--prefix` + `--workspaces=false` to `npm install`, which anchors the install to the target directory regardless of ancestor `package.json`/`workspaces` declarations.
 
 **Solution (most users — works on any OS):**
 
@@ -311,8 +311,8 @@ npx github:CyryxLabs/AEXOS install
 *macOS / Linux (bash/zsh):*
 
 ```bash
-# 1. Remove any stray @aexos-squads/pro that the buggy installer left in an ancestor dir
-find . -maxdepth 5 -path "*/node_modules/@aexos-squads/pro" -type d 2>/dev/null \
+# 1. Remove any stray @aexos/pro that the buggy installer left in an ancestor dir
+find . -maxdepth 5 -path "*/node_modules/@aexos/pro" -type d 2>/dev/null \
   -exec rm -rf {} + 2>/dev/null
 
 # 2. Clear the npx cache so it doesn't serve the old buggy version
@@ -325,9 +325,9 @@ npx github:CyryxLabs/AEXOS install
 *Windows (PowerShell):*
 
 ```powershell
-# 1. Remove any stray @aexos-squads/pro that the buggy installer left in an ancestor dir
+# 1. Remove any stray @aexos/pro that the buggy installer left in an ancestor dir
 Get-ChildItem -Recurse -Depth 5 -Directory -ErrorAction SilentlyContinue `
-  | Where-Object { $_.FullName -match '\\node_modules\\@aexos-squads\\pro$' } `
+  | Where-Object { $_.FullName -match '\\node_modules\\@aexos\\pro$' } `
   | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
 
 # 2. Clear the npx cache so it doesn't serve the old buggy version
@@ -340,8 +340,8 @@ npx github:CyryxLabs/AEXOS install
 *Windows (Command Prompt / cmd.exe):*
 
 ```bat
-:: 1. Remove any stray @aexos-squads/pro that the buggy installer left behind
-for /f "delims=" %i in ('dir /b /s /ad "node_modules\@aexos-squads\pro" 2^>nul') do rd /s /q "%i"
+:: 1. Remove any stray @aexos/pro that the buggy installer left behind
+for /f "delims=" %i in ('dir /b /s /ad "node_modules\@aexos\pro" 2^>nul') do rd /s /q "%i"
 
 :: 2. Clear the npx cache
 rd /s /q "%USERPROFILE%\.npm\_npx" 2>nul

@@ -4,17 +4,29 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 /**
- * The package is named for the company that owns it and the product it is —
- * `@cyryxlabs/aexos`. That also makes `npx github:CyryxLabs/AEXOS <command>`
- * resolve, because npm infers the binary from the unscoped name and `aexos` is
- * a real bin; the previous name inferred `core`, which is not.
+ * The scope is consolidated on a single npm org, `@aexos`, so the core package
+ * is `@aexos/core`. Publishing under two scopes at once would have required
+ * owning two organisations.
+ *
+ * Because the unscoped half of that name is `core`, npm would infer a binary
+ * called `core` for `npx @aexos/core <command>`. Root `package.json` therefore
+ * declares an explicit `core` bin alias; without it npx exits with
+ * `could not determine executable to run`.
  *
  * Every earlier name stays recognised. A project installed under an older name
  * still has that name in its own node_modules, and refusing to see it would
  * break the very upgrade path that renames it.
  */
-const CORE_PACKAGE_NAME = '@cyryxlabs/aexos';
-const LEGACY_CORE_PACKAGE_NAMES = ['@aexos-squads/core', 'aexos-core', '@cyryx/aexos-core'];
+const CORE_PACKAGE_NAME = '@aexos/core';
+// Historical names, deliberately NOT rewritten to the current scope: this list
+// exists so a project installed under an older name still resolves. Renaming
+// these entries would silently break the upgrade path they exist to serve.
+const LEGACY_CORE_PACKAGE_NAMES = [
+  '@cyryxlabs/aexos',
+  '@aexos-squads/core',
+  'aexos-core',
+  '@cyryx/aexos-core',
+];
 const CORE_PACKAGE_NAMES = new Set([CORE_PACKAGE_NAME, ...LEGACY_CORE_PACKAGE_NAMES]);
 
 function isCorePackageRoot(candidate) {

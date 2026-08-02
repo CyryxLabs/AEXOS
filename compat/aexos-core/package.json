@@ -1,7 +1,7 @@
 {
   "name": "aexos-core",
   "version": "5.3.0",
-  "description": "Compatibility wrapper for @aexos-squads/core.",
+  "description": "Compatibility wrapper for @aexos/core.",
   "license": "SEE LICENSE IN LICENSE",
   "bin": {
     "aexos": "bin/aexos-core.js",
@@ -15,7 +15,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@aexos-squads/core": "5.3.0"
+    "@aexos/core": "5.3.0"
   },
   "engines": {
     "node": ">=18"

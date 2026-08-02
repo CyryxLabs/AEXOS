@@ -122,10 +122,10 @@ jobs:
           // The workspace packages keep their scope: nothing resolves them by
           // name from outside, so renaming them would be churn without effect.
           const expected = {
-            'package.json': '@cyryxlabs/aexos',
-            'packages/aexos-install/package.json': '@aexos-squads/aexos-install',
-            'packages/aexos-pro-cli/package.json': '@aexos-squads/aexos-pro-cli',
-            'packages/installer/package.json': '@aexos-squads/installer',
+            'package.json': '@aexos/core',
+            'packages/aexos-install/package.json': '@aexos/install',
+            'packages/aexos-pro-cli/package.json': '@aexos/pro-cli',
+            'packages/installer/package.json': '@aexos/installer',
           };
 
           for (const [file, expectedName] of Object.entries(expected)) {

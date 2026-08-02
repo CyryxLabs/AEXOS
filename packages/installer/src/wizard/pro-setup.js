@@ -106,7 +106,7 @@ try {
  * License server base URL (same source of truth as license-api.js CONFIG.BASE_URL).
  */
 const DEFAULT_LICENSE_SERVER_URL = 'https://aexos-license-server.vercel.app';
-const PRO_ARTIFACT_PACKAGE = '@aexos-squads/pro';
+const PRO_ARTIFACT_PACKAGE = '@aexos/pro';
 const DEFAULT_PRO_ARTIFACT_VERSION = '0.4.2';
 const MAX_PRO_ARTIFACT_SIZE_BYTES = 100 * 1024 * 1024;
 const PRO_ARTIFACT_DOWNLOAD_TIMEOUT_MS = 60000;
@@ -142,7 +142,7 @@ const MACHINE_ID_HASH_PREFIX = 'aexos-pro-native-machine-id:v1:';
 /**
  * Inline License Client — lightweight HTTP client for pre-bootstrap license checks.
  *
- * Used when @aexos-squads/pro is not yet installed (first install scenario).
+ * Used when @aexos/pro is not yet installed (first install scenario).
  * Implements the same interface subset as LicenseApiClient using Node.js native https.
  */
 class InlineLicenseClient {
@@ -497,14 +497,14 @@ function showStep(current, total, label) {
  *
  * Resolution order:
  * 1. Relative path (framework-dev mode: ../../../../pro/license/{name})
- * 2. @aexos-squads/pro package (brownfield: node_modules/@aexos-squads/pro/license/{name})
+ * 2. @aexos/pro package (brownfield: node_modules/@aexos/pro/license/{name})
  * 3. Absolute path via aexos-core in node_modules (brownfield upgrade)
- * 4. Absolute path via @aexos-squads/pro in user project (npx context)
+ * 4. Absolute path via @aexos/pro in user project (npx context)
  *
  * Path 4 is critical for npx execution: when running `npx github:CyryxLabs/AEXOS install`,
  * require() resolves from the npx temp directory, not process.cwd(). After
- * bootstrap installs @aexos-squads/pro in the user's project, only an
- * absolute path to process.cwd()/node_modules/@aexos-squads/pro/... works.
+ * bootstrap installs @aexos/pro in the user's project, only an
+ * absolute path to process.cwd()/node_modules/@aexos/pro/... works.
  *
  * @param {string} moduleName - Module filename without extension (e.g., 'license-api')
  * @returns {Object|null} Loaded module or null
@@ -525,7 +525,7 @@ function loadProModule(moduleName) {
     }
   };
 
-  // 1. Core package root (framework-dev repo or @aexos-squads/core dependency)
+  // 1. Core package root (framework-dev repo or @aexos/core dependency)
   try {
     const frameworkModule = tryRequire(resolveCyryxCorePath('pro', 'license', moduleName));
     if (frameworkModule) {
@@ -536,7 +536,7 @@ function loadProModule(moduleName) {
   }
 
   // 2. npm package
-  const requestPath = `@aexos-squads/pro/license/${moduleName}`;
+  const requestPath = `@aexos/pro/license/${moduleName}`;
   const loadedPackageModule = tryRequire(requestPath);
   if (loadedPackageModule) {
     return loadedPackageModule;
@@ -561,7 +561,7 @@ function loadProModule(moduleName) {
   const absPath = path.join(
     process.cwd(),
     'node_modules',
-    '@aexos-squads',
+    '@aexos',
     'pro',
     'license',
     moduleName,
@@ -714,7 +714,7 @@ function withMachineIdSource(payload) {
 /**
  * Get a license API client instance.
  *
- * Prefers the full LicenseApiClient from @aexos-squads/pro when available.
+ * Prefers the full LicenseApiClient from @aexos/pro when available.
  * Falls back to InlineLicenseClient (native https) for pre-bootstrap scenarios.
  *
  * @returns {Object} Client instance with isOnline, checkEmail, login, signup, activateByAuth
@@ -731,7 +731,7 @@ function getLicenseClient() {
     return new LicenseApiClient();
   }
 
-  // Fallback: use inline client for pre-bootstrap (no @aexos-squads/pro yet)
+  // Fallback: use inline client for pre-bootstrap (no @aexos/pro yet)
   return new InlineLicenseClient();
 }
 
@@ -927,9 +927,9 @@ async function extractProArtifactToTemp(artifactPath, tempRoot) {
     throw new Error(`Failed to extract Pro artifact package: ${String(details).trim()}`);
   }
 
-  const proSourceDir = path.join(installRoot, 'node_modules', '@aexos-squads', 'pro');
+  const proSourceDir = path.join(installRoot, 'node_modules', '@aexos', 'pro');
   if (!(await fs.pathExists(path.join(proSourceDir, 'package.json')))) {
-    throw new Error('Extracted Pro artifact did not contain @aexos-squads/pro package metadata.');
+    throw new Error('Extracted Pro artifact did not contain @aexos/pro package metadata.');
   }
 
   return proSourceDir;
@@ -986,7 +986,7 @@ async function installProArtifactIntoTarget(artifactPath, targetDir) {
     }
   }
 
-  const proSourceDir = path.join(targetDir, 'node_modules', '@aexos-squads', 'pro');
+  const proSourceDir = path.join(targetDir, 'node_modules', '@aexos', 'pro');
   if (!(await fs.pathExists(path.join(proSourceDir, 'package.json')))) {
     const ancestorHit = await findAncestorNodeModulesPro(targetDir);
     const diagnosis = ancestorHit
@@ -1012,7 +1012,7 @@ async function findAncestorNodeModulesPro(startDir) {
   // Walk up at most 8 levels to keep this bounded on deep trees.
   for (let i = 0; i < 8 && current !== root; i += 1) {
     current = path.dirname(current);
-    const candidate = path.join(current, 'node_modules', '@aexos-squads', 'pro', 'package.json');
+    const candidate = path.join(current, 'node_modules', '@aexos', 'pro', 'package.json');
     if (await fs.pathExists(candidate)) {
       return path.dirname(candidate);
     }
@@ -1073,7 +1073,7 @@ async function acquireProArtifactSourceDir(targetDir, licenseResult, options = {
 
     // The Pro content is already extracted and integrity-verified at this point.
     // Installing into targetDir is a convenience so post-install Pro commands can
-    // resolve @aexos-squads/pro from the project's node_modules — it is NOT required
+    // resolve @aexos/pro from the project's node_modules — it is NOT required
     // for the scaffold step, which copies files directly from extractedProSourceDir.
     // If the target install fails (e.g. PRO_INSTALL_TARGET_HIJACKED), warn but
     // continue with the temp source so the user can still complete the install.
@@ -1171,7 +1171,7 @@ async function ensureKeyValidationParity(client, activationResult, machineId, cy
  * Priority:
  * 1. Bundled pro/ content in the aexos-core checkout or package
  * 2. Auto-initialize the git submodule when running from a source checkout
- * 3. Installed @aexos-squads/pro package in the target project
+ * 3. Installed @aexos/pro package in the target project
  *
  * @param {string} targetDir - Project root directory
  * @returns {{proSourceDir: string|null, bootstrapError?: string}} Resolution result
@@ -1183,7 +1183,7 @@ function resolveProSourceDir(targetDir) {
 
   const repoRoot = path.resolve(__dirname, '..', '..', '..', '..');
   const bundledProDir = path.join(repoRoot, 'pro');
-  const npmProDir = path.join(targetDir, 'node_modules', '@aexos-squads', 'pro');
+  const npmProDir = path.join(targetDir, 'node_modules', '@aexos', 'pro');
   const bundledSquadsDir = path.join(bundledProDir, 'squads');
   const gitmodulesPath = path.join(repoRoot, '.gitmodules');
 
@@ -2130,7 +2130,7 @@ async function stepInstallScaffold(targetDir, options = {}) {
     installedArtifactProSourceDir = acquisition.installedProSourceDir || null;
 
     if (acquisition.targetInstallWarning) {
-      const expectedProDir = path.join(targetDir, 'node_modules', '@aexos-squads', 'pro');
+      const expectedProDir = path.join(targetDir, 'node_modules', '@aexos', 'pro');
       showWarning(
         `Pro module could not be cached at ${expectedProDir}: ${acquisition.targetInstallWarning} This install will still complete using the verified Pro artifact from a temporary cache, but the cache is wiped at the end of this command — every future run of \`aexos install\` in this directory will re-download the Pro artifact until you run it from a fresh empty directory (e.g. \`mkdir ~/aexos-pro && cd ~/aexos-pro && npx github:CyryxLabs/AEXOS install\`).`,
       );
@@ -2318,7 +2318,7 @@ async function runProWizard(options = {}) {
     showProHeader();
   }
 
-  // Step 1: License Gate (uses InlineLicenseClient if @aexos-squads/pro not yet installed)
+  // Step 1: License Gate (uses InlineLicenseClient if @aexos/pro not yet installed)
   const licenseResult = await stepLicenseGate({
     key: options.key || process.env.AEXOS_PRO_KEY,
     email: options.email || process.env.AEXOS_PRO_EMAIL,

@@ -36,8 +36,16 @@ const {
 // The updater's whole job is meeting projects installed under an older name, so
 // the legacy list is load-bearing here rather than defensive. Current name
 // first: an install carrying both resolves to the one it should upgrade toward.
-const CORE_PACKAGE_NAME = '@cyryxlabs/aexos';
-const LEGACY_CORE_PACKAGE_NAMES = ['@aexos-squads/core', 'aexos-core', '@cyryx/aexos-core'];
+//
+// Sourced from package-paths rather than restated. This file used to keep its
+// own copy, and the scope consolidation onto `@aexos/` rewrote that copy while
+// leaving the real one alone — exactly the "a rename leaves half the code
+// behind" failure the package-paths comment warns about.
+const {
+  CORE_PACKAGE_NAME,
+  LEGACY_CORE_PACKAGE_NAMES,
+} = require('../utils/package-paths');
+
 const CORE_PACKAGE_CANDIDATES = [CORE_PACKAGE_NAME, ...LEGACY_CORE_PACKAGE_NAMES];
 
 function getPackageRoot(projectRoot, packageName) {

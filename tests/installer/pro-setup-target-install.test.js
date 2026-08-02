@@ -2,24 +2,24 @@
  * Regression tests for installProArtifactIntoTarget npm hijack scenarios.
  *
  * Background:
- *   `aexos install` (Pro flow) downloads an `@aexos-squads/pro` tarball and runs
+ *   `aexos install` (Pro flow) downloads an `@aexos/pro` tarball and runs
  *   `npm install <tgz>` inside the user's chosen target directory. Without
  *   `--prefix` and `--workspaces=false`, npm 10+/11 walks up the directory tree
  *   looking for the first ancestor with a package.json — when it finds one, it
  *   installs node_modules there instead of in the target. The post-install
- *   integrity check (`node_modules/@aexos-squads/pro/package.json` exists at
+ *   integrity check (`node_modules/@aexos/pro/package.json` exists at
  *   targetDir) then fails with the user-facing error
  *
  *     Pro activation failed: Installed Pro artifact did not create
- *     node_modules/@aexos-squads/pro.
+ *     node_modules/@aexos/pro.
  *
- *   even though npm exited 0 and a copy of @aexos-squads/pro now lives one
+ *   even though npm exited 0 and a copy of @aexos/pro now lives one
  *   directory up.
  *
  * These tests reproduce the four real-world install topologies students hit
  * in cohorts and assert the fix prevents npm from escaping the target dir.
  *
- * Tests build a minimal `@aexos-squads/pro` tarball at runtime (via npm pack)
+ * Tests build a minimal `@aexos/pro` tarball at runtime (via npm pack)
  * so the fixture is self-contained and does not require the private Pro
  * artifact bucket.
  */
@@ -53,7 +53,7 @@ function writePackageJson(dir, body) {
 }
 
 /**
- * Build a minimal `@aexos-squads/pro` tarball at runtime. Smaller than the
+ * Build a minimal `@aexos/pro` tarball at runtime. Smaller than the
  * private artifact and adequate to exercise the npm install codepath. Cached
  * across tests in the suite via module-level memoization.
  */
@@ -68,9 +68,9 @@ function buildFixtureTarball() {
   cachedFixtureBuildDir = buildDir;
 
   const pkg = {
-    name: '@aexos-squads/pro',
+    name: '@aexos/pro',
     version: '0.0.0-test-fixture',
-    description: 'Minimal @aexos-squads/pro fixture for installer regression tests',
+    description: 'Minimal @aexos/pro fixture for installer regression tests',
     private: false,
     files: ['squads/index.js', 'license/license-cache.js'],
   };
@@ -122,7 +122,7 @@ describe('installProArtifactIntoTarget — npm hijack regression (Story PRO-13.6
         root,
       );
 
-      expect(proSourceDir).toBe(path.join(root, 'node_modules', '@aexos-squads', 'pro'));
+      expect(proSourceDir).toBe(path.join(root, 'node_modules', '@aexos', 'pro'));
       expect(fs.existsSync(path.join(proSourceDir, 'package.json'))).toBe(true);
     } finally {
       removeDir(root);
@@ -146,10 +146,10 @@ describe('installProArtifactIntoTarget — npm hijack regression (Story PRO-13.6
         target,
       );
 
-      expect(proSourceDir).toBe(path.join(target, 'node_modules', '@aexos-squads', 'pro'));
+      expect(proSourceDir).toBe(path.join(target, 'node_modules', '@aexos', 'pro'));
       expect(fs.existsSync(path.join(proSourceDir, 'package.json'))).toBe(true);
       expect(
-        fs.existsSync(path.join(wsRoot, 'node_modules', '@aexos-squads', 'pro', 'package.json')),
+        fs.existsSync(path.join(wsRoot, 'node_modules', '@aexos', 'pro', 'package.json')),
       ).toBe(false);
     } finally {
       removeDir(wsRoot);
@@ -173,10 +173,10 @@ describe('installProArtifactIntoTarget — npm hijack regression (Story PRO-13.6
         target,
       );
 
-      expect(proSourceDir).toBe(path.join(target, 'node_modules', '@aexos-squads', 'pro'));
+      expect(proSourceDir).toBe(path.join(target, 'node_modules', '@aexos', 'pro'));
       expect(fs.existsSync(path.join(proSourceDir, 'package.json'))).toBe(true);
       expect(
-        fs.existsSync(path.join(parentRoot, 'node_modules', '@aexos-squads', 'pro', 'package.json')),
+        fs.existsSync(path.join(parentRoot, 'node_modules', '@aexos', 'pro', 'package.json')),
       ).toBe(false);
     } finally {
       removeDir(parentRoot);
@@ -193,7 +193,7 @@ describe('installProArtifactIntoTarget — npm hijack regression (Story PRO-13.6
         target,
       );
 
-      expect(proSourceDir).toBe(path.join(target, 'node_modules', '@aexos-squads', 'pro'));
+      expect(proSourceDir).toBe(path.join(target, 'node_modules', '@aexos', 'pro'));
       expect(fs.existsSync(path.join(proSourceDir, 'package.json'))).toBe(true);
 
       const pkg = JSON.parse(fs.readFileSync(path.join(target, 'package.json'), 'utf8'));
@@ -216,11 +216,11 @@ describe('installProArtifactIntoTarget — npm hijack regression (Story PRO-13.6
 });
 
 describe('findAncestorNodeModulesPro — diagnostic helper', () => {
-  test('returns the ancestor directory when an upstream node_modules holds @aexos-squads/pro', async () => {
+  test('returns the ancestor directory when an upstream node_modules holds @aexos/pro', async () => {
     const root = makeTempDir('aexos-pro-ancestor-');
-    const proDir = path.join(root, 'node_modules', '@aexos-squads', 'pro');
+    const proDir = path.join(root, 'node_modules', '@aexos', 'pro');
     fs.mkdirSync(proDir, { recursive: true });
-    fs.writeFileSync(path.join(proDir, 'package.json'), '{"name":"@aexos-squads/pro"}');
+    fs.writeFileSync(path.join(proDir, 'package.json'), '{"name":"@aexos/pro"}');
 
     const target = path.join(root, 'projects', 'leaf');
     fs.mkdirSync(target, { recursive: true });
@@ -233,7 +233,7 @@ describe('findAncestorNodeModulesPro — diagnostic helper', () => {
     }
   });
 
-  test('returns null when no ancestor has @aexos-squads/pro installed', async () => {
+  test('returns null when no ancestor has @aexos/pro installed', async () => {
     const root = makeTempDir('aexos-pro-no-ancestor-');
     try {
       const hit = await proSetup._testing.findAncestorNodeModulesPro(root);
@@ -281,7 +281,7 @@ describe('acquireProArtifactSourceDir — graceful fallback when target install 
     proSetup._testing.InlineLicenseClient.prototype.getProArtifactUrl = jest
       .fn()
       .mockResolvedValue({
-        package: '@aexos-squads/pro',
+        package: '@aexos/pro',
         version: proSetup._testing.DEFAULT_PRO_ARTIFACT_VERSION,
         artifactUrl: 'https://aexos-fixture.test.invalid/pro.tgz',
         sha256: tarballSha256,
@@ -310,7 +310,7 @@ describe('acquireProArtifactSourceDir — graceful fallback when target install 
       expect(result.installedProSourceDir).toBeNull();
       expect(result.proSourceDir).toBeTruthy();
       expect(result.proSourceDir).toContain('node_modules');
-      expect(result.proSourceDir).toContain('@aexos-squads');
+      expect(result.proSourceDir).toContain('@aexos');
       expect(result.targetInstallWarning).toBeTruthy();
       expect(result.targetInstallWarning).toContain('did not create');
 

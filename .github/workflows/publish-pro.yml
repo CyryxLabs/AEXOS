@@ -1,4 +1,4 @@
-# GitHub Actions workflow for publishing @aexos-squads/pro to npm
+# GitHub Actions workflow for publishing @aexos/pro to npm
 #
 # This workflow publishes the AEXOS Pro package to the public npm registry.
 # Features are license-gated (activation required), not install-gated.
@@ -103,8 +103,8 @@ jobs:
         run: |
           cd pro
           PACKAGE_NAME=$(node -p "require('./package.json').name")
-          if [ "$PACKAGE_NAME" != "@aexos-squads/pro" ]; then
-            echo "::error::Expected pro/package.json name to be @aexos-squads/pro, got $PACKAGE_NAME"
+          if [ "$PACKAGE_NAME" != "@aexos/pro" ]; then
+            echo "::error::Expected pro/package.json name to be @aexos/pro, got $PACKAGE_NAME"
             exit 1
           fi
 
@@ -113,7 +113,7 @@ jobs:
           cd pro
           npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_AEXOS_SQUADS }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_AEXOS }}
 
       - name: Create release notes
         if: startsWith(github.ref, 'refs/tags/pro-v')
@@ -163,11 +163,11 @@ jobs:
           node-version: '20'
 
       - name: Verify package is accessible
-        run: npm view @aexos-squads/pro
+        run: npm view @aexos/pro
 
       - name: Test installation
         run: |
           mkdir test-install && cd test-install
           npm init -y
-          npm install @aexos-squads/pro
+          npm install @aexos/pro
           echo "✅ Package installed successfully"
