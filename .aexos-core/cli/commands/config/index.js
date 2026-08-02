@@ -31,7 +31,7 @@ const envInterpolatorPath = path.resolve(__dirname, '..', '..', '..', 'core', 'c
  * Resolve the canonical framework version.
  *
  * Single source of truth is the root package.json shipped with the framework
- * (`@cyryxlabs/aexos`). Never hardcode a literal here — a frozen literal is
+ * (`@aexos/core`). Never hardcode a literal here — a frozen literal is
  * exactly how `framework_version` drifted to 3.12.0 while the package was 5.3.0
  * (AEX-0.6).
  *

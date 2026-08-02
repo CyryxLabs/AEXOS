@@ -66,7 +66,7 @@ npm run sync:ide
 To recover a password or license:
 
 ```bash
-npx -y @aexos-squads/aexos-pro-cli@latest recover
+npx -y @aexos/pro-cli@latest recover
 ```
 
 If the purchased email is not recognized, or if the account exists but activation fails, the correct operational flow is to engage `@devops` with one of these commands:
@@ -82,6 +82,6 @@ If the purchased email is not recognized, or if the account exists but activatio
 - `AEXOS Pro is not installed.`: run `npx github:CyryxLabs/AEXOS pro setup` before status/validate.
 - `Invalid key format`: the legacy key must follow the `PRO-XXXX-XXXX-XXXX-XXXX` format.
 - Failure in CI without an interactive prompt: set `AEXOS_PRO_EMAIL` + `AEXOS_PRO_PASSWORD` or `AEXOS_PRO_KEY`.
-- `Pro activation failed: Installed Pro artifact did not create node_modules/@aexos-squads/pro.`: bug in versions `5.2.5` and earlier — fixed as of `@aexos-squads/core@5.2.6`. Update with `npx github:CyryxLabs/AEXOS install`. If it persists, see [installation-troubleshooting.md → Issue 10](installation-troubleshooting.md#issue-10-pro-activation-failed-installed-pro-artifact-did-not-create-node_modulesaexos-squadspro) for the complete recovery kit.
+- `Pro activation failed: Installed Pro artifact did not create node_modules/@aexos/pro.`: bug in versions `5.2.5` and earlier — fixed as of `@aexos/core@5.2.6`. Update with `npx github:CyryxLabs/AEXOS install`. If it persists, see [installation-troubleshooting.md → Issue 10](installation-troubleshooting.md#issue-10-pro-activation-failed-installed-pro-artifact-did-not-create-node_modulesaexos-squadspro) for the complete recovery kit.
 
 Never share a password, token or full license key in public issues. For support, send only the email and the symptom.

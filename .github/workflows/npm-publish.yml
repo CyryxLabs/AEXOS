@@ -1,6 +1,6 @@
 name: Publish to NPM
 # Story 6.1 - Added concurrency
-# Story 124.7 - Publish @aexos-squads packages
+# Story 124.7 - Publish @aexos packages
 #
 # ─────────────────────────────────────────────────────────────────────────────
 # AUTHENTICATION: dual-path (OIDC Trusted Publishing + legacy token fallback)
@@ -18,17 +18,17 @@ name: Publish to NPM
 #     (org: CyryxLabs, repo: AEXOS, workflow: npm-publish.yml)
 #
 # Until every package has its publisher registered, each publish job tries OIDC
-# first and falls back to NPM_TOKEN_AEXOS_SQUADS / NPM_TOKEN. The fallback is
+# first and falls back to NPM_TOKEN_AEXOS / NPM_TOKEN. The fallback is
 # expected to fail while 2FA-on-publish is enforced — it exists so that a
 # manually-issued bypass token (or a legacy classic token) still works if one is
 # provisioned out-of-band.
 #
 # REMOVE THE TOKEN FALLBACK when either condition is met (whichever comes first):
-#   (a) trusted publishers are registered for @cyryxlabs/aexos,
-#       @aexos-squads/aexos-install, @aexos-squads/aexos-pro-cli,
-#       @aexos-squads/installer and aexos-core, and one release has shipped
+#   (a) trusted publishers are registered for @aexos/core,
+#       @aexos/install, @aexos/pro-cli,
+#       @aexos/installer and aexos-core, and one release has shipped
 #       green via OIDC; or
-#   (b) 2027-01 — at which point NPM_TOKEN_AEXOS_SQUADS and NPM_TOKEN are dead
+#   (b) 2027-01 — at which point NPM_TOKEN_AEXOS and NPM_TOKEN are dead
 #       anyway and the fallback is pure noise.
 # Removal = delete the "(fallback)" steps and their `env:` token blocks.
 
@@ -275,7 +275,7 @@ jobs:
         run: |
           echo "::warning::Trusted Publishing (OIDC) did not succeed for the core package — falling back to token auth. Register the trusted publisher on npmjs.com to remove this path."
           publish_status=1
-          for token in "$NPM_TOKEN_AEXOS_SQUADS" "$NPM_TOKEN"; do
+          for token in "$NPM_TOKEN_AEXOS" "$NPM_TOKEN"; do
             if [ -z "$token" ]; then
               continue
             fi
@@ -290,7 +290,7 @@ jobs:
 
           if [ "$publish_status" -ne 0 ]; then
             rm -f .npmrc
-            echo "::error::Unable to publish scoped core package via OIDC or token. Register a trusted publisher for @cyryxlabs/aexos (CyryxLabs/AEXOS -> npm-publish.yml), or refresh NPM_TOKEN_AEXOS_SQUADS / NPM_TOKEN with owner access."
+            echo "::error::Unable to publish scoped core package via OIDC or token. Register a trusted publisher for @aexos/core (CyryxLabs/AEXOS -> npm-publish.yml), or refresh NPM_TOKEN_AEXOS / NPM_TOKEN with owner access."
             exit "$publish_status"
           fi
 
@@ -302,9 +302,9 @@ jobs:
           rm -f .npmrc
           echo "✅ Published ${PKG_NAME}@${{ needs.build.outputs.version }} with tag ${{ steps.publish-tag.outputs.tag }}"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_AEXOS_SQUADS }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_AEXOS }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_TOKEN_AEXOS_SQUADS: ${{ secrets.NPM_TOKEN_AEXOS_SQUADS }}
+          NPM_TOKEN_AEXOS: ${{ secrets.NPM_TOKEN_AEXOS }}
 
       - name: Verify publication
         if: steps.should-publish.outputs.should_publish == 'true'
@@ -383,8 +383,8 @@ jobs:
           VERSION=$(node -p "require('${PACKAGE_JSON}').version")
           echo "name=$NAME" >> $GITHUB_OUTPUT
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          if [[ "$NAME" != @aexos-squads/* ]]; then
-            echo "::error::Expected an @aexos-squads package name, got $NAME"
+          if [[ "$NAME" != @aexos/* ]]; then
+            echo "::error::Expected an @aexos package name, got $NAME"
             exit 1
           fi
 
@@ -445,7 +445,7 @@ jobs:
         run: |
           echo "::warning::Trusted Publishing (OIDC) did not succeed for ${{ steps.pkg.outputs.name }} — falling back to token auth. Register the trusted publisher on npmjs.com to remove this path."
           publish_status=1
-          for token in "$NPM_TOKEN_AEXOS_SQUADS" "$NPM_TOKEN"; do
+          for token in "$NPM_TOKEN_AEXOS" "$NPM_TOKEN"; do
             if [ -z "$token" ]; then
               continue
             fi
@@ -460,7 +460,7 @@ jobs:
 
           if [ "$publish_status" -ne 0 ]; then
             rm -f .npmrc
-            echo "::error::Unable to publish ${{ steps.pkg.outputs.name }} via OIDC or token. Register a trusted publisher for it (CyryxLabs/AEXOS -> npm-publish.yml), or refresh NPM_TOKEN_AEXOS_SQUADS / NPM_TOKEN with owner access to the @aexos-squads scope."
+            echo "::error::Unable to publish ${{ steps.pkg.outputs.name }} via OIDC or token. Register a trusted publisher for it (CyryxLabs/AEXOS -> npm-publish.yml), or refresh NPM_TOKEN_AEXOS / NPM_TOKEN with owner access to the @aexos scope."
             exit "$publish_status"
           fi
 
@@ -469,9 +469,9 @@ jobs:
           rm -f .npmrc
           echo "✅ Published ${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_AEXOS_SQUADS }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_AEXOS }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_TOKEN_AEXOS_SQUADS: ${{ secrets.NPM_TOKEN_AEXOS_SQUADS }}
+          NPM_TOKEN_AEXOS: ${{ secrets.NPM_TOKEN_AEXOS }}
 
       - name: Smoke test - verify npx works
         if: steps.should-publish.outputs.should_publish == 'true'
@@ -498,7 +498,7 @@ jobs:
 
   publish_legacy_cyryx_core:
     # MUST wait for `publish` because compat/aexos-core declares
-    # `@aexos-squads/core@<version>` as a runtime dependency. If this job runs
+    # `@aexos/core@<version>` as a runtime dependency. If this job runs
     # in parallel, the legacy smoke test races against npm propagation of the
     # scoped package and times out — making the workflow appear failed even
     # though both packages were published successfully.
@@ -591,7 +591,7 @@ jobs:
         run: |
           echo "::warning::Trusted Publishing (OIDC) did not succeed for aexos-core — falling back to token auth. Register the trusted publisher on npmjs.com to remove this path."
           publish_status=1
-          for token in "$NPM_TOKEN_AEXOS_SQUADS" "$NPM_TOKEN"; do
+          for token in "$NPM_TOKEN_AEXOS" "$NPM_TOKEN"; do
             if [ -z "$token" ]; then
               continue
             fi
@@ -612,13 +612,13 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_TOKEN_AEXOS_SQUADS: ${{ secrets.NPM_TOKEN_AEXOS_SQUADS }}
+          NPM_TOKEN_AEXOS: ${{ secrets.NPM_TOKEN_AEXOS }}
 
       - name: Smoke test legacy npx
         if: steps.should-publish.outputs.should_publish == 'true'
         env:
           PKG_SPEC: aexos-core@${{ steps.pkg.outputs.version }}
-          SCOPED_SPEC: '@aexos-squads/core@${{ steps.pkg.outputs.version }}'
+          SCOPED_SPEC: '@aexos/core@${{ steps.pkg.outputs.version }}'
         run: |
           # Two phases: (1) wait for both packages to be visible in npm
           # registry, (2) actually exercise npx. Total budget: 16 × 15s = 240s
@@ -650,7 +650,7 @@ jobs:
           exit 1
 
   smoke_test_exports:
-    # Issue #734 regression guard: validates that @aexos-squads/core exposes
+    # Issue #734 regression guard: validates that @aexos/core exposes
     # bin/* via package exports. The npx smoke above does NOT detect this
     # because npm bin shims resolve internally without triggering Node's
     # package-exports gate. This job forces require() resolution from an
@@ -672,7 +672,7 @@ jobs:
 
       - name: Wait for npm propagation
         env:
-          CORE_SPEC: '@aexos-squads/core@${{ needs.build.outputs.version }}'
+          CORE_SPEC: '@aexos/core@${{ needs.build.outputs.version }}'
         run: |
           for i in 1 2 3 4 5 6; do
             if npm view "${CORE_SPEC}" version > /dev/null 2>&1; then
@@ -687,7 +687,7 @@ jobs:
 
       - name: Force require.resolve() to trigger exports gate
         env:
-          CORE_SPEC: '@aexos-squads/core@${{ needs.build.outputs.version }}'
+          CORE_SPEC: '@aexos/core@${{ needs.build.outputs.version }}'
         run: |
           set -o pipefail
           SMOKE_DIR=$(mktemp -d)
@@ -700,8 +700,8 @@ jobs:
           # in non-TTY runners (Node 24 surfaced ERR_USE_AFTER_CLOSE on readline
           # close in non-interactive contexts — false positive, not exports drift).
           # set -o pipefail above ensures node's exit status survives the head pipe.
-          if node -e "require.resolve('@aexos-squads/core/bin/aexos.js')" 2>&1 | head -20; then
-            echo "✅ require.resolve('@aexos-squads/core/bin/aexos.js') succeeds on Node ${{ matrix.node }}"
+          if node -e "require.resolve('@aexos/core/bin/aexos.js')" 2>&1 | head -20; then
+            echo "✅ require.resolve('@aexos/core/bin/aexos.js') succeeds on Node ${{ matrix.node }}"
           else
             echo "❌ REGRESSION: require.resolve() blocked by exports field on Node ${{ matrix.node }}"
             echo "❌ Issue #734 has returned — check exports field in package.json"
@@ -726,19 +726,19 @@ jobs:
           echo "=== Release pipeline summary for v${VERSION} ==="
           echo ""
           echo "Job results:"
-          printf "  %-32s %s\n" "publish (@aexos-squads/core)"   "$PUBLISH_RESULT"
+          printf "  %-32s %s\n" "publish (@aexos/core)"   "$PUBLISH_RESULT"
           printf "  %-32s %s\n" "publish_workspace_packages"    "$WORKSPACE_RESULT"
           printf "  %-32s %s\n" "publish_legacy_cyryx_core"      "$LEGACY_RESULT (published=$LEGACY_PUBLISHED)"
           printf "  %-32s %s\n" "smoke_test_exports"            "$EXPORTS_RESULT"
           echo ""
 
-          # Hard failure: the scoped @aexos-squads/core publish IS THE release.
+          # Hard failure: the scoped @aexos/core publish IS THE release.
           # Workspace packages and legacy compat wrapper are advisory — they
           # can be republished out-of-band. Smoke tests are validation; if they
           # fail but publish succeeded, log a regression warning but don't
           # break the release signal (the artifact is still in the registry).
           if [ "$PUBLISH_RESULT" = "failure" ] || [ "$PUBLISH_RESULT" = "cancelled" ]; then
-            echo "❌ HARD FAIL: scoped @aexos-squads/core@${VERSION} did not publish."
+            echo "❌ HARD FAIL: scoped @aexos/core@${VERSION} did not publish."
             echo "   The release did NOT reach npmjs.org."
             exit 1
           fi
@@ -757,10 +757,10 @@ jobs:
 
           PUBLISHED=()
           if [ "$PUBLISH_RESULT" = "success" ]; then
-            PUBLISHED+=("@aexos-squads/core@${VERSION}")
+            PUBLISHED+=("@aexos/core@${VERSION}")
           fi
           if [ "$WORKSPACE_RESULT" = "success" ]; then
-            PUBLISHED+=("selected @aexos-squads workspace packages")
+            PUBLISHED+=("selected @aexos workspace packages")
           fi
           if [ "$LEGACY_PUBLISHED" = "true" ]; then
             PUBLISHED+=("aexos-core@${VERSION} (legacy wrapper)")
@@ -804,22 +804,22 @@ jobs:
 
           | Package | NPM Link | Description |
           |---------|----------|-------------|
-          | @aexos-squads/core | [npmjs.com](https://www.npmjs.com/package/@aexos-squads/core) | AI-Orchestrated System for Full Stack Development |
-          | @aexos-squads/aexos-install | [npmjs.com](https://www.npmjs.com/package/@aexos-squads/aexos-install) | NPX Installer for AEXOS |
-          | @aexos-squads/aexos-pro-cli | [npmjs.com](https://www.npmjs.com/package/@aexos-squads/aexos-pro-cli) | AEXOS Pro CLI wrapper |
-          | @aexos-squads/installer | [npmjs.com](https://www.npmjs.com/package/@aexos-squads/installer) | AEXOS installer package |
+          | @aexos/core | [npmjs.com](https://www.npmjs.com/package/@aexos/core) | AI-Orchestrated System for Full Stack Development |
+          | @aexos/install | [npmjs.com](https://www.npmjs.com/package/@aexos/install) | NPX Installer for AEXOS |
+          | @aexos/pro-cli | [npmjs.com](https://www.npmjs.com/package/@aexos/pro-cli) | AEXOS Pro CLI wrapper |
+          | @aexos/installer | [npmjs.com](https://www.npmjs.com/package/@aexos/installer) | AEXOS installer package |
 
           ## 🚀 Installation
 
           \`\`\`bash
           # Quick install via NPX (recommended for new users)
-          npx @aexos-squads/aexos-install
+          npx -p @aexos/install aexos-install
 
           # Or global installation
-          npm install -g @aexos-squads/core
+          npm install -g @aexos/core
 
           # Or as project dependency
-          npm install @aexos-squads/core
+          npm install @aexos/core
           \`\`\`
 
           ## 📋 What's New

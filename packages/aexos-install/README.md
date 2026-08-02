@@ -1,13 +1,13 @@
-# @aexos-squads/aexos-install
+# @aexos/install
 
 NPX installer for AEXOS - Agentic eXecution & Orchestration System.
 
-> Successor to `@cyryx/aexos-install`. Same installer, new canonical `@aexos-squads/*` namespace.
+> Successor to `@cyryx/aexos-install`. Same installer, new canonical `@aexos/*` namespace.
 
 ## Quick Start
 
 ```bash
-npx @aexos-squads/aexos-install
+npx -p @aexos/install aexos-install
 ```
 
 That's it! The installer will guide you through setting up AEXOS in less than 5 minutes.
@@ -25,13 +25,13 @@ That's it! The installer will guide you through setting up AEXOS in less than 5 
 ### Interactive Installation
 
 ```bash
-npx @aexos-squads/aexos-install
+npx -p @aexos/install aexos-install
 ```
 
 ### Options
 
 ```bash
-npx @aexos-squads/aexos-install --help
+npx -p @aexos/install aexos-install --help
 
 Options:
   -v, --version         Output the current version
@@ -48,7 +48,7 @@ Options:
 Preview the installation without making any changes:
 
 ```bash
-npx @aexos-squads/aexos-install --dry-run
+npx -p @aexos/install aexos-install --dry-run
 ```
 
 ### Direct Profile Selection
@@ -56,8 +56,8 @@ npx @aexos-squads/aexos-install --dry-run
 Skip the profile question by specifying it directly:
 
 ```bash
-npx @aexos-squads/aexos-install --profile bob
-npx @aexos-squads/aexos-install --profile advanced
+npx -p @aexos/install aexos-install --profile bob
+npx -p @aexos/install aexos-install --profile advanced
 ```
 
 ## edmcp - Docker MCP Manager

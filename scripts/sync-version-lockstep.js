@@ -8,7 +8,7 @@
  * root manifest (in the release working tree), so every release was blocked
  * at prepublishOnly with version drift. This script is the missing `prepare`
  * step: it syncs the internal manifest AND the legacy compat wrapper
- * (`compat/aexos-core/`) — version + its `@cyryxlabs/aexos` dependency pin —
+ * (`compat/aexos-core/`) — version + its `@aexos/core` dependency pin —
  * to the target version.
  *
  * Wired into .releaserc.json via @semantic-release/exec:
@@ -28,6 +28,15 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const SEMVER_RE = /^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$/;
+
+/** Current name of the core package the compat wrapper re-exports. */
+const CORE_DEP_NAME = '@aexos/core';
+/**
+ * Names the core package shipped under before the scope was consolidated.
+ * Deliberately NOT rewritten to the current scope — these are the stale keys
+ * this script has to find and remove.
+ */
+const LEGACY_CORE_DEP_NAMES = ['@cyryxlabs/aexos', '@aexos-squads/core', '@cyryx/aexos-core'];
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -67,9 +76,20 @@ function main() {
     compat.version = version;
     compatChanged = true;
   }
-  if (compat.dependencies && compat.dependencies['@cyryxlabs/aexos'] !== version) {
-    compat.dependencies['@cyryxlabs/aexos'] = version;
-    compatChanged = true;
+  if (compat.dependencies) {
+    // Drop any dependency pin left behind by an earlier scope. Writing the
+    // current key without removing the old one is how the wrapper ended up
+    // depending on a package name that was never published.
+    for (const legacy of LEGACY_CORE_DEP_NAMES) {
+      if (legacy in compat.dependencies) {
+        delete compat.dependencies[legacy];
+        compatChanged = true;
+      }
+    }
+    if (compat.dependencies[CORE_DEP_NAME] !== version) {
+      compat.dependencies[CORE_DEP_NAME] = version;
+      compatChanged = true;
+    }
   }
   if (compatChanged) {
     writeJson(compatPath, compat);

@@ -197,7 +197,7 @@ async function runValidation(options) {
     // Try to find source in common locations
     const possibleSources = [
       path.join(__dirname, '../../../../..'), // npm package root
-      path.join(projectRoot, 'node_modules/@aexos-squads/core'),
+      path.join(projectRoot, 'node_modules/@aexos/core'),
       path.join(projectRoot, 'node_modules/aexos-core'),
     ];
 

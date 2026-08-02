@@ -1,5 +1,5 @@
 /**
- * Pro Updater — update @aexos-squads/pro
+ * Pro Updater — update @aexos/pro
  *
  * Handles:
  * - Detecting installed Pro version and source
@@ -21,11 +21,14 @@ const { createRequire } = require('module');
 const semver = require('semver');
 const { execSync } = require('child_process');
 
-const PRO_PACKAGE = '@aexos-squads/pro';
+const PRO_PACKAGE = '@aexos/pro';
 // Current name first, then every name the core package has shipped under. The
 // order matters: a project that declares more than one resolves to the name it
 // should be upgrading toward, not the one it is leaving.
+// The legacy entries below are deliberately left on their old scopes — they are
+// the names this lookup has to recognise in already-installed projects.
 const CORE_PACKAGES = [
+  '@aexos/core',
   '@cyryxlabs/aexos',
   '@aexos-squads/core',
   '@cyryx/aexos-core',
@@ -40,7 +43,7 @@ const DEPENDENCY_FIELDS = [
 const CORE_PACKAGE_ROOT = path.resolve(__dirname, '..', '..', '..');
 const CORE_PACKAGE_REQUIRE = createRequire(path.join(CORE_PACKAGE_ROOT, 'package.json'));
 const INSTALLER_SCAFFOLDER_EXPORTS = [
-  '@aexos-squads/core/installer/pro-scaffolder',
+  '@aexos/core/installer/pro-scaffolder',
   'aexos-core/installer/pro-scaffolder',
 ];
 
@@ -105,7 +108,7 @@ function fetchLatestFromNpm(packageName, timeout = 15000) {
  * @returns {{ packageName:string, packagePath:string, version:string }|null}
  */
 function resolveInstalledPro(projectRoot) {
-  const pkgPath = path.join(projectRoot, 'node_modules', '@aexos-squads', 'pro');
+  const pkgPath = path.join(projectRoot, 'node_modules', '@aexos', 'pro');
   const pkgJson = path.join(pkgPath, 'package.json');
 
   if (fs.existsSync(pkgJson)) {

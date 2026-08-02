@@ -14,4 +14,4 @@ const binByName = {
 const invokedAs = path.basename(process.argv[1] || 'aexos-core');
 const targetBin = binByName[invokedAs] || 'aexos.js';
 
-require(`@aexos-squads/core/bin/${targetBin}`);
+require(`@aexos/core/bin/${targetBin}`);

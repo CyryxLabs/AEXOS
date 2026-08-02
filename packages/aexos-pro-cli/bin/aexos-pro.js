@@ -4,7 +4,7 @@
  * aexos-pro CLI
  *
  * Thin CLI wrapper for AEXOS Pro setup and delegated commands.
- * Provides a clean npx interface: npx @aexos-squads/aexos-pro-cli install
+ * Provides a clean npx interface: npx @aexos/pro-cli install
  *
  * Commands:
  *   install             Run authenticated Pro setup in the current project
@@ -51,7 +51,7 @@ function delegateToCyryx(subcommand) {
   const cyryx = findCyryxCli();
   if (!cyryx) {
     console.error('AEXOS Core CLI not found.');
-    console.error('Install it first: npm install @cyryxlabs/aexos');
+    console.error('Install it first: npm install @aexos/core');
     process.exit(1);
   }
 
@@ -86,7 +86,7 @@ function runProWizard(key) {
   let proSetup;
   try {
     try {
-      proSetup = require('@aexos-squads/installer/pro-setup');
+      proSetup = require('@aexos/installer/pro-setup');
     } catch {
       proSetup = require('../../installer/src/wizard/pro-setup');
     }
@@ -121,7 +121,7 @@ function showHelp() {
 aexos-pro v${VERSION} — AEXOS Pro CLI
 
 Usage:
-  npx -y @aexos-squads/aexos-pro-cli@latest <command> [options]
+  npx -y @aexos/pro-cli@latest <command> [options]
 
 Commands:
   install              Run authenticated Pro setup in the current project
@@ -137,14 +137,14 @@ Commands:
   help                 Show this help message
 
 Examples:
-  npx -y @aexos-squads/aexos-pro-cli@latest install
-  npx -y @aexos-squads/aexos-pro-cli@latest update
-  npx -y @aexos-squads/aexos-pro-cli@latest setup
-  npx -y @aexos-squads/aexos-pro-cli@latest wizard --key PRO-XXXX-XXXX-XXXX-XXXX
-  npx -y @aexos-squads/aexos-pro-cli@latest install -k PRO-XXXX-XXXX-XXXX-XXXX
-  npx -y @aexos-squads/aexos-pro-cli@latest activate --key PRO-XXXX-XXXX-XXXX-XXXX
-  npx -y @aexos-squads/aexos-pro-cli@latest status
-  npx -y @aexos-squads/aexos-pro-cli@latest recover
+  npx -y @aexos/pro-cli@latest install
+  npx -y @aexos/pro-cli@latest update
+  npx -y @aexos/pro-cli@latest setup
+  npx -y @aexos/pro-cli@latest wizard --key PRO-XXXX-XXXX-XXXX-XXXX
+  npx -y @aexos/pro-cli@latest install -k PRO-XXXX-XXXX-XXXX-XXXX
+  npx -y @aexos/pro-cli@latest activate --key PRO-XXXX-XXXX-XXXX-XXXX
+  npx -y @aexos/pro-cli@latest status
+  npx -y @aexos/pro-cli@latest recover
 
 Documentation: https://cyryx.ai/pro/docs
 `);

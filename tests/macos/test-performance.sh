@@ -28,10 +28,10 @@ test_full_installation_time() {
 
     # Note: Actual installation would happen here
     # For testing purposes, we'll simulate timing
-    log_info "Simulating installation... (in real test, run: npx @cyryxlabs/cyryx@latest init)"
+    log_info "Simulating installation... (in real test, run: npx @aexos/core@latest init)"
 
     # In actual test, measure real installation:
-    # if npx @cyryxlabs/cyryx@latest init; then
+    # if npx @aexos/core@latest init; then
     #     END_TIME=$(date +%s)
     #     DURATION=$((END_TIME - START_TIME))
     #     ...
@@ -94,7 +94,7 @@ test_network_operations() {
     # Test npm registry connectivity
     START_TIME=$(date +%s)
 
-    if npm view @cyryxlabs/aexos version &> /dev/null; then
+    if npm view @aexos/core version &> /dev/null; then
         END_TIME=$(date +%s)
         DURATION=$((END_TIME - START_TIME))
 

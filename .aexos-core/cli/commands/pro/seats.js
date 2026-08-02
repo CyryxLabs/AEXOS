@@ -13,7 +13,7 @@ const { Command } = require('commander');
 const fs = require('fs');
 const path = require('path');
 
-const PRO_PACKAGE = '@aexos-squads/pro';
+const PRO_PACKAGE = '@aexos/pro';
 
 function resolveLicensePath() {
   const relativePath = path.resolve(__dirname, '..', '..', '..', '..', 'pro', 'license');
@@ -31,7 +31,7 @@ function resolveLicensePath() {
     // package not installed
   }
 
-  const cwdPath = path.join(process.cwd(), 'node_modules', '@aexos-squads', 'pro', 'license');
+  const cwdPath = path.join(process.cwd(), 'node_modules', '@aexos', 'pro', 'license');
   if (fs.existsSync(cwdPath)) {
     return cwdPath;
   }

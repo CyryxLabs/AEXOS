@@ -612,7 +612,7 @@ describe('InlineLicenseClient current auth contract', () => {
       req.on('end', () => {
         const payload = JSON.parse(body);
         expect(payload).toEqual(expect.objectContaining({
-          package: '@aexos-squads/pro',
+          package: '@aexos/pro',
           version: '0.4.0',
           format: 'tgz',
           machineId: 'machine-id',
@@ -625,7 +625,7 @@ describe('InlineLicenseClient current auth contract', () => {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(
           JSON.stringify({
-            package: '@aexos-squads/pro',
+            package: '@aexos/pro',
             version: '0.4.0',
             artifactUrl: `${baseUrl}/artifact.tgz`,
             expiresAt: '2026-05-08T20:00:00.000Z',
@@ -638,7 +638,7 @@ describe('InlineLicenseClient current auth contract', () => {
 
     const client = new proSetup._testing.InlineLicenseClient(baseUrl);
     const result = await client.getProArtifactUrl('live-access-token', {
-      package: '@aexos-squads/pro',
+      package: '@aexos/pro',
       version: '0.4.0',
       format: 'tgz',
       machineId: 'machine-id',
@@ -654,7 +654,7 @@ describe('resolveProSourceDir', () => {
   const bundledProDir = path.resolve(__dirname, '../../pro');
   const bundledSquadsDir = path.join(bundledProDir, 'squads');
   const gitmodulesPath = path.resolve(__dirname, '../../.gitmodules');
-  const npmProDir = path.join('/tmp/aexos-project', 'node_modules', '@aexos-squads', 'pro');
+  const npmProDir = path.join('/tmp/aexos-project', 'node_modules', '@aexos', 'pro');
 
   afterEach(() => {
     jest.restoreAllMocks();
@@ -699,7 +699,7 @@ describe('resolveProSourceDir', () => {
     expect(result).toEqual({ proSourceDir: bundledProDir });
   });
 
-  it('falls back to target node_modules @aexos-squads/pro when bundled content is unavailable', () => {
+  it('falls back to target node_modules @aexos/pro when bundled content is unavailable', () => {
     jest.spyOn(fs, 'existsSync').mockImplementation((target) => target === npmProDir);
 
     const result = proSetup._testing.resolveProSourceDir('/tmp/aexos-project');

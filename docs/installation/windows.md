@@ -423,7 +423,7 @@ Remove-Item -Recurse -Force .aexos-core
 Remove-Item -Recurse -Force .claude\commands\AEXOS
 
 # Remove global npm packages
-npm uninstall -g @aexos-squads/core
+npm uninstall -g @aexos/core
 ```
 
 ---

@@ -57,7 +57,7 @@ const proSetup = require('packages/installer/src/wizard/pro-setup');
 const wizardI18n = require('packages/installer/src/wizard/i18n');
 
 const CORE_PRO_SETUP_COMMAND = 'npx github:CyryxLabs/AEXOS pro setup';
-const SCOPED_PRO_RECOVER_COMMAND = 'npx -y @aexos-squads/aexos-pro-cli@latest recover';
+const SCOPED_PRO_RECOVER_COMMAND = 'npx -y @aexos/pro-cli@latest recover';
 
 // ─── maskLicenseKey ──────────────────────────────────────────────────────────
 
@@ -275,7 +275,7 @@ describe('stepInstallScaffold', () => {
     fs.writeFileSync(path.join(proSourceDir, 'pro-config.yaml'), 'pro:\n  enabled: true\n');
     fs.writeFileSync(
       path.join(proSourceDir, 'package.json'),
-      JSON.stringify({ name: '@aexos-squads/pro', version: '0.0.0-test' }, null, 2),
+      JSON.stringify({ name: '@aexos/pro', version: '0.0.0-test' }, null, 2),
     );
 
     try {
@@ -315,7 +315,7 @@ describe('stepInstallScaffold', () => {
     fs.writeFileSync(path.join(proSourceDir, 'pro-config.yaml'), 'pro:\n  enabled: true\n');
     fs.writeFileSync(
       path.join(proSourceDir, 'package.json'),
-      JSON.stringify({ name: '@aexos-squads/pro', version: '0.4.0' }, null, 2),
+      JSON.stringify({ name: '@aexos/pro', version: '0.4.0' }, null, 2),
     );
 
     proSetup._testing.resolveProSourceDir = jest.fn(() => ({ proSourceDir: null }));

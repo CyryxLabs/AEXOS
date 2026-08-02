@@ -14,13 +14,27 @@ otherwise.
 
 ### Changed
 
-- **Renamed the published package to `@cyryxlabs/aexos`.** `@aexos-squads/core`
-  read as though the squads were the product; they are not — Cyryx Labs is the
-  company and AEXOS is the product. npm infers the binary from the unscoped
-  name, so under the old name `npx github:CyryxLabs/AEXOS install` fetched the
-  package and then could not choose an executable. The rename makes npm infer
-  `aexos`, which is a real bin. All prior package names are still recognised by
-  the resolvers so the upgrade path keeps working.
+- **Consolidated every package on the single `@aexos` npm scope.** The tree had
+  been carrying two scopes at once — `@cyryxlabs/aexos` at the root and
+  `@aexos-squads/*` for the workspaces — which could not be published without
+  owning two npm organisations. The published names are now `@aexos/core`,
+  `@aexos/installer`, `@aexos/install`, `@aexos/pro-cli`, `@aexos/pro`, and the
+  internal manifest is `@aexos/core-internal`. `@aexos-squads/core` was
+  referenced in roughly thirty places as though it were the root package, but
+  the root has not carried that name for two releases; those references now
+  resolve to a package that actually exists. All prior package names are still
+  recognised by the resolvers, so the upgrade path keeps working.
+- **Added a `core` alias to root `bin`.** npm infers the executable from the
+  unscoped half of the package name, and `@aexos/core` infers `core`. Without
+  the alias `npx @aexos/core <command>` fetches the package and then exits with
+  `could not determine executable to run` — the same failure the previous
+  rename was made to escape.
+- **Root-anchored the "expansion projects" block in `.gitignore`.** The
+  patterns were unanchored, so `tests/`, `scripts/`, `memory/`, `security/` and
+  `performance/` matched at any depth and silently shadowed 304 tracked files
+  under `.aexos-core/core/`, `.aexos-core/scripts/`, `packages/installer/tests/`
+  and `docs/security/`. Tracked files kept working, so the only symptom was a
+  new file in one of those directories never being picked up by `git add`.
 - **The repository is English-only.** 394 locale files removed, 47 Portuguese
   files in the primary documentation translated with structure preserved 1:1,
   and 94 stale language selectors and `docs/pt/` links cleaned up. The wizard no

@@ -10,7 +10,7 @@
  *   edmcp add <name/url>    # Add MCP from repository
  *   edmcp remove <name>     # Remove MCP
  *
- * @package @aexos-squads/aexos-install
+ * @package @aexos/install
  */
 
 'use strict';

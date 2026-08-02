@@ -28,9 +28,9 @@ const path = require('path');
 //
 // Resolution order (matches pro/index.js and pro-setup.js):
 //   1. Bundled pro/ (framework-dev / npx context with submodule)
-//   2. npm package (@aexos-squads/pro)
-//   3. cwd node_modules under @aexos-squads/pro
-const PRO_PACKAGE = '@aexos-squads/pro';
+//   2. npm package (@aexos/pro)
+//   3. cwd node_modules under @aexos/pro
+const PRO_PACKAGE = '@aexos/pro';
 
 function resolveLicensePath() {
   const relativePath = path.resolve(__dirname, '..', '..', '..', '..', 'pro', 'license');
@@ -51,7 +51,7 @@ function resolveLicensePath() {
   }
 
   // cwd fallback (when require.resolve doesn't see the package, e.g., npx context)
-  const cwdPath = path.join(process.cwd(), 'node_modules', '@aexos-squads', 'pro', 'license');
+  const cwdPath = path.join(process.cwd(), 'node_modules', '@aexos', 'pro', 'license');
   if (fs.existsSync(cwdPath)) {
     return cwdPath;
   }

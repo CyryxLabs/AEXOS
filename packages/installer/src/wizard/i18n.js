@@ -158,7 +158,7 @@ const TRANSLATIONS = {
     proConfigs: 'Configs: {count} files',
     proFeaturesUnlocked: 'Features unlocked: {count}',
     proInstallComplete: 'AEXOS Pro installation complete!',
-    proNeedHelp: 'Need help? Run: npx -y @aexos-squads/aexos-pro-cli@latest recover',
+    proNeedHelp: 'Need help? Run: npx -y @aexos/pro-cli@latest recover',
     proCISetEnv: 'CI mode: Set AEXOS_PRO_EMAIL + AEXOS_PRO_PASSWORD or AEXOS_PRO_KEY environment variables.',
     proVerificationFailed: 'Verification failed: {message}',
     proPackageNotFound: 'Pro content source not found. Re-run Pro setup with email login or contact support.',

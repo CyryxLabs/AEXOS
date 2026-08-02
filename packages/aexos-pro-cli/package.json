@@ -1,5 +1,5 @@
 {
-  "name": "@aexos-squads/aexos-pro-cli",
+  "name": "@aexos/pro-cli",
   "version": "0.2.2",
   "description": "CLI for AEXOS Pro — install, activate and manage your license",
   "bin": {
@@ -10,7 +10,7 @@
     "src/"
   ],
   "dependencies": {
-    "@aexos-squads/installer": "^3.3.2",
+    "@aexos/installer": "^3.3.2",
     "open": "^10.0.0"
   },
   "keywords": [

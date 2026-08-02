@@ -37,7 +37,7 @@ describe('version identity', () => {
     // The compat wrapper exists only to re-point the old name at the current
     // release, so whatever it depends on must be pinned to this version.
     // Asserted by value rather than by key: the dependency still names
-    // `@aexos-squads/core` while the root package is `@cyryxlabs/aexos`, which
+    // `@aexos/core` while the root package is `@aexos/core`, which
     // is a separate defect and not this guard's business to bless.
     expect(Object.values(compat.dependencies)).toEqual([packageVersion]);
   });

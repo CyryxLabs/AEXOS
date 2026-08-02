@@ -623,7 +623,7 @@ The Squad Loader resolves squads in this order:
 
 ```
 1. Local     → ./squads/{name}/
-2. npm       → node_modules/@aexos-squads/{name}/
+2. npm       → node_modules/@aexos/{name}/
 3. Workspace → ../{name}/ (monorepo)
 4. Registry  → api.cyryx.dev/squads/{name}
 ```

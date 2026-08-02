@@ -1,5 +1,5 @@
 {
-  "name": "@aexos-squads/installer",
+  "name": "@aexos/installer",
   "version": "3.3.9",
   "description": "AEXOS Installer - Automated setup wizard for AEXOS projects (greenfield & brownfield)",
   "main": "src/index.js",

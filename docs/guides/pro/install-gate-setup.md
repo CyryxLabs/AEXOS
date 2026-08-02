@@ -18,8 +18,8 @@ Comprar Licença -> Validar -> Baixar artefato assinado -> Usar Features Pro
 
 | Pacote | Tipo | Propósito |
 |--------|------|-----------|
-| `@aexos-squads/aexos-pro-cli` | CLI | Comandos de recuperação e compatibilidade |
-| `@aexos-squads/pro` | Artefato premium | Pacote Pro canônico, entregue ao cliente pelo artifact broker autenticado |
+| `@aexos/pro-cli` | CLI | Comandos de recuperação e compatibilidade |
+| `@aexos/pro` | Artefato premium | Pacote Pro canônico, entregue ao cliente pelo artifact broker autenticado |
 
 ---
 
@@ -43,7 +43,7 @@ npx github:CyryxLabs/AEXOS pro status
 ### Pré-requisitos
 
 - Node.js >= 18
-- `@aexos-squads/core` >= 5.1.17 instalado no projeto
+- `@aexos/core` >= 5.1.17 instalado no projeto
 
 ### Passo 1: Instalar AEXOS Pro
 
@@ -51,7 +51,7 @@ npx github:CyryxLabs/AEXOS pro status
 npx github:CyryxLabs/AEXOS pro setup
 ```
 
-Isso valida sua licença e instala o artefato canônico `@aexos-squads/pro` no projeto. O cliente não precisa de acesso direto ao pacote privado/restrito no npm.
+Isso valida sua licença e instala o artefato canônico `@aexos/pro` no projeto. O cliente não precisa de acesso direto ao pacote privado/restrito no npm.
 
 **Se você já tem o artefato Pro instalado por outro fluxo autorizado**, rode novamente o bootstrap para revalidar e re-scaffoldar o conteúdo Pro:
 

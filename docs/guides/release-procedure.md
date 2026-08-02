@@ -1,6 +1,6 @@
-# Release Procedure SOP — @aexos-squads/core
+# Release Procedure SOP — @aexos/core
 
-Authoritative procedure for publishing a new version of `@aexos-squads/core` (and
+Authoritative procedure for publishing a new version of `@aexos/core` (and
 its companion workspace packages) to npmjs.org. Replaces ad-hoc release lore.
 
 > **Authority:** `@devops` only (per Constitution Art. II — Agent Authority).
@@ -28,7 +28,7 @@ Block the release if any of these are red.
 | Full test suite | `npm run test:ci` | 0 failures, 0 cancelled |
 | Installer suite (regression surface) | `npx jest tests/installer/ --no-coverage` | 100% pass |
 | Most recent CI run on main | `gh run list --branch main --limit 1` | Green |
-| npm publish token | `gh secret list -R CyryxLabs/AEXOS` | `NPM_TOKEN_AEXOS_SQUADS` exists and was rotated within 90 days |
+| npm publish token | `gh secret list -R CyryxLabs/AEXOS` | `NPM_TOKEN_AEXOS` exists and was rotated within 90 days |
 | Legacy npm token (`aexos-core`) | Same | `NPM_TOKEN` exists; if older than 90 days, flag for refresh — this token publishes the legacy compat wrapper only |
 
 ## Version bump (T-5 minutes)
@@ -42,8 +42,8 @@ that show up in the smoke tests OR are caught by
 
 | File | What to bump |
 |---|---|
-| `package.json` | `version` (scoped `@aexos-squads/core`) — single source of truth |
-| `compat/aexos-core/package.json` | `version` AND `dependencies["@aexos-squads/core"]` (must equal `version`) |
+| `package.json` | `version` (scoped `@aexos/core`) — single source of truth |
+| `compat/aexos-core/package.json` | `version` AND `dependencies["@aexos/core"]` (must equal `version`) |
 | `packages/installer/package.json` | `version` (patch bump if installer changed; otherwise leave) |
 | `.aexos-core/package.json` | `version` MUST match root `package.json` version (lockstep per `scripts/validate-aexos-core-namespace.js` rule 4 — added in 5.2.7 after the namespace drift incident, Story #739 Bug 2). The internal manifest is not separately published but ships inside the parent surface |
 | `package-lock.json` | Refresh via `npm install --package-lock-only --ignore-scripts` |
@@ -182,7 +182,7 @@ This triggers `.github/workflows/npm-publish.yml`. The workflow runs:
 |---|---|---|
 | `test` | Test suite | Yes |
 | `build` | Determine version + package list | Yes |
-| `publish` | Publish `@aexos-squads/core` (uses `NPM_TOKEN_AEXOS_SQUADS`) | **YES — this is the release** |
+| `publish` | Publish `@aexos/core` (uses `NPM_TOKEN_AEXOS`) | **YES — this is the release** |
 | `publish_workspace_packages` | `installer`, `aexos-install`, `aexos-pro-cli` | Advisory |
 | `publish_legacy_cyryx_core` | `aexos-core` compat (uses `NPM_TOKEN` then falls back) | Advisory |
 | `smoke_test_exports` | Validates `bin/*` exports across Node 20/22/24 (regression guard for #734) | Advisory |
@@ -192,17 +192,17 @@ This triggers `.github/workflows/npm-publish.yml`. The workflow runs:
 
 ```bash
 # Sanity: registry index reflects the new version
-npm view @aexos-squads/core version            # must be X.Y.Z
-npm view @aexos-squads/core dist-tags          # latest: X.Y.Z
+npm view @aexos/core version            # must be X.Y.Z
+npm view @aexos/core dist-tags          # latest: X.Y.Z
 
 # Cross-check: each workspace package
-for pkg in @aexos-squads/installer @aexos-squads/aexos-install @aexos-squads/aexos-pro-cli aexos-core; do
+for pkg in @aexos/installer @aexos/install @aexos/pro-cli aexos-core; do
   echo "$pkg: $(npm view $pkg version)"
 done
 
 # Verify the published artifact actually contains your fix
 mkdir -p /tmp/aexos-verify && cd /tmp/aexos-verify
-npm pack @aexos-squads/core@X.Y.Z
+npm pack @aexos/core@X.Y.Z
 tar -xzf aexos-squads-core-X.Y.Z.tgz package/<path/to/changed/file>
 # inspect the extracted file
 ```
@@ -213,7 +213,7 @@ If your release fixes installer behavior, run an E2E:
 # Worst-case install topology: target inside an ancestor with package.json
 mkdir -p /tmp/aexos-e2e/scenario && echo '{"name":"parent","workspaces":["scenario"]}' > /tmp/aexos-e2e/package.json
 cd /tmp/aexos-e2e/scenario
-npx --yes -p @aexos-squads/core@X.Y.Z aexos --version   # must print X.Y.Z
+npx --yes -p @aexos/core@X.Y.Z aexos --version   # must print X.Y.Z
 ```
 
 ## Known-and-tracked CI quirks
@@ -222,8 +222,8 @@ These are not blockers — knowing them prevents wasted investigation.
 
 | Quirk | Symptom | Mitigation |
 |---|---|---|
-| `publish_legacy_cyryx_core` smoke timeout | `❌ Smoke test timeout for aexos-core@X.Y.Z` even though the actual publish step shows `✅ Published` | Smoke now waits up to 240s and verifies both `aexos-core` and `@aexos-squads/core` are visible before invoking `npx`. If still failing, propagation took >240s — re-run the workflow |
-| `notify` reports failure on partial publish | Notify job red even when `@aexos-squads/core` published | Notify now distinguishes hard fail (publish) from soft warnings (workspace/legacy/smoke). Check the job summary text |
+| `publish_legacy_cyryx_core` smoke timeout | `❌ Smoke test timeout for aexos-core@X.Y.Z` even though the actual publish step shows `✅ Published` | Smoke now waits up to 240s and verifies both `aexos-core` and `@aexos/core` are visible before invoking `npx`. If still failing, propagation took >240s — re-run the workflow |
+| `notify` reports failure on partial publish | Notify job red even when `@aexos/core` published | Notify now distinguishes hard fail (publish) from soft warnings (workspace/legacy/smoke). Check the job summary text |
 | Installer Smoke Matrix Windows path mangling | `Cannot find module 'D:aaexos-coreaexos-core/...'` | Fixed: workspace path now passed via `WORKSPACE_DIR` env var instead of `${{ github.workspace }}` interpolation in `node -e` |
 | `create-release-notes` skipped on tag push | Tag-only push doesn't trigger this job | Expected — this job runs on GitHub Release publish, not tag push |
 
@@ -233,11 +233,11 @@ If a release is broken:
 
 1. **Deprecate, don't unpublish** (unpublish has a 72h window and is destructive):
    ```bash
-   npm deprecate @aexos-squads/core@X.Y.Z "Use X.Y.Z-1 — see issue #N"
+   npm deprecate @aexos/core@X.Y.Z "Use X.Y.Z-1 — see issue #N"
    ```
 2. Re-publish the previous good version under `latest`:
    ```bash
-   npm dist-tag add @aexos-squads/core@X.Y.Z-1 latest
+   npm dist-tag add @aexos/core@X.Y.Z-1 latest
    ```
 3. Open an incident issue and follow this procedure from the top for the fix.
 

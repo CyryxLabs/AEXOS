@@ -17,7 +17,7 @@
 #   package.json. Without `--prefix=<targetDir> --workspaces=false` the Pro
 #   tarball ends up in the wrong node_modules and the post-install integrity
 #   check fails with "Installed Pro artifact did not create node_modules/
-#   @aexos-squads/pro" even though npm exited 0.
+#   @aexos/pro" even though npm exited 0.
 
 name: Installer Smoke Matrix
 
@@ -156,7 +156,7 @@ jobs:
 
               const fixtureDir = fs.mkdtempSync(path.join(os.tmpdir(), 'aexos-smoke-'));
               fs.writeFileSync(path.join(fixtureDir, 'package.json'),
-                JSON.stringify({ name: '@aexos-squads/pro', version: '0.0.0-smoke', private: false }));
+                JSON.stringify({ name: '@aexos/pro', version: '0.0.0-smoke', private: false }));
               fs.mkdirSync(path.join(fixtureDir, 'squads'));
               fs.writeFileSync(path.join(fixtureDir, 'squads', 'index.js'), 'module.exports = {};');
               const npmBin = process.platform === 'win32' ? 'npm.cmd' : 'npm';
@@ -194,7 +194,7 @@ jobs:
 
               const fixtureDir = fs.mkdtempSync(path.join(os.tmpdir(), 'aexos-smoke-ws-'));
               fs.writeFileSync(path.join(fixtureDir, 'package.json'),
-                JSON.stringify({ name: '@aexos-squads/pro', version: '0.0.0-smoke', private: false }));
+                JSON.stringify({ name: '@aexos/pro', version: '0.0.0-smoke', private: false }));
               fs.mkdirSync(path.join(fixtureDir, 'squads'));
               fs.writeFileSync(path.join(fixtureDir, 'squads', 'index.js'), 'module.exports = {};');
               const npmBin = process.platform === 'win32' ? 'npm.cmd' : 'npm';
@@ -206,7 +206,7 @@ jobs:
                 throw new Error('smoke failed: ' + proSourceDir + ' missing');
               }
 
-              const wsRootHit = path.join(path.dirname(path.dirname(process.cwd())), 'node_modules', '@aexos-squads', 'pro', 'package.json');
+              const wsRootHit = path.join(path.dirname(path.dirname(process.cwd())), 'node_modules', '@aexos', 'pro', 'package.json');
               if (fs.existsSync(wsRootHit)) {
                 throw new Error('npm escaped to workspace root: ' + wsRootHit);
               }
@@ -238,7 +238,7 @@ jobs:
 
               const fixtureDir = fs.mkdtempSync(path.join(os.tmpdir(), 'aexos-smoke-parent-'));
               fs.writeFileSync(path.join(fixtureDir, 'package.json'),
-                JSON.stringify({ name: '@aexos-squads/pro', version: '0.0.0-smoke', private: false }));
+                JSON.stringify({ name: '@aexos/pro', version: '0.0.0-smoke', private: false }));
               fs.mkdirSync(path.join(fixtureDir, 'squads'));
               fs.writeFileSync(path.join(fixtureDir, 'squads', 'index.js'), 'module.exports = {};');
               const npmBin = process.platform === 'win32' ? 'npm.cmd' : 'npm';
@@ -250,7 +250,7 @@ jobs:
                 throw new Error('smoke failed: ' + proSourceDir + ' missing');
               }
 
-              const parentHit = path.join(path.dirname(process.cwd()), 'node_modules', '@aexos-squads', 'pro', 'package.json');
+              const parentHit = path.join(path.dirname(process.cwd()), 'node_modules', '@aexos', 'pro', 'package.json');
               if (fs.existsSync(parentHit)) {
                 throw new Error('npm escaped to parent: ' + parentHit);
               }

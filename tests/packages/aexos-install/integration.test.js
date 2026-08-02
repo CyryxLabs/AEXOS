@@ -24,7 +24,7 @@ describe('Integration - Task 8.3: Local NPX Execution', () => {
       const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
 
       // Then
-      expect(pkgJson.name).toBe('@aexos-squads/aexos-install');
+      expect(pkgJson.name).toBe('@aexos/install');
       expect(pkgJson.bin).toBeDefined();
       expect(pkgJson.bin['aexos-install']).toBe('./bin/aexos-install.js');
       expect(pkgJson.bin['edmcp']).toBe('./bin/edmcp.js');

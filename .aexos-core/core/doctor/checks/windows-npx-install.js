@@ -38,10 +38,10 @@ async function run(context = {}) {
     status: 'WARN',
     message:
       'Windows: npx install may hit ECOMPROMISED (npm lock timeout) on cold cache. ' +
-      'Prefer: npm install -g @aexos-squads/core then aexos-core install. ' +
+      'Prefer: npm install -g @aexos/core then aexos-core install. ' +
       `See ${ISSUE_URL}` +
       (underNpx ? ' (currently under npx).' : '.'),
-    fixCommand: 'npm install -g @aexos-squads/core',
+    fixCommand: 'npm install -g @aexos/core',
     docs: 'docs/guides/installation-troubleshooting.md',
   };
 }

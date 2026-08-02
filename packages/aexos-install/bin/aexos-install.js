@@ -4,11 +4,11 @@
  * AEXOS NPX Installer - Entry Point
  *
  * Usage:
- *   npx @aexos-squads/aexos-install          # Interactive installation
- *   npx @aexos-squads/aexos-install --dry-run # Preview what would be done
- *   npx @aexos-squads/aexos-install --version # Show version
+ *   npx -p @aexos/install aexos-install          # Interactive installation
+ *   npx -p @aexos/install aexos-install --dry-run # Preview what would be done
+ *   npx -p @aexos/install aexos-install --version # Show version
  *
- * @package @aexos-squads/aexos-install
+ * @package @aexos/install
  */
 
 'use strict';

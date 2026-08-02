@@ -11,7 +11,7 @@
 | Working branch | `feat/core-super-update-epic` |
 | **Canonical path (public OSS)** | `docs/framework/epics/core-super-update/` |
 | Sources (read-only harvest) | `../sinkra-hub`, `../CYRYX-enterprise` (diff 2026-07-09) |
-| Target package | `@aexos-squads/core` (open source) |
+| Target package | `@aexos/core` (open source) |
 
 > **Docs policy (official dual-path):**  
 > - **This epic / framework work:** `docs/framework/epics/` — **versioned** in OSS.  
@@ -22,7 +22,7 @@
 
 Trazer para o **aexos-core OSS** o que o framework ganhou em **sinkra-hub** e **CYRYX-enterprise**, sem importar produto Cyryx, monorepo multi-BU, **workspace/**, squads de domínio ou IP enterprise.
 
-**Promessa MVP (headline):** instalar `@aexos-squads/core` → slash-run **validate → develop → review → close** sem monorepo hub.
+**Promessa MVP (headline):** instalar `@aexos/core` → slash-run **validate → develop → review → close** sem monorepo hub.
 
 ## Implementation readiness (architect-first)
 
@@ -59,7 +59,7 @@ Trazer para o **aexos-core OSS** o que o framework ganhou em **sinkra-hub** e **
 
 | Repo | Papel |
 |------|--------|
-| **aexos-core** (OSS) | `@aexos-squads/core` **5.2.9** — errors, resilience, hierarchical-context, handshake, pro, Grok |
+| **aexos-core** (OSS) | `@aexos/core` **5.2.9** — errors, resilience, hierarchical-context, handshake, pro, Grok |
 | **sinkra-hub** | Lab SDC/wave/guards/constitution — **not** the OSS product |
 | **CYRYX-enterprise** | Enterprise workspace + tribunal (mostly OOS) |
 

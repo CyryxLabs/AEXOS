@@ -219,7 +219,7 @@ describe('CLI alias reset-password', () => {
       'utf-8',
     );
     expect(cliSource).toMatch(/reset-password\s+.*alias/i);
-    expect(cliSource).toContain('npx -y @aexos-squads/aexos-pro-cli@latest recover');
+    expect(cliSource).toContain('npx -y @aexos/pro-cli@latest recover');
     expect(cliSource).not.toContain('npx aexos-pro recover');
   });
 

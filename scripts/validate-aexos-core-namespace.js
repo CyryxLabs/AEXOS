@@ -4,9 +4,12 @@
  *
  * Story #739 (Bug 2 follow-up): the internal `.aexos-core/package.json`
  * manifest drifted to the legacy `@aexos-fullstack/core@4.31.1` namespace
- * while the surface package moved to `@cyryxlabs/aexos@5.x`. Several
- * releases shipped stale internal metadata that confused tooling and
- * misled operators investigating upgrade issues.
+ * while the surface package moved on. Several releases shipped stale
+ * internal metadata that confused tooling and misled operators
+ * investigating upgrade issues.
+ *
+ * The scope has since been consolidated on `@aexos/` (single npm org), so
+ * `@aexos-fullstack/*`, `@aexos-squads/*` and `@cyryxlabs/*` are all legacy.
  *
  * This validator runs in the pre-publish surface to catch the drift
  * before it ships again.
@@ -54,11 +57,12 @@ function main() {
   if (!internal.name) {
     fail('.aexos-core/package.json missing `name` field');
   }
-  const EXPECTED_SCOPE = '@aexos-squads/';
+  const EXPECTED_SCOPE = '@aexos/';
   if (!internal.name.startsWith(EXPECTED_SCOPE)) {
     fail(
       `.aexos-core/package.json name "${internal.name}" must start with "${EXPECTED_SCOPE}" ` +
-        '(current org scope — names like `@aexos-fullstack/*` are legacy, see Story #739)',
+        '(current org scope — `@aexos-fullstack/*`, `@aexos-squads/*` and `@cyryxlabs/*` ' +
+        'are all legacy, see Story #739)',
     );
   }
   if (!internal.name.endsWith('-internal')) {

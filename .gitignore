@@ -151,18 +151,26 @@ CLAUDE.md
 test-project-install/*
 sample-project/*
 
-# Expansion Projects (separate from core Cyryx Labs-FULLSTACK)
-# These folders are from other projects and should NOT be in this repository
-.aexos/                        # Cyryx Labs expansion project files
-.aexos/project-status.yaml     # Project status cache (Story 6.1.2.4 - auto-generated)
-.cursor/                      # Cursor IDE project files
-aexos-memory-layer-mvp/        # Separate memory layer project
-memory/                       # Memory squad
-performance/                  # Performance squad
-scripts/                      # Project-specific scripts (not part of core)
-security/                     # Security squad
-telemetry/                    # Telemetry squad
-tests/                        # Test files for expansion projects
+# Expansion Projects (separate from core AEXOS)
+# These folders are from other projects and should NOT be in this repository.
+#
+# Every pattern here is ROOT-ANCHORED with a leading slash. Without the anchor a
+# pattern like `memory/` matches at any depth and silently swallows framework
+# directories that genuinely belong to this repo — `.aexos-core/core/memory/`,
+# `.aexos-core/core/security/`, `.aexos-core/scripts/`, `packages/installer/tests/`
+# and `docs/security/` among them. Files already tracked keep working, so the
+# breakage only shows up later, when a NEW file in one of those directories is
+# never picked up by `git add`.
+.aexos/                        # AEXOS runtime artifacts (any depth, intentional)
+.cursor/                       # Cursor IDE project files (any depth, intentional)
+/aexos-memory-layer-mvp/       # Separate memory layer project
+/memory/                       # Memory squad
+/performance/                  # Performance squad
+/security/                     # Security squad
+/telemetry/                    # Telemetry squad
+# NOTE: `scripts/` and `tests/` are NOT ignored. Both are first-class content of
+# this repository — `scripts/` ships inside the npm tarball via package.json
+# `files[]`, and `tests/` is the Jest suite.
 
 # Cyryx Labs Development Artifacts (generated during workflow execution)
 # These files are created by agents during development and should NOT be in version control

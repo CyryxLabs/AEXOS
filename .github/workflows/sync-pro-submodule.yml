@@ -138,7 +138,7 @@ jobs:
           - Trigger: \`${GITHUB_WORKFLOW}\`
 
           This PR reconciles the \`pro\` submodule with the latest upstream state from \`CyryxLabs/aexos-pro\`.
-          Expected npm package scope after Epic 124: \`@aexos-squads/pro\`.
+          Expected npm package scope after Epic 124: \`@aexos/pro\`.
           EOF
           )
 
