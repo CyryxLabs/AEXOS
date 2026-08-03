@@ -288,7 +288,11 @@ function extractPurpose(content, filePath) {
     }
   }
 
-  return `Entity at ${path.relative(REPO_ROOT, filePath)}`;
+  // Normalize separators: `path.relative` yields backslashes on Windows, so
+  // without this the fallback purpose embeds a platform-native path and 512
+  // entities differ between a Windows-generated registry and a Linux regen.
+  // Every other path written into the registry is normalized the same way.
+  return `Entity at ${path.relative(REPO_ROOT, filePath).replace(/\\/g, '/')}`;
 }
 
 const YAML_DEP_FIELDS = {
