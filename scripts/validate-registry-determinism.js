@@ -108,9 +108,22 @@ function main() {
   // Sort keys recursively before stringifying so map ordering doesn't trigger
   // false positives. (JSON.stringify's second arg is a replacer, not a key
   // sorter — passing an array there would FILTER keys instead.)
+  //
+  // Arrays of scalars are sorted too. Without this, the canonical comparison
+  // below and the per-entry drift loop further down disagree: the drift loop
+  // sorts `dependencies`/`usedBy` before comparing, so a pure ordering
+  // difference produced "0 entries diverged" AND a FAILED verdict, blaming a
+  // "structural delta beyond dependency/usedBy" when it was exactly that.
+  // Element order carries no meaning in this registry, so normalize it here and
+  // let the two comparisons agree.
   const sortedStringify = (value) =>
     JSON.stringify(value, (_key, v) => {
-      if (v && typeof v === 'object' && !Array.isArray(v)) {
+      if (Array.isArray(v)) {
+        return v.every((e) => e === null || typeof e !== 'object')
+          ? [...v].sort()
+          : v;
+      }
+      if (v && typeof v === 'object') {
         const sorted = {};
         for (const k of Object.keys(v).sort()) {
           sorted[k] = v[k];

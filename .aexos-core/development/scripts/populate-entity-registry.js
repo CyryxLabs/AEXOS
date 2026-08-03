@@ -500,7 +500,24 @@ function scanCategory(config, verbose = false) {
   }
 
   const globPattern = path.posix.join(absBase.replace(/\\/g, '/'), config.glob);
-  const files = fg.sync(globPattern, { onlyFiles: true, absolute: true });
+  // fast-glob returns filesystem order, which differs between platforms (NTFS
+  // vs ext4/overlayfs). Scan order leaks into every `dependencies` and `usedBy`
+  // array below, so an unsorted glob makes the committed registry unreproducible
+  // on any machine but the one that generated it — the determinism gate then
+  // fails on every Linux CI run. Sort for a stable, platform-independent order.
+  //
+  // Order by depth first, then lexicographically. Depth matters because
+  // `resolveEntityId` gives the bare basename to whichever colliding file is
+  // seen first and scopes the rest; shallowest-wins keeps the canonical
+  // top-level module as `index` instead of demoting it to `index-2` behind a
+  // nested namesake.
+  const files = fg
+    .sync(globPattern, { onlyFiles: true, absolute: true })
+    .sort((a, b) => {
+      const da = a.split('/').length;
+      const db = b.split('/').length;
+      return da !== db ? da - db : a < b ? -1 : a > b ? 1 : 0;
+    });
 
   const entities = {};
 
