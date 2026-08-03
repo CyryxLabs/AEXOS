@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-08-02T21:56:31.933Z'
+  lastUpdated: '2026-08-03T01:32:56.561Z'
   entityCount: 846
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -3254,7 +3254,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:dd1825682bfd41f6cda8ba0bf2b4cbc478e9707441c7c9b72b541cf11c7f7eca
-      lastVerified: '2026-08-01T23:24:38.497Z'
+      lastVerified: '2026-08-03T01:05:43.694Z'
     plan-create-implementation:
       path: .aexos-core/development/tasks/plan-create-implementation.md
       layer: L2
@@ -3648,7 +3648,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:c974a274c85922fd296aa87226ced4c40007b1dfc8c66bfe2a84e45e45384a00
-      lastVerified: '2026-08-02T19:12:39.867Z'
+      lastVerified: '2026-08-03T01:05:43.702Z'
     qa-after-creation:
       path: .aexos-core/development/tasks/qa-after-creation.md
       layer: L2
@@ -4212,7 +4212,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:d2bfcb45ead563b4371281fcb869d8d21f62e1714deedd9dbb3b7f5e419c58e1
-      lastVerified: '2026-08-02T19:12:39.868Z'
+      lastVerified: '2026-08-03T01:05:43.712Z'
     remove-mcp:
       path: .aexos-core/development/tasks/remove-mcp.md
       layer: L2
@@ -5665,6 +5665,31 @@ entities:
         extensionPoints: []
       checksum: sha256:5887a8c952f0094ead40db7c3cb6873717df3598a2cdda7abb2bcce64984c85b
       lastVerified: '2026-07-31T22:38:48.985Z'
+    README:
+      path: .aexos-core/development/tasks/blocks/README.md
+      layer: L2
+      type: task
+      purpose: >-
+        Blocks are small, focused units of functionality that can be included in multiple tasks. They follow the DRY
+        (Don't Repeat Yourself) principle and provide consistent behavior across the AEXOS framewor
+      keywords:
+        - readme
+        - aexos
+        - task
+        - blocks
+        - system
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps:
+        - block-loader
+      lifecycle: experimental
+      adaptability:
+        score: 0.8
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:77f7ba817d0e102e3798644b60bba2cd711ac3a4b953fb1eba518aac4d9d24d6
+      lastVerified: '2026-07-30T19:35:41.209Z'
     agent-prompt-template:
       path: .aexos-core/development/tasks/blocks/agent-prompt-template.md
       layer: L2
@@ -5754,31 +5779,6 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:8414839ac579a6e25c8ad8cc3218bb5f216288ef30a0a995dde59d3d7dc9130e
-      lastVerified: '2026-07-30T19:35:41.209Z'
-    README:
-      path: .aexos-core/development/tasks/blocks/README.md
-      layer: L2
-      type: task
-      purpose: >-
-        Blocks are small, focused units of functionality that can be included in multiple tasks. They follow the DRY
-        (Don't Repeat Yourself) principle and provide consistent behavior across the AEXOS framewor
-      keywords:
-        - readme
-        - aexos
-        - task
-        - blocks
-        - system
-      usedBy: []
-      dependencies: []
-      externalDeps: []
-      plannedDeps:
-        - block-loader
-      lifecycle: experimental
-      adaptability:
-        score: 0.8
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:77f7ba817d0e102e3798644b60bba2cd711ac3a4b953fb1eba518aac4d9d24d6
       lastVerified: '2026-07-30T19:35:41.209Z'
   templates:
     activation-instructions-inline-greeting:
@@ -6815,7 +6815,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:9258c41f859542bd3e5ff3f90bbc71bd3ef4fa78a2df9d1e216b3e9d2c8145f6
-      lastVerified: '2026-08-02T21:42:59.334Z'
+      lastVerified: '2026-08-03T01:05:43.736Z'
     claude-rules:
       path: .aexos-core/product/templates/ide-rules/claude-rules.md
       layer: L2
@@ -6848,7 +6848,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:341ecf405acc51f4d374131ff2144e7cd47ebf67ca933330503cd1401461ac7d
-      lastVerified: '2026-08-02T21:42:59.337Z'
+      lastVerified: '2026-08-03T01:05:43.752Z'
     codex-rules:
       path: .aexos-core/product/templates/ide-rules/codex-rules.md
       layer: L2
@@ -6882,7 +6882,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:843f74574bc404e205d01895c02d39c6664081b499b18a069671fe1f8b221d15
-      lastVerified: '2026-08-02T21:42:59.338Z'
+      lastVerified: '2026-08-03T01:05:43.760Z'
     copilot-rules:
       path: .aexos-core/product/templates/ide-rules/copilot-rules.md
       layer: L2
@@ -6932,7 +6932,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:87b41447c986a087cbe27848409aad051dd3a78400f1df126d317966ef1b27b0
-      lastVerified: '2026-08-02T21:42:59.339Z'
+      lastVerified: '2026-08-03T01:05:43.785Z'
     gemini-rules:
       path: .aexos-core/product/templates/ide-rules/gemini-rules.md
       layer: L2
@@ -7718,8 +7718,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:15a0289dbee47c8fb3814881abe2dc480932fa2d343f6a88e0525dd4e59f3d5a
-      lastVerified: '2026-08-01T04:17:36.309Z'
+      checksum: sha256:b3cf065df82d212f60086a99fcdda0418d815ba2a5476438a642adb42a174dbf
+      lastVerified: '2026-08-03T01:32:56.274Z'
     refactoring-suggester:
       path: .aexos-core/development/scripts/refactoring-suggester.js
       layer: L2
@@ -8507,7 +8507,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:26426516691db47a3863e644f7f23cbd41f3bbd025c57191751652146e36a82d
-      lastVerified: '2026-07-30T19:35:41.368Z'
+      lastVerified: '2026-08-03T01:32:56.296Z'
     code-intel-client:
       path: .aexos-core/core/code-intel/code-intel-client.js
       layer: L1
@@ -8597,7 +8597,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:c8103fb966def9e8ed53dc1840e0e853b5fa4f13291a73a179cbae3545f38754
-      lastVerified: '2026-07-30T19:35:41.372Z'
+      lastVerified: '2026-08-03T01:32:56.298Z'
     registry-syncer:
       path: .aexos-core/core/code-intel/registry-syncer.js
       layer: L1
@@ -11465,7 +11465,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:fb2f7d557a73474a7af8f45ddfb81aea1ba3092c754cdb31494b7966087d5bc1
-      lastVerified: '2026-08-02T00:05:27.350Z'
+      lastVerified: '2026-08-03T01:32:56.354Z'
     context-detector:
       path: .aexos-core/core/session/context-detector.js
       layer: L1
@@ -12201,7 +12201,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:3352c170168e882b7d88f46c24db9f11c394bce5b2463e242a3c09b6da591b2e
-      lastVerified: '2026-07-30T19:35:41.613Z'
+      lastVerified: '2026-08-03T01:32:56.365Z'
     rules-files:
       path: .aexos-core/core/doctor/checks/rules-files.js
       layer: L1
@@ -14731,8 +14731,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:521e62257d934ca4ac6aa920ade34b05fcc9cb59245e1dbda019b249a8de44c9
-      lastVerified: '2026-08-01T04:27:25.786Z'
+      checksum: sha256:e747a6bff788fa49dd388f742dfcaa815effc893663a7d1381c95cbd13bebd6e
+      lastVerified: '2026-08-03T01:05:43.609Z'
     analyst:
       path: .aexos-core/development/agents/analyst.md
       layer: L2
@@ -15134,7 +15134,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:57cee3c509b9f247dd93926795e13682115e7646270a94bdb1e03d9c70e6cc64
-      lastVerified: '2026-08-02T19:12:39.865Z'
+      lastVerified: '2026-08-03T01:05:43.647Z'
     pm:
       path: .aexos-core/development/agents/pm.md
       layer: L2
@@ -15879,7 +15879,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:<self-reference>
-      lastVerified: '2026-08-02T21:56:31.933Z'
+      lastVerified: '2026-08-03T01:32:56.561Z'
     learned-patterns:
       path: .aexos-core/data/learned-patterns.yaml
       layer: L3
@@ -16047,6 +16047,26 @@ entities:
         extensionPoints: []
       checksum: sha256:e414decb1fd9f6ca22fca7912f8e1a4279b9b154e8b7d3b20d79aa2d1d459835
       lastVerified: '2026-07-30T19:35:41.811Z'
+    _template:
+      path: .aexos-core/data/tech-presets/_template.md
+      layer: L3
+      type: data
+      purpose: Tech Preset Template
+      keywords:
+        - template
+        - tech
+        - preset
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.5
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:f560c52d37b2b16fc61273cce6b55ca2a06afdd5e2da850b7311ce5363a1c56d
+      lastVerified: '2026-07-30T19:35:41.815Z'
     angular-nestjs:
       path: .aexos-core/data/tech-presets/angular-nestjs.md
       layer: L3
@@ -16196,26 +16216,6 @@ entities:
         extensionPoints: []
       checksum: sha256:d8042927504a9ad2ba90551d2f46a092644ecffc68eca6af2dd735f9e31826a3
       lastVerified: '2026-07-30T19:35:41.814Z'
-    _template:
-      path: .aexos-core/data/tech-presets/_template.md
-      layer: L3
-      type: data
-      purpose: Tech Preset Template
-      keywords:
-        - template
-        - tech
-        - preset
-      usedBy: []
-      dependencies: []
-      externalDeps: []
-      plannedDeps: []
-      lifecycle: orphan
-      adaptability:
-        score: 0.5
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:f560c52d37b2b16fc61273cce6b55ca2a06afdd5e2da850b7311ce5363a1c56d
-      lastVerified: '2026-07-30T19:35:41.815Z'
   workflows:
     auto-worktree:
       path: .aexos-core/development/workflows/auto-worktree.yaml
@@ -20068,6 +20068,31 @@ entities:
       checksum: sha256:8f5a97e1522da2193e2a2eae18dc68c4477acf3e2471b50b46885163cefa40e6
       lastVerified: '2026-07-30T19:35:42.040Z'
   core-docs:
+    SHARD-TRANSLATION-GUIDE:
+      path: .aexos-core/core/docs/SHARD-TRANSLATION-GUIDE.md
+      layer: L1
+      type: docs
+      purpose: >-
+        AEXOS (Cyryx) now automatically translates Portuguese documentation into English filenames when sharding
+        documents. This ensures consistency across all projects and compatibility with hardcoded Englis
+      keywords:
+        - shard
+        - translation
+        - guide
+        - document
+        - sharding
+        - portuguese-to-english
+      usedBy: []
+      dependencies: []
+      externalDeps: []
+      plannedDeps: []
+      lifecycle: orphan
+      adaptability:
+        score: 0.5
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:4e8c8eff037200f69733fcfe98550d37bab711ab894e5a59f8a6bf66db4dc609
+      lastVerified: '2026-07-30T19:35:42.044Z'
     component-creation-guide:
       path: .aexos-core/core/docs/component-creation-guide.md
       layer: L1
@@ -20113,31 +20138,6 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:6ccd5b79bdccbaf9824968c88e14252bfc9f288ffd74fe7717309361a9289645
-      lastVerified: '2026-07-30T19:35:42.044Z'
-    SHARD-TRANSLATION-GUIDE:
-      path: .aexos-core/core/docs/SHARD-TRANSLATION-GUIDE.md
-      layer: L1
-      type: docs
-      purpose: >-
-        AEXOS (Cyryx) now automatically translates Portuguese documentation into English filenames when sharding
-        documents. This ensures consistency across all projects and compatibility with hardcoded Englis
-      keywords:
-        - shard
-        - translation
-        - guide
-        - document
-        - sharding
-        - portuguese-to-english
-      usedBy: []
-      dependencies: []
-      externalDeps: []
-      plannedDeps: []
-      lifecycle: orphan
-      adaptability:
-        score: 0.5
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:4e8c8eff037200f69733fcfe98550d37bab711ab894e5a59f8a6bf66db4dc609
       lastVerified: '2026-07-30T19:35:42.044Z'
     template-syntax:
       path: .aexos-core/core/docs/template-syntax.md
