@@ -20,6 +20,10 @@ concurrency:
 
 permissions:
   contents: read
+  # dorny/paths-filter calls the REST API (listFiles) on pull_request events.
+  # Without this it fails with "Resource not accessible by integration" and every
+  # downstream job is skipped. On push events it diffs locally and needs nothing.
+  pull-requests: read
 
 jobs:
   # Path-based change detection for smart job skipping
@@ -597,6 +601,7 @@ jobs:
           echo "=== AEXOS CI Validation Summary ==="
           echo ""
           echo "📋 Change Detection:"
+          echo "  Detect Changes: ${{ needs.changes.result }}"
           echo "  Code changed: ${{ needs.changes.outputs.code }}"
           echo "  Tests changed: ${{ needs.changes.outputs.tests }}"
           echo "  Config changed: ${{ needs.changes.outputs.config }}"
@@ -620,6 +625,17 @@ jobs:
 
           # Check for failures (skipped is OK when changes don't affect that area)
           FAILED=false
+
+          # Detect Changes gates every other job. If it does not succeed, all of
+          # them report "skipped" rather than "failure", so none of the checks
+          # below can trip and this job would pass having validated nothing.
+          # Guard it explicitly, otherwise a green Validation Summary is
+          # indistinguishable from a full run — dangerous the moment this becomes
+          # a required status check for branch protection.
+          if [ "${{ needs.changes.result }}" != "success" ]; then
+            echo "❌ Detect Changes did not succeed (${{ needs.changes.result }}) — every gate below was skipped, nothing was validated"
+            FAILED=true
+          fi
 
           # Security Audit: fail if ran and didn't succeed
           if [ "${{ needs.security-audit.result }}" == "failure" ]; then
