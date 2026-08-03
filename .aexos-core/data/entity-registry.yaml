@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-08-03T01:32:56.561Z'
+  lastUpdated: '2026-08-03T02:03:00.332Z'
   entityCount: 846
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -5875,7 +5875,7 @@ entities:
       path: .aexos-core/product/templates/architecture-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\architecture-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/architecture-tmpl.yaml
       keywords:
         - architecture
         - tmpl
@@ -5896,7 +5896,7 @@ entities:
       path: .aexos-core/product/templates/brainstorming-output-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\brainstorming-output-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/brainstorming-output-tmpl.yaml
       keywords:
         - brainstorming
         - output
@@ -5917,7 +5917,7 @@ entities:
       path: .aexos-core/product/templates/brownfield-architecture-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\brownfield-architecture-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/brownfield-architecture-tmpl.yaml
       keywords:
         - brownfield
         - architecture
@@ -5939,7 +5939,7 @@ entities:
       path: .aexos-core/product/templates/brownfield-prd-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\brownfield-prd-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/brownfield-prd-tmpl.yaml
       keywords:
         - brownfield
         - prd
@@ -6026,7 +6026,7 @@ entities:
       path: .aexos-core/product/templates/competitor-analysis-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\competitor-analysis-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/competitor-analysis-tmpl.yaml
       keywords:
         - competitor
         - analysis
@@ -6048,7 +6048,7 @@ entities:
       path: .aexos-core/product/templates/current-approach-tmpl.md
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\current-approach-tmpl.md
+      purpose: Entity at .aexos-core/product/templates/current-approach-tmpl.md
       keywords:
         - current
         - approach
@@ -6071,7 +6071,7 @@ entities:
       path: .aexos-core/product/templates/design-story-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\design-story-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/design-story-tmpl.yaml
       keywords:
         - design
         - story
@@ -6098,7 +6098,7 @@ entities:
       path: .aexos-core/product/templates/ds-artifact-analysis.md
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\ds-artifact-analysis.md
+      purpose: Entity at .aexos-core/product/templates/ds-artifact-analysis.md
       keywords:
         - ds
         - artifact
@@ -6121,7 +6121,7 @@ entities:
       path: .aexos-core/product/templates/front-end-architecture-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\front-end-architecture-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/front-end-architecture-tmpl.yaml
       keywords:
         - front
         - end
@@ -6144,7 +6144,7 @@ entities:
       path: .aexos-core/product/templates/front-end-spec-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\front-end-spec-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/front-end-spec-tmpl.yaml
       keywords:
         - front
         - end
@@ -6167,7 +6167,7 @@ entities:
       path: .aexos-core/product/templates/fullstack-architecture-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\fullstack-architecture-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/fullstack-architecture-tmpl.yaml
       keywords:
         - fullstack
         - architecture
@@ -6278,7 +6278,7 @@ entities:
       path: .aexos-core/product/templates/index-strategy-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\index-strategy-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/index-strategy-tmpl.yaml
       keywords:
         - index
         - strategy
@@ -6299,7 +6299,7 @@ entities:
       path: .aexos-core/product/templates/market-research-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\market-research-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/market-research-tmpl.yaml
       keywords:
         - market
         - research
@@ -6321,7 +6321,7 @@ entities:
       path: .aexos-core/product/templates/migration-plan-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\migration-plan-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/migration-plan-tmpl.yaml
       keywords:
         - migration
         - plan
@@ -6342,7 +6342,7 @@ entities:
       path: .aexos-core/product/templates/migration-strategy-tmpl.md
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\migration-strategy-tmpl.md
+      purpose: Entity at .aexos-core/product/templates/migration-strategy-tmpl.md
       keywords:
         - migration
         - strategy
@@ -6365,7 +6365,7 @@ entities:
       path: .aexos-core/product/templates/personalized-agent-template.md
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\personalized-agent-template.md
+      purpose: Entity at .aexos-core/product/templates/personalized-agent-template.md
       keywords:
         - personalized
         - agent
@@ -6411,7 +6411,7 @@ entities:
       path: .aexos-core/product/templates/personalized-task-template-v2.md
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\personalized-task-template-v2.md
+      purpose: Entity at .aexos-core/product/templates/personalized-task-template-v2.md
       keywords:
         - personalized
         - task
@@ -6434,7 +6434,7 @@ entities:
       path: .aexos-core/product/templates/personalized-task-template.md
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\personalized-task-template.md
+      purpose: Entity at .aexos-core/product/templates/personalized-task-template.md
       keywords:
         - personalized
         - task
@@ -6502,7 +6502,7 @@ entities:
       path: .aexos-core/product/templates/prd-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\prd-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/prd-tmpl.yaml
       keywords:
         - prd
         - tmpl
@@ -6523,7 +6523,7 @@ entities:
       path: .aexos-core/product/templates/project-brief-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\project-brief-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/project-brief-tmpl.yaml
       keywords:
         - project
         - brief
@@ -6545,7 +6545,7 @@ entities:
       path: .aexos-core/product/templates/qa-gate-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\qa-gate-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/qa-gate-tmpl.yaml
       keywords:
         - qa
         - gate
@@ -6566,7 +6566,7 @@ entities:
       path: .aexos-core/product/templates/qa-report-tmpl.md
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\qa-report-tmpl.md
+      purpose: Entity at .aexos-core/product/templates/qa-report-tmpl.md
       keywords:
         - qa
         - report
@@ -6630,7 +6630,7 @@ entities:
       path: .aexos-core/product/templates/spec-tmpl.md
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\spec-tmpl.md
+      purpose: Entity at .aexos-core/product/templates/spec-tmpl.md
       keywords:
         - spec
         - tmpl
@@ -6675,7 +6675,7 @@ entities:
       path: .aexos-core/product/templates/story-tmpl.yaml
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\story-tmpl.yaml
+      purpose: Entity at .aexos-core/product/templates/story-tmpl.yaml
       keywords:
         - story
         - tmpl
@@ -6727,7 +6727,7 @@ entities:
       path: .aexos-core/product/templates/task-template.md
       layer: L2
       type: template
-      purpose: Entity at .aexos-core\product\templates\task-template.md
+      purpose: Entity at .aexos-core/product/templates/task-template.md
       keywords:
         - task
         - template
@@ -6958,7 +6958,7 @@ entities:
       path: .aexos-core/development/scripts/activation-runtime.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\activation-runtime.js
+      purpose: Entity at .aexos-core/development/scripts/activation-runtime.js
       keywords:
         - activation
         - runtime
@@ -6979,7 +6979,7 @@ entities:
       path: .aexos-core/development/scripts/agent-assignment-resolver.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\agent-assignment-resolver.js
+      purpose: Entity at .aexos-core/development/scripts/agent-assignment-resolver.js
       keywords:
         - agent
         - assignment
@@ -6999,7 +6999,7 @@ entities:
       path: .aexos-core/development/scripts/agent-config-loader.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\agent-config-loader.js
+      purpose: Entity at .aexos-core/development/scripts/agent-config-loader.js
       keywords:
         - agent
         - config
@@ -7024,7 +7024,7 @@ entities:
       path: .aexos-core/development/scripts/agent-exit-hooks.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\agent-exit-hooks.js
+      purpose: Entity at .aexos-core/development/scripts/agent-exit-hooks.js
       keywords:
         - agent
         - exit
@@ -7045,7 +7045,7 @@ entities:
       path: .aexos-core/development/scripts/apply-inline-greeting-all-agents.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\apply-inline-greeting-all-agents.js
+      purpose: Entity at .aexos-core/development/scripts/apply-inline-greeting-all-agents.js
       keywords:
         - apply
         - inline
@@ -7067,7 +7067,7 @@ entities:
       path: .aexos-core/development/scripts/approval-workflow.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\approval-workflow.js
+      purpose: Entity at .aexos-core/development/scripts/approval-workflow.js
       keywords:
         - approval
         - workflow
@@ -7086,7 +7086,7 @@ entities:
       path: .aexos-core/development/scripts/audit-agent-config.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\audit-agent-config.js
+      purpose: Entity at .aexos-core/development/scripts/audit-agent-config.js
       keywords:
         - audit
         - agent
@@ -7106,7 +7106,7 @@ entities:
       path: .aexos-core/development/scripts/backlog-manager.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\backlog-manager.js
+      purpose: Entity at .aexos-core/development/scripts/backlog-manager.js
       keywords:
         - backlog
         - manager
@@ -7128,7 +7128,7 @@ entities:
       path: .aexos-core/development/scripts/backup-manager.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\backup-manager.js
+      purpose: Entity at .aexos-core/development/scripts/backup-manager.js
       keywords:
         - backup
         - manager
@@ -7149,7 +7149,7 @@ entities:
       path: .aexos-core/development/scripts/batch-update-agents-session-context.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\batch-update-agents-session-context.js
+      purpose: Entity at .aexos-core/development/scripts/batch-update-agents-session-context.js
       keywords:
         - batch
         - update
@@ -7171,7 +7171,7 @@ entities:
       path: .aexos-core/development/scripts/branch-manager.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\branch-manager.js
+      purpose: Entity at .aexos-core/development/scripts/branch-manager.js
       keywords:
         - branch
         - manager
@@ -7191,7 +7191,7 @@ entities:
       path: .aexos-core/development/scripts/code-quality-improver.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\code-quality-improver.js
+      purpose: Entity at .aexos-core/development/scripts/code-quality-improver.js
       keywords:
         - code
         - quality
@@ -7211,7 +7211,7 @@ entities:
       path: .aexos-core/development/scripts/commit-message-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\commit-message-generator.js
+      purpose: Entity at .aexos-core/development/scripts/commit-message-generator.js
       keywords:
         - commit
         - message
@@ -7233,7 +7233,7 @@ entities:
       path: .aexos-core/development/scripts/conflict-resolver.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\conflict-resolver.js
+      purpose: Entity at .aexos-core/development/scripts/conflict-resolver.js
       keywords:
         - conflict
         - resolver
@@ -7253,7 +7253,7 @@ entities:
       path: .aexos-core/development/scripts/decision-context.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\decision-context.js
+      purpose: Entity at .aexos-core/development/scripts/decision-context.js
       keywords:
         - decision
         - context
@@ -7300,7 +7300,7 @@ entities:
       path: .aexos-core/development/scripts/decision-log-indexer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\decision-log-indexer.js
+      purpose: Entity at .aexos-core/development/scripts/decision-log-indexer.js
       keywords:
         - decision
         - log
@@ -7321,7 +7321,7 @@ entities:
       path: .aexos-core/development/scripts/decision-recorder.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\decision-recorder.js
+      purpose: Entity at .aexos-core/development/scripts/decision-recorder.js
       keywords:
         - decision
         - recorder
@@ -7344,7 +7344,7 @@ entities:
       path: .aexos-core/development/scripts/dependency-analyzer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\dependency-analyzer.js
+      purpose: Entity at .aexos-core/development/scripts/dependency-analyzer.js
       keywords:
         - dependency
         - analyzer
@@ -7363,7 +7363,7 @@ entities:
       path: .aexos-core/development/scripts/dev-context-loader.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\dev-context-loader.js
+      purpose: Entity at .aexos-core/development/scripts/dev-context-loader.js
       keywords:
         - dev
         - context
@@ -7383,7 +7383,7 @@ entities:
       path: .aexos-core/development/scripts/diff-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\diff-generator.js
+      purpose: Entity at .aexos-core/development/scripts/diff-generator.js
       keywords:
         - diff
         - generator
@@ -7402,7 +7402,7 @@ entities:
       path: .aexos-core/development/scripts/elicitation-engine.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\elicitation-engine.js
+      purpose: Entity at .aexos-core/development/scripts/elicitation-engine.js
       keywords:
         - elicitation
         - engine
@@ -7423,7 +7423,7 @@ entities:
       path: .aexos-core/development/scripts/elicitation-session-manager.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\elicitation-session-manager.js
+      purpose: Entity at .aexos-core/development/scripts/elicitation-session-manager.js
       keywords:
         - elicitation
         - session
@@ -7444,7 +7444,7 @@ entities:
       path: .aexos-core/development/scripts/generate-greeting.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\generate-greeting.js
+      purpose: Entity at .aexos-core/development/scripts/generate-greeting.js
       keywords:
         - generate
         - greeting
@@ -7464,7 +7464,7 @@ entities:
       path: .aexos-core/development/scripts/git-wrapper.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\git-wrapper.js
+      purpose: Entity at .aexos-core/development/scripts/git-wrapper.js
       keywords:
         - git
         - wrapper
@@ -7484,7 +7484,7 @@ entities:
       path: .aexos-core/development/scripts/greeting-builder.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\greeting-builder.js
+      purpose: Entity at .aexos-core/development/scripts/greeting-builder.js
       keywords:
         - greeting
         - builder
@@ -7516,7 +7516,7 @@ entities:
       path: .aexos-core/development/scripts/greeting-config-cli.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\greeting-config-cli.js
+      purpose: Entity at .aexos-core/development/scripts/greeting-config-cli.js
       keywords:
         - greeting
         - config
@@ -7537,7 +7537,7 @@ entities:
       path: .aexos-core/development/scripts/greeting-preference-manager.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\greeting-preference-manager.js
+      purpose: Entity at .aexos-core/development/scripts/greeting-preference-manager.js
       keywords:
         - greeting
         - preference
@@ -7561,7 +7561,7 @@ entities:
       path: .aexos-core/development/scripts/issue-triage.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\issue-triage.js
+      purpose: Entity at .aexos-core/development/scripts/issue-triage.js
       keywords:
         - issue
         - triage
@@ -7580,7 +7580,7 @@ entities:
       path: .aexos-core/development/scripts/manifest-preview.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\manifest-preview.js
+      purpose: Entity at .aexos-core/development/scripts/manifest-preview.js
       keywords:
         - manifest
         - preview
@@ -7601,7 +7601,7 @@ entities:
       path: .aexos-core/development/scripts/metrics-tracker.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\metrics-tracker.js
+      purpose: Entity at .aexos-core/development/scripts/metrics-tracker.js
       keywords:
         - metrics
         - tracker
@@ -7621,7 +7621,7 @@ entities:
       path: .aexos-core/development/scripts/migrate-task-to-v2.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\migrate-task-to-v2.js
+      purpose: Entity at .aexos-core/development/scripts/migrate-task-to-v2.js
       keywords:
         - migrate
         - task
@@ -7642,7 +7642,7 @@ entities:
       path: .aexos-core/development/scripts/modification-validator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\modification-validator.js
+      purpose: Entity at .aexos-core/development/scripts/modification-validator.js
       keywords:
         - modification
         - validator
@@ -7664,7 +7664,7 @@ entities:
       path: .aexos-core/development/scripts/pattern-learner.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\pattern-learner.js
+      purpose: Entity at .aexos-core/development/scripts/pattern-learner.js
       keywords:
         - pattern
         - learner
@@ -7684,7 +7684,7 @@ entities:
       path: .aexos-core/development/scripts/performance-analyzer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\performance-analyzer.js
+      purpose: Entity at .aexos-core/development/scripts/performance-analyzer.js
       keywords:
         - performance
         - analyzer
@@ -7703,7 +7703,7 @@ entities:
       path: .aexos-core/development/scripts/populate-entity-registry.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\populate-entity-registry.js
+      purpose: Entity at .aexos-core/development/scripts/populate-entity-registry.js
       keywords:
         - populate
         - entity
@@ -7718,13 +7718,13 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:b3cf065df82d212f60086a99fcdda0418d815ba2a5476438a642adb42a174dbf
-      lastVerified: '2026-08-03T01:32:56.274Z'
+      checksum: sha256:9279fc860adcf9b35e292196a885f447f3fb85a8b8036123dc8c70a931b85cb8
+      lastVerified: '2026-08-03T02:02:50.816Z'
     refactoring-suggester:
       path: .aexos-core/development/scripts/refactoring-suggester.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\refactoring-suggester.js
+      purpose: Entity at .aexos-core/development/scripts/refactoring-suggester.js
       keywords:
         - refactoring
         - suggester
@@ -7743,7 +7743,7 @@ entities:
       path: .aexos-core/development/scripts/rollback-handler.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\rollback-handler.js
+      purpose: Entity at .aexos-core/development/scripts/rollback-handler.js
       keywords:
         - rollback
         - handler
@@ -7764,7 +7764,7 @@ entities:
       path: .aexos-core/development/scripts/security-checker.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\security-checker.js
+      purpose: Entity at .aexos-core/development/scripts/security-checker.js
       keywords:
         - security
         - checker
@@ -7783,7 +7783,7 @@ entities:
       path: .aexos-core/development/scripts/skill-validator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\skill-validator.js
+      purpose: Entity at .aexos-core/development/scripts/skill-validator.js
       keywords:
         - skill
         - validator
@@ -7802,7 +7802,7 @@ entities:
       path: .aexos-core/development/scripts/story-index-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\story-index-generator.js
+      purpose: Entity at .aexos-core/development/scripts/story-index-generator.js
       keywords:
         - story
         - index
@@ -7823,7 +7823,7 @@ entities:
       path: .aexos-core/development/scripts/story-manager.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\story-manager.js
+      purpose: Entity at .aexos-core/development/scripts/story-manager.js
       keywords:
         - story
         - manager
@@ -7849,7 +7849,7 @@ entities:
       path: .aexos-core/development/scripts/story-update-hook.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\story-update-hook.js
+      purpose: Entity at .aexos-core/development/scripts/story-update-hook.js
       keywords:
         - story
         - update
@@ -7871,7 +7871,7 @@ entities:
       path: .aexos-core/development/scripts/task-identifier-resolver.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\task-identifier-resolver.js
+      purpose: Entity at .aexos-core/development/scripts/task-identifier-resolver.js
       keywords:
         - task
         - identifier
@@ -7891,7 +7891,7 @@ entities:
       path: .aexos-core/development/scripts/template-engine.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\template-engine.js
+      purpose: Entity at .aexos-core/development/scripts/template-engine.js
       keywords:
         - template
         - engine
@@ -7910,7 +7910,7 @@ entities:
       path: .aexos-core/development/scripts/template-validator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\template-validator.js
+      purpose: Entity at .aexos-core/development/scripts/template-validator.js
       keywords:
         - template
         - validator
@@ -7930,7 +7930,7 @@ entities:
       path: .aexos-core/development/scripts/test-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\test-generator.js
+      purpose: Entity at .aexos-core/development/scripts/test-generator.js
       keywords:
         - test
         - generator
@@ -7949,7 +7949,7 @@ entities:
       path: .aexos-core/development/scripts/test-greeting-system.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\test-greeting-system.js
+      purpose: Entity at .aexos-core/development/scripts/test-greeting-system.js
       keywords:
         - test
         - greeting
@@ -7970,7 +7970,7 @@ entities:
       path: .aexos-core/development/scripts/transaction-manager.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\transaction-manager.js
+      purpose: Entity at .aexos-core/development/scripts/transaction-manager.js
       keywords:
         - transaction
         - manager
@@ -7990,7 +7990,7 @@ entities:
       path: .aexos-core/development/scripts/unified-activation-pipeline.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\unified-activation-pipeline.js
+      purpose: Entity at .aexos-core/development/scripts/unified-activation-pipeline.js
       keywords:
         - unified
         - activation
@@ -8022,7 +8022,7 @@ entities:
       path: .aexos-core/development/scripts/usage-tracker.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\usage-tracker.js
+      purpose: Entity at .aexos-core/development/scripts/usage-tracker.js
       keywords:
         - usage
         - tracker
@@ -8042,7 +8042,7 @@ entities:
       path: .aexos-core/development/scripts/validate-filenames.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\validate-filenames.js
+      purpose: Entity at .aexos-core/development/scripts/validate-filenames.js
       keywords:
         - validate
         - filenames
@@ -8061,7 +8061,7 @@ entities:
       path: .aexos-core/development/scripts/validate-task-v2.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\validate-task-v2.js
+      purpose: Entity at .aexos-core/development/scripts/validate-task-v2.js
       keywords:
         - validate
         - task
@@ -8081,7 +8081,7 @@ entities:
       path: .aexos-core/development/scripts/verify-workflow-gaps.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\verify-workflow-gaps.js
+      purpose: Entity at .aexos-core/development/scripts/verify-workflow-gaps.js
       keywords:
         - verify
         - workflow
@@ -8107,7 +8107,7 @@ entities:
       path: .aexos-core/development/scripts/version-tracker.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\version-tracker.js
+      purpose: Entity at .aexos-core/development/scripts/version-tracker.js
       keywords:
         - version
         - tracker
@@ -8126,7 +8126,7 @@ entities:
       path: .aexos-core/development/scripts/workflow-navigator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\workflow-navigator.js
+      purpose: Entity at .aexos-core/development/scripts/workflow-navigator.js
       keywords:
         - workflow
         - navigator
@@ -8148,7 +8148,7 @@ entities:
       path: .aexos-core/development/scripts/workflow-state-manager.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\workflow-state-manager.js
+      purpose: Entity at .aexos-core/development/scripts/workflow-state-manager.js
       keywords:
         - workflow
         - state
@@ -8171,7 +8171,7 @@ entities:
       path: .aexos-core/development/scripts/workflow-validator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\workflow-validator.js
+      purpose: Entity at .aexos-core/development/scripts/workflow-validator.js
       keywords:
         - workflow
         - validator
@@ -8195,7 +8195,7 @@ entities:
       path: .aexos-core/development/scripts/yaml-validator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\yaml-validator.js
+      purpose: Entity at .aexos-core/development/scripts/yaml-validator.js
       keywords:
         - yaml
         - validator
@@ -8214,7 +8214,7 @@ entities:
       path: .aexos-core/development/scripts/squad/index.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\squad\index.js
+      purpose: Entity at .aexos-core/development/scripts/squad/index.js
       keywords:
         - index
       usedBy:
@@ -8240,7 +8240,7 @@ entities:
       path: .aexos-core/development/scripts/squad/squad-analyzer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\squad\squad-analyzer.js
+      purpose: Entity at .aexos-core/development/scripts/squad/squad-analyzer.js
       keywords:
         - squad
         - analyzer
@@ -8283,7 +8283,7 @@ entities:
       path: .aexos-core/development/scripts/squad/squad-downloader.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\squad\squad-downloader.js
+      purpose: Entity at .aexos-core/development/scripts/squad/squad-downloader.js
       keywords:
         - squad
         - downloader
@@ -8305,7 +8305,7 @@ entities:
       path: .aexos-core/development/scripts/squad/squad-extender.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\squad\squad-extender.js
+      purpose: Entity at .aexos-core/development/scripts/squad/squad-extender.js
       keywords:
         - squad
         - extender
@@ -8326,7 +8326,7 @@ entities:
       path: .aexos-core/development/scripts/squad/squad-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\squad\squad-generator.js
+      purpose: Entity at .aexos-core/development/scripts/squad/squad-generator.js
       keywords:
         - squad
         - generator
@@ -8350,7 +8350,7 @@ entities:
       path: .aexos-core/development/scripts/squad/squad-loader.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\squad\squad-loader.js
+      purpose: Entity at .aexos-core/development/scripts/squad/squad-loader.js
       keywords:
         - squad
         - loader
@@ -8376,7 +8376,7 @@ entities:
       path: .aexos-core/development/scripts/squad/squad-migrator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\squad\squad-migrator.js
+      purpose: Entity at .aexos-core/development/scripts/squad/squad-migrator.js
       keywords:
         - squad
         - migrator
@@ -8397,7 +8397,7 @@ entities:
       path: .aexos-core/development/scripts/squad/squad-publisher.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\squad\squad-publisher.js
+      purpose: Entity at .aexos-core/development/scripts/squad/squad-publisher.js
       keywords:
         - squad
         - publisher
@@ -8419,7 +8419,7 @@ entities:
       path: .aexos-core/development/scripts/squad/squad-validator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\development\scripts\squad\squad-validator.js
+      purpose: Entity at .aexos-core/development/scripts/squad/squad-validator.js
       keywords:
         - squad
         - validator
@@ -8449,7 +8449,7 @@ entities:
       path: .aexos-core/core/index.esm.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\index.esm.js
+      purpose: Entity at .aexos-core/core/index.esm.js
       keywords:
         - index
         - esm
@@ -8479,7 +8479,7 @@ entities:
       path: .aexos-core/core/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\index.js
+      purpose: Entity at .aexos-core/core/index.js
       keywords:
         - index
       usedBy: []
@@ -8512,7 +8512,7 @@ entities:
       path: .aexos-core/core/code-intel/code-intel-client.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\code-intel\code-intel-client.js
+      purpose: Entity at .aexos-core/core/code-intel/code-intel-client.js
       keywords:
         - code
         - intel
@@ -8535,7 +8535,7 @@ entities:
       path: .aexos-core/core/code-intel/code-intel-enricher.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\code-intel\code-intel-enricher.js
+      purpose: Entity at .aexos-core/core/code-intel/code-intel-enricher.js
       keywords:
         - code
         - intel
@@ -8556,7 +8556,7 @@ entities:
       path: .aexos-core/core/code-intel/hook-runtime.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\code-intel\hook-runtime.js
+      purpose: Entity at .aexos-core/core/code-intel/hook-runtime.js
       keywords:
         - hook
         - runtime
@@ -8576,7 +8576,7 @@ entities:
       path: .aexos-core/core/code-intel/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\code-intel\index.js
+      purpose: Entity at .aexos-core/core/code-intel/index.js
       keywords:
         - index
       usedBy:
@@ -8602,7 +8602,7 @@ entities:
       path: .aexos-core/core/code-intel/registry-syncer.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\code-intel\registry-syncer.js
+      purpose: Entity at .aexos-core/core/code-intel/registry-syncer.js
       keywords:
         - registry
         - syncer
@@ -8624,7 +8624,7 @@ entities:
       path: .aexos-core/core/config/config-cache.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\config\config-cache.js
+      purpose: Entity at .aexos-core/core/config/config-cache.js
       keywords:
         - config
         - cache
@@ -8643,7 +8643,7 @@ entities:
       path: .aexos-core/core/config/config-loader.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\config\config-loader.js
+      purpose: Entity at .aexos-core/core/config/config-loader.js
       keywords:
         - config
         - loader
@@ -8664,7 +8664,7 @@ entities:
       path: .aexos-core/core/config/config-resolver.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\config\config-resolver.js
+      purpose: Entity at .aexos-core/core/config/config-resolver.js
       keywords:
         - config
         - resolver
@@ -8691,7 +8691,7 @@ entities:
       path: .aexos-core/core/config/env-interpolator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\config\env-interpolator.js
+      purpose: Entity at .aexos-core/core/config/env-interpolator.js
       keywords:
         - env
         - interpolator
@@ -8712,7 +8712,7 @@ entities:
       path: .aexos-core/core/config/merge-utils.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\config\merge-utils.js
+      purpose: Entity at .aexos-core/core/config/merge-utils.js
       keywords:
         - merge
         - utils
@@ -8734,7 +8734,7 @@ entities:
       path: .aexos-core/core/config/migrate-config.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\config\migrate-config.js
+      purpose: Entity at .aexos-core/core/config/migrate-config.js
       keywords:
         - migrate
         - config
@@ -8753,7 +8753,7 @@ entities:
       path: .aexos-core/core/config/template-overrides.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\config\template-overrides.js
+      purpose: Entity at .aexos-core/core/config/template-overrides.js
       keywords:
         - template
         - overrides
@@ -8772,7 +8772,7 @@ entities:
       path: .aexos-core/core/doctor/fix-handler.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\fix-handler.js
+      purpose: Entity at .aexos-core/core/doctor/fix-handler.js
       keywords:
         - fix
         - handler
@@ -8794,7 +8794,7 @@ entities:
       path: .aexos-core/core/doctor/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\index.js
+      purpose: Entity at .aexos-core/core/doctor/index.js
       keywords:
         - index
       usedBy: []
@@ -8816,7 +8816,7 @@ entities:
       path: .aexos-core/core/elicitation/agent-elicitation.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\elicitation\agent-elicitation.js
+      purpose: Entity at .aexos-core/core/elicitation/agent-elicitation.js
       keywords:
         - agent
         - elicitation
@@ -8837,7 +8837,7 @@ entities:
       path: .aexos-core/core/elicitation/elicitation-engine.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\elicitation\elicitation-engine.js
+      purpose: Entity at .aexos-core/core/elicitation/elicitation-engine.js
       keywords:
         - elicitation
         - engine
@@ -8862,7 +8862,7 @@ entities:
       path: .aexos-core/core/elicitation/session-manager.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\elicitation\session-manager.js
+      purpose: Entity at .aexos-core/core/elicitation/session-manager.js
       keywords:
         - session
         - manager
@@ -8884,7 +8884,7 @@ entities:
       path: .aexos-core/core/elicitation/task-elicitation.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\elicitation\task-elicitation.js
+      purpose: Entity at .aexos-core/core/elicitation/task-elicitation.js
       keywords:
         - task
         - elicitation
@@ -8905,7 +8905,7 @@ entities:
       path: .aexos-core/core/elicitation/workflow-elicitation.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\elicitation\workflow-elicitation.js
+      purpose: Entity at .aexos-core/core/elicitation/workflow-elicitation.js
       keywords:
         - workflow
         - elicitation
@@ -8927,7 +8927,7 @@ entities:
       path: .aexos-core/core/errors/aexos-error.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\errors\aexos-error.js
+      purpose: Entity at .aexos-core/core/errors/aexos-error.js
       keywords:
         - aexos
         - error
@@ -8951,7 +8951,7 @@ entities:
       path: .aexos-core/core/errors/constants.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\errors\constants.js
+      purpose: Entity at .aexos-core/core/errors/constants.js
       keywords:
         - constants
       usedBy:
@@ -8974,7 +8974,7 @@ entities:
       path: .aexos-core/core/errors/error-registry.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\errors\error-registry.js
+      purpose: Entity at .aexos-core/core/errors/error-registry.js
       keywords:
         - error
         - registry
@@ -8998,7 +8998,7 @@ entities:
       path: .aexos-core/core/errors/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\errors\index.js
+      purpose: Entity at .aexos-core/core/errors/index.js
       keywords:
         - index
       usedBy:
@@ -9023,7 +9023,7 @@ entities:
       path: .aexos-core/core/errors/pro-error-registry.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\errors\pro-error-registry.js
+      purpose: Entity at .aexos-core/core/errors/pro-error-registry.js
       keywords:
         - pro
         - error
@@ -9045,7 +9045,7 @@ entities:
       path: .aexos-core/core/errors/serializer.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\errors\serializer.js
+      purpose: Entity at .aexos-core/core/errors/serializer.js
       keywords:
         - serializer
       usedBy:
@@ -9067,7 +9067,7 @@ entities:
       path: .aexos-core/core/errors/utils.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\errors\utils.js
+      purpose: Entity at .aexos-core/core/errors/utils.js
       keywords:
         - utils
       usedBy:
@@ -9089,7 +9089,7 @@ entities:
       path: .aexos-core/core/events/dashboard-emitter.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\events\dashboard-emitter.js
+      purpose: Entity at .aexos-core/core/events/dashboard-emitter.js
       keywords:
         - dashboard
         - emitter
@@ -9111,7 +9111,7 @@ entities:
       path: .aexos-core/core/events/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\events\index.js
+      purpose: Entity at .aexos-core/core/events/index.js
       keywords:
         - index
       usedBy:
@@ -9132,7 +9132,7 @@ entities:
       path: .aexos-core/core/events/types.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\events\types.js
+      purpose: Entity at .aexos-core/core/events/types.js
       keywords:
         - types
       usedBy:
@@ -9152,7 +9152,7 @@ entities:
       path: .aexos-core/core/execution/autonomous-build-loop.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\execution\autonomous-build-loop.js
+      purpose: Entity at .aexos-core/core/execution/autonomous-build-loop.js
       keywords:
         - autonomous
         - build
@@ -9178,7 +9178,7 @@ entities:
       path: .aexos-core/core/execution/build-orchestrator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\execution\build-orchestrator.js
+      purpose: Entity at .aexos-core/core/execution/build-orchestrator.js
       keywords:
         - build
         - orchestrator
@@ -9203,7 +9203,7 @@ entities:
       path: .aexos-core/core/execution/build-state-manager.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\execution\build-state-manager.js
+      purpose: Entity at .aexos-core/core/execution/build-state-manager.js
       keywords:
         - build
         - state
@@ -9229,7 +9229,7 @@ entities:
       path: .aexos-core/core/execution/context-injector.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\execution\context-injector.js
+      purpose: Entity at .aexos-core/core/execution/context-injector.js
       keywords:
         - context
         - injector
@@ -9250,7 +9250,7 @@ entities:
       path: .aexos-core/core/execution/parallel-executor.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\execution\parallel-executor.js
+      purpose: Entity at .aexos-core/core/execution/parallel-executor.js
       keywords:
         - parallel
         - executor
@@ -9271,7 +9271,7 @@ entities:
       path: .aexos-core/core/execution/parallel-monitor.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\execution\parallel-monitor.js
+      purpose: Entity at .aexos-core/core/execution/parallel-monitor.js
       keywords:
         - parallel
         - monitor
@@ -9290,7 +9290,7 @@ entities:
       path: .aexos-core/core/execution/rate-limit-manager.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\execution\rate-limit-manager.js
+      purpose: Entity at .aexos-core/core/execution/rate-limit-manager.js
       keywords:
         - rate
         - limit
@@ -9311,7 +9311,7 @@ entities:
       path: .aexos-core/core/execution/result-aggregator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\execution\result-aggregator.js
+      purpose: Entity at .aexos-core/core/execution/result-aggregator.js
       keywords:
         - result
         - aggregator
@@ -9330,7 +9330,7 @@ entities:
       path: .aexos-core/core/execution/semantic-merge-engine.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\execution\semantic-merge-engine.js
+      purpose: Entity at .aexos-core/core/execution/semantic-merge-engine.js
       keywords:
         - semantic
         - merge
@@ -9351,7 +9351,7 @@ entities:
       path: .aexos-core/core/execution/subagent-dispatcher.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\execution\subagent-dispatcher.js
+      purpose: Entity at .aexos-core/core/execution/subagent-dispatcher.js
       keywords:
         - subagent
         - dispatcher
@@ -9372,7 +9372,7 @@ entities:
       path: .aexos-core/core/execution/wave-executor.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\execution\wave-executor.js
+      purpose: Entity at .aexos-core/core/execution/wave-executor.js
       keywords:
         - wave
         - executor
@@ -9393,7 +9393,7 @@ entities:
       path: .aexos-core/core/external-executors/delegate-cli.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\external-executors\delegate-cli.js
+      purpose: Entity at .aexos-core/core/external-executors/delegate-cli.js
       keywords:
         - delegate
         - cli
@@ -9413,7 +9413,7 @@ entities:
       path: .aexos-core/core/external-executors/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\external-executors\index.js
+      purpose: Entity at .aexos-core/core/external-executors/index.js
       keywords:
         - index
       usedBy:
@@ -9433,7 +9433,7 @@ entities:
       path: .aexos-core/core/graph-dashboard/cli.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\graph-dashboard\cli.js
+      purpose: Entity at .aexos-core/core/graph-dashboard/cli.js
       keywords:
         - cli
       usedBy:
@@ -9462,7 +9462,7 @@ entities:
       path: .aexos-core/core/graph-dashboard/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\graph-dashboard\index.js
+      purpose: Entity at .aexos-core/core/graph-dashboard/index.js
       keywords:
         - index
       usedBy: []
@@ -9483,7 +9483,7 @@ entities:
       path: .aexos-core/core/health-check/base-check.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\base-check.js
+      purpose: Entity at .aexos-core/core/health-check/base-check.js
       keywords:
         - base
         - check
@@ -9543,7 +9543,7 @@ entities:
       path: .aexos-core/core/health-check/check-registry.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\check-registry.js
+      purpose: Entity at .aexos-core/core/health-check/check-registry.js
       keywords:
         - check
         - registry
@@ -9569,7 +9569,7 @@ entities:
       path: .aexos-core/core/health-check/engine.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\engine.js
+      purpose: Entity at .aexos-core/core/health-check/engine.js
       keywords:
         - engine
       usedBy:
@@ -9589,7 +9589,7 @@ entities:
       path: .aexos-core/core/health-check/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\index.js
+      purpose: Entity at .aexos-core/core/health-check/index.js
       keywords:
         - index
       usedBy:
@@ -9613,7 +9613,7 @@ entities:
       path: .aexos-core/core/ideation/ideation-engine.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ideation\ideation-engine.js
+      purpose: Entity at .aexos-core/core/ideation/ideation-engine.js
       keywords:
         - ideation
         - engine
@@ -9632,7 +9632,7 @@ entities:
       path: .aexos-core/core/ids/circuit-breaker.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ids\circuit-breaker.js
+      purpose: Entity at .aexos-core/core/ids/circuit-breaker.js
       keywords:
         - circuit
         - breaker
@@ -9653,7 +9653,7 @@ entities:
       path: .aexos-core/core/ids/framework-governor.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ids\framework-governor.js
+      purpose: Entity at .aexos-core/core/ids/framework-governor.js
       keywords:
         - framework
         - governor
@@ -9676,7 +9676,7 @@ entities:
       path: .aexos-core/core/ids/incremental-decision-engine.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ids\incremental-decision-engine.js
+      purpose: Entity at .aexos-core/core/ids/incremental-decision-engine.js
       keywords:
         - incremental
         - decision
@@ -9698,7 +9698,7 @@ entities:
       path: .aexos-core/core/ids/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ids\index.js
+      purpose: Entity at .aexos-core/core/ids/index.js
       keywords:
         - index
       usedBy: []
@@ -9728,7 +9728,7 @@ entities:
       path: .aexos-core/core/ids/layer-classifier.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ids\layer-classifier.js
+      purpose: Entity at .aexos-core/core/ids/layer-classifier.js
       keywords:
         - layer
         - classifier
@@ -9748,7 +9748,7 @@ entities:
       path: .aexos-core/core/ids/registry-healer.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ids\registry-healer.js
+      purpose: Entity at .aexos-core/core/ids/registry-healer.js
       keywords:
         - registry
         - healer
@@ -9769,7 +9769,7 @@ entities:
       path: .aexos-core/core/ids/registry-loader.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ids\registry-loader.js
+      purpose: Entity at .aexos-core/core/ids/registry-loader.js
       keywords:
         - registry
         - loader
@@ -9794,7 +9794,7 @@ entities:
       path: .aexos-core/core/ids/registry-updater.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ids\registry-updater.js
+      purpose: Entity at .aexos-core/core/ids/registry-updater.js
       keywords:
         - registry
         - updater
@@ -9815,7 +9815,7 @@ entities:
       path: .aexos-core/core/ids/verification-gate.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ids\verification-gate.js
+      purpose: Entity at .aexos-core/core/ids/verification-gate.js
       keywords:
         - verification
         - gate
@@ -9836,7 +9836,7 @@ entities:
       path: .aexos-core/core/install/windows-npx-hint.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\install\windows-npx-hint.js
+      purpose: Entity at .aexos-core/core/install/windows-npx-hint.js
       keywords:
         - windows
         - npx
@@ -9857,7 +9857,7 @@ entities:
       path: .aexos-core/core/manifest/manifest-generator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\manifest\manifest-generator.js
+      purpose: Entity at .aexos-core/core/manifest/manifest-generator.js
       keywords:
         - manifest
         - generator
@@ -9876,7 +9876,7 @@ entities:
       path: .aexos-core/core/manifest/manifest-validator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\manifest\manifest-validator.js
+      purpose: Entity at .aexos-core/core/manifest/manifest-validator.js
       keywords:
         - manifest
         - validator
@@ -9895,7 +9895,7 @@ entities:
       path: .aexos-core/core/mcp/config-migrator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\mcp\config-migrator.js
+      purpose: Entity at .aexos-core/core/mcp/config-migrator.js
       keywords:
         - config
         - migrator
@@ -9917,7 +9917,7 @@ entities:
       path: .aexos-core/core/mcp/global-config-manager.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\mcp\global-config-manager.js
+      purpose: Entity at .aexos-core/core/mcp/global-config-manager.js
       keywords:
         - global
         - config
@@ -9940,7 +9940,7 @@ entities:
       path: .aexos-core/core/mcp/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\mcp\index.js
+      purpose: Entity at .aexos-core/core/mcp/index.js
       keywords:
         - index
       usedBy: []
@@ -9962,7 +9962,7 @@ entities:
       path: .aexos-core/core/mcp/os-detector.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\mcp\os-detector.js
+      purpose: Entity at .aexos-core/core/mcp/os-detector.js
       keywords:
         - os
         - detector
@@ -9984,7 +9984,7 @@ entities:
       path: .aexos-core/core/mcp/symlink-manager.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\mcp\symlink-manager.js
+      purpose: Entity at .aexos-core/core/mcp/symlink-manager.js
       keywords:
         - symlink
         - manager
@@ -10006,7 +10006,7 @@ entities:
       path: .aexos-core/core/memory/gotchas-memory.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\memory\gotchas-memory.js
+      purpose: Entity at .aexos-core/core/memory/gotchas-memory.js
       keywords:
         - gotchas
         - memory
@@ -10030,7 +10030,7 @@ entities:
       path: .aexos-core/core/orchestration/agent-invoker.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\agent-invoker.js
+      purpose: Entity at .aexos-core/core/orchestration/agent-invoker.js
       keywords:
         - agent
         - invoker
@@ -10051,7 +10051,7 @@ entities:
       path: .aexos-core/core/orchestration/bob-orchestrator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\bob-orchestrator.js
+      purpose: Entity at .aexos-core/core/orchestration/bob-orchestrator.js
       keywords:
         - bob
         - orchestrator
@@ -10085,7 +10085,7 @@ entities:
       path: .aexos-core/core/orchestration/bob-status-writer.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\bob-status-writer.js
+      purpose: Entity at .aexos-core/core/orchestration/bob-status-writer.js
       keywords:
         - bob
         - status
@@ -10107,7 +10107,7 @@ entities:
       path: .aexos-core/core/orchestration/brownfield-handler.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\brownfield-handler.js
+      purpose: Entity at .aexos-core/core/orchestration/brownfield-handler.js
       keywords:
         - brownfield
         - handler
@@ -10131,7 +10131,7 @@ entities:
       path: .aexos-core/core/orchestration/checklist-runner.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\checklist-runner.js
+      purpose: Entity at .aexos-core/core/orchestration/checklist-runner.js
       keywords:
         - checklist
         - runner
@@ -10152,7 +10152,7 @@ entities:
       path: .aexos-core/core/orchestration/cli-commands.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\cli-commands.js
+      purpose: Entity at .aexos-core/core/orchestration/cli-commands.js
       keywords:
         - cli
         - commands
@@ -10173,7 +10173,7 @@ entities:
       path: .aexos-core/core/orchestration/condition-evaluator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\condition-evaluator.js
+      purpose: Entity at .aexos-core/core/orchestration/condition-evaluator.js
       keywords:
         - condition
         - evaluator
@@ -10194,7 +10194,7 @@ entities:
       path: .aexos-core/core/orchestration/context-manager.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\context-manager.js
+      purpose: Entity at .aexos-core/core/orchestration/context-manager.js
       keywords:
         - context
         - manager
@@ -10216,7 +10216,7 @@ entities:
       path: .aexos-core/core/orchestration/dashboard-integration.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\dashboard-integration.js
+      purpose: Entity at .aexos-core/core/orchestration/dashboard-integration.js
       keywords:
         - dashboard
         - integration
@@ -10238,7 +10238,7 @@ entities:
       path: .aexos-core/core/orchestration/data-lifecycle-manager.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\data-lifecycle-manager.js
+      purpose: Entity at .aexos-core/core/orchestration/data-lifecycle-manager.js
       keywords:
         - data
         - lifecycle
@@ -10262,7 +10262,7 @@ entities:
       path: .aexos-core/core/orchestration/epic-context-accumulator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\epic-context-accumulator.js
+      purpose: Entity at .aexos-core/core/orchestration/epic-context-accumulator.js
       keywords:
         - epic
         - context
@@ -10283,7 +10283,7 @@ entities:
       path: .aexos-core/core/orchestration/execution-profile-resolver.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\execution-profile-resolver.js
+      purpose: Entity at .aexos-core/core/orchestration/execution-profile-resolver.js
       keywords:
         - execution
         - profile
@@ -10305,7 +10305,7 @@ entities:
       path: .aexos-core/core/orchestration/executor-assignment.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\executor-assignment.js
+      purpose: Entity at .aexos-core/core/orchestration/executor-assignment.js
       keywords:
         - executor
         - assignment
@@ -10328,7 +10328,7 @@ entities:
       path: .aexos-core/core/orchestration/fast-path-gate.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\fast-path-gate.js
+      purpose: Entity at .aexos-core/core/orchestration/fast-path-gate.js
       keywords:
         - fast
         - path
@@ -10349,7 +10349,7 @@ entities:
       path: .aexos-core/core/orchestration/gate-evaluator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\gate-evaluator.js
+      purpose: Entity at .aexos-core/core/orchestration/gate-evaluator.js
       keywords:
         - gate
         - evaluator
@@ -10370,7 +10370,7 @@ entities:
       path: .aexos-core/core/orchestration/gemini-model-selector.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\gemini-model-selector.js
+      purpose: Entity at .aexos-core/core/orchestration/gemini-model-selector.js
       keywords:
         - gemini
         - model
@@ -10391,7 +10391,7 @@ entities:
       path: .aexos-core/core/orchestration/greenfield-handler.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\greenfield-handler.js
+      purpose: Entity at .aexos-core/core/orchestration/greenfield-handler.js
       keywords:
         - greenfield
         - handler
@@ -10416,7 +10416,7 @@ entities:
       path: .aexos-core/core/orchestration/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\index.js
+      purpose: Entity at .aexos-core/core/orchestration/index.js
       keywords:
         - index
       usedBy: []
@@ -10464,7 +10464,7 @@ entities:
       path: .aexos-core/core/orchestration/lock-manager.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\lock-manager.js
+      purpose: Entity at .aexos-core/core/orchestration/lock-manager.js
       keywords:
         - lock
         - manager
@@ -10486,7 +10486,7 @@ entities:
       path: .aexos-core/core/orchestration/master-orchestrator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\master-orchestrator.js
+      purpose: Entity at .aexos-core/core/orchestration/master-orchestrator.js
       keywords:
         - master
         - orchestrator
@@ -10513,7 +10513,7 @@ entities:
       path: .aexos-core/core/orchestration/message-formatter.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\message-formatter.js
+      purpose: Entity at .aexos-core/core/orchestration/message-formatter.js
       keywords:
         - message
         - formatter
@@ -10534,7 +10534,7 @@ entities:
       path: .aexos-core/core/orchestration/parallel-executor.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\parallel-executor.js
+      purpose: Entity at .aexos-core/core/orchestration/parallel-executor.js
       keywords:
         - parallel
         - executor
@@ -10553,7 +10553,7 @@ entities:
       path: .aexos-core/core/orchestration/recovery-handler.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\recovery-handler.js
+      purpose: Entity at .aexos-core/core/orchestration/recovery-handler.js
       keywords:
         - recovery
         - handler
@@ -10577,7 +10577,7 @@ entities:
       path: .aexos-core/core/orchestration/session-state.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\session-state.js
+      purpose: Entity at .aexos-core/core/orchestration/session-state.js
       keywords:
         - session
         - state
@@ -10605,7 +10605,7 @@ entities:
       path: .aexos-core/core/orchestration/skill-dispatcher.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\skill-dispatcher.js
+      purpose: Entity at .aexos-core/core/orchestration/skill-dispatcher.js
       keywords:
         - skill
         - dispatcher
@@ -10626,7 +10626,7 @@ entities:
       path: .aexos-core/core/orchestration/subagent-prompt-builder.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\subagent-prompt-builder.js
+      purpose: Entity at .aexos-core/core/orchestration/subagent-prompt-builder.js
       keywords:
         - subagent
         - prompt
@@ -10648,7 +10648,7 @@ entities:
       path: .aexos-core/core/orchestration/surface-checker.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\surface-checker.js
+      purpose: Entity at .aexos-core/core/orchestration/surface-checker.js
       keywords:
         - surface
         - checker
@@ -10672,7 +10672,7 @@ entities:
       path: .aexos-core/core/orchestration/task-complexity-classifier.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\task-complexity-classifier.js
+      purpose: Entity at .aexos-core/core/orchestration/task-complexity-classifier.js
       keywords:
         - task
         - complexity
@@ -10693,7 +10693,7 @@ entities:
       path: .aexos-core/core/orchestration/tech-stack-detector.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\tech-stack-detector.js
+      purpose: Entity at .aexos-core/core/orchestration/tech-stack-detector.js
       keywords:
         - tech
         - stack
@@ -10716,7 +10716,7 @@ entities:
       path: .aexos-core/core/orchestration/terminal-spawner.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\terminal-spawner.js
+      purpose: Entity at .aexos-core/core/orchestration/terminal-spawner.js
       keywords:
         - terminal
         - spawner
@@ -10738,7 +10738,7 @@ entities:
       path: .aexos-core/core/orchestration/workflow-executor.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\workflow-executor.js
+      purpose: Entity at .aexos-core/core/orchestration/workflow-executor.js
       keywords:
         - workflow
         - executor
@@ -10765,7 +10765,7 @@ entities:
       path: .aexos-core/core/orchestration/workflow-orchestrator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\workflow-orchestrator.js
+      purpose: Entity at .aexos-core/core/orchestration/workflow-orchestrator.js
       keywords:
         - workflow
         - orchestrator
@@ -10793,7 +10793,7 @@ entities:
       path: .aexos-core/core/permissions/dispatch-governance.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\permissions\dispatch-governance.js
+      purpose: Entity at .aexos-core/core/permissions/dispatch-governance.js
       keywords:
         - dispatch
         - governance
@@ -10816,7 +10816,7 @@ entities:
       path: .aexos-core/core/permissions/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\permissions\index.js
+      purpose: Entity at .aexos-core/core/permissions/index.js
       keywords:
         - index
       usedBy:
@@ -10843,7 +10843,7 @@ entities:
       path: .aexos-core/core/permissions/operation-guard.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\permissions\operation-guard.js
+      purpose: Entity at .aexos-core/core/permissions/operation-guard.js
       keywords:
         - operation
         - guard
@@ -10865,7 +10865,7 @@ entities:
       path: .aexos-core/core/permissions/path-guard.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\permissions\path-guard.js
+      purpose: Entity at .aexos-core/core/permissions/path-guard.js
       keywords:
         - path
         - guard
@@ -10886,7 +10886,7 @@ entities:
       path: .aexos-core/core/permissions/permission-mode.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\permissions\permission-mode.js
+      purpose: Entity at .aexos-core/core/permissions/permission-mode.js
       keywords:
         - permission
         - mode
@@ -10908,7 +10908,7 @@ entities:
       path: .aexos-core/core/permissions/prompt-guard.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\permissions\prompt-guard.js
+      purpose: Entity at .aexos-core/core/permissions/prompt-guard.js
       keywords:
         - prompt
         - guard
@@ -10930,7 +10930,7 @@ entities:
       path: .aexos-core/core/permissions/ssrf-guard.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\permissions\ssrf-guard.js
+      purpose: Entity at .aexos-core/core/permissions/ssrf-guard.js
       keywords:
         - ssrf
         - guard
@@ -10951,7 +10951,7 @@ entities:
       path: .aexos-core/core/pro/pro-updater.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\pro\pro-updater.js
+      purpose: Entity at .aexos-core/core/pro/pro-updater.js
       keywords:
         - pro
         - updater
@@ -10970,7 +10970,7 @@ entities:
       path: .aexos-core/core/quality-gates/base-layer.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\quality-gates\base-layer.js
+      purpose: Entity at .aexos-core/core/quality-gates/base-layer.js
       keywords:
         - base
         - layer
@@ -10992,7 +10992,7 @@ entities:
       path: .aexos-core/core/quality-gates/checklist-generator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\quality-gates\checklist-generator.js
+      purpose: Entity at .aexos-core/core/quality-gates/checklist-generator.js
       keywords:
         - checklist
         - generator
@@ -11012,7 +11012,7 @@ entities:
       path: .aexos-core/core/quality-gates/focus-area-recommender.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\quality-gates\focus-area-recommender.js
+      purpose: Entity at .aexos-core/core/quality-gates/focus-area-recommender.js
       keywords:
         - focus
         - area
@@ -11033,7 +11033,7 @@ entities:
       path: .aexos-core/core/quality-gates/human-review-orchestrator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\quality-gates\human-review-orchestrator.js
+      purpose: Entity at .aexos-core/core/quality-gates/human-review-orchestrator.js
       keywords:
         - human
         - review
@@ -11056,7 +11056,7 @@ entities:
       path: .aexos-core/core/quality-gates/layer1-precommit.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\quality-gates\layer1-precommit.js
+      purpose: Entity at .aexos-core/core/quality-gates/layer1-precommit.js
       keywords:
         - layer1
         - precommit
@@ -11077,7 +11077,7 @@ entities:
       path: .aexos-core/core/quality-gates/layer2-pr-automation.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\quality-gates\layer2-pr-automation.js
+      purpose: Entity at .aexos-core/core/quality-gates/layer2-pr-automation.js
       keywords:
         - layer2
         - pr
@@ -11099,7 +11099,7 @@ entities:
       path: .aexos-core/core/quality-gates/layer3-human-review.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\quality-gates\layer3-human-review.js
+      purpose: Entity at .aexos-core/core/quality-gates/layer3-human-review.js
       keywords:
         - layer3
         - human
@@ -11122,7 +11122,7 @@ entities:
       path: .aexos-core/core/quality-gates/notification-manager.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\quality-gates\notification-manager.js
+      purpose: Entity at .aexos-core/core/quality-gates/notification-manager.js
       keywords:
         - notification
         - manager
@@ -11143,7 +11143,7 @@ entities:
       path: .aexos-core/core/quality-gates/quality-gate-manager.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\quality-gates\quality-gate-manager.js
+      purpose: Entity at .aexos-core/core/quality-gates/quality-gate-manager.js
       keywords:
         - quality
         - gate
@@ -11168,7 +11168,7 @@ entities:
       path: .aexos-core/core/registry/build-registry.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\registry\build-registry.js
+      purpose: Entity at .aexos-core/core/registry/build-registry.js
       keywords:
         - build
         - registry
@@ -11187,7 +11187,7 @@ entities:
       path: .aexos-core/core/registry/registry-loader.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\registry\registry-loader.js
+      purpose: Entity at .aexos-core/core/registry/registry-loader.js
       keywords:
         - registry
         - loader
@@ -11206,7 +11206,7 @@ entities:
       path: .aexos-core/core/registry/validate-registry.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\registry\validate-registry.js
+      purpose: Entity at .aexos-core/core/registry/validate-registry.js
       keywords:
         - validate
         - registry
@@ -11225,7 +11225,7 @@ entities:
       path: .aexos-core/core/resilience/agent-immortality.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\resilience\agent-immortality.js
+      purpose: Entity at .aexos-core/core/resilience/agent-immortality.js
       keywords:
         - agent
         - immortality
@@ -11245,7 +11245,7 @@ entities:
       path: .aexos-core/core/resilience/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\resilience\index.js
+      purpose: Entity at .aexos-core/core/resilience/index.js
       keywords:
         - index
       usedBy:
@@ -11265,7 +11265,7 @@ entities:
       path: .aexos-core/core/sdc/dispatch-adapter.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\sdc\dispatch-adapter.js
+      purpose: Entity at .aexos-core/core/sdc/dispatch-adapter.js
       keywords:
         - dispatch
         - adapter
@@ -11287,7 +11287,7 @@ entities:
       path: .aexos-core/core/sdc/epic-glue.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\sdc\epic-glue.js
+      purpose: Entity at .aexos-core/core/sdc/epic-glue.js
       keywords:
         - epic
         - glue
@@ -11310,7 +11310,7 @@ entities:
       path: .aexos-core/core/sdc/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\sdc\index.js
+      purpose: Entity at .aexos-core/core/sdc/index.js
       keywords:
         - index
       usedBy: []
@@ -11335,7 +11335,7 @@ entities:
       path: .aexos-core/core/sdc/phase-verify.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\sdc\phase-verify.js
+      purpose: Entity at .aexos-core/core/sdc/phase-verify.js
       keywords:
         - phase
         - verify
@@ -11356,7 +11356,7 @@ entities:
       path: .aexos-core/core/sdc/progress.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\sdc\progress.js
+      purpose: Entity at .aexos-core/core/sdc/progress.js
       keywords:
         - progress
       usedBy:
@@ -11377,7 +11377,7 @@ entities:
       path: .aexos-core/core/sdc/story-meta.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\sdc\story-meta.js
+      purpose: Entity at .aexos-core/core/sdc/story-meta.js
       keywords:
         - story
         - meta
@@ -11401,7 +11401,7 @@ entities:
       path: .aexos-core/core/sdc/wave-plan.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\sdc\wave-plan.js
+      purpose: Entity at .aexos-core/core/sdc/wave-plan.js
       keywords:
         - wave
         - plan
@@ -11423,7 +11423,7 @@ entities:
       path: .aexos-core/core/sdc/wave-run.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\sdc\wave-run.js
+      purpose: Entity at .aexos-core/core/sdc/wave-run.js
       keywords:
         - wave
         - run
@@ -11448,7 +11448,7 @@ entities:
       path: .aexos-core/core/security/port-denylist.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\security\port-denylist.js
+      purpose: Entity at .aexos-core/core/security/port-denylist.js
       keywords:
         - port
         - denylist
@@ -11470,7 +11470,7 @@ entities:
       path: .aexos-core/core/session/context-detector.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\session\context-detector.js
+      purpose: Entity at .aexos-core/core/session/context-detector.js
       keywords:
         - context
         - detector
@@ -11496,7 +11496,7 @@ entities:
       path: .aexos-core/core/session/context-loader.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\session\context-loader.js
+      purpose: Entity at .aexos-core/core/session/context-loader.js
       keywords:
         - context
         - loader
@@ -11520,7 +11520,7 @@ entities:
       path: .aexos-core/core/squads/squad-discovery.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\squads\squad-discovery.js
+      purpose: Entity at .aexos-core/core/squads/squad-discovery.js
       keywords:
         - squad
         - discovery
@@ -11539,7 +11539,7 @@ entities:
       path: .aexos-core/core/synapse/engine.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\engine.js
+      purpose: Entity at .aexos-core/core/synapse/engine.js
       keywords:
         - engine
       usedBy: []
@@ -11562,7 +11562,7 @@ entities:
       path: .aexos-core/core/ui/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ui\index.js
+      purpose: Entity at .aexos-core/core/ui/index.js
       keywords:
         - index
       usedBy:
@@ -11583,7 +11583,7 @@ entities:
       path: .aexos-core/core/ui/observability-panel.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ui\observability-panel.js
+      purpose: Entity at .aexos-core/core/ui/observability-panel.js
       keywords:
         - observability
         - panel
@@ -11605,7 +11605,7 @@ entities:
       path: .aexos-core/core/ui/panel-renderer.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ui\panel-renderer.js
+      purpose: Entity at .aexos-core/core/ui/panel-renderer.js
       keywords:
         - panel
         - renderer
@@ -11626,7 +11626,7 @@ entities:
       path: .aexos-core/core/utils/output-formatter.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\utils\output-formatter.js
+      purpose: Entity at .aexos-core/core/utils/output-formatter.js
       keywords:
         - output
         - formatter
@@ -11645,7 +11645,7 @@ entities:
       path: .aexos-core/core/utils/security-utils.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\utils\security-utils.js
+      purpose: Entity at .aexos-core/core/utils/security-utils.js
       keywords:
         - security
         - utils
@@ -11664,7 +11664,7 @@ entities:
       path: .aexos-core/core/utils/yaml-validator.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\utils\yaml-validator.js
+      purpose: Entity at .aexos-core/core/utils/yaml-validator.js
       keywords:
         - yaml
         - validator
@@ -11683,7 +11683,7 @@ entities:
       path: .aexos-core/core/code-intel/helpers/creation-helper.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\code-intel\helpers\creation-helper.js
+      purpose: Entity at .aexos-core/core/code-intel/helpers/creation-helper.js
       keywords:
         - creation
         - helper
@@ -11703,7 +11703,7 @@ entities:
       path: .aexos-core/core/code-intel/helpers/dev-helper.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\code-intel\helpers\dev-helper.js
+      purpose: Entity at .aexos-core/core/code-intel/helpers/dev-helper.js
       keywords:
         - dev
         - helper
@@ -11724,7 +11724,7 @@ entities:
       path: .aexos-core/core/code-intel/helpers/devops-helper.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\code-intel\helpers\devops-helper.js
+      purpose: Entity at .aexos-core/core/code-intel/helpers/devops-helper.js
       keywords:
         - devops
         - helper
@@ -11746,7 +11746,7 @@ entities:
       path: .aexos-core/core/code-intel/helpers/planning-helper.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\code-intel\helpers\planning-helper.js
+      purpose: Entity at .aexos-core/core/code-intel/helpers/planning-helper.js
       keywords:
         - planning
         - helper
@@ -11771,7 +11771,7 @@ entities:
       path: .aexos-core/core/code-intel/helpers/qa-helper.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\code-intel\helpers\qa-helper.js
+      purpose: Entity at .aexos-core/core/code-intel/helpers/qa-helper.js
       keywords:
         - qa
         - helper
@@ -11791,7 +11791,7 @@ entities:
       path: .aexos-core/core/code-intel/helpers/story-helper.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\code-intel\helpers\story-helper.js
+      purpose: Entity at .aexos-core/core/code-intel/helpers/story-helper.js
       keywords:
         - story
         - helper
@@ -11811,7 +11811,7 @@ entities:
       path: .aexos-core/core/code-intel/providers/code-graph-provider.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\code-intel\providers\code-graph-provider.js
+      purpose: Entity at .aexos-core/core/code-intel/providers/code-graph-provider.js
       keywords:
         - code
         - graph
@@ -11834,7 +11834,7 @@ entities:
       path: .aexos-core/core/code-intel/providers/provider-interface.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\code-intel\providers\provider-interface.js
+      purpose: Entity at .aexos-core/core/code-intel/providers/provider-interface.js
       keywords:
         - provider
         - interface
@@ -11856,7 +11856,7 @@ entities:
       path: .aexos-core/core/code-intel/providers/registry-provider.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\code-intel\providers\registry-provider.js
+      purpose: Entity at .aexos-core/core/code-intel/providers/registry-provider.js
       keywords:
         - registry
         - provider
@@ -11879,7 +11879,7 @@ entities:
       path: .aexos-core/core/doctor/checks/agent-memory.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\agent-memory.js
+      purpose: Entity at .aexos-core/core/doctor/checks/agent-memory.js
       keywords:
         - agent
         - memory
@@ -11900,7 +11900,7 @@ entities:
       path: .aexos-core/core/doctor/checks/claude-md.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\claude-md.js
+      purpose: Entity at .aexos-core/core/doctor/checks/claude-md.js
       keywords:
         - claude
         - md
@@ -11920,7 +11920,7 @@ entities:
       path: .aexos-core/core/doctor/checks/code-intel.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\code-intel.js
+      purpose: Entity at .aexos-core/core/doctor/checks/code-intel.js
       keywords:
         - code
         - intel
@@ -11948,7 +11948,7 @@ entities:
       path: .aexos-core/core/doctor/checks/commands-count.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\commands-count.js
+      purpose: Entity at .aexos-core/core/doctor/checks/commands-count.js
       keywords:
         - commands
         - count
@@ -11968,7 +11968,7 @@ entities:
       path: .aexos-core/core/doctor/checks/core-config.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\core-config.js
+      purpose: Entity at .aexos-core/core/doctor/checks/core-config.js
       keywords:
         - core
         - config
@@ -11988,7 +11988,7 @@ entities:
       path: .aexos-core/core/doctor/checks/entity-registry.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\entity-registry.js
+      purpose: Entity at .aexos-core/core/doctor/checks/entity-registry.js
       keywords:
         - entity
         - registry
@@ -12007,7 +12007,7 @@ entities:
       path: .aexos-core/core/doctor/checks/framework-3way-diff.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\framework-3way-diff.js
+      purpose: Entity at .aexos-core/core/doctor/checks/framework-3way-diff.js
       keywords:
         - framework
         - 3way
@@ -12027,7 +12027,7 @@ entities:
       path: .aexos-core/core/doctor/checks/git-hooks.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\git-hooks.js
+      purpose: Entity at .aexos-core/core/doctor/checks/git-hooks.js
       keywords:
         - git
         - hooks
@@ -12047,7 +12047,7 @@ entities:
       path: .aexos-core/core/doctor/checks/graph-dashboard.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\graph-dashboard.js
+      purpose: Entity at .aexos-core/core/doctor/checks/graph-dashboard.js
       keywords:
         - graph
         - dashboard
@@ -12067,7 +12067,7 @@ entities:
       path: .aexos-core/core/doctor/checks/hooks-claude-count.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\hooks-claude-count.js
+      purpose: Entity at .aexos-core/core/doctor/checks/hooks-claude-count.js
       keywords:
         - hooks
         - claude
@@ -12088,7 +12088,7 @@ entities:
       path: .aexos-core/core/doctor/checks/ide-sync.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\ide-sync.js
+      purpose: Entity at .aexos-core/core/doctor/checks/ide-sync.js
       keywords:
         - ide
         - sync
@@ -12108,7 +12108,7 @@ entities:
       path: .aexos-core/core/doctor/checks/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\index.js
+      purpose: Entity at .aexos-core/core/doctor/checks/index.js
       keywords:
         - index
       usedBy:
@@ -12145,7 +12145,7 @@ entities:
       path: .aexos-core/core/doctor/checks/node-version.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\node-version.js
+      purpose: Entity at .aexos-core/core/doctor/checks/node-version.js
       keywords:
         - node
         - version
@@ -12166,7 +12166,7 @@ entities:
       path: .aexos-core/core/doctor/checks/npm-packages.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\npm-packages.js
+      purpose: Entity at .aexos-core/core/doctor/checks/npm-packages.js
       keywords:
         - npm
         - packages
@@ -12186,7 +12186,7 @@ entities:
       path: .aexos-core/core/doctor/checks/port-denylist.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\port-denylist.js
+      purpose: Entity at .aexos-core/core/doctor/checks/port-denylist.js
       keywords:
         - port
         - denylist
@@ -12206,7 +12206,7 @@ entities:
       path: .aexos-core/core/doctor/checks/rules-files.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\rules-files.js
+      purpose: Entity at .aexos-core/core/doctor/checks/rules-files.js
       keywords:
         - rules
         - files
@@ -12227,7 +12227,7 @@ entities:
       path: .aexos-core/core/doctor/checks/settings-json.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\settings-json.js
+      purpose: Entity at .aexos-core/core/doctor/checks/settings-json.js
       keywords:
         - settings
         - json
@@ -12247,7 +12247,7 @@ entities:
       path: .aexos-core/core/doctor/checks/skills-count.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\skills-count.js
+      purpose: Entity at .aexos-core/core/doctor/checks/skills-count.js
       keywords:
         - skills
         - count
@@ -12267,7 +12267,7 @@ entities:
       path: .aexos-core/core/doctor/checks/windows-npx-install.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\checks\windows-npx-install.js
+      purpose: Entity at .aexos-core/core/doctor/checks/windows-npx-install.js
       keywords:
         - windows
         - npx
@@ -12289,7 +12289,7 @@ entities:
       path: .aexos-core/core/doctor/formatters/json.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\formatters\json.js
+      purpose: Entity at .aexos-core/core/doctor/formatters/json.js
       keywords:
         - json
       usedBy:
@@ -12309,7 +12309,7 @@ entities:
       path: .aexos-core/core/doctor/formatters/text.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\doctor\formatters\text.js
+      purpose: Entity at .aexos-core/core/doctor/formatters/text.js
       keywords:
         - text
       usedBy:
@@ -12328,7 +12328,7 @@ entities:
       path: .aexos-core/core/graph-dashboard/data-sources/code-intel-source.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\graph-dashboard\data-sources\code-intel-source.js
+      purpose: Entity at .aexos-core/core/graph-dashboard/data-sources/code-intel-source.js
       keywords:
         - code
         - intel
@@ -12352,7 +12352,7 @@ entities:
       path: .aexos-core/core/graph-dashboard/data-sources/metrics-source.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\graph-dashboard\data-sources\metrics-source.js
+      purpose: Entity at .aexos-core/core/graph-dashboard/data-sources/metrics-source.js
       keywords:
         - metrics
         - source
@@ -12373,7 +12373,7 @@ entities:
       path: .aexos-core/core/graph-dashboard/data-sources/registry-source.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\graph-dashboard\data-sources\registry-source.js
+      purpose: Entity at .aexos-core/core/graph-dashboard/data-sources/registry-source.js
       keywords:
         - registry
         - source
@@ -12394,7 +12394,7 @@ entities:
       path: .aexos-core/core/graph-dashboard/formatters/dot-formatter.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\graph-dashboard\formatters\dot-formatter.js
+      purpose: Entity at .aexos-core/core/graph-dashboard/formatters/dot-formatter.js
       keywords:
         - dot
         - formatter
@@ -12414,7 +12414,7 @@ entities:
       path: .aexos-core/core/graph-dashboard/formatters/html-formatter.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\graph-dashboard\formatters\html-formatter.js
+      purpose: Entity at .aexos-core/core/graph-dashboard/formatters/html-formatter.js
       keywords:
         - html
         - formatter
@@ -12434,7 +12434,7 @@ entities:
       path: .aexos-core/core/graph-dashboard/formatters/json-formatter.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\graph-dashboard\formatters\json-formatter.js
+      purpose: Entity at .aexos-core/core/graph-dashboard/formatters/json-formatter.js
       keywords:
         - json
         - formatter
@@ -12454,7 +12454,7 @@ entities:
       path: .aexos-core/core/graph-dashboard/formatters/mermaid-formatter.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\graph-dashboard\formatters\mermaid-formatter.js
+      purpose: Entity at .aexos-core/core/graph-dashboard/formatters/mermaid-formatter.js
       keywords:
         - mermaid
         - formatter
@@ -12474,7 +12474,7 @@ entities:
       path: .aexos-core/core/graph-dashboard/renderers/stats-renderer.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\graph-dashboard\renderers\stats-renderer.js
+      purpose: Entity at .aexos-core/core/graph-dashboard/renderers/stats-renderer.js
       keywords:
         - stats
         - renderer
@@ -12494,7 +12494,7 @@ entities:
       path: .aexos-core/core/graph-dashboard/renderers/status-renderer.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\graph-dashboard\renderers\status-renderer.js
+      purpose: Entity at .aexos-core/core/graph-dashboard/renderers/status-renderer.js
       keywords:
         - status
         - renderer
@@ -12514,7 +12514,7 @@ entities:
       path: .aexos-core/core/graph-dashboard/renderers/tree-renderer.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\graph-dashboard\renderers\tree-renderer.js
+      purpose: Entity at .aexos-core/core/graph-dashboard/renderers/tree-renderer.js
       keywords:
         - tree
         - renderer
@@ -12535,7 +12535,7 @@ entities:
       path: .aexos-core/core/health-check/checks/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\index.js
+      purpose: Entity at .aexos-core/core/health-check/checks/index.js
       keywords:
         - index
       usedBy: []
@@ -12558,7 +12558,7 @@ entities:
       path: .aexos-core/core/health-check/healers/backup-manager.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\healers\backup-manager.js
+      purpose: Entity at .aexos-core/core/health-check/healers/backup-manager.js
       keywords:
         - backup
         - manager
@@ -12577,7 +12577,7 @@ entities:
       path: .aexos-core/core/health-check/healers/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\healers\index.js
+      purpose: Entity at .aexos-core/core/health-check/healers/index.js
       keywords:
         - index
       usedBy:
@@ -12598,7 +12598,7 @@ entities:
       path: .aexos-core/core/health-check/reporters/console.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\reporters\console.js
+      purpose: Entity at .aexos-core/core/health-check/reporters/console.js
       keywords:
         - console
       usedBy:
@@ -12618,7 +12618,7 @@ entities:
       path: .aexos-core/core/health-check/reporters/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\reporters\index.js
+      purpose: Entity at .aexos-core/core/health-check/reporters/index.js
       keywords:
         - index
       usedBy:
@@ -12640,7 +12640,7 @@ entities:
       path: .aexos-core/core/health-check/reporters/json.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\reporters\json.js
+      purpose: Entity at .aexos-core/core/health-check/reporters/json.js
       keywords:
         - json
       usedBy: []
@@ -12659,7 +12659,7 @@ entities:
       path: .aexos-core/core/health-check/reporters/markdown.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\reporters\markdown.js
+      purpose: Entity at .aexos-core/core/health-check/reporters/markdown.js
       keywords:
         - markdown
       usedBy:
@@ -12679,7 +12679,7 @@ entities:
       path: .aexos-core/core/ids/gates/g1-epic-creation.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ids\gates\g1-epic-creation.js
+      purpose: Entity at .aexos-core/core/ids/gates/g1-epic-creation.js
       keywords:
         - g1
         - epic
@@ -12700,7 +12700,7 @@ entities:
       path: .aexos-core/core/ids/gates/g2-story-creation.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ids\gates\g2-story-creation.js
+      purpose: Entity at .aexos-core/core/ids/gates/g2-story-creation.js
       keywords:
         - g2
         - story
@@ -12721,7 +12721,7 @@ entities:
       path: .aexos-core/core/ids/gates/g3-story-validation.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ids\gates\g3-story-validation.js
+      purpose: Entity at .aexos-core/core/ids/gates/g3-story-validation.js
       keywords:
         - g3
         - story
@@ -12742,7 +12742,7 @@ entities:
       path: .aexos-core/core/ids/gates/g4-dev-context.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ids\gates\g4-dev-context.js
+      purpose: Entity at .aexos-core/core/ids/gates/g4-dev-context.js
       keywords:
         - g4
         - dev
@@ -12763,7 +12763,7 @@ entities:
       path: .aexos-core/core/ids/gates/g5-semantic-handshake.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\ids\gates\g5-semantic-handshake.js
+      purpose: Entity at .aexos-core/core/ids/gates/g5-semantic-handshake.js
       keywords:
         - g5
         - semantic
@@ -12784,7 +12784,7 @@ entities:
       path: .aexos-core/core/memory/__tests__/active-modules.verify.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\memory\__tests__\active-modules.verify.js
+      purpose: Entity at .aexos-core/core/memory/__tests__/active-modules.verify.js
       keywords:
         - active
         - modules
@@ -12827,7 +12827,7 @@ entities:
       path: .aexos-core/core/orchestration/executors/epic-4-executor.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\executors\epic-4-executor.js
+      purpose: Entity at .aexos-core/core/orchestration/executors/epic-4-executor.js
       keywords:
         - epic
         - executor
@@ -12853,7 +12853,7 @@ entities:
       path: .aexos-core/core/orchestration/executors/epic-5-executor.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\executors\epic-5-executor.js
+      purpose: Entity at .aexos-core/core/orchestration/executors/epic-5-executor.js
       keywords:
         - epic
         - executor
@@ -12876,7 +12876,7 @@ entities:
       path: .aexos-core/core/orchestration/executors/epic-6-executor.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\executors\epic-6-executor.js
+      purpose: Entity at .aexos-core/core/orchestration/executors/epic-6-executor.js
       keywords:
         - epic
         - executor
@@ -12898,7 +12898,7 @@ entities:
       path: .aexos-core/core/orchestration/executors/epic-executor.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\executors\epic-executor.js
+      purpose: Entity at .aexos-core/core/orchestration/executors/epic-executor.js
       keywords:
         - epic
         - executor
@@ -12922,7 +12922,7 @@ entities:
       path: .aexos-core/core/orchestration/executors/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\orchestration\executors\index.js
+      purpose: Entity at .aexos-core/core/orchestration/executors/index.js
       keywords:
         - index
       usedBy:
@@ -12946,7 +12946,7 @@ entities:
       path: .aexos-core/core/permissions/__tests__/path-guard.test.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\permissions\__tests__\path-guard.test.js
+      purpose: Entity at .aexos-core/core/permissions/__tests__/path-guard.test.js
       keywords:
         - path
         - guard
@@ -12967,7 +12967,7 @@ entities:
       path: .aexos-core/core/permissions/__tests__/permission-mode.test.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\permissions\__tests__\permission-mode.test.js
+      purpose: Entity at .aexos-core/core/permissions/__tests__/permission-mode.test.js
       keywords:
         - permission
         - mode
@@ -12989,7 +12989,7 @@ entities:
       path: .aexos-core/core/permissions/__tests__/prompt-guard.test.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\permissions\__tests__\prompt-guard.test.js
+      purpose: Entity at .aexos-core/core/permissions/__tests__/prompt-guard.test.js
       keywords:
         - prompt
         - guard
@@ -13010,7 +13010,7 @@ entities:
       path: .aexos-core/core/permissions/__tests__/ssrf-guard.test.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\permissions\__tests__\ssrf-guard.test.js
+      purpose: Entity at .aexos-core/core/permissions/__tests__/ssrf-guard.test.js
       keywords:
         - ssrf
         - guard
@@ -13031,7 +13031,7 @@ entities:
       path: .aexos-core/core/synapse/context/context-builder.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\context\context-builder.js
+      purpose: Entity at .aexos-core/core/synapse/context/context-builder.js
       keywords:
         - context
         - builder
@@ -13051,7 +13051,7 @@ entities:
       path: .aexos-core/core/synapse/context/context-tracker.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\context\context-tracker.js
+      purpose: Entity at .aexos-core/core/synapse/context/context-tracker.js
       keywords:
         - context
         - tracker
@@ -13072,7 +13072,7 @@ entities:
       path: .aexos-core/core/synapse/context/hierarchical-context-manager.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\context\hierarchical-context-manager.js
+      purpose: Entity at .aexos-core/core/synapse/context/hierarchical-context-manager.js
       keywords:
         - hierarchical
         - context
@@ -13093,7 +13093,7 @@ entities:
       path: .aexos-core/core/synapse/context/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\context\index.js
+      purpose: Entity at .aexos-core/core/synapse/context/index.js
       keywords:
         - index
       usedBy: []
@@ -13111,7 +13111,7 @@ entities:
       path: .aexos-core/core/synapse/context/semantic-handshake-engine.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\context\semantic-handshake-engine.js
+      purpose: Entity at .aexos-core/core/synapse/context/semantic-handshake-engine.js
       keywords:
         - semantic
         - handshake
@@ -13131,7 +13131,7 @@ entities:
       path: .aexos-core/core/synapse/diagnostics/report-formatter.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\diagnostics\report-formatter.js
+      purpose: Entity at .aexos-core/core/synapse/diagnostics/report-formatter.js
       keywords:
         - report
         - formatter
@@ -13151,7 +13151,7 @@ entities:
       path: .aexos-core/core/synapse/diagnostics/synapse-diagnostics.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\diagnostics\synapse-diagnostics.js
+      purpose: Entity at .aexos-core/core/synapse/diagnostics/synapse-diagnostics.js
       keywords:
         - synapse
         - diagnostics
@@ -13177,7 +13177,7 @@ entities:
       path: .aexos-core/core/synapse/domain/domain-loader.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\domain\domain-loader.js
+      purpose: Entity at .aexos-core/core/synapse/domain/domain-loader.js
       keywords:
         - domain
         - loader
@@ -13206,7 +13206,7 @@ entities:
       path: .aexos-core/core/synapse/layers/l0-constitution.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\layers\l0-constitution.js
+      purpose: Entity at .aexos-core/core/synapse/layers/l0-constitution.js
       keywords:
         - l0
         - constitution
@@ -13227,7 +13227,7 @@ entities:
       path: .aexos-core/core/synapse/layers/l1-global.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\layers\l1-global.js
+      purpose: Entity at .aexos-core/core/synapse/layers/l1-global.js
       keywords:
         - l1
         - global
@@ -13248,7 +13248,7 @@ entities:
       path: .aexos-core/core/synapse/layers/l2-agent.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\layers\l2-agent.js
+      purpose: Entity at .aexos-core/core/synapse/layers/l2-agent.js
       keywords:
         - l2
         - agent
@@ -13269,7 +13269,7 @@ entities:
       path: .aexos-core/core/synapse/layers/l3-workflow.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\layers\l3-workflow.js
+      purpose: Entity at .aexos-core/core/synapse/layers/l3-workflow.js
       keywords:
         - l3
         - workflow
@@ -13290,7 +13290,7 @@ entities:
       path: .aexos-core/core/synapse/layers/l4-task.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\layers\l4-task.js
+      purpose: Entity at .aexos-core/core/synapse/layers/l4-task.js
       keywords:
         - l4
         - task
@@ -13310,7 +13310,7 @@ entities:
       path: .aexos-core/core/synapse/layers/l5-squad.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\layers\l5-squad.js
+      purpose: Entity at .aexos-core/core/synapse/layers/l5-squad.js
       keywords:
         - l5
         - squad
@@ -13331,7 +13331,7 @@ entities:
       path: .aexos-core/core/synapse/layers/l6-keyword.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\layers\l6-keyword.js
+      purpose: Entity at .aexos-core/core/synapse/layers/l6-keyword.js
       keywords:
         - l6
         - keyword
@@ -13352,7 +13352,7 @@ entities:
       path: .aexos-core/core/synapse/layers/l7-star-command.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\layers\l7-star-command.js
+      purpose: Entity at .aexos-core/core/synapse/layers/l7-star-command.js
       keywords:
         - l7
         - star
@@ -13374,7 +13374,7 @@ entities:
       path: .aexos-core/core/synapse/layers/layer-processor.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\layers\layer-processor.js
+      purpose: Entity at .aexos-core/core/synapse/layers/layer-processor.js
       keywords:
         - layer
         - processor
@@ -13401,7 +13401,7 @@ entities:
       path: .aexos-core/core/synapse/memory/memory-bridge.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\memory\memory-bridge.js
+      purpose: Entity at .aexos-core/core/synapse/memory/memory-bridge.js
       keywords:
         - memory
         - bridge
@@ -13423,7 +13423,7 @@ entities:
       path: .aexos-core/core/synapse/memory/synapse-memory-provider.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\memory\synapse-memory-provider.js
+      purpose: Entity at .aexos-core/core/synapse/memory/synapse-memory-provider.js
       keywords:
         - synapse
         - memory
@@ -13446,7 +13446,7 @@ entities:
       path: .aexos-core/core/synapse/output/formatter.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\output\formatter.js
+      purpose: Entity at .aexos-core/core/synapse/output/formatter.js
       keywords:
         - formatter
       usedBy:
@@ -13466,7 +13466,7 @@ entities:
       path: .aexos-core/core/synapse/runtime/hook-runtime.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\runtime\hook-runtime.js
+      purpose: Entity at .aexos-core/core/synapse/runtime/hook-runtime.js
       keywords:
         - hook
         - runtime
@@ -13487,7 +13487,7 @@ entities:
       path: .aexos-core/core/synapse/scripts/generate-constitution.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\scripts\generate-constitution.js
+      purpose: Entity at .aexos-core/core/synapse/scripts/generate-constitution.js
       keywords:
         - generate
         - constitution
@@ -13506,7 +13506,7 @@ entities:
       path: .aexos-core/core/synapse/session/session-manager.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\session\session-manager.js
+      purpose: Entity at .aexos-core/core/synapse/session/session-manager.js
       keywords:
         - session
         - manager
@@ -13526,7 +13526,7 @@ entities:
       path: .aexos-core/core/synapse/utils/atomic-write.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\utils\atomic-write.js
+      purpose: Entity at .aexos-core/core/synapse/utils/atomic-write.js
       keywords:
         - atomic
         - write
@@ -13549,7 +13549,7 @@ entities:
       path: .aexos-core/core/synapse/utils/paths.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\utils\paths.js
+      purpose: Entity at .aexos-core/core/synapse/utils/paths.js
       keywords:
         - paths
       usedBy:
@@ -13568,7 +13568,7 @@ entities:
       path: .aexos-core/core/synapse/utils/tokens.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\utils\tokens.js
+      purpose: Entity at .aexos-core/core/synapse/utils/tokens.js
       keywords:
         - tokens
       usedBy:
@@ -13590,7 +13590,7 @@ entities:
       path: .aexos-core/core/health-check/checks/deployment/build-config.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\deployment\build-config.js
+      purpose: Entity at .aexos-core/core/health-check/checks/deployment/build-config.js
       keywords:
         - build
         - config
@@ -13611,7 +13611,7 @@ entities:
       path: .aexos-core/core/health-check/checks/deployment/ci-config.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\deployment\ci-config.js
+      purpose: Entity at .aexos-core/core/health-check/checks/deployment/ci-config.js
       keywords:
         - ci
         - config
@@ -13632,7 +13632,7 @@ entities:
       path: .aexos-core/core/health-check/checks/deployment/deployment-readiness.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\deployment\deployment-readiness.js
+      purpose: Entity at .aexos-core/core/health-check/checks/deployment/deployment-readiness.js
       keywords:
         - deployment
         - readiness
@@ -13653,7 +13653,7 @@ entities:
       path: .aexos-core/core/health-check/checks/deployment/docker-config.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\deployment\docker-config.js
+      purpose: Entity at .aexos-core/core/health-check/checks/deployment/docker-config.js
       keywords:
         - docker
         - config
@@ -13674,7 +13674,7 @@ entities:
       path: .aexos-core/core/health-check/checks/deployment/env-file.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\deployment\env-file.js
+      purpose: Entity at .aexos-core/core/health-check/checks/deployment/env-file.js
       keywords:
         - env
         - file
@@ -13695,7 +13695,7 @@ entities:
       path: .aexos-core/core/health-check/checks/deployment/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\deployment\index.js
+      purpose: Entity at .aexos-core/core/health-check/checks/deployment/index.js
       keywords:
         - index
       usedBy:
@@ -13720,7 +13720,7 @@ entities:
       path: .aexos-core/core/health-check/checks/local/disk-space.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\local\disk-space.js
+      purpose: Entity at .aexos-core/core/health-check/checks/local/disk-space.js
       keywords:
         - disk
         - space
@@ -13741,7 +13741,7 @@ entities:
       path: .aexos-core/core/health-check/checks/local/environment-vars.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\local\environment-vars.js
+      purpose: Entity at .aexos-core/core/health-check/checks/local/environment-vars.js
       keywords:
         - environment
         - vars
@@ -13762,7 +13762,7 @@ entities:
       path: .aexos-core/core/health-check/checks/local/git-install.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\local\git-install.js
+      purpose: Entity at .aexos-core/core/health-check/checks/local/git-install.js
       keywords:
         - git
         - install
@@ -13783,7 +13783,7 @@ entities:
       path: .aexos-core/core/health-check/checks/local/ide-detection.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\local\ide-detection.js
+      purpose: Entity at .aexos-core/core/health-check/checks/local/ide-detection.js
       keywords:
         - ide
         - detection
@@ -13804,7 +13804,7 @@ entities:
       path: .aexos-core/core/health-check/checks/local/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\local\index.js
+      purpose: Entity at .aexos-core/core/health-check/checks/local/index.js
       keywords:
         - index
       usedBy:
@@ -13832,7 +13832,7 @@ entities:
       path: .aexos-core/core/health-check/checks/local/memory.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\local\memory.js
+      purpose: Entity at .aexos-core/core/health-check/checks/local/memory.js
       keywords:
         - memory
       usedBy:
@@ -13853,7 +13853,7 @@ entities:
       path: .aexos-core/core/health-check/checks/local/network.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\local\network.js
+      purpose: Entity at .aexos-core/core/health-check/checks/local/network.js
       keywords:
         - network
       usedBy:
@@ -13873,7 +13873,7 @@ entities:
       path: .aexos-core/core/health-check/checks/local/npm-install.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\local\npm-install.js
+      purpose: Entity at .aexos-core/core/health-check/checks/local/npm-install.js
       keywords:
         - npm
         - install
@@ -13894,7 +13894,7 @@ entities:
       path: .aexos-core/core/health-check/checks/local/shell-environment.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\local\shell-environment.js
+      purpose: Entity at .aexos-core/core/health-check/checks/local/shell-environment.js
       keywords:
         - shell
         - environment
@@ -13915,7 +13915,7 @@ entities:
       path: .aexos-core/core/health-check/checks/project/aexos-directory.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\project\aexos-directory.js
+      purpose: Entity at .aexos-core/core/health-check/checks/project/aexos-directory.js
       keywords:
         - aexos
         - directory
@@ -13936,7 +13936,7 @@ entities:
       path: .aexos-core/core/health-check/checks/project/agent-config.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\project\agent-config.js
+      purpose: Entity at .aexos-core/core/health-check/checks/project/agent-config.js
       keywords:
         - agent
         - config
@@ -13957,7 +13957,7 @@ entities:
       path: .aexos-core/core/health-check/checks/project/dependencies.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\project\dependencies.js
+      purpose: Entity at .aexos-core/core/health-check/checks/project/dependencies.js
       keywords:
         - dependencies
       usedBy:
@@ -13977,7 +13977,7 @@ entities:
       path: .aexos-core/core/health-check/checks/project/framework-config.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\project\framework-config.js
+      purpose: Entity at .aexos-core/core/health-check/checks/project/framework-config.js
       keywords:
         - framework
         - config
@@ -13998,7 +13998,7 @@ entities:
       path: .aexos-core/core/health-check/checks/project/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\project\index.js
+      purpose: Entity at .aexos-core/core/health-check/checks/project/index.js
       keywords:
         - index
       usedBy:
@@ -14026,7 +14026,7 @@ entities:
       path: .aexos-core/core/health-check/checks/project/node-version.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\project\node-version.js
+      purpose: Entity at .aexos-core/core/health-check/checks/project/node-version.js
       keywords:
         - node
         - version
@@ -14046,7 +14046,7 @@ entities:
       path: .aexos-core/core/health-check/checks/project/package-json.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\project\package-json.js
+      purpose: Entity at .aexos-core/core/health-check/checks/project/package-json.js
       keywords:
         - package
         - json
@@ -14067,7 +14067,7 @@ entities:
       path: .aexos-core/core/health-check/checks/project/task-definitions.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\project\task-definitions.js
+      purpose: Entity at .aexos-core/core/health-check/checks/project/task-definitions.js
       keywords:
         - task
         - definitions
@@ -14088,7 +14088,7 @@ entities:
       path: .aexos-core/core/health-check/checks/project/workflow-dependencies.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\project\workflow-dependencies.js
+      purpose: Entity at .aexos-core/core/health-check/checks/project/workflow-dependencies.js
       keywords:
         - workflow
         - dependencies
@@ -14109,7 +14109,7 @@ entities:
       path: .aexos-core/core/health-check/checks/repository/branch-protection.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\repository\branch-protection.js
+      purpose: Entity at .aexos-core/core/health-check/checks/repository/branch-protection.js
       keywords:
         - branch
         - protection
@@ -14130,7 +14130,7 @@ entities:
       path: .aexos-core/core/health-check/checks/repository/commit-history.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\repository\commit-history.js
+      purpose: Entity at .aexos-core/core/health-check/checks/repository/commit-history.js
       keywords:
         - commit
         - history
@@ -14151,7 +14151,7 @@ entities:
       path: .aexos-core/core/health-check/checks/repository/conflicts.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\repository\conflicts.js
+      purpose: Entity at .aexos-core/core/health-check/checks/repository/conflicts.js
       keywords:
         - conflicts
       usedBy:
@@ -14171,7 +14171,7 @@ entities:
       path: .aexos-core/core/health-check/checks/repository/git-repo.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\repository\git-repo.js
+      purpose: Entity at .aexos-core/core/health-check/checks/repository/git-repo.js
       keywords:
         - git
         - repo
@@ -14192,7 +14192,7 @@ entities:
       path: .aexos-core/core/health-check/checks/repository/git-status.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\repository\git-status.js
+      purpose: Entity at .aexos-core/core/health-check/checks/repository/git-status.js
       keywords:
         - git
         - status
@@ -14213,7 +14213,7 @@ entities:
       path: .aexos-core/core/health-check/checks/repository/gitignore.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\repository\gitignore.js
+      purpose: Entity at .aexos-core/core/health-check/checks/repository/gitignore.js
       keywords:
         - gitignore
       usedBy:
@@ -14233,7 +14233,7 @@ entities:
       path: .aexos-core/core/health-check/checks/repository/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\repository\index.js
+      purpose: Entity at .aexos-core/core/health-check/checks/repository/index.js
       keywords:
         - index
       usedBy:
@@ -14261,7 +14261,7 @@ entities:
       path: .aexos-core/core/health-check/checks/repository/large-files.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\repository\large-files.js
+      purpose: Entity at .aexos-core/core/health-check/checks/repository/large-files.js
       keywords:
         - large
         - files
@@ -14282,7 +14282,7 @@ entities:
       path: .aexos-core/core/health-check/checks/repository/lockfile-integrity.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\repository\lockfile-integrity.js
+      purpose: Entity at .aexos-core/core/health-check/checks/repository/lockfile-integrity.js
       keywords:
         - lockfile
         - integrity
@@ -14303,7 +14303,7 @@ entities:
       path: .aexos-core/core/health-check/checks/services/api-endpoints.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\services\api-endpoints.js
+      purpose: Entity at .aexos-core/core/health-check/checks/services/api-endpoints.js
       keywords:
         - api
         - endpoints
@@ -14324,7 +14324,7 @@ entities:
       path: .aexos-core/core/health-check/checks/services/claude-code.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\services\claude-code.js
+      purpose: Entity at .aexos-core/core/health-check/checks/services/claude-code.js
       keywords:
         - claude
         - code
@@ -14344,7 +14344,7 @@ entities:
       path: .aexos-core/core/health-check/checks/services/gemini-cli.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\services\gemini-cli.js
+      purpose: Entity at .aexos-core/core/health-check/checks/services/gemini-cli.js
       keywords:
         - gemini
         - cli
@@ -14365,7 +14365,7 @@ entities:
       path: .aexos-core/core/health-check/checks/services/github-cli.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\services\github-cli.js
+      purpose: Entity at .aexos-core/core/health-check/checks/services/github-cli.js
       keywords:
         - github
         - cli
@@ -14385,7 +14385,7 @@ entities:
       path: .aexos-core/core/health-check/checks/services/index.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\services\index.js
+      purpose: Entity at .aexos-core/core/health-check/checks/services/index.js
       keywords:
         - index
       usedBy:
@@ -14410,7 +14410,7 @@ entities:
       path: .aexos-core/core/health-check/checks/services/mcp-integration.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\health-check\checks\services\mcp-integration.js
+      purpose: Entity at .aexos-core/core/health-check/checks/services/mcp-integration.js
       keywords:
         - mcp
         - integration
@@ -14431,7 +14431,7 @@ entities:
       path: .aexos-core/core/synapse/diagnostics/collectors/consistency-collector.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\diagnostics\collectors\consistency-collector.js
+      purpose: Entity at .aexos-core/core/synapse/diagnostics/collectors/consistency-collector.js
       keywords:
         - consistency
         - collector
@@ -14451,7 +14451,7 @@ entities:
       path: .aexos-core/core/synapse/diagnostics/collectors/hook-collector.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\diagnostics\collectors\hook-collector.js
+      purpose: Entity at .aexos-core/core/synapse/diagnostics/collectors/hook-collector.js
       keywords:
         - hook
         - collector
@@ -14471,7 +14471,7 @@ entities:
       path: .aexos-core/core/synapse/diagnostics/collectors/manifest-collector.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\diagnostics\collectors\manifest-collector.js
+      purpose: Entity at .aexos-core/core/synapse/diagnostics/collectors/manifest-collector.js
       keywords:
         - manifest
         - collector
@@ -14492,7 +14492,7 @@ entities:
       path: .aexos-core/core/synapse/diagnostics/collectors/output-analyzer.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\diagnostics\collectors\output-analyzer.js
+      purpose: Entity at .aexos-core/core/synapse/diagnostics/collectors/output-analyzer.js
       keywords:
         - output
         - analyzer
@@ -14512,7 +14512,7 @@ entities:
       path: .aexos-core/core/synapse/diagnostics/collectors/pipeline-collector.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\diagnostics\collectors\pipeline-collector.js
+      purpose: Entity at .aexos-core/core/synapse/diagnostics/collectors/pipeline-collector.js
       keywords:
         - pipeline
         - collector
@@ -14533,7 +14533,7 @@ entities:
       path: .aexos-core/core/synapse/diagnostics/collectors/quality-collector.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\diagnostics\collectors\quality-collector.js
+      purpose: Entity at .aexos-core/core/synapse/diagnostics/collectors/quality-collector.js
       keywords:
         - quality
         - collector
@@ -14553,7 +14553,7 @@ entities:
       path: .aexos-core/core/synapse/diagnostics/collectors/relevance-matrix.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\diagnostics\collectors\relevance-matrix.js
+      purpose: Entity at .aexos-core/core/synapse/diagnostics/collectors/relevance-matrix.js
       keywords:
         - relevance
         - matrix
@@ -14573,7 +14573,7 @@ entities:
       path: .aexos-core/core/synapse/diagnostics/collectors/safe-read-json.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\diagnostics\collectors\safe-read-json.js
+      purpose: Entity at .aexos-core/core/synapse/diagnostics/collectors/safe-read-json.js
       keywords:
         - safe
         - read
@@ -14598,7 +14598,7 @@ entities:
       path: .aexos-core/core/synapse/diagnostics/collectors/session-collector.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\diagnostics\collectors\session-collector.js
+      purpose: Entity at .aexos-core/core/synapse/diagnostics/collectors/session-collector.js
       keywords:
         - session
         - collector
@@ -14618,7 +14618,7 @@ entities:
       path: .aexos-core/core/synapse/diagnostics/collectors/timing-collector.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\diagnostics\collectors\timing-collector.js
+      purpose: Entity at .aexos-core/core/synapse/diagnostics/collectors/timing-collector.js
       keywords:
         - timing
         - collector
@@ -14638,7 +14638,7 @@ entities:
       path: .aexos-core/core/synapse/diagnostics/collectors/uap-collector.js
       layer: L1
       type: module
-      purpose: Entity at .aexos-core\core\synapse\diagnostics\collectors\uap-collector.js
+      purpose: Entity at .aexos-core/core/synapse/diagnostics/collectors/uap-collector.js
       keywords:
         - uap
         - collector
@@ -15863,7 +15863,7 @@ entities:
       path: .aexos-core/data/entity-registry.yaml
       layer: L3
       type: data
-      purpose: Entity at .aexos-core\data\entity-registry.yaml
+      purpose: Entity at .aexos-core/data/entity-registry.yaml
       keywords:
         - entity
         - registry
@@ -15879,12 +15879,12 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:<self-reference>
-      lastVerified: '2026-08-03T01:32:56.561Z'
+      lastVerified: '2026-08-03T02:03:00.332Z'
     learned-patterns:
       path: .aexos-core/data/learned-patterns.yaml
       layer: L3
       type: data
-      purpose: Entity at .aexos-core\data\learned-patterns.yaml
+      purpose: Entity at .aexos-core/data/learned-patterns.yaml
       keywords:
         - learned
         - patterns
@@ -16221,7 +16221,7 @@ entities:
       path: .aexos-core/development/workflows/auto-worktree.yaml
       layer: L2
       type: workflow
-      purpose: Entity at .aexos-core\development\workflows\auto-worktree.yaml
+      purpose: Entity at .aexos-core/development/workflows/auto-worktree.yaml
       keywords:
         - auto
         - worktree
@@ -16243,7 +16243,7 @@ entities:
       path: .aexos-core/development/workflows/brownfield-discovery.yaml
       layer: L2
       type: workflow
-      purpose: Entity at .aexos-core\development\workflows\brownfield-discovery.yaml
+      purpose: Entity at .aexos-core/development/workflows/brownfield-discovery.yaml
       keywords:
         - brownfield
         - discovery
@@ -16268,7 +16268,7 @@ entities:
       path: .aexos-core/development/workflows/brownfield-fullstack.yaml
       layer: L2
       type: workflow
-      purpose: Entity at .aexos-core\development\workflows\brownfield-fullstack.yaml
+      purpose: Entity at .aexos-core/development/workflows/brownfield-fullstack.yaml
       keywords:
         - brownfield
         - fullstack
@@ -16294,7 +16294,7 @@ entities:
       path: .aexos-core/development/workflows/brownfield-service.yaml
       layer: L2
       type: workflow
-      purpose: Entity at .aexos-core\development\workflows\brownfield-service.yaml
+      purpose: Entity at .aexos-core/development/workflows/brownfield-service.yaml
       keywords:
         - brownfield
         - service
@@ -16319,7 +16319,7 @@ entities:
       path: .aexos-core/development/workflows/brownfield-ui.yaml
       layer: L2
       type: workflow
-      purpose: Entity at .aexos-core\development\workflows\brownfield-ui.yaml
+      purpose: Entity at .aexos-core/development/workflows/brownfield-ui.yaml
       keywords:
         - brownfield
         - ui
@@ -16345,7 +16345,7 @@ entities:
       path: .aexos-core/development/workflows/design-system-build-quality.yaml
       layer: L2
       type: workflow
-      purpose: Entity at .aexos-core\development\workflows\design-system-build-quality.yaml
+      purpose: Entity at .aexos-core/development/workflows/design-system-build-quality.yaml
       keywords:
         - design
         - system
@@ -16413,7 +16413,7 @@ entities:
       path: .aexos-core/development/workflows/greenfield-fullstack.yaml
       layer: L2
       type: workflow
-      purpose: Entity at .aexos-core\development\workflows\greenfield-fullstack.yaml
+      purpose: Entity at .aexos-core/development/workflows/greenfield-fullstack.yaml
       keywords:
         - greenfield
         - fullstack
@@ -16442,7 +16442,7 @@ entities:
       path: .aexos-core/development/workflows/greenfield-service.yaml
       layer: L2
       type: workflow
-      purpose: Entity at .aexos-core\development\workflows\greenfield-service.yaml
+      purpose: Entity at .aexos-core/development/workflows/greenfield-service.yaml
       keywords:
         - greenfield
         - service
@@ -16468,7 +16468,7 @@ entities:
       path: .aexos-core/development/workflows/greenfield-ui.yaml
       layer: L2
       type: workflow
-      purpose: Entity at .aexos-core\development\workflows\greenfield-ui.yaml
+      purpose: Entity at .aexos-core/development/workflows/greenfield-ui.yaml
       keywords:
         - greenfield
         - ui
@@ -16495,7 +16495,7 @@ entities:
       path: .aexos-core/development/workflows/qa-loop.yaml
       layer: L2
       type: workflow
-      purpose: Entity at .aexos-core\development\workflows\qa-loop.yaml
+      purpose: Entity at .aexos-core/development/workflows/qa-loop.yaml
       keywords:
         - qa
         - loop
@@ -16520,7 +16520,7 @@ entities:
       path: .aexos-core/development/workflows/spec-pipeline.yaml
       layer: L2
       type: workflow
-      purpose: Entity at .aexos-core\development\workflows\spec-pipeline.yaml
+      purpose: Entity at .aexos-core/development/workflows/spec-pipeline.yaml
       keywords:
         - spec
         - pipeline
@@ -16548,7 +16548,7 @@ entities:
       path: .aexos-core/development/workflows/story-development-cycle.yaml
       layer: L2
       type: workflow
-      purpose: Entity at .aexos-core\development\workflows\story-development-cycle.yaml
+      purpose: Entity at .aexos-core/development/workflows/story-development-cycle.yaml
       keywords:
         - story
         - development
@@ -16573,7 +16573,7 @@ entities:
       path: .aexos-core/core/utils/output-formatter.js
       layer: L1
       type: util
-      purpose: Entity at .aexos-core\core\utils\output-formatter.js
+      purpose: Entity at .aexos-core/core/utils/output-formatter.js
       keywords:
         - output
         - formatter
@@ -16592,7 +16592,7 @@ entities:
       path: .aexos-core/core/utils/security-utils.js
       layer: L1
       type: util
-      purpose: Entity at .aexos-core\core\utils\security-utils.js
+      purpose: Entity at .aexos-core/core/utils/security-utils.js
       keywords:
         - security
         - utils
@@ -16611,7 +16611,7 @@ entities:
       path: .aexos-core/core/utils/yaml-validator.js
       layer: L1
       type: util
-      purpose: Entity at .aexos-core\core\utils\yaml-validator.js
+      purpose: Entity at .aexos-core/core/utils/yaml-validator.js
       keywords:
         - yaml
         - validator
@@ -16632,7 +16632,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/aexos-validator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\aexos-validator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/aexos-validator.js
       keywords:
         - aexos
         - validator
@@ -16651,7 +16651,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/approach-manager.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\approach-manager.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/approach-manager.js
       keywords:
         - approach
         - manager
@@ -16671,7 +16671,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/approval-workflow.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\approval-workflow.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/approval-workflow.js
       keywords:
         - approval
         - workflow
@@ -16691,7 +16691,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/asset-inventory.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\asset-inventory.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/asset-inventory.js
       keywords:
         - asset
         - inventory
@@ -16711,7 +16711,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/atomic-layer-classifier.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\atomic-layer-classifier.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/atomic-layer-classifier.js
       keywords:
         - atomic
         - layer
@@ -16731,7 +16731,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/backup-manager.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\backup-manager.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/backup-manager.js
       keywords:
         - backup
         - manager
@@ -16752,7 +16752,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/batch-creator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\batch-creator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/batch-creator.js
       keywords:
         - batch
         - creator
@@ -16775,7 +16775,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/branch-manager.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\branch-manager.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/branch-manager.js
       keywords:
         - branch
         - manager
@@ -16795,7 +16795,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/capability-analyzer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\capability-analyzer.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/capability-analyzer.js
       keywords:
         - capability
         - analyzer
@@ -16816,7 +16816,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/changelog-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\changelog-generator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/changelog-generator.js
       keywords:
         - changelog
         - generator
@@ -16835,7 +16835,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/cicd-discovery.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\cicd-discovery.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/cicd-discovery.js
       keywords:
         - cicd
         - discovery
@@ -16854,7 +16854,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/clickup-helpers.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\clickup-helpers.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/clickup-helpers.js
       keywords:
         - clickup
         - helpers
@@ -16876,7 +16876,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/code-quality-improver.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\code-quality-improver.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/code-quality-improver.js
       keywords:
         - code
         - quality
@@ -16897,7 +16897,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/codebase-mapper.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\codebase-mapper.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/codebase-mapper.js
       keywords:
         - codebase
         - mapper
@@ -16917,7 +16917,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/collect-tool-usage.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\collect-tool-usage.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/collect-tool-usage.js
       keywords:
         - collect
         - tool
@@ -16937,7 +16937,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/commit-message-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\commit-message-generator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/commit-message-generator.js
       keywords:
         - commit
         - message
@@ -16959,7 +16959,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/component-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\component-generator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/component-generator.js
       keywords:
         - component
         - generator
@@ -17001,7 +17001,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/component-metadata.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\component-metadata.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/component-metadata.js
       keywords:
         - component
         - metadata
@@ -17023,7 +17023,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/component-search.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\component-search.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/component-search.js
       keywords:
         - component
         - search
@@ -17044,7 +17044,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/config-cache.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\config-cache.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/config-cache.js
       keywords:
         - config
         - cache
@@ -17067,7 +17067,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/config-loader.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\config-loader.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/config-loader.js
       keywords:
         - config
         - loader
@@ -17089,7 +17089,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/conflict-resolver.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\conflict-resolver.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/conflict-resolver.js
       keywords:
         - conflict
         - resolver
@@ -17109,7 +17109,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/coverage-analyzer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\coverage-analyzer.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/coverage-analyzer.js
       keywords:
         - coverage
         - analyzer
@@ -17129,7 +17129,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/dashboard-status-writer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\dashboard-status-writer.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/dashboard-status-writer.js
       keywords:
         - dashboard
         - status
@@ -17149,7 +17149,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/dependency-analyzer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\dependency-analyzer.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/dependency-analyzer.js
       keywords:
         - dependency
         - analyzer
@@ -17170,7 +17170,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/dependency-impact-analyzer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\dependency-impact-analyzer.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/dependency-impact-analyzer.js
       keywords:
         - dependency
         - impact
@@ -17193,7 +17193,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/diff-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\diff-generator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/diff-generator.js
       keywords:
         - diff
         - generator
@@ -17214,7 +17214,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/documentation-synchronizer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\documentation-synchronizer.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/documentation-synchronizer.js
       keywords:
         - documentation
         - synchronizer
@@ -17234,7 +17234,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/framework-3way-diff.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\framework-3way-diff.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/framework-3way-diff.js
       keywords:
         - framework
         - 3way
@@ -17256,7 +17256,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/framework-analyzer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\framework-analyzer.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/framework-analyzer.js
       keywords:
         - framework
         - analyzer
@@ -17278,7 +17278,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/generate-optimization-report.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\generate-optimization-report.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/generate-optimization-report.js
       keywords:
         - generate
         - optimization
@@ -17298,7 +17298,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/generate-settings-json.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\generate-settings-json.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/generate-settings-json.js
       keywords:
         - generate
         - settings
@@ -17318,7 +17318,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/git-config-detector.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\git-config-detector.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/git-config-detector.js
       keywords:
         - git
         - config
@@ -17340,7 +17340,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/git-wrapper.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\git-wrapper.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/git-wrapper.js
       keywords:
         - git
         - wrapper
@@ -17361,7 +17361,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/gotchas-documenter.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\gotchas-documenter.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/gotchas-documenter.js
       keywords:
         - gotchas
         - documenter
@@ -17381,7 +17381,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/improvement-engine.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\improvement-engine.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/improvement-engine.js
       keywords:
         - improvement
         - engine
@@ -17401,7 +17401,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/improvement-validator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\improvement-validator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/improvement-validator.js
       keywords:
         - improvement
         - validator
@@ -17423,7 +17423,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/migrate-agent.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\migrate-agent.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/migrate-agent.js
       keywords:
         - migrate
         - agent
@@ -17443,7 +17443,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/modification-risk-assessment.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\modification-risk-assessment.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/modification-risk-assessment.js
       keywords:
         - modification
         - risk
@@ -17464,7 +17464,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/modification-validator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\modification-validator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/modification-validator.js
       keywords:
         - modification
         - validator
@@ -17488,7 +17488,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/output-formatter.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\output-formatter.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/output-formatter.js
       keywords:
         - output
         - formatter
@@ -17510,7 +17510,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/path-analyzer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\path-analyzer.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/path-analyzer.js
       keywords:
         - path
         - analyzer
@@ -17530,7 +17530,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/pattern-extractor.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\pattern-extractor.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/pattern-extractor.js
       keywords:
         - pattern
         - extractor
@@ -17551,7 +17551,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/performance-analyzer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\performance-analyzer.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/performance-analyzer.js
       keywords:
         - performance
         - analyzer
@@ -17571,7 +17571,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/performance-and-error-resolver.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\performance-and-error-resolver.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/performance-and-error-resolver.js
       keywords:
         - performance
         - and
@@ -17592,7 +17592,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/performance-optimizer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\performance-optimizer.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/performance-optimizer.js
       keywords:
         - performance
         - optimizer
@@ -17612,7 +17612,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/performance-tracker.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\performance-tracker.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/performance-tracker.js
       keywords:
         - performance
         - tracker
@@ -17632,7 +17632,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/plan-tracker.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\plan-tracker.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/plan-tracker.js
       keywords:
         - plan
         - tracker
@@ -17654,7 +17654,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/pm-adapter-factory.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\pm-adapter-factory.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/pm-adapter-factory.js
       keywords:
         - pm
         - adapter
@@ -17681,7 +17681,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/pm-adapter.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\pm-adapter.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/pm-adapter.js
       keywords:
         - pm
         - adapter
@@ -17700,7 +17700,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/pr-review-ai.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\pr-review-ai.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/pr-review-ai.js
       keywords:
         - pr
         - review
@@ -17720,7 +17720,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/pre-dispatch-guard.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\pre-dispatch-guard.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/pre-dispatch-guard.js
       keywords:
         - pre
         - dispatch
@@ -17741,7 +17741,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/project-status-loader.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\project-status-loader.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/project-status-loader.js
       keywords:
         - project
         - status
@@ -17765,7 +17765,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/qa-loop-orchestrator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\qa-loop-orchestrator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/qa-loop-orchestrator.js
       keywords:
         - qa
         - loop
@@ -17786,7 +17786,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/qa-report-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\qa-report-generator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/qa-report-generator.js
       keywords:
         - qa
         - report
@@ -17806,7 +17806,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/recovery-tracker.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\recovery-tracker.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/recovery-tracker.js
       keywords:
         - recovery
         - tracker
@@ -17829,7 +17829,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/refactoring-suggester.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\refactoring-suggester.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/refactoring-suggester.js
       keywords:
         - refactoring
         - suggester
@@ -17849,7 +17849,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/repair-agent-references.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\repair-agent-references.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/repair-agent-references.js
       keywords:
         - repair
         - agent
@@ -17872,7 +17872,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/repository-detector.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\repository-detector.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/repository-detector.js
       keywords:
         - repository
         - detector
@@ -17894,7 +17894,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/rollback-manager.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\rollback-manager.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/rollback-manager.js
       keywords:
         - rollback
         - manager
@@ -17916,7 +17916,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/sandbox-tester.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\sandbox-tester.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/sandbox-tester.js
       keywords:
         - sandbox
         - tester
@@ -17936,7 +17936,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/security-checker.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\security-checker.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/security-checker.js
       keywords:
         - security
         - checker
@@ -17960,7 +17960,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/spot-check-validator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\spot-check-validator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/spot-check-validator.js
       keywords:
         - spot
         - check
@@ -17980,7 +17980,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/status-mapper.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\status-mapper.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/status-mapper.js
       keywords:
         - status
         - mapper
@@ -18000,7 +18000,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/story-worktree-hooks.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\story-worktree-hooks.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/story-worktree-hooks.js
       keywords:
         - story
         - worktree
@@ -18021,7 +18021,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/stuck-detector.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\stuck-detector.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/stuck-detector.js
       keywords:
         - stuck
         - detector
@@ -18044,7 +18044,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/subtask-verifier.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\subtask-verifier.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/subtask-verifier.js
       keywords:
         - subtask
         - verifier
@@ -18064,7 +18064,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/template-engine.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\template-engine.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/template-engine.js
       keywords:
         - template
         - engine
@@ -18085,7 +18085,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/template-validator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\template-validator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/template-validator.js
       keywords:
         - template
         - validator
@@ -18106,7 +18106,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/test-discovery.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\test-discovery.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/test-discovery.js
       keywords:
         - test
         - discovery
@@ -18125,7 +18125,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/test-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\test-generator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/test-generator.js
       keywords:
         - test
         - generator
@@ -18145,7 +18145,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/test-quality-assessment.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\test-quality-assessment.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/test-quality-assessment.js
       keywords:
         - test
         - quality
@@ -18166,7 +18166,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/test-utilities-fast.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\test-utilities-fast.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/test-utilities-fast.js
       keywords:
         - test
         - utilities
@@ -18186,7 +18186,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/test-utilities.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\test-utilities.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/test-utilities.js
       keywords:
         - test
         - utilities
@@ -18205,7 +18205,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/tool-resolver.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\tool-resolver.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/tool-resolver.js
       keywords:
         - tool
         - resolver
@@ -18227,7 +18227,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/transaction-manager.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\transaction-manager.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/transaction-manager.js
       keywords:
         - transaction
         - manager
@@ -18250,7 +18250,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/usage-analytics.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\usage-analytics.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/usage-analytics.js
       keywords:
         - usage
         - analytics
@@ -18270,7 +18270,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/validate-agents.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\validate-agents.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/validate-agents.js
       keywords:
         - validate
         - agents
@@ -18290,7 +18290,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/validate-claude-integration.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\validate-claude-integration.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/validate-claude-integration.js
       keywords:
         - validate
         - claude
@@ -18311,7 +18311,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/validate-codex-integration.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\validate-codex-integration.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/validate-codex-integration.js
       keywords:
         - validate
         - codex
@@ -18332,7 +18332,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/validate-gemini-integration.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\validate-gemini-integration.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/validate-gemini-integration.js
       keywords:
         - validate
         - gemini
@@ -18353,7 +18353,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/validate-output-pattern.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\validate-output-pattern.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/validate-output-pattern.js
       keywords:
         - validate
         - output
@@ -18373,7 +18373,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/validate-parity.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\validate-parity.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/validate-parity.js
       keywords:
         - validate
         - parity
@@ -18397,7 +18397,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/validate-paths.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\validate-paths.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/validate-paths.js
       keywords:
         - validate
         - paths
@@ -18417,7 +18417,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/validate-user-profile.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\validate-user-profile.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/validate-user-profile.js
       keywords:
         - validate
         - user
@@ -18438,7 +18438,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/visual-impact-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\visual-impact-generator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/visual-impact-generator.js
       keywords:
         - visual
         - impact
@@ -18459,7 +18459,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/worktree-manager.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\worktree-manager.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/worktree-manager.js
       keywords:
         - worktree
         - manager
@@ -18487,7 +18487,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/yaml-validator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\yaml-validator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/yaml-validator.js
       keywords:
         - yaml
         - validator
@@ -18510,7 +18510,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/codex-skills-sync/bootstrap.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\codex-skills-sync\bootstrap.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/codex-skills-sync/bootstrap.js
       keywords:
         - bootstrap
         - ${title}
@@ -18530,7 +18530,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/codex-skills-sync/index.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\codex-skills-sync\index.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/codex-skills-sync/index.js
       keywords:
         - index
         - aexos
@@ -18560,7 +18560,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/codex-skills-sync/validate.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\codex-skills-sync\validate.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/codex-skills-sync/validate.js
       keywords:
         - validate
       usedBy:
@@ -18582,7 +18582,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/documentation-integrity/brownfield-analyzer.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\documentation-integrity\brownfield-analyzer.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/documentation-integrity/brownfield-analyzer.js
       keywords:
         - brownfield
         - analyzer
@@ -18603,7 +18603,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/documentation-integrity/config-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\documentation-integrity\config-generator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/documentation-integrity/config-generator.js
       keywords:
         - config
         - generator
@@ -18624,7 +18624,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/documentation-integrity/deployment-config-loader.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\documentation-integrity\deployment-config-loader.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/documentation-integrity/deployment-config-loader.js
       keywords:
         - deployment
         - config
@@ -18646,7 +18646,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/documentation-integrity/doc-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\documentation-integrity\doc-generator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/documentation-integrity/doc-generator.js
       keywords:
         - doc
         - generator
@@ -18689,7 +18689,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/documentation-integrity/index.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\documentation-integrity\index.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/documentation-integrity/index.js
       keywords:
         - index
       usedBy: []
@@ -18713,7 +18713,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/documentation-integrity/mode-detector.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\documentation-integrity\mode-detector.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/documentation-integrity/mode-detector.js
       keywords:
         - mode
         - detector
@@ -18735,7 +18735,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/git-hooks/post-commit.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\git-hooks\post-commit.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/git-hooks/post-commit.js
       keywords:
         - post
         - commit
@@ -18777,7 +18777,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/ide-sync/agent-parser.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\ide-sync\agent-parser.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/ide-sync/agent-parser.js
       keywords:
         - agent
         - parser
@@ -18804,7 +18804,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/ide-sync/gemini-commands.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\ide-sync\gemini-commands.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/ide-sync/gemini-commands.js
       keywords:
         - gemini
         - commands
@@ -18824,7 +18824,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/ide-sync/index.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\ide-sync\index.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/ide-sync/index.js
       keywords:
         - index
       usedBy: []
@@ -18850,7 +18850,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/ide-sync/redirect-generator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\ide-sync\redirect-generator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/ide-sync/redirect-generator.js
       keywords:
         - redirect
         - generator
@@ -18872,7 +18872,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/ide-sync/validator.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\ide-sync\validator.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/ide-sync/validator.js
       keywords:
         - validator
       usedBy:
@@ -18892,7 +18892,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/llm-routing/install-llm-routing.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\llm-routing\install-llm-routing.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/llm-routing/install-llm-routing.js
       keywords:
         - install
         - llm
@@ -18913,7 +18913,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/ide-sync/transformers/antigravity.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\ide-sync\transformers\antigravity.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/ide-sync/transformers/antigravity.js
       keywords:
         - antigravity
       usedBy:
@@ -18933,7 +18933,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/ide-sync/transformers/claude-code.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\ide-sync\transformers\claude-code.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/ide-sync/transformers/claude-code.js
       keywords:
         - claude
         - code
@@ -18954,7 +18954,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/ide-sync/transformers/cursor.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\ide-sync\transformers\cursor.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/ide-sync/transformers/cursor.js
       keywords:
         - cursor
         - ${name}
@@ -18977,7 +18977,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/ide-sync/transformers/github-copilot.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\ide-sync\transformers\github-copilot.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/ide-sync/transformers/github-copilot.js
       keywords:
         - github
         - copilot
@@ -18998,7 +18998,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/ide-sync/transformers/kimi.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\ide-sync\transformers\kimi.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/ide-sync/transformers/kimi.js
       keywords:
         - kimi
         - ${icon}
@@ -19021,7 +19021,7 @@ entities:
       path: .aexos-core/infrastructure/scripts/llm-routing/usage-tracker/index.js
       layer: L2
       type: script
-      purpose: Entity at .aexos-core\infrastructure\scripts\llm-routing\usage-tracker\index.js
+      purpose: Entity at .aexos-core/infrastructure/scripts/llm-routing/usage-tracker/index.js
       keywords:
         - index
       usedBy: []
@@ -19065,7 +19065,7 @@ entities:
       path: .aexos-core/infrastructure/tools/cli/github-cli.yaml
       layer: L2
       type: tool
-      purpose: Entity at .aexos-core\infrastructure\tools\cli\github-cli.yaml
+      purpose: Entity at .aexos-core/infrastructure/tools/cli/github-cli.yaml
       keywords:
         - github
         - cli
@@ -19111,7 +19111,7 @@ entities:
       path: .aexos-core/infrastructure/tools/cli/railway-cli.yaml
       layer: L2
       type: tool
-      purpose: Entity at .aexos-core\infrastructure\tools\cli\railway-cli.yaml
+      purpose: Entity at .aexos-core/infrastructure/tools/cli/railway-cli.yaml
       keywords:
         - railway
         - cli
@@ -19132,7 +19132,7 @@ entities:
       path: .aexos-core/infrastructure/tools/cli/supabase-cli.yaml
       layer: L2
       type: tool
-      purpose: Entity at .aexos-core\infrastructure\tools\cli\supabase-cli.yaml
+      purpose: Entity at .aexos-core/infrastructure/tools/cli/supabase-cli.yaml
       keywords:
         - supabase
         - cli
@@ -19154,7 +19154,7 @@ entities:
       path: .aexos-core/infrastructure/tools/local/ffmpeg.yaml
       layer: L2
       type: tool
-      purpose: Entity at .aexos-core\infrastructure\tools\local\ffmpeg.yaml
+      purpose: Entity at .aexos-core/infrastructure/tools/local/ffmpeg.yaml
       keywords:
         - ffmpeg
       usedBy:
@@ -19173,7 +19173,7 @@ entities:
       path: .aexos-core/infrastructure/tools/mcp/21st-dev-magic.yaml
       layer: L2
       type: tool
-      purpose: Entity at .aexos-core\infrastructure\tools\mcp\21st-dev-magic.yaml
+      purpose: Entity at .aexos-core/infrastructure/tools/mcp/21st-dev-magic.yaml
       keywords:
         - 21st
         - dev
@@ -19194,7 +19194,7 @@ entities:
       path: .aexos-core/infrastructure/tools/mcp/browser.yaml
       layer: L2
       type: tool
-      purpose: Entity at .aexos-core\infrastructure\tools\mcp\browser.yaml
+      purpose: Entity at .aexos-core/infrastructure/tools/mcp/browser.yaml
       keywords:
         - browser
       usedBy:
@@ -19215,7 +19215,7 @@ entities:
       path: .aexos-core/infrastructure/tools/mcp/clickup.yaml
       layer: L2
       type: tool
-      purpose: Entity at .aexos-core\infrastructure\tools\mcp\clickup.yaml
+      purpose: Entity at .aexos-core/infrastructure/tools/mcp/clickup.yaml
       keywords:
         - clickup
       usedBy:
@@ -19234,7 +19234,7 @@ entities:
       path: .aexos-core/infrastructure/tools/mcp/context7.yaml
       layer: L2
       type: tool
-      purpose: Entity at .aexos-core\infrastructure\tools\mcp\context7.yaml
+      purpose: Entity at .aexos-core/infrastructure/tools/mcp/context7.yaml
       keywords:
         - context7
       usedBy:
@@ -19260,7 +19260,7 @@ entities:
       path: .aexos-core/infrastructure/tools/mcp/desktop-commander.yaml
       layer: L2
       type: tool
-      purpose: Entity at .aexos-core\infrastructure\tools\mcp\desktop-commander.yaml
+      purpose: Entity at .aexos-core/infrastructure/tools/mcp/desktop-commander.yaml
       keywords:
         - desktop
         - commander
@@ -19279,7 +19279,7 @@ entities:
       path: .aexos-core/infrastructure/tools/mcp/exa.yaml
       layer: L2
       type: tool
-      purpose: Entity at .aexos-core\infrastructure\tools\mcp\exa.yaml
+      purpose: Entity at .aexos-core/infrastructure/tools/mcp/exa.yaml
       keywords:
         - exa
       usedBy:
@@ -19299,7 +19299,7 @@ entities:
       path: .aexos-core/infrastructure/tools/mcp/google-workspace.yaml
       layer: L2
       type: tool
-      purpose: Entity at .aexos-core\infrastructure\tools\mcp\google-workspace.yaml
+      purpose: Entity at .aexos-core/infrastructure/tools/mcp/google-workspace.yaml
       keywords:
         - google
         - workspace
@@ -19319,7 +19319,7 @@ entities:
       path: .aexos-core/infrastructure/tools/mcp/n8n.yaml
       layer: L2
       type: tool
-      purpose: Entity at .aexos-core\infrastructure\tools\mcp\n8n.yaml
+      purpose: Entity at .aexos-core/infrastructure/tools/mcp/n8n.yaml
       keywords:
         - n8n
       usedBy:
@@ -19338,7 +19338,7 @@ entities:
       path: .aexos-core/infrastructure/tools/mcp/supabase.yaml
       layer: L2
       type: tool
-      purpose: Entity at .aexos-core\infrastructure\tools\mcp\supabase.yaml
+      purpose: Entity at .aexos-core/infrastructure/tools/mcp/supabase.yaml
       keywords:
         - supabase
       usedBy:
