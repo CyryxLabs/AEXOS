@@ -436,8 +436,17 @@ build/
 .claude/settings.local.json
 .aexos/install-log.txt
 
-# Local Codex CLI artifacts (do not version until hardened — absolute paths / force-push wording)
-.codex/
+# Codex CLI projection.
+# `.codex/agents/` IS versioned: ide-sync validates it as a target (index.js:69),
+# so ignoring it made the strict gate fail on every runner while passing on any
+# developer machine — a check that could never go green in CI.
+# The original hold-back reason no longer holds: the 12 files contain no absolute
+# paths, and their only force-push mentions are authority policy ("ONLY this
+# agent", "❌ Force pushing to main/master") already versioned verbatim in the
+# sources under .aexos-core/development/agents/.
+.codex/*
+!.codex/agents/
+!.codex/agents/*.md
 
 # Legacy aexos-* Claude skills (superseded by aexos-* agent skills under Cyryx Labs/ or aexos-* SDC); local only
 .claude/skills/aexos-*/
