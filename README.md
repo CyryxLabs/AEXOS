@@ -186,24 +186,38 @@ If this is your first time with AEXOS, follow this linear path. The target is **
 minutes**, defined as a binary: an agent activated, a valid greeting received, and one command
 returning useful output.
 
-### 1. Install from the repository
+### 1. Install from npm
+
+**Into a new project** — `init` creates the directory:
 
 ```bash
-npx github:CyryxLabs/AEXOS init my-project
+npx @aexos/core init my-project
+cd my-project
 ```
 
-This is the only command that works from a standing start — it fetches the package straight from
-the public repository, so nothing needs to be installed first. Verified against this revision:
-`npx github:CyryxLabs/AEXOS --version` prints `5.3.0`.
+**Into a directory that already exists** — run it from inside:
+
+```bash
+cd my-existing-project
+npx @aexos/core install
+```
+
+Pick the right one. `init` **requires a project name** and fails without it; `install` takes no
+name and writes into the current directory. Running `init` with no argument prints an error and
+does nothing — and, until this is fixed, still exits 0, so nothing else signals that the install
+did not happen.
+
+Verify with `npx @aexos/core --version`, which prints `5.3.0`.
 
 > **Why the short form works.**
-> npx reads the fetched `package.json`, sees the name `@aexos/core`, and infers a binary called
-> `core` from the unscoped half of the name. `package.json` declares an explicit `core` alias in
-> `bin` for exactly that reason; without it npx exits with `could not determine executable to
-> run`. If you ever see that error, name the binary explicitly against the same spec:
-> `npx -p github:CyryxLabs/AEXOS aexos <command>`. (`npx -p @aexos/core aexos <command>` is the
-> equivalent once the package is published — see [Which install command applies to
-> you](#which-install-command-applies-to-you).)
+> npx reads `package.json`, sees the name `@aexos/core`, and infers a binary called `core` from
+> the unscoped half of the name. `package.json` declares an explicit `core` alias in `bin` for
+> exactly that reason; without it npx exits with `could not determine executable to run`. If you
+> ever see that error, name the binary explicitly: `npx -p @aexos/core aexos <command>`.
+
+> **After installing, restart your IDE.** Claude Code reads commands and skills once, at session
+> start. Until you reopen it in that directory, `/AEXOS` will match nothing even though the files
+> are already on disk. The namespace is `AEXOS` in capitals — `/aex` finds nothing.
 
 ### 2. Pick your IDE and activate one agent
 
@@ -236,19 +250,19 @@ Deeper walkthrough: [Getting Started](docs/getting-started.md).
 
 The three contexts are genuinely different, and a command from one will not work in another:
 
-| Your situation | Command | Status |
-| --- | --- | --- |
-| Nothing installed yet | `npx github:CyryxLabs/AEXOS init my-project` | Works today |
-| Package already resolvable (local link, or a registry you have access to) | `npx github:CyryxLabs/AEXOS install` | Needs the package to resolve first |
-| Contributing to AEXOS itself | `git clone` → `npm install` → `npm link` | Works today |
+| Your situation | Command |
+| --- | --- |
+| Starting a new project | `npx @aexos/core init my-project` |
+| Adding AEXOS to a directory that already exists | `cd there && npx @aexos/core install` |
+| Contributing to AEXOS itself | `git clone` → `npm install` → `npm link` |
 
-`@aexos/core` is **not yet published to the public npm registry** — the earlier names
-`aexos-core` and `@aexos-squads/core` return 404 there. That is a distribution decision, not a
-licensing one: the
-[LICENSE](LICENSE) grants the Core Edition free of charge, and Section 2 expressly permits
-installing it from a package registry. So `npx github:CyryxLabs/AEXOS install` is the documented form for reinstalling or updating
-inside a project that already resolves the package (it is what `docs/installation/` uses), not a
-first-run command.
+`@aexos/core` is published on the public npm registry. Nothing needs to be installed first, and
+no repository access is required — the [LICENSE](LICENSE) grants the Core Edition free of charge
+for personal and commercial use, and Section 2 expressly permits installing it from a registry.
+
+The earlier names `aexos-core`, `@aexos-squads/core` and `@cyryx-squads/core` were never
+published and return 404. Any documentation still pointing at `npx github:...` predates the
+publish; that form now requires repository access and is not the supported path.
 
 To work on the framework itself, or to get the `aexos` binary on your PATH:
 
