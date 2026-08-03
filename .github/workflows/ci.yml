@@ -619,6 +619,7 @@ jobs:
           echo "  Registry Determinism: ${{ needs.registry-determinism.result }}"
           echo "  IDE Sync Validation: ${{ needs.ide-sync-validation.result }}"
           echo "  Installer Smoke Test: ${{ needs.installer-smoke-test.result }}"
+          echo "  Compatibility Parity Gate: ${{ needs.compatibility-parity-gate.result }}"
           echo "  Dependency Validation: ${{ needs.dependency-validation.result }}"
           echo "  Brownfield Install Test: ${{ needs.brownfield-install-test.result }}"
           echo ""
@@ -702,6 +703,14 @@ jobs:
           # Installer Smoke Test: fail if ran and didn't succeed
           if [ "${{ needs.installer-smoke-test.result }}" == "failure" ]; then
             echo "❌ Installer smoke test failed - WRONG WIZARD MAY BE USED!"
+            FAILED=true
+          fi
+
+          # Compatibility Parity Gate: fail if ran and didn't succeed.
+          # This job was listed in `needs` but never asserted here, so a parity
+          # failure on its own produced a green summary.
+          if [ "${{ needs.compatibility-parity-gate.result }}" == "failure" ]; then
+            echo "❌ Compatibility parity gate failed - IDE projections drifted from agent sources"
             FAILED=true
           fi
 
