@@ -200,7 +200,7 @@ function detectBrownfield(projectRoot) {
  */
 async function runDoctor(projectRoot, logger, dryRun) {
   if (dryRun) {
-    logger.action('Run: npx github:CyryxLabs/AEXOS doctor');
+    logger.action('Run: npx @aexos/core doctor');
     return;
   }
 
@@ -260,7 +260,7 @@ async function installCyryxCore(projectRoot, logger, dryRun) {
  */
 async function initializeCyryx(projectRoot, logger, dryRun) {
   if (dryRun) {
-    logger.action('Run: npx github:CyryxLabs/AEXOS install');
+    logger.action('Run: npx @aexos/core install');
     return;
   }
 
@@ -419,7 +419,7 @@ async function runInstaller(options = {}) {
           logger.debug(error.message);
         }
       } else if (options.dryRun) {
-        logger.action('Run: npx github:CyryxLabs/AEXOS config migrate');
+        logger.action('Run: npx @aexos/core config migrate');
       }
     } else {
       logger.success('Configuration is up to date');
@@ -467,7 +467,7 @@ async function runInstaller(options = {}) {
     outro(chalk.green(`AEXOS installed successfully in ${elapsed}!`));
     console.log('');
     console.log(chalk.dim('Next steps:'));
-    console.log(chalk.dim('  1. Run `npx github:CyryxLabs/AEXOS info` to see your configuration'));
+    console.log(chalk.dim('  1. Run `npx @aexos/core info` to see your configuration'));
     console.log(chalk.dim('  2. Activate an agent with @agent-name (e.g., @dev)'));
     if (profile === 'bob') {
       console.log(chalk.dim('  3. Just talk to Bob - he\'ll orchestrate everything!'));

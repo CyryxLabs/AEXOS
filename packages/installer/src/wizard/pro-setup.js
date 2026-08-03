@@ -501,7 +501,7 @@ function showStep(current, total, label) {
  * 3. Absolute path via aexos-core in node_modules (brownfield upgrade)
  * 4. Absolute path via @aexos/pro in user project (npx context)
  *
- * Path 4 is critical for npx execution: when running `npx github:CyryxLabs/AEXOS install`,
+ * Path 4 is critical for npx execution: when running `npx @aexos/core install`,
  * require() resolves from the npx temp directory, not process.cwd(). After
  * bootstrap installs @aexos/pro in the user's project, only an
  * absolute path to process.cwd()/node_modules/@aexos/pro/... works.
@@ -1027,7 +1027,7 @@ async function acquireProArtifactSourceDir(targetDir, licenseResult, options = {
     return {
       success: false,
       error:
-        'Authenticated Pro artifact download requires email/password login. Run `npx github:CyryxLabs/AEXOS pro setup` and choose the login/create-account flow.',
+        'Authenticated Pro artifact download requires email/password login. Run `npx @aexos/core pro setup` and choose the login/create-account flow.',
     };
   }
 
@@ -2132,7 +2132,7 @@ async function stepInstallScaffold(targetDir, options = {}) {
     if (acquisition.targetInstallWarning) {
       const expectedProDir = path.join(targetDir, 'node_modules', '@aexos', 'pro');
       showWarning(
-        `Pro module could not be cached at ${expectedProDir}: ${acquisition.targetInstallWarning} This install will still complete using the verified Pro artifact from a temporary cache, but the cache is wiped at the end of this command — every future run of \`aexos install\` in this directory will re-download the Pro artifact until you run it from a fresh empty directory (e.g. \`mkdir ~/aexos-pro && cd ~/aexos-pro && npx github:CyryxLabs/AEXOS install\`).`,
+        `Pro module could not be cached at ${expectedProDir}: ${acquisition.targetInstallWarning} This install will still complete using the verified Pro artifact from a temporary cache, but the cache is wiped at the end of this command — every future run of \`aexos install\` in this directory will re-download the Pro artifact until you run it from a fresh empty directory (e.g. \`mkdir ~/aexos-pro && cd ~/aexos-pro && npx @aexos/core install\`).`,
       );
     }
   }

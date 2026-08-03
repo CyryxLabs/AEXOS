@@ -25,16 +25,16 @@ Always start with the built-in diagnostics:
 
 ```bash
 # Basic diagnostic
-npx github:CyryxLabs/AEXOS doctor
+npx @aexos/core doctor
 
 # Auto-fix common issues
-npx github:CyryxLabs/AEXOS doctor --fix
+npx @aexos/core doctor --fix
 
 # Verbose output
-npx github:CyryxLabs/AEXOS doctor --verbose
+npx @aexos/core doctor --verbose
 
 # Check specific component
-npx github:CyryxLabs/AEXOS doctor --component memory-layer
+npx @aexos/core doctor --component memory-layer
 ```
 
 ### Common Quick Fixes
@@ -50,7 +50,7 @@ npx github:CyryxLabs/AEXOS doctor --component memory-layer
 *config --reset
 
 # Update to latest version
-npx github:CyryxLabs/AEXOS update
+npx @aexos/core update
 ```
 
 ## Installation Issues
@@ -102,7 +102,7 @@ source ~/.bashrc
 ```bash
 # Install in user directory
 cd ~
-npx github:CyryxLabs/AEXOS init my-project
+npx @aexos/core init my-project
 ```
 
 ### Issue: Node.js version error
@@ -152,7 +152,7 @@ npm cache clean --force
 npm config set fetch-timeout 60000
 
 # Skip dependency installation
-npx github:CyryxLabs/AEXOS init my-project --skip-install
+npx @aexos/core init my-project --skip-install
 
 # Then install manually
 cd my-project
@@ -202,11 +202,11 @@ Error: Failed to initialize meta-agent
 ls -la .aexos/config.json
 
 # Validate configuration
-npx github:CyryxLabs/AEXOS doctor --component config
+npx @aexos/core doctor --component config
 
 # Reset if corrupted
 rm .aexos/config.json
-npx github:CyryxLabs/AEXOS doctor --fix
+npx @aexos/core doctor --fix
 ```
 
 2. **Check dependencies:**
@@ -262,7 +262,7 @@ create-agent my-agent   # ✗ Wrong
 
 # Or restart meta-agent
 exit
-npx github:CyryxLabs/AEXOS
+npx @aexos/core
 ```
 
 ### Issue: Agent creation fails
@@ -374,7 +374,7 @@ cat .aexos/memory-config.json
 export NODE_OPTIONS="--max-old-space-size=1024"
 
 # Run with limited memory
-npx github:CyryxLabs/AEXOS
+npx @aexos/core
 ```
 
 ### Issue: LlamaIndex errors
@@ -660,7 +660,7 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" `
 
 # Or use shorter paths
 cd C:\
-npx github:CyryxLabs/AEXOS init myapp
+npx @aexos/core init myapp
 ```
 
 #### Issue: Scripts disabled
@@ -728,7 +728,7 @@ sudo pacman -S openssl
 ```bash
 # Full debug output
 export DEBUG=cyryx:*
-npx github:CyryxLabs/AEXOS
+npx @aexos/core
 
 # Specific components
 export DEBUG=cyryx:memory,cyryx:agent
@@ -751,10 +751,10 @@ grep -i error .aexos/logs/*.log
 
 ```bash
 # Generate full diagnostic
-npx github:CyryxLabs/AEXOS doctor --report diagnostic.json
+npx @aexos/core doctor --report diagnostic.json
 
 # Include system info
-npx github:CyryxLabs/AEXOS info --detailed >> diagnostic.json
+npx @aexos/core info --detailed >> diagnostic.json
 
 # Create support bundle
 tar -czf aexos-support.tar.gz .aexos/logs diagnostic.json
@@ -796,14 +796,14 @@ tar -czf aexos-support.tar.gz .aexos/logs diagnostic.json
 
 1. **Run diagnostics:**
    ```bash
-   npx github:CyryxLabs/AEXOS doctor --verbose > diagnostic.log
+   npx @aexos/core doctor --verbose > diagnostic.log
    ```
 
 2. **Collect information:**
    - Node.js version: `node --version`
    - NPM version: `npm --version`
    - OS and version: `uname -a` or `ver`
-   - AEXOS version: `npx github:CyryxLabs/AEXOS version`
+   - AEXOS version: `npx @aexos/core version`
 
 3. **Check existing issues:**
    - [GitHub Issues](https://github.com/aexos-core/aexos-core/issues)
@@ -831,7 +831,7 @@ Create detailed bug reports:
 - AEXOS: 1.0.0
 
 ## Steps to Reproduce
-1. Run `npx github:CyryxLabs/AEXOS init test`
+1. Run `npx @aexos/core init test`
 2. Select "enterprise" template
 3. Error occurs during installation
 
@@ -862,7 +862,7 @@ npm cache clean --force
 
 # Fresh install
 npm install
-npx github:CyryxLabs/AEXOS doctor --fix
+npx @aexos/core doctor --fix
 
 # Restore data if needed
 cp .aexos.backup/memory.db .aexos/
@@ -871,7 +871,7 @@ cp .aexos.backup/memory.db .aexos/
 ---
 
 **Remember**: Most issues can be resolved with:
-1. `npx github:CyryxLabs/AEXOS doctor --fix`
+1. `npx @aexos/core doctor --fix`
 2. Clearing caches
 3. Updating to latest version
 4. Checking permissions

@@ -86,7 +86,7 @@ AEXOS transforms you into a "Vibe CEO" - directing a team of specialized AI agen
 
 ```bash
 # Interactive installation (recommended)
-npx github:CyryxLabs/AEXOS install
+npx @aexos/core install
 ```
 
 **Installation Steps**:
@@ -889,7 +889,7 @@ Squads extend AEXOS-Method beyond traditional software development into ANY doma
 3. **Install via CLI**:
 
    ```bash
-   npx github:CyryxLabs/AEXOS install
+   npx @aexos/core install
    # Select "Install squad" option
    ```
 

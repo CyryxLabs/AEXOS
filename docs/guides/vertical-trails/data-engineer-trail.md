@@ -34,7 +34,7 @@ Você está em um projeto novo e precisa:
 
 ```bash
 # Projeto AEXOS inicializado
-npx github:CyryxLabs/AEXOS doctor  # deve retornar healthy
+npx @aexos/core doctor  # deve retornar healthy
 
 # Supabase configurado (ou PostgreSQL local)
 echo $SUPABASE_DB_URL  # deve ter valor

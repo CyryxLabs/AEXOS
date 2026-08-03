@@ -41,7 +41,7 @@ Automatic integration with AEXOS memory and security:
 ## Requirements
 
 - Gemini CLI v0.26.0+
-- AEXOS Core installed (`npx github:CyryxLabs/AEXOS install`)
+- AEXOS Core installed (`npx @aexos/core install`)
 - Node.js 18+
 
 ## Cross-CLI Compatibility

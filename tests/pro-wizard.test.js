@@ -56,7 +56,7 @@ afterEach(() => {
 const proSetup = require('packages/installer/src/wizard/pro-setup');
 const wizardI18n = require('packages/installer/src/wizard/i18n');
 
-const CORE_PRO_SETUP_COMMAND = 'npx github:CyryxLabs/AEXOS pro setup';
+const CORE_PRO_SETUP_COMMAND = 'npx @aexos/core pro setup';
 const SCOPED_PRO_RECOVER_COMMAND = 'npx -y @aexos/pro-cli@latest recover';
 
 // ─── maskLicenseKey ──────────────────────────────────────────────────────────

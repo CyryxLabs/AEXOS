@@ -80,7 +80,7 @@ async function scaffoldProContent(targetDir, proSourceDir, options = {}) {
   // Validate pro source exists
   if (!(await fs.pathExists(proSourceDir))) {
     result.errors.push(
-      `Pro package not found at ${proSourceDir}. Run "npx github:CyryxLabs/AEXOS pro setup" or "aexos pro setup" first.`,
+      `Pro package not found at ${proSourceDir}. Run "npx @aexos/core pro setup" or "aexos pro setup" first.`,
     );
     return result;
   }

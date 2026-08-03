@@ -16,7 +16,7 @@ describeOnWindows('Windows 10 Installation', () => {
     async () => {
       const startTime = Date.now();
 
-      // Note: This test requires running npx github:CyryxLabs/AEXOS init
+      // Note: This test requires running npx @aexos/core init
       // in a fresh directory. Run manually for end-to-end validation.
 
       // For CI/CD, verify installer exists and is executable

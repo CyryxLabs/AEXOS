@@ -151,7 +151,7 @@ sudo pacman -S base-devel
 3. Run the installer:
 
    ```bash
-   npx github:CyryxLabs/AEXOS install
+   npx @aexos/core install
    ```
 
 ### Manual Installation
@@ -355,7 +355,7 @@ To update an existing installation:
 
 ```bash
 # Using npx (recommended)
-npx github:CyryxLabs/AEXOS install
+npx @aexos/core install
 
 # Manual update
 cd ~/.aexos-core-source

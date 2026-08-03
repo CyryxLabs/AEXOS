@@ -218,8 +218,8 @@ console.log('');
 
 // 10. Test npx execution
 console.log('── npx Test ────────────────────────────────────────────────────────');
-console.log('  Testing: npx github:CyryxLabs/AEXOS --version');
-const npxTest = exec('npx github:CyryxLabs/AEXOS --version 2>&1');
+console.log('  Testing: npx @aexos/core --version');
+const npxTest = exec('npx @aexos/core --version 2>&1');
 if (npxTest && npxTest.match(/\d+\.\d+\.\d+/)) {
   console.log(`  ✓ SUCCESS: ${npxTest}`);
 } else {
@@ -247,7 +247,7 @@ if (hasErrors) {
   console.log('✅ RESULT: All requirements met!');
   console.log('');
   console.log('You can install AEXOS-Core with:');
-  console.log('  npx github:CyryxLabs/AEXOS');
+  console.log('  npx @aexos/core');
   console.log('');
 }
 

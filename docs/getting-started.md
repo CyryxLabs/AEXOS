@@ -22,15 +22,26 @@ Use this exact flow if you are new:
 
 ### Step 1: Install AEXOS
 
-```bash
-# New project
-npx github:CyryxLabs/AEXOS init my-first-project
-cd my-first-project
+There are two commands and they are not interchangeable:
 
-# Existing project
-# cd existing-project
-# npx github:CyryxLabs/AEXOS install
+```bash
+# New project — `init` creates the directory and REQUIRES a name
+npx @aexos/core init my-first-project
+cd my-first-project
 ```
+
+```bash
+# Existing project — `install` writes into the current directory and takes NO name
+cd existing-project
+npx @aexos/core install
+```
+
+Running `init` with no argument prints an error, installs nothing, and exits non-zero.
+
+> **Restart your IDE after installing.** Claude Code reads commands and skills once, at
+> session start. Until you reopen it in the project directory, `/AEXOS` matches nothing
+> even though every file is already on disk. The namespace is `AEXOS` in capitals —
+> `/aex` finds nothing.
 
 > **Run this outside the framework repository.** `init` writes a full copy of AEXOS
 > into the target directory. Run inside this repository, that nested install is
@@ -65,12 +76,12 @@ PASS rule: complete all 3 conditions in <= 10 minutes.
 
 ```bash
 # Create a new project
-npx github:CyryxLabs/AEXOS init my-first-project
+npx @aexos/core init my-first-project
 
 # Navigate to your project
 cd my-first-project
 
-# Start using AEXOS agents in your IDE
+# Restart your IDE here, then use AEXOS agents
 # (see Step 2 above for IDE-specific activation)
 ```
 
@@ -78,17 +89,17 @@ cd my-first-project
 
 ```bash
 # 1. Create new project with custom template
-npx github:CyryxLabs/AEXOS init my-project --template enterprise
+npx @aexos/core init my-project --template enterprise
 
 # 2. Install in existing project
 cd existing-project
-npx github:CyryxLabs/AEXOS install
+npx @aexos/core install
 
 # 3. Force installation in non-empty directory
-npx github:CyryxLabs/AEXOS init my-project --force
+npx @aexos/core init my-project --force
 
 # 4. Skip dependency installation (manual install later)
-npx github:CyryxLabs/AEXOS init my-project --skip-install
+npx @aexos/core init my-project --skip-install
 ```
 
 ## Your First Project
@@ -119,7 +130,7 @@ my-first-project/
 AEXOS configuration lives in `.aexos-core/core/config/`. The installer handles initial setup. To verify your installation:
 
 ```bash
-npx github:CyryxLabs/AEXOS doctor
+npx @aexos/core doctor
 ```
 
 ## Basic Commands
@@ -198,10 +209,10 @@ Already have a codebase? AEXOS handles brownfield projects with a dedicated work
 cd my-existing-project
 
 # Install AEXOS (non-destructive, preserves your config)
-npx github:CyryxLabs/AEXOS install
+npx @aexos/core install
 
 # Run doctor to verify compatibility
-npx github:CyryxLabs/AEXOS doctor
+npx @aexos/core doctor
 ```
 
 ### What Happens on First Run
@@ -276,10 +287,10 @@ Squads extend AEXOS beyond software development into any domain. See [Squads Gui
 node --version  # Should be >= 18.0.0
 
 # Run diagnostics
-npx github:CyryxLabs/AEXOS doctor
+npx @aexos/core doctor
 
 # Auto-fix common issues
-npx github:CyryxLabs/AEXOS doctor --fix
+npx @aexos/core doctor --fix
 ```
 
 ### Agent Not Responding

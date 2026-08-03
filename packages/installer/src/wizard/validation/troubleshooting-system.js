@@ -21,7 +21,7 @@ const TROUBLESHOOTING_DATABASE = {
       '.env accidentally deleted',
     ],
     solutions: [
-      'Re-run wizard: npx github:CyryxLabs/AEXOS install',
+      'Re-run wizard: npx @aexos/core install',
       'Manually create .env from template: cp .env.example .env',
       'Check file permissions in project directory',
     ],
@@ -37,7 +37,7 @@ const TROUBLESHOOTING_DATABASE = {
       'File creation failed',
     ],
     solutions: [
-      'Re-run wizard: npx github:CyryxLabs/AEXOS install',
+      'Re-run wizard: npx @aexos/core install',
       'Check .aexos-core directory exists',
       'Manually create from template',
     ],

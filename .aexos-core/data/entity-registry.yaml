@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-08-03T02:03:00.332Z'
+  lastUpdated: '2026-08-03T13:43:42.243Z'
   entityCount: 846
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -4336,8 +4336,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:c3ad2ed89258c9be51c3537a6c9b4cfdc3b93ee0e8d608a677290cf91e634957
-      lastVerified: '2026-07-31T22:38:48.963Z'
+      checksum: sha256:74aec5f5c5c93fda0924a0604476d1434784eef80fc695dec9fcedb40d9a83a5
+      lastVerified: '2026-08-03T13:43:41.853Z'
     run-workflow-engine:
       path: .aexos-core/development/tasks/run-workflow-engine.md
       layer: L2
@@ -8788,8 +8788,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:36791513c9c16a0436183bfc44fb945571a67db3686e954c37a2fd728c1ebd0f
-      lastVerified: '2026-07-31T17:42:08.971Z'
+      checksum: sha256:37c4f05c34ebc3e0919bc35c2aad4b8e35350707b896ab0c2bb6e96d7fc4b296
+      lastVerified: '2026-08-03T13:43:41.942Z'
     doctor-index:
       path: .aexos-core/core/doctor/index.js
       layer: L1
@@ -11962,8 +11962,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:1687bf48861c5cd7eb21308d1186f24044defb6c0026c9df410e9aac3c6ef101
-      lastVerified: '2026-07-31T17:42:09.102Z'
+      checksum: sha256:581bd49a9f8301f86c277e40a631d59ca70df1ab9bd4b1e5c66a770c83bb7fd6
+      lastVerified: '2026-08-03T13:43:42.010Z'
     core-config:
       path: .aexos-core/core/doctor/checks/core-config.js
       layer: L1
@@ -11982,8 +11982,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:0e95da14f1fdfb7199e9d572a868cf43bc15db220a603767ea439880d1ca5a77
-      lastVerified: '2026-07-31T17:42:09.102Z'
+      checksum: sha256:8a1b584d26d48f08cea21a7ee248f0fc6fdf486f850dbbeed511bb5ed3f25310
+      lastVerified: '2026-08-03T13:43:42.010Z'
     entity-registry:
       path: .aexos-core/core/doctor/checks/entity-registry.js
       layer: L1
@@ -12001,8 +12001,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:f49af84dcb92608eee3aa58da45e931592a04aae80f12e757c06e0de66ef7095
-      lastVerified: '2026-07-31T17:42:09.102Z'
+      checksum: sha256:1fed035a5069a051ced5745f6ef7b37b088ca1ac48f2f6beac6b664a14b59655
+      lastVerified: '2026-08-03T13:43:42.010Z'
     framework-3way-diff:
       path: .aexos-core/core/doctor/checks/framework-3way-diff.js
       layer: L1
@@ -12061,8 +12061,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:ca28ee3098486d7b851abd914528f15cefbf0c79b5e9fdf8daa8aa3261ae8bd6
-      lastVerified: '2026-07-31T17:42:09.103Z'
+      checksum: sha256:d9892463929081189338664972111aeac81b505d8ae55ec5074c344a42a4f2ce
+      lastVerified: '2026-08-03T13:43:42.011Z'
     hooks-claude-count:
       path: .aexos-core/core/doctor/checks/hooks-claude-count.js
       layer: L1
@@ -12082,8 +12082,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:f5d7d0875cddb0a2a0f5c6cfee99d757632ca4c3028ea2d487291f7f1c6822c6
-      lastVerified: '2026-07-31T17:42:09.104Z'
+      checksum: sha256:a437e23ece2a9e3abd03369f8bdf77ee2f7df6552316da1bd56b66ec2d1506b3
+      lastVerified: '2026-08-03T13:43:42.011Z'
     ide-sync:
       path: .aexos-core/core/doctor/checks/ide-sync.js
       layer: L1
@@ -12102,8 +12102,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:67de432394cedb23197a8feb196af797b3694177db2c03bdfc669d7c908e27ad
-      lastVerified: '2026-07-31T17:42:09.104Z'
+      checksum: sha256:d76cae7efae4c4309e99514671ba9551750078706c4409f8660ee5c7c0ea6326
+      lastVerified: '2026-08-03T13:43:42.012Z'
     doctor-checks-index:
       path: .aexos-core/core/doctor/checks/index.js
       layer: L1
@@ -12241,8 +12241,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:605bb3f2821f86436ab9f6ea595e75f9ab6973012e04c984c325e2b6edcceca2
-      lastVerified: '2026-07-31T17:42:09.111Z'
+      checksum: sha256:db83d37174656bf58dbb156322eddb7a14af9215072f8216e09e89be1e570219
+      lastVerified: '2026-08-03T13:43:42.016Z'
     skills-count:
       path: .aexos-core/core/doctor/checks/skills-count.js
       layer: L1
@@ -12261,8 +12261,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:2f45e396b788131d1b8a11affa18085fe24a4faf97b30dbd8d1e52505a769a10
-      lastVerified: '2026-07-31T17:42:09.111Z'
+      checksum: sha256:c14d27ec4def0a1835734367216eb470a5b4692a3f0c5382d1f538d7c2b73ac1
+      lastVerified: '2026-08-03T13:43:42.016Z'
     windows-npx-install:
       path: .aexos-core/core/doctor/checks/windows-npx-install.js
       layer: L1
@@ -13145,8 +13145,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:3dbf17883abfec88c2e095f12a48c73183588c9b2b94c92ca34e977a58b1170b
-      lastVerified: '2026-07-31T17:42:09.144Z'
+      checksum: sha256:663ab09aa12cf310206cf7bebfd2767e361b0de7da46c0e774e1272bb98ed418
+      lastVerified: '2026-08-03T13:43:42.033Z'
     synapse-diagnostics:
       path: .aexos-core/core/synapse/diagnostics/synapse-diagnostics.js
       layer: L1
@@ -14359,8 +14359,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:ee9a14535d7dfb22822504e1652cb3ba21f7985aa42dd424abafb585b089402d
-      lastVerified: '2026-07-31T17:42:09.192Z'
+      checksum: sha256:2df564f3b13e3787f01c87a898198e30714ff7618c69afe9d2c4e7840566b6dd
+      lastVerified: '2026-08-03T13:43:42.057Z'
     github-cli:
       path: .aexos-core/core/health-check/checks/services/github-cli.js
       layer: L1
@@ -15748,8 +15748,8 @@ entities:
         score: 0.6
         constraints: []
         extensionPoints: []
-      checksum: sha256:1b1bf92f4edcc3fb364d4a47474d5f579c115d45bac5adc8982a9b383f5622ce
-      lastVerified: '2026-07-31T17:44:12.425Z'
+      checksum: sha256:fdccedbb4902ed61e4768582f4f39bc19026402e416dbb13cdd7cac9593b6852
+      lastVerified: '2026-08-03T13:43:42.089Z'
     issue-triage-checklist:
       path: .aexos-core/development/checklists/issue-triage-checklist.md
       layer: L2
@@ -15837,8 +15837,8 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:016c67f556ba8e29167e233e46c9ce76f6dd2ef0ba50d06a044f95eb52cce2c0
-      lastVerified: '2026-07-31T17:42:09.266Z'
+      checksum: sha256:4111192c8a368bcc146dfff59cfe92b15e35778c89f791c0e3ddf53ce5cfb8a8
+      lastVerified: '2026-08-03T13:43:42.092Z'
     agent-config-requirements:
       path: .aexos-core/data/agent-config-requirements.yaml
       layer: L3
@@ -15879,7 +15879,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:<self-reference>
-      lastVerified: '2026-08-03T02:03:00.332Z'
+      lastVerified: '2026-08-03T13:43:42.243Z'
     learned-patterns:
       path: .aexos-core/data/learned-patterns.yaml
       layer: L3

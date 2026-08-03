@@ -202,10 +202,9 @@ cd my-existing-project
 npx @aexos/core install
 ```
 
-Pick the right one. `init` **requires a project name** and fails without it; `install` takes no
-name and writes into the current directory. Running `init` with no argument prints an error and
-does nothing — and, until this is fixed, still exits 0, so nothing else signals that the install
-did not happen.
+Pick the right one. `init` **requires a project name**; `install` takes no name and writes into
+the current directory. Running `init` with no argument prints an error, does nothing, and exits
+non-zero, so a script can detect it.
 
 Verify with `npx @aexos/core --version`, which prints `5.3.0`.
 

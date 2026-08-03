@@ -206,14 +206,14 @@ class GeminiCliCheck extends BaseCheck {
       return this.warning(`Gemini CLI needs attention: ${issues.join(', ')}`, {
         recommendation: issues.includes('Not authenticated')
           ? 'Run `gemini` to authenticate with your Google account'
-          : 'Run `npx github:CyryxLabs/AEXOS install` and select Gemini CLI',
+          : 'Run `npx @aexos/core install` and select Gemini CLI',
         details: { ...details, issues, warnings },
       });
     }
 
     if (warnings.length > 0) {
       return this.warning(`Gemini CLI configuration incomplete: ${warnings.join(', ')}`, {
-        recommendation: 'Run `npx github:CyryxLabs/AEXOS install` and select Gemini CLI',
+        recommendation: 'Run `npx @aexos/core install` and select Gemini CLI',
         details: { ...details, warnings },
       });
     }

@@ -13,7 +13,7 @@
  * is not available. All new development should use the new wizard.
  *
  * Migration path:
- * - Use `npx github:CyryxLabs/AEXOS` which routes through bin/aexos.js to the new wizard
+ * - Use `npx @aexos/core` which routes through bin/aexos.js to the new wizard
  * - Do NOT call this file directly
  *
  * Supported IDEs (4 total):

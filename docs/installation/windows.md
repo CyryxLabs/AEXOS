@@ -144,7 +144,7 @@ winget install Microsoft.WindowsTerminal
 3. Run the installer:
 
    ```powershell
-   npx github:CyryxLabs/AEXOS install
+   npx @aexos/core install
    ```
 
 ### What the Installer Does
@@ -400,7 +400,7 @@ To update an existing installation:
 
 ```powershell
 # Using npx (recommended)
-npx github:CyryxLabs/AEXOS install
+npx @aexos/core install
 
 # The updater will:
 # - Detect existing installation

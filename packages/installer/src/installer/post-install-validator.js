@@ -1018,7 +1018,7 @@ class PostInstallValidator {
         severity: Severity.CRITICAL,
         message: 'AEXOS Core directory not found',
         details: `Expected at: ${this.cyryxCoreTarget}`,
-        remediation: 'Run `npx github:CyryxLabs/AEXOS install`',
+        remediation: 'Run `npx @aexos/core install`',
         relativePath: null,
       });
       return this.generateReport(startTime);

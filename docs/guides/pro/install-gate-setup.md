@@ -27,13 +27,13 @@ Comprar Licença -> Validar -> Baixar artefato assinado -> Usar Features Pro
 
 ```bash
 # Instalar AEXOS Pro (instala o pacote Pro compatível automaticamente)
-npx github:CyryxLabs/AEXOS pro setup
+npx @aexos/core pro setup
 
 # Ativar sua licença por chave legada
-npx github:CyryxLabs/AEXOS pro activate --key PRO-XXXX-XXXX-XXXX-XXXX
+npx @aexos/core pro activate --key PRO-XXXX-XXXX-XXXX-XXXX
 
 # Verificar ativação
-npx github:CyryxLabs/AEXOS pro status
+npx @aexos/core pro status
 ```
 
 ---
@@ -48,7 +48,7 @@ npx github:CyryxLabs/AEXOS pro status
 ### Passo 1: Instalar AEXOS Pro
 
 ```bash
-npx github:CyryxLabs/AEXOS pro setup
+npx @aexos/core pro setup
 ```
 
 Isso valida sua licença e instala o artefato canônico `@aexos/pro` no projeto. O cliente não precisa de acesso direto ao pacote privado/restrito no npm.
@@ -56,7 +56,7 @@ Isso valida sua licença e instala o artefato canônico `@aexos/pro` no projeto.
 **Se você já tem o artefato Pro instalado por outro fluxo autorizado**, rode novamente o bootstrap para revalidar e re-scaffoldar o conteúdo Pro:
 
 ```bash
-npx github:CyryxLabs/AEXOS pro setup
+npx @aexos/core pro setup
 ```
 
 ### Passo 2: Ativar Licenca
@@ -64,7 +64,7 @@ npx github:CyryxLabs/AEXOS pro setup
 Apos a compra, voce recebera uma chave no formato `PRO-XXXX-XXXX-XXXX-XXXX`.
 
 ```bash
-npx github:CyryxLabs/AEXOS pro activate --key PRO-XXXX-XXXX-XXXX-XXXX
+npx @aexos/core pro activate --key PRO-XXXX-XXXX-XXXX-XXXX
 ```
 
 Esse comando:
@@ -76,10 +76,10 @@ Esse comando:
 
 ```bash
 # Status da licenca
-npx github:CyryxLabs/AEXOS pro status
+npx @aexos/core pro status
 
 # Listar features disponiveis
-npx github:CyryxLabs/AEXOS pro features
+npx @aexos/core pro features
 ```
 
 ---
@@ -88,13 +88,13 @@ npx github:CyryxLabs/AEXOS pro features
 
 | Comando | Descricao |
 |---------|-----------|
-| `npx github:CyryxLabs/AEXOS pro setup` | Instala o pacote AEXOS Pro compatível no projeto |
-| `npx github:CyryxLabs/AEXOS pro activate --key KEY` | Ativa uma chave de licença |
-| `npx github:CyryxLabs/AEXOS pro status` | Mostra status da licença atual |
-| `npx github:CyryxLabs/AEXOS pro features` | Lista todas as features Pro e disponibilidade |
-| `npx github:CyryxLabs/AEXOS pro validate` | Força revalidação online da licença |
-| `npx github:CyryxLabs/AEXOS pro deactivate` | Desativa a licença nesta máquina |
-| `npx github:CyryxLabs/AEXOS pro help` | Mostra todos os comandos |
+| `npx @aexos/core pro setup` | Instala o pacote AEXOS Pro compatível no projeto |
+| `npx @aexos/core pro activate --key KEY` | Ativa uma chave de licença |
+| `npx @aexos/core pro status` | Mostra status da licença atual |
+| `npx @aexos/core pro features` | Lista todas as features Pro e disponibilidade |
+| `npx @aexos/core pro validate` | Força revalidação online da licença |
+| `npx @aexos/core pro deactivate` | Desativa a licença nesta máquina |
+| `npx @aexos/core pro help` | Mostra todos os comandos |
 
 ---
 
@@ -107,9 +107,9 @@ Apos a instalacao e ativacao, o AEXOS Pro funciona offline:
 - Verificacao de features 100% local no dia a dia
 
 A internet so e necessaria para:
-1. Ativação inicial (`npx github:CyryxLabs/AEXOS pro activate`)
+1. Ativação inicial (`npx @aexos/core pro activate`)
 2. Revalidacao periodica (automatica a cada 30 dias)
-3. Desativação (`npx github:CyryxLabs/AEXOS pro deactivate`)
+3. Desativação (`npx @aexos/core pro deactivate`)
 
 ---
 
@@ -120,17 +120,17 @@ Para pipelines, instale e ative usando secrets de ambiente:
 **GitHub Actions:**
 ```yaml
 - name: Install AEXOS Pro
-  run: npx github:CyryxLabs/AEXOS pro setup
+  run: npx @aexos/core pro setup
 
 - name: Activate License
-  run: npx github:CyryxLabs/AEXOS pro activate --key ${{ secrets.AEXOS_PRO_LICENSE_KEY }}
+  run: npx @aexos/core pro activate --key ${{ secrets.AEXOS_PRO_LICENSE_KEY }}
 ```
 
 **GitLab CI:**
 ```yaml
 before_script:
-  - npx github:CyryxLabs/AEXOS pro setup
-  - npx github:CyryxLabs/AEXOS pro activate --key ${AEXOS_PRO_LICENSE_KEY}
+  - npx @aexos/core pro setup
+  - npx @aexos/core pro activate --key ${AEXOS_PRO_LICENSE_KEY}
 ```
 
 ---
@@ -153,7 +153,7 @@ License activation failed: Invalid key format
 License activation failed: Maximum seats exceeded
 ```
 
-- Desative a licença na outra máquina: `npx github:CyryxLabs/AEXOS pro deactivate`
+- Desative a licença na outra máquina: `npx @aexos/core pro deactivate`
 - Ou contate support para aumentar o limite de seats
 
 ### Erro de rede na ativacao

@@ -70,7 +70,7 @@ describe('Onboarding smoke flow (CYRYX-DIFF-4.0.5)', () => {
     const gettingStarted = await fs.readFile(path.join(repoRoot, 'docs', 'getting-started.md'), 'utf8');
 
     expect(readme).toContain('Start Here (10 Min)');
-    expect(readme).toContain('npx github:CyryxLabs/AEXOS init');
+    expect(readme).toContain('npx @aexos/core init');
     expect(gettingStarted).toContain('10-Minute Quick Path');
     expect(gettingStarted).toContain('Step 1: Install AEXOS');
     expect(gettingStarted).toContain('Step 2: Pick your IDE activation path');

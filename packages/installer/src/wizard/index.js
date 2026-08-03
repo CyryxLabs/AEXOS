@@ -287,7 +287,7 @@ async function runWizard(options = {}) {
     // A terminal that cannot be prompted is not a reason to crash. Without this
     // the wizard reached inquirer, the closed stdin tore the readline down
     // mid-question, and the install died on an ERR_USE_AFTER_CLOSE stack trace
-    // — which is what anyone piping `npx github:CyryxLabs/AEXOS install` into a
+    // — which is what anyone piping `npx @aexos/core install` into a
     // log or running it from a script saw first.
     // `options.interactive` lets a caller state the answer outright — an
     // embedder driving the wizard programmatically should not have to fake a

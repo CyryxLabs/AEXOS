@@ -73,7 +73,7 @@ body:
     id: version
     attributes:
       label: AEXOS Version
-      description: "Run `npx github:CyryxLabs/AEXOS info` to find your version."
+      description: "Run `npx @aexos/core info` to find your version."
       placeholder: "e.g., 4.2.13"
     validations:
       required: true

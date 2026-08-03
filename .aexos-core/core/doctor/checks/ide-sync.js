@@ -67,7 +67,7 @@ async function run(context) {
       check: name,
       status: 'FAIL',
       message: 'Source agents directory not found',
-      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
+      fixCommand: 'npx @aexos/core install --force',
     };
   }
 
@@ -81,7 +81,7 @@ async function run(context) {
       check: name,
       status: 'FAIL',
       message: 'Cannot read source agents directory',
-      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
+      fixCommand: 'npx @aexos/core install --force',
     };
   }
 
@@ -93,7 +93,7 @@ async function run(context) {
       check: name,
       status: 'FAIL',
       message: commandResult.error || skillResult.error,
-      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
+      fixCommand: 'npx @aexos/core install --force',
     };
   }
 
@@ -111,7 +111,7 @@ async function run(context) {
       check: name,
       status: 'WARN',
       message: `Claude skills mismatch (missing: ${formatList(skillDiff.missing)}; extra: ${formatList(skillDiff.extra)})`,
-      fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
+      fixCommand: 'npx @aexos/core install --force',
     };
   }
 
@@ -128,7 +128,7 @@ async function run(context) {
     check: name,
     status: 'WARN',
     message: `${skillCount}/${sourceCount} Claude skills synced; legacy commands mismatch (missing: ${formatList(commandDiff.missing)}; extra: ${formatList(commandDiff.extra)}; count: ${commandCount}/${sourceCount})`,
-    fixCommand: 'npx github:CyryxLabs/AEXOS install --force',
+    fixCommand: 'npx @aexos/core install --force',
   };
 }
 

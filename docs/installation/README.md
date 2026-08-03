@@ -35,14 +35,24 @@ This directory contains comprehensive installation and setup documentation for A
 
 ### New Installation
 
+Two commands, and they are not interchangeable:
+
 ```bash
-npx github:CyryxLabs/AEXOS install
+# Into a NEW directory — `init` creates it and REQUIRES a name
+npx @aexos/core init my-project
+
+# Into the directory you are already in — `install` takes NO name
+cd my-existing-project
+npx @aexos/core install
 ```
+
+Then restart your IDE: Claude Code reads commands and skills only at session start, and the
+command namespace is `/AEXOS` in capitals.
 
 ### Upgrading
 
 ```bash
-npx github:CyryxLabs/AEXOS install --force-upgrade
+npx @aexos/core install --force-upgrade
 ```
 
 ### Having Issues?

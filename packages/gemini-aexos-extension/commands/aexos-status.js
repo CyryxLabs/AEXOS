@@ -33,7 +33,7 @@ async function main() {
     }
   } else {
     console.log('❌ AEXOS Core: Not installed');
-    console.log('   Run: npx github:CyryxLabs/AEXOS install');
+    console.log('   Run: npx @aexos/core install');
   }
 
   // Check providers

@@ -41,7 +41,7 @@ This guide provides comprehensive instructions for uninstalling AEXOS from your 
 
 ```bash
 # Create complete backup
-npx github:CyryxLabs/AEXOS backup --complete
+npx @aexos/core backup --complete
 
 # Or manually backup important directories
 tar -czf aexos-backup-$(date +%Y%m%d).tar.gz \
@@ -61,21 +61,21 @@ The fastest way to uninstall AEXOS:
 
 ```bash
 # Basic uninstall (interactive, removes the AEXOS footprint)
-npx github:CyryxLabs/AEXOS uninstall
+npx @aexos/core uninstall
 
 # Preview what would be removed, change nothing
-npx github:CyryxLabs/AEXOS uninstall --dry-run
+npx @aexos/core uninstall --dry-run
 
 # Keep .aexos/ (project settings and agent history)
-npx github:CyryxLabs/AEXOS uninstall --keep-data
+npx @aexos/core uninstall --keep-data
 
 # Also remove installs from earlier generations (AIOX, and CYRYX when it was
 # the product name) — this is what clears leftover .cyryx-core/ directories
 # and the stale slash commands your editor still offers
-npx github:CyryxLabs/AEXOS uninstall --legacy
+npx @aexos/core uninstall --legacy
 ```
 
-Run `npx github:CyryxLabs/AEXOS uninstall --help` for the authoritative flag
+Run `npx @aexos/core uninstall --help` for the authoritative flag
 list. The removal set itself is defined in one place —
 `packages/installer/src/installer/install-footprint.js` — so the uninstaller
 removes exactly what the installer wrote.
@@ -85,7 +85,7 @@ removes exactly what the installer wrote.
 For guided uninstallation:
 
 ```bash
-npx github:CyryxLabs/AEXOS uninstall --interactive
+npx @aexos/core uninstall --interactive
 ```
 
 This will prompt you for:
@@ -129,7 +129,7 @@ This will prompt you for:
 
 ```bash
 # Complete removal, no confirmation prompt, including earlier frameworks
-npx github:CyryxLabs/AEXOS uninstall --force --legacy
+npx @aexos/core uninstall --force --legacy
 ```
 
 > The uninstaller has no `--complete` or `--no-backup` flag. Omitting
@@ -181,13 +181,13 @@ rm -rf /tmp/aexos-*
 
 ```bash
 # Remove only agents
-npx github:CyryxLabs/AEXOS uninstall agents
+npx @aexos/core uninstall agents
 
 # Remove only workflows
-npx github:CyryxLabs/AEXOS uninstall workflows
+npx @aexos/core uninstall workflows
 
 # Remove memory layer
-npx github:CyryxLabs/AEXOS uninstall memory-layer
+npx @aexos/core uninstall memory-layer
 
 # Remove specific agent
 *uninstall agent-name
@@ -365,10 +365,10 @@ Write-Host "Registry cleanup complete!"
 
 ```bash
 # Linux/macOS
-sudo npx github:CyryxLabs/AEXOS uninstall --complete
+sudo npx @aexos/core uninstall --complete
 
 # Windows (Run as Administrator)
-npx github:CyryxLabs/AEXOS uninstall --complete
+npx @aexos/core uninstall --complete
 ```
 
 #### 2. Process Still Running
@@ -508,7 +508,7 @@ If you want to reinstall AEXOS:
 
 3. **Fresh installation**
    ```bash
-   npx github:CyryxLabs/AEXOS init my-project
+   npx @aexos/core init my-project
    ```
 
 ### Restoring from Backup
@@ -558,7 +558,7 @@ If you encounter issues during uninstallation:
 3. **Emergency Support**
    ```bash
    # Generate uninstall report
-   npx github:CyryxLabs/AEXOS diagnose --uninstall > uninstall-report.log
+   npx @aexos/core diagnose --uninstall > uninstall-report.log
    ```
 
 ---

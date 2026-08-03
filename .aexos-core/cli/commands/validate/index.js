@@ -136,7 +136,7 @@ async function runValidation(options) {
     } else {
       console.error(chalk.red('\nError: AEXOS-Core not found in current directory'));
       console.error(chalk.dim(`Expected at: ${cyryxCoreDir}`));
-      console.error(chalk.dim('\nRun `npx github:CyryxLabs/AEXOS install` to install AEXOS-Core'));
+      console.error(chalk.dim('\nRun `npx @aexos/core install` to install AEXOS-Core'));
     }
     process.exit(ExitCode.ERROR);
   }

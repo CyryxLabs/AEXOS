@@ -62,7 +62,7 @@ Download from [cli.github.com](https://cli.github.com/)
 
 3. Run the installer:
    ```bash
-   npx github:CyryxLabs/AEXOS install
+   npx @aexos/core install
    ```
 
 ### What the Installer Does
@@ -146,7 +146,7 @@ macOS filesystems can be case-insensitive by default. If you experience issues:
 To update an existing installation:
 
 ```bash
-npx github:CyryxLabs/AEXOS install
+npx @aexos/core install
 ```
 
 The updater will:

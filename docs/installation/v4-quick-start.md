@@ -24,10 +24,10 @@ Before starting, ensure you have:
 
 ```bash
 # Run the interactive installation wizard
-npx github:CyryxLabs/AEXOS
+npx @aexos/core
 
 # Or create a new project with a specific name
-npx github:CyryxLabs/AEXOS init my-project
+npx @aexos/core init my-project
 cd my-project
 ```
 
@@ -51,7 +51,7 @@ npm install
 Run the diagnostics command:
 
 ```bash
-npx github:CyryxLabs/AEXOS doctor
+npx @aexos/core doctor
 ```
 
 Or if installed globally:
@@ -168,9 +168,9 @@ All agent commands use the `*` prefix:
 
 ```bash
 # Installation and setup
-npx github:CyryxLabs/AEXOS           # Run wizard
-npx github:CyryxLabs/AEXOS doctor    # Run diagnostics
-npx github:CyryxLabs/AEXOS info      # Show system info
+npx @aexos/core           # Run wizard
+npx @aexos/core doctor    # Run diagnostics
+npx @aexos/core info      # Show system info
 
 # Development
 npm run lint                           # Check code style
@@ -251,7 +251,7 @@ sudo chown -R $(whoami) ~/.npm
 
 ```bash
 # Reinstall AEXOS in current project
-npx github:CyryxLabs/AEXOS install
+npx @aexos/core install
 
 # Or clone fresh
 git clone https://github.com/CyryxLabs/AEXOS.git

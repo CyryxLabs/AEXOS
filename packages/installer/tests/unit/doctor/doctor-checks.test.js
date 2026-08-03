@@ -474,7 +474,7 @@ describe('skills-count check', () => {
 
     const result = await skillsCountCheck.run(mockContext);
     expect(result.status).toBe('FAIL');
-    expect(result.fixCommand).toBe('npx github:CyryxLabs/AEXOS install --force');
+    expect(result.fixCommand).toBe('npx @aexos/core install --force');
   });
 
   it('should FAIL when skills directory missing', async () => {
@@ -657,7 +657,7 @@ describe('health-check.yaml task (INS-4.8)', () => {
       'utf8',
     );
     expect(yaml).toContain('aexos doctor --json');
-    expect(yaml).toContain('npx github:CyryxLabs/AEXOS doctor --json');
+    expect(yaml).toContain('npx @aexos/core doctor --json');
   });
 
   it('should have governance_map with all 18 checks', () => {

@@ -26,11 +26,11 @@ Before using AEXOS, ensure you have:
 
 ```bash
 # New project (Greenfield)
-npx github:CyryxLabs/AEXOS init my-project
+npx @aexos/core init my-project
 
 # Existing project (Brownfield)
 cd existing-project
-npx github:CyryxLabs/AEXOS install
+npx @aexos/core install
 ```
 
 ### First Steps

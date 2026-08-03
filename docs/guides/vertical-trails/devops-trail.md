@@ -34,7 +34,7 @@ You are in an AEXOS project and you need to:
 
 ```bash
 # AEXOS project initialized
-npx github:CyryxLabs/AEXOS doctor  # must return healthy
+npx @aexos/core doctor  # must return healthy
 
 # GitHub CLI authenticated
 gh auth status  # must show the logged-in user

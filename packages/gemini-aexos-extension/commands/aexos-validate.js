@@ -26,7 +26,7 @@ async function main() {
     console.log(validator.generateReport(results));
   } catch (error) {
     console.log('❌ Validation failed:', error.message);
-    console.log('\nMake sure AEXOS is installed: npx github:CyryxLabs/AEXOS install');
+    console.log('\nMake sure AEXOS is installed: npx @aexos/core install');
   }
 }
 

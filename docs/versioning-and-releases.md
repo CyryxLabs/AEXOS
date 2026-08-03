@@ -36,7 +36,7 @@ git commit -m "feat: add team collaboration mode"
 git push
 
 # That's it! Release happens automatically 🎉
-# Users can now run: npx github:CyryxLabs/AEXOS (and get the new version)
+# Users can now run: npx @aexos/core (and get the new version)
 ```
 
 ### Commits That DON'T Trigger Releases

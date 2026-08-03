@@ -27,7 +27,7 @@ async function main() {
   console.log('━'.repeat(50));
 
   if (!fs.existsSync(agentsPath)) {
-    console.log('No agents found. Run: npx github:CyryxLabs/AEXOS install');
+    console.log('No agents found. Run: npx @aexos/core install');
     return;
   }
 

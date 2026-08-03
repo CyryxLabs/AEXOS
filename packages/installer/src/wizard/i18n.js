@@ -59,7 +59,7 @@ const TRANSLATIONS = {
     // Cancellation
     cancelConfirm: 'Cancel installation?',
     cancelled: 'Installation cancelled.',
-    tryAgain: 'Run `npx github:CyryxLabs/AEXOS init` to try again.',
+    tryAgain: 'Run `npx @aexos/core init` to try again.',
     continuing: 'Continuing installation...',
 
     // Pro Installation Wizard (pro-setup.js)
@@ -123,7 +123,7 @@ const TRANSLATIONS = {
     proKeyInvalid: 'Invalid format. Expected: PRO-XXXX-XXXX-XXXX-XXXX',
     proKeyValidated: 'License validated: {key}',
     proModuleNotAvailable:
-      'Pro license module not available. Run: npx github:CyryxLabs/AEXOS pro setup',
+      'Pro license module not available. Run: npx @aexos/core pro setup',
     proModuleBootstrap: 'Pro license module not found locally. Installing AEXOS Pro to bootstrap...',
     proServerUnreachable: 'License server is unreachable. Check your internet connection and try again.',
     proVerifyingAccessShort: 'Verifying access...',
@@ -152,7 +152,7 @@ const TRANSLATIONS = {
     proPackageInstalled: 'Pro package installed',
     proPackageInstallFailed: 'Failed to install Pro package',
     proScaffolderNotAvailable:
-      'Pro scaffolder not available. Run: npx github:CyryxLabs/AEXOS pro setup',
+      'Pro scaffolder not available. Run: npx @aexos/core pro setup',
     proFilesInstalled: 'Files installed: {count}',
     proSquads: 'Squads: {names}',
     proConfigs: 'Configs: {count} files',
@@ -165,7 +165,7 @@ const TRANSLATIONS = {
     proScaffolderNotFound: 'Pro scaffolder module not found.',
     proNpmInitFailed: 'npm init failed: {message}',
     proNpmInstallFailed:
-      'AEXOS Pro package install failed: {message}. Try manually: npx github:CyryxLabs/AEXOS pro setup',
+      'AEXOS Pro package install failed: {message}. Try manually: npx @aexos/core pro setup',
   },
 
 };

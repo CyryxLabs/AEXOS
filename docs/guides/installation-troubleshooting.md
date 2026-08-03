@@ -5,7 +5,7 @@
 ## Quick Start
 
 ```bash
-npx github:CyryxLabs/AEXOS
+npx @aexos/core
 ```
 
 This command downloads and runs the latest version of AEXOS-Core installer.
@@ -32,16 +32,16 @@ This command downloads and runs the latest version of AEXOS-Core installer.
 
 ```bash
 # Install in current directory
-npx github:CyryxLabs/AEXOS
+npx @aexos/core
 
 # Install with specific version
-npx github:CyryxLabs/AEXOS
+npx @aexos/core
 
 # Show version
-npx github:CyryxLabs/AEXOS --version
+npx @aexos/core --version
 
 # Show help
-npx github:CyryxLabs/AEXOS --help
+npx @aexos/core --help
 ```
 
 > **Windows:** if `npx` fails with `ECOMPROMISED` / Lock compromised, use Method 3 (global) — see [Issue #773](https://github.com/CyryxLabs/AEXOS/issues/773).
@@ -49,7 +49,7 @@ npx github:CyryxLabs/AEXOS --help
 ### Method 2: From GitHub
 
 ```bash
-npx github:CyryxLabs/AEXOS install
+npx @aexos/core install
 ```
 
 ### Method 3: Global Installation (**recommended on Windows**)
@@ -106,7 +106,7 @@ aexos-core install
 **Alternatives:**
 ```bash
 npm cache verify
-npx github:CyryxLabs/AEXOS install
+npx @aexos/core install
 
 # or clone
 git clone https://github.com/CyryxLabs/AEXOS.git
@@ -252,7 +252,7 @@ npm cache clean --force
 rm -rf node_modules
 
 # Try again
-npx github:CyryxLabs/AEXOS
+npx @aexos/core
 ```
 
 ---
@@ -283,7 +283,7 @@ npx clear-npx-cache
 npx --ignore-existing aexos-core@latest
 
 # Or use specific version
-npx github:CyryxLabs/AEXOS
+npx @aexos/core
 ```
 
 ### Issue 10: "Pro activation failed: Installed Pro artifact did not create node_modules/@aexos/pro"
@@ -303,7 +303,7 @@ This is **fully fixed in `@aexos/core@5.2.6` and above**. The installer now pass
 
 ```bash
 # Update to the fixed version (the -p flag is critical — it forces latest resolution)
-npx github:CyryxLabs/AEXOS install
+npx @aexos/core install
 ```
 
 **Solution (if you previously hit the error and the fix above still misbehaves — residual state from old attempts):**
@@ -319,7 +319,7 @@ find . -maxdepth 5 -path "*/node_modules/@aexos/pro" -type d 2>/dev/null \
 rm -rf ~/.npm/_npx 2>/dev/null
 
 # 3. Retry the install with -p forcing the latest published version
-npx github:CyryxLabs/AEXOS install
+npx @aexos/core install
 ```
 
 *Windows (PowerShell):*
@@ -334,7 +334,7 @@ Get-ChildItem -Recurse -Depth 5 -Directory -ErrorAction SilentlyContinue `
 Remove-Item -Recurse -Force "$env:USERPROFILE\.npm\_npx" -ErrorAction SilentlyContinue
 
 # 3. Retry the install with -p forcing the latest published version
-npx github:CyryxLabs/AEXOS install
+npx @aexos/core install
 ```
 
 *Windows (Command Prompt / cmd.exe):*
@@ -347,7 +347,7 @@ for /f "delims=" %i in ('dir /b /s /ad "node_modules\@aexos\pro" 2^>nul') do rd 
 rd /s /q "%USERPROFILE%\.npm\_npx" 2>nul
 
 :: 3. Retry the install
-npx github:CyryxLabs/AEXOS install
+npx @aexos/core install
 ```
 
 **You do NOT need:**
@@ -381,7 +381,7 @@ npx --version
 npm view aexos-core version
 
 # 5. Test installation
-npx github:CyryxLabs/AEXOS --version
+npx @aexos/core --version
 ```
 
 **Expected output:**
@@ -400,8 +400,8 @@ v22.x.x (or v18+/v20+)
 If you're still having issues:
 
 1. **GitHub Issues**: https://github.com/CyryxLabs/AEXOS/issues
-2. **Run diagnostics**: `npx github:CyryxLabs/AEXOS doctor`
-3. **Check system info**: `npx github:CyryxLabs/AEXOS info`
+2. **Run diagnostics**: `npx @aexos/core doctor`
+3. **Check system info**: `npx @aexos/core info`
 
 When reporting issues, please include:
 - Operating system and version
@@ -416,13 +416,13 @@ When reporting issues, please include:
 
 | Command | Description |
 |---------|-------------|
-| `npx github:CyryxLabs/AEXOS` | Install/run wizard |
-| `npx github:CyryxLabs/AEXOS --version` | Show version |
-| `npx github:CyryxLabs/AEXOS --help` | Show help |
-| `npx github:CyryxLabs/AEXOS install` | Install in current dir |
-| `npx github:CyryxLabs/AEXOS init <name>` | Create new project |
-| `npx github:CyryxLabs/AEXOS doctor` | Run diagnostics |
-| `npx github:CyryxLabs/AEXOS info` | Show system info |
+| `npx @aexos/core` | Install/run wizard |
+| `npx @aexos/core --version` | Show version |
+| `npx @aexos/core --help` | Show help |
+| `npx @aexos/core install` | Install in current dir |
+| `npx @aexos/core init <name>` | Create new project |
+| `npx @aexos/core doctor` | Run diagnostics |
+| `npx @aexos/core info` | Show system info |
 
 ---
 
