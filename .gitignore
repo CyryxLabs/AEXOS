@@ -444,9 +444,25 @@ build/
 # paths, and their only force-push mentions are authority policy ("ONLY this
 # agent", "❌ Force pushing to main/master") already versioned verbatim in the
 # sources under .aexos-core/development/agents/.
+#
+# `.codex/skills/` is versioned for the same reason: the compatibility parity
+# gate counts it against the agent sources and reported 0/12 with the directory
+# ignored. Same content check applied — no absolute paths, no credentials, no
+# personal data across the 12 SKILL.md files, and `.codex` is absent from
+# package.json `files[]`, so none of this reaches the npm tarball.
+# Everything else under .codex/ (session state, caches, local config) stays out.
+# Negations are deliberately narrow: un-ignoring a directory alone would also
+# track anything a local Codex run happens to drop inside it, so each level is
+# re-ignored and only the generated projection files are allowed back in.
 .codex/*
 !.codex/agents/
+.codex/agents/*
 !.codex/agents/*.md
+!.codex/skills/
+.codex/skills/*
+!.codex/skills/*/
+.codex/skills/*/*
+!.codex/skills/*/SKILL.md
 
 # Legacy aexos-* Claude skills (superseded by aexos-* agent skills under Cyryx Labs/ or aexos-* SDC); local only
 .claude/skills/aexos-*/
